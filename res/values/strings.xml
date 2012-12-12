@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="image_content_description">image_content_description</string>
     <string name="app_name">Mapplas</string>
     <string name="filter">Filter</string>
     <string name="install">Install</string>
