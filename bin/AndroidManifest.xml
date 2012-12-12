@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.synesth.com"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="7" />
+    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.CALL_PHONE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.READ_OWNER_DATA" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:icon="@drawable/ic_mapplas"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:debuggable="true" >
+        <activity
+            android:name="com.synesth.app.SynesthActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+	        android:name="com.synesth.app.AppDetail"
+	        android:label="App Detail"
+	        android:screenOrientation="portrait"
+	        android:windowSoftInputMode="adjustPan"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		
+        <activity
+	        android:name="com.synesth.app.AppNotifications"
+	        android:label="Notifications"
+	        android:screenOrientation="portrait"
+	        android:windowSoftInputMode="adjustPan"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		
+        <activity
+	        android:name="com.synesth.app.Comments"
+	        android:label="Comments"
+	        android:screenOrientation="portrait"
+	        android:windowSoftInputMode="adjustPan"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		
+        <activity
+	        android:name="com.synesth.app.SplashScreen"
+	        android:label="SplashScreen"
+	        android:screenOrientation="portrait"
+	        android:windowSoftInputMode="adjustPan"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		
+        <activity
+	        android:name="com.synesth.app.UserForm"
+	        android:label="User"
+	        android:screenOrientation="portrait"
+	        android:windowSoftInputMode="adjustPan"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		
+    </application>
+
+</manifest>

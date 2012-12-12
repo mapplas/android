@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:minWidth="280dp"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+      <TextView
+          android:id="@+id/lblTitle"
+          android:layout_width="fill_parent"
+          android:layout_height="60dp"
+          android:gravity="center_vertical"
+          android:paddingLeft="10dp"
+          android:text="@string/support"
+          android:textColor="#333333"
+          android:textSize="22sp" />
+    
+    <ImageView
+        android:id="@+id/imageHSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"        
+        android:background="#329FF3" />
+    <EditText
+        android:id="@+id/txtProblem"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:background="#ffffff"
+        android:focusable="true"
+        android:gravity="top"
+        android:hint="@string/description"
+        android:padding="0dp" />
+
+    <ImageView
+        android:id="@+id/imageHSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#329FF3" />
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff" >
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_weight="0.5"
+            android:background="#ffffff"
+            android:text="@string/cancel" />
+
+      <ImageView
+          android:id="@+id/imageStroke"
+          android:layout_width="2dp"
+          android:layout_height="35dp"
+          android:layout_gravity="center_vertical"
+          android:background="#329FF3" />
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_weight="0.5"
+            android:background="#ffffff"
+            android:text="@string/send" />
+
+    </LinearLayout>
+
+</LinearLayout>

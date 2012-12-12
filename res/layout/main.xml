@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutMain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/lytContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="64dp"
+            android:background="@drawable/bgd_menu"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnNotifications"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/menu_notifications_button"
+                android:paddingBottom="17dp"
+                android:paddingLeft="16dp"
+                android:textColor="#ebebeb"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/logoText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/menu_logo" />
+
+            <Button
+                android:id="@+id/btnProfile"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/menu_profile_button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lytMainContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <com.synesth.app.AwesomeListView
+                android:id="@+id/lvLista"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#f7f8f8" >
+            </com.synesth.app.AwesomeListView>
+        </LinearLayout>
+    </LinearLayout>
+
+        <include
+            android:id="@+id/id_splash"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            layout="@layout/launch" />
+
+</RelativeLayout>

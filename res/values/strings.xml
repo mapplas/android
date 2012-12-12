@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mapplas</string>
+    <string name="filter">Filter</string>
+    <string name="install">Install</string>
+    <string name="start">Start</string>
+    <string name="location_error">Location system error</string>
+    <string name="location_needed">Location service is needed to work properly</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="title">Title</string>
+    <string name="app_detail">App Detail</string>
+    <string name="web">web</string>
+    <string name="email">Email</string>
+    <string name="description">Description</string>
+    <string name="comments">Comments</string>
+    <string name="location_searching">Geting your location!</string>
+    <string name="location_done">Location retrived correctly</string>
+    <string name="user_profile">Profile</string>
+    <string name="user_id">ID</string>
+    <string name="user_email">Email</string>
+    <string name="user_name">Name</string>
+    <string name="user_applications">Installed Apps</string>
+    <string name="Connect_facebook">Connect with Facebook</string>
+    <string name="Connect_twitter">Connect with Twitter</string>
+	<string name="logout">Log Out</string>
+    <string name="user_not_loged">User not logged in</string>
+    <string name="notifications">Notifications</string>
+    <string name="rating_rate">Rate App</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    <string name="support">Support</string>
+    <string name="comment">Comment</string>    
+    <string name="activity">Activity</string>    
+    <string name="rates">rates</string>
+    <string name="rate">rate</string>
+    <string name="reviews">reviews</string>
+    <string name="pin_ups">pins</string>
+    <string name="pin_up">pin</string>
+    <string name="un_pin_up">unpin</string>
+    <string name="likes">likes</string>
+	<string name="share">share</string>
+	<string name="block">block</string>	
+	<string name="ptr_pull_to_refresh">Pull to refresh&#8230;</string>
+	<string name="ptr_release_to_refresh">Release to refresh&#8230;</string>
+    <string name="ptr_refreshing">Loading Apps&#8230;</string>	
+	<string name="unable_geoloc">Ups, we can\'t get your position!!!</string>	
+	<string name="block_title">Block App</string>
+	<string name="block_text">You are going to block this app. Are you sure?</string>
+	<string name="block_accept">Block it!</string>
+	<string name="block_cancel">Cancel</string>
+	<string name="review">Review</string>
+	<string name="like">like</string>
+	<string name="call">call</string>
+	<string name="developer">Developer</string>
+	<string name="devMail">Developer Mail</string>
+	<string name="devWeb">Developer Web</string>
+	<string name="isuser">Alredy a user? Login!</string>
+	<string name="password">Password</string>
+	<string name="login">Log In</string>
+	<string name="blocks">blocks</string>
+	<string name="edit">Edit</string>
+	<string name="rateIt">Rate it!</string>
+	<string name="ok">OK</string>
+	<string name="unRated">Unrated</string>
+	<string name="poor">Poor</string>
+	<string name="belowAvg">Below Average</string>
+	<string name="average">Average</string>
+	<string name="aboveAvg">Above Average</string>
+	<string name="excellent">Excellent</string>
+	<string name="newAccount">If you are already a user or need an account. Tap Edit!</string>
+	<string name="connect">You can connect with Facebook and Twitter.</string>
+	<string name="year">yr</string>
+	<string name="years">yrs</string>
+	<string name="month">mth</string>
+	<string name="months">mths</string>
+	<string name="day">d</string>
+	<string name="days">d</string>
+	<string name="hour">h</string>
+	<string name="hours">h</string>
+	<string name="minute">m</string>
+	<string name="minutes">m</string>
+	
+	<string name="category">Category</string>
+	
+	<string name="name_not_set">Name</string>
+	<string name="email_not_set">Email</string>
+	
+	<string name="really_logout">Do you really want to log out?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	
+	<string name="getting_configuration">Loading configuration&#8230;</string>
+	
+	<string name="signin">Sign In</string>
+	
+	<string name="signout">Sign Out</string>
+	
+	<string name="allow">allow</string>
+	
+	<string name="dislike">dislike</string>
+	<string name="done">Done</string>
+	<string name="free">Free</string>
+</resources>
