@@ -30,15 +30,8 @@ public class Constants {
 	
 	// Constant of the return values of the activities
 	// Login Activity
-	public static final String SYNESTH_LOGIN_TXTID_ID = "com.synesth.model.login.txtId";
-	public static final String SYNESTH_LOGIN_TXTNAME_ID = "com.synesth.model.login.txtName";
-	public static final String SYNESTH_LOGIN_TXTLASTNAME_ID = "com.synesth.model.login.txtLastname";
-	public static final String SYNESTH_LOGIN_TXTGENDER_ID = "com.synesth.model.login.txtGender";
-	public static final String SYNESTH_LOGIN_TXTBIRTHDATE_ID = "com.synesth.model.login.txtBirthdate";
-	public static final String SYNESTH_LOGIN_TXTLOGIN_ID = "com.synesth.model.login.txtLogin";
-	public static final String SYNESTH_LOGIN_TXTPASS_ID = "com.synesth.model.login.txtPass";
-	public static final String SYNESTH_LOGIN_TXTEMAIL_ID = "com.synesth.model.login.txtEmail";
-	public static final String SYNESTH_LOGIN_RESULT_ID = "com.synesth.model.login.result";
+	public static final String MAPPLAS_LOGIN_USER_ID = "com.mapplas.model.login.user";
+	public static final String MAPPLAS_LOGIN_LOCATION_ID = "com.mapplas.model.login.location";
 	
 	public static final String SYNESTH_LAST_NOTIFICATIONS = "com.synesth.model.lastNotifications";
 	

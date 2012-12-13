@@ -16,7 +16,7 @@
             android:layout_height="64dp"
             android:background="@drawable/bgd_menu"
             android:orientation="horizontal" >
-
+
             <Button
                 android:id="@+id/btnNotifications"
                 android:layout_width="64dp"
@@ -35,8 +35,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/menu_logo"
-                android:contentDescription="@string/image_content_description" />
+                android:src="@drawable/menu_logo" />
 
             <Button
                 android:id="@+id/btnProfile"
@@ -53,19 +52,19 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <com.mapplas.app.AwesomeListView
+            <com.synesth.app.AwesomeListView
                 android:id="@+id/lvLista"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="#f7f8f8" >
-            </com.mapplas.app.AwesomeListView>
+            </com.synesth.app.AwesomeListView>
         </LinearLayout>
     </LinearLayout>
-
-    <include
-        android:id="@+id/id_splash"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        layout="@layout/launch" />
+
+        <include
+            android:id="@+id/id_splash"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            layout="@layout/launch" />
 
 </RelativeLayout>

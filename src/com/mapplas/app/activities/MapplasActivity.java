@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -31,12 +30,12 @@ import app.mapplas.com.R;
 import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.LocalizationAdapter;
 import com.mapplas.app.MessageHandlerFactory;
+import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
-import com.mapplas.model.User;
 
 public class MapplasActivity extends Activity {
 
@@ -53,12 +52,6 @@ public class MapplasActivity extends Activity {
 	private LocationManager locationManager = null;
 
 	private LocationListener locationListener = null;
-
-	private Typeface typeface = null;
-
-	private Typeface typefaceBold = null;
-
-	private Typeface typefaceItalic = null;
 
 	public List<ApplicationInfo> applicationList = null;
 
@@ -99,8 +92,6 @@ public class MapplasActivity extends Activity {
 		final PackageManager pm = getPackageManager();
 		this.applicationList = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
-		this.loadAppTypefaces();
-
 		this.loadLayoutComponents();
 		this.setClickListenersToButtons();
 
@@ -118,15 +109,6 @@ public class MapplasActivity extends Activity {
 	 */
 
 	/**
-	 * Loads application's different typeface
-	 */
-	private void loadAppTypefaces() {
-		this.typeface = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Regular.ttf");
-		this.typefaceBold = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Bold.ttf");
-		this.typefaceItalic = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Italic.ttf");
-	}
-
-	/**
 	 * Loads screen components
 	 */
 	private void loadLayoutComponents() {
@@ -135,7 +117,7 @@ public class MapplasActivity extends Activity {
 
 		// ListView header status message
 		this.listViewHeaderStatusMessage = (TextView)findViewById(R.id.lblStatus);
-		listViewHeaderStatusMessage.setTypeface(this.typeface);
+		listViewHeaderStatusMessage.setTypeface(((MapplasApplication)getApplicationContext()).getTypeFace());
 		listViewHeaderStatusMessage.setText(R.string.location_searching);
 
 		// ListView header status image
@@ -151,19 +133,8 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
-
-				User usr = model.currentUser;
-
-				if(usr != null) {
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTID_ID, usr.getId());
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTNAME_ID, usr.getName());
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTLASTNAME_ID, usr.getLastname());
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTGENDER_ID, usr.getGender());
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTBIRTHDATE_ID, usr.getBirthdate());
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTLOGIN_ID, usr.getLogin());
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTPASS_ID, usr.getPassword());
-					intent.putExtra(Constants.SYNESTH_LOGIN_TXTEMAIL_ID, usr.getEmail());
-				}
+				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser);
+				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation);
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
 			}
@@ -171,7 +142,7 @@ public class MapplasActivity extends Activity {
 
 		// Notifications button
 		Button notificationsButton = (Button)findViewById(R.id.btnNotifications);
-		notificationsButton.setTypeface(this.typeface);
+		notificationsButton.setTypeface(((MapplasApplication)getApplicationContext()).getTypeFace());
 		notificationsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -316,12 +287,6 @@ public class MapplasActivity extends Activity {
 		}
 	}
 
-
-	//
-	// public static Typeface getTypeFace() {
-	// return MapplasActivity.mTypeface;
-	// }
-	//
 	// public static SharedPreferences getAppPreferences() {
 	// return MapplasActivity.mPreferences;
 	// }

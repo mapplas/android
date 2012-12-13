@@ -1,6 +1,7 @@
 package com.mapplas.app.activities;
 
 import com.mapplas.app.NotificationAdapter;
+import com.mapplas.app.application.MapplasApplication;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -35,11 +36,11 @@ public class AppNotifications extends Activity {
         
         // Configure Data
 		TextView tv = (TextView) findViewById(R.id.lblTitle);
-		tv.setTypeface(MapplasActivity.typefaceItalic);
+		tv.setTypeface(((MapplasApplication)getApplicationContext()).getItalicTypeFace());
 		
         
         Button btn = (Button) findViewById(R.id.btnBack);
-        btn.setTypeface(MapplasActivity.getTypeFace());
+        btn.setTypeface(((MapplasApplication)getApplicationContext()).getTypeFace());
         btn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
