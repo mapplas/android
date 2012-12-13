@@ -1,4 +1,4 @@
-package com.mapplas.app;
+package com.mapplas.app.activities;
 
 import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
@@ -28,6 +28,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
+import com.mapplas.app.CommentAdapter;
+import com.mapplas.app.Resizer;
+import com.mapplas.app.ImageAdapter;
+import com.mapplas.app.ProblemDialog;
+import com.mapplas.app.RatingDialog;
+import com.mapplas.app.SliderListView;
 import com.mapplas.model.Constants;
 import com.mapplas.model.Localization;
 import com.mapplas.model.Photo;
@@ -95,7 +101,7 @@ public class AppDetail extends Activity {
         this.alvComments = (SliderListView) findViewById(R.id.lvComments);
         this.ivArrow = (ImageView) findViewById(R.id.ivArrow);
         
-        CommentAdapter auxComAd = new CommentAdapter(MapplasActivity.GetAppContext(), R.layout.rowcom, this.mLoc.getAuxComments());
+        CommentAdapter auxComAd = new CommentAdapter(this, R.layout.rowcom, this.mLoc.getAuxComments());
         this.alvComments.setAdapter(auxComAd);
         
         TextView lblName = (TextView) findViewById(R.id.lblAppDetail);
@@ -104,10 +110,10 @@ public class AppDetail extends Activity {
         ImageView iv = (ImageView) findViewById(R.id.imgLogo);
         Bitmap bmp = null;
 		
-        MapplasActivity.getDbd().loadDrawable(this.mLoc.getAppLogo(), iv, MapplasActivity.getAppActivity().getResources().getDrawable(R.drawable.ic_refresh));
+        MapplasActivity.getDbd().loadDrawable(this.mLoc.getAppLogo(), iv, this.getResources().getDrawable(R.drawable.ic_refresh));
 		
 		Button buttonStart = (Button) this.findViewById(R.id.btnStart);
-		buttonStart.setTypeface(MapplasActivity.mTypefaceBold);
+		buttonStart.setTypeface(MapplasActivity.typefaceBold);
 		
         if(buttonStart != null)
         {
@@ -156,8 +162,8 @@ public class AppDetail extends Activity {
 						
 						if(anonLoc.getInternalApplicationInfo() != null)
 						{
-							Intent appIntent = MapplasActivity.GetAppContext().getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
-							MapplasActivity.GetAppContext().startActivity(appIntent);
+							Intent appIntent = AppDetail.this.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
+							AppDetail.this.startActivity(appIntent);
 							try
 							{
 								NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "start", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
@@ -169,7 +175,7 @@ public class AppDetail extends Activity {
 						}else
 						{		
 							Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
-							MapplasActivity.GetAppContext().startActivity(browserIntent);
+							AppDetail.this.startActivity(browserIntent);
 							try
 							{
 								NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "install", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
@@ -185,7 +191,7 @@ public class AppDetail extends Activity {
         
 		
 		TextView tv = (TextView) findViewById(R.id.lblAppDetail);
-		tv.setTypeface(MapplasActivity.mTypefaceItalic);
+		tv.setTypeface(MapplasActivity.typefaceItalic);
 		
         tv = (TextView) findViewById(R.id.lblTitle);
         tv.setText(this.mLoc.getName());
@@ -203,7 +209,7 @@ public class AppDetail extends Activity {
         
         tv = (TextView) findViewById(R.id.lblMoreInfo);
         tv.setText(this.mLoc.getAppDescription());
-        tv.setTypeface(MapplasActivity.mTypefaceItalic);      
+        tv.setTypeface(MapplasActivity.typefaceItalic);      
         
         LinearLayout lytDescription = (LinearLayout) findViewById(R.id.lytDescription);
         lytDescription.setTag(mLoc);
@@ -248,7 +254,7 @@ public class AppDetail extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppDetail.this.mLoc.getAppUrl()));
-				MapplasActivity.GetAppContext().startActivity(browserIntent);
+				AppDetail.this.startActivity(browserIntent);
 			}
 		});
         

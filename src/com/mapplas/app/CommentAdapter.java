@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
+import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Comment;
 import com.mapplas.utils.DateUtils;
 

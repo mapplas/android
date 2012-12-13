@@ -1,4 +1,4 @@
-package com.mapplas.app;
+package com.mapplas.app.activities;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,6 +37,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
+import com.mapplas.app.UserLocalizationAdapter;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.Localization;
@@ -44,10 +45,10 @@ import com.mapplas.utils.NetRequests;
 
 public class UserForm extends Activity {
 	
-	final Animation animFlipInNext = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipinnext);
-    final Animation animFlipOutNext = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipoutnext);
-    final Animation animFlipInPrevious = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipinprevious);
-    final Animation animFlipOutPrevious = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipoutprevious);
+	final Animation animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
+    final Animation animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
+    final Animation animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
+    final Animation animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
 	
 	private RotateAnimation	flipAnimation;
 	private RotateAnimation	reverseFlipAnimation;
@@ -167,12 +168,12 @@ public class UserForm extends Activity {
         
         
         TextView lblProfile = (TextView) findViewById(R.id.lblProfile);
-        lblProfile.setTypeface(MapplasActivity.mTypefaceItalic);
+        lblProfile.setTypeface(MapplasActivity.typefaceItalic);
         
-        final Animation animFlipInNext = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipinnext);
-        final Animation animFlipOutNext = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipoutnext);
-        final Animation animFlipInPrevious = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipinprevious);
-        final Animation animFlipOutPrevious = AnimationUtils.loadAnimation(MapplasActivity.GetAppContext(), R.anim.flipoutprevious);
+        final Animation animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
+        final Animation animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
+        final Animation animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
+        final Animation animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
         
         flipAnimation = new RotateAnimation(0, 90, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 		flipAnimation.setInterpolator(new LinearInterpolator());

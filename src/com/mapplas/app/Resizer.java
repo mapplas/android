@@ -4,7 +4,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-class Resizer implements Runnable {
+public class Resizer implements Runnable {
 
 	public static final float DEFAULT_VELOCITY = 10;
 	public static final int DEFAUT_HEIGHT = 100;

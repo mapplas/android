@@ -1,4 +1,4 @@
-package com.mapplas.app;
+package com.mapplas.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
+import com.mapplas.app.CommentAdapter;
 import com.mapplas.model.Constants;
 import com.mapplas.model.Localization;
 
@@ -58,7 +59,7 @@ public class Comments extends Activity {
         
     	final ListView lv = (ListView) findViewById(R.id.lvLista);
         
-        this.mListAdapter = new CommentAdapter(MapplasActivity.GetAppContext(), R.layout.rowcom, this.mLoc.getAuxComments());
+        this.mListAdapter = new CommentAdapter(this, R.layout.rowcom, this.mLoc.getAuxComments());
         lv.setAdapter(this.mListAdapter);
         
         

@@ -1,6 +1,6 @@
 package com.mapplas.model;
 
-import com.mapplas.app.MapplasActivity;
+import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.utils.NetRequests;
 
 public class Photo {

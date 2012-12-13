@@ -15,7 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.mapplas.app.MapplasActivity;
+import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
 
 public class NetRequests {

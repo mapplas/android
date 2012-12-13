@@ -1,4 +1,6 @@
-package com.mapplas.app;
+package com.mapplas.app.activities;
+
+import com.mapplas.app.NotificationAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -33,7 +35,7 @@ public class AppNotifications extends Activity {
         
         // Configure Data
 		TextView tv = (TextView) findViewById(R.id.lblTitle);
-		tv.setTypeface(MapplasActivity.mTypefaceItalic);
+		tv.setTypeface(MapplasActivity.typefaceItalic);
 		
         
         Button btn = (Button) findViewById(R.id.btnBack);
@@ -49,7 +51,7 @@ public class AppNotifications extends Activity {
         
     	final ListView lv = (ListView) findViewById(R.id.lvLista);
         
-        this.mListAdapter = new NotificationAdapter(MapplasActivity.GetAppContext(), R.layout.rownot, MapplasActivity.GetModel().notifications);
+        this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, MapplasActivity.GetModel().notifications);
         lv.setAdapter(this.mListAdapter);
         
         
