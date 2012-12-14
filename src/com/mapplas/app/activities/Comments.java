@@ -9,10 +9,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.CommentAdapter;
+import com.mapplas.app.adapters.CommentAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.model.Constants;
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 
 public class Comments extends Activity {
 
@@ -34,7 +34,7 @@ public class Comments extends Activity {
 		int index = extras.getInt(Constants.MAPPLAS_DETAIL_APP);
 
 		// Get Localization
-//		UNCOMMENT
+//		Commented due to error
 //		this.mLoc = MapplasActivity.GetModel().localizations.get(index);
 
 		// Configure Data

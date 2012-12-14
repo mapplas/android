@@ -1,7 +1,5 @@
 package com.mapplas.app;
 
-import com.mapplas.app.activities.MapplasActivity;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -20,6 +18,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
+
+import com.mapplas.app.activities.MapplasActivity;
 
 public class AwesomeListView extends ListView {
 

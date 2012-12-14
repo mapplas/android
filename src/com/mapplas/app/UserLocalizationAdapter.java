@@ -20,10 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.model.Constants;
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
+import com.mapplas.model.User;
+import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
 
 public class UserLocalizationAdapter extends ArrayAdapter<App> {
@@ -41,6 +42,10 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 	private ArrayList<App> items;
 
 	private Context context = null;
+	
+	private User user = null;
+	
+	private String currentLocation = "";
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
@@ -81,14 +86,14 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 		}
 	};
 
-	public UserLocalizationAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type) {
+	public UserLocalizationAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation) {
 		super(context, textViewResourceId, items);
 
-		this.mType = type;
-
-		this.items = items;
-
 		this.context = context;
+		this.items = items;
+		this.mType = type;
+		this.user = user;
+		this.currentLocation = currentLocation;
 
 		fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
 																		// this
@@ -165,7 +170,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 
 			String strUrl = o.getAppLogo();
 			if(strUrl != "") {
-				MapplasActivity.getDbd().loadDrawable(strUrl, ivLogo, this.context.getResources().getDrawable(R.drawable.ic_refresh));
+				new DrawableBackgroundDownloader().loadDrawable(strUrl, ivLogo, this.context.getResources().getDrawable(R.drawable.ic_refresh));
 			}
 			else {
 				ivLogo.setImageResource(R.drawable.ic_refresh);
@@ -203,7 +208,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 							items.remove(anonLoc);
 							UserLocalizationAdapter.this.notifyDataSetChanged();
 
-							final String uid = MapplasActivity.GetModel().currentUser.getId() + "";
+							final String uid = user.getId() + "";
 
 							switch (UserLocalizationAdapter.this.mType) {
 								case BLOCK:
@@ -215,7 +220,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 											public void run() {
 												try {
 													NetRequests.LikeRequest("mr", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "unblock", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+													NetRequests.ActivityRequest(currentLocation, "unblock", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
 												} catch (Exception e) {
 													Log.i(getClass().getSimpleName(), "Thread Action unblock: " + e);
 												}
@@ -236,7 +241,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 											public void run() {
 												try {
 													NetRequests.LikeRequest("pr", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "unfavourite", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+													NetRequests.ActivityRequest(currentLocation, "unfavourite", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
 												} catch (Exception e) {
 													Log.i(getClass().getSimpleName(), "Thread Action favourite: " + e);
 												}
@@ -257,7 +262,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 											public void run() {
 												try {
 													NetRequests.PinRequest("unpin", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "unpin", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+													NetRequests.ActivityRequest(currentLocation, "unpin", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
 												} catch (Exception e) {
 													Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
 												}
@@ -279,7 +284,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 											public void run() {
 												try {
 													NetRequests.UnrateRequest(anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "unrate", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+													NetRequests.ActivityRequest(currentLocation, "unrate", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
 												} catch (Exception e) {
 													Log.i(getClass().getSimpleName(), "Thread Action unrate: " + e);
 												}

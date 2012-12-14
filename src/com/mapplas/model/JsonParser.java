@@ -126,7 +126,7 @@ public class JsonParser implements ISynesthParser{
 					
 					not.setAuxLocalization(loc);
 					
-					model.notifications.add(not);
+					model.notificationList.add(not);
 				}
 				
 				auxArray = jArray.getJSONObject(i).getJSONArray("AuxComments");
@@ -163,7 +163,7 @@ public class JsonParser implements ISynesthParser{
 					loc.getAuxPhotos().add(pho);
 				}
 				
-				model.localizations.add(loc);
+				model.appList.add(loc);
 			}
 			
 		} catch (Exception e) {

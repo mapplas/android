@@ -1,10 +1,9 @@
-package com.mapplas.app;
+package com.mapplas.app.adapters;
 
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppNotification;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.DateUtils;
+import com.mapplas.utils.DrawableBackgroundDownloader;
 
 public class NotificationAdapter extends ArrayAdapter<AppNotification> {
 
@@ -46,8 +46,9 @@ public class NotificationAdapter extends ArrayAdapter<AppNotification> {
             
             final AppNotification o = items.get(position);
             if (o != null) {
-            	int posList = MapplasActivity.getLocalizationAdapter().getPosition(o.getAuxLocalization());
-            	v.setTag(posList);
+//            	TODO: check if can be commented
+//            	int posList = MapplasActivity.getLocalizationAdapter().getPosition(o.getAuxLocalization());
+//            	v.setTag(posList);
             	
             	Typeface normalTypeface = ((MapplasApplication)getContext().getApplicationContext()).getTypeFace();
             	
@@ -64,11 +65,7 @@ public class NotificationAdapter extends ArrayAdapter<AppNotification> {
             	tt.setText(DateUtils.FormatSinceDate(o.getDate(), o.getHour(), this.context));
             	
         		ImageView iv = (ImageView) v.findViewById(R.id.imgLogo);
-
-        		Bitmap bmp = null;
-        		
-        		MapplasActivity.getDbd().loadDrawable(o.getAuxLocalization().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_refresh));
-        		
+        		new DrawableBackgroundDownloader().loadDrawable(o.getAuxLocalization().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_refresh));
         		
         		v.setOnClickListener(new View.OnClickListener() {
         			

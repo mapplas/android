@@ -1,4 +1,4 @@
-package com.mapplas.app;
+package com.mapplas.app.adapters;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import app.mapplas.com.R;
 
+import com.mapplas.app.Resizer;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 

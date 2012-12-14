@@ -9,11 +9,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.mapplas.app.activities.MapplasActivity;
-import com.mapplas.model.Constants;
-import com.mapplas.model.JsonParser;
-import com.mapplas.model.SuperModel;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -22,6 +17,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.model.Constants;
+import com.mapplas.model.JsonParser;
+import com.mapplas.model.SuperModel;
 
 public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 

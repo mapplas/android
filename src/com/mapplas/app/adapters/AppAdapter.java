@@ -1,4 +1,4 @@
-package com.mapplas.app;
+package com.mapplas.app.adapters;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -33,19 +33,31 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
+import com.mapplas.app.AwesomeListView;
+import com.mapplas.app.RatingDialog;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.model.Constants;
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
+import com.mapplas.model.User;
+import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 
-public class LocalizationAdapter extends ArrayAdapter<App> {
+public class AppAdapter extends ArrayAdapter<App> {
 
 	private ArrayList<App> items;
 
 	private Context context = null;
+	
+	private AwesomeListView list = null;
+
+	private String currentLocation;
+	
+	private String currentDescriptiveGeoLoc;
+
+	private User user = null;
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
@@ -53,15 +65,15 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 
 	private static App mBlockLoc = null;
 
-	final Animation animFlipInNext = AnimationUtils.loadAnimation(this.context, R.anim.flipinnext);
+	private Animation animFlipInNext = null;
 
-	final Animation animFlipOutNext = AnimationUtils.loadAnimation(this.context, R.anim.flipoutnext);
+	private Animation animFlipOutNext = null;
 
-	final Animation animFlipInPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipinprevious);
+	private Animation animFlipInPrevious = null;
 
-	final Animation animFlipOutPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipoutprevious);
+	private Animation animFlipOutPrevious = null;
 
-	final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
+	private Animation fadeOutAnimation = null;
 
 	// final Animation fadeOutAnimation = new ScaleAnimation(100.0f, 100.0f,
 	// 100.0f, 0.0f);
@@ -73,7 +85,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 		public void handleMessage(Message msg) {
 
 			try {
-				LocalizationAdapter.mSemaphore.acquire();
+				mSemaphore.acquire();
 				switch (msg.what) {
 
 					case Constants.SYNESTH_ROWLOC_IMAGE_ID:
@@ -90,44 +102,51 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 
 						break;
 				}
-				LocalizationAdapter.mSemaphore.release();
+				mSemaphore.release();
 			} catch (Exception e) {
 				Log.i(this.getClass().getSimpleName(), "handleMessage: " + e);
 			}
 		}
 	};
 
-	public LocalizationAdapter(Context context, int textViewResourceId, ArrayList<App> items) {
+	public AppAdapter(Context context, AwesomeListView list, int textViewResourceId, ArrayList<App> items, String currentLocation, String currentDescriptiveGeoLoc, User currentUser) {
 		super(context, textViewResourceId, items);
-		this.items = items;
 
 		this.context = context;
+		this.list = list;
+		this.items = items;
+		this.currentLocation = currentLocation;
+		this.currentDescriptiveGeoLoc = currentDescriptiveGeoLoc;
+		this.user = currentUser;
 
-		fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
-																		// this
-		fadeOutAnimation.setStartOffset(0);
-		fadeOutAnimation.setDuration(500);
-		fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+		this.fadeOutAnimation = new AlphaAnimation(1, 0);
+		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and this
+		this.fadeOutAnimation.setStartOffset(0);
+		this.fadeOutAnimation.setDuration(500);
+		this.fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				if(LocalizationAdapter.mBlockLoc != null) {
-					LocalizationAdapter.this.remove(LocalizationAdapter.mBlockLoc);
+				if(mBlockLoc != null) {
+					AppAdapter.this.remove(mBlockLoc);
 				}
 			}
 		});
+		
+		this.animFlipInNext = AnimationUtils.loadAnimation(this.context, R.anim.flipinnext);
+		this.animFlipOutNext = AnimationUtils.loadAnimation(this.context, R.anim.flipoutnext);
+		this.animFlipInPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipinprevious);
+		this.animFlipOutPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipoutprevious);
 	}
 
 	@Override
@@ -167,7 +186,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 
 			if(isNewView) {
 				Typeface normalTypeface = ((MapplasApplication)getContext().getApplicationContext()).getTypeFace();
-				
+
 				tt.setTypeface(normalTypeface);
 				ttPinUps.setTypeface(normalTypeface);
 
@@ -249,7 +268,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 					@Override
 					public void onClick(View v) {
 						App anonLoc = (App)v.getTag();
-						Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + MapplasActivity.GetModel().currentLocation + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
+						Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + currentLocation + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
 						context.startActivity(navigation);
 					}
 				});
@@ -290,7 +309,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 
 			String strUrl = o.getAppLogo();
 			if(strUrl != "") {
-				MapplasActivity.getDbd().loadDrawable(strUrl, iv, this.context.getResources().getDrawable(R.drawable.ic_refresh));
+				new DrawableBackgroundDownloader().loadDrawable(strUrl, iv, this.context.getResources().getDrawable(R.drawable.ic_refresh));
 			}
 			else {
 				iv.setImageResource(R.drawable.ic_refresh);
@@ -304,9 +323,13 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 				public void onClick(View v) {
 
 					Intent intent = new Intent(context, AppDetail.class);
-					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, (int)((Integer)v.getTag()));
+					// intent.putExtra(Constants.MAPPLAS_DETAIL_APP,
+					// (int)((Integer)v.getTag()));
+					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, (App)v.getTag());
+					intent.putExtra(Constants.MAPPLAS_DETAIL_USER, user);
+					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, currentLocation);
+					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, currentDescriptiveGeoLoc);
 					((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
-
 				}
 			});
 
@@ -380,7 +403,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 				@Override
 				public void onClick(View v) {
 					final App anonLoc = (App)(v.getTag());
-					LocalizationAdapter.mRateLoc = anonLoc;
+					mRateLoc = anonLoc;
 					if(anonLoc != null) {
 						RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
 						myDialog.show();
@@ -392,7 +415,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 									@Override
 									public void run() {
 										try {
-											NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "rate", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+											NetRequests.ActivityRequest(currentLocation, "rate", anonLoc.getId() + "", user.getId() + "");
 										} catch (Exception e) {
 											Log.i(getClass().getSimpleName(), "Thread Action Rate: " + e);
 										}
@@ -425,8 +448,8 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
 						String auxuid = "0";
-						if(MapplasActivity.GetModel().currentUser != null) {
-							auxuid = MapplasActivity.GetModel().currentUser.getId() + "";
+						if(user != null) {
+							auxuid = String.valueOf(user.getId());
 						}
 
 						final String uid = auxuid;
@@ -446,7 +469,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 
 						ivrc.invalidate();
 						v.invalidate();
-						MapplasActivity.listView.invalidate();
+						list.invalidate();
 
 						try {
 							Thread th = new Thread(new Runnable() {
@@ -466,7 +489,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 											anonLoc.setAuxPin(true);
 										}
 										NetRequests.PinRequest(action, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-										NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "pin", privateLocalization.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+										NetRequests.ActivityRequest(currentLocation, "pin", privateLocalization.getId() + "", String.valueOf(user.getId()));
 									} catch (Exception e) {
 										Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
 									}
@@ -507,7 +530,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 									@Override
 									public void run() {
 										try {
-											NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "share", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+											NetRequests.ActivityRequest(currentLocation, "share", anonLoc.getId() + "", String.valueOf(user.getId()));
 										} catch (Exception e) {
 											Log.i(getClass().getSimpleName(), "Thread Action Share: " + e);
 										}
@@ -528,7 +551,7 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 				@Override
 				public void onClick(View v) {
 					final App anonLoc = (App)(v.getTag());
-					LocalizationAdapter.mBlockLoc = anonLoc;
+					mBlockLoc = anonLoc;
 
 					AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
 					myAlertDialog.setTitle(R.string.block_title);
@@ -550,14 +573,14 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 										try {
 
 											String auxuid = "0";
-											if(MapplasActivity.GetModel().currentUser != null) {
-												auxuid = MapplasActivity.GetModel().currentUser.getId() + "";
+											if(user != null) {
+												auxuid = String.valueOf(user.getId());
 											}
 
 											final String uid = auxuid;
 
 											NetRequests.LikeRequest("m", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-											NetRequests.ActivityRequest(MapplasActivity.GetModel().currentLocation, "block", anonLoc.getId() + "", MapplasActivity.GetModel().currentUser.getId() + "");
+											NetRequests.ActivityRequest(currentLocation, "block", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
 										} catch (Exception e) {
 											Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
 										}
@@ -598,22 +621,20 @@ public class LocalizationAdapter extends ArrayAdapter<App> {
 				String id = "0";
 				String resp = "";
 
-				if(MapplasActivity.GetModel().currentUser != null) {
-					uid = MapplasActivity.GetModel().currentUser.getId() + "";
+				if(user != null) {
+					uid = String.valueOf(user.getId());
 				}
 
 				try {
 					String rat = name.substring(0, name.indexOf("|"));
 					String com = name.substring(name.indexOf("|") + 1);
 
-					resp = NetRequests.RateRequest(rat, com, LocalizationAdapter.mRateLoc.getId() + "", uid);
+					resp = NetRequests.RateRequest(rat, com, currentLocation, currentDescriptiveGeoLoc, String.valueOf(mRateLoc.getId()), uid);
 					Toast.makeText(context, resp, Toast.LENGTH_LONG).show();
 				} catch (Exception exc) {
 					Toast.makeText(context, exc.toString(), Toast.LENGTH_LONG).show();
 				}
 			}
-
 		}
 	}
-
 }

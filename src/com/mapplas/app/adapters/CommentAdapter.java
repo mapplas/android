@@ -1,4 +1,4 @@
-package com.mapplas.app;
+package com.mapplas.app.adapters;
 
 import java.util.ArrayList;
 

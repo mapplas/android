@@ -39,8 +39,8 @@ import com.mapplas.app.UserLocalizationAdapter;
 import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.UserEditRequestThread;
 import com.mapplas.app.threads.UserPinUpsRequestThread;
-import com.mapplas.model.Constants;
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.utils.NetRequests;
@@ -49,19 +49,19 @@ import com.mapplas.utils.presenters.UserFormPresenter;
 
 public class UserForm extends Activity {
 
-	final Animation animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
-
-	final Animation animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
-
-	final Animation animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
-
-	final Animation animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
-
 	private RotateAnimation flipAnimation;
 
 	private RotateAnimation reverseFlipAnimation;
 
 	private RotateAnimation refreshAnimation;
+
+	private Animation animFlipInNext;
+
+	private Animation animFlipOutNext;
+
+	private Animation animFlipInPrevious;
+
+	private Animation animFlipOutPrevious;
 
 	private Uri mImageCaptureUri;
 
@@ -84,9 +84,9 @@ public class UserForm extends Activity {
 
 		this.initializeAnimations();
 		this.initLayoutComponents();
-		
+
 		LinearLayout privateFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
-		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this.currentResponse, this, privateFooter);
+		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this.currentResponse, this, privateFooter, this.user, this.currentLocation);
 
 		// Request user pin-up's
 		try {
@@ -107,7 +107,7 @@ public class UserForm extends Activity {
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, privateFooter, privateFooterInfo, mPrivateRefreshIcon);
 
-		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation).present();
+		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation).present();
 
 		// Try to get image
 		ImageView imgUser = (ImageView)findViewById(R.id.imgUser);
@@ -168,6 +168,11 @@ public class UserForm extends Activity {
 		this.reverseFlipAnimation.setInterpolator(new LinearInterpolator());
 		this.reverseFlipAnimation.setDuration(300);
 		this.reverseFlipAnimation.setFillAfter(true);
+
+		animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
+		animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
+		animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
+		animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
 	}
 
 	private void initLayoutComponents() {
@@ -183,7 +188,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(mPrivateFooterInfo);
 
 		// Set list adapter
-		UserLocalizationAdapter ula = new UserLocalizationAdapter(UserForm.this, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
+		UserLocalizationAdapter ula = new UserLocalizationAdapter(UserForm.this, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, this.user, this.currentLocation);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview

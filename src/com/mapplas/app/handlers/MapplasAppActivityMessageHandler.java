@@ -16,7 +16,8 @@ import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
-import com.mapplas.app.LocalizationAdapter;
+import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 
@@ -28,28 +29,31 @@ public class MapplasAppActivityMessageHandler {
 
 	private SuperModel model;
 
-	private LocalizationAdapter listViewAdapter;
+	private AppAdapter listViewAdapter;
 
 	private AwesomeListView listView;
 	
 	private List<ApplicationInfo> applicationList;
+	
+	private MapplasActivity activity;
 
-	public MapplasAppActivityMessageHandler(TextView listViewHeaderStatusMessage, boolean isSplashActive, SuperModel model, LocalizationAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList) {
+	public MapplasAppActivityMessageHandler(TextView listViewHeaderStatusMessage, boolean isSplashActive, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, MapplasActivity activity) {
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.isSplashActive = isSplashActive;
 		this.model = model;
 		this.listViewAdapter = listViewAdapter;
 		this.listView = listView;
 		this.applicationList = applicationList;
+		this.activity = activity;
 	}
 
 	@SuppressLint("HandlerLeak")
 	public Handler getHandler() {
 
-		final RelativeLayout mainLayout = (RelativeLayout)listViewHeaderStatusMessage.findViewById(R.id.layoutMain);
-		final LinearLayout mainScreenContentLayout = (LinearLayout)listViewHeaderStatusMessage.findViewById(R.id.lytContent);
-		final LinearLayout splashLayout = (LinearLayout)listViewHeaderStatusMessage.findViewById(R.id.id_splash);
-		final Button notificationsButton = (Button)listViewHeaderStatusMessage.findViewById(R.id.btnNotifications);
+		final RelativeLayout mainLayout = (RelativeLayout)this.activity.findViewById(R.id.layoutMain);
+		final LinearLayout mainScreenContentLayout = (LinearLayout)this.activity.findViewById(R.id.lytContent);
+		final LinearLayout splashLayout = (LinearLayout)this.activity.findViewById(R.id.id_splash);
+		final Button notificationsButton = (Button)this.activity.findViewById(R.id.btnNotifications);
 
 		return new Handler() {
 
@@ -108,15 +112,15 @@ public class MapplasAppActivityMessageHandler {
 							refreshLocalizations();
 							listViewAdapter.notifyDataSetChanged();
 
-							for(int i = 0; i < model.localizations.size(); i++) {
-								ApplicationInfo ai = findApplicationInfo(model.localizations.get(i).getAppName());
+							for(int i = 0; i < model.appList.size(); i++) {
+								ApplicationInfo ai = findApplicationInfo(model.appList.get(i).getAppName());
 								if(ai != null) {
-									model.localizations.get(i).setInternalApplicationInfo(ai);
+									model.appList.get(i).setInternalApplicationInfo(ai);
 								}
 							}
 
-							if(model.notifications.size() > 0) {
-								notificationsButton.setText(model.notifications.size() + "");
+							if(model.notificationList.size() > 0) {
+								notificationsButton.setText(model.notificationList.size() + "");
 								notificationsButton.setBackgroundResource(R.drawable.menu_notifications_number_button);
 							}
 							else {
@@ -127,10 +131,10 @@ public class MapplasAppActivityMessageHandler {
 							//
 							refreshLocalizations();
 
-							for(int i = 0; i < model.localizations.size(); i++) {
-								ApplicationInfo appInfo = findApplicationInfo(model.localizations.get(i).getAppName());
+							for(int i = 0; i < model.appList.size(); i++) {
+								ApplicationInfo appInfo = findApplicationInfo(model.appList.get(i).getAppName());
 								if(appInfo != null) {
-									model.localizations.get(i).setInternalApplicationInfo(appInfo);
+									model.appList.get(i).setInternalApplicationInfo(appInfo);
 								}
 							}
 
@@ -146,8 +150,8 @@ public class MapplasAppActivityMessageHandler {
 	}
 
 	private void refreshLocalizations() {
-		for(int i = 0; i < this.model.localizations.size(); i++) {
-			this.listViewAdapter.add(this.model.localizations.get(i));
+		for(int i = 0; i < this.model.appList.size(); i++) {
+			this.listViewAdapter.add(this.model.appList.get(i));
 		}
 	}
 	

@@ -29,12 +29,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
-import com.mapplas.app.CommentAdapter;
-import com.mapplas.app.ImageAdapter;
 import com.mapplas.app.ProblemDialog;
 import com.mapplas.app.RatingDialog;
 import com.mapplas.app.Resizer;
 import com.mapplas.app.SliderListView;
+import com.mapplas.app.adapters.CommentAdapter;
+import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
@@ -55,6 +55,8 @@ public class AppDetail extends Activity {
 	private User user = null;
 
 	private String currentLocation = "";
+	
+	private String currentDescriptiveGeoLoc = "";
 
 	private Uri imageUri;
 
@@ -197,7 +199,7 @@ public class AppDetail extends Activity {
 					String rat = name.substring(0, name.indexOf("|"));
 					String com = name.substring(name.indexOf("|") + 1);
 
-					resp = NetRequests.RateRequest(rat, com, AppDetail.this.app.getId() + "", uid);
+					resp = NetRequests.RateRequest(rat, com, currentLocation, currentDescriptiveGeoLoc, AppDetail.this.app.getId() + "", uid);
 					Toast.makeText(AppDetail.this, resp, Toast.LENGTH_LONG).show();
 				} catch (Exception exc) {
 					Toast.makeText(AppDetail.this, exc.toString(), Toast.LENGTH_LONG).show();
@@ -250,6 +252,10 @@ public class AppDetail extends Activity {
 
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION)) {
 				this.currentLocation = extras.getString(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION);
+			}
+			
+			if(extras.containsKey(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION)) {
+				this.currentDescriptiveGeoLoc = extras.getString(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION);
 			}
 		}
 	}
@@ -766,8 +772,9 @@ public class AppDetail extends Activity {
 									AppDetail.this.finish();
 
 									// Eliminamos el item de la lista
-									MapplasActivity.getLocalizationAdapter().remove(anonLoc);
-									MapplasActivity.getLocalizationAdapter().notifyDataSetChanged();
+//									TODO: find solution
+//									MapplasActivity.getLocalizationAdapter().remove(anonLoc);
+//									MapplasActivity.getLocalizationAdapter().notifyDataSetChanged();
 
 								} catch (Exception exc) {
 									Log.i(getClass().getSimpleName(), "Action PinUp: " + exc);

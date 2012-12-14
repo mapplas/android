@@ -1,7 +1,6 @@
 package com.mapplas.app.activities;
 
-import com.mapplas.app.NotificationAdapter;
-import com.mapplas.app.application.MapplasApplication;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,50 +11,56 @@ import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
+import com.mapplas.app.adapters.NotificationAdapter;
+import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.model.AppNotification;
+import com.mapplas.model.Constants;
+
 public class AppNotifications extends Activity {
-	
+
 	/* Debug Values */
-	private static final boolean mDebug = true;
-	
-	/* Static Members */
-	
-	
-	/* Properties */
-	
+	// private static final boolean mDebug = true;
+
 	private ListAdapter mListAdapter = null;
-	
-	/* Methods */
-	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        setContentView(R.layout.notifications);
-        
-        
-        // Configure Data
-		TextView tv = (TextView) findViewById(R.id.lblTitle);
+
+	private ArrayList<AppNotification> notificationList = null;
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.notifications);
+
+		this.getDataFromBundle();
+
+		// Header title
+		TextView tv = (TextView)findViewById(R.id.lblTitle);
 		tv.setTypeface(((MapplasApplication)getApplicationContext()).getItalicTypeFace());
-		
-        
-        Button btn = (Button) findViewById(R.id.btnBack);
-        btn.setTypeface(((MapplasApplication)getApplicationContext()).getTypeFace());
-        btn.setOnClickListener(new View.OnClickListener() {
-			
+
+		// Back button
+		Button btn = (Button)findViewById(R.id.btnBack);
+		btn.setTypeface(((MapplasApplication)getApplicationContext()).getTypeFace());
+		btn.setOnClickListener(new View.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-        
-        
-    	final ListView lv = (ListView) findViewById(R.id.lvLista);
-        
-//		UNCOMMENT
-//        this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, MapplasActivity.GetModel().notifications);
-        lv.setAdapter(this.mListAdapter);
-        
-        
-    }
+
+		ListView lv = (ListView)findViewById(R.id.lvLista);
+		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.notificationList);
+		lv.setAdapter(this.mListAdapter);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private void getDataFromBundle() {
+		Bundle bundle = this.getIntent().getExtras();
+		if(bundle != null) {
+			if(bundle.containsKey(Constants.MAPPLAS_NOTIFICATION_LIST)) {
+				this.notificationList = (ArrayList<AppNotification>)bundle.getSerializable(Constants.MAPPLAS_NOTIFICATION_LIST);
+			}
+		}
+	}
 }

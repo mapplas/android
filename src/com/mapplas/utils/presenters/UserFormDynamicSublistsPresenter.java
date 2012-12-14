@@ -13,9 +13,9 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.UserLocalizationAdapter;
+import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
-import com.mapplas.model.App;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.utils.NetRequests;
@@ -33,14 +33,17 @@ public class UserFormDynamicSublistsPresenter {
 	private Handler messageHandler;
 	
 	private Animation refreshAnimation;
+	
+	private String currentLocation;
 
-	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, Handler messageHandler, Animation refreshAnimation) {
+	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, Handler messageHandler, Animation refreshAnimation, String currentLocation) {
 		this.layoutComponents = layoutComponents;
 		this.list = list;
 		this.context = context;
 		this.user = user;
 		this.messageHandler = messageHandler;
 		this.refreshAnimation = refreshAnimation;
+		this.currentLocation = currentLocation;
 	}
 
 	public void present() {
@@ -67,7 +70,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerLayout());
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
+				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
 
 				list.setAdapter(ula);
 
@@ -116,7 +119,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
+				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
 
 				try {
@@ -162,7 +165,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
+				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
 
 				try {
@@ -203,7 +206,7 @@ public class UserFormDynamicSublistsPresenter {
 
 					ArrayList<App> locs = jp.SimpleParseLocalizations(response);
 
-					UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.RATE);
+					UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.RATE, user, currentLocation);
 
 					list.setAdapter(ula);
 

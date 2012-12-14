@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,11 +29,11 @@ import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
-import com.mapplas.app.LocalizationAdapter;
-import com.mapplas.app.MessageHandlerFactory;
+import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
+import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
@@ -57,7 +58,7 @@ public class MapplasActivity extends Activity {
 
 	private AwesomeListView listView = null;
 
-	private LocalizationAdapter listViewAdapter = null;
+	private AppAdapter listViewAdapter = null;
 
 	private static SharedPreferences sharedPreferences = null;
 
@@ -71,6 +72,9 @@ public class MapplasActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		// Load typefaces from MapplasApplication
+		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
+		
 		// Obtenemos el IMEI como identificador (ANDROID_ID da problemas)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.currentIMEI = manager.getDeviceId();
@@ -92,12 +96,13 @@ public class MapplasActivity extends Activity {
 		final PackageManager pm = getPackageManager();
 		this.applicationList = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
-		this.loadLayoutComponents();
-		this.setClickListenersToButtons();
+		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
+		this.loadLayoutComponents(normalTypeFace);
+		this.setClickListenersToButtons(normalTypeFace);
 
 		this.loadApplicationsListView();
-
-		this.messageHandler = new MessageHandlerFactory(this.listViewHeaderStatusMessage, this.isSplashActive, this.model, this.listViewAdapter, this.listView, this.applicationList).getHandler();
+		
+		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(listViewHeaderStatusMessage, isSplashActive, model, listViewAdapter, listView, applicationList, this);
 
 		this.loadLocalization();
 	}
@@ -110,22 +115,25 @@ public class MapplasActivity extends Activity {
 
 	/**
 	 * Loads screen components
+	 * @param normalTypeFace 
 	 */
-	private void loadLayoutComponents() {
-
+	private void loadLayoutComponents(Typeface normalTypeFace) {		
 		this.listView = (AwesomeListView)findViewById(R.id.lvLista);
 
+		LayoutInflater inflater = this.getLayoutInflater();
+		LinearLayout headerLayout = (LinearLayout)inflater.inflate(R.layout.ptr_header, null);
+		
 		// ListView header status message
-		this.listViewHeaderStatusMessage = (TextView)findViewById(R.id.lblStatus);
-		listViewHeaderStatusMessage.setTypeface(((MapplasApplication)getApplicationContext()).getTypeFace());
+		this.listViewHeaderStatusMessage = (TextView)headerLayout.findViewById(R.id.lblStatus);
+		listViewHeaderStatusMessage.setTypeface(normalTypeFace);
 		listViewHeaderStatusMessage.setText(R.string.location_searching);
 
 		// ListView header status image
-		this.listViewHeaderImage = (ImageView)findViewById(R.id.imgMap);
+		this.listViewHeaderImage = (ImageView)headerLayout.findViewById(R.id.imgMap);
 		listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 	}
 
-	private void setClickListenersToButtons() {
+	private void setClickListenersToButtons(Typeface normalTypeFace) {
 		// User profile button
 		Button userProfileButton = (Button)findViewById(R.id.btnProfile);
 		userProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -142,12 +150,13 @@ public class MapplasActivity extends Activity {
 
 		// Notifications button
 		Button notificationsButton = (Button)findViewById(R.id.btnNotifications);
-		notificationsButton.setTypeface(((MapplasApplication)getApplicationContext()).getTypeFace());
+		notificationsButton.setTypeface(normalTypeFace);
 		notificationsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
+				intent.putExtra(Constants.MAPPLAS_NOTIFICATION_LIST, model.notificationList);
 				MapplasActivity.this.startActivity(intent);
 			}
 		});
@@ -177,7 +186,7 @@ public class MapplasActivity extends Activity {
 		});
 
 		// Set adapter
-		this.listViewAdapter = new LocalizationAdapter(this, R.layout.rowloc, model.localizations);
+		this.listViewAdapter = new AppAdapter(this, this.listView, R.layout.rowloc, this.model.appList, this.model.currentLocation, this.model.currentDescriptiveGeoLoc, this.model.currentUser);
 		this.listView.setAdapter(listViewAdapter);
 
 		if(this.listView != null) {
