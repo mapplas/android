@@ -52,7 +52,8 @@ public class AppNotifications extends Activity {
         
     	final ListView lv = (ListView) findViewById(R.id.lvLista);
         
-        this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, MapplasActivity.GetModel().notifications);
+//		UNCOMMENT
+//        this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, MapplasActivity.GetModel().notifications);
         lv.setAdapter(this.mListAdapter);
         
         

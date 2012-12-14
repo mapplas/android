@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -34,22 +35,23 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
-import com.mapplas.model.Localization;
+import com.mapplas.model.App;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 
-public class LocalizationAdapter extends ArrayAdapter<Localization> {
+public class LocalizationAdapter extends ArrayAdapter<App> {
 
-	private ArrayList<Localization> items;
+	private ArrayList<App> items;
 
 	private Context context = null;
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
-	private static Localization mRateLoc = null;
+	private static App mRateLoc = null;
 
-	private static Localization mBlockLoc = null;
+	private static App mBlockLoc = null;
 
 	final Animation animFlipInNext = AnimationUtils.loadAnimation(this.context, R.anim.flipinnext);
 
@@ -78,7 +80,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 
 						String strUrl = (String)((Object[])msg.obj)[0];
 						ImageView iv = (ImageView)((Object[])msg.obj)[1];
-						Localization o = (Localization)((Object[])msg.obj)[2];
+						App o = (App)((Object[])msg.obj)[2];
 						Bitmap bmp = (Bitmap)((Object[])msg.obj)[3];
 
 						if(bmp != null && iv != null) {
@@ -95,7 +97,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 		}
 	};
 
-	public LocalizationAdapter(Context context, int textViewResourceId, ArrayList<Localization> items) {
+	public LocalizationAdapter(Context context, int textViewResourceId, ArrayList<App> items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 
@@ -145,7 +147,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 
 		final View vinner = v;
 
-		final Localization o = items.get(position);
+		final App o = items.get(position);
 
 		if(o != null) {
 			v.setTag(position);
@@ -164,21 +166,23 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 			}
 
 			if(isNewView) {
-				tt.setTypeface(MapplasActivity.getTypeFace());
-				ttPinUps.setTypeface(MapplasActivity.getTypeFace());
+				Typeface normalTypeface = ((MapplasApplication)getContext().getApplicationContext()).getTypeFace();
+				
+				tt.setTypeface(normalTypeface);
+				ttPinUps.setTypeface(normalTypeface);
 
 				tt = (TextView)v.findViewById(R.id.lblPinUp);
-				tt.setTypeface(MapplasActivity.getTypeFace());
+				tt.setTypeface(normalTypeface);
 				tt = (TextView)v.findViewById(R.id.lblRate);
-				tt.setTypeface(MapplasActivity.getTypeFace());
+				tt.setTypeface(normalTypeface);
 				tt = (TextView)v.findViewById(R.id.lblBlock);
-				tt.setTypeface(MapplasActivity.getTypeFace());
+				tt.setTypeface(normalTypeface);
 				tt = (TextView)v.findViewById(R.id.lblShare);
-				tt.setTypeface(MapplasActivity.getTypeFace());
+				tt.setTypeface(normalTypeface);
 			}
 
 			Button buttonStart = (Button)v.findViewById(R.id.btnStart);
-			buttonStart.setTypeface(MapplasActivity.typefaceBold);
+			buttonStart.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getBoldTypeFace());
 
 			if(buttonStart != null) {
 				if(o.getType().equalsIgnoreCase("application")) {
@@ -217,7 +221,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 
 						@Override
 						public void onClick(View v) {
-							final Localization anonLoc = (Localization)(v.getTag());
+							final App anonLoc = (App)(v.getTag());
 							if(anonLoc != null) {
 								String strUrl = anonLoc.getAppUrl();
 								if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
@@ -244,7 +248,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 
 					@Override
 					public void onClick(View v) {
-						Localization anonLoc = (Localization)v.getTag();
+						App anonLoc = (App)v.getTag();
 						Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + MapplasActivity.GetModel().currentLocation + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
 						context.startActivity(navigation);
 					}
@@ -300,7 +304,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 				public void onClick(View v) {
 
 					Intent intent = new Intent(context, AppDetail.class);
-					intent.putExtra(Constants.SYNESTH_DETAIL_INDEX, (int)((Integer)v.getTag()));
+					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, (int)((Integer)v.getTag()));
 					((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 
 				}
@@ -329,7 +333,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 			final RatingBar rbRating = (RatingBar)v.findViewById(R.id.rbRating);
 
 			final TextView lblRating = (TextView)v.findViewById(R.id.lblRating);
-			lblRating.setTypeface(MapplasActivity.getTypeFace());
+			lblRating.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
 
 			rbRating.setRating(o.getAuxTotalRate());
 
@@ -375,7 +379,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 
 				@Override
 				public void onClick(View v) {
-					final Localization anonLoc = (Localization)(v.getTag());
+					final App anonLoc = (App)(v.getTag());
 					LocalizationAdapter.mRateLoc = anonLoc;
 					if(anonLoc != null) {
 						RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
@@ -418,7 +422,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 				@Override
 				public void onClick(View v) {
 
-					final Localization anonLoc = (Localization)(v.getTag());
+					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
 						String auxuid = "0";
 						if(MapplasActivity.GetModel().currentUser != null) {
@@ -447,7 +451,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 						try {
 							Thread th = new Thread(new Runnable() {
 
-								private final Localization privateLocalization = anonLoc;
+								private final App privateLocalization = anonLoc;
 
 								@Override
 								public void run() {
@@ -483,7 +487,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 				@Override
 				public void onClick(View v) {
 
-					final Localization anonLoc = (Localization)(v.getTag());
+					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
 						Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 						// Comprobar que existe y que está instalada la
@@ -523,7 +527,7 @@ public class LocalizationAdapter extends ArrayAdapter<Localization> {
 
 				@Override
 				public void onClick(View v) {
-					final Localization anonLoc = (Localization)(v.getTag());
+					final App anonLoc = (App)(v.getTag());
 					LocalizationAdapter.mBlockLoc = anonLoc;
 
 					AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);

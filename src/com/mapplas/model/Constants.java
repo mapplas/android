@@ -36,6 +36,8 @@ public class Constants {
 	public static final String SYNESTH_LAST_NOTIFICATIONS = "com.synesth.model.lastNotifications";
 	
 	// App Detail Activity
-	public static final String SYNESTH_DETAIL_INDEX = "com.synesth.model.detail.index";
+	public static final String MAPPLAS_DETAIL_APP = "com.mapplas.model.detail.app";
+	public static final String MAPPLAS_DETAIL_USER = "com.mapplas.model.detail.user";
+	public static final String MAPPLAS_DETAIL_CURRENT_LOCATION = "com.mapplas.model.detail.current_location";
 	public static final String SYNESTH_DETAIL_CAMERA = "com.synesth.model.detail.camera";
 }

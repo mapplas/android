@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="#f7f8f8"
     android:orientation="vertical" >
-    
+
     <LinearLayout
         android:id="@+id/sesion"
         android:layout_width="fill_parent"
@@ -13,27 +13,26 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="25dp" >
-
-            <Button
-                android:id="@+id/lblLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginRight="4dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/action_standar_button"
-                android:singleLine="true"
-                android:text="@string/logout" />
-
-            <Button
-                android:id="@+id/lblSignout"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/action_standar_button"
-                android:singleLine="true"
-                android:text="@string/signout" />
 
-	</LinearLayout>
-	
+        <Button
+            android:id="@+id/lblLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/action_standar_button"
+            android:singleLine="true"
+            android:text="@string/logout" />
+
+        <Button
+            android:id="@+id/lblSignout"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/action_standar_button"
+            android:singleLine="true"
+            android:text="@string/signout" />
+    </LinearLayout>
+
 </LinearLayout>

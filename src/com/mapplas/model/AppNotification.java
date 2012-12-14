@@ -16,7 +16,7 @@ public class AppNotification {
 	private String date = "?";
 	private String hour = "?";
 	
-	private Localization auxLocalization = null;
+	private App auxLocalization = null;
 	
 	
 	
@@ -103,10 +103,10 @@ public class AppNotification {
 	public void setIdCompany(int idCompany) {
 		this.idCompany = idCompany;
 	}
-	public Localization getAuxLocalization() {
+	public App getAuxLocalization() {
 		return auxLocalization;
 	}
-	public void setAuxLocalization(Localization auxLocalization) {
+	public void setAuxLocalization(App auxLocalization) {
 		this.auxLocalization = auxLocalization;
 	}
 	public String getDate() {

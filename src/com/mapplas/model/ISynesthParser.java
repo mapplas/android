@@ -11,10 +11,10 @@ public interface ISynesthParser {
 	
 	public void ParseLocalizations(String input, SuperModel model, boolean append);
 	
-	public ArrayList<Localization> SimpleParseLocalizations(String input);
+	public ArrayList<App> SimpleParseLocalizations(String input);
 	
 	public User ParseUser(String input);
 	
-	public Localization ParseLocalization(String input);
+	public App ParseLocalization(String input);
 	
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppNotification;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.DateUtils;
@@ -47,16 +49,18 @@ public class NotificationAdapter extends ArrayAdapter<AppNotification> {
             	int posList = MapplasActivity.getLocalizationAdapter().getPosition(o.getAuxLocalization());
             	v.setTag(posList);
             	
+            	Typeface normalTypeface = ((MapplasApplication)getContext().getApplicationContext()).getTypeFace();
+            	
             	TextView tt = (TextView) v.findViewById(R.id.lblTitle);
             	tt.setText(o.getName());
-            	tt.setTypeface(MapplasActivity.getTypeFace());
+            	tt.setTypeface(normalTypeface);
             	
             	tt = (TextView) v.findViewById(R.id.lblDescription);
-            	tt.setTypeface(MapplasActivity.getTypeFace());
+            	tt.setTypeface(normalTypeface);
             	tt.setText(o.getDescription());
 	           
             	tt = (TextView) v.findViewById(R.id.lblDate);
-            	tt.setTypeface(MapplasActivity.getTypeFace());
+            	tt.setTypeface(normalTypeface);
             	tt.setText(DateUtils.FormatSinceDate(o.getDate(), o.getHour(), this.context));
             	
         		ImageView iv = (ImageView) v.findViewById(R.id.imgLogo);
@@ -72,7 +76,7 @@ public class NotificationAdapter extends ArrayAdapter<AppNotification> {
         			public void onClick(View v) {
 
         				Intent intent = new Intent(context, AppDetail.class);
-        				intent.putExtra(Constants.SYNESTH_DETAIL_INDEX, (int)((Integer) v.getTag()));
+        				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, (int)((Integer) v.getTag()));
         				((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
         			}
         		});

@@ -40,7 +40,7 @@ public class JsonParser implements ISynesthParser{
 			
 			for(int i = 0; i < jArray.length(); i++)
 			{
-				Localization loc = new Localization();
+				App loc = new App();
 				loc.setId(jArray.getJSONObject(i).getInt("IDLocalization"));
 				loc.setName(jArray.getJSONObject(i).getString("Name"));
 				loc.setLatitude(jArray.getJSONObject(i).getDouble("Latitude"));
@@ -203,8 +203,8 @@ public class JsonParser implements ISynesthParser{
 	}
 
 	@Override
-	public Localization ParseLocalization(String input) {
-		Localization loc = new Localization();
+	public App ParseLocalization(String input) {
+		App loc = new App();
 		String jString = input;
 		
 		
@@ -294,18 +294,18 @@ public class JsonParser implements ISynesthParser{
 	}
 
 	@Override
-	public ArrayList<Localization> SimpleParseLocalizations(String input) {
+	public ArrayList<App> SimpleParseLocalizations(String input) {
 
 		String jString = input;
 		
-		ArrayList<Localization> ret = new ArrayList<Localization>();
+		ArrayList<App> ret = new ArrayList<App>();
 		
 		try {
 			jArray = new JSONArray(jString);
 			
 			for(int i = 0; i < jArray.length(); i++)
 			{
-				Localization loc = new Localization();
+				App loc = new App();
 				loc.setId(jArray.getJSONObject(i).getInt("IDLocalization"));
 				loc.setName(jArray.getJSONObject(i).getString("Name"));
 				loc.setLatitude(jArray.getJSONObject(i).getDouble("Latitude"));

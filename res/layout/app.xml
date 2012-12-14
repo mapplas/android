@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="@drawable/bgd_menu" >
-        
+
         <TextView
             android:id="@+id/lblAppDetail"
             android:layout_width="fill_parent"
@@ -19,429 +19,420 @@
             android:text="@string/app_detail"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#333333" >
-			
+
             <requestFocus />
-        </TextView>
+        </TextView>
+
         <Button
             android:id="@+id/btnBack"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@drawable/menu_back_button_left" />
-
     </RelativeLayout>
-    <ScrollView
+
+    <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#f7f8f8" >
-        
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >            
-
+
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/lytApp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#f7f8f8"
-            android:baselineAligned="true"
-            android:orientation="horizontal"
-            android:padding="2dp" >
+            android:orientation="vertical" >
 
-            <RelativeLayout
+            <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="72dp"
-                android:layout_height="72dp" >
-                <ImageView
-                    android:id="@+id/imgLogo"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_template" />
-                <ImageView
-                    android:layout_width="66dp"
-                    android:layout_height="66dp"                    
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/roundc" />
+                android:id="@+id/lytApp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#f7f8f8"
+                android:baselineAligned="true"
+                android:orientation="horizontal"
+                android:padding="2dp" >
 
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="2dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/lblTitle"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="4dp"
-                    android:lines="1"
-                    android:singleLine="true"
-                    android:text="@string/category"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#333333"
-                    android:textSize="20sp" />
-
-                <RatingBar
-                    android:id="@+id/rbRating"
-                    style="@style/custom_rating_bar_big"
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp" >
+
+                    <ImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_template" />
+
+                    <ImageView
+                        android:layout_width="66dp"
+                        android:layout_height="66dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/roundc" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/lblTitle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="4dp"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="@string/category"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#333333"
+                        android:textSize="20sp" />
+
+                    <RatingBar
+                        android:id="@+id/rbRating"
+                        style="@style/custom_rating_bar_big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="4dp"
+                        android:isIndicator="true"
+                        android:max="5"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
+                        android:rating="2.5" />
+                </LinearLayout>
+
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="4dp"
-                    android:isIndicator="true"
-                    android:max="5"
-                    android:paddingBottom="0dp"
-                    android:paddingTop="0dp"
-                    android:rating="2.5" />
+                    android:layout_gravity="center_vertical|center_horizontal" >
 
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal" >
-                <TextView
-                    android:id="@+id/lblPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-                
-                <Button
-                    android:id="@+id/btnStart"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/ic_badge_price"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/lblPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            </RelativeLayout>
-            
-        </LinearLayout>
-
-		<LinearLayout
-		    android:id="@+id/lytAction"
-		    android:layout_width="fill_parent"
-		    android:layout_height="60dp"
-		    android:layout_gravity="center_vertical"
-		    android:layout_weight="1"
-		    android:background="#f7f8f8"
-		    android:baselineAligned="true" >
-        
-        <LinearLayout
-            android:id="@+id/lytPinup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.25"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/btnPinUp"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_pin_button" />
-
-            <TextView
-                android:id="@+id/lblPinUp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/pin_up"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lytRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.25"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/btnRate"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_rate_button" />
-
-            <TextView
-                android:id="@+id/lblRate"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/rate"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-		<LinearLayout
-		    android:id="@+id/lytLike"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center_vertical"
-		    android:layout_weight="0.25"
-		    android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/btnFavourite"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_like_button" />
-            
-            <TextView
-                android:id="@+id/lblFavourite"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/like"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lytBlock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.25"
-            android:orientation="vertical" >
-            
-            <ImageView
-                android:id="@+id/btnBlock"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_block_button" />
-
-            <TextView
-                android:id="@+id/lblBlock"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/block"
-                android:textSize="10sp" />
-            
-        </LinearLayout>
-        
-        <LinearLayout
-            android:id="@+id/lytShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.25"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/btnShare"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_share_button" />
-
-            <TextView
-                android:id="@+id/lblShare"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/share"
-                android:textSize="10sp" />
-            
-        </LinearLayout>        
-
-        <LinearLayout
-            android:id="@+id/lytPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.25"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/btnPhone"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_phone_button" />
-            <TextView
-                android:id="@+id/lblPhone"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/call"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-        
-    </LinearLayout>
-
-        <Gallery
-            android:id="@+id/galleryPhotos"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bgd_ptr"
-            android:gravity="center_vertical"
-            android:paddingBottom="6dp"
-            android:paddingTop="6dp"
-            android:spacing="10dp" />
-
-        <LinearLayout
-            android:id="@+id/lytDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/lblMoreInfo"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="Description"
-                android:maxLines="6"
-                android:paddingLeft="10dp"
-                android:paddingRight="8dp"
-                android:text="@string/description"
-                android:textColor="#333333"
-                android:textSize="14dp" />
-
-            <ImageView
-                android:id="@+id/imgDots"
-                android:layout_width="38dp"
-                android:layout_height="10dp"
-                android:layout_gravity="right"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_more" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lytComments"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bgd_lblcom" >
-
-            <TextView
-                android:id="@+id/btnComments"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="@string/comments"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/lblNumberOfComments"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:paddingTop="2dp"
-                android:text="()" />
-            
-            <ImageView
-                android:id="@+id/ivArrow"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_arrow_com" />
-
-        </LinearLayout>
-        <com.synesth.app.SliderListView
-            android:id="@+id/lvComments"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:footerDividersEnabled="false"
-            android:fadingEdgeLength="0dp" >
-
-        </com.synesth.app.SliderListView>
-
-        <LinearLayout
-            android:id="@+id/lytDeveloper"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/lblDeveloper"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/developer"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:id="@+id/devWeb"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp" >
-
-                <Button
-                    android:id="@+id/lblWeb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/action_standar_button"
-                    android:singleLine="true"
-                    android:text="@string/devWeb" />
-
-                <Button
-                    android:id="@+id/lblEMail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/action_standar_button"
-                    android:singleLine="true"
-                    android:text="@string/devMail" />
-
+                    <Button
+                        android:id="@+id/btnStart"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/ic_badge_price"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textColor="#ffffff"
+                        android:textSize="14sp" />
+                </RelativeLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/lytAction"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#f7f8f8"
+                android:baselineAligned="true" >
+
+                <LinearLayout
+                    android:id="@+id/lytPinup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/btnPinUp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/action_pin_button" />
+
+                    <TextView
+                        android:id="@+id/lblPinUp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/pin_up"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/btnRate"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/action_rate_button" />
+
+                    <TextView
+                        android:id="@+id/lblRate"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/rate"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/btnFavourite"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/action_like_button" />
+
+                    <TextView
+                        android:id="@+id/lblFavourite"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/like"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytBlock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/btnBlock"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/action_block_button" />
+
+                    <TextView
+                        android:id="@+id/lblBlock"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/block"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/btnShare"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/action_share_button" />
+
+                    <TextView
+                        android:id="@+id/lblShare"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/share"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/btnPhone"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/action_phone_button" />
+
+                    <TextView
+                        android:id="@+id/lblPhone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/call"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Gallery
+                android:id="@+id/galleryPhotos"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bgd_ptr"
+                android:gravity="center_vertical"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:spacing="10dp" />
+
+            <LinearLayout
+                android:id="@+id/lytDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/lblMoreInfo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Description"
+                    android:maxLines="6"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/description"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:id="@+id/imgDots"
+                    android:layout_width="38dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_more" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lytComments"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bgd_lblcom" >
+
+                <TextView
+                    android:id="@+id/btnComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="@string/comments"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/lblNumberOfComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:text="()" />
+
+                <ImageView
+                    android:id="@+id/ivArrow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_arrow_com" />
+            </LinearLayout>
+
+            <com.synesth.app.SliderListView
+                android:id="@+id/lvComments"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fadingEdgeLength="0dp"
+                android:footerDividersEnabled="false" >
+            </com.synesth.app.SliderListView>
+
+            <LinearLayout
+                android:id="@+id/lytDeveloper"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/lblDeveloper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/developer"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/devWeb"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp" >
+
+                    <Button
+                        android:id="@+id/lblWeb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/action_standar_button"
+                        android:singleLine="true"
+                        android:text="@string/devWeb" />
+
+                    <Button
+                        android:id="@+id/lblEMail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/action_standar_button"
+                        android:singleLine="true"
+                        android:text="@string/devMail" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnReportProblem"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/action_standar_button"
+                android:text="@string/support" />
         </LinearLayout>
-        <Button
-            android:id="@+id/btnReportProblem"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/action_standar_button"
-            android:text="@string/support" />
-        
-    </LinearLayout>
-
     </ScrollView>
-    
-</LinearLayout>
 
+</LinearLayout>

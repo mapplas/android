@@ -44,7 +44,7 @@ public class MapplasActivity extends Activity {
 
 	/* Properties */
 	private SuperModel model = new SuperModel();
-	
+
 	private Handler messageHandler = null;
 
 	private boolean isSplashActive = true;
@@ -56,7 +56,7 @@ public class MapplasActivity extends Activity {
 	public List<ApplicationInfo> applicationList = null;
 
 	private AwesomeListView listView = null;
-	
+
 	private LocalizationAdapter listViewAdapter = null;
 
 	private static SharedPreferences sharedPreferences = null;
@@ -287,6 +287,17 @@ public class MapplasActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Getter and setters
+	 */
+	public AwesomeListView getListView() {
+		return listView;
+	}
+
+	public void setListView(AwesomeListView listView) {
+		this.listView = listView;
+	}
+
 	// public static SharedPreferences getAppPreferences() {
 	// return MapplasActivity.mPreferences;
 	// }
@@ -299,8 +310,6 @@ public class MapplasActivity extends Activity {
 	// return MapplasActivity.mDbd;
 	// }
 	//
-
-
 
 	/* Methods */
 	// public static Button GetButtonNotifications() {

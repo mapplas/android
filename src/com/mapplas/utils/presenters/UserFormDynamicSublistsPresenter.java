@@ -15,7 +15,7 @@ import app.mapplas.com.R;
 import com.mapplas.app.UserLocalizationAdapter;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
-import com.mapplas.model.Localization;
+import com.mapplas.model.App;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.utils.NetRequests;
@@ -67,7 +67,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerLayout());
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<Localization>(), UserLocalizationAdapter.BLOCK);
+				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
 
 				list.setAdapter(ula);
 
@@ -116,7 +116,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<Localization>(), UserLocalizationAdapter.BLOCK);
+				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
 				list.setAdapter(ula);
 
 				try {
@@ -162,7 +162,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<Localization>(), UserLocalizationAdapter.BLOCK);
+				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
 				list.setAdapter(ula);
 
 				try {
@@ -201,7 +201,7 @@ public class UserFormDynamicSublistsPresenter {
 					String response = NetRequests.UserRatesRequest(user.getId() + "");
 					JsonParser jp = new JsonParser();
 
-					ArrayList<Localization> locs = jp.SimpleParseLocalizations(response);
+					ArrayList<App> locs = jp.SimpleParseLocalizations(response);
 
 					UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.RATE);
 

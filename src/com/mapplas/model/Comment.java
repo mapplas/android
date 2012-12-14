@@ -16,7 +16,7 @@ public class Comment {
 	private String hour = "?";
 	private String comment = "?";
 	
-	private Localization auxLocalization = null;
+	private App auxLocalization = null;
 	
 	
 	
@@ -85,10 +85,10 @@ public class Comment {
 		return false;
 	}
 
-	public Localization getAuxLocalization() {
+	public App getAuxLocalization() {
 		return auxLocalization;
 	}
-	public void setAuxLocalization(Localization auxLocalization) {
+	public void setAuxLocalization(App auxLocalization) {
 		this.auxLocalization = auxLocalization;
 	}
 	public float getRate() {

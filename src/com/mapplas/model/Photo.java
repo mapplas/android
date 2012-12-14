@@ -16,7 +16,7 @@ public class Photo {
 	private String photo = "?";
 	private String hour = "?";
 	
-	private Localization auxLocalization = null;
+	private App auxLocalization = null;
 	
 	
 	public int getId() {
@@ -84,10 +84,10 @@ public class Photo {
 		return false;
 	}
 
-	public Localization getAuxLocalization() {
+	public App getAuxLocalization() {
 		return auxLocalization;
 	}
-	public void setAuxLocalization(Localization auxLocalization) {
+	public void setAuxLocalization(App auxLocalization) {
 		this.auxLocalization = auxLocalization;
 	}
 

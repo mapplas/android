@@ -13,7 +13,7 @@ import app.mapplas.com.R;
 import com.mapplas.app.UserLocalizationAdapter;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
-import com.mapplas.model.Localization;
+import com.mapplas.model.App;
 
 public class UserFormActivityMessageHandler {
 	
@@ -41,7 +41,7 @@ public class UserFormActivityMessageHandler {
 
 				JsonParser jp = new JsonParser();
 				UserLocalizationAdapter ula2;
-				ArrayList<Localization> locs;
+				ArrayList<App> locs;
 
 				list.removeFooterView(privateFooter);
 

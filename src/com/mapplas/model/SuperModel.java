@@ -11,7 +11,7 @@ public class SuperModel {
 	public String currentIMEI = "";
 	public String currentDescriptiveGeoLoc = "";
 	
-	public ArrayList<Localization> localizations;
+	public ArrayList<App> localizations;
 	public ArrayList<AppNotification> notifications;
 	
 	public boolean operationError = false;
@@ -19,7 +19,7 @@ public class SuperModel {
 	
 	public SuperModel()
 	{
-		localizations = new ArrayList<Localization>();
+		localizations = new ArrayList<App>();
 		notifications = new ArrayList<AppNotification>();
 	}
 	
@@ -31,7 +31,7 @@ public class SuperModel {
 	
 	public void ResetLocalizations()
 	{
-		this.localizations = new ArrayList<Localization>();
+		this.localizations = new ArrayList<App>();
 	}
 	
 	public void ResetNotifications()

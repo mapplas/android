@@ -40,7 +40,7 @@ import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.UserEditRequestThread;
 import com.mapplas.app.threads.UserPinUpsRequestThread;
 import com.mapplas.model.Constants;
-import com.mapplas.model.Localization;
+import com.mapplas.model.App;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.utils.NetRequests;
@@ -183,7 +183,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(mPrivateFooterInfo);
 
 		// Set list adapter
-		UserLocalizationAdapter ula = new UserLocalizationAdapter(UserForm.this, R.id.lblTitle, new ArrayList<Localization>(), UserLocalizationAdapter.BLOCK);
+		UserLocalizationAdapter ula = new UserLocalizationAdapter(UserForm.this, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview

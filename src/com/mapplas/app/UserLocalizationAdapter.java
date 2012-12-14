@@ -21,11 +21,12 @@ import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
-import com.mapplas.model.Localization;
+import com.mapplas.model.App;
 import com.mapplas.utils.NetRequests;
 
-public class UserLocalizationAdapter extends ArrayAdapter<Localization> {
+public class UserLocalizationAdapter extends ArrayAdapter<App> {
 
 	public static final int BLOCK = 0;
 
@@ -37,15 +38,15 @@ public class UserLocalizationAdapter extends ArrayAdapter<Localization> {
 
 	private int mType = 0;
 
-	private ArrayList<Localization> items;
+	private ArrayList<App> items;
 
 	private Context context = null;
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
-	private static Localization mRateLoc = null;
+	private static App mRateLoc = null;
 
-	private static Localization mBlockLoc = null;
+	private static App mBlockLoc = null;
 
 	final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
 
@@ -63,7 +64,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<Localization> {
 
 						String strUrl = (String)((Object[])msg.obj)[0];
 						ImageView iv = (ImageView)((Object[])msg.obj)[1];
-						Localization o = (Localization)((Object[])msg.obj)[2];
+						App o = (App)((Object[])msg.obj)[2];
 						Bitmap bmp = (Bitmap)((Object[])msg.obj)[3];
 
 						if(bmp != null && iv != null) {
@@ -80,7 +81,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<Localization> {
 		}
 	};
 
-	public UserLocalizationAdapter(Context context, int textViewResourceId, ArrayList<Localization> items, int type) {
+	public UserLocalizationAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type) {
 		super(context, textViewResourceId, items);
 
 		this.mType = type;
@@ -150,7 +151,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<Localization> {
 
 		final View innerView = v;
 
-		final Localization o = items.get(position);
+		final App o = items.get(position);
 
 		if(o != null) {
 			v.setTag(position);
@@ -170,7 +171,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<Localization> {
 				ivLogo.setImageResource(R.drawable.ic_refresh);
 			}
 
-			lblTitle.setTypeface(MapplasActivity.getTypeFace());
+			lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
 			// lblDescription.setTypeface(SynesthActivity.getTypeFace());
 
 			lblTitle.setText(o.getName());
@@ -180,7 +181,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<Localization> {
 
 				@Override
 				public void onClick(View v) {
-					final Localization anonLoc = (Localization)v.getTag();
+					final App anonLoc = (App)v.getTag();
 					innerView.startAnimation(UserLocalizationAdapter.this.fadeOutAnimation);
 
 					UserLocalizationAdapter.this.fadeOutAnimation.setAnimationListener(new AnimationListener() {

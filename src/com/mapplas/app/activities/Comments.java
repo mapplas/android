@@ -12,13 +12,13 @@ import app.mapplas.com.R;
 import com.mapplas.app.CommentAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
-import com.mapplas.model.Localization;
+import com.mapplas.model.App;
 
 public class Comments extends Activity {
 
-	private static final boolean mDebug = true;
+//	private static final boolean mDebug = true;
 
-	private Localization mLoc = null;
+	private App mLoc = null;
 
 	private ListAdapter mListAdapter = null;
 
@@ -31,10 +31,11 @@ public class Comments extends Activity {
 
 		// Get the index of the app
 		Bundle extras = getIntent().getExtras();
-		int index = extras.getInt(Constants.SYNESTH_DETAIL_INDEX);
+		int index = extras.getInt(Constants.MAPPLAS_DETAIL_APP);
 
 		// Get Localization
-		this.mLoc = MapplasActivity.GetModel().localizations.get(index);
+//		UNCOMMENT
+//		this.mLoc = MapplasActivity.GetModel().localizations.get(index);
 
 		// Configure Data
 		TextView tv = (TextView)findViewById(R.id.lblTitle);
