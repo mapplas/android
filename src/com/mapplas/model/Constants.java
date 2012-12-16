@@ -44,4 +44,21 @@ public class Constants {
 	
 	// Notification Activity
 	public static final String MAPPLAS_NOTIFICATION_LIST = "com.mapplas.model.notification.array";
+	
+	// ACTIVITY REQUEST ACTIONS
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_FAVOURITE = "favourite";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN = "pin";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE = "share";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK = "block";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE = "rate";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_CALL = "call";
+	
+	// PIN REQUEST CONSTANTS
+	public static final String MAPPLAS_ACTIVITY_PIN_REQUEST_PIN = "pin";
+	public static final String MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN = "unpin";
+	
+	// Like-request constants
+	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_LIKE = "p";
+	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE = "pr";
+	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK = "m";
 }

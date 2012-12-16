@@ -36,6 +36,9 @@ import com.mapplas.app.SliderListView;
 import com.mapplas.app.adapters.CommentAdapter;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.threads.ActivityRequestThread;
+import com.mapplas.app.threads.LikeRequestThread;
+import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.Photo;
@@ -47,7 +50,7 @@ import com.mapplas.utils.NumberUtils;
 public class AppDetail extends Activity {
 
 	/* Debug Values */
-//	private static final boolean mDebug = true;
+	// private static final boolean mDebug = true;
 
 	/* */
 	private App app = null; // mLoc
@@ -55,12 +58,12 @@ public class AppDetail extends Activity {
 	private User user = null;
 
 	private String currentLocation = "";
-	
+
 	private String currentDescriptiveGeoLoc = "";
 
 	private Uri imageUri;
 
-//	private String imagePath;
+	// private String imagePath;
 
 	private SliderListView commentsListView = null;
 
@@ -70,7 +73,7 @@ public class AppDetail extends Activity {
 
 	private RotateAnimation reverseFlipAnimation;
 
-//	private Resizer resizer;
+	// private Resizer resizer;
 
 	private DisplayMetrics metrics = new DisplayMetrics();
 
@@ -253,7 +256,7 @@ public class AppDetail extends Activity {
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION)) {
 				this.currentLocation = extras.getString(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION);
 			}
-			
+
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION)) {
 				this.currentDescriptiveGeoLoc = extras.getString(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION);
 			}
@@ -588,38 +591,25 @@ public class AppDetail extends Activity {
 
 					final String uid = auxuid;
 
-					String auxaction = "p";
+					String auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_LIKE;
 					if(anonLoc.isAuxFavourite()) {
-						auxaction = "pr";
+						auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE;
 						ivFavourite.setImageResource(R.drawable.action_like_button);
 						anonLoc.setAuxFavourite(false);
 					}
 					else {
-						auxaction = "p";
 						ivFavourite.setImageResource(R.drawable.action_like_button_done);
 						anonLoc.setAuxFavourite(true);
 					}
 
 					final String action = auxaction;
 
-					try {
-						Thread th = new Thread(new Runnable() {
+					Thread likeRequestThread = new Thread(new LikeRequestThread(action, anonLoc, uid).getThread());
+					likeRequestThread.start();
 
-							@Override
-							public void run() {
-								try {
-									NetRequests.LikeRequest(action, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-									NetRequests.ActivityRequest(currentLocation, "favourite", anonLoc.getId() + "", user.getId() + "");
-								} catch (Exception e) {
-									Log.i(getClass().getSimpleName(), "Thread Action Like: " + e);
-								}
-							}
-						});
-						th.start();
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_FAVOURITE).getThread());
+					activityRequestThread.start();
 
-					} catch (Exception exc) {
-						Log.i(getClass().getSimpleName(), "Action Like: " + exc);
-					}
 				}
 			}
 		});
@@ -655,33 +645,21 @@ public class AppDetail extends Activity {
 					else {
 						ivPinup.setImageResource(R.drawable.action_unpin_button);
 					}
-					try {
-						Thread th = new Thread(new Runnable() {
 
-							@Override
-							public void run() {
-								try {
-									String action = "pin";
-									if(anonLoc.isAuxPin()) {
-										action = "unpin";
-										anonLoc.setAuxPin(false);
-									}
-									else {
-										action = "pin";
-										anonLoc.setAuxPin(true);
-									}
-									NetRequests.PinRequest(action, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-									NetRequests.ActivityRequest(currentLocation, "pin", anonLoc.getId() + "", user.getId() + "");
-								} catch (Exception e) {
-									Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
-								}
-							}
-						});
-						th.start();
-
-					} catch (Exception exc) {
-						Log.i(getClass().getSimpleName(), "Action PinUp: " + exc);
+					String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+					if(anonLoc.isAuxPin()) {
+						action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+						anonLoc.setAuxPin(false);
 					}
+					else {
+						anonLoc.setAuxPin(true);
+					}
+
+					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
+					pinRequestThread.start();
+
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(action, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
+					activityRequestThread.start();
 				}
 			}
 		});
@@ -708,24 +686,8 @@ public class AppDetail extends Activity {
 					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 					startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
 
-					if(anonLoc != null) {
-						try {
-							Thread th = new Thread(new Runnable() {
-
-								@Override
-								public void run() {
-									try {
-										NetRequests.ActivityRequest(currentLocation, "share", anonLoc.getId() + "", user.getId() + "");
-									} catch (Exception e) {
-										Log.i(getClass().getSimpleName(), "Thread Action Share: " + e);
-									}
-								}
-							});
-							th.start();
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Action Share: " + exc);
-						}
-					}
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
+					activityRequestThread.start();
 				}
 			}
 		});
@@ -745,40 +707,20 @@ public class AppDetail extends Activity {
 						myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
 
 							public void onClick(DialogInterface arg0, int arg1) {
-								try {
 
-									Thread th = new Thread(new Runnable() {
+								String uid = String.valueOf(user.getId());
+								Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
+								likeRequestThread.start();
 
-										@Override
-										public void run() {
-											try {
+								Thread activityRequestThread = new Thread(new ActivityRequestThread(uid, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
+								activityRequestThread.start();
 
-												String auxuid = "0";
-												if(user != null) {
-													auxuid = user.getId() + "";
-												}
+								AppDetail.this.finish();
+								// Eliminamos el item de la lista
+								// TODO: find solution
+								// MapplasActivity.getLocalizationAdapter().remove(anonLoc);
+								// MapplasActivity.getLocalizationAdapter().notifyDataSetChanged();
 
-												final String uid = auxuid;
-
-												NetRequests.LikeRequest("m", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-												NetRequests.ActivityRequest(currentLocation, "block", anonLoc.getId() + "", user.getId() + "");
-											} catch (Exception e) {
-												Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
-											}
-										}
-									});
-									th.start();
-
-									AppDetail.this.finish();
-
-									// Eliminamos el item de la lista
-//									TODO: find solution
-//									MapplasActivity.getLocalizationAdapter().remove(anonLoc);
-//									MapplasActivity.getLocalizationAdapter().notifyDataSetChanged();
-
-								} catch (Exception exc) {
-									Log.i(getClass().getSimpleName(), "Action PinUp: " + exc);
-								}
 							}
 						});
 						myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {
@@ -812,25 +754,8 @@ public class AppDetail extends Activity {
 					RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
 					myDialog.show();
 
-					if(anonLoc != null) {
-						try {
-							Thread th = new Thread(new Runnable() {
-
-								@Override
-								public void run() {
-									try {
-										NetRequests.ActivityRequest(currentLocation, "rate", anonLoc.getId() + "", user.getId() + "");
-									} catch (Exception e) {
-										Log.i(getClass().getSimpleName(), "Thread Action Rate: " + e);
-									}
-								}
-							});
-							th.start();
-
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Action Rate: " + exc);
-						}
-					}
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
+					activityRequestThread.start();
 				}
 			}
 		});
@@ -850,25 +775,8 @@ public class AppDetail extends Activity {
 					Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(number));
 					startActivity(callIntent);
 
-					if(anonLoc != null) {
-						try {
-							Thread th = new Thread(new Runnable() {
-
-								@Override
-								public void run() {
-									try {
-										NetRequests.ActivityRequest(currentLocation, "call", anonLoc.getId() + "", user.getId() + "");
-									} catch (Exception e) {
-										Log.i(getClass().getSimpleName(), "Thread Action Rate: " + e);
-									}
-								}
-							});
-							th.start();
-
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Action Call: " + exc);
-						}
-					}
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_CALL).getThread());
+					activityRequestThread.start();
 				}
 			}
 		});
