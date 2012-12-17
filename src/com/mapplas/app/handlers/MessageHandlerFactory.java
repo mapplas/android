@@ -22,8 +22,8 @@ public class MessageHandlerFactory {
 		return new MapplasAppActivityMessageHandler(listViewHeaderStatusMessage, isSplashActive, model, listViewAdapter, listView, applicationList, activity).getHandler();	
 	}
 	
-	public Handler getUserFormActivityMessageHandler(ListView list, String currentResponse, Context context, LinearLayout privateFooter, User user, String currentLocation) {
-		return new UserFormActivityMessageHandler(list, currentResponse, context, privateFooter, user, currentLocation).getHandler();
+	public Handler getUserFormActivityMessageHandler(ListView list, Context context, LinearLayout privateFooter, User user, String currentLocation) {
+		return new UserFormActivityMessageHandler(list, context, privateFooter, user, currentLocation).getHandler();
 	}
 
 }

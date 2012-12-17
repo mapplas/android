@@ -13,9 +13,9 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.UserLocalizationAdapter;
+import com.mapplas.app.async_tasks.UserPinUpsTask;
 import com.mapplas.app.threads.BlockRequestThread;
 import com.mapplas.app.threads.UserLikesRequestThread;
-import com.mapplas.app.threads.UserPinUpsRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
@@ -38,10 +38,8 @@ public class UserFormDynamicSublistsPresenter {
 	private Animation refreshAnimation;
 	
 	private String currentLocation;
-	
-	private String currentResponse;
 
-	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, Handler messageHandler, Animation refreshAnimation, String currentLocation, String currentResponse) {
+	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, Handler messageHandler, Animation refreshAnimation, String currentLocation) {
 		this.layoutComponents = layoutComponents;
 		this.list = list;
 		this.context = context;
@@ -49,7 +47,6 @@ public class UserFormDynamicSublistsPresenter {
 		this.messageHandler = messageHandler;
 		this.refreshAnimation = refreshAnimation;
 		this.currentLocation = currentLocation;
-		this.currentResponse = currentResponse;
 	}
 
 	public void present() {
@@ -111,9 +108,8 @@ public class UserFormDynamicSublistsPresenter {
 				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
 				
-				// User pin-ups request thread
-				Thread userPinUpsRequestThread = new Thread(new UserPinUpsRequestThread(messageHandler, currentResponse, user.getId()).getThread());
-				userPinUpsRequestThread.start();
+				// User pin-ups request task
+				new UserPinUpsTask(messageHandler, user.getId()).execute();
 			}
 		});
 	}

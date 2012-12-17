@@ -36,10 +36,10 @@ import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.UserLocalizationAdapter;
+import com.mapplas.app.async_tasks.UserPinUpsTask;
 import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
-import com.mapplas.app.threads.UserPinUpsRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -65,7 +65,7 @@ public class UserForm extends Activity {
 
 	private Uri mImageCaptureUri;
 
-	private String currentResponse = "";
+	public static String currentResponse = "";
 
 	private ListView listView = null;
 
@@ -86,15 +86,10 @@ public class UserForm extends Activity {
 		this.initLayoutComponents();
 
 		LinearLayout privateFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
-		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this.currentResponse, this, privateFooter, this.user, this.currentLocation);
+		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this, privateFooter, this.user, this.currentLocation);
 
 		// Request user pin-up's
-		try {
-			Thread th = new Thread(new UserPinUpsRequestThread(this.messageHandler, this.currentResponse, this.user.getId()).getThread());
-			th.start();
-		} catch (Exception exc) {
-			Log.i(this.getClass().getSimpleName(), "Action Get PinUps: " + exc);
-		}
+		new UserPinUpsTask(this.messageHandler, this.user.getId()).execute();
 
 		this.initializeButtonsAndItsBehaviour();
 
@@ -107,7 +102,7 @@ public class UserForm extends Activity {
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, privateFooter, privateFooterInfo, mPrivateRefreshIcon);
 
-		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation, this.currentResponse).present();
+		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation).present();
 
 		// Try to get image
 		ImageView imgUser = (ImageView)findViewById(R.id.imgUser);
@@ -323,7 +318,7 @@ public class UserForm extends Activity {
 						String message = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_LOGOUT + " (" + name + ":" + email + ")";
 						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, null, user, message).getThread());
 						activityRequestThread.start();
-						
+
 						// User edit request
 						Thread userEditRequestThread = new Thread(new UserEditRequestThread(user).getThread());
 						userEditRequestThread.start();

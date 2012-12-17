@@ -11,28 +11,26 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.UserLocalizationAdapter;
+import com.mapplas.app.activities.UserForm;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
 
 public class UserFormActivityMessageHandler {
-	
+
 	private ListView list;
-	
-	private String currentResponse;
-	
+
 	private Context context;
-	
+
 	private LinearLayout privateFooter;
-	
+
 	private User user;
-	
+
 	private String currentLocation;
-	
-	public UserFormActivityMessageHandler(ListView list, String currentResponse, Context context, LinearLayout privateFooter, User user, String currentLocation) {
+
+	public UserFormActivityMessageHandler(ListView list, Context context, LinearLayout privateFooter, User user, String currentLocation) {
 		this.list = list;
-		this.currentResponse = currentResponse;
 		this.context = context;
 		this.privateFooter = privateFooter;
 		this.user = user;
@@ -41,6 +39,7 @@ public class UserFormActivityMessageHandler {
 
 	@SuppressLint("HandlerLeak")
 	public Handler getHandler() {
+
 		Handler mHandler = new Handler() {
 
 			@Override
@@ -54,21 +53,21 @@ public class UserFormActivityMessageHandler {
 
 				switch (msg.what) {
 					case Constants.SYNESTH_USER_PINUPS_ID:
-						locs = jp.SimpleParseLocalizations(currentResponse);
+						locs = jp.SimpleParseLocalizations(UserForm.currentResponse);
 
 						ula2 = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.PINUP, user, currentLocation);
 						list.setAdapter(ula2);
 						break;
 
 					case Constants.SYNESTH_USER_LIKES_ID:
-						locs = jp.SimpleParseLocalizations(currentResponse);
+						locs = jp.SimpleParseLocalizations(UserForm.currentResponse);
 
 						ula2 = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.FAVOURITE, user, currentLocation);
 						list.setAdapter(ula2);
 						break;
 
 					case Constants.SYNESTH_USER_BLOCKS_ID:
-						locs = jp.SimpleParseLocalizations(currentResponse);
+						locs = jp.SimpleParseLocalizations(UserForm.currentResponse);
 
 						ula2 = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.BLOCK, user, currentLocation);
 						list.setAdapter(ula2);
@@ -76,7 +75,7 @@ public class UserFormActivityMessageHandler {
 				}
 			}
 		};
-		
+
 		return mHandler;
 	}
 
