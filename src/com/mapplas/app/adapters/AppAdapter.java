@@ -38,6 +38,9 @@ import com.mapplas.app.RatingDialog;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.threads.ActivityRequestThread;
+import com.mapplas.app.threads.LikeRequestThread;
+import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -408,25 +411,9 @@ public class AppAdapter extends ArrayAdapter<App> {
 						RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
 						myDialog.show();
 
-						if(anonLoc != null) {
-							try {
-								Thread th = new Thread(new Runnable() {
-
-									@Override
-									public void run() {
-										try {
-											NetRequests.ActivityRequest(currentLocation, "rate", anonLoc.getId() + "", user.getId() + "");
-										} catch (Exception e) {
-											Log.i(getClass().getSimpleName(), "Thread Action Rate: " + e);
-										}
-									}
-								});
-								th.start();
-
-							} catch (Exception exc) {
-								Log.i(getClass().getSimpleName(), "Action Rate: " + exc);
-							}
-						}
+						// Activity request action
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
+						activityRequestThread.start();
 					}
 				}
 			});
@@ -471,35 +458,23 @@ public class AppAdapter extends ArrayAdapter<App> {
 						v.invalidate();
 						list.invalidate();
 
-						try {
-							Thread th = new Thread(new Runnable() {
-
-								private final App privateLocalization = anonLoc;
-
-								@Override
-								public void run() {
-									try {
-										String action = "pin";
-										if(anonLoc.isAuxPin()) {
-											action = "unpin";
-											anonLoc.setAuxPin(false);
-										}
-										else {
-											action = "pin";
-											anonLoc.setAuxPin(true);
-										}
-										NetRequests.PinRequest(action, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-										NetRequests.ActivityRequest(currentLocation, "pin", privateLocalization.getId() + "", String.valueOf(user.getId()));
-									} catch (Exception e) {
-										Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
-									}
-								}
-							});
-							th.start();
-
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Action PinUp: " + exc);
+						
+						// Activity request thread
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
+						activityRequestThread.start();
+						
+						// Pin/unpin request
+						String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+						if(anonLoc.isAuxPin()) {
+							action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+							anonLoc.setAuxPin(false);
 						}
+						else {
+							anonLoc.setAuxPin(true);
+						}
+						
+						Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
+						pinRequestThread.start();
 					}
 
 				}
@@ -523,24 +498,9 @@ public class AppAdapter extends ArrayAdapter<App> {
 						sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 						context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
 
-						if(anonLoc != null) {
-							try {
-								Thread th = new Thread(new Runnable() {
-
-									@Override
-									public void run() {
-										try {
-											NetRequests.ActivityRequest(currentLocation, "share", anonLoc.getId() + "", String.valueOf(user.getId()));
-										} catch (Exception e) {
-											Log.i(getClass().getSimpleName(), "Thread Action Share: " + e);
-										}
-									}
-								});
-								th.start();
-							} catch (Exception exc) {
-								Log.i(getClass().getSimpleName(), "Action Share: " + exc);
-							}
-						}
+						// Activity request thread
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
+						activityRequestThread.start();
 					}
 
 				}
@@ -559,38 +519,21 @@ public class AppAdapter extends ArrayAdapter<App> {
 					myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
 
 						public void onClick(DialogInterface arg0, int arg1) {
-							try {
-								// Eliminamos el item de la lista
-								// vinner.setAnimation(fadeOutAnimation);
+						
 								vinner.startAnimation(fadeOutAnimation);
-
-								// LocalizationAdapter.this.remove(object)
-
-								Thread th = new Thread(new Runnable() {
-
-									@Override
-									public void run() {
-										try {
-
-											String auxuid = "0";
-											if(user != null) {
-												auxuid = String.valueOf(user.getId());
-											}
-
-											final String uid = auxuid;
-
-											NetRequests.LikeRequest("m", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-											NetRequests.ActivityRequest(currentLocation, "block", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
-										} catch (Exception e) {
-											Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
-										}
-									}
-								});
-								th.start();
-
-							} catch (Exception exc) {
-								Log.i(getClass().getSimpleName(), "Action PinUp: " + exc);
-							}
+								
+								// Activity request thread
+								Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
+								activityRequestThread.start();
+								
+								String uid = "0";
+								if(user != null) {
+									uid = String.valueOf(user.getId());
+								}
+								
+								// Block request thread
+								Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
+								likeRequestThread.start();	
 						}
 					});
 					myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {

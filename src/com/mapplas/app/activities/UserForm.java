@@ -37,13 +37,13 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.UserLocalizationAdapter;
 import com.mapplas.app.handlers.MessageHandlerFactory;
+import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
 import com.mapplas.app.threads.UserPinUpsRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
-import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
 import com.mapplas.utils.presenters.UserFormPresenter;
 
@@ -319,24 +319,14 @@ public class UserForm extends Activity {
 						TextView lblEmail = (TextView)findViewById(R.id.lblEmail);
 						lblEmail.setText(R.string.email_not_set);
 
-						try {
-							Thread th = new Thread(new Runnable() {
-
-								@Override
-								public void run() {
-									try {
-										NetRequests.ActivityRequest(currentLocation, "logout (" + name + ":" + email + ")", "0", user.getId() + "");
-										NetRequests.UserEditRequest("", "", user.getImei(), user.getId() + "");
-									} catch (Exception e) {
-										Log.i(getClass().getSimpleName(), "Thread Logout User: " + e);
-									}
-								}
-							});
-							th.start();
-
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Logout User: " + exc);
-						}
+						// Logout request
+						String message = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_LOGOUT + " (" + name + ":" + email + ")";
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, null, user, message).getThread());
+						activityRequestThread.start();
+						
+						// User edit request
+						Thread userEditRequestThread = new Thread(new UserEditRequestThread(user).getThread());
+						userEditRequestThread.start();
 					}
 
 				}).setNegativeButton(R.string.no, null).show();

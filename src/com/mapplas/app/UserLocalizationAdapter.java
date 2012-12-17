@@ -21,6 +21,10 @@ import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.threads.ActivityRequestThread;
+import com.mapplas.app.threads.LikeRequestThread;
+import com.mapplas.app.threads.PinRequestThread;
+import com.mapplas.app.threads.UnrateRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -194,13 +198,11 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 						@Override
 						public void onAnimationStart(Animation animation) {
 							// TODO Auto-generated method stub
-
 						}
 
 						@Override
 						public void onAnimationRepeat(Animation animation) {
 							// TODO Auto-generated method stub
-
 						}
 
 						@Override
@@ -208,93 +210,45 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 							items.remove(anonLoc);
 							UserLocalizationAdapter.this.notifyDataSetChanged();
 
-							final String uid = user.getId() + "";
+							String uid = String.valueOf(user.getId());
+							
+							Thread activityRequestThread = null;
 
 							switch (UserLocalizationAdapter.this.mType) {
 								case BLOCK:
-									try {
+									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
+									activityRequestThread.start();
+									
+									Thread blockRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
+									blockRequestThread.start();
 
-										Thread th = new Thread(new Runnable() {
-
-											@Override
-											public void run() {
-												try {
-													NetRequests.LikeRequest("mr", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(currentLocation, "unblock", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
-												} catch (Exception e) {
-													Log.i(getClass().getSimpleName(), "Thread Action unblock: " + e);
-												}
-											}
-										});
-										th.start();
-
-									} catch (Exception exc) {
-										Log.i(getClass().getSimpleName(), "Action unblock: " + exc);
-									}
 									break;
 
 								case FAVOURITE:
-									try {
-										Thread th = new Thread(new Runnable() {
-
-											@Override
-											public void run() {
-												try {
-													NetRequests.LikeRequest("pr", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(currentLocation, "unfavourite", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
-												} catch (Exception e) {
-													Log.i(getClass().getSimpleName(), "Thread Action favourite: " + e);
-												}
-											}
-										});
-										th.start();
-
-									} catch (Exception exc) {
-										Log.i(getClass().getSimpleName(), "Action Favourite: " + exc);
-									}
+									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNFAVOURITE).getThread());
+									activityRequestThread.start();
+									
+									Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE, anonLoc, uid).getThread());
+									likeRequestThread.start();
+						
 									break;
 
 								case PINUP:
-									try {
-										Thread th = new Thread(new Runnable() {
-
-											@Override
-											public void run() {
-												try {
-													NetRequests.PinRequest("unpin", Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(currentLocation, "unpin", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
-												} catch (Exception e) {
-													Log.i(getClass().getSimpleName(), "Thread Action PinUp: " + e);
-												}
-											}
-										});
-										th.start();
-
-									} catch (Exception exc) {
-										Log.i(getClass().getSimpleName(), "Action PinUp: " + exc);
-									}
+									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
+									activityRequestThread.start();
+									
+									Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
+									pinRequestThread.start();
+									
 									break;
 
 								case RATE:
-									try {
-
-										Thread th = new Thread(new Runnable() {
-
-											@Override
-											public void run() {
-												try {
-													NetRequests.UnrateRequest(anonLoc.getId() + "", uid);
-													NetRequests.ActivityRequest(currentLocation, "unrate", String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
-												} catch (Exception e) {
-													Log.i(getClass().getSimpleName(), "Thread Action unrate: " + e);
-												}
-											}
-										});
-										th.start();
-
-									} catch (Exception exc) {
-										Log.i(getClass().getSimpleName(), "Action rate: " + exc);
-									}
+									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNRATE).getThread());
+									activityRequestThread.start();
+									
+									Thread unrateRequestThread = new Thread(new UnrateRequestThread(anonLoc, uid).getThread());
+									unrateRequestThread.start();
+									
 									break;
 							}
 						}

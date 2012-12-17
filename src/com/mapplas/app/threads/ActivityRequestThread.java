@@ -10,7 +10,7 @@ public class ActivityRequestThread {
 
 	private String currentLocation;
 
-	private App app;
+	private App app = null;
 
 	private User user;
 	
@@ -29,7 +29,13 @@ public class ActivityRequestThread {
 			@Override
 			public void run() {
 				try {
-					NetRequests.ActivityRequest(currentLocation, action, String.valueOf(app.getId()), String.valueOf(user.getId()));
+					
+					String appId = "0";
+					if(app != null) {
+						appId = String.valueOf(app.getId());
+					}
+					
+					NetRequests.ActivityRequest(currentLocation, action, appId, String.valueOf(user.getId()));
 				} catch (Exception e) {
 					Log.i(getClass().getSimpleName(), "Thread Action " + action + " " + e);
 				}

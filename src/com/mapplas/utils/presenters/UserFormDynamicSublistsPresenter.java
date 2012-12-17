@@ -13,6 +13,9 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.UserLocalizationAdapter;
+import com.mapplas.app.threads.BlockRequestThread;
+import com.mapplas.app.threads.UserLikesRequestThread;
+import com.mapplas.app.threads.UserPinUpsRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
@@ -74,27 +77,10 @@ public class UserFormDynamicSublistsPresenter {
 
 				list.setAdapter(ula);
 
-				try {
-					Thread th = new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							try {
-								NetRequests.UserBlocksRequest(String.valueOf(user.getId()));
-								// mCurrentResponse =
-								// NetRequests.UserBlocksRequest(String.valueOf(user.getId()));
-								Message.obtain(messageHandler, Constants.SYNESTH_USER_BLOCKS_ID, null).sendToTarget();
-
-							} catch (Exception exc) {
-								Log.d(this.getClass().getSimpleName(), "Get Blocks", exc);
-							}
-
-						}
-					});
-					th.start();
-				} catch (Exception exc) {
-					Log.i(getClass().getSimpleName(), "Action Get Blocks: " + exc);
-				}
+				// Block request
+				Thread blockRequestThread = new Thread(new BlockRequestThread(user.getId()).getThread());
+				Message.obtain(messageHandler, Constants.SYNESTH_USER_BLOCKS_ID, null).sendToTarget();
+				blockRequestThread.start();
 			}
 		});
 	}
@@ -121,28 +107,10 @@ public class UserFormDynamicSublistsPresenter {
 
 				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
-
-				try {
-					Thread th = new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							try {
-								NetRequests.UserPinUpsRequest(user.getId() + "");
-								// mCurrentResponse =
-								// NetRequests.UserPinUpsRequest(MapplasActivity.GetModel().currentUser.getId()
-								// + "");
-								Message.obtain(messageHandler, Constants.SYNESTH_USER_PINUPS_ID, null).sendToTarget();
-
-							} catch (Exception exc) {
-								Log.d(this.getClass().getSimpleName(), "Get PinUps", exc);
-							}
-						}
-					});
-					th.start();
-				} catch (Exception exc) {
-					Log.i(getClass().getSimpleName(), "Action Get PinUps: " + exc);
-				}
+				
+				// User pin-ups request thread
+				Thread userPinUpsRequestThread = new Thread(new UserPinUpsRequestThread(messageHandler, user.getId()).getThread());
+				userPinUpsRequestThread.start();
 			}
 		});
 	}
@@ -168,28 +136,10 @@ public class UserFormDynamicSublistsPresenter {
 				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
 
-				try {
-					Thread th = new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							try {
-								// mCurrentResponse =
-								// NetRequests.UserLikesRequest(user.getId() +
-								// "");
-								NetRequests.UserLikesRequest(user.getId() + "");
-								Message.obtain(messageHandler, Constants.SYNESTH_USER_LIKES_ID, null).sendToTarget();
-
-							} catch (Exception exc) {
-								Log.d(this.getClass().getSimpleName(), "Get Likes", exc);
-							}
-
-						}
-					});
-					th.start();
-				} catch (Exception exc) {
-					Log.i(getClass().getSimpleName(), "Action Get Likes: " + exc);
-				}
+				// User-likes request
+				Thread userLikesRequestThread = new Thread(new UserLikesRequestThread(user.getId()).getThread());
+				Message.obtain(messageHandler, Constants.SYNESTH_USER_LIKES_ID, null).sendToTarget();
+				userLikesRequestThread.start();
 			}
 		});
 	}

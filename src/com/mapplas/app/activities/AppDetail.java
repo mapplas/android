@@ -228,7 +228,7 @@ public class AppDetail extends Activity {
 				uid = user.getId() + "";
 			}
 			try {
-				resp = NetRequests.ProblemRequest(name, AppDetail.this.app.getId() + "", uid);
+				resp = NetRequests.ProblemRequest(name, String.valueOf(AppDetail.this.app.getId()), uid);
 				Toast.makeText(AppDetail.this, resp, Toast.LENGTH_LONG).show();
 			} catch (Exception exc) {
 				Toast.makeText(AppDetail.this, exc.toString(), Toast.LENGTH_LONG).show();
@@ -325,26 +325,10 @@ public class AppDetail extends Activity {
 				}
 				open = !open;
 
-				final App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
-					try {
-						Thread th = new Thread(new Runnable() {
-
-							@Override
-							public void run() {
-								try {
-									NetRequests.ActivityRequest(currentLocation, "showcomments", anonLoc.getId() + "", user.getId() + "");
-								} catch (Exception e) {
-									Log.i(getClass().getSimpleName(), "Thread Action Start: " + e);
-								}
-							}
-						});
-						th.start();
-
-					} catch (Exception exc) {
-						Log.i(getClass().getSimpleName(), "Action Start: " + exc);
-					}
-				}
+				App anonLoc = (App)(v.getTag());
+				
+				Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHOW_COMMENTS).getThread());
+				activityRequestThread.start();
 			}
 		});
 
@@ -489,7 +473,7 @@ public class AppDetail extends Activity {
 						Intent appIntent = AppDetail.this.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
 						AppDetail.this.startActivity(appIntent);
 						try {
-							NetRequests.ActivityRequest(currentLocation, "start", anonLoc.getId() + "", user.getId() + "");
+							NetRequests.ActivityRequest(currentLocation, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_START, String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
 							finish();
 						} catch (Exception exc) {
 							Log.i(getClass().getSimpleName(), "Action Start: " + exc);
@@ -499,7 +483,7 @@ public class AppDetail extends Activity {
 						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
 						AppDetail.this.startActivity(browserIntent);
 						try {
-							NetRequests.ActivityRequest(currentLocation, "install", anonLoc.getId() + "", user.getId() + "");
+							NetRequests.ActivityRequest(currentLocation, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_INSTALL, String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
 						} catch (Exception exc) {
 							Log.i(getClass().getSimpleName(), "Action Install: " + exc);
 						}
@@ -520,26 +504,9 @@ public class AppDetail extends Activity {
 				if(anonLoc != null) {
 					ProblemDialog myDialog = new ProblemDialog(AppDetail.this, "", new OnReadyListenerProblem());
 					myDialog.show();
-
-					if(anonLoc != null) {
-						try {
-							Thread th = new Thread(new Runnable() {
-
-								@Override
-								public void run() {
-									try {
-										NetRequests.ActivityRequest(currentLocation, "problem", anonLoc.getId() + "", user.getId() + "");
-									} catch (Exception e) {
-										Log.i(getClass().getSimpleName(), "Thread Action Rate: " + e);
-									}
-								}
-							});
-							th.start();
-
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Action Problem: " + exc);
-						}
-					}
+					
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PROBLEM).getThread());
+					activityRequestThread.start();
 				}
 			}
 		});

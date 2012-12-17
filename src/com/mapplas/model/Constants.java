@@ -45,15 +45,25 @@ public class Constants {
 	// Notification Activity
 	public static final String MAPPLAS_NOTIFICATION_LIST = "com.mapplas.model.notification.array";
 	
-	// ACTIVITY REQUEST ACTIONS
+	// Activity request actions
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_START = "start";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_INSTALL = "install";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_PROBLEM = "problem";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_LOGOUT = "logout";
+
 	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_FAVOURITE = "favourite";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_UNFAVOURITE = "unfavourite";
 	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN = "pin";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN = "unpin";
 	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE = "share";
 	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK = "block";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK = "unblock";
 	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE = "rate";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_UNRATE = "unrate";
 	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_CALL = "call";
+	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_SHOW_COMMENTS = "showcomments";
 	
-	// PIN REQUEST CONSTANTS
+	// Pin-request constants
 	public static final String MAPPLAS_ACTIVITY_PIN_REQUEST_PIN = "pin";
 	public static final String MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN = "unpin";
 	
@@ -61,4 +71,6 @@ public class Constants {
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_LIKE = "p";
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE = "pr";
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK = "m";
+	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK = "mr";
+
 }
