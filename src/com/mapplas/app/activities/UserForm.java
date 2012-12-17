@@ -74,6 +74,10 @@ public class UserForm extends Activity {
 	private String currentLocation = "";
 
 	private Handler messageHandler = null;
+	
+	private LinearLayout privateFooter = null;
+	
+	private LinearLayout privateFooterInfo = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,6 @@ public class UserForm extends Activity {
 		this.initializeAnimations();
 		this.initLayoutComponents();
 
-		LinearLayout privateFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
 		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this, privateFooter, this.user, this.currentLocation);
 
 		// Request user pin-up's
@@ -98,9 +101,8 @@ public class UserForm extends Activity {
 		LinearLayout pinUpsLayout = (LinearLayout)findViewById(R.id.lytPinups);
 		LinearLayout ratesLayout = (LinearLayout)findViewById(R.id.lytRates);
 		LinearLayout likesLayout = (LinearLayout)findViewById(R.id.lytLikes);
-		LinearLayout privateFooterInfo = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
-		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, privateFooter, privateFooterInfo, mPrivateRefreshIcon);
+		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, this.privateFooter, this.privateFooterInfo, mPrivateRefreshIcon);
 
 		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation).present();
 
@@ -172,15 +174,15 @@ public class UserForm extends Activity {
 
 	private void initLayoutComponents() {
 		View header = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
-		LinearLayout mPrivateFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
-		LinearLayout mPrivateFooterInfo = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
-		ImageView mPrivateRefreshIcon = (ImageView)mPrivateFooter.findViewById(R.id.ivImage);
+		this.privateFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
+		this.privateFooterInfo = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
+		ImageView mPrivateRefreshIcon = (ImageView)this.privateFooter.findViewById(R.id.ivImage);
 		mPrivateRefreshIcon.startAnimation(refreshAnimation);
 
 		this.listView = (ListView)findViewById(R.id.lvList);
 		this.listView.addHeaderView(header);
-		this.listView.addFooterView(mPrivateFooter);
-		this.listView.addFooterView(mPrivateFooterInfo);
+		this.listView.addFooterView(this.privateFooter);
+		this.listView.addFooterView(this.privateFooterInfo);
 
 		// Set list adapter
 		UserLocalizationAdapter ula = new UserLocalizationAdapter(UserForm.this, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, this.user, this.currentLocation);
