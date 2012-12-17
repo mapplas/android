@@ -156,7 +156,7 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
-				intent.putExtra(Constants.MAPPLAS_NOTIFICATION_LIST, model.notificationList);
+				intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
 				MapplasActivity.this.startActivity(intent);
 			}
 		});

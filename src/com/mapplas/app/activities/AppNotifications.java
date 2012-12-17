@@ -1,7 +1,5 @@
 package com.mapplas.app.activities;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +11,8 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.NotificationAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.model.AppNotification;
 import com.mapplas.model.Constants;
+import com.mapplas.model.SuperModel;
 
 public class AppNotifications extends Activity {
 
@@ -22,8 +20,8 @@ public class AppNotifications extends Activity {
 	// private static final boolean mDebug = true;
 
 	private ListAdapter mListAdapter = null;
-
-	private ArrayList<AppNotification> notificationList = null;
+	
+	private SuperModel model = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,17 +47,16 @@ public class AppNotifications extends Activity {
 		});
 
 		ListView lv = (ListView)findViewById(R.id.lvLista);
-		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.notificationList);
+		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.model.notificationList, this.model);
 		lv.setAdapter(this.mListAdapter);
 
 	}
 
-	@SuppressWarnings("unchecked")
 	private void getDataFromBundle() {
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
-			if(bundle.containsKey(Constants.MAPPLAS_NOTIFICATION_LIST)) {
-				this.notificationList = (ArrayList<AppNotification>)bundle.getSerializable(Constants.MAPPLAS_NOTIFICATION_LIST);
+			if(bundle.containsKey(Constants.MAPPLAS_NOTIFICATION_MODEL)) {
+				this.model = (SuperModel)bundle.getSerializable(Constants.MAPPLAS_NOTIFICATION_MODEL);
 			}
 		}
 	}

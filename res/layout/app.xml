@@ -369,13 +369,13 @@
                     android:src="@drawable/ic_arrow_com" />
             </LinearLayout>
 
-            <com.synesth.app.SliderListView
+            <com.mapplas.app.SliderListView
                 android:id="@+id/lvComments"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:fadingEdgeLength="0dp"
                 android:footerDividersEnabled="false" >
-            </com.synesth.app.SliderListView>
+            </com.mapplas.app.SliderListView>
 
             <LinearLayout
                 android:id="@+id/lytDeveloper"

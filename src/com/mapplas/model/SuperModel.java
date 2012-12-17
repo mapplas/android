@@ -1,8 +1,11 @@
 package com.mapplas.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SuperModel {
+public class SuperModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public String currentLocation = "";
 
@@ -43,6 +46,15 @@ public class SuperModel {
 	public void ResetModel() {
 		this.ResetLocalizations();
 		this.ResetNotifications();
+	}
+	
+	public App getAppWithIdInList(int position) {
+		for(App currentApp : this.appList) {
+			if(currentApp.getId() == position) {
+				return currentApp;
+			}
+		}
+		return null;
 	}
 
 }

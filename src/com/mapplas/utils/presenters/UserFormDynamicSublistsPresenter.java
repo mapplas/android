@@ -38,8 +38,10 @@ public class UserFormDynamicSublistsPresenter {
 	private Animation refreshAnimation;
 	
 	private String currentLocation;
+	
+	private String currentResponse;
 
-	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, Handler messageHandler, Animation refreshAnimation, String currentLocation) {
+	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, Handler messageHandler, Animation refreshAnimation, String currentLocation, String currentResponse) {
 		this.layoutComponents = layoutComponents;
 		this.list = list;
 		this.context = context;
@@ -47,6 +49,7 @@ public class UserFormDynamicSublistsPresenter {
 		this.messageHandler = messageHandler;
 		this.refreshAnimation = refreshAnimation;
 		this.currentLocation = currentLocation;
+		this.currentResponse = currentResponse;
 	}
 
 	public void present() {
@@ -109,7 +112,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.setAdapter(ula);
 				
 				// User pin-ups request thread
-				Thread userPinUpsRequestThread = new Thread(new UserPinUpsRequestThread(messageHandler, user.getId()).getThread());
+				Thread userPinUpsRequestThread = new Thread(new UserPinUpsRequestThread(messageHandler, currentResponse, user.getId()).getThread());
 				userPinUpsRequestThread.start();
 			}
 		});

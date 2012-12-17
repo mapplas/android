@@ -90,7 +90,7 @@ public class UserForm extends Activity {
 
 		// Request user pin-up's
 		try {
-			Thread th = new Thread(new UserPinUpsRequestThread(this.messageHandler, this.user.getId()).getThread());
+			Thread th = new Thread(new UserPinUpsRequestThread(this.messageHandler, this.currentResponse, this.user.getId()).getThread());
 			th.start();
 		} catch (Exception exc) {
 			Log.i(this.getClass().getSimpleName(), "Action Get PinUps: " + exc);
@@ -107,7 +107,7 @@ public class UserForm extends Activity {
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, privateFooter, privateFooterInfo, mPrivateRefreshIcon);
 
-		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation).present();
+		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation, this.currentResponse).present();
 
 		// Try to get image
 		ImageView imgUser = (ImageView)findViewById(R.id.imgUser);

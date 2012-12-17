@@ -1,7 +1,10 @@
 package com.mapplas.model;
 
+import java.io.Serializable;
 
-public class Comment {
+public class Comment implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	// ---------------------------------------------------------------------------
 	// Properties
@@ -37,45 +40,49 @@ public class Comment {
 		this.idLocalization = idLocalization;
 	}
 
-//	public boolean FillLocalData() {
-//		this.auxLocalization = MapplasActivity.GetLocalizationById(this.idLocalization);
-//
-//		if(this.auxLocalization != null) {
-//			return true;
-//		}
-//
-//		return false;
-//	}
-//
-//	public boolean FillRemoteData() {
-//		try {
-//			String serverResponse = NetRequests.LocationIdRequest(MapplasActivity.GetModel().currentLocation, MapplasActivity.GetModel().currentUser.getId() + "", this.idLocalization + "");
-//
-//			JsonParser jp = new JsonParser();
-//			this.auxLocalization = jp.ParseLocalization(serverResponse);
-//		} catch (Exception exc) {
-//			return false;
-//		}
-//
-//		if(this.auxLocalization != null) {
-//			return true;
-//		}
-//
-//		return false;
-//	}
+	// public boolean FillLocalData() {
+	// this.auxLocalization =
+	// MapplasActivity.GetLocalizationById(this.idLocalization);
 	//
-//	public boolean FillData() {
-//		if(this.FillLocalData()) {
-//			return true;
-//		}
-//		else {
-//			if(this.FillRemoteData()) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
+	// if(this.auxLocalization != null) {
+	// return true;
+	// }
+	//
+	// return false;
+	// }
+	//
+	// public boolean FillRemoteData() {
+	// try {
+	// String serverResponse =
+	// NetRequests.LocationIdRequest(MapplasActivity.GetModel().currentLocation,
+	// MapplasActivity.GetModel().currentUser.getId() + "", this.idLocalization
+	// + "");
+	//
+	// JsonParser jp = new JsonParser();
+	// this.auxLocalization = jp.ParseLocalization(serverResponse);
+	// } catch (Exception exc) {
+	// return false;
+	// }
+	//
+	// if(this.auxLocalization != null) {
+	// return true;
+	// }
+	//
+	// return false;
+	// }
+	//
+	// public boolean FillData() {
+	// if(this.FillLocalData()) {
+	// return true;
+	// }
+	// else {
+	// if(this.FillRemoteData()) {
+	// return true;
+	// }
+	// }
+	//
+	// return false;
+	// }
 
 	public App getAuxLocalization() {
 		return auxLocalization;

@@ -15,7 +15,7 @@ import android.widget.ImageView.ScaleType;
 import app.mapplas.com.R;
 
 import com.mapplas.app.Resizer;
-import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.activities.AppDetail;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 
 public class ImageAdapter extends BaseAdapter {
@@ -36,7 +36,7 @@ public class ImageAdapter extends BaseAdapter {
 		context = c;
 		mParentGallery = gal;
 
-		((MapplasActivity)this.context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		((AppDetail)this.context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		// TypedArray a = c.obtainStyledAttributes(R.styleable.HelloGallery);
 		// mGalleryItemBackground =
 		// a.getResourceId(R.styleable.HelloGallery_android_galleryItemBackground,

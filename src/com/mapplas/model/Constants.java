@@ -43,7 +43,7 @@ public class Constants {
 	public static final String SYNESTH_DETAIL_CAMERA = "com.synesth.model.detail.camera";
 	
 	// Notification Activity
-	public static final String MAPPLAS_NOTIFICATION_LIST = "com.mapplas.model.notification.array";
+	public static final String MAPPLAS_NOTIFICATION_MODEL = "com.mapplas.model.notification.model";
 	
 	// Activity request actions
 	public static final String MAPPLAS_ACTIVITY_REQUEST_ACTION_START = "start";
