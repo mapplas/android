@@ -6,7 +6,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "notifications")
-public class Notification implements Serializable {
+public class Notification implements Serializable, Unit {
 
 	private static final long serialVersionUID = 1L;
 	
