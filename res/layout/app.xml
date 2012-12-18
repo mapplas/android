@@ -75,6 +75,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/app_detail_app_title_rating_layout"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_marginLeft="2dp"
