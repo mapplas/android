@@ -3,11 +3,12 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#f7f8f8"
-    android:orientation="vertical" >
+    android:orientation="vertical" >
+
     <RelativeLayout
         android:id="@+id/llInnerPtr"
         android:layout_width="fill_parent"
-        android:layout_height="128dp"       
+        android:layout_height="128dp"
         android:orientation="horizontal" >
 
         <ImageView
@@ -30,5 +31,5 @@
             android:textColor="#333333"
             android:textSize="14sp" />
     </RelativeLayout>
-	
+
 </LinearLayout>
