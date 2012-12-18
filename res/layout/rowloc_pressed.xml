@@ -2,29 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="72dp"
-    android:orientation="horizontal">
-    
+    android:orientation="horizontal" >
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
-        android:baselineAligned="false" >       
+        android:baselineAligned="false" >
+
         <LinearLayout
             android:id="@+id/lytPinup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:orientation="vertical" >
-            
+
             <ImageView
                 android:id="@+id/btnPinUp"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_pin_button" />
-            <TextView
+                android:src="@drawable/action_pin_button" />
+
+            <TextView
                 android:id="@+id/lblPinUp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -32,21 +34,23 @@
                 android:gravity="bottom|center_horizontal"
                 android:text="@string/pin_up"
                 android:textSize="9sp" />
+        </LinearLayout>
 
-        </LinearLayout>
         <LinearLayout
             android:id="@+id/lytRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:orientation="vertical" >
+            android:orientation="vertical" >
+
             <ImageView
                 android:id="@+id/btnRate"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/action_rate_button" />
-            <TextView
+                android:src="@drawable/action_rate_button" />
+
+            <TextView
                 android:id="@+id/lblRate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -54,8 +58,8 @@
                 android:gravity="bottom|center_horizontal"
                 android:text="@string/rate"
                 android:textSize="9sp" />
+        </LinearLayout>
 
-        </LinearLayout>
         <LinearLayout
             android:id="@+id/lytBlock"
             android:layout_width="wrap_content"
@@ -65,11 +69,11 @@
 
             <ImageView
                 android:id="@+id/btnBlock"
-                 android:layout_width="28dp"
+                android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_action_block" />
-
+
             <TextView
                 android:id="@+id/lblBlock"
                 android:layout_width="fill_parent"
@@ -78,21 +82,22 @@
                 android:gravity="bottom|center_horizontal"
                 android:text="@string/block"
                 android:textSize="9sp" />
-            
-        </LinearLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/lytShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:orientation="vertical" >
+            android:orientation="vertical" >
+
             <ImageView
                 android:id="@+id/btnShare"
-                 android:layout_width="28dp"
+                android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_action_share" />
-            
+
             <TextView
                 android:id="@+id/lblShare"
                 android:layout_width="fill_parent"
@@ -101,11 +106,10 @@
                 android:gravity="bottom|center_horizontal"
                 android:text="@string/share"
                 android:textSize="9sp" />
-
         </LinearLayout>
-        
-    </LinearLayout>
-    <Button
+    </LinearLayout>
+
+    <Button
         android:id="@+id/btnNav"
         style="@style/profileButton"
         android:layout_width="64dp"

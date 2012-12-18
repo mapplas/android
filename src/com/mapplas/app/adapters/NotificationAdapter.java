@@ -68,7 +68,7 @@ public class NotificationAdapter extends ArrayAdapter<AppNotification> {
 			tt.setText(DateUtils.FormatSinceDate(o.getDate(), o.getHour(), this.context));
 
 			ImageView iv = (ImageView)v.findViewById(R.id.imgLogo);
-			new DrawableBackgroundDownloader().loadDrawable(o.getAuxLocalization().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_refresh));
+			new DrawableBackgroundDownloader().loadDrawable(o.getAuxLocalization().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_template));
 
 			v.setOnClickListener(new View.OnClickListener() {
 
