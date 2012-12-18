@@ -27,12 +27,12 @@ public class JsonParser implements ISynesthParser{
 
 	@Override
 	public void ParseLocalizations(String input, SuperModel model, boolean append) {
-		model.ResetError();
+		model.resetError();
 		String jString = input;
 		
 		if(!append)
 		{
-			model.ResetModel();
+			model.resetModel();
 		}
 		
 		try {
@@ -126,7 +126,7 @@ public class JsonParser implements ISynesthParser{
 					
 					not.setAuxLocalization(loc);
 					
-					model.notificationList.add(not);
+					model.notificationList().add(not);
 				}
 				
 				auxArray = jArray.getJSONObject(i).getJSONArray("AuxComments");
@@ -163,12 +163,12 @@ public class JsonParser implements ISynesthParser{
 					loc.getAuxPhotos().add(pho);
 				}
 				
-				model.appList.add(loc);
+				model.appList().add(loc);
 			}
 			
 		} catch (Exception e) {
-			model.operationError = true;
-			model.errorText = e.getMessage();
+			model.setOperationError(true);
+			model.setErrorText(e.getMessage());
 			e.printStackTrace();
 		}
 	}

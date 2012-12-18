@@ -7,47 +7,127 @@ public class SuperModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public String currentLocation = "";
+	private String currentLocation = "";
 
-	public User currentUser = null;
+	private User currentUser = null;
 
-	public String currentRadius = "0.1";
+	private String currentRadius = "0.1";
 
-	public String currentIMEI = "";
+	private String currentIMEI = "";
 
-	public String currentDescriptiveGeoLoc = "";
+	private String currentDescriptiveGeoLoc = "";
 
-	public ArrayList<App> appList;
+	private ArrayList<App> appList;
 
-	public ArrayList<Notification> notificationList;
+	private ArrayList<Notification> notificationList;
 
-	public boolean operationError = false;
+	private boolean operationError = false;
 
-	public String errorText = "";
+	private String errorText = "";
 
 	public SuperModel() {
-		appList = new ArrayList<App>();
-		notificationList = new ArrayList<Notification>();
+		this.appList = new ArrayList<App>();
+		this.notificationList = new ArrayList<Notification>();
 	}
 
-	public void ResetError() {
+	/**
+	 * Getter and setters
+	 * 
+	 */
+	public String currentRadius() {
+		return currentRadius;
+	}
+
+	public void setCurrentRadius(String currentRadius) {
+		this.currentRadius = currentRadius;
+	}
+
+	public String currentDescriptiveGeoLoc() {
+		return currentDescriptiveGeoLoc;
+	}
+
+	public void setCurrentDescriptiveGeoLoc(String currentDescriptiveGeoLoc) {
+		this.currentDescriptiveGeoLoc = currentDescriptiveGeoLoc;
+	}
+
+	public ArrayList<App> appList() {
+		return appList;
+	}
+
+	public void setAppList(ArrayList<App> appList) {
+		this.appList = appList;
+	}
+
+	public boolean operationError() {
+		return operationError;
+	}
+
+	public void setOperationError(boolean operationError) {
+		this.operationError = operationError;
+	}
+
+	public String errorText() {
+		return errorText;
+	}
+
+	public void setErrorText(String errorText) {
+		this.errorText = errorText;
+	}
+
+	public String currentLocation() {
+		return currentLocation;
+	}
+	
+	public void setCurrentLocation(String string) {
+		this.currentLocation = string;	
+	}
+
+	public User currentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(User user) {
+		this.currentUser = user;
+	}
+
+	public String currentIMEI() {
+		return currentIMEI;
+	}
+
+	public void setCurrentIMEI(String imei) {
+		this.currentIMEI = imei;
+	}
+
+	public ArrayList<Notification> notificationList() {
+		return notificationList;
+	}
+
+	public void setNotificationList(ArrayList<Notification> list) {
+		this.notificationList = list;
+	}
+
+	/**
+	 * 
+	 */
+
+	public void resetError() {
 		this.operationError = false;
 		this.errorText = "";
 	}
 
-	public void ResetLocalizations() {
+	public void resetLocalizations() {
 		this.appList = new ArrayList<App>();
 	}
 
-	public void ResetNotifications() {
+	public void resetNotifications() {
 		this.notificationList = new ArrayList<Notification>();
 	}
 
-	public void ResetModel() {
-		this.ResetLocalizations();
-		this.ResetNotifications();
+	public void resetModel() {
+		this.resetLocalizations();
+		this.resetNotifications();
 	}
-	
+
 	public App getAppWithIdInList(int position) {
 		for(App currentApp : this.appList) {
 			if(currentApp.getId() == position) {

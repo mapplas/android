@@ -64,8 +64,8 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		String uid = "0";
 		String serverResponse = "";
 
-		if(this.model.currentUser != null) {
-			uid = this.model.currentUser.getId() + "";
+		if(this.model.currentUser() != null) {
+			uid = this.model.currentUser().getId() + "";
 		}
 
 		SharedPreferences sharedPreferences = this.context.getSharedPreferences("synesth", Context.MODE_PRIVATE);

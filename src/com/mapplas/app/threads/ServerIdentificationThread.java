@@ -20,13 +20,13 @@ public class ServerIdentificationThread {
 			@Override
 			public void run() {
 				try {
-					String response = NetRequests.UserIRequest(model.currentLocation, model.currentIMEI);
+					String response = NetRequests.UserIRequest(model.currentLocation(), model.currentIMEI());
 					JsonParser jp = new JsonParser();
 
-					model.currentUser = jp.ParseUser(response);
+					model.setCurrentUser(jp.ParseUser(response));
 
 				} catch (Exception e) {
-					model.currentUser = null;
+					model.setCurrentUser(null);
 					Log.d(this.getClass().getSimpleName(), "Login: " + e);
 				}
 			}

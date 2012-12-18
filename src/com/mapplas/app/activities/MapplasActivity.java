@@ -78,7 +78,7 @@ public class MapplasActivity extends Activity {
 		
 		// Obtenemos el IMEI como identificador (ANDROID_ID da problemas)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
-		this.model.currentIMEI = manager.getDeviceId();
+		this.model.setCurrentIMEI(manager.getDeviceId());
 
 		this.sharedPreferences = getApplicationContext().getSharedPreferences("synesth", Context.MODE_PRIVATE);
 		this.isSplashActive = true;
@@ -89,7 +89,7 @@ public class MapplasActivity extends Activity {
 			Thread serverIdentificationThread = new Thread(new ServerIdentificationThread(this.model).getThread());
 			serverIdentificationThread.run();
 		} catch (Exception e) {
-			this.model.currentUser = null;
+			this.model.setCurrentUser(null);
 			Log.d(this.getClass().getSimpleName(), "Login: " + e);
 		}
 
@@ -142,8 +142,8 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
-				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser);
-				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation);
+				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser());
+				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
 			}
@@ -187,7 +187,7 @@ public class MapplasActivity extends Activity {
 		});
 
 		// Set adapter
-		this.listViewAdapter = new AppAdapter(this, this.listView, R.layout.rowloc, this.model.appList, this.model.currentLocation, this.model.currentDescriptiveGeoLoc, this.model.currentUser);
+		this.listViewAdapter = new AppAdapter(this, this.listView, R.layout.rowloc, this.model.appList(), this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
 		this.listView.setAdapter(this.listViewAdapter);
 		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 
@@ -262,7 +262,7 @@ public class MapplasActivity extends Activity {
 						listViewHeaderStatusMessage.setText(R.string.location_done);
 						listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
-						model.currentLocation = location.getLatitude() + "," + location.getLongitude();
+						model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 
 						try {
 							locationManager.removeUpdates(locationListener);

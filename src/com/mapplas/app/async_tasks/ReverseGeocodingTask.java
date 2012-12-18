@@ -50,7 +50,7 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, V
 				// Update UI field with the exception.
 				Message.obtain(this.messageHandler, Constants.SYNESTH_MAIN_STATUS_ID, this.context.getString(R.string.unable_geoloc)).sendToTarget();
 
-				this.model.currentDescriptiveGeoLoc = "";
+				this.model.setCurrentDescriptiveGeoLoc("");
 			}
 		}
 		if(addresses != null && addresses.size() > 0) {
@@ -59,7 +59,7 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, V
 			// country name.
 			String addressText = String.format("%s, %s.", address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "", address.getLocality());
 
-			this.model.currentDescriptiveGeoLoc = addressText;
+			this.model.setCurrentDescriptiveGeoLoc(addressText);
 
 			// Update the UI via a message handler.
 			Message.obtain(this.messageHandler, Constants.SYNESTH_MAIN_STATUS_ID, addressText).sendToTarget();
