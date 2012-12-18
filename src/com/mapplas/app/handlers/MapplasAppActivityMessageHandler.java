@@ -32,9 +32,9 @@ public class MapplasAppActivityMessageHandler {
 	private AppAdapter listViewAdapter;
 
 	private AwesomeListView listView;
-	
+
 	private List<ApplicationInfo> applicationList;
-	
+
 	private MapplasActivity activity;
 
 	public MapplasAppActivityMessageHandler(TextView listViewHeaderStatusMessage, boolean isSplashActive, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, MapplasActivity activity) {
@@ -85,14 +85,10 @@ public class MapplasAppActivityMessageHandler {
 
 								@Override
 								public void onAnimationStart(Animation animation) {
-									// TODO Auto-generated method stub
-
 								}
 
 								@Override
 								public void onAnimationRepeat(Animation animation) {
-									// TODO Auto-generated method stub
-
 								}
 
 								@Override
@@ -154,7 +150,7 @@ public class MapplasAppActivityMessageHandler {
 			this.listViewAdapter.add(this.model.appList.get(i));
 		}
 	}
-	
+
 	private ApplicationInfo findApplicationInfo(String id) {
 		ApplicationInfo ret = null;
 

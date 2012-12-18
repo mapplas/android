@@ -53,11 +53,11 @@ public class AppAdapter extends ArrayAdapter<App> {
 	private ArrayList<App> items;
 
 	private Context context = null;
-	
+
 	private AwesomeListView list = null;
 
 	private String currentLocation;
-	
+
 	private String currentDescriptiveGeoLoc;
 
 	private User user = null;
@@ -123,19 +123,18 @@ public class AppAdapter extends ArrayAdapter<App> {
 		this.user = currentUser;
 
 		this.fadeOutAnimation = new AlphaAnimation(1, 0);
-		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and this
+		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
+																				// this
 		this.fadeOutAnimation.setStartOffset(0);
 		this.fadeOutAnimation.setDuration(500);
 		this.fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
@@ -145,7 +144,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 				}
 			}
 		});
-		
+
 		this.animFlipInNext = AnimationUtils.loadAnimation(this.context, R.anim.flipinnext);
 		this.animFlipOutNext = AnimationUtils.loadAnimation(this.context, R.anim.flipoutnext);
 		this.animFlipInPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipinprevious);
@@ -458,11 +457,10 @@ public class AppAdapter extends ArrayAdapter<App> {
 						v.invalidate();
 						list.invalidate();
 
-						
 						// Activity request thread
 						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
 						activityRequestThread.start();
-						
+
 						// Pin/unpin request
 						String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
 						if(anonLoc.isAuxPin()) {
@@ -472,7 +470,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 						else {
 							anonLoc.setAuxPin(true);
 						}
-						
+
 						Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
 						pinRequestThread.start();
 					}
@@ -519,21 +517,21 @@ public class AppAdapter extends ArrayAdapter<App> {
 					myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
 
 						public void onClick(DialogInterface arg0, int arg1) {
-						
-								vinner.startAnimation(fadeOutAnimation);
-								
-								// Activity request thread
-								Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
-								activityRequestThread.start();
-								
-								String uid = "0";
-								if(user != null) {
-									uid = String.valueOf(user.getId());
-								}
-								
-								// Block request thread
-								Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
-								likeRequestThread.start();	
+
+							vinner.startAnimation(fadeOutAnimation);
+
+							// Activity request thread
+							Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
+							activityRequestThread.start();
+
+							String uid = "0";
+							if(user != null) {
+								uid = String.valueOf(user.getId());
+							}
+
+							// Block request thread
+							Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
+							likeRequestThread.start();
 						}
 					});
 					myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {

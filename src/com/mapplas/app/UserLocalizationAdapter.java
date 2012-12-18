@@ -29,7 +29,6 @@ import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.utils.DrawableBackgroundDownloader;
-import com.mapplas.utils.NetRequests;
 
 public class UserLocalizationAdapter extends ArrayAdapter<App> {
 
@@ -46,9 +45,9 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 	private ArrayList<App> items;
 
 	private Context context = null;
-	
+
 	private User user = null;
-	
+
 	private String currentLocation = "";
 
 	private static Semaphore mSemaphore = new Semaphore(1);
@@ -107,14 +106,10 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -197,12 +192,10 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 
 						@Override
 						public void onAnimationStart(Animation animation) {
-							// TODO Auto-generated method stub
 						}
 
 						@Override
 						public void onAnimationRepeat(Animation animation) {
-							// TODO Auto-generated method stub
 						}
 
 						@Override
@@ -211,14 +204,14 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 							UserLocalizationAdapter.this.notifyDataSetChanged();
 
 							String uid = String.valueOf(user.getId());
-							
+
 							Thread activityRequestThread = null;
 
 							switch (UserLocalizationAdapter.this.mType) {
 								case BLOCK:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
 									activityRequestThread.start();
-									
+
 									Thread blockRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
 									blockRequestThread.start();
 
@@ -227,28 +220,28 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 								case FAVOURITE:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNFAVOURITE).getThread());
 									activityRequestThread.start();
-									
+
 									Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE, anonLoc, uid).getThread());
 									likeRequestThread.start();
-						
+
 									break;
 
 								case PINUP:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
 									activityRequestThread.start();
-									
+
 									Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
 									pinRequestThread.start();
-									
+
 									break;
 
 								case RATE:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNRATE).getThread());
 									activityRequestThread.start();
-									
+
 									Thread unrateRequestThread = new Thread(new UnrateRequestThread(anonLoc, uid).getThread());
 									unrateRequestThread.start();
-									
+
 									break;
 							}
 						}

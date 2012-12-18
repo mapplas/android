@@ -37,6 +37,7 @@ import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
+import com.mapplas.utils.static_intents.AppAdapterSingleton;
 
 public class MapplasActivity extends Activity {
 
@@ -187,7 +188,8 @@ public class MapplasActivity extends Activity {
 
 		// Set adapter
 		this.listViewAdapter = new AppAdapter(this, this.listView, R.layout.rowloc, this.model.appList, this.model.currentLocation, this.model.currentDescriptiveGeoLoc, this.model.currentUser);
-		this.listView.setAdapter(listViewAdapter);
+		this.listView.setAdapter(this.listViewAdapter);
+		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 
 		if(this.listView != null) {
 
