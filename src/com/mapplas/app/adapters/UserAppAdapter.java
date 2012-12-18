@@ -169,10 +169,10 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 			String strUrl = o.getAppLogo();
 			if(strUrl != "") {
-				new DrawableBackgroundDownloader().loadDrawable(strUrl, ivLogo, this.context.getResources().getDrawable(R.drawable.ic_refresh));
+				new DrawableBackgroundDownloader().loadDrawable(strUrl, ivLogo, this.context.getResources().getDrawable(R.drawable.ic_template));
 			}
 			else {
-				ivLogo.setImageResource(R.drawable.ic_refresh);
+				ivLogo.setImageResource(R.drawable.ic_template);
 			}
 
 			lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());

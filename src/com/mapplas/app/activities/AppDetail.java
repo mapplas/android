@@ -338,7 +338,7 @@ public class AppDetail extends Activity {
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
 		Bitmap bmp = null;
 
-		new DrawableBackgroundDownloader().loadDrawable(this.app.getAppLogo(), appLogo, this.getResources().getDrawable(R.drawable.ic_refresh));
+		new DrawableBackgroundDownloader().loadDrawable(this.app.getAppLogo(), appLogo, this.getResources().getDrawable(R.drawable.ic_template));
 
 		// App detail header text view
 		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);

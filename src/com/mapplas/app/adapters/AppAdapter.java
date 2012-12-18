@@ -283,7 +283,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 			final ImageView iv = (ImageView)v.findViewById(R.id.imgLogo);
 			iv.setTag(vf);
-			iv.setImageResource(R.drawable.ic_refresh);
+			iv.setImageResource(R.drawable.ic_template);
 
 			if(isNewView) {
 				iv.setOnClickListener(new View.OnClickListener() {
@@ -311,10 +311,10 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 			String strUrl = o.getAppLogo();
 			if(strUrl != "") {
-				new DrawableBackgroundDownloader().loadDrawable(strUrl, iv, this.context.getResources().getDrawable(R.drawable.ic_refresh));
+				new DrawableBackgroundDownloader().loadDrawable(strUrl, iv, this.context.getResources().getDrawable(R.drawable.ic_template));
 			}
 			else {
-				iv.setImageResource(R.drawable.ic_refresh);
+				iv.setImageResource(R.drawable.ic_template);
 			}
 
 			LinearLayout auxll = (LinearLayout)v.findViewById(R.id.id_rowloc_unpressed);
