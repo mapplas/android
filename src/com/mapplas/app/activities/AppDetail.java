@@ -10,8 +10,8 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -31,7 +31,6 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.ProblemDialog;
 import com.mapplas.app.RatingDialog;
-import com.mapplas.app.Resizer;
 import com.mapplas.app.SliderListView;
 import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.app.adapters.CommentAdapter;
@@ -281,8 +280,20 @@ public class AppDetail extends Activity {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
 
+		// Set stars
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
 		rbRating.setRating(this.app.getAuxTotalRate());
+		
+		// When tapping between app image and price, rating dialog is shown. (In app cathegory or static stars).
+		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
+		layout.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(), app.getAuxRate(), app.getAuxComment());
+				myDialog.show();
+			}
+		});
 
 		// Comments list
 		this.commentsListView = (SliderListView)findViewById(R.id.lvComments);
