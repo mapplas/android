@@ -16,21 +16,21 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.AppNotifications;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.model.AppNotification;
+import com.mapplas.model.Notification;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.DateUtils;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 
-public class NotificationAdapter extends ArrayAdapter<AppNotification> {
+public class NotificationAdapter extends ArrayAdapter<Notification> {
 
-	private ArrayList<AppNotification> items;
+	private ArrayList<Notification> items;
 
 	private Context context = null;
 
 	private SuperModel model = null;
 
-	public NotificationAdapter(Context context, int textViewResourceId, ArrayList<AppNotification> items, SuperModel model) {
+	public NotificationAdapter(Context context, int textViewResourceId, ArrayList<Notification> items, SuperModel model) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.context = context;
@@ -46,7 +46,7 @@ public class NotificationAdapter extends ArrayAdapter<AppNotification> {
 			v = vi.inflate(R.layout.rownot, null);
 		}
 
-		final AppNotification o = items.get(position);
+		final Notification o = items.get(position);
 		if(o != null) {
 			// TODO: check if can be commented
 			// int posList =

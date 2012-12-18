@@ -115,7 +115,7 @@ public class JsonParser implements ISynesthParser{
 				JSONArray auxArray = jArray.getJSONObject(i).getJSONArray("AuxNews");
 				for(int j = 0; j < auxArray.length(); j++)
 				{
-					AppNotification not = new AppNotification();
+					Notification not = new Notification();
 					not.setId(auxArray.getJSONObject(j).getInt("IDNewsfeed"));
 					not.setIdCompany(auxArray.getJSONObject(j).getInt("IDCompany"));
 					not.setIdLocalization(auxArray.getJSONObject(j).getInt("IDLocalization"));

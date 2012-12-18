@@ -19,7 +19,7 @@ public class SuperModel implements Serializable {
 
 	public ArrayList<App> appList;
 
-	public ArrayList<AppNotification> notificationList;
+	public ArrayList<Notification> notificationList;
 
 	public boolean operationError = false;
 
@@ -27,7 +27,7 @@ public class SuperModel implements Serializable {
 
 	public SuperModel() {
 		appList = new ArrayList<App>();
-		notificationList = new ArrayList<AppNotification>();
+		notificationList = new ArrayList<Notification>();
 	}
 
 	public void ResetError() {
@@ -40,7 +40,7 @@ public class SuperModel implements Serializable {
 	}
 
 	public void ResetNotifications() {
-		this.notificationList = new ArrayList<AppNotification>();
+		this.notificationList = new ArrayList<Notification>();
 	}
 
 	public void ResetModel() {

@@ -2,24 +2,37 @@ package com.mapplas.model;
 
 import java.io.Serializable;
 
-public class AppNotification implements Serializable {
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "notifications")
+public class Notification implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String TABLE_NAME = "notifications";
 
 	// ---------------------------------------------------------------------------
 	// Properties
+	@DatabaseField(id = true)
 	private int id = 0;
 
+	@DatabaseField
 	private int idCompany = 0;
 
+	@DatabaseField
 	private int idLocalization = 0;
 
+	@DatabaseField
 	private String name = "?";
 
+	@DatabaseField
 	private String description = "?";
 
+	@DatabaseField
 	private String date = "?";
 
+	@DatabaseField
 	private String hour = "?";
 
 	private App auxLocalization = null;
