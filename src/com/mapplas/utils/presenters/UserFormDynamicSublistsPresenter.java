@@ -12,7 +12,7 @@ import android.view.animation.Animation;
 import android.widget.ListView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.UserLocalizationAdapter;
+import com.mapplas.app.adapters.UserAppAdapter;
 import com.mapplas.app.async_tasks.UserPinUpsTask;
 import com.mapplas.app.threads.BlockRequestThread;
 import com.mapplas.app.threads.UserLikesRequestThread;
@@ -73,7 +73,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerLayout());
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, user, currentLocation);
 
 				list.setAdapter(ula);
 
@@ -105,7 +105,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
 				
 				// User pin-ups request task
@@ -132,7 +132,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
-				UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, user, currentLocation);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
 
 				// User-likes request
@@ -155,7 +155,7 @@ public class UserFormDynamicSublistsPresenter {
 
 					ArrayList<App> locs = jp.SimpleParseLocalizations(response);
 
-					UserLocalizationAdapter ula = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.RATE, user, currentLocation);
+					UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, locs, UserAppAdapter.RATE, user, currentLocation);
 
 					list.setAdapter(ula);
 

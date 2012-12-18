@@ -93,9 +93,9 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 					case Constants.SYNESTH_ROWLOC_IMAGE_ID:
 
-						String strUrl = (String)((Object[])msg.obj)[0];
+//						String strUrl = (String)((Object[])msg.obj)[0];
 						ImageView iv = (ImageView)((Object[])msg.obj)[1];
-						App o = (App)((Object[])msg.obj)[2];
+//						App o = (App)((Object[])msg.obj)[2];
 						Bitmap bmp = (Bitmap)((Object[])msg.obj)[3];
 
 						if(bmp != null && iv != null) {
@@ -559,7 +559,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 			if(!name.equals("CANCEL")) {
 				// Enviamos la nota por internet
 				String uid = "0";
-				String id = "0";
+//				String id = "0";
 				String resp = "";
 
 				if(user != null) {

@@ -10,7 +10,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -19,6 +18,13 @@ import com.mapplas.model.Constants;
 
 public class NetRequests {
 
+	/**
+	 * Unrate request
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String UnrateRequest(String id, String uid) throws Exception {
 		return NetRequests.UnrateRequest(Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
 	}
@@ -51,6 +57,12 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * User blocks request
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String UserBlocksRequest(String uid) throws Exception {
 		return NetRequests.UserBlocksRequest(Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid);
 	}
@@ -82,6 +94,12 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * User likes request
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String UserLikesRequest(String uid) throws Exception {
 		return NetRequests.UserLikesRequest(Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid);
 	}
@@ -113,6 +131,12 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * User rates request
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String UserRatesRequest(String uid) throws Exception {
 		return NetRequests.UserRatesRequest(Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid);
 	}
@@ -144,6 +168,12 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * User pin ups request
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String UserPinUpsRequest(String uid) throws Exception {
 		return NetRequests.UserPinUpsRequest(Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid);
 	}
@@ -175,6 +205,15 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * User edit request
+	 * @param name
+	 * @param email
+	 * @param imei
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String UserEditRequest(String name, String email, String imei, String uid) throws Exception {
 		return NetRequests.UserEditRequest(name, email, imei, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid);
 	}
@@ -209,6 +248,14 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Image request
+	 * @param image
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String ImageRequest(byte[] image, String id, String uid) throws Exception {
 		return NetRequests.ImageRequest(image, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
 	}
@@ -218,7 +265,7 @@ public class NetRequests {
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_image.php");
 
-		ByteArrayEntity bae = new ByteArrayEntity(image);
+//		ByteArrayEntity bae = new ByteArrayEntity(image);
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("v", Constants.SYNESTH_VERSION));
@@ -244,6 +291,14 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Problem request
+	 * @param problem
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String ProblemRequest(String problem, String id, String uid) throws Exception {
 		return NetRequests.ProblemRequest(problem, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
 	}
@@ -277,6 +332,17 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Rate request
+	 * @param rate
+	 * @param comment
+	 * @param currentLocation
+	 * @param currentDescriptiveGeoLoc
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String RateRequest(String rate, String comment, String currentLocation, String currentDescriptiveGeoLoc, String id, String uid) throws Exception {
 		return NetRequests.RateRequest(rate, comment, currentLocation, currentDescriptiveGeoLoc, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
 	}
@@ -313,6 +379,14 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Pin request
+	 * @param state
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String PinRequest(String state, String id, String uid) throws Exception {
 		return NetRequests.PinRequest(state, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
 	}
@@ -346,6 +420,14 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Like request
+	 * @param action
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String LikeRequest(String action, String id, String uid) throws Exception {
 		return NetRequests.LikeRequest(action, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
 	}
@@ -379,11 +461,19 @@ public class NetRequests {
 		return serverResponse;
 	}
 
-	public static String LocationsRequest(String location, String uid, String radius) throws Exception {
-		return NetRequests.LocationsRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid, radius);
+	/**
+	 * Apps request
+	 * @param location
+	 * @param uid
+	 * @param radius
+	 * @return
+	 * @throws Exception
+	 */
+	public static String AppsRequest(String location, String uid, String radius) throws Exception {
+		return NetRequests.AppsRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid, radius);
 	}
 
-	public static String LocationsRequest(String location, String serverIpAddress, int serverPort, String serverPath, String uid, String radius) throws Exception {
+	public static String AppsRequest(String location, String serverIpAddress, int serverPort, String serverPath, String uid, String radius) throws Exception {
 		String serverResponse = "";
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_locations.php");
@@ -411,12 +501,19 @@ public class NetRequests {
 
 		return serverResponse;
 	}
-
-	public static String LocationIdRequest(String location, String uid, String lid) throws Exception {
-		return NetRequests.LocationIdRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid, lid);
+	/**
+	 * App id request
+	 * @param location
+	 * @param uid
+	 * @param lid
+	 * @return
+	 * @throws Exception
+	 */
+	public static String AppIdRequest(String location, String uid, String lid) throws Exception {
+		return NetRequests.AppIdRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, uid, lid);
 	}
 
-	public static String LocationIdRequest(String location, String serverIpAddress, int serverPort, String serverPath, String uid, String lid) throws Exception {
+	public static String AppIdRequest(String location, String serverIpAddress, int serverPort, String serverPath, String uid, String lid) throws Exception {
 		String serverResponse = "";
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_location.php");
@@ -445,6 +542,14 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Hit request
+	 * @param location
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String HitRequest(String location, String id, String uid) throws Exception {
 		return NetRequests.HitRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
 	}
@@ -478,6 +583,15 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Activity request
+	 * @param location
+	 * @param action
+	 * @param id
+	 * @param uid
+	 * @return
+	 * @throws Exception
+	 */
 	public static String ActivityRequest(String location, String action, String id, String uid) throws Exception {
 		return NetRequests.ActivityRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, action, id, uid);
 	}
@@ -512,6 +626,13 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * UserI request
+	 * @param location
+	 * @param ii
+	 * @return
+	 * @throws Exception
+	 */
 	public static String UserIRequest(String location, String ii) throws Exception {
 		return NetRequests.UserIRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, ii);
 	}
@@ -544,6 +665,13 @@ public class NetRequests {
 		return serverResponse;
 	}
 
+	/**
+	 * Notifications request
+	 * @param location
+	 * @param ii
+	 * @return
+	 * @throws Exception
+	 */
 	public static String NotificationsRequest(String location, String ii) throws Exception {
 		return NetRequests.NotificationsRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, ii);
 	}

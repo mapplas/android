@@ -35,7 +35,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
-import com.mapplas.app.UserLocalizationAdapter;
+import com.mapplas.app.adapters.UserAppAdapter;
 import com.mapplas.app.async_tasks.UserPinUpsTask;
 import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.ActivityRequestThread;
@@ -185,7 +185,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(this.privateFooterInfo);
 
 		// Set list adapter
-		UserLocalizationAdapter ula = new UserLocalizationAdapter(UserForm.this, R.id.lblTitle, new ArrayList<App>(), UserLocalizationAdapter.BLOCK, this.user, this.currentLocation);
+		UserAppAdapter ula = new UserAppAdapter(UserForm.this, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, this.user, this.currentLocation);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview
