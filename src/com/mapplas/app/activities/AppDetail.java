@@ -33,6 +33,7 @@ import com.mapplas.app.ProblemDialog;
 import com.mapplas.app.RatingDialog;
 import com.mapplas.app.Resizer;
 import com.mapplas.app.SliderListView;
+import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.app.adapters.CommentAdapter;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
@@ -46,6 +47,7 @@ import com.mapplas.model.User;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
+import com.mapplas.utils.static_intents.AppAdapterSingleton;
 
 public class AppDetail extends Activity {
 
@@ -684,9 +686,11 @@ public class AppDetail extends Activity {
 
 								AppDetail.this.finish();
 								// Eliminamos el item de la lista
-								// TODO: find solution
-								// MapplasActivity.getLocalizationAdapter().remove(anonLoc);
-								// MapplasActivity.getLocalizationAdapter().notifyDataSetChanged();
+								
+								// TODO: improve solution
+								AppAdapter appAdapter = AppAdapterSingleton.appAdapter;
+								appAdapter.remove(anonLoc);
+								appAdapter.notifyDataSetChanged();
 
 							}
 						});

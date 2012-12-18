@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.UserLocalizationAdapter;
 import com.mapplas.app.activities.UserForm;
+import com.mapplas.app.adapters.UserAppAdapter;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
@@ -46,7 +46,7 @@ public class UserFormActivityMessageHandler {
 			public void handleMessage(Message msg) {
 
 				JsonParser jp = new JsonParser();
-				UserLocalizationAdapter ula2;
+				UserAppAdapter ula2;
 				ArrayList<App> locs;
 
 				list.removeFooterView(privateFooter);
@@ -55,21 +55,21 @@ public class UserFormActivityMessageHandler {
 					case Constants.SYNESTH_USER_PINUPS_ID:
 						locs = jp.SimpleParseLocalizations(UserForm.currentResponse);
 
-						ula2 = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.PINUP, user, currentLocation);
+						ula2 = new UserAppAdapter(context, R.id.lblTitle, locs, UserAppAdapter.PINUP, user, currentLocation);
 						list.setAdapter(ula2);
 						break;
 
 					case Constants.SYNESTH_USER_LIKES_ID:
 						locs = jp.SimpleParseLocalizations(UserForm.currentResponse);
 
-						ula2 = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.FAVOURITE, user, currentLocation);
+						ula2 = new UserAppAdapter(context, R.id.lblTitle, locs, UserAppAdapter.FAVOURITE, user, currentLocation);
 						list.setAdapter(ula2);
 						break;
 
 					case Constants.SYNESTH_USER_BLOCKS_ID:
 						locs = jp.SimpleParseLocalizations(UserForm.currentResponse);
 
-						ula2 = new UserLocalizationAdapter(context, R.id.lblTitle, locs, UserLocalizationAdapter.BLOCK, user, currentLocation);
+						ula2 = new UserAppAdapter(context, R.id.lblTitle, locs, UserAppAdapter.BLOCK, user, currentLocation);
 						list.setAdapter(ula2);
 						break;
 				}

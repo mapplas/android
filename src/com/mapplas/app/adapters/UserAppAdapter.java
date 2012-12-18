@@ -1,4 +1,4 @@
-package com.mapplas.app;
+package com.mapplas.app.adapters;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
@@ -29,9 +29,8 @@ import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.utils.DrawableBackgroundDownloader;
-import com.mapplas.utils.NetRequests;
 
-public class UserLocalizationAdapter extends ArrayAdapter<App> {
+public class UserAppAdapter extends ArrayAdapter<App> {
 
 	public static final int BLOCK = 0;
 
@@ -46,14 +45,14 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 	private ArrayList<App> items;
 
 	private Context context = null;
-	
+
 	private User user = null;
-	
+
 	private String currentLocation = "";
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
-	private static App mRateLoc = null;
+	// private static App mRateLoc = null;
 
 	private static App mBlockLoc = null;
 
@@ -66,14 +65,14 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 		public void handleMessage(Message msg) {
 
 			try {
-				UserLocalizationAdapter.mSemaphore.acquire();
+				UserAppAdapter.mSemaphore.acquire();
 				switch (msg.what) {
 
 					case Constants.SYNESTH_ROWLOC_IMAGE_ID:
 
-						String strUrl = (String)((Object[])msg.obj)[0];
+						// String strUrl = (String)((Object[])msg.obj)[0];
 						ImageView iv = (ImageView)((Object[])msg.obj)[1];
-						App o = (App)((Object[])msg.obj)[2];
+						// App o = (App)((Object[])msg.obj)[2];
 						Bitmap bmp = (Bitmap)((Object[])msg.obj)[3];
 
 						if(bmp != null && iv != null) {
@@ -83,14 +82,14 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 
 						break;
 				}
-				UserLocalizationAdapter.mSemaphore.release();
+				UserAppAdapter.mSemaphore.release();
 			} catch (Exception e) {
 				Log.i(this.getClass().getSimpleName(), "handleMessage: " + e);
 			}
 		}
 	};
 
-	public UserLocalizationAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation) {
+	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation) {
 		super(context, textViewResourceId, items);
 
 		this.context = context;
@@ -107,20 +106,16 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				if(UserLocalizationAdapter.mBlockLoc != null) {
-					UserLocalizationAdapter.this.remove(UserLocalizationAdapter.mBlockLoc);
+				if(UserAppAdapter.mBlockLoc != null) {
+					UserAppAdapter.this.remove(UserAppAdapter.mBlockLoc);
 				}
 			}
 		});
@@ -129,7 +124,7 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		boolean isNewView = false;
+		// boolean isNewView = false;
 		View v = convertView;
 
 		if(v == null) {
@@ -152,10 +147,10 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 					break;
 			}
 
-			isNewView = true;
+			// isNewView = true;
 		}
 		else {
-			isNewView = false;
+			// isNewView = false;
 		}
 
 		final View innerView = v;
@@ -191,34 +186,32 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 				@Override
 				public void onClick(View v) {
 					final App anonLoc = (App)v.getTag();
-					innerView.startAnimation(UserLocalizationAdapter.this.fadeOutAnimation);
+					innerView.startAnimation(UserAppAdapter.this.fadeOutAnimation);
 
-					UserLocalizationAdapter.this.fadeOutAnimation.setAnimationListener(new AnimationListener() {
+					UserAppAdapter.this.fadeOutAnimation.setAnimationListener(new AnimationListener() {
 
 						@Override
 						public void onAnimationStart(Animation animation) {
-							// TODO Auto-generated method stub
 						}
 
 						@Override
 						public void onAnimationRepeat(Animation animation) {
-							// TODO Auto-generated method stub
 						}
 
 						@Override
 						public void onAnimationEnd(Animation animation) {
 							items.remove(anonLoc);
-							UserLocalizationAdapter.this.notifyDataSetChanged();
+							UserAppAdapter.this.notifyDataSetChanged();
 
 							String uid = String.valueOf(user.getId());
-							
+
 							Thread activityRequestThread = null;
 
-							switch (UserLocalizationAdapter.this.mType) {
+							switch (UserAppAdapter.this.mType) {
 								case BLOCK:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
 									activityRequestThread.start();
-									
+
 									Thread blockRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
 									blockRequestThread.start();
 
@@ -227,28 +220,28 @@ public class UserLocalizationAdapter extends ArrayAdapter<App> {
 								case FAVOURITE:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNFAVOURITE).getThread());
 									activityRequestThread.start();
-									
+
 									Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE, anonLoc, uid).getThread());
 									likeRequestThread.start();
-						
+
 									break;
 
 								case PINUP:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
 									activityRequestThread.start();
-									
+
 									Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
 									pinRequestThread.start();
-									
+
 									break;
 
 								case RATE:
 									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNRATE).getThread());
 									activityRequestThread.start();
-									
+
 									Thread unrateRequestThread = new Thread(new UnrateRequestThread(anonLoc, uid).getThread());
 									unrateRequestThread.start();
-									
+
 									break;
 							}
 						}
