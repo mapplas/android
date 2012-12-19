@@ -6,33 +6,34 @@
     android:background="#f7f8f8"
     android:orientation="horizontal" >
 
-   <RelativeLayout
-    	android:layout_width="72dp"
-        android:layout_height="72dp">             
-        
-	    <ImageView
-	        android:id="@+id/imgLogo"
-	        android:layout_width="64dp"
-	        android:layout_height="64dp"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true"
-	        android:src="@drawable/ic_template" />    
+    <RelativeLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp" >
 
-	    <ImageView
-	        android:id="@+id/imgRonundC"
-	        android:layout_width="66dp"
-	        android:layout_height="66dp"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true"
-	        android:background="@drawable/roundc" />
-	    
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_template" />
+
+        <ImageView
+            android:id="@+id/imgRonundC"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/roundc" />
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:orientation="vertical" >
+
         <TextView
             android:id="@+id/lblTitle"
             android:layout_width="fill_parent"
@@ -41,11 +42,11 @@
             android:layout_marginTop="2dp"
             android:text="Title"
             android:textSize="18sp" />
-        
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
-
+
             <RatingBar
                 android:id="@+id/rbRatting"
                 style="@style/custom_rating_bar_small"
@@ -66,15 +67,14 @@
                 android:gravity="right"
                 android:text="date"
                 android:textSize="14sp" />
+        </LinearLayout>
 
-        </LinearLayout>        
         <TextView
             android:id="@+id/lblComment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Review"
             android:textSize="16sp" />
-
     </LinearLayout>
 
 </LinearLayout>

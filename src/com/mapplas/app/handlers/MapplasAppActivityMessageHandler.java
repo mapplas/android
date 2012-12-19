@@ -108,15 +108,15 @@ public class MapplasAppActivityMessageHandler {
 							refreshLocalizations();
 							listViewAdapter.notifyDataSetChanged();
 
-							for(int i = 0; i < model.appList.size(); i++) {
-								ApplicationInfo ai = findApplicationInfo(model.appList.get(i).getAppName());
+							for(int i = 0; i < model.appList().size(); i++) {
+								ApplicationInfo ai = findApplicationInfo(model.appList().get(i).getAppName());
 								if(ai != null) {
-									model.appList.get(i).setInternalApplicationInfo(ai);
+									model.appList().get(i).setInternalApplicationInfo(ai);
 								}
 							}
 
-							if(model.notificationList.size() > 0) {
-								notificationsButton.setText(model.notificationList.size() + "");
+							if(model.notificationList().size() > 0) {
+								notificationsButton.setText(model.notificationList().size() + "");
 								notificationsButton.setBackgroundResource(R.drawable.menu_notifications_number_button);
 							}
 							else {
@@ -127,10 +127,10 @@ public class MapplasAppActivityMessageHandler {
 							//
 							refreshLocalizations();
 
-							for(int i = 0; i < model.appList.size(); i++) {
-								ApplicationInfo appInfo = findApplicationInfo(model.appList.get(i).getAppName());
+							for(int i = 0; i < model.appList().size(); i++) {
+								ApplicationInfo appInfo = findApplicationInfo(model.appList().get(i).getAppName());
 								if(appInfo != null) {
-									model.appList.get(i).setInternalApplicationInfo(appInfo);
+									model.appList().get(i).setInternalApplicationInfo(appInfo);
 								}
 							}
 
@@ -146,8 +146,8 @@ public class MapplasAppActivityMessageHandler {
 	}
 
 	private void refreshLocalizations() {
-		for(int i = 0; i < this.model.appList.size(); i++) {
-			this.listViewAdapter.add(this.model.appList.get(i));
+		for(int i = 0; i < this.model.appList().size(); i++) {
+			this.listViewAdapter.add(this.model.appList().get(i));
 		}
 	}
 

@@ -151,7 +151,7 @@ public class UserFormDynamicSublistsPresenter {
 				// Obtain blocked items data
 				try {
 					String response = NetRequests.UserRatesRequest(user.getId() + "");
-					JsonParser jp = new JsonParser();
+					JsonParser jp = new JsonParser(context);
 
 					ArrayList<App> locs = jp.SimpleParseLocalizations(response);
 

@@ -13,6 +13,8 @@ import com.mapplas.app.adapters.NotificationAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
+import com.mapplas.model.database.repositories.NotificationRepository;
+import com.mapplas.model.database.repositories.RepositoryManager;
 
 public class AppNotifications extends Activity {
 
@@ -47,9 +49,12 @@ public class AppNotifications extends Activity {
 		});
 
 		ListView lv = (ListView)findViewById(R.id.lvLista);
-		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.model.notificationList, this.model);
+		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.model.notificationList().getList(), this.model);
 		lv.setAdapter(this.mListAdapter);
 
+		// Set notifications as shown
+		NotificationRepository notificationRepository = RepositoryManager.notifications(this);
+		notificationRepository.setNotificationsAsShown();
 	}
 
 	private void getDataFromBundle() {
