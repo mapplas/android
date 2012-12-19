@@ -124,8 +124,7 @@ public class MapplasAppActivityMessageHandler {
 								notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
 							}
 
-							//
-							refreshLocalizations();
+//							refreshLocalizations();
 
 							for(int i = 0; i < model.appList().size(); i++) {
 								ApplicationInfo appInfo = findApplicationInfo(model.appList().get(i).getAppName());
