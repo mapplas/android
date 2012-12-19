@@ -75,7 +75,7 @@ public class MapplasActivity extends Activity {
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
-		
+
 		// Obtenemos el IMEI como identificador (ANDROID_ID da problemas)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
@@ -102,14 +102,16 @@ public class MapplasActivity extends Activity {
 		this.setClickListenersToButtons(normalTypeFace);
 
 		this.loadApplicationsListView();
-		
+
 		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(listViewHeaderStatusMessage, isSplashActive, model, listViewAdapter, listView, applicationList, this);
 
 		this.loadLocalization();
-//		TODO: uncomment for emulator use
-//		Location location = new Location("");
-//		(new AppGetterTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
-//		(new ReverseGeocodingTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
+		// TODO: uncomment for emulator use
+		// Location location = new Location("");
+		// (new AppGetterTask(MapplasActivity.this, model,
+		// messageHandler)).execute(new Location[] { location });
+		// (new ReverseGeocodingTask(MapplasActivity.this, model,
+		// messageHandler)).execute(new Location[] { location });
 	}
 
 	/**
@@ -120,14 +122,15 @@ public class MapplasActivity extends Activity {
 
 	/**
 	 * Loads screen components
-	 * @param normalTypeFace 
+	 * 
+	 * @param normalTypeFace
 	 */
-	private void loadLayoutComponents(Typeface normalTypeFace) {		
+	private void loadLayoutComponents(Typeface normalTypeFace) {
 		this.listView = (AwesomeListView)findViewById(R.id.lvLista);
 
 		LayoutInflater inflater = this.getLayoutInflater();
 		LinearLayout headerLayout = (LinearLayout)inflater.inflate(R.layout.ptr_header, null);
-		
+
 		// ListView header status message
 		this.listViewHeaderStatusMessage = (TextView)headerLayout.findViewById(R.id.lblStatus);
 		listViewHeaderStatusMessage.setTypeface(normalTypeFace);
@@ -230,6 +233,7 @@ public class MapplasActivity extends Activity {
 	 */
 	private void loadLocalization() {
 		try {
+
 			if(this.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
 				this.locationListener = new LocationListener() {
@@ -262,6 +266,7 @@ public class MapplasActivity extends Activity {
 
 					@Override
 					public void onLocationChanged(Location location) {
+						locationManager.removeUpdates(locationListener);
 
 						listViewHeaderStatusMessage.setText(R.string.location_done);
 						listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
@@ -269,8 +274,6 @@ public class MapplasActivity extends Activity {
 						model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 
 						try {
-							locationManager.removeUpdates(locationListener);
-
 							listViewHeaderStatusMessage.setText(R.string.location_searching);
 							listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 

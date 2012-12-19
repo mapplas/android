@@ -40,7 +40,7 @@ public class UserFormPresenter {
 		lblEmail.setText(this.user.getEmail());
 		
 		if(this.user.getEmail().equals("")) {
-			lblName.setTag(R.string.email_not_set);
+			lblEmail.setText(R.string.email_not_set);
 		}
 
 		// Initialize name edit text field
