@@ -7,11 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.mapplas.model.database.repositories.NotificationRepository;
-import com.mapplas.model.database.repositories.RepositoryManager;
-import com.mapplas.utils.mappers.JsonToNotificationMapper;
+import com.mapplas.model.database.inserters.NotificationInserter;
 
 public class JsonParser {
 
@@ -109,34 +106,10 @@ public class JsonParser {
 				loc.setAuxTotalPins(jArray.getJSONObject(i).getInt("AuxTotalPins"));
 				loc.setAuxTotalComments(jArray.getJSONObject(i).getInt("AuxTotalComments"));
 
-				// Parse notifications
-				JsonToNotificationMapper notificationMapper = new JsonToNotificationMapper();
-				Notification notification = new Notification();
-				
-				NotificationRepository notificationsRepository = RepositoryManager.notifications(this.context);
-				boolean inserted = false;
-				
-				JSONArray auxArray = jArray.getJSONObject(i).getJSONArray("AuxNews");
-				for(int j = 0; j < auxArray.length(); j++) {
-					
-					JSONObject currentNotification = auxArray.getJSONObject(i);
-					notification = notificationMapper.map(currentNotification);
-					notification.setAuxLocalization(loc);
-
-					model.notificationList().add(notification);
-					
-					notificationsRepository.insertNotifications(notification);
-					inserted = true;
-					Log.d(this.getClass().getSimpleName(), "NOTIFICATION INSERTED. ID: " + notification.getId() + " NAME: " + notification.getName());
-				}
-				
-				if(inserted) {
-					notificationsRepository.createOrUpdateFlush();
-					Log.d(this.getClass().getSimpleName(), "NOTIFICATIONS FLUSHED");
-				}
+				new NotificationInserter(this.context).insert(jArray, i, loc, model);
 
 				// Parse comments
-				auxArray = jArray.getJSONObject(i).getJSONArray("AuxComments");
+				JSONArray auxArray = jArray.getJSONObject(i).getJSONArray("AuxComments");
 				for(int j = 0; j < auxArray.length(); j++) {
 					Comment com = new Comment();
 					com.setId(auxArray.getJSONObject(j).getInt("IDComment"));
