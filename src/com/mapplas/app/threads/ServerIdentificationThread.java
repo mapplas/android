@@ -1,5 +1,6 @@
 package com.mapplas.app.threads;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.mapplas.model.JsonParser;
@@ -9,9 +10,12 @@ import com.mapplas.utils.NetRequests;
 public class ServerIdentificationThread {
 
 	private SuperModel model;
+	
+	private Context context;
 
-	public ServerIdentificationThread(SuperModel model) {
+	public ServerIdentificationThread(SuperModel model, Context context) {
 		this.model = model;
+		this.context = context;
 	}
 
 	public Runnable getThread() {
@@ -21,7 +25,7 @@ public class ServerIdentificationThread {
 			public void run() {
 				try {
 					String response = NetRequests.UserIRequest(model.currentLocation(), model.currentIMEI());
-					JsonParser jp = new JsonParser();
+					JsonParser jp = new JsonParser(context);
 
 					model.setCurrentUser(jp.ParseUser(response));
 

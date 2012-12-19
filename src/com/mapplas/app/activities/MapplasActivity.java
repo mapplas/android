@@ -86,7 +86,7 @@ public class MapplasActivity extends Activity {
 
 		// Identificamos contra el servidor
 		try {
-			Thread serverIdentificationThread = new Thread(new ServerIdentificationThread(this.model).getThread());
+			Thread serverIdentificationThread = new Thread(new ServerIdentificationThread(this.model, this).getThread());
 			serverIdentificationThread.run();
 		} catch (Exception e) {
 			this.model.setCurrentUser(null);
@@ -106,6 +106,10 @@ public class MapplasActivity extends Activity {
 		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(listViewHeaderStatusMessage, isSplashActive, model, listViewAdapter, listView, applicationList, this);
 
 		this.loadLocalization();
+//		TODO: uncomment for emulator use
+//		Location location = new Location("");
+//		(new AppGetterTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
+//		(new ReverseGeocodingTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
 	}
 
 	/**

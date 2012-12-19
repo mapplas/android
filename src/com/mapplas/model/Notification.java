@@ -36,6 +36,12 @@ public class Notification implements Serializable, Unit {
 	private String hour = "?";
 
 	private App auxLocalization = null;
+	
+	@DatabaseField
+	private boolean seen = false;
+	
+	@DatabaseField
+	private boolean shown = false; 
 
 	public int getId() {
 		return id;
@@ -139,6 +145,22 @@ public class Notification implements Serializable, Unit {
 
 	public void setHour(String hour) {
 		this.hour = hour;
+	}
+
+	public boolean seen() {
+		return seen;
+	}
+
+	public void setSeen(boolean seen) {
+		this.seen = seen;
+	}
+
+	public boolean shown() {
+		return shown;
+	}
+
+	public void setShown(boolean shown) {
+		this.shown = shown;
 	}
 
 	// ---------------------------------------------------------------------------

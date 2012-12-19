@@ -22,7 +22,7 @@
         android:debuggable="true"
         android:icon="@drawable/ic_mapplas"
         android:label="@string/app_name"
-        android:largeHeap="true" >
+         >
         <activity
             android:name="com.mapplas.app.activities.MapplasActivity"
             android:label="@string/app_name"

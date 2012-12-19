@@ -45,7 +45,7 @@ public class UserFormActivityMessageHandler {
 			@Override
 			public void handleMessage(Message msg) {
 
-				JsonParser jp = new JsonParser();
+				JsonParser jp = new JsonParser(context);
 				UserAppAdapter ula2;
 				ArrayList<App> locs;
 
