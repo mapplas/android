@@ -49,7 +49,7 @@ public class AppNotifications extends Activity {
 		});
 
 		ListView lv = (ListView)findViewById(R.id.lvLista);
-		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.model.notificationList(), this.model);
+		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.model.notificationList().getList(), this.model);
 		lv.setAdapter(this.mListAdapter);
 
 		// Set notifications as shown

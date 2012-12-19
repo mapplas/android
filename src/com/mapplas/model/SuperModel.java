@@ -3,6 +3,8 @@ package com.mapplas.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.mapplas.model.notifications.NotificationList;
+
 public class SuperModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class SuperModel implements Serializable {
 
 	private ArrayList<App> appList;
 
-	private ArrayList<Notification> notificationList;
+	private NotificationList notificationList;
 
 	private boolean operationError = false;
 
@@ -27,7 +29,7 @@ public class SuperModel implements Serializable {
 
 	public SuperModel() {
 		this.appList = new ArrayList<App>();
-		this.notificationList = new ArrayList<Notification>();
+		this.notificationList = new NotificationList();
 	}
 
 	/**
@@ -98,11 +100,11 @@ public class SuperModel implements Serializable {
 		this.currentIMEI = imei;
 	}
 
-	public ArrayList<Notification> notificationList() {
+	public NotificationList notificationList() {
 		return notificationList;
 	}
 
-	public void setNotificationList(ArrayList<Notification> list) {
+	public void setNotificationList(NotificationList list) {
 		this.notificationList = list;
 	}
 
@@ -120,7 +122,7 @@ public class SuperModel implements Serializable {
 	}
 
 	public void resetNotifications() {
-		this.notificationList = new ArrayList<Notification>();
+		this.notificationList = new NotificationList();
 	}
 
 	public void resetModel() {

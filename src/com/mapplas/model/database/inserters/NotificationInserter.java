@@ -7,10 +7,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.mapplas.model.App;
-import com.mapplas.model.Notification;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
+import com.mapplas.model.notifications.Notification;
 import com.mapplas.utils.mappers.JsonToNotificationMapper;
 
 public class NotificationInserter {

@@ -6,9 +6,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
-import com.mapplas.model.Notification;
 import com.mapplas.model.database.DatabaseManager;
 import com.mapplas.model.database.NotificationDatabase;
+import com.mapplas.model.notifications.Notification;
 
 public class RepositoryManager {
 

@@ -106,6 +106,7 @@ public class JsonParser {
 				loc.setAuxTotalPins(jArray.getJSONObject(i).getInt("AuxTotalPins"));
 				loc.setAuxTotalComments(jArray.getJSONObject(i).getInt("AuxTotalComments"));
 
+				// Parse notifications
 				new NotificationInserter(this.context).insert(jArray, i, loc, model);
 
 				// Parse comments

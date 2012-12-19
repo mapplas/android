@@ -1,9 +1,11 @@
-package com.mapplas.model;
+package com.mapplas.model.notifications;
 
 import java.io.Serializable;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.mapplas.model.App;
+import com.mapplas.model.Unit;
 
 @DatabaseTable(tableName = "notifications")
 public class Notification implements Serializable, Unit {

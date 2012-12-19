@@ -16,11 +16,11 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.AppNotifications;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.model.Notification;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
+import com.mapplas.model.notifications.Notification;
 import com.mapplas.utils.DateUtils;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 

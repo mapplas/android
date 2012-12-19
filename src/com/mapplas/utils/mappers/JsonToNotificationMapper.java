@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.mapplas.model.Notification;
+import com.mapplas.model.notifications.Notification;
 import com.mapplas.utils.mappers.generic.GenericMapper;
 import com.mapplas.utils.mappers.generic.base.KeyValueMapper;
 import com.mapplas.utils.mappers.generic.base.KeyValueScapedMapper;

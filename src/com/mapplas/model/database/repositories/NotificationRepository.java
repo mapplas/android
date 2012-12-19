@@ -1,7 +1,6 @@
 package com.mapplas.model.database.repositories;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
@@ -10,9 +9,10 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.mapplas.model.App;
-import com.mapplas.model.Notification;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.base.Repository;
+import com.mapplas.model.notifications.Notification;
+import com.mapplas.model.notifications.NotificationList;
 
 public class NotificationRepository extends Repository {
 	
@@ -75,7 +75,7 @@ public class NotificationRepository extends Repository {
 			// Delete table
 			this.empty();
 			
-			ArrayList<Notification> appNotifications = new ArrayList<Notification>();
+			NotificationList appNotifications = new NotificationList();
 			// Insert elements in query to database table and model
 			for(Notification current : notificationList) {
 				current.setAuxLocalization(app);
