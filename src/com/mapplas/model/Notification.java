@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Notification implements Serializable, Unit {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final String TABLE_NAME = "notifications";
 
 	// ---------------------------------------------------------------------------
@@ -36,12 +36,12 @@ public class Notification implements Serializable, Unit {
 	private String hour = "?";
 
 	private App auxLocalization = null;
-	
+
 	@DatabaseField
-	private boolean seen = false;
-	
+	private int seen = 0;
+
 	@DatabaseField
-	private boolean shown = false; 
+	private int shown = 0;
 
 	public int getId() {
 		return id;
@@ -75,45 +75,49 @@ public class Notification implements Serializable, Unit {
 		this.description = description;
 	}
 
-//	public boolean FillLocalData() {
-//		this.auxLocalization = MapplasActivity.GetLocalizationById(this.idLocalization);
-//
-//		if(this.auxLocalization != null) {
-//			return true;
-//		}
-//
-//		return false;
-//	}
-//
-//	public boolean FillRemoteData() {
-//		try {
-//			String serverResponse = NetRequests.LocationIdRequest(MapplasActivity.GetModel().currentLocation, MapplasActivity.GetModel().currentUser.getId() + "", this.idLocalization + "");
-//
-//			JsonParser jp = new JsonParser();
-//			this.auxLocalization = jp.ParseLocalization(serverResponse);
-//		} catch (Exception exc) {
-//			return false;
-//		}
-//
-//		if(this.auxLocalization != null) {
-//			return true;
-//		}
-//
-//		return false;
-//	}
-//
-//	public boolean FillData() {
-//		if(this.FillLocalData()) {
-//			return true;
-//		}
-//		else {
-//			if(this.FillRemoteData()) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
+	// public boolean FillLocalData() {
+	// this.auxLocalization =
+	// MapplasActivity.GetLocalizationById(this.idLocalization);
+	//
+	// if(this.auxLocalization != null) {
+	// return true;
+	// }
+	//
+	// return false;
+	// }
+	//
+	// public boolean FillRemoteData() {
+	// try {
+	// String serverResponse =
+	// NetRequests.LocationIdRequest(MapplasActivity.GetModel().currentLocation,
+	// MapplasActivity.GetModel().currentUser.getId() + "", this.idLocalization
+	// + "");
+	//
+	// JsonParser jp = new JsonParser();
+	// this.auxLocalization = jp.ParseLocalization(serverResponse);
+	// } catch (Exception exc) {
+	// return false;
+	// }
+	//
+	// if(this.auxLocalization != null) {
+	// return true;
+	// }
+	//
+	// return false;
+	// }
+	//
+	// public boolean FillData() {
+	// if(this.FillLocalData()) {
+	// return true;
+	// }
+	// else {
+	// if(this.FillRemoteData()) {
+	// return true;
+	// }
+	// }
+	//
+	// return false;
+	// }
 
 	public int getIdCompany() {
 		return idCompany;
@@ -147,19 +151,19 @@ public class Notification implements Serializable, Unit {
 		this.hour = hour;
 	}
 
-	public boolean seen() {
+	public int seen() {
 		return seen;
 	}
 
-	public void setSeen(boolean seen) {
+	public void setSeen(int seen) {
 		this.seen = seen;
 	}
 
-	public boolean shown() {
+	public int shown() {
 		return shown;
 	}
 
-	public void setShown(boolean shown) {
+	public void setShown(int shown) {
 		this.shown = shown;
 	}
 
