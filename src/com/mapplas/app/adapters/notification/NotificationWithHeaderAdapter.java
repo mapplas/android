@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
+import com.mapplas.app.activities.AppDetail;
+import com.mapplas.app.activities.AppNotifications;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
@@ -151,6 +155,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 					cellHolder.description = (TextView)convertView.findViewById(R.id.lblDescription);
 
 					this.initializeNotificationCell(cellHolder, notification);
+					this.setClickListenerToView(convertView, notification);
 
 					convertView.setTag(cellHolder);
 
@@ -252,6 +257,32 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 			}
 		}
 		return null;
+	}
+	
+	private void setClickListenerToView(View view, final Notification notification) {
+		view.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				// Set notification as seen
+				NotificationRepository notificationRepository = RepositoryManager.notifications(context);
+				notificationRepository.setNotificationAsSeen(notification.getId());
+
+				// Intent to app detail activity
+				Intent intent = new Intent(context, AppDetail.class);
+
+				int appPosition = notification.getIdLocalization();
+				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, model.getAppWithIdInList(appPosition));
+				intent.putExtra(Constants.MAPPLAS_DETAIL_USER, model.currentUser());
+				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, model.currentLocation());
+				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, model.currentDescriptiveGeoLoc());
+
+				((AppNotifications)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
+			}
+		});
+
+		// TODO: Carga asincrona de las imágenes en un hilo
 	}
 
 }
