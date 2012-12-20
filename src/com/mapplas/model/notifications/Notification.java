@@ -37,7 +37,7 @@ public class Notification implements Serializable, Unit {
 	@DatabaseField
 	private String hour = "";
 
-	private App auxLocalization = null;
+	private App auxApp = null;
 
 	@DatabaseField
 	private int seen = 0;
@@ -139,12 +139,12 @@ public class Notification implements Serializable, Unit {
 		this.idCompany = idCompany;
 	}
 
-	public App getAuxLocalization() {
-		return auxLocalization;
+	public App getAuxApp() {
+		return auxApp;
 	}
 
-	public void setAuxLocalization(App auxLocalization) {
-		this.auxLocalization = auxLocalization;
+	public void setAuxApp(App auxApp) {
+		this.auxApp = auxApp;
 	}
 
 	public String getDate() {

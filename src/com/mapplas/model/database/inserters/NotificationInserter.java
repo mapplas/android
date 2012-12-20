@@ -37,7 +37,7 @@ public class NotificationInserter {
 
 				JSONObject currentNotification = auxArray.getJSONObject(j);
 				notification = notificationMapper.map(currentNotification);
-				notification.setAuxLocalization(app);
+				notification.setAuxApp(app);
 				notification.setArrivalTimestamp(currentTimestamp);
 				notification.setCurrentLocation(model.currentLocation());
 

@@ -71,7 +71,7 @@ public class NotificationRepository extends Repository {
 		try {
 			// Get first 100 notifications ordered by date
 			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
-			queryBuilder.selectColumns("id", "idCompany", "idLocalization", "name", "description", "date", "hour", "seen", "shown").orderBy("date", false).limit((long)NotificationRepository.MAX_NOTIFICATIONS_IN_TABLE);
+			queryBuilder.selectColumns("id", "idCompany", "idLocalization", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation").orderBy("date", false).limit((long)NotificationRepository.MAX_NOTIFICATIONS_IN_TABLE);
 			List<Notification> notificationList = this.getDao().query(queryBuilder.prepare());
 
 			// Delete table
@@ -80,7 +80,7 @@ public class NotificationRepository extends Repository {
 			NotificationList appNotifications = new NotificationList();
 			// Insert elements in query to database table and model
 			for(Notification current : notificationList) {
-				current.setAuxLocalization(app);
+				current.setAuxApp(app);
 				this.insertNotifications(current);
 
 				appNotifications.add(current);
@@ -101,14 +101,7 @@ public class NotificationRepository extends Repository {
 	@SuppressWarnings("unchecked")
 	public LinkedHashMap<Long, ArrayList<Notification>> getNotificationsSeparatedByLocation() {
 		// Get different timestamp sorted from newer to older
-		ArrayList<Notification> listOfNotificationsTimestamps = null;
-		try {
-			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
-			queryBuilder.distinct().selectColumns("arrivalTimestamp").orderBy("arrivalTimestamp", false);
-			listOfNotificationsTimestamps = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());			
-		} catch (SQLException e) {
-			Log.e(this.getClass().getName(), e.getMessage(), e);
-		}
+		ArrayList<Notification> listOfNotificationsTimestamps = getNotificationTimestampList();
 
 		// Get ArrayLists of notifications for each diferent timestamp
 		LinkedHashMap<Long, ArrayList<Notification>> notificationData = new LinkedHashMap<Long, ArrayList<Notification>>();
@@ -119,7 +112,7 @@ public class NotificationRepository extends Repository {
 		for(Notification currentNotification : listOfNotificationsTimestamps) {
 			currentNotificationTimestamp = currentNotification.arrivalTimestamp();
 			try {
-				queryBuilder.selectColumns().where().eq("arrivalTimestamp", currentNotificationTimestamp);
+				queryBuilder.selectColumns("id", "idCompany", "idApp", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation").where().eq("arrivalTimestamp", currentNotificationTimestamp);
 				listOfNotifications = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());
 				
 				notificationData.put(currentNotificationTimestamp, listOfNotifications);
@@ -131,4 +124,21 @@ public class NotificationRepository extends Repository {
 		return notificationData;
 	}
 
+	public ArrayList<Notification> getTimestamps() {
+		return this.getNotificationTimestampList();
+	}
+
+	@SuppressWarnings("unchecked")
+	private ArrayList<Notification> getNotificationTimestampList() {
+		ArrayList<Notification> listOfNotificationsTimestamps = null;
+		try {
+			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
+			queryBuilder.distinct().selectColumns("arrivalTimestamp").orderBy("arrivalTimestamp", false);
+			listOfNotificationsTimestamps = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());			
+		} catch (SQLException e) {
+			Log.e(this.getClass().getName(), e.getMessage(), e);
+		}
+		return listOfNotificationsTimestamps;
+	}
+	
 }
