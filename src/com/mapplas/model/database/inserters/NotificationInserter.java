@@ -24,7 +24,7 @@ public class NotificationInserter {
 		this.notificationsRepository = RepositoryManager.notifications(this.context);
 	}
 
-	public void insert(JSONArray jArray, int i, App app, SuperModel model) {
+	public void insert(JSONArray jArray, int i, App app, SuperModel model, long currentTimestamp) {
 		// Parse notifications
 		JsonToNotificationMapper notificationMapper = new JsonToNotificationMapper();
 		Notification notification = new Notification();
@@ -38,6 +38,8 @@ public class NotificationInserter {
 				JSONObject currentNotification = auxArray.getJSONObject(j);
 				notification = notificationMapper.map(currentNotification);
 				notification.setAuxLocalization(app);
+				notification.setArrivalTimestamp(currentTimestamp);
+				notification.setCurrentLocation(model.currentLocation());
 
 				model.notificationList().add(notification);
 

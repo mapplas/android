@@ -32,6 +32,8 @@ public class JsonParser {
 
 		try {
 			jArray = new JSONArray(jString);
+			
+			long currentTimestamp = System.currentTimeMillis();
 
 			for(int i = 0; i < jArray.length(); i++) {
 				App loc = new App();
@@ -107,7 +109,7 @@ public class JsonParser {
 				loc.setAuxTotalComments(jArray.getJSONObject(i).getInt("AuxTotalComments"));
 
 				// Parse notifications
-				new NotificationInserter(this.context).insert(jArray, i, loc, model);
+				new NotificationInserter(this.context).insert(jArray, i, loc, model, currentTimestamp);
 
 				// Parse comments
 				JSONArray auxArray = jArray.getJSONObject(i).getJSONArray("AuxComments");

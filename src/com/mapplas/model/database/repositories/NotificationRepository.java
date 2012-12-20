@@ -1,6 +1,8 @@
 package com.mapplas.model.database.repositories;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import android.util.Log;
@@ -15,7 +17,7 @@ import com.mapplas.model.notifications.Notification;
 import com.mapplas.model.notifications.NotificationList;
 
 public class NotificationRepository extends Repository {
-	
+
 	public static int MAX_NOTIFICATIONS_IN_TABLE = 50;
 
 	public NotificationRepository(Dao<Notification, Integer> dao, String tableName) {
@@ -74,26 +76,59 @@ public class NotificationRepository extends Repository {
 
 			// Delete table
 			this.empty();
-			
+
 			NotificationList appNotifications = new NotificationList();
 			// Insert elements in query to database table and model
 			for(Notification current : notificationList) {
 				current.setAuxLocalization(app);
 				this.insertNotifications(current);
-				
+
 				appNotifications.add(current);
 			}
-			
+
 			model.setNotificationList(appNotifications);
 
 			// Load changes into db
 			this.createOrUpdateFlush();
-			
+
 		} catch (SQLException e) {
 			Log.e(this.getClass().getName(), e.getMessage(), e);
 		} catch (Exception e) {
 			Log.e(this.getClass().getName(), e.getMessage(), e);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public LinkedHashMap<Long, ArrayList<Notification>> getNotificationsSeparatedByLocation() {
+		// Get different timestamp sorted from newer to older
+		ArrayList<Notification> listOfNotificationsTimestamps = null;
+		try {
+			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
+			queryBuilder.distinct().selectColumns("arrivalTimestamp").orderBy("arrivalTimestamp", false);
+			listOfNotificationsTimestamps = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());			
+		} catch (SQLException e) {
+			Log.e(this.getClass().getName(), e.getMessage(), e);
+		}
+
+		// Get ArrayLists of notifications for each diferent timestamp
+		LinkedHashMap<Long, ArrayList<Notification>> notificationData = new LinkedHashMap<Long, ArrayList<Notification>>();
+		ArrayList<Notification> listOfNotifications = new ArrayList<Notification>();
+		QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
+		long currentNotificationTimestamp = 0;
+		
+		for(Notification currentNotification : listOfNotificationsTimestamps) {
+			currentNotificationTimestamp = currentNotification.arrivalTimestamp();
+			try {
+				queryBuilder.selectColumns().where().eq("arrivalTimestamp", currentNotificationTimestamp);
+				listOfNotifications = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());
+				
+				notificationData.put(currentNotificationTimestamp, listOfNotifications);
+			} catch (SQLException e) {
+				Log.e(this.getClass().getName(), e.getMessage(), e);
+			}
+		}
+		
+		return notificationData;
 	}
 
 }

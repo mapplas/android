@@ -23,19 +23,19 @@ public class Notification implements Serializable, Unit {
 	private int idCompany = 0;
 
 	@DatabaseField
-	private int idLocalization = 0;
+	private int idApp = 0;
 
 	@DatabaseField
-	private String name = "?";
+	private String name = "";
 
 	@DatabaseField
-	private String description = "?";
+	private String description = "";
 
 	@DatabaseField
-	private String date = "?";
+	private String date = "";
 
 	@DatabaseField
-	private String hour = "?";
+	private String hour = "";
 
 	private App auxLocalization = null;
 
@@ -44,6 +44,16 @@ public class Notification implements Serializable, Unit {
 
 	@DatabaseField
 	private int shown = 0;
+
+	@DatabaseField
+	private long arrivalTimestamp = 0;
+
+	@DatabaseField
+	private String currentLocation = "";
+	
+	// Needed by ormlite
+	public Notification() {
+	}
 
 	public int getId() {
 		return id;
@@ -54,11 +64,11 @@ public class Notification implements Serializable, Unit {
 	}
 
 	public int getIdLocalization() {
-		return idLocalization;
+		return idApp;
 	}
 
 	public void setIdLocalization(int idLocalization) {
-		this.idLocalization = idLocalization;
+		this.idApp = idLocalization;
 	}
 
 	public String getName() {
@@ -167,6 +177,22 @@ public class Notification implements Serializable, Unit {
 
 	public void setShown(int shown) {
 		this.shown = shown;
+	}
+
+	public long arrivalTimestamp() {
+		return arrivalTimestamp;
+	}
+
+	public void setArrivalTimestamp(long arrivalTimestamp) {
+		this.arrivalTimestamp = arrivalTimestamp;
+	}
+
+	public String currentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
 	}
 
 	// ---------------------------------------------------------------------------
