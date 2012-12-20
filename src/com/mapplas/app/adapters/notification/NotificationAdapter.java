@@ -1,4 +1,4 @@
-package com.mapplas.app.adapters;
+package com.mapplas.app.adapters.notification;
 
 import java.util.ArrayList;
 

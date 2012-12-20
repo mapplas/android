@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.NotificationWithHeaderAdapter;
+import com.mapplas.app.adapters.notification.NotificationWithHeaderAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;

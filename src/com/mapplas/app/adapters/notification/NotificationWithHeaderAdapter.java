@@ -1,4 +1,4 @@
-package com.mapplas.app.adapters;
+package com.mapplas.app.adapters.notification;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -32,7 +32,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 	private static final int TYPE_MAX_COUNT = 2;
 
 	private Context context;
-	
+
 	private SuperModel model;
 
 	private LayoutInflater inflater;
@@ -42,6 +42,34 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 	// 0 if it is not separator / 1 if it is separator
 	private ArrayList<Integer> separatorSet = new ArrayList<Integer>();
 
+	/**
+	 * ViewHolders for eficient listViews
+	 * 
+	 */
+	public static class NotificationCellHolder {
+
+		ImageView logo;
+
+		ImageView logoRoundCorner;
+
+		TextView title;
+
+		TextView date;
+
+		TextView description;
+	}
+
+	public static class NotificationHeaderHolder {
+
+		TextView location;
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param context
+	 * @param model
+	 */
 	public NotificationWithHeaderAdapter(Context context, SuperModel model) {
 		this.context = context;
 		this.model = model;
@@ -65,7 +93,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 	@Override
 	public Notification getItem(int position) {
 		Notification notification = null;
-		
+
 		int itemType = this.separatorSet.get(position);
 		int myCounter = 0;
 
@@ -103,30 +131,57 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = convertView;
-		int type = getItemViewType(position);
+		NotificationCellHolder cellHolder;
+		NotificationHeaderHolder headerHolder;
 
+		int type = this.getItemViewType(position);
 		Notification notification = this.getItem(position);
 
 		if(convertView == null) {
 			switch (type) {
 				case TYPE_ITEM:
-					view = this.inflater.inflate(R.layout.rownot, null);
-					this.initializeNotificationCell(view, notification);
+
+					cellHolder = new NotificationCellHolder();
+					convertView = this.inflater.inflate(R.layout.rownot, null);
+
+					cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
+					cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
+					cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+					cellHolder.date = (TextView)convertView.findViewById(R.id.lblDate);
+					cellHolder.description = (TextView)convertView.findViewById(R.id.lblDescription);
+
+					this.initializeNotificationCell(cellHolder, notification);
+
+					convertView.setTag(cellHolder);
+
 					break;
 
 				case TYPE_SEPARATOR:
-					view = this.inflater.inflate(R.layout.rownotheader, null);
-					this.initializeNotificationHeaderCell(view, notification);
+
+					headerHolder = new NotificationHeaderHolder();
+					convertView = this.inflater.inflate(R.layout.rownotheader, null);
+
+					headerHolder.location = (TextView)convertView.findViewById(R.id.rownote_header_title);
+
+					this.initializeNotificationHeaderCell(headerHolder, notification);
+
+					convertView.setTag(headerHolder);
+
 					break;
 			}
-			view.setTag(convertView);
 		}
 		else {
-			view = (View)convertView.getTag();
-		}
+			switch (type) {
+				case TYPE_ITEM:
+					cellHolder = (NotificationCellHolder)convertView.getTag();
+					break;
 
-		return view;
+				case TYPE_SEPARATOR:
+					headerHolder = (NotificationHeaderHolder)convertView.getTag();
+					break;
+			}
+		}
+		return convertView;
 	}
 
 	@Override
@@ -157,33 +212,28 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		}
 	}
 
-	private void initializeNotificationCell(View view, Notification notification) {
+	private void initializeNotificationCell(NotificationCellHolder cellHolder, Notification notification) {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 
-		TextView tt = (TextView)view.findViewById(R.id.lblTitle);
-		tt.setText(notification.getName());
-		tt.setTypeface(normalTypeface);
+		cellHolder.title.setText(notification.getName());
+		cellHolder.title.setTypeface(normalTypeface);
 
-		tt = (TextView)view.findViewById(R.id.lblDescription);
-		tt.setTypeface(normalTypeface);
-		tt.setText(notification.getDescription());
+		cellHolder.description.setTypeface(normalTypeface);
+		cellHolder.description.setText(notification.getDescription());
 
-		tt = (TextView)view.findViewById(R.id.lblDate);
-		tt.setTypeface(normalTypeface);
-		tt.setText(DateUtils.FormatSinceDate(notification.getDate(), notification.getHour(), this.context));
+		cellHolder.date.setTypeface(normalTypeface);
+		cellHolder.date.setText(DateUtils.FormatSinceDate(notification.getDate(), notification.getHour(), this.context));
 
-		ImageView iv = (ImageView)view.findViewById(R.id.imgLogo);
-		new DrawableBackgroundDownloader().loadDrawable(notification.getAuxApp().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_template));
+		new DrawableBackgroundDownloader().loadDrawable(notification.getAuxApp().getAppLogo(), cellHolder.logo, this.context.getResources().getDrawable(R.drawable.ic_template));
 	}
 
-	private void initializeNotificationHeaderCell(View view, Notification notification) {
+	private void initializeNotificationHeaderCell(NotificationHeaderHolder headerHolder, Notification notification) {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 
-		TextView tt = (TextView)view.findViewById(R.id.rownote_header_title);
-		tt.setText(notification.currentLocation());
-		tt.setTypeface(normalTypeface);
+		headerHolder.location.setText(notification.currentLocation());
+		headerHolder.location.setTypeface(normalTypeface);
 	}
-	
+
 	private void setAuxAppToNotifications() {
 		for(Map.Entry<Long, ArrayList<Notification>> entry : this.mData.entrySet()) {
 			ArrayList<Notification> value = entry.getValue();
@@ -194,7 +244,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		}
 	}
 
-	private App searchAppWithId(int appId) {		
+	private App searchAppWithId(int appId) {
 		ArrayList<App> appList = this.model.appList();
 		for(App currentApp : appList) {
 			if(currentApp.getId() == appId) {
