@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="20dp"
-    android:background="#FF0000"
+    android:background="#D3D9E3"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/rownote_header_title"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:textColor="#ffffff"
-        android:layout_marginLeft="10dp"
+        android:lines="1"
+        android:textColor="#333333"
         android:textSize="15sp" >
+
     </TextView>
 
 </LinearLayout>
