@@ -1,15 +1,18 @@
 package com.mapplas.model.notifications;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
-public class NotificationComparator implements Comparator<Notification>, Serializable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class NotificationComparator implements Comparator<Notification>, Parcelable {
 
 	// Return options
 	// 1 - Notif1 newer
 	// 2 - Notif2 newer
-
-	private static final long serialVersionUID = 1L;
+	
+	public NotificationComparator() {
+	}
 
 	@Override
 	public int compare(Notification notif1, Notification notif2) {
@@ -75,4 +78,31 @@ public class NotificationComparator implements Comparator<Notification>, Seriali
 		}
 	}
 
+	/**
+	 * Parcelable methods
+	 */
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+	}
+
+	public NotificationComparator(Parcel parcel) {
+	}
+
+	public static final Parcelable.Creator<NotificationComparator> CREATOR = new Parcelable.Creator<NotificationComparator>() {
+
+		@Override
+		public NotificationComparator createFromParcel(Parcel source) {
+			return new NotificationComparator(source);
+		}
+
+		@Override
+		public NotificationComparator[] newArray(int size) {
+			return new NotificationComparator[size];
+		}
+	};
 }

@@ -41,61 +41,61 @@ public class JsonParser {
 				loc.setName(jArray.getJSONObject(i).getString("Name"));
 				loc.setLatitude(jArray.getJSONObject(i).getDouble("Latitude"));
 				loc.setLongitude(jArray.getJSONObject(i).getDouble("Longitude"));
-				loc.setAddress(jArray.getJSONObject(i).getString("Address"));
-				loc.setZipCode(jArray.getJSONObject(i).getString("ZipCode"));
-				loc.setState(jArray.getJSONObject(i).getString("State"));
-				loc.setCity(jArray.getJSONObject(i).getString("City"));
-				loc.setCountry(jArray.getJSONObject(i).getString("Country"));
+//				loc.setAddress(jArray.getJSONObject(i).getString("Address"));
+//				loc.setZipCode(jArray.getJSONObject(i).getString("ZipCode"));
+//				loc.setState(jArray.getJSONObject(i).getString("State"));
+//				loc.setCity(jArray.getJSONObject(i).getString("City"));
+//				loc.setCountry(jArray.getJSONObject(i).getString("Country"));
 
 				loc.setType(jArray.getJSONObject(i).getString("Type"));
 
-				loc.setIdCompany(jArray.getJSONObject(i).getInt("IDCompany"));
+//				loc.setIdCompany(jArray.getJSONObject(i).getInt("IDCompany"));
+//
+//				loc.setOfferId(jArray.getJSONObject(i).getInt("OfferID"));
+//				loc.setOfferName(jArray.getJSONObject(i).getString("OfferName"));
+//				loc.setOfferLogo(jArray.getJSONObject(i).getString("OfferLogo"));
+//				loc.setOfferLogoMini(jArray.getJSONObject(i).getString("OfferLogoMini"));
+//				loc.setOfferURL(jArray.getJSONObject(i).getString("OfferURL"));
+//				loc.setOfferText(jArray.getJSONObject(i).getString("OfferText"));
 
-				loc.setOfferId(jArray.getJSONObject(i).getInt("OfferID"));
-				loc.setOfferName(jArray.getJSONObject(i).getString("OfferName"));
-				loc.setOfferLogo(jArray.getJSONObject(i).getString("OfferLogo"));
-				loc.setOfferLogoMini(jArray.getJSONObject(i).getString("OfferLogoMini"));
-				loc.setOfferURL(jArray.getJSONObject(i).getString("OfferURL"));
-				loc.setOfferText(jArray.getJSONObject(i).getString("OfferText"));
+//				loc.setUrlId(jArray.getJSONObject(i).getInt("URLID"));
+//				loc.setUrlName(jArray.getJSONObject(i).getString("URLName"));
+//				loc.setUrlLogo(jArray.getJSONObject(i).getString("URLLogo"));
+//				loc.setUrlLogoMini(jArray.getJSONObject(i).getString("URLLogoMini"));
+//				loc.setUrlValue(jArray.getJSONObject(i).getString("URLValue"));
+//				loc.setUrlText(jArray.getJSONObject(i).getString("URLText"));
 
-				loc.setUrlId(jArray.getJSONObject(i).getInt("URLID"));
-				loc.setUrlName(jArray.getJSONObject(i).getString("URLName"));
-				loc.setUrlLogo(jArray.getJSONObject(i).getString("URLLogo"));
-				loc.setUrlLogoMini(jArray.getJSONObject(i).getString("URLLogoMini"));
-				loc.setUrlValue(jArray.getJSONObject(i).getString("URLValue"));
-				loc.setUrlText(jArray.getJSONObject(i).getString("URLText"));
-
-				loc.setAppId(jArray.getJSONObject(i).getInt("AppID"));
+//				loc.setAppId(jArray.getJSONObject(i).getInt("AppID"));
 				loc.setAppName(jArray.getJSONObject(i).getString("AppName"));
 				loc.setAppLogo(jArray.getJSONObject(i).getString("AppLogo"));
 				loc.setAppLogoMini(jArray.getJSONObject(i).getString("AppLogoMini"));
 				loc.setAppUrl(jArray.getJSONObject(i).getString("AppURL"));
 				loc.setAppDescription(jArray.getJSONObject(i).getString("AppDescription"));
-				loc.setAppType(jArray.getJSONObject(i).getString("AppType"));
+//				loc.setAppType(jArray.getJSONObject(i).getString("AppType"));
 
-				loc.setUserAlarmId(jArray.getJSONObject(i).getInt("UserAlarmID"));
-				loc.setUserAlarmName(jArray.getJSONObject(i).getString("UserAlarmName"));
+//				loc.setUserAlarmId(jArray.getJSONObject(i).getInt("UserAlarmID"));
+//				loc.setUserAlarmName(jArray.getJSONObject(i).getString("UserAlarmName"));
+//
+//				loc.setUserUrlId(jArray.getJSONObject(i).getInt("UserURLID"));
+//				loc.setUserUrlTags(jArray.getJSONObject(i).getString("UserURLTags"));
+//				loc.setUserUrlComment(jArray.getJSONObject(i).getString("UserURLComment"));
+//				loc.setUserUrlPhoto(jArray.getJSONObject(i).getString("UserURLPhoto"));
+//				loc.setUserUrlValue(jArray.getJSONObject(i).getString("UserURLValue"));
+//				loc.setUserUrlDescription(jArray.getJSONObject(i).getString("UserURLDescription"));
+//
+//				loc.setIdUser(jArray.getJSONObject(i).getInt("IDUser"));
 
-				loc.setUserUrlId(jArray.getJSONObject(i).getInt("UserURLID"));
-				loc.setUserUrlTags(jArray.getJSONObject(i).getString("UserURLTags"));
-				loc.setUserUrlComment(jArray.getJSONObject(i).getString("UserURLComment"));
-				loc.setUserUrlPhoto(jArray.getJSONObject(i).getString("UserURLPhoto"));
-				loc.setUserUrlValue(jArray.getJSONObject(i).getString("UserURLValue"));
-				loc.setUserUrlDescription(jArray.getJSONObject(i).getString("UserURLDescription"));
-
-				loc.setIdUser(jArray.getJSONObject(i).getInt("IDUser"));
-
-				loc.setRadius(jArray.getJSONObject(i).getDouble("Radius"));
+//				loc.setRadius(jArray.getJSONObject(i).getDouble("Radius"));
 
 				loc.setPhone(jArray.getJSONObject(i).getString("Phone"));
-				loc.setWifi(jArray.getJSONObject(i).getString("Wifi"));
-				loc.setBluetooth(jArray.getJSONObject(i).getString("Bluetooth"));
-				loc.setLocation(jArray.getJSONObject(i).getString("Location"));
+//				loc.setWifi(jArray.getJSONObject(i).getString("Wifi"));
+//				loc.setBluetooth(jArray.getJSONObject(i).getString("Bluetooth"));
+//				loc.setLocation(jArray.getJSONObject(i).getString("Location"));
 
 				loc.setAppPrice((float)jArray.getJSONObject(i).getDouble("AppPrice"));
 
-				loc.setAuxPlus(jArray.getJSONObject(i).getInt("AuxPlus"));
-				loc.setAuxMinus(jArray.getJSONObject(i).getInt("AuxMinus"));
+//				loc.setAuxPlus(jArray.getJSONObject(i).getInt("AuxPlus"));
+//				loc.setAuxMinus(jArray.getJSONObject(i).getInt("AuxMinus"));
 
 				loc.setAuxFavourite(jArray.getJSONObject(i).getBoolean("AuxFavourite"));
 
@@ -123,7 +123,7 @@ public class JsonParser {
 					com.setRate((float)auxArray.getJSONObject(j).getDouble("Rate"));
 					com.setIdUser(auxArray.getJSONObject(j).getInt("IDUser"));
 
-					com.setAuxLocalization(loc);
+//					com.setAuxLocalization(loc);
 
 					loc.getAuxComments().add(com);
 				}
@@ -139,7 +139,7 @@ public class JsonParser {
 					pho.setPhoto(auxArray.getJSONObject(j).getString("Photo"));
 					pho.setIdUser(auxArray.getJSONObject(j).getInt("IDUser"));
 
-					pho.setAuxLocalization(loc);
+//					pho.setAuxLocalization(loc);
 
 					loc.getAuxPhotos().add(pho);
 				}
@@ -283,56 +283,56 @@ public class JsonParser {
 				loc.setName(jArray.getJSONObject(i).getString("Name"));
 				loc.setLatitude(jArray.getJSONObject(i).getDouble("Latitude"));
 				loc.setLongitude(jArray.getJSONObject(i).getDouble("Longitude"));
-				loc.setAddress(jArray.getJSONObject(i).getString("Address"));
-				loc.setZipCode(jArray.getJSONObject(i).getString("ZipCode"));
-				loc.setState(jArray.getJSONObject(i).getString("State"));
-				loc.setCity(jArray.getJSONObject(i).getString("City"));
-				loc.setCountry(jArray.getJSONObject(i).getString("Country"));
+//				loc.setAddress(jArray.getJSONObject(i).getString("Address"));
+//				loc.setZipCode(jArray.getJSONObject(i).getString("ZipCode"));
+//				loc.setState(jArray.getJSONObject(i).getString("State"));
+//				loc.setCity(jArray.getJSONObject(i).getString("City"));
+//				loc.setCountry(jArray.getJSONObject(i).getString("Country"));
 
 				loc.setType(jArray.getJSONObject(i).getString("Type"));
 
-				loc.setIdCompany(jArray.getJSONObject(i).getInt("IDCompany"));
+//				loc.setIdCompany(jArray.getJSONObject(i).getInt("IDCompany"));
+//
+//				loc.setOfferId(jArray.getJSONObject(i).getInt("OfferID"));
+//				loc.setOfferName(jArray.getJSONObject(i).getString("OfferName"));
+//				loc.setOfferLogo(jArray.getJSONObject(i).getString("OfferLogo"));
+//				loc.setOfferLogoMini(jArray.getJSONObject(i).getString("OfferLogoMini"));
+//				loc.setOfferURL(jArray.getJSONObject(i).getString("OfferURL"));
+//				loc.setOfferText(jArray.getJSONObject(i).getString("OfferText"));
 
-				loc.setOfferId(jArray.getJSONObject(i).getInt("OfferID"));
-				loc.setOfferName(jArray.getJSONObject(i).getString("OfferName"));
-				loc.setOfferLogo(jArray.getJSONObject(i).getString("OfferLogo"));
-				loc.setOfferLogoMini(jArray.getJSONObject(i).getString("OfferLogoMini"));
-				loc.setOfferURL(jArray.getJSONObject(i).getString("OfferURL"));
-				loc.setOfferText(jArray.getJSONObject(i).getString("OfferText"));
+//				loc.setUrlId(jArray.getJSONObject(i).getInt("URLID"));
+//				loc.setUrlName(jArray.getJSONObject(i).getString("URLName"));
+//				loc.setUrlLogo(jArray.getJSONObject(i).getString("URLLogo"));
+//				loc.setUrlLogoMini(jArray.getJSONObject(i).getString("URLLogoMini"));
+//				loc.setUrlValue(jArray.getJSONObject(i).getString("URLValue"));
+//				loc.setUrlText(jArray.getJSONObject(i).getString("URLText"));
 
-				loc.setUrlId(jArray.getJSONObject(i).getInt("URLID"));
-				loc.setUrlName(jArray.getJSONObject(i).getString("URLName"));
-				loc.setUrlLogo(jArray.getJSONObject(i).getString("URLLogo"));
-				loc.setUrlLogoMini(jArray.getJSONObject(i).getString("URLLogoMini"));
-				loc.setUrlValue(jArray.getJSONObject(i).getString("URLValue"));
-				loc.setUrlText(jArray.getJSONObject(i).getString("URLText"));
-
-				loc.setAppId(jArray.getJSONObject(i).getInt("AppID"));
+//				loc.setAppId(jArray.getJSONObject(i).getInt("AppID"));
 				loc.setAppName(jArray.getJSONObject(i).getString("AppName"));
 				loc.setAppLogo(jArray.getJSONObject(i).getString("AppLogo"));
 				loc.setAppLogoMini(jArray.getJSONObject(i).getString("AppLogoMini"));
 				loc.setAppUrl(jArray.getJSONObject(i).getString("AppURL"));
 				loc.setAppDescription(jArray.getJSONObject(i).getString("AppDescription"));
-				loc.setAppType(jArray.getJSONObject(i).getString("AppType"));
+//				loc.setAppType(jArray.getJSONObject(i).getString("AppType"));
 
-				loc.setUserAlarmId(jArray.getJSONObject(i).getInt("UserAlarmID"));
-				loc.setUserAlarmName(jArray.getJSONObject(i).getString("UserAlarmName"));
+//				loc.setUserAlarmId(jArray.getJSONObject(i).getInt("UserAlarmID"));
+//				loc.setUserAlarmName(jArray.getJSONObject(i).getString("UserAlarmName"));
+//
+//				loc.setUserUrlId(jArray.getJSONObject(i).getInt("UserURLID"));
+//				loc.setUserUrlTags(jArray.getJSONObject(i).getString("UserURLTags"));
+//				loc.setUserUrlComment(jArray.getJSONObject(i).getString("UserURLComment"));
+//				loc.setUserUrlPhoto(jArray.getJSONObject(i).getString("UserURLPhoto"));
+//				loc.setUserUrlValue(jArray.getJSONObject(i).getString("UserURLValue"));
+//				loc.setUserUrlDescription(jArray.getJSONObject(i).getString("UserURLDescription"));
+//
+//				loc.setIdUser(jArray.getJSONObject(i).getInt("IDUser"));
 
-				loc.setUserUrlId(jArray.getJSONObject(i).getInt("UserURLID"));
-				loc.setUserUrlTags(jArray.getJSONObject(i).getString("UserURLTags"));
-				loc.setUserUrlComment(jArray.getJSONObject(i).getString("UserURLComment"));
-				loc.setUserUrlPhoto(jArray.getJSONObject(i).getString("UserURLPhoto"));
-				loc.setUserUrlValue(jArray.getJSONObject(i).getString("UserURLValue"));
-				loc.setUserUrlDescription(jArray.getJSONObject(i).getString("UserURLDescription"));
-
-				loc.setIdUser(jArray.getJSONObject(i).getInt("IDUser"));
-
-				loc.setRadius(jArray.getJSONObject(i).getDouble("Radius"));
+//				loc.setRadius(jArray.getJSONObject(i).getDouble("Radius"));
 
 				loc.setPhone(jArray.getJSONObject(i).getString("Phone"));
-				loc.setWifi(jArray.getJSONObject(i).getString("Wifi"));
-				loc.setBluetooth(jArray.getJSONObject(i).getString("Bluetooth"));
-				loc.setLocation(jArray.getJSONObject(i).getString("Location"));
+//				loc.setWifi(jArray.getJSONObject(i).getString("Wifi"));
+//				loc.setBluetooth(jArray.getJSONObject(i).getString("Bluetooth"));
+//				loc.setLocation(jArray.getJSONObject(i).getString("Location"));
 
 				loc.setAppPrice((float)jArray.getJSONObject(i).getDouble("AppPrice"));
 

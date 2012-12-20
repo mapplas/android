@@ -1,10 +1,9 @@
 package com.mapplas.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Comment implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Comment implements Parcelable {
 
 	// ---------------------------------------------------------------------------
 	// Properties
@@ -22,7 +21,8 @@ public class Comment implements Serializable {
 
 	private String comment = "?";
 
-	private App auxLocalization = null;
+	public Comment() {
+	}
 
 	public int getId() {
 		return id;
@@ -38,58 +38,6 @@ public class Comment implements Serializable {
 
 	public void setIdLocalization(int idLocalization) {
 		this.idLocalization = idLocalization;
-	}
-
-	// public boolean FillLocalData() {
-	// this.auxLocalization =
-	// MapplasActivity.GetLocalizationById(this.idLocalization);
-	//
-	// if(this.auxLocalization != null) {
-	// return true;
-	// }
-	//
-	// return false;
-	// }
-	//
-	// public boolean FillRemoteData() {
-	// try {
-	// String serverResponse =
-	// NetRequests.LocationIdRequest(MapplasActivity.GetModel().currentLocation,
-	// MapplasActivity.GetModel().currentUser.getId() + "", this.idLocalization
-	// + "");
-	//
-	// JsonParser jp = new JsonParser();
-	// this.auxLocalization = jp.ParseLocalization(serverResponse);
-	// } catch (Exception exc) {
-	// return false;
-	// }
-	//
-	// if(this.auxLocalization != null) {
-	// return true;
-	// }
-	//
-	// return false;
-	// }
-	//
-	// public boolean FillData() {
-	// if(this.FillLocalData()) {
-	// return true;
-	// }
-	// else {
-	// if(this.FillRemoteData()) {
-	// return true;
-	// }
-	// }
-	//
-	// return false;
-	// }
-
-	public App getAuxLocalization() {
-		return auxLocalization;
-	}
-
-	public void setAuxLocalization(App auxLocalization) {
-		this.auxLocalization = auxLocalization;
 	}
 
 	public float getRate() {
@@ -131,4 +79,46 @@ public class Comment implements Serializable {
 	public void setHour(String hour) {
 		this.hour = hour;
 	}
+
+	/**
+	 * Parcelable methods
+	 */
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
+		dest.writeInt(this.idUser);
+		dest.writeInt(this.idLocalization);
+		dest.writeFloat(this.rate);
+		dest.writeString(this.date);
+		dest.writeString(this.hour);
+		dest.writeString(this.comment);
+	}
+
+	public Comment(Parcel parcel) {
+		this.id = parcel.readInt();
+		this.idUser = parcel.readInt();
+		this.idLocalization = parcel.readInt();
+		this.rate = parcel.readFloat();
+		this.date = parcel.readString();
+		this.hour = parcel.readString();
+		this.comment = parcel.readString();
+	}
+
+	public static final Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
+
+		@Override
+		public Comment createFromParcel(Parcel source) {
+			return new Comment(source);
+		}
+
+		@Override
+		public Comment[] newArray(int size) {
+			return new Comment[size];
+		}
+	};
 }

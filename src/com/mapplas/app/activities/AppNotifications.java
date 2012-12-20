@@ -15,6 +15,7 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class AppNotifications extends Activity {
 
@@ -59,11 +60,12 @@ public class AppNotifications extends Activity {
 	}
 
 	private void getDataFromBundle() {
-		Bundle bundle = this.getIntent().getExtras();
-		if(bundle != null) {
-			if(bundle.containsKey(Constants.MAPPLAS_NOTIFICATION_MODEL)) {
-				this.model = (SuperModel)bundle.getSerializable(Constants.MAPPLAS_NOTIFICATION_MODEL);
-			}
-		}
+		this.model = SuperModelSingleton.model;
+//		Bundle bundle = this.getIntent().getExtras();
+//		if(bundle != null) {
+//			if(bundle.containsKey(Constants.MAPPLAS_NOTIFICATION_MODEL)) {
+//				this.model = (SuperModel)bundle.getParcelable(Constants.MAPPLAS_NOTIFICATION_MODEL);
+//			}
+//		}
 	}
 }

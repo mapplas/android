@@ -1,6 +1,7 @@
 package com.mapplas.model.notifications;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -8,9 +9,7 @@ import com.mapplas.model.App;
 import com.mapplas.model.Unit;
 
 @DatabaseTable(tableName = "notifications")
-public class Notification implements Serializable, Unit {
-
-	private static final long serialVersionUID = 1L;
+public class Notification implements Parcelable, Unit {
 
 	public static final String TABLE_NAME = "notifications";
 
@@ -196,4 +195,56 @@ public class Notification implements Serializable, Unit {
 	}
 
 	// ---------------------------------------------------------------------------
+	
+	/**
+	 * Parcelable methods
+	 */
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
+		dest.writeInt(this.idCompany);
+		dest.writeInt(this.idApp);
+		dest.writeString(this.name);
+		dest.writeString(this.description);
+		dest.writeString(this.date);
+		dest.writeString(this.hour);
+		dest.writeParcelable(this.auxApp, flags);
+		dest.writeInt(this.seen);
+		dest.writeInt(this.shown);
+		dest.writeLong(this.arrivalTimestamp);
+		dest.writeString(this.currentLocation);
+	}
+
+	public Notification(Parcel parcel) {
+		this.id = parcel.readInt();
+		this.idCompany = parcel.readInt();
+		this.idApp = parcel.readInt();
+		this.name = parcel.readString();
+		this.description = parcel.readString();
+		this.date = parcel.readString();
+		this.hour = parcel.readString();
+		this.auxApp = parcel.readParcelable(null);
+		this.seen = parcel.readInt();
+		this.shown = parcel.readInt();
+		this.arrivalTimestamp = parcel.readLong();
+		this.currentLocation = parcel.readString();
+	}
+
+	public static final Parcelable.Creator<Notification> CREATOR = new Parcelable.Creator<Notification>() {
+
+		@Override
+		public Notification createFromParcel(Parcel source) {
+			return new Notification(source);
+		}
+
+		@Override
+		public Notification[] newArray(int size) {
+			return new Notification[size];
+		}
+	};
 }

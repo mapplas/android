@@ -1,10 +1,9 @@
 package com.mapplas.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Photo implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Photo implements Parcelable {
 
 	// ---------------------------------------------------------------------------
 	// Properties
@@ -22,7 +21,9 @@ public class Photo implements Serializable {
 
 	private String hour = "?";
 
-	private App auxLocalization = null;
+	public Photo() {
+
+	}
 
 	public int getId() {
 		return id;
@@ -93,14 +94,6 @@ public class Photo implements Serializable {
 	// return false;
 	// }
 
-	public App getAuxLocalization() {
-		return auxLocalization;
-	}
-
-	public void setAuxLocalization(App auxLocalization) {
-		this.auxLocalization = auxLocalization;
-	}
-
 	public String getDate() {
 		return date;
 	}
@@ -142,4 +135,46 @@ public class Photo implements Serializable {
 	}
 
 	// ---------------------------------------------------------------------------
+
+	/**
+	 * Parcelable methods
+	 */
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.id);
+		dest.writeInt(this.idUser);
+		dest.writeInt(this.idLocalization);
+		dest.writeString(this.date);
+		dest.writeString(this.comment);
+		dest.writeString(this.photo);
+		dest.writeString(this.hour);
+	}
+
+	public Photo(Parcel parcel) {
+		this.id = parcel.readInt();
+		this.idUser = parcel.readInt();
+		this.idLocalization = parcel.readInt();
+		this.date = parcel.readString();
+		this.comment = parcel.readString();
+		this.photo = parcel.readString();
+		this.hour = parcel.readString();
+	}
+
+	public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
+
+		@Override
+		public Photo createFromParcel(Parcel source) {
+			return new Photo(source);
+		}
+
+		@Override
+		public Photo[] newArray(int size) {
+			return new Photo[size];
+		}
+	};
 }
