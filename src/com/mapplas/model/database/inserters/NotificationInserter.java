@@ -39,8 +39,8 @@ public class NotificationInserter {
 				notification = notificationMapper.map(currentNotification);
 				notification.setAuxApp(app);
 				notification.setArrivalTimestamp(currentTimestamp);
-				notification.setCurrentLocation(model.currentLocation());
-
+				notification.setCurrentLocation(model.currentDescriptiveGeoLoc());
+				
 				model.notificationList().add(notification);
 
 				this.notificationsRepository.insertNotifications(notification);
