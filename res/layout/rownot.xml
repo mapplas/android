@@ -5,7 +5,8 @@
     android:background="@drawable/bgd_rownot"
     android:orientation="horizontal"
     android:paddingBottom="3dp"
-    android:paddingTop="3dp" >
+    android:paddingTop="3dp"
+    android:layout_marginLeft="10dp" >
 
     <RelativeLayout
         android:layout_width="66dp"
