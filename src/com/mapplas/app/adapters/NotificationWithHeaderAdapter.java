@@ -108,7 +108,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 
 		Notification notification = this.getItem(position);
 
-		if(view == null) {
+		if(convertView == null) {
 			switch (type) {
 				case TYPE_ITEM:
 					view = this.inflater.inflate(R.layout.rownot, null);
