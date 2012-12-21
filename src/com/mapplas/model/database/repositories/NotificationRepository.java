@@ -113,6 +113,7 @@ public class NotificationRepository extends Repository {
 			currentNotificationTimestamp = currentNotification.arrivalTimestamp();
 			try {
 				queryBuilder.selectColumns("id", "idCompany", "idApp", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation").where().eq("arrivalTimestamp", currentNotificationTimestamp);
+				queryBuilder.orderBy("date", false);
 				listOfNotifications = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());
 				
 				notificationData.put(currentNotificationTimestamp, listOfNotifications);

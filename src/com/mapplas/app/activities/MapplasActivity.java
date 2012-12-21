@@ -108,11 +108,9 @@ public class MapplasActivity extends Activity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-		// Location location = new Location("");
-		// (new AppGetterTask(MapplasActivity.this, model,
-		// messageHandler)).execute(new Location[] { location });
-		// (new ReverseGeocodingTask(MapplasActivity.this, model,
-		// messageHandler)).execute(new Location[] { location });
+//		Location location = new Location("");
+//		(new AppGetterTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
+//		(new ReverseGeocodingTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
 	}
 
 	/**

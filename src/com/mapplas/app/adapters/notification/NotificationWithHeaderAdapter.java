@@ -179,10 +179,25 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 			switch (type) {
 				case TYPE_ITEM:
 					cellHolder = (NotificationCellHolder)convertView.getTag();
+					
+					cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
+					cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
+					cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+					cellHolder.date = (TextView)convertView.findViewById(R.id.lblDate);
+					cellHolder.description = (TextView)convertView.findViewById(R.id.lblDescription);
+
+					this.initializeNotificationCell(cellHolder, notification);
+					this.setClickListenerToView(convertView, notification);
+					
 					break;
 
 				case TYPE_SEPARATOR:
 					headerHolder = (NotificationHeaderHolder)convertView.getTag();
+					
+					headerHolder.location = (TextView)convertView.findViewById(R.id.rownote_header_title);
+
+					this.initializeNotificationHeaderCell(headerHolder, notification);
+					
 					break;
 			}
 		}
@@ -235,8 +250,10 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 	private void initializeNotificationHeaderCell(NotificationHeaderHolder headerHolder, Notification notification) {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 
-		headerHolder.location.setText(notification.currentLocation());
-		headerHolder.location.setTypeface(normalTypeface);
+		if(notification != null) {
+			headerHolder.location.setText(notification.currentLocation());
+			headerHolder.location.setTypeface(normalTypeface);
+		}
 	}
 
 	private void setAuxAppToNotifications() {
