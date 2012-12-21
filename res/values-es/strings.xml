@@ -84,5 +84,6 @@
 	<string name="free">Gratis</string>
 	
 	<string name="wifi_error_toast">Para obtener una ubicación más precisa, activa la conexión wifi. Funcionará incluso sin que te conectes a una red.</string>
+	<string name="pull_to_refresh_wifi_error">Activa el wifi para una mejor precisión!</string>
 	
 </resources>

@@ -31,6 +31,18 @@
             android:text="@string/ptr_pull_to_refresh"
             android:textColor="#ffffff"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/lblWifiDisabledMessage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblAction"
+            android:layout_marginTop="10sp"
+            android:text="@string/pull_to_refresh_wifi_error"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout

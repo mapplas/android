@@ -20,6 +20,7 @@ import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.utils.network.NetworkConnectionChecker;
 
 public class AwesomeListView extends ListView {
 
@@ -76,6 +77,8 @@ public class AwesomeListView extends ListView {
 	private RelativeLayout viewInnerHeader = null;
 
 	private TextView viewTextHeader = null;
+	
+	private TextView viewWifiDisabledText = null;
 
 	private ImageView imageViewHeader = null;
 
@@ -319,14 +322,15 @@ public class AwesomeListView extends ListView {
 		return super.dispatchTouchEvent(ev);
 	}
 
-	public void InsertHeader(View v, RelativeLayout vInner, TextView tv, ImageView iv, Drawable dPtr, Drawable dRefreshing, String strNormal, String strPull, String strRelase, String strRefreshing) {
+	public void insertHeader(View v, RelativeLayout vInner, TextView tv, TextView wifiDisabledTV, ImageView iv, Drawable dPtr, Drawable dRefreshing, String strPull, String strRelase, String strRefreshing) {
 		this.viewHeader = v;
 		this.viewInnerHeader = vInner;
 		this.viewTextHeader = tv;
+		this.viewWifiDisabledText = wifiDisabledTV;
 		this.imageViewHeader = iv;
 		this.drawableHeaderPtr = dPtr;
 		this.drawableHeaderRefreshing = dRefreshing;
-		this.strHeaderNormal = strNormal;
+		this.strHeaderNormal = strPull;
 		this.strHeaderPull = strPull;
 		this.strHeaderRelase = strRelase;
 		this.strHeaderRefreshing = strRefreshing;
@@ -377,6 +381,7 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderNormal);
+						this.viewWifiDisabledText.setVisibility(View.GONE);
 					}
 
 					if(this.imageViewHeader != null) {
@@ -415,6 +420,7 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderNormal);
+						this.viewWifiDisabledText.setVisibility(View.GONE);
 					}
 
 					if(this.imageViewHeader != null) {
@@ -449,6 +455,7 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderNormal);
+						this.viewWifiDisabledText.setVisibility(View.GONE);
 					}
 
 					if(this.imageViewHeader != null) {
@@ -466,6 +473,7 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderPull);
+						this.viewWifiDisabledText.setVisibility(View.GONE);
 					}
 
 					if(this.imageViewHeader != null) {
@@ -517,6 +525,7 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderRelase);
+						this.viewWifiDisabledText.setVisibility(View.GONE);
 					}
 
 					if(this.imageViewHeader != null) {
@@ -541,6 +550,9 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderRefreshing);
+						if (!new NetworkConnectionChecker().isWifiEnabled(mContext)) {
+							this.viewWifiDisabledText.setVisibility(View.VISIBLE);
+						}
 					}
 
 					if(this.imageViewHeader != null) {
@@ -618,6 +630,7 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderRelase);
+						this.viewWifiDisabledText.setVisibility(View.GONE);
 					}
 
 					if(this.imageViewHeader != null) {
