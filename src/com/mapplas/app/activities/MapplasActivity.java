@@ -12,6 +12,8 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
@@ -98,14 +100,19 @@ public class MapplasActivity extends Activity {
 		final PackageManager pm = getPackageManager();
 		this.applicationList = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
+		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.loadLayoutComponents(normalTypeFace);
 		this.setClickListenersToButtons(normalTypeFace);
 
+		// Load list
 		this.loadApplicationsListView();
 
 		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(listViewHeaderStatusMessage, isSplashActive, model, listViewAdapter, listView, applicationList, this);
 
+		// Check if wifi is enabled
+		this.checkWifiStatus();
+		
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
 //		Location location = new Location("");
@@ -304,6 +311,15 @@ public class MapplasActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
+	
+	private void checkWifiStatus() {
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		if (!mWifi.isConnected()) {
+		    Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
+		}
+	}
 
 	/**
 	 * Getter and setters
@@ -316,65 +332,5 @@ public class MapplasActivity extends Activity {
 		this.listView = listView;
 	}
 
-	// public static SharedPreferences getAppPreferences() {
-	// return MapplasActivity.mPreferences;
-	// }
-	//
-	// public static LocalizationAdapter getLocalizationAdapter() {
-	// return MapplasActivity.mListAdapter;
-	// }
-	//
-	// public static DrawableBackgroundDownloader getDbd() {
-	// return MapplasActivity.mDbd;
-	// }
-	//
-
-	/* Methods */
-	// public static Button GetButtonNotifications() {
-	// return mButtonNotifications;
-	// }
-	//
-	// public static SuperModel GetModel() {
-	// return model;
-	// }
-	//
-
-	//
-	// public static Localization GetLocalizationById(long id) {
-	// if(model != null) {
-	// for(int i = 0; i < model.localizations.size(); i++) {
-	// if(model.localizations.get(i).getId() == id) {
-	// return model.localizations.get(i);
-	// }
-	// }
-	// }
-	//
-	// return null;
-	// }
-
-	// private class GetDataTask extends AsyncTask<Void, Void, String[]> {
-	//
-	// @Override
-	// protected void onPostExecute(String[] result) {
-	// // mListItems.addFirst("Added after refresh...");
-	// // Call onRefreshComplete when the list has been refreshed.
-	//
-	// try {
-	// mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-	// 0, 0, mLocationListener);
-	//
-	// } catch (Exception e1) {
-	// Log.i(getClass().getSimpleName(), "GetDataTask.onPostExecute: " + e1);
-	// }
-	//
-	// super.onPostExecute(result);
-	// }
-	//
-	// @Override
-	// protected String[] doInBackground(Void... arg0) {
-	//
-	// return null;
-	// }
-	// }
-
+	
 }

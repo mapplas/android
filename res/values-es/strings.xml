@@ -83,4 +83,6 @@
 	<string name="done">OK</string>
 	<string name="free">Gratis</string>
 	
+	<string name="wifi_error_toast">Para obtener una ubicación más precisa, activa la conexión wifi. Funcionará incluso sin que te conectes a una red.</string>
+	
 </resources>
