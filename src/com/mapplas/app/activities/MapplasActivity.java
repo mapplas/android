@@ -5,15 +5,13 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
@@ -39,6 +37,7 @@ import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
+import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.static_intents.AppAdapterSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
@@ -64,7 +63,7 @@ public class MapplasActivity extends Activity {
 
 	private AppAdapter listViewAdapter = null;
 
-	private static SharedPreferences sharedPreferences = null;
+//	private static SharedPreferences sharedPreferences = null;
 
 	private TextView listViewHeaderStatusMessage = null;
 
@@ -83,7 +82,7 @@ public class MapplasActivity extends Activity {
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
 
-		this.sharedPreferences = getApplicationContext().getSharedPreferences("synesth", Context.MODE_PRIVATE);
+//		this.sharedPreferences = getApplicationContext().getSharedPreferences("synesth", Context.MODE_PRIVATE);
 		this.isSplashActive = true;
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
@@ -182,9 +181,17 @@ public class MapplasActivity extends Activity {
 		LinearLayout listViewHeader = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.ptr_header, null);
 		RelativeLayout headerLayout = (RelativeLayout)listViewHeader.findViewById(R.id.llInnerPtr);
 		TextView headerTV = (TextView)listViewHeader.findViewById(R.id.lblAction);
+		TextView wifiDisabledTV = (TextView)listViewHeader.findViewById(R.id.lblWifiDisabledMessage);
 		ImageView headerIV = (ImageView)listViewHeader.findViewById(R.id.ivImage);
+		
+		Drawable pullToRefreshArrow = this.getResources().getDrawable(R.drawable.ic_pulltorefresh_arrow);
+		Drawable ic_refreshImage = this.getResources().getDrawable(R.drawable.ic_refresh_photo);
+		
+		String pullToRefresh = this.getResources().getString(R.string.ptr_pull_to_refresh);
+		String releaseToRefresh = this.getResources().getString(R.string.ptr_release_to_refresh);
+		String loadingApps = this.getResources().getString(R.string.ptr_refreshing);
 
-		this.listView.InsertHeader(listViewHeader, headerLayout, headerTV, headerIV, this.getResources().getDrawable(R.drawable.ic_pulltorefresh_arrow), this.getResources().getDrawable(R.drawable.ic_refresh_photo), this.getResources().getString(R.string.ptr_pull_to_refresh), this.getResources().getString(R.string.ptr_pull_to_refresh), this.getResources().getString(R.string.ptr_release_to_refresh), this.getResources().getString(R.string.ptr_refreshing));
+		this.listView.insertHeader(listViewHeader, headerLayout, headerTV, wifiDisabledTV, headerIV, pullToRefreshArrow, ic_refreshImage, pullToRefresh, releaseToRefresh, loadingApps);
 
 		// Set release header listener
 		this.listView.setOnReleasehHeaderListener(new AwesomeListView.OnRelease() {
@@ -313,10 +320,7 @@ public class MapplasActivity extends Activity {
 	}
 	
 	private void checkWifiStatus() {
-		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-		if (!mWifi.isConnected()) {
+		if (!new NetworkConnectionChecker().isWifiEnabled(this)) {
 		    Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
