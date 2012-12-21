@@ -1,13 +1,13 @@
 package com.mapplas.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.mapplas.model.notifications.NotificationList;
 
-public class SuperModel implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class SuperModel implements Parcelable {
 
 	private String currentLocation = "";
 
@@ -79,9 +79,9 @@ public class SuperModel implements Serializable {
 	public String currentLocation() {
 		return currentLocation;
 	}
-	
+
 	public void setCurrentLocation(String string) {
-		this.currentLocation = string;	
+		this.currentLocation = string;
 	}
 
 	public User currentUser() {
@@ -138,5 +138,51 @@ public class SuperModel implements Serializable {
 		}
 		return null;
 	}
+
+	/**
+	 * Parcelable methods
+	 */
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(this.currentLocation);
+		dest.writeParcelable(this.currentUser, flags);
+		dest.writeString(this.currentRadius);
+		dest.writeString(this.currentIMEI);
+		dest.writeString(this.currentDescriptiveGeoLoc);
+		dest.writeTypedList(this.appList);
+		dest.writeParcelable(this.notificationList, flags);
+		dest.writeByte((byte)(this.operationError ? 1 : 0));
+		dest.writeString(this.errorText);
+	}
+
+	public SuperModel(Parcel parcel) {
+		this.currentLocation = parcel.readString();
+		this.currentUser = parcel.readParcelable(User.class.getClassLoader());
+		this.currentRadius = parcel.readString();
+		this.currentIMEI = parcel.readString();
+		this.currentDescriptiveGeoLoc = parcel.readString();
+		parcel.writeTypedList(this.appList);
+		parcel.writeTypedList(this.notificationList);
+		this.operationError = parcel.readByte() == 1;
+		this.errorText = parcel.readString();
+	}
+
+	public static final Parcelable.Creator<SuperModel> CREATOR = new Parcelable.Creator<SuperModel>() {
+
+		@Override
+		public SuperModel createFromParcel(Parcel source) {
+			return new SuperModel(source);
+		}
+
+		@Override
+		public SuperModel[] newArray(int size) {
+			return new SuperModel[size];
+		}
+	};
 
 }

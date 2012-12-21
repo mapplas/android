@@ -247,11 +247,11 @@ public class AppDetail extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null) {
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_APP)) {
-				this.app = (App)extras.getSerializable(Constants.MAPPLAS_DETAIL_APP);
+				this.app = (App)extras.getParcelable(Constants.MAPPLAS_DETAIL_APP);
 			}
 
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_USER)) {
-				this.user = (User)extras.getSerializable(Constants.MAPPLAS_DETAIL_USER);
+				this.user = (User)extras.getParcelable(Constants.MAPPLAS_DETAIL_USER);
 			}
 
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION)) {

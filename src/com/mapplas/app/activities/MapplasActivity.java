@@ -38,6 +38,7 @@ import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.static_intents.AppAdapterSingleton;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MapplasActivity extends Activity {
 
@@ -107,11 +108,9 @@ public class MapplasActivity extends Activity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-		// Location location = new Location("");
-		// (new AppGetterTask(MapplasActivity.this, model,
-		// messageHandler)).execute(new Location[] { location });
-		// (new ReverseGeocodingTask(MapplasActivity.this, model,
-		// messageHandler)).execute(new Location[] { location });
+//		Location location = new Location("");
+//		(new AppGetterTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
+//		(new ReverseGeocodingTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
 	}
 
 	/**
@@ -164,7 +163,8 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
-				intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
+				SuperModelSingleton.model = model;
+//				intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
 				MapplasActivity.this.startActivity(intent);
 			}
 		});

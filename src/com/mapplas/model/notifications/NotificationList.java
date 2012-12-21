@@ -1,13 +1,13 @@
 package com.mapplas.model.notifications;
 
-import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class NotificationList extends AbstractList<Notification> implements Serializable {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-	private static final long serialVersionUID = 1L;
+public class NotificationList extends AbstractList<Notification> implements Parcelable {
 
 	private ArrayList<Notification> list = null;
 
@@ -37,5 +37,40 @@ public class NotificationList extends AbstractList<Notification> implements Seri
 	public ArrayList<Notification> getList() {
 		return this.list;
 	}
+	
+	/**
+	 * Parcelable methods
+	 */
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeTypedList(this.list);
+		dest.writeParcelable(this.notificationComparator, flags);
+	}
+
+	public NotificationList(Parcel parcel) {
+		this.list = new ArrayList<Notification>();
+		this.notificationComparator = new NotificationComparator();
+		
+	    parcel.readTypedList(this.list, Notification.CREATOR);
+		this.notificationComparator = parcel.readParcelable(null);
+	}
+
+	public static final Parcelable.Creator<NotificationList> CREATOR = new Parcelable.Creator<NotificationList>() {
+
+		@Override
+		public NotificationList createFromParcel(Parcel source) {
+			return new NotificationList(source);
+		}
+
+		@Override
+		public NotificationList[] newArray(int size) {
+			return new NotificationList[size];
+		}
+	};
 
 }

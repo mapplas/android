@@ -110,10 +110,40 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 //						
 //						"{'IDNewsfeed':'7','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
 //						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
+//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
+//						
+//						"{'IDNewsfeed':'67','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
+//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
 //						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}]," +
 //						"" +
 //						"'AuxComments':[{'IDComment':'18','IDLocalization':'21','Comment':'hhjb'," +
-//						"'Rate':'3.5','Date':'2012-08-25','IDUser':'3','Hour':'','Latitude':'43.2944','Longitude':'-1.99626','DescriptiveGeoLoc':null}],'AuxPhotos':[]}]";
+//						"'Rate':'3.5','Date':'2012-08-25','IDUser':'3','Hour':'','Latitude':'43.2944','Longitude':'-1.99626','DescriptiveGeoLoc':null}],'AuxPhotos':[]," +
+//						"" +
+//						"'AuxNews':[{'IDNewsfeed':'9','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
+//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-08-30'," +
+//						"'Hour':'13:55','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
+//						
+//						"{'IDNewsfeed':'10','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
+//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-07-25'," +
+//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
+//						
+//						"{'IDNewsfeed':'11','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
+//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-10-28'," +
+//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
+//						
+//						"{'IDNewsfeed':'12','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
+//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-10'," +
+//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
+//						
+//						"{'IDNewsfeed':'13','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
+//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
+//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
+//						
+//						"{'IDNewsfeed':'14','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
+//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
+//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}]" +
+//						"" +
+//						"}]";
 
 				// Comprobamos que el parser funciona correctamente
 				JsonParser jp = new JsonParser(this.context);

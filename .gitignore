@@ -1,5 +1,11 @@
 #generated files
-bin/*
-gen/*
+bin/
+gen/
 .DS_Store
-tmp/*
+tmp/**
+tmp/**/*
+local.properties
+.classpath
+.settings/
+.buildpath
+*.dex

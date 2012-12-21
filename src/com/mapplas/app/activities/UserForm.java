@@ -130,7 +130,7 @@ public class UserForm extends Activity {
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
-				this.user = (User)bundle.getSerializable(Constants.MAPPLAS_LOGIN_USER_ID);
+				this.user = (User)bundle.getParcelable(Constants.MAPPLAS_LOGIN_USER_ID);
 			}
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION_ID)) {
 				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION_ID);

@@ -1,4 +1,4 @@
-package com.mapplas.app.adapters;
+package com.mapplas.app.adapters.notification;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,6 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
 		View v = convertView;
 		if(v == null) {
 			LayoutInflater vi = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,26 +69,26 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 			tt.setText(DateUtils.FormatSinceDate(o.getDate(), o.getHour(), this.context));
 
 			ImageView iv = (ImageView)v.findViewById(R.id.imgLogo);
-			new DrawableBackgroundDownloader().loadDrawable(o.getAuxLocalization().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_template));
+			new DrawableBackgroundDownloader().loadDrawable(o.getAuxApp().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_template));
 
 			v.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					
+
 					// Set notification as seen
 					NotificationRepository notificationRepository = RepositoryManager.notifications(context);
 					notificationRepository.setNotificationAsSeen(o.getId());
 
 					// Intent to app detail activity
 					Intent intent = new Intent(context, AppDetail.class);
-	
+
 					int appPosition = o.getIdLocalization();
 					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, model.getAppWithIdInList(appPosition));
 					intent.putExtra(Constants.MAPPLAS_DETAIL_USER, model.currentUser());
 					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, model.currentLocation());
 					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, model.currentDescriptiveGeoLoc());
-					
+
 					((AppNotifications)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 				}
 			});
@@ -97,14 +96,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 			// TODO: Carga asincrona de las imágenes en un hilo
 
 		}
-
-		/*
-		 * ViewGroup.LayoutParams params = v.getLayoutParams(); TextView tv =
-		 * (TextView) v.findViewById(R.id.lblDescription);
-		 * ViewGroup.LayoutParams params2 = tv.getLayoutParams();
-		 * v.setLayoutParams(new ViewGroup.LayoutParams(params2.width, 20 +
-		 * params2.height));
-		 */
+		
 		return v;
 	}
 }
