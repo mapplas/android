@@ -101,4 +101,6 @@
 	<string name="dislike">dislike</string>
 	<string name="done">Done</string>
 	<string name="free">Free</string>
+	
+	<string name="wifi_error_toast">Improve my location. For more acurate location, turn Wi-Fi on, This works enven when not conected to a network.</string>
 </resources>
