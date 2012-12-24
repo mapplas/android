@@ -72,5 +72,11 @@ public class Constants {
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE = "pr";
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK = "m";
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK = "mr";
+	
+	// Images
+	public static final String MAPPLAS_EXTRA_BITMAP = "extra_bitmap";
+	public static final String MAPPLAS_EXTRA_BITMAP_POSITION = "extra_bitmap.position";
+	
+	public static final String MAPPLAS_ACTION_BROADCAST_IMAGE_APP_ADAPTER = "com.mapplas.action.image.app_adapter";
 
 }

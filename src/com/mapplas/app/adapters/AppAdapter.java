@@ -44,9 +44,11 @@ import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
-import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
+import com.mapplas.utils.cache.CacheFolderFactory;
+import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.image.SynchronousImageLoader;
 
 public class AppAdapter extends ArrayAdapter<App> {
 
@@ -77,7 +79,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 	private Animation animFlipOutPrevious = null;
 
 	private Animation fadeOutAnimation = null;
-
+	
 	// final Animation fadeOutAnimation = new ScaleAnimation(100.0f, 100.0f,
 	// 100.0f, 0.0f);
 
@@ -93,9 +95,9 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 					case Constants.SYNESTH_ROWLOC_IMAGE_ID:
 
-//						String strUrl = (String)((Object[])msg.obj)[0];
+						// String strUrl = (String)((Object[])msg.obj)[0];
 						ImageView iv = (ImageView)((Object[])msg.obj)[1];
-//						App o = (App)((Object[])msg.obj)[2];
+						// App o = (App)((Object[])msg.obj)[2];
 						Bitmap bmp = (Bitmap)((Object[])msg.obj)[3];
 
 						if(bmp != null && iv != null) {
@@ -306,12 +308,22 @@ public class AppAdapter extends ArrayAdapter<App> {
 						}
 					}
 				});
-
 			}
 
-			String strUrl = o.getAppLogo();
-			if(strUrl != "") {
-				new DrawableBackgroundDownloader().loadDrawable(strUrl, iv, this.context.getResources().getDrawable(R.drawable.ic_template));
+			// Load app logo
+			ImageFileManager imageFileManager = new ImageFileManager();
+			String logoUrl = o.getAppLogo();
+			if(logoUrl != "") {
+				if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+					iv.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+				}
+				else {
+//					SynchronousImageLoader synchronousImageLoader = new SynchronousImageLoader();
+//					Bitmap result = synchronousImageLoader.loadImage(new CacheFolderFactory(this.context).create(), logoUrl);
+//					if(result != null) {
+//						iv.setImageBitmap(result);
+//					}
+				}
 			}
 			else {
 				iv.setImageResource(R.drawable.ic_template);
@@ -560,7 +572,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 			if(!name.equals("CANCEL")) {
 				// Enviamos la nota por internet
 				String uid = "0";
-//				String id = "0";
+				// String id = "0";
 				String resp = "";
 
 				if(user != null) {
