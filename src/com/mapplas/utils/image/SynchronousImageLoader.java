@@ -7,7 +7,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 

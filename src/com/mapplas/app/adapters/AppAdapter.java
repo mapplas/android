@@ -38,6 +38,8 @@ import com.mapplas.app.RatingDialog;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.async_tasks.LoadImageTask;
+import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.app.threads.PinRequestThread;
@@ -48,7 +50,6 @@ import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
-import com.mapplas.utils.image.SynchronousImageLoader;
 
 public class AppAdapter extends ArrayAdapter<App> {
 
@@ -318,11 +319,8 @@ public class AppAdapter extends ArrayAdapter<App> {
 					iv.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
 				}
 				else {
-//					SynchronousImageLoader synchronousImageLoader = new SynchronousImageLoader();
-//					Bitmap result = synchronousImageLoader.loadImage(new CacheFolderFactory(this.context).create(), logoUrl);
-//					if(result != null) {
-//						iv.setImageBitmap(result);
-//					}
+					TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, iv, imageFileManager));
+					imageRequest.execute();
 				}
 			}
 			else {
