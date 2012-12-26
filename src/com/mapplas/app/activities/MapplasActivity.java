@@ -200,9 +200,8 @@ public class MapplasActivity extends Activity {
 			public void onRelease() {
 				try {
 					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
 				} catch (Exception e) {
-					Log.i(this.getClass().getSimpleName(), "SynesthActivity.onCreate: " + e);
+					Log.i(this.getClass().getSimpleName(), e.toString());
 				}
 			}
 		});
@@ -256,28 +255,22 @@ public class MapplasActivity extends Activity {
 
 					@Override
 					public void onStatusChanged(String provider, int status, Bundle extras) {
-						if(mDebug) {
-							textoToast = "onStatusChanged: " + provider + ", " + status + ", " + extras;
-							Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
-						}
+//						textoToast = "onStatusChanged: " + provider + ", " + status + ", " + extras;
+//						Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
 					}
 
 					@Override
 					public void onProviderEnabled(String provider) {
-						if(mDebug) {
-							textoToast = "onProviderEnabled: " + provider;
-							Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
-						}
+//						textoToast = "onProviderEnabled: " + provider;
+//						Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
 					}
 
 					@Override
 					public void onProviderDisabled(String provider) {
-						if(mDebug) {
-							textoToast = "onProviderDisabled: " + provider;
-							Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
-						}
+//						textoToast = "onProviderDisabled: " + provider;
+//						Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
 					}
-
+					
 					@Override
 					public void onLocationChanged(Location location) {
 						locationManager.removeUpdates(locationListener);
@@ -302,11 +295,9 @@ public class MapplasActivity extends Activity {
 
 				try {
 					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
 				} catch (Exception e1) {
 					Log.i(getClass().getSimpleName(), "SynesthActivity.onCreate: " + e1);
 				}
-
 			}
 			else {
 				listViewHeaderStatusMessage.setText(R.string.location_error);
