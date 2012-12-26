@@ -47,6 +47,7 @@ public class MapplasAppActivityMessageHandler {
 		this.activity = activity;
 	}
 
+	@SuppressLint("HandlerLeak")
 	public Handler getHandler() {
 
 		final RelativeLayout mainLayout = (RelativeLayout)this.activity.findViewById(R.id.layoutMain);

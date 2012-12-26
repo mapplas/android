@@ -107,4 +107,6 @@
 	<string name="connection_error_toast">There\'s no internet connection. Please enable to load app.</string>
 	
 	<string name="menu_refresh">Refresh</string>
+	
+	<string name="image_content_description">content description</string>
 </resources>

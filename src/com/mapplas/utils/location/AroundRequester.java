@@ -18,7 +18,7 @@ import com.mapplas.utils.network.NetworkConnectionChecker;
 
 public class AroundRequester implements UserLocationListener {
 
-	public static final int LOCATION_TIMEOUT_IN_MILLISECONDS = 5000;
+	public static final int LOCATION_TIMEOUT_IN_MILLISECONDS = 9000;
 
 	private final UserLocationRequester userLocationRequester;
 
