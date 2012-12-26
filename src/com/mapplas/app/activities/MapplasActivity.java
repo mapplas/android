@@ -15,6 +15,9 @@ import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -112,7 +115,7 @@ public class MapplasActivity extends Activity {
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.messageHandler, this.listView);
 
-		// Check network status		
+		// Check network status
 		this.checkNetworkStatus();
 
 		this.loadLocalization();
@@ -122,6 +125,24 @@ public class MapplasActivity extends Activity {
 		// messageHandler)).execute(new Location[] { location });
 		// (new ReverseGeocodingTask(MapplasActivity.this, model,
 		// messageHandler)).execute(new Location[] { location });
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if(this.isSplashActive) {
+			MenuInflater menuInflater = this.getMenuInflater();
+			menuInflater.inflate(R.layout.menu, menu);
+			return true;	
+		}
+		else {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		this.loadLocalization();
+		return true;
 	}
 
 	/**
@@ -205,8 +226,6 @@ public class MapplasActivity extends Activity {
 			public void onRelease() {
 				try {
 					loadLocalization();
-					// locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-					// 0, 0, locationListener);
 				} catch (Exception e) {
 					Log.i(this.getClass().getSimpleName(), e.toString());
 				}
