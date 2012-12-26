@@ -111,6 +111,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 						}
 						myCounter += 1;
 					}
+					myCounter += 1;
 				}
 				break;
 
@@ -239,7 +240,9 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		cellHolder.date.setTypeface(normalTypeface);
 		cellHolder.date.setText(DateUtils.FormatSinceDate(notification.getDate(), notification.getHour(), this.context));
 
-		new DrawableBackgroundDownloader().loadDrawable(notification.getAuxApp().getAppLogo(), cellHolder.logo, this.context.getResources().getDrawable(R.drawable.ic_template));
+		if(notification.getAuxApp() != null) {
+			new DrawableBackgroundDownloader().loadDrawable(notification.getAuxApp().getAppLogo(), cellHolder.logo, this.context.getResources().getDrawable(R.drawable.ic_template));	
+		}
 	}
 
 	private void initializeNotificationHeaderCell(NotificationHeaderHolder headerHolder, Notification notification) {
