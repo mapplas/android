@@ -529,9 +529,12 @@ public class AppAdapter extends ArrayAdapter<App> {
 								uid = String.valueOf(user.getId());
 							}
 
-							// Block request thread
+							// Block and unpin app
 							Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
 							likeRequestThread.start();
+							
+							Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
+							unPinRequestThread.start();
 						}
 					});
 					myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {

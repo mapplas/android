@@ -453,8 +453,8 @@ public class AppDetail extends Activity {
 			else {
 				// Install
 				if(this.app.getAppPrice() > 0) {
-					buttonStart.setBackgroundResource(R.drawable.badge_price);
-					buttonStart.setText("$" + this.app.getAppPrice());
+//					buttonStart.setBackgroundResource(R.drawable.badge_price);
+//					buttonStart.setText("$" + this.app.getAppPrice());
 
 					NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 					buttonStart.setText(nf.format(this.app.getAppPrice()));
@@ -687,10 +687,14 @@ public class AppDetail extends Activity {
 						myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
 
 							public void onClick(DialogInterface arg0, int arg1) {
+								// Block and unpin app
 
 								String uid = String.valueOf(user.getId());
 								Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
 								likeRequestThread.start();
+								
+								Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
+								unPinRequestThread.start();
 
 								Thread activityRequestThread = new Thread(new ActivityRequestThread(uid, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
 								activityRequestThread.start();
