@@ -176,7 +176,7 @@ public class AwesomeListView extends ListView {
 
 	}
 
-	public void FinishRefreshing() {
+	public void finishRefresing() {
 		if(this.state == ALV_STATE_REFRESHING) {
 			timeouter.ForceFinish();
 			setState(ALV_STATE_ENDING);

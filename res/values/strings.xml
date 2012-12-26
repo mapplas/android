@@ -104,4 +104,5 @@
 	
 	<string name="wifi_error_toast">Improve my location. For more acurate location, turn Wi-Fi on, This works enven when not conected to a network.</string>
 	<string name="pull_to_refresh_wifi_error">Turn wifi on to improve your location!</string>
+	<string name="connection_error_toast">There\'s no internet connection. Please enable to load app.</string>
 </resources>

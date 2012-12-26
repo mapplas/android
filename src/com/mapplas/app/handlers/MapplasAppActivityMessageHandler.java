@@ -135,7 +135,7 @@ public class MapplasAppActivityMessageHandler {
 
 							listViewAdapter.notifyDataSetChanged();
 
-							listView.FinishRefreshing();
+							listView.finishRefresing();
 							// (SynesthActivity.mPullToRefreshListView).onRefreshComplete();
 						}
 						break;

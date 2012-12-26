@@ -104,10 +104,13 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		switch (itemType) {
 			case TYPE_SEPARATOR:
 				for(Map.Entry<Long, ArrayList<Notification>> entry : this.mData.entrySet()) {
-					if(myCounter == position) {
-						return entry.getValue().get(0);
+					ArrayList<Notification> value = entry.getValue();
+					for(Notification currentNotification : value) {
+						if(myCounter == position) {
+							return currentNotification;
+						}
+						myCounter += 1;
 					}
-					myCounter += 1;
 				}
 				break;
 
