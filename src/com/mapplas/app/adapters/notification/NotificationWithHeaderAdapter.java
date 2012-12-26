@@ -104,10 +104,13 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		switch (itemType) {
 			case TYPE_SEPARATOR:
 				for(Map.Entry<Long, ArrayList<Notification>> entry : this.mData.entrySet()) {
-					if(myCounter == position) {
-						return entry.getValue().get(0);
+					ArrayList<Notification> value = entry.getValue();
+					for(Notification currentNotification : value) {
+						if(myCounter == position) {
+							return currentNotification;
+						}
+						myCounter += 1;
 					}
-					myCounter += 1;
 				}
 				break;
 
@@ -179,12 +182,6 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 			switch (type) {
 				case TYPE_ITEM:
 					cellHolder = (NotificationCellHolder)convertView.getTag();
-					
-					cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
-					cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
-					cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
-					cellHolder.date = (TextView)convertView.findViewById(R.id.lblDate);
-					cellHolder.description = (TextView)convertView.findViewById(R.id.lblDescription);
 
 					this.initializeNotificationCell(cellHolder, notification);
 					this.setClickListenerToView(convertView, notification);
@@ -194,8 +191,6 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 				case TYPE_SEPARATOR:
 					headerHolder = (NotificationHeaderHolder)convertView.getTag();
 					
-					headerHolder.location = (TextView)convertView.findViewById(R.id.rownote_header_title);
-
 					this.initializeNotificationHeaderCell(headerHolder, notification);
 					
 					break;

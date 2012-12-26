@@ -9,8 +9,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,12 +29,12 @@ import app.mapplas.com.R;
 import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.app.async_tasks.AppGetterTask;
-import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
+import com.mapplas.utils.location.AroundRequester;
+import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.static_intents.AppAdapterSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -55,19 +53,19 @@ public class MapplasActivity extends Activity {
 
 	private LocationManager locationManager = null;
 
-	private LocationListener locationListener = null;
-
 	public List<ApplicationInfo> applicationList = null;
 
 	private AwesomeListView listView = null;
 
 	private AppAdapter listViewAdapter = null;
 
-//	private static SharedPreferences sharedPreferences = null;
+	// private static SharedPreferences sharedPreferences = null;
 
 	private TextView listViewHeaderStatusMessage = null;
 
 	private ImageView listViewHeaderImage = null;
+
+	private AroundRequester aroundRequester = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -82,9 +80,10 @@ public class MapplasActivity extends Activity {
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
 
-//		this.sharedPreferences = getApplicationContext().getSharedPreferences("synesth", Context.MODE_PRIVATE);
+		// this.sharedPreferences =
+		// getApplicationContext().getSharedPreferences("synesth",
+		// Context.MODE_PRIVATE);
 		this.isSplashActive = true;
-		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
 		// Identificamos contra el servidor
 		try {
@@ -107,16 +106,22 @@ public class MapplasActivity extends Activity {
 		// Load list
 		this.loadApplicationsListView();
 
-		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(listViewHeaderStatusMessage, isSplashActive, model, listViewAdapter, listView, applicationList, this);
+		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(this.listViewHeaderStatusMessage, this.isSplashActive, this.model, this.listViewAdapter, this.listView, this.applicationList, this);
 
-		// Check if wifi is enabled
-		this.checkWifiStatus();
-		
+		// Load around requester
+		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.messageHandler, this.listView);
+
+		// Check network status		
+		this.checkNetworkStatus();
+
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-//		Location location = new Location("");
-//		(new AppGetterTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
-//		(new ReverseGeocodingTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
+		// Location location = new Location("");
+		// (new AppGetterTask(MapplasActivity.this, model,
+		// messageHandler)).execute(new Location[] { location });
+		// (new ReverseGeocodingTask(MapplasActivity.this, model,
+		// messageHandler)).execute(new Location[] { location });
 	}
 
 	/**
@@ -170,7 +175,7 @@ public class MapplasActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
 				SuperModelSingleton.model = model;
-//				intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
+				// intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
 				MapplasActivity.this.startActivity(intent);
 			}
 		});
@@ -183,10 +188,10 @@ public class MapplasActivity extends Activity {
 		TextView headerTV = (TextView)listViewHeader.findViewById(R.id.lblAction);
 		TextView wifiDisabledTV = (TextView)listViewHeader.findViewById(R.id.lblWifiDisabledMessage);
 		ImageView headerIV = (ImageView)listViewHeader.findViewById(R.id.ivImage);
-		
+
 		Drawable pullToRefreshArrow = this.getResources().getDrawable(R.drawable.ic_pulltorefresh_arrow);
 		Drawable ic_refreshImage = this.getResources().getDrawable(R.drawable.ic_refresh_photo);
-		
+
 		String pullToRefresh = this.getResources().getString(R.string.ptr_pull_to_refresh);
 		String releaseToRefresh = this.getResources().getString(R.string.ptr_release_to_refresh);
 		String loadingApps = this.getResources().getString(R.string.ptr_refreshing);
@@ -199,10 +204,11 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onRelease() {
 				try {
-					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
+					loadLocalization();
+					// locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+					// 0, 0, locationListener);
 				} catch (Exception e) {
-					Log.i(this.getClass().getSimpleName(), "SynesthActivity.onCreate: " + e);
+					Log.i(this.getClass().getSimpleName(), e.toString());
 				}
 			}
 		});
@@ -246,82 +252,13 @@ public class MapplasActivity extends Activity {
 	 * Load localization
 	 */
 	private void loadLocalization() {
-		try {
-
-			if(this.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-				this.locationListener = new LocationListener() {
-
-					private String textoToast = "";
-
-					@Override
-					public void onStatusChanged(String provider, int status, Bundle extras) {
-						if(mDebug) {
-							textoToast = "onStatusChanged: " + provider + ", " + status + ", " + extras;
-							Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
-						}
-					}
-
-					@Override
-					public void onProviderEnabled(String provider) {
-						if(mDebug) {
-							textoToast = "onProviderEnabled: " + provider;
-							Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
-						}
-					}
-
-					@Override
-					public void onProviderDisabled(String provider) {
-						if(mDebug) {
-							textoToast = "onProviderDisabled: " + provider;
-							Toast.makeText(getBaseContext(), textoToast, Toast.LENGTH_LONG).show();
-						}
-					}
-
-					@Override
-					public void onLocationChanged(Location location) {
-						locationManager.removeUpdates(locationListener);
-
-						listViewHeaderStatusMessage.setText(R.string.location_done);
-						listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
-
-						model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
-
-						try {
-							listViewHeaderStatusMessage.setText(R.string.location_searching);
-							listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
-
-							(new AppGetterTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
-							(new ReverseGeocodingTask(MapplasActivity.this, model, messageHandler)).execute(new Location[] { location });
-
-						} catch (Exception e) {
-							Log.i(getClass().getSimpleName(), "LocationListener.onLocationChanged: " + e);
-						}
-					}
-				};
-
-				try {
-					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
-				} catch (Exception e1) {
-					Log.i(getClass().getSimpleName(), "SynesthActivity.onCreate: " + e1);
-				}
-
-			}
-			else {
-				listViewHeaderStatusMessage.setText(R.string.location_error);
-				Toast.makeText(getBaseContext(), R.string.location_error, Toast.LENGTH_LONG).show();
-			}
-		} catch (Exception e) {
-			listViewHeaderStatusMessage.setText(R.string.location_needed);
-			Toast.makeText(getBaseContext(), R.string.location_needed, Toast.LENGTH_LONG).show();
-			e.printStackTrace();
-		}
+		this.aroundRequester.start();
 	}
-	
-	private void checkWifiStatus() {
-		if (!new NetworkConnectionChecker().isWifiEnabled(this)) {
-		    Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
+
+	private void checkNetworkStatus() {
+		NetworkConnectionChecker networkConnectionChecker = new NetworkConnectionChecker();
+		if((networkConnectionChecker.isWifiConnected(this) || networkConnectionChecker.isNetworkConnectionConnected(this)) && !networkConnectionChecker.isWifiEnabled(this)) {
+			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -336,5 +273,4 @@ public class MapplasActivity extends Activity {
 		this.listView = listView;
 	}
 
-	
 }
