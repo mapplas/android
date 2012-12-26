@@ -124,8 +124,6 @@ public class MapplasAppActivityMessageHandler {
 								notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
 							}
 
-//							refreshLocalizations();
-
 							for(int i = 0; i < model.appList().size(); i++) {
 								ApplicationInfo appInfo = findApplicationInfo(model.appList().get(i).getAppName());
 								if(appInfo != null) {
@@ -136,7 +134,6 @@ public class MapplasAppActivityMessageHandler {
 							listViewAdapter.notifyDataSetChanged();
 
 							listView.finishRefresing();
-							// (SynesthActivity.mPullToRefreshListView).onRefreshComplete();
 						}
 						break;
 				}

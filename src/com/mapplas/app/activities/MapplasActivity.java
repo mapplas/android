@@ -15,6 +15,9 @@ import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -47,8 +50,6 @@ public class MapplasActivity extends Activity {
 	/* Properties */
 	private SuperModel model = new SuperModel();
 
-	private Handler messageHandler = null;
-
 	private boolean isSplashActive = true;
 
 	private LocationManager locationManager = null;
@@ -66,6 +67,8 @@ public class MapplasActivity extends Activity {
 	private ImageView listViewHeaderImage = null;
 
 	private AroundRequester aroundRequester = null;
+
+	private Handler messageHandler = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -100,19 +103,18 @@ public class MapplasActivity extends Activity {
 
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-		this.loadLayoutComponents(normalTypeFace);
 		this.setClickListenersToButtons(normalTypeFace);
 
 		// Load list
-		this.loadApplicationsListView();
+		this.loadApplicationsListView(normalTypeFace);
 
 		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(this.listViewHeaderStatusMessage, this.isSplashActive, this.model, this.listViewAdapter, this.listView, this.applicationList, this);
-
+		
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.messageHandler, this.listView);
 
-		// Check network status		
+		// Check network status
 		this.checkNetworkStatus();
 
 		this.loadLocalization();
@@ -124,32 +126,25 @@ public class MapplasActivity extends Activity {
 		// messageHandler)).execute(new Location[] { location });
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = this.getMenuInflater();
+		menuInflater.inflate(R.layout.menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		this.loadLocalization();
+		return true;
+	}
+
 	/**
 	 * 
 	 * Private methods
 	 * 
 	 */
 
-	/**
-	 * Loads screen components
-	 * 
-	 * @param normalTypeFace
-	 */
-	private void loadLayoutComponents(Typeface normalTypeFace) {
-		this.listView = (AwesomeListView)findViewById(R.id.lvLista);
-
-		LayoutInflater inflater = this.getLayoutInflater();
-		LinearLayout headerLayout = (LinearLayout)inflater.inflate(R.layout.ptr_header, null);
-
-		// ListView header status message
-		this.listViewHeaderStatusMessage = (TextView)headerLayout.findViewById(R.id.lblStatus);
-		listViewHeaderStatusMessage.setTypeface(normalTypeFace);
-		listViewHeaderStatusMessage.setText(R.string.location_searching);
-
-		// ListView header status image
-		this.listViewHeaderImage = (ImageView)headerLayout.findViewById(R.id.imgMap);
-		listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
-	}
 
 	private void setClickListenersToButtons(Typeface normalTypeFace) {
 		// User profile button
@@ -181,13 +176,24 @@ public class MapplasActivity extends Activity {
 		});
 	}
 
-	private void loadApplicationsListView() {
+	private void loadApplicationsListView(Typeface normalTypeface) {
+		this.listView = (AwesomeListView)findViewById(R.id.lvLista);
+
 		// Add header to list
 		LinearLayout listViewHeader = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.ptr_header, null);
 		RelativeLayout headerLayout = (RelativeLayout)listViewHeader.findViewById(R.id.llInnerPtr);
 		TextView headerTV = (TextView)listViewHeader.findViewById(R.id.lblAction);
 		TextView wifiDisabledTV = (TextView)listViewHeader.findViewById(R.id.lblWifiDisabledMessage);
 		ImageView headerIV = (ImageView)listViewHeader.findViewById(R.id.ivImage);
+
+		// ListView header status message
+		listViewHeaderStatusMessage = (TextView)listViewHeader.findViewById(R.id.lblStatus);
+		listViewHeaderStatusMessage.setTypeface(normalTypeface);
+		listViewHeaderStatusMessage.setText(R.string.location_searching);
+
+		// ListView header status image
+		listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
+		listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
 		Drawable pullToRefreshArrow = this.getResources().getDrawable(R.drawable.ic_pulltorefresh_arrow);
 		Drawable ic_refreshImage = this.getResources().getDrawable(R.drawable.ic_refresh_photo);
@@ -205,8 +211,6 @@ public class MapplasActivity extends Activity {
 			public void onRelease() {
 				try {
 					loadLocalization();
-					// locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-					// 0, 0, locationListener);
 				} catch (Exception e) {
 					Log.i(this.getClass().getSimpleName(), e.toString());
 				}
@@ -214,7 +218,7 @@ public class MapplasActivity extends Activity {
 		});
 
 		// Set adapter
-		this.listViewAdapter = new AppAdapter(this, this.listView, R.layout.rowloc, this.model.appList(), this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
+		this.listViewAdapter = new AppAdapter(this, this.listView, R.layout.rowloc, model.appList(), this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
 		this.listView.setAdapter(this.listViewAdapter);
 		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 
@@ -268,9 +272,4 @@ public class MapplasActivity extends Activity {
 	public AwesomeListView getListView() {
 		return listView;
 	}
-
-	public void setListView(AwesomeListView listView) {
-		this.listView = listView;
-	}
-
 }
