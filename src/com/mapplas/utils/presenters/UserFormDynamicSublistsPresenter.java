@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,11 +12,10 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.UserAppAdapter;
+import com.mapplas.app.async_tasks.UserBlocksTask;
+import com.mapplas.app.async_tasks.UserLikesTask;
 import com.mapplas.app.async_tasks.UserPinUpsTask;
-import com.mapplas.app.threads.BlockRequestThread;
-import com.mapplas.app.threads.UserLikesRequestThread;
 import com.mapplas.model.App;
-import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
@@ -63,7 +61,7 @@ public class UserFormDynamicSublistsPresenter {
 			public void onClick(View v) {
 				// Obtain blocked items data
 				list.removeFooterView(layoutComponents.footerInfoLayout());
-				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
+				
 				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.likesLayout().setBackgroundResource(Color.TRANSPARENT);
@@ -73,14 +71,12 @@ public class UserFormDynamicSublistsPresenter {
 				list.addFooterView(layoutComponents.footerLayout());
 				list.addFooterView(layoutComponents.footerInfoLayout());
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
+				
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, user, currentLocation);
-
 				list.setAdapter(ula);
 
 				// Block request
-				Thread blockRequestThread = new Thread(new BlockRequestThread(user.getId()).getThread());
-				Message.obtain(messageHandler, Constants.SYNESTH_USER_BLOCKS_ID, null).sendToTarget();
-				blockRequestThread.start();
+				new UserBlocksTask(messageHandler, user.getId()).execute();
 			}
 		});
 	}
@@ -94,8 +90,8 @@ public class UserFormDynamicSublistsPresenter {
 			public void onClick(View v) {
 				// Obtain blocked items data
 				list.removeFooterView(layoutComponents.footerInfoLayout());
+				
 				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.likesLayout().setBackgroundResource(Color.TRANSPARENT);
 
@@ -121,10 +117,10 @@ public class UserFormDynamicSublistsPresenter {
 			public void onClick(View v) {
 				// Obtain blocked items data
 				list.removeFooterView(layoutComponents.footerInfoLayout());
+				
 				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.likesLayout().setBackgroundResource(Color.TRANSPARENT);
 
 				layoutComponents.likesLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
 
@@ -136,9 +132,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.setAdapter(ula);
 
 				// User-likes request
-				Thread userLikesRequestThread = new Thread(new UserLikesRequestThread(user.getId()).getThread());
-				Message.obtain(messageHandler, Constants.SYNESTH_USER_LIKES_ID, null).sendToTarget();
-				userLikesRequestThread.start();
+				new UserLikesTask(messageHandler, user.getId()).execute();
 			}
 		});
 	}
