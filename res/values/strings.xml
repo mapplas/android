@@ -22,7 +22,6 @@
     <string name="user_applications">Installed Apps</string>
     <string name="Connect_facebook">Connect with Facebook</string>
     <string name="Connect_twitter">Connect with Twitter</string>
-	<string name="logout">Log Out</string>
     <string name="user_not_loged">User not logged in</string>
     <string name="notifications">Notifications</string>
     <string name="rating_rate">Rate App</string>
@@ -94,7 +93,6 @@
 	<string name="getting_configuration">Loading configuration&#8230;</string>
 	
 	<string name="signin">Sign In</string>
-	
 	<string name="signout">Sign Out</string>
 	
 	<string name="allow">allow</string>

@@ -22,11 +22,9 @@ public class User implements Parcelable {
 	private String email = "";
 
 	private String imei = "";
-	
-	private boolean loggedIn = false;
-	
+
 	public User() {
-		
+
 	}
 
 	public String getName() {
@@ -100,15 +98,7 @@ public class User implements Parcelable {
 	public void setImei(String imei) {
 		this.imei = imei;
 	}
-	
-	public boolean loggedIn() {
-		return this.loggedIn;
-	}
 
-	public void setLoggedIn(boolean logged) {
-		this.loggedIn = logged;
-	}
-	
 	/**
 	 * Parcelable methods
 	 */
@@ -128,7 +118,6 @@ public class User implements Parcelable {
 		dest.writeString(this.password);
 		dest.writeString(this.email);
 		dest.writeString(this.imei);
-		dest.writeByte((byte)(this.loggedIn ? 1 : 0));
 	}
 
 	public User(Parcel parcel) {
@@ -141,7 +130,6 @@ public class User implements Parcelable {
 		this.password = parcel.readString();
 		this.email = parcel.readString();
 		this.imei = parcel.readString();
-		this.loggedIn = parcel.readByte() == 1;
 	}
 
 	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

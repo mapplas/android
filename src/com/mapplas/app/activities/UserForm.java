@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -38,12 +41,14 @@ import com.mapplas.app.adapters.UserAppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.UserPinUpsTask;
 import com.mapplas.app.handlers.MessageHandlerFactory;
+import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class UserForm extends Activity {
 
@@ -79,12 +84,12 @@ public class UserForm extends Activity {
 
 	private Handler messageHandler = null;
 
-	private LinearLayout privateFooter = null;
+	private LinearLayout refreshListBackgroundFooter = null;
 
-	private LinearLayout privateFooterInfo = null;
+	private LinearLayout buttonsFooter = null;
 
 	private View headerLayout = null;
-	
+
 	private Button actionButton = null;
 
 	@Override
@@ -97,7 +102,7 @@ public class UserForm extends Activity {
 		this.initializeAnimations();
 		this.initLayoutComponents();
 
-		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this, privateFooter, this.user, this.currentLocation);
+		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this, refreshListBackgroundFooter, this.user, this.currentLocation);
 
 		// Request user pin-up's
 		new UserPinUpsTask(this.messageHandler, this.user.getId()).execute();
@@ -110,7 +115,7 @@ public class UserForm extends Activity {
 		LinearLayout ratesLayout = (LinearLayout)findViewById(R.id.lytRates);
 		LinearLayout likesLayout = (LinearLayout)findViewById(R.id.lytLikes);
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
-		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, this.privateFooter, this.privateFooterInfo, mPrivateRefreshIcon);
+		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
 		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation).present();
 
@@ -137,13 +142,14 @@ public class UserForm extends Activity {
 	private void getDataFromBundle() {
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
-			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
-				this.user = (User)bundle.getParcelable(Constants.MAPPLAS_LOGIN_USER_ID);
-			}
+//			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
+//				this.user = (User)bundle.getParcelable(Constants.MAPPLAS_LOGIN_USER_ID);
+//			}
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION_ID)) {
 				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION_ID);
 			}
 		}
+		this.user = SuperModelSingleton.model.currentUser();
 	}
 
 	private void initializeAnimations() {
@@ -173,17 +179,16 @@ public class UserForm extends Activity {
 	private void initLayoutComponents() {
 		// Action button
 		this.actionButton = (Button)findViewById(R.id.btnAction);
-		
+
 		this.headerLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
-		this.privateFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
-		this.privateFooterInfo = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
-		ImageView mPrivateRefreshIcon = (ImageView)this.privateFooter.findViewById(R.id.ivImage);
+		this.buttonsFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
+		this.refreshListBackgroundFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
+		ImageView mPrivateRefreshIcon = (ImageView)this.refreshListBackgroundFooter.findViewById(R.id.ivImage);
 		mPrivateRefreshIcon.startAnimation(refreshAnimation);
 
 		this.listView = (ListView)findViewById(R.id.lvList);
 		this.listView.addHeaderView(this.headerLayout);
-		this.listView.addFooterView(this.privateFooter);
-		this.listView.addFooterView(this.privateFooterInfo);
+		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
 		// Set list adapter
 		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, this.user, this.currentLocation);
@@ -211,6 +216,7 @@ public class UserForm extends Activity {
 		this.initializeActionButton(profileRow);
 		this.initializeBackButton();
 		this.initializeProfileImageButton();
+		this.initializeSignOutButton();
 	}
 
 	private void initializeFormButton(final ViewFlipper profileRow) {
@@ -251,14 +257,24 @@ public class UserForm extends Activity {
 					Thread th = new Thread(new UserEditRequestThread(user, currentResponse).getThread());
 					th.start();
 					
+					SharedPreferences settings = getSharedPreferences("prefs", 0);
+					Editor editor = settings.edit();
+					editor.putBoolean("user_logged", true);
+					editor.commit();
+
 					// Change layout components
 					changeLayoutComponents(checkUserState());
 
 				} catch (Exception exc) {
 					// Change layout components
-					user.setLoggedIn(false);
+
+					SharedPreferences settings = getSharedPreferences("prefs", 0);
+					Editor editor = settings.edit();
+					editor.putBoolean("user_logged", false);
+					editor.commit();
+
 					changeLayoutComponents(checkUserState());
-					
+
 					Log.i(getClass().getSimpleName(), "Edit User: " + exc);
 				}
 
@@ -272,6 +288,8 @@ public class UserForm extends Activity {
 					profileRow.setOutAnimation(animFlipOutPrevious);
 					profileRow.showPrevious();
 				}
+				
+				SuperModelSingleton.model.setCurrentUser(user);
 			}
 		});
 	}
@@ -322,6 +340,47 @@ public class UserForm extends Activity {
 		});
 	}
 
+	private void initializeSignOutButton() {
+		Button logoutButton = (Button)this.buttonsFooter.findViewById(R.id.lblSignout);
+		logoutButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// Send and store the user data.
+				final String name = user.getName();
+				final String email = user.getEmail();
+
+				new AlertDialog.Builder(UserForm.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.signout).setMessage(R.string.really_logout).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						user.setName("");
+						user.setEmail("");
+						
+						SharedPreferences settings = getSharedPreferences("prefs", 0);
+						SharedPreferences.Editor editor = settings.edit();
+						editor.putBoolean("user_logged", false);
+						editor.commit();
+
+						changeLayoutComponents(checkUserState());
+
+						// Logout request
+						String message = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_LOGOUT + " (" + name + ":" + email + ")";
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, null, user, message).getThread());
+						activityRequestThread.start();
+
+						// User edit request
+						Thread userEditRequestThread = new Thread(new UserEditRequestThread(user, currentResponse).getThread());
+						userEditRequestThread.start();
+						
+						SuperModelSingleton.model.setCurrentUser(user);
+					}
+
+				}).setNegativeButton(R.string.no, null).show();
+			}
+		});
+	}
+
 	/**
 	 * 
 	 * USER LOG-IN, SIGN-IN... ACTIONS
@@ -336,20 +395,34 @@ public class UserForm extends Activity {
 
 		switch (userState) {
 			case UserForm.USER_SIGN_IN:
-				actionText.setText(R.string.newAccount);
 				this.actionButton.setText(R.string.signin);
+				this.actionButton.setVisibility(View.VISIBLE);
+				
+				actionText.setText(R.string.newAccount);
+				actionText.setVisibility(View.VISIBLE);
+
+				this.listView.removeFooterView(this.buttonsFooter);
 				break;
 
 			case UserForm.USER_LOG_IN:
 				this.actionButton.setText(R.string.login);
+				this.actionButton.setVisibility(View.VISIBLE);
+				
 				actionText.setText(R.string.newAccountSignedIn);
+				actionText.setVisibility(View.VISIBLE);
+
+				this.listView.removeFooterView(this.buttonsFooter);
 				break;
 
 			case UserForm.USER_LOGGED_IN:
 				this.actionButton.setVisibility(View.INVISIBLE);
 				actionText.setVisibility(View.INVISIBLE);
+
+				this.listView.addFooterView(this.buttonsFooter);
 				break;
 		}
+		
+		SuperModelSingleton.model.setCurrentUser(user);
 	}
 
 	private void setUserNameAndEmailFields(Typeface normalTypeface) {
@@ -384,8 +457,10 @@ public class UserForm extends Activity {
 	}
 
 	private int checkUserState() {
+		SharedPreferences settings = UserForm.this.getSharedPreferences("prefs", 0);
+
 		if(!this.user.getEmail().equals("")) {
-			if(this.user.loggedIn()) {
+			if(settings.getBoolean("user_logged", false)) {
 				return UserForm.USER_LOGGED_IN;
 			}
 			else {

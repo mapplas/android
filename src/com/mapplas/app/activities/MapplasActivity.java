@@ -154,7 +154,8 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
-				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser());
+				SuperModelSingleton.model = model;
+//				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser());
 				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);

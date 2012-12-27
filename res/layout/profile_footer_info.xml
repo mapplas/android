@@ -22,7 +22,7 @@
             android:layout_weight="0.5"
             android:background="@drawable/action_standar_button"
             android:singleLine="true"
-            android:text="@string/logout" />
+            android:text="TODO" />
 
         <Button
             android:id="@+id/lblSignout"

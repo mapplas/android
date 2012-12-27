@@ -13,9 +13,9 @@ public class UserFormLayoutComponents {
 
 	private LinearLayout likesLayout;
 
-	private LinearLayout footerLayout;
+	private LinearLayout footerListRefreshLayout;
 
-	private LinearLayout footerInfoLayout;
+	private LinearLayout footerButtonsLayout;
 	
 	private ImageView refreshIcon;
 
@@ -24,8 +24,8 @@ public class UserFormLayoutComponents {
 		this.pinUpsLayout = pinUpsLayout;
 		this.ratesLayout = ratesLayout;
 		this.likesLayout = likesLayout;
-		this.footerLayout = footerLayout;
-		this.footerInfoLayout = footerInfoLayout;
+		this.footerListRefreshLayout = footerLayout;
+		this.footerButtonsLayout = footerInfoLayout;
 		this.refreshIcon = mPrivateRefreshIcon;
 	}
 
@@ -45,12 +45,12 @@ public class UserFormLayoutComponents {
 		return this.likesLayout;
 	}
 
-	public LinearLayout footerLayout() {
-		return this.footerLayout;
+	public LinearLayout footerListRefreshLayout() {
+		return this.footerListRefreshLayout;
 	}
 	
-	public LinearLayout footerInfoLayout() {
-		return this.footerInfoLayout;
+	public LinearLayout footerButtonsLayout() {
+		return this.footerButtonsLayout;
 	}
 	
 	public ImageView refreshIcon() {
