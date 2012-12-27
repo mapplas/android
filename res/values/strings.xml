@@ -68,7 +68,8 @@
 	<string name="average">Average</string>
 	<string name="aboveAvg">Above Average</string>
 	<string name="excellent">Excellent</string>
-	<string name="newAccount">If you are already a user or need an account. Tap Edit!</string>
+	<string name="newAccount">If you would like to backup your preferences, signin!</string>
+	<string name="newAccountSignedIn">To access your configuration, login!</string>
 	<string name="connect">You can connect with Facebook and Twitter.</string>
 	<string name="year">yr</string>
 	<string name="years">yrs</string>

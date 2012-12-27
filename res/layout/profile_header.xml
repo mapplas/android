@@ -23,7 +23,8 @@
                 android:layout_height="72dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/profile_photo" />
+                android:background="@drawable/profile_photo"
+                android:contentDescription="@string/image_content_description" />
 
             <Button
                 android:id="@+id/btnProfileImage"
@@ -58,7 +59,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
-        android:text="@string/newAccount"
         android:textColor="#999999"
         android:textSize="12sp" />
 
@@ -82,6 +82,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
+                android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_unpinup" />
 
             <TextView
@@ -107,6 +108,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
+                android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_favourite_done" />
 
             <TextView
@@ -132,6 +134,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
+                android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_block" />
 
             <TextView
@@ -159,6 +162,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
+                android:contentDescription="@string/image_content_description"
                 android:src="@drawable/action_rate_button" />
 
             <TextView

@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,18 +35,23 @@ import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.UserAppAdapter;
+import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.UserPinUpsTask;
 import com.mapplas.app.handlers.MessageHandlerFactory;
-import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
-import com.mapplas.utils.presenters.UserFormPresenter;
 
 public class UserForm extends Activity {
+
+	private static final int USER_SIGN_IN = 0;
+
+	private static final int USER_LOG_IN = 1;
+
+	private static final int USER_LOGGED_IN = 2;
 
 	private RotateAnimation flipAnimation;
 
@@ -74,10 +78,14 @@ public class UserForm extends Activity {
 	private String currentLocation = "";
 
 	private Handler messageHandler = null;
-	
+
 	private LinearLayout privateFooter = null;
-	
+
 	private LinearLayout privateFooterInfo = null;
+
+	private View headerLayout = null;
+	
+	private Button actionButton = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -146,16 +154,6 @@ public class UserForm extends Activity {
 		this.refreshAnimation.setRepeatCount(Animation.INFINITE);
 		this.refreshAnimation.setRepeatMode(Animation.RESTART);
 
-		// Unused?
-		// Animation animFlipInNext = AnimationUtils.loadAnimation(this,
-		// R.anim.flipinnext);
-		// Animation animFlipOutNext = AnimationUtils.loadAnimation(this,
-		// R.anim.flipoutnext);
-		// Animation animFlipInPrevious = AnimationUtils.loadAnimation(this,
-		// R.anim.flipinprevious);
-		// Animation animFlipOutPrevious = AnimationUtils.loadAnimation(this,
-		// R.anim.flipoutprevious);
-
 		this.flipAnimation = new RotateAnimation(0, 90, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 		this.flipAnimation.setInterpolator(new LinearInterpolator());
 		this.flipAnimation.setDuration(300);
@@ -166,26 +164,29 @@ public class UserForm extends Activity {
 		this.reverseFlipAnimation.setDuration(300);
 		this.reverseFlipAnimation.setFillAfter(true);
 
-		animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
-		animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
-		animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
-		animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
+		this.animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
+		this.animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
+		this.animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
+		this.animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
 	}
 
 	private void initLayoutComponents() {
-		View header = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
+		// Action button
+		this.actionButton = (Button)findViewById(R.id.btnAction);
+		
+		this.headerLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
 		this.privateFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
 		this.privateFooterInfo = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
 		ImageView mPrivateRefreshIcon = (ImageView)this.privateFooter.findViewById(R.id.ivImage);
 		mPrivateRefreshIcon.startAnimation(refreshAnimation);
 
 		this.listView = (ListView)findViewById(R.id.lvList);
-		this.listView.addHeaderView(header);
+		this.listView.addHeaderView(this.headerLayout);
 		this.listView.addFooterView(this.privateFooter);
 		this.listView.addFooterView(this.privateFooterInfo);
 
 		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(UserForm.this, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, this.user, this.currentLocation);
+		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, this.user, this.currentLocation);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview
@@ -193,40 +194,26 @@ public class UserForm extends Activity {
 		this.listView.setDivider(color);
 		this.listView.setDividerHeight(1);
 
+		// Init typeface
+		Typeface italicTypeface = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
+
+		// Initialize profile textView
+		TextView profileTextView = (TextView)findViewById(R.id.lblProfile);
+		profileTextView.setTypeface(italicTypeface);
+
 		// Init layout other components
-		new UserFormPresenter(this, this.user).present();
+		this.changeLayoutComponents(this.checkUserState());
 	}
 
 	private void initializeButtonsAndItsBehaviour() {
 		ViewFlipper profileRow = (ViewFlipper)findViewById(R.id.vfRowProfile);
-		this.initializeEditButton(profileRow);
-		this.initializeSendButton(profileRow);
-		this.initializeLogoutButton();
+		this.initializeFormButton(profileRow);
+		this.initializeActionButton(profileRow);
 		this.initializeBackButton();
 		this.initializeProfileImageButton();
 	}
 
-	private void initializeEditButton(final ViewFlipper profileRow) {
-		Button btnEdit = (Button)findViewById(R.id.btnEdit);
-		btnEdit.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if(profileRow.indexOfChild(profileRow.getCurrentView()) == 0) {
-					profileRow.setInAnimation(animFlipInNext);
-					profileRow.setOutAnimation(animFlipOutNext);
-					profileRow.showNext();
-				}
-				else {
-					profileRow.setInAnimation(animFlipInPrevious);
-					profileRow.setOutAnimation(animFlipOutPrevious);
-					profileRow.showPrevious();
-				}
-			}
-		});
-	}
-
-	private void initializeSendButton(final ViewFlipper profileRow) {
+	private void initializeFormButton(final ViewFlipper profileRow) {
 		Button btnSend = (Button)findViewById(R.id.btnSend);
 		btnSend.setOnClickListener(new View.OnClickListener() {
 
@@ -251,7 +238,7 @@ public class UserForm extends Activity {
 				TextView lblEmail = (TextView)findViewById(R.id.lblEmail);
 				lblEmail.setText(user.getEmail());
 				if(user.getEmail().equals("")) {
-					lblName.setTag(R.string.email_not_set);
+					lblEmail.setTag(R.string.email_not_set);
 				}
 
 				// Hide keyboard
@@ -261,9 +248,17 @@ public class UserForm extends Activity {
 
 				// Send user edit request
 				try {
-					Thread th = new Thread(new UserEditRequestThread(user).getThread());
+					Thread th = new Thread(new UserEditRequestThread(user, currentResponse).getThread());
 					th.start();
+					
+					// Change layout components
+					changeLayoutComponents(checkUserState());
+
 				} catch (Exception exc) {
+					// Change layout components
+					user.setLoggedIn(false);
+					changeLayoutComponents(checkUserState());
+					
 					Log.i(getClass().getSimpleName(), "Edit User: " + exc);
 				}
 
@@ -281,52 +276,21 @@ public class UserForm extends Activity {
 		});
 	}
 
-	private void initializeLogoutButton() {
-		Button btnLogout = (Button)findViewById(R.id.btnLogout);
-
-		if(user == null) {
-			btnLogout.setBackgroundResource(R.drawable.ic_refresh);
-		}
-
-		btnLogout.setOnClickListener(new View.OnClickListener() {
+	private void initializeActionButton(final ViewFlipper profileRow) {
+		this.actionButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
-				// Send and store the user data.
-				final String name = user.getName();
-				final String email = user.getEmail();
-
-				new AlertDialog.Builder(UserForm.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.logout).setMessage(R.string.really_logout).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						user.setName("");
-						user.setEmail("");
-
-						EditText txtName = (EditText)findViewById(R.id.txtName);
-						txtName.setText(user.getName());
-
-						EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
-						txtEmail.setText(user.getEmail());
-
-						TextView lblName = (TextView)findViewById(R.id.lblName);
-						lblName.setText(R.string.name_not_set);
-
-						TextView lblEmail = (TextView)findViewById(R.id.lblEmail);
-						lblEmail.setText(R.string.email_not_set);
-
-						// Logout request
-						String message = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_LOGOUT + " (" + name + ":" + email + ")";
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, null, user, message).getThread());
-						activityRequestThread.start();
-
-						// User edit request
-						Thread userEditRequestThread = new Thread(new UserEditRequestThread(user).getThread());
-						userEditRequestThread.start();
-					}
-
-				}).setNegativeButton(R.string.no, null).show();
+				if(profileRow.indexOfChild(profileRow.getCurrentView()) == 0) {
+					profileRow.setInAnimation(animFlipInNext);
+					profileRow.setOutAnimation(animFlipOutNext);
+					profileRow.showNext();
+				}
+				else {
+					profileRow.setInAnimation(animFlipInPrevious);
+					profileRow.setOutAnimation(animFlipOutPrevious);
+					profileRow.showPrevious();
+				}
 			}
 		});
 	}
@@ -358,6 +322,86 @@ public class UserForm extends Activity {
 		});
 	}
 
+	/**
+	 * 
+	 * USER LOG-IN, SIGN-IN... ACTIONS
+	 * 
+	 */
+	private void changeLayoutComponents(int userState) {
+		Typeface normalTypeface = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
+
+		this.setUserNameAndEmailFields(normalTypeface);
+
+		TextView actionText = (TextView)this.headerLayout.findViewById(R.id.lblLogin);
+
+		switch (userState) {
+			case UserForm.USER_SIGN_IN:
+				actionText.setText(R.string.newAccount);
+				this.actionButton.setText(R.string.signin);
+				break;
+
+			case UserForm.USER_LOG_IN:
+				this.actionButton.setText(R.string.login);
+				actionText.setText(R.string.newAccountSignedIn);
+				break;
+
+			case UserForm.USER_LOGGED_IN:
+				this.actionButton.setVisibility(View.INVISIBLE);
+				actionText.setVisibility(View.INVISIBLE);
+				break;
+		}
+	}
+
+	private void setUserNameAndEmailFields(Typeface normalTypeface) {
+
+		// Initialize name text view field
+		TextView lblName = (TextView)findViewById(R.id.lblName);
+		lblName.setTypeface(normalTypeface);
+		lblName.setText(this.user.getName());
+
+		if(this.user.getName().equals("")) {
+			lblName.setText(R.string.name_not_set);
+		}
+
+		// Initialize email text view field
+		TextView lblEmail = (TextView)findViewById(R.id.lblEmail);
+		lblEmail.setTypeface(normalTypeface);
+		lblEmail.setText(this.user.getEmail());
+
+		if(this.user.getEmail().equals("")) {
+			lblEmail.setText(R.string.email_not_set);
+		}
+
+		// Initialize name edit text field
+		EditText txtName = (EditText)findViewById(R.id.txtName);
+		txtName.setTypeface(normalTypeface);
+		txtName.setText(this.user.getName());
+
+		// Initialize email edit text field
+		EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
+		txtEmail.setTypeface(normalTypeface);
+		txtEmail.setText(this.user.getEmail());
+	}
+
+	private int checkUserState() {
+		if(!this.user.getEmail().equals("")) {
+			if(this.user.loggedIn()) {
+				return UserForm.USER_LOGGED_IN;
+			}
+			else {
+				return UserForm.USER_LOG_IN;
+			}
+		}
+		else {
+			return UserForm.USER_SIGN_IN;
+		}
+	}
+
+	/**
+	 * 
+	 * IMAGES
+	 * 
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode != RESULT_OK)

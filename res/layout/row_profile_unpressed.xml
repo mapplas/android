@@ -15,11 +15,12 @@
             android:layout_width="fill_parent"
             android:layout_height="32dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:text="@string/user_name"
             android:textColor="#333333"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:typeface="normal" />
 
         <TextView
@@ -27,22 +28,13 @@
             android:layout_width="fill_parent"
             android:layout_height="32dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:text="@string/user_email"
             android:textColor="#333333"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:typeface="normal" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnEdit"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/btn_edit"
-        android:text="@string/login"
-        android:textColor="#333333" />
 
 </LinearLayout>

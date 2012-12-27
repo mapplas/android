@@ -63,7 +63,8 @@
 	<string name="average">Media</string>
 	<string name="aboveAvg">Superior a la media</string>
 	<string name="excellent">Excelente</string>
-	<string name="newAccount">Si ya eres usuario o necesitas una cuenta. Pulsa Editar!</string>
+	<string name="newAccount">Si deseas guardar tus preferencias, create una cuenta!</string>
+	<string name="newAccountSignedIn">Pulsa login para acceder a tus preferencias.</string>
 	<string name="connect">También puedes conectar con Facebook y Twitter.</string>
 	<string name="year">año</string>
 	<string name="years">años</string>
