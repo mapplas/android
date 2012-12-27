@@ -7,24 +7,24 @@ public class User implements Parcelable {
 
 	private int id = 0;
 
-	private String name = "?";
+	private String name = "";
 
-	private String lastname = "?";
+	private String lastname = "";
 
-	private String gender = "?";
+	private String gender = "";
 
-	private String birthdate = "?";
+	private String birthdate = "";
 
-	private String login = "?";
+	private String login = "";
 
-	private String password = "?";
+	private String password = "";
 
-	private String email = "?";
+	private String email = "";
 
-	private String imei = "?";
-	
+	private String imei = "";
+
 	public User() {
-		
+
 	}
 
 	public String getName() {

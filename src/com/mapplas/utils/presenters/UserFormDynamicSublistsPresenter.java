@@ -3,6 +3,7 @@ package com.mapplas.utils.presenters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
@@ -32,9 +33,9 @@ public class UserFormDynamicSublistsPresenter {
 	private User user;
 
 	private Handler messageHandler;
-	
+
 	private Animation refreshAnimation;
-	
+
 	private String currentLocation;
 
 	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, Handler messageHandler, Animation refreshAnimation, String currentLocation) {
@@ -60,18 +61,21 @@ public class UserFormDynamicSublistsPresenter {
 			@Override
 			public void onClick(View v) {
 				// Obtain blocked items data
-				list.removeFooterView(layoutComponents.footerInfoLayout());
-				
+				list.removeFooterView(layoutComponents.footerButtonsLayout());
+
 				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.likesLayout().setBackgroundResource(Color.TRANSPARENT);
 
 				layoutComponents.blocksLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
 
-				list.addFooterView(layoutComponents.footerLayout());
-				list.addFooterView(layoutComponents.footerInfoLayout());
+				list.addFooterView(layoutComponents.footerListRefreshLayout());
+				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
+				if(settings.getBoolean("user_logged", false)) {
+					list.addFooterView(layoutComponents.footerButtonsLayout());
+				}
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
-				
+
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
 
@@ -89,21 +93,24 @@ public class UserFormDynamicSublistsPresenter {
 			@Override
 			public void onClick(View v) {
 				// Obtain blocked items data
-				list.removeFooterView(layoutComponents.footerInfoLayout());
-				
+				list.removeFooterView(layoutComponents.footerButtonsLayout());
+
 				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.likesLayout().setBackgroundResource(Color.TRANSPARENT);
 
 				layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
 
-				list.addFooterView(layoutComponents.footerLayout());
-				list.addFooterView(layoutComponents.footerInfoLayout());
+				list.addFooterView(layoutComponents.footerListRefreshLayout());
+				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
+				if(settings.getBoolean("user_logged", false)) {
+					list.addFooterView(layoutComponents.footerButtonsLayout());
+				}
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, user, currentLocation);
 				list.setAdapter(ula);
-				
+
 				// User pin-ups request task
 				new UserPinUpsTask(messageHandler, user.getId()).execute();
 			}
@@ -116,16 +123,19 @@ public class UserFormDynamicSublistsPresenter {
 			@Override
 			public void onClick(View v) {
 				// Obtain blocked items data
-				list.removeFooterView(layoutComponents.footerInfoLayout());
-				
+				list.removeFooterView(layoutComponents.footerButtonsLayout());
+
 				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
 				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
 
 				layoutComponents.likesLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
 
-				list.addFooterView(layoutComponents.footerLayout());
-				list.addFooterView(layoutComponents.footerInfoLayout());
+				list.addFooterView(layoutComponents.footerListRefreshLayout());
+				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
+				if(settings.getBoolean("user_logged", false)) {
+					list.addFooterView(layoutComponents.footerButtonsLayout());
+				}
 				layoutComponents.refreshIcon().startAnimation(refreshAnimation);
 
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, user, currentLocation);

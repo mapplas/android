@@ -63,7 +63,8 @@
 	<string name="average">Media</string>
 	<string name="aboveAvg">Superior a la media</string>
 	<string name="excellent">Excelente</string>
-	<string name="newAccount">Si ya eres usuario o necesitas una cuenta. Pulsa Editar!</string>
+	<string name="newAccount">Si deseas guardar tus preferencias, create una cuenta!</string>
+	<string name="newAccountSignedIn">Pulsa login para acceder a tus preferencias.</string>
 	<string name="connect">También puedes conectar con Facebook y Twitter.</string>
 	<string name="year">año</string>
 	<string name="years">años</string>
@@ -76,12 +77,14 @@
 	<string name="minute">m</string>
 	<string name="minutes">m</string>
 	
-	<string name="logout">Salir</string>
 	<string name="really_logout">¿Realmente quieres salir?</string>
 	<string name="yes">Si</string>
 	<string name="no">No</string>
 	<string name="done">OK</string>
 	<string name="free">Gratis</string>
+	
+	<string name="signin">Sign-in</string>
+	<string name="signout">Sign-out</string>
 	
 	<string name="wifi_error_toast">Para obtener una ubicación más precisa, activa la conexión wifi. Funcionará incluso sin que te conectes a una red.</string>
 	<string name="pull_to_refresh_wifi_error">Activa el wifi para una mejor precisión!</string>

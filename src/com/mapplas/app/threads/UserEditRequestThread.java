@@ -10,8 +10,11 @@ public class UserEditRequestThread {
 	
 	private User user;
 	
-	public UserEditRequestThread(User user) {
+	private String response;
+		
+	public UserEditRequestThread(User user, String serverResponse) {
 		this.user = user;
+		this.response = serverResponse;
 	}
 
 	public Runnable getThread() {
@@ -20,7 +23,7 @@ public class UserEditRequestThread {
 			@Override
 			public void run() {
 				try {
-					NetRequests.UserEditRequest(user.getName(), user.getEmail(), user.getImei(), String.valueOf(user.getId()));
+					response = NetRequests.UserEditRequest(user.getName(), user.getEmail(), user.getImei(), String.valueOf(user.getId()));
 				} catch (Exception e) {
 					Log.i(getClass().getSimpleName(), "Thread Edit User: " + e);
 				}
