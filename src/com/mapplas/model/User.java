@@ -27,8 +27,6 @@ public class User implements Parcelable {
 
 	private ArrayList<App> pinnedApps = new ArrayList<App>();
 
-	private ArrayList<App> likedApps = new ArrayList<App>();
-
 	private ArrayList<App> blockedApps = new ArrayList<App>();
 
 	public User() {
@@ -114,14 +112,6 @@ public class User implements Parcelable {
 		this.pinnedApps = pinnedApps;
 	}
 
-	public ArrayList<App> likedApps() {
-		return likedApps;
-	}
-
-	public void setLikedApps(ArrayList<App> likedApps) {
-		this.likedApps = likedApps;
-	}
-
 	public ArrayList<App> blockedApps() {
 		return blockedApps;
 	}
@@ -150,7 +140,6 @@ public class User implements Parcelable {
 		dest.writeString(this.email);
 		dest.writeString(this.imei);
 		dest.writeTypedList(this.pinnedApps);
-		dest.writeTypedList(this.likedApps);
 		dest.writeTypedList(this.blockedApps);
 	}
 
@@ -166,7 +155,6 @@ public class User implements Parcelable {
 		this.email = parcel.readString();
 		this.imei = parcel.readString();
 		this.pinnedApps = parcel.readArrayList(App.class.getClassLoader());
-		this.likedApps = parcel.readArrayList(App.class.getClassLoader());
 		this.blockedApps = parcel.readArrayList(App.class.getClassLoader());
 	}
 

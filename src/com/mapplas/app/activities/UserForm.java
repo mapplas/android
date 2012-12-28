@@ -38,7 +38,6 @@ import app.mapplas.com.R;
 import com.mapplas.app.adapters.UserAppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
-import com.mapplas.app.async_tasks.user_form.UserLikesTask;
 import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
@@ -103,16 +102,13 @@ public class UserForm extends Activity {
 		// Request user app preferences
 		JsonParser parser = new JsonParser(this);
 		new UserPinUpsTask(this.user, parser, this.listView, this, R.id.lblTitle, this.currentLocation, this.refreshListBackgroundFooter).execute();
-		new UserLikesTask(this.user, parser).execute();
 		new UserBlocksTask(this.user, parser).execute();
 
 		// Load presenter
 		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);
 		LinearLayout pinUpsLayout = (LinearLayout)findViewById(R.id.lytPinups);
-		LinearLayout ratesLayout = (LinearLayout)findViewById(R.id.lytRates);
-		LinearLayout likesLayout = (LinearLayout)findViewById(R.id.lytLikes);
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
-		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
+		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
 		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation).present();
 

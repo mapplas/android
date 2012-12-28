@@ -34,7 +34,6 @@ public class UserFormDynamicSublistsPresenter {
 	public void present() {
 		this.setBlocksLayoutBehaviour();
 		this.pinUpsLayoutBehaviour();
-		this.likesLayoutBehaviour();
 	}
 
 	private void setBlocksLayoutBehaviour() {
@@ -46,9 +45,6 @@ public class UserFormDynamicSublistsPresenter {
 				list.removeFooterView(layoutComponents.footerButtonsLayout());
 
 				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.likesLayout().setBackgroundResource(Color.TRANSPARENT);
-
 				layoutComponents.blocksLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
 
 				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
@@ -73,9 +69,6 @@ public class UserFormDynamicSublistsPresenter {
 				list.removeFooterView(layoutComponents.footerButtonsLayout());
 
 				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.likesLayout().setBackgroundResource(Color.TRANSPARENT);
-
 				layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
 
 				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
@@ -84,31 +77,6 @@ public class UserFormDynamicSublistsPresenter {
 				}
 
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
-				list.setAdapter(ula);
-			}
-		});
-	}
-
-	private void likesLayoutBehaviour() {
-		this.layoutComponents.likesLayout().setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// Obtain blocked items data
-				list.removeFooterView(layoutComponents.footerButtonsLayout());
-
-				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.ratesLayout().setBackgroundResource(Color.TRANSPARENT);
-
-				layoutComponents.likesLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
-
-				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
-				if(settings.getBoolean("user_logged", false)) {
-					list.addFooterView(layoutComponents.footerButtonsLayout());
-				}
-
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.likedApps(), UserAppAdapter.FAVOURITE, user, currentLocation);
 				list.setAdapter(ula);
 			}
 		});
