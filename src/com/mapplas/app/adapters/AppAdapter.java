@@ -325,8 +325,6 @@ public class AppAdapter extends ArrayAdapter<App> {
 				public void onClick(View v) {
 
 					Intent intent = new Intent(context, AppDetail.class);
-					// intent.putExtra(Constants.MAPPLAS_DETAIL_APP,
-					// (int)((Integer)v.getTag()));
 					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, o);
 					intent.putExtra(Constants.MAPPLAS_DETAIL_USER, user);
 					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, currentLocation);

@@ -130,6 +130,12 @@ public class UserForm extends Activity {
 			imgUser.setImageResource(R.drawable.ic_menu_profile);
 		}
 	}
+	
+	@Override
+	protected void onPause() {
+		SuperModelSingleton.model.setCurrentUser(user);
+		super.onPause();
+	}
 
 	/**
 	 * 
@@ -282,8 +288,6 @@ public class UserForm extends Activity {
 					profileRow.setOutAnimation(animFlipOutPrevious);
 					profileRow.showPrevious();
 				}
-				
-				SuperModelSingleton.model.setCurrentUser(user);
 			}
 		});
 	}
@@ -366,8 +370,6 @@ public class UserForm extends Activity {
 						// User edit request
 						Thread userEditRequestThread = new Thread(new UserEditRequestThread(user, currentResponse).getThread());
 						userEditRequestThread.start();
-						
-						SuperModelSingleton.model.setCurrentUser(user);
 					}
 
 				}).setNegativeButton(R.string.no, null).show();
@@ -415,8 +417,6 @@ public class UserForm extends Activity {
 				this.listView.addFooterView(this.buttonsFooter);
 				break;
 		}
-		
-		SuperModelSingleton.model.setCurrentUser(user);
 	}
 
 	private void setUserNameAndEmailFields(Typeface normalTypeface) {
