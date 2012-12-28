@@ -143,7 +143,6 @@ public class User implements Parcelable {
 		dest.writeTypedList(this.blockedApps);
 	}
 
-	@SuppressWarnings("unchecked")
 	public User(Parcel parcel) {
 		this.id = parcel.readInt();
 		this.name = parcel.readString();
@@ -154,8 +153,8 @@ public class User implements Parcelable {
 		this.password = parcel.readString();
 		this.email = parcel.readString();
 		this.imei = parcel.readString();
-		this.pinnedApps = parcel.readArrayList(App.class.getClassLoader());
-		this.blockedApps = parcel.readArrayList(App.class.getClassLoader());
+		parcel.readTypedList(this.pinnedApps, App.CREATOR);
+		parcel.readTypedList(this.blockedApps, App.CREATOR);
 	}
 
 	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
