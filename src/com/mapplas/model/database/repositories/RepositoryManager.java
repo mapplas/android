@@ -17,7 +17,7 @@ public class RepositoryManager {
 	static public NotificationRepository notifications(Context context) {
 		if(RepositoryManager.notifications == null) {
 			Dao<Notification, Integer> dao = null;
-			NotificationDatabase notificationDatabase = DatabaseManager.template(context);
+			NotificationDatabase notificationDatabase = DatabaseManager.notification(context);
 			try {
 				dao = (Dao<Notification, Integer>)notificationDatabase.getNotificationDao();
 			} catch (SQLException e) {

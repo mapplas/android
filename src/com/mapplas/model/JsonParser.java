@@ -268,7 +268,7 @@ public class JsonParser {
 //		return loc;
 //	}
 
-	public ArrayList<App> SimpleParseLocalizations(String input) {
+	public ArrayList<App> parseApps(String input) {
 
 		String jString = input;
 

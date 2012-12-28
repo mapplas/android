@@ -1,5 +1,7 @@
 package com.mapplas.model;
 
+import java.util.ArrayList;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -23,8 +25,11 @@ public class User implements Parcelable {
 
 	private String imei = "";
 
-	public User() {
+	private ArrayList<App> pinnedApps = new ArrayList<App>();
 
+	private ArrayList<App> blockedApps = new ArrayList<App>();
+
+	public User() {
 	}
 
 	public String getName() {
@@ -99,6 +104,22 @@ public class User implements Parcelable {
 		this.imei = imei;
 	}
 
+	public ArrayList<App> pinnedApps() {
+		return pinnedApps;
+	}
+
+	public void setPinnedApps(ArrayList<App> pinnedApps) {
+		this.pinnedApps = pinnedApps;
+	}
+
+	public ArrayList<App> blockedApps() {
+		return blockedApps;
+	}
+
+	public void setBlockedApps(ArrayList<App> blockedApps) {
+		this.blockedApps = blockedApps;
+	}
+
 	/**
 	 * Parcelable methods
 	 */
@@ -118,8 +139,11 @@ public class User implements Parcelable {
 		dest.writeString(this.password);
 		dest.writeString(this.email);
 		dest.writeString(this.imei);
+		dest.writeTypedList(this.pinnedApps);
+		dest.writeTypedList(this.blockedApps);
 	}
 
+	@SuppressWarnings("unchecked")
 	public User(Parcel parcel) {
 		this.id = parcel.readInt();
 		this.name = parcel.readString();
@@ -130,6 +154,8 @@ public class User implements Parcelable {
 		this.password = parcel.readString();
 		this.email = parcel.readString();
 		this.imei = parcel.readString();
+		this.pinnedApps = parcel.readArrayList(App.class.getClassLoader());
+		this.blockedApps = parcel.readArrayList(App.class.getClassLoader());
 	}
 
 	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
