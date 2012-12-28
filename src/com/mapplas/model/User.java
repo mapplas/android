@@ -1,5 +1,7 @@
 package com.mapplas.model;
 
+import java.util.ArrayList;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -23,8 +25,13 @@ public class User implements Parcelable {
 
 	private String imei = "";
 
-	public User() {
+	private ArrayList<App> pinnedApps = new ArrayList<App>();
 
+	private ArrayList<App> likedApps = new ArrayList<App>();
+
+	private ArrayList<App> blockedApps = new ArrayList<App>();
+
+	public User() {
 	}
 
 	public String getName() {
@@ -99,6 +106,30 @@ public class User implements Parcelable {
 		this.imei = imei;
 	}
 
+	public ArrayList<App> pinnedApps() {
+		return pinnedApps;
+	}
+
+	public void setPinnedApps(ArrayList<App> pinnedApps) {
+		this.pinnedApps = pinnedApps;
+	}
+
+	public ArrayList<App> likedApps() {
+		return likedApps;
+	}
+
+	public void setLikedApps(ArrayList<App> likedApps) {
+		this.likedApps = likedApps;
+	}
+
+	public ArrayList<App> blockedApps() {
+		return blockedApps;
+	}
+
+	public void setBlockedApps(ArrayList<App> blockedApps) {
+		this.blockedApps = blockedApps;
+	}
+
 	/**
 	 * Parcelable methods
 	 */
@@ -118,6 +149,9 @@ public class User implements Parcelable {
 		dest.writeString(this.password);
 		dest.writeString(this.email);
 		dest.writeString(this.imei);
+		dest.writeTypedList(this.pinnedApps);
+		dest.writeTypedList(this.likedApps);
+		dest.writeTypedList(this.blockedApps);
 	}
 
 	public User(Parcel parcel) {
@@ -130,6 +164,9 @@ public class User implements Parcelable {
 		this.password = parcel.readString();
 		this.email = parcel.readString();
 		this.imei = parcel.readString();
+		parcel.writeTypedList(this.pinnedApps);
+		parcel.writeTypedList(this.likedApps);
+		parcel.writeTypedList(this.blockedApps);
 	}
 
 	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

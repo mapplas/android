@@ -1,7 +1,6 @@
 package com.mapplas.app.activities;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -17,7 +16,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,12 +37,13 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.UserAppAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.app.async_tasks.UserPinUpsTask;
-import com.mapplas.app.handlers.MessageHandlerFactory;
+import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
+import com.mapplas.app.async_tasks.user_form.UserLikesTask;
+import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
-import com.mapplas.model.App;
 import com.mapplas.model.Constants;
+import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
@@ -82,8 +81,6 @@ public class UserForm extends Activity {
 
 	private String currentLocation = "";
 
-	private Handler messageHandler = null;
-
 	private LinearLayout refreshListBackgroundFooter = null;
 
 	private LinearLayout buttonsFooter = null;
@@ -101,15 +98,15 @@ public class UserForm extends Activity {
 
 		this.initializeAnimations();
 		this.initLayoutComponents();
-
-		this.messageHandler = new MessageHandlerFactory().getUserFormActivityMessageHandler(this.listView, this, refreshListBackgroundFooter, this.user, this.currentLocation);
-
-		// Request user pin-up's
-		new UserPinUpsTask(this.messageHandler, this.user.getId()).execute();
-
 		this.initializeButtonsAndItsBehaviour();
+		
+		// Request user app preferences
+		JsonParser parser = new JsonParser(this);
+		new UserPinUpsTask(this.user, parser, this.listView, this, R.id.lblTitle, this.currentLocation, this.refreshListBackgroundFooter).execute();
+		new UserLikesTask(this.user, parser).execute();
+		new UserBlocksTask(this.user, parser).execute();
 
-		//
+		// Load presenter
 		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);
 		LinearLayout pinUpsLayout = (LinearLayout)findViewById(R.id.lytPinups);
 		LinearLayout ratesLayout = (LinearLayout)findViewById(R.id.lytRates);
@@ -117,7 +114,7 @@ public class UserForm extends Activity {
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, ratesLayout, likesLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
-		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.messageHandler, this.refreshAnimation, this.currentLocation).present();
+		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation).present();
 
 		// Try to get image
 		ImageView imgUser = (ImageView)findViewById(R.id.imgUser);
@@ -142,9 +139,6 @@ public class UserForm extends Activity {
 	private void getDataFromBundle() {
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
-//			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
-//				this.user = (User)bundle.getParcelable(Constants.MAPPLAS_LOGIN_USER_ID);
-//			}
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION_ID)) {
 				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION_ID);
 			}
@@ -191,7 +185,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
 		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, new ArrayList<App>(), UserAppAdapter.BLOCK, this.user, this.currentLocation);
+		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview
