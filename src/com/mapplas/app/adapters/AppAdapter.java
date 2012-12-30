@@ -3,18 +3,13 @@ package com.mapplas.app.adapters;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.concurrent.Semaphore;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,6 +45,7 @@ import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.view_holder.AppViewHolder;
 
 public class AppAdapter extends ArrayAdapter<App> {
 
@@ -65,8 +61,6 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 	private User user = null;
 
-	private static Semaphore mSemaphore = new Semaphore(1);
-
 	private static App mRateLoc = null;
 
 	private static App mBlockLoc = null;
@@ -80,40 +74,6 @@ public class AppAdapter extends ArrayAdapter<App> {
 	private Animation animFlipOutPrevious = null;
 
 	private Animation fadeOutAnimation = null;
-	
-	// final Animation fadeOutAnimation = new ScaleAnimation(100.0f, 100.0f,
-	// 100.0f, 0.0f);
-
-	/* Message Handler */
-	static Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-
-			try {
-				mSemaphore.acquire();
-				switch (msg.what) {
-
-					case Constants.SYNESTH_ROWLOC_IMAGE_ID:
-
-						// String strUrl = (String)((Object[])msg.obj)[0];
-						ImageView iv = (ImageView)((Object[])msg.obj)[1];
-						// App o = (App)((Object[])msg.obj)[2];
-						Bitmap bmp = (Bitmap)((Object[])msg.obj)[3];
-
-						if(bmp != null && iv != null) {
-							iv.setImageBitmap(bmp);
-							iv.invalidate();
-						}
-
-						break;
-				}
-				mSemaphore.release();
-			} catch (Exception e) {
-				Log.i(this.getClass().getSimpleName(), "handleMessage: " + e);
-			}
-		}
-	};
 
 	public AppAdapter(Context context, AwesomeListView list, int textViewResourceId, ArrayList<App> items, String currentLocation, String currentDescriptiveGeoLoc, User currentUser) {
 		super(context, textViewResourceId, items);
@@ -156,183 +116,214 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		AppViewHolder cellHolder;
 
-		boolean isNewView = false;
-		View v = convertView;
+		App app = this.items.get(position);
 
-		if(v == null) {
-			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.rowloc, null);
-			isNewView = true;
+		if(convertView == null) {
+			cellHolder = new AppViewHolder();
+
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.rowloc, null);
+
+			cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+			cellHolder.pinUps = (TextView)convertView.findViewById(R.id.lblPinUps);
+
+			cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
+			cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
+			cellHolder.share = (TextView)convertView.findViewById(R.id.lblShare);
+			cellHolder.block = (TextView)convertView.findViewById(R.id.lblBlock);
+
+			cellHolder.pinUpImg = (ImageView)convertView.findViewById(R.id.btnPinUp);
+			cellHolder.rateImg = (ImageView)convertView.findViewById(R.id.btnRate);
+			cellHolder.shareImg = (ImageView)convertView.findViewById(R.id.btnShare);
+			cellHolder.blockImg = (ImageView)convertView.findViewById(R.id.btnBlock);
+
+			cellHolder.pinUpLayout = (LinearLayout)convertView.findViewById(R.id.lytPinup);
+			cellHolder.rateLayout = (LinearLayout)convertView.findViewById(R.id.lytRate);
+			cellHolder.shareLayout = (LinearLayout)convertView.findViewById(R.id.lytShare);
+			cellHolder.blockLayout = (LinearLayout)convertView.findViewById(R.id.lytBlock);
+
+			cellHolder.buttonStart = (Button)convertView.findViewById(R.id.btnStart);
+			cellHolder.buttonNavigation = (Button)convertView.findViewById(R.id.btnNav);
+
+			cellHolder.viewFlipper = (ViewFlipper)convertView.findViewById(R.id.vfRowLoc);
+			cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
+			cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
+
+			cellHolder.rowUnpressed = (LinearLayout)convertView.findViewById(R.id.id_rowloc_unpressed);
+
+			cellHolder.ratingBar = (RatingBar)convertView.findViewById(R.id.rbRating);
+			cellHolder.ratingText = (TextView)convertView.findViewById(R.id.lblRating);
+
+			this.initializeCellHolder(app, cellHolder);
+
+			this.initializeStartButton(app, cellHolder.buttonStart);
+			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
+
+			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
+			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
+			this.initializeRating(app, cellHolder);
+
+			this.initializeActionLayouts(app, cellHolder, convertView);
+
+			convertView.setTag(cellHolder);
 		}
 		else {
-			isNewView = false;
+			cellHolder = (AppViewHolder)convertView.getTag();
+
+			this.initializeCellHolder(app, cellHolder);
+
+			this.initializeStartButton(app, cellHolder.buttonStart);
+			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
+
+			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
+			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
+			this.initializeRating(app, cellHolder);
+
+			this.initializeActionLayouts(app, cellHolder, convertView);
 		}
 
-		final View vinner = v;
+		return convertView;
+	}
 
-		final App o = items.get(position);
+	private void initializeCellHolder(App app, AppViewHolder cellHolder) {
+		// Set total pins
+		if(app.getAuxTotalPins() == 1) {
+			cellHolder.pinUps.setText(NumberUtils.FormatNumber(app.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_up));
+		}
+		else {
+			cellHolder.pinUps.setText(NumberUtils.FormatNumber(app.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_ups));
+		}
 
-		if(o != null) {
-			v.setTag(position);
+		// Set typefaces
+		Typeface normalTypeface = ((MapplasApplication)getContext().getApplicationContext()).getTypeFace();
+		cellHolder.title.setTypeface(normalTypeface);
+		cellHolder.pinUps.setTypeface(normalTypeface);
+		cellHolder.pinUp.setTypeface(normalTypeface);
+		cellHolder.rate.setTypeface(normalTypeface);
+		cellHolder.share.setTypeface(normalTypeface);
+		cellHolder.block.setTypeface(normalTypeface);
 
-			TextView tt = (TextView)v.findViewById(R.id.lblTitle);
-			final TextView ttPinUps = (TextView)v.findViewById(R.id.lblPinUps);
+		cellHolder.buttonStart.setTypeface(normalTypeface);
+		cellHolder.ratingText.setTypeface(normalTypeface);
 
-			final TextView ttPinUp = (TextView)v.findViewById(R.id.lblPinUp);
+		// Initialize viewFlipper
+		cellHolder.viewFlipper.setInAnimation(null);
+		cellHolder.viewFlipper.setOutAnimation(null);
+		cellHolder.viewFlipper.setDisplayedChild(0);
+	}
 
-			tt.setText(o.getName());
-			if(o.getAuxTotalPins() == 1) {
-				ttPinUps.setText(NumberUtils.FormatNumber(o.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_up));
+	private void initializeActionLayouts(App app, AppViewHolder cellHolder, View convertView) {
+		this.initializePinUpLayout(app, cellHolder);
+		this.initializeRateLayout(app, cellHolder);
+		this.initializeBlockLayout(app, cellHolder, convertView);
+		this.initializeShareLayout(app, cellHolder);
+	}
+
+	private void initializeRating(App app, AppViewHolder cellHolder) {
+		cellHolder.ratingBar.setRating(app.getAuxTotalRate());
+
+		if(app.getAuxTotalRate() == 0) {
+			cellHolder.ratingText.setText(R.string.unRated);
+		}
+		else {
+			int auxCase = (int)Math.ceil(app.getAuxTotalRate());
+			switch (auxCase) {
+				case 1:
+					cellHolder.ratingText.setText(R.string.poor);
+					break;
+
+				case 2:
+					cellHolder.ratingText.setText(R.string.belowAvg);
+					break;
+
+				case 3:
+					cellHolder.ratingText.setText(R.string.average);
+					break;
+
+				case 4:
+					cellHolder.ratingText.setText(R.string.aboveAvg);
+					break;
+
+				case 5:
+					cellHolder.ratingText.setText(R.string.excellent);
+					break;
 			}
-			else {
-				ttPinUps.setText(NumberUtils.FormatNumber(o.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_ups));
+		}
+	}
+
+	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
+		if(app.isAuxPin()) {
+			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
+		}
+		else {
+			image.setBackgroundResource(R.drawable.roundc_btn_selector);
+		}
+	}
+
+	private void initializeRowUnpressed(final App app, LinearLayout layout, int position) {
+		layout.setTag(position);
+		layout.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Intent intent = new Intent(context, AppDetail.class);
+				// intent.putExtra(Constants.MAPPLAS_DETAIL_APP,
+				// (int)((Integer)v.getTag()));
+				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
+				intent.putExtra(Constants.MAPPLAS_DETAIL_USER, user);
+				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, currentLocation);
+				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, currentDescriptiveGeoLoc);
+				((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 			}
+		});
+	}
 
-			if(isNewView) {
-				Typeface normalTypeface = ((MapplasApplication)getContext().getApplicationContext()).getTypeFace();
-
-				tt.setTypeface(normalTypeface);
-				ttPinUps.setTypeface(normalTypeface);
-
-				tt = (TextView)v.findViewById(R.id.lblPinUp);
-				tt.setTypeface(normalTypeface);
-				tt = (TextView)v.findViewById(R.id.lblRate);
-				tt.setTypeface(normalTypeface);
-				tt = (TextView)v.findViewById(R.id.lblBlock);
-				tt.setTypeface(normalTypeface);
-				tt = (TextView)v.findViewById(R.id.lblShare);
-				tt.setTypeface(normalTypeface);
-			}
-
-			Button buttonStart = (Button)v.findViewById(R.id.btnStart);
-			buttonStart.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getBoldTypeFace());
-
-			if(buttonStart != null) {
-				if(o.getType().equalsIgnoreCase("application")) {
-					if(o.getInternalApplicationInfo() != null) {
-						// Start
-						buttonStart.setBackgroundResource(R.drawable.badge_launch);
-						buttonStart.setText("");
-					}
-					else {
-						// Install
-						if(o.getAppPrice() > 0) {
-							buttonStart.setBackgroundResource(R.drawable.badge_price);
-							// buttonStart.setText("$" + o.getAppPrice());
-							// String country = o.getCountry();
-							NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-							buttonStart.setText(nf.format(o.getAppPrice()));
-
-						}
-						else {
-							buttonStart.setBackgroundResource(R.drawable.badge_free);
-							buttonStart.setText(R.string.free);
-						}
-					}
-				}
-				else {
-					// Info
-					buttonStart.setBackgroundResource(R.drawable.badge_html5);
+	private void initializeStartButton(App app, Button buttonStart) {
+		if(buttonStart != null) {
+			if(app.getType().equalsIgnoreCase("application")) {
+				if(app.getInternalApplicationInfo() != null) {
+					// Start
+					buttonStart.setBackgroundResource(R.drawable.badge_launch);
 					buttonStart.setText("");
 				}
-
-				buttonStart.setTag(o);
-
-				if(isNewView) {
-
-					buttonStart.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							final App anonLoc = (App)(v.getTag());
-							if(anonLoc != null) {
-								String strUrl = anonLoc.getAppUrl();
-								if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
-									strUrl = "http://" + strUrl;
-
-								if(anonLoc.getInternalApplicationInfo() != null) {
-									Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
-									context.startActivity(appIntent);
-								}
-								else {
-									Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
-									context.startActivity(browserIntent);
-								}
-							}
-						}
-					});
-				}
-			}
-
-			Button buttonNavigation = (Button)v.findViewById(R.id.btnNav);
-			buttonNavigation.setTag(o);
-			if(isNewView) {
-				buttonNavigation.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						App anonLoc = (App)v.getTag();
-						Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + currentLocation + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
-						context.startActivity(navigation);
-					}
-				});
-			}
-
-			final ViewFlipper vf = (ViewFlipper)v.findViewById(R.id.vfRowLoc);
-			vf.setInAnimation(null);
-			vf.setOutAnimation(null);
-			vf.setDisplayedChild(0);
-
-			final ImageView iv = (ImageView)v.findViewById(R.id.imgLogo);
-			iv.setTag(vf);
-			iv.setImageResource(R.drawable.ic_template);
-
-			if(isNewView) {
-				iv.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						ViewFlipper vf = (ViewFlipper)v.getTag();
-
-						if(vf != null) {
-							if(vf.indexOfChild(vf.getCurrentView()) == 0) {
-								vf.setInAnimation(animFlipInNext);
-								vf.setOutAnimation(animFlipOutNext);
-								vf.showNext();
-							}
-							else {
-								vf.setInAnimation(animFlipInPrevious);
-								vf.setOutAnimation(animFlipOutPrevious);
-								vf.showPrevious();
-							}
-						}
-					}
-				});
-			}
-
-			// Load app logo
-			ImageFileManager imageFileManager = new ImageFileManager();
-			String logoUrl = o.getAppLogo();
-			if(logoUrl != "") {
-				if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
-					iv.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
-				}
 				else {
-					TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, iv, imageFileManager));
-					imageRequest.execute();
+					// Install
+					if(app.getAppPrice() > 0) {
+						buttonStart.setBackgroundResource(R.drawable.badge_price);
+						// buttonStart.setText("$" + o.getAppPrice());
+						// String country = o.getCountry();
+						NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+						buttonStart.setText(nf.format(app.getAppPrice()));
+
+					}
+					else {
+						buttonStart.setBackgroundResource(R.drawable.badge_free);
+						buttonStart.setText(R.string.free);
+					}
 				}
 			}
 			else {
-				iv.setImageResource(R.drawable.ic_template);
+				// Info
+				buttonStart.setBackgroundResource(R.drawable.badge_html5);
+				buttonStart.setText("");
 			}
 
-			LinearLayout auxll = (LinearLayout)v.findViewById(R.id.id_rowloc_unpressed);
-			auxll.setTag(position);
-			auxll.setOnClickListener(new View.OnClickListener() {
+			buttonStart.setTag(app);
+
+			buttonStart.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
+					final App anonLoc = (App)(v.getTag());
+					if(anonLoc != null) {
+						String strUrl = anonLoc.getAppUrl();
+						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
+							strUrl = "http://" + strUrl;
 
 					Intent intent = new Intent(context, AppDetail.class);
 					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, o);
@@ -342,189 +333,201 @@ public class AppAdapter extends ArrayAdapter<App> {
 					((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 				}
 			});
+		}
+	}
 
-			final ImageView ivrc = (ImageView)v.findViewById(R.id.imgRonundC);
-			if(o.isAuxPin()) {
-				ivrc.setBackgroundResource(R.drawable.roundc_pinup_selector);
-				// setImageResource(R.drawable.roundc_pinup_selector);
+	private void initializeNavigationButton(App app, Button button) {
+		button.setTag(app);
+		button.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				App anonLoc = (App)v.getTag();
+				Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + currentLocation + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
+				context.startActivity(navigation);
 			}
-			else {
-				ivrc.setBackgroundResource(R.drawable.roundc_btn_selector);
-				// setImageResource(R.drawable.roundc_btn_selector);
-			}
+		});
+	}
 
-			final ImageView ivAppRate = (ImageView)v.findViewById(R.id.btnRate);
-			final ImageView ivAppPinUp = (ImageView)v.findViewById(R.id.btnPinUp);
-			final ImageView ivAppShare = (ImageView)v.findViewById(R.id.btnShare);
-			final ImageView ivAppBlock = (ImageView)v.findViewById(R.id.btnBlock);
+	private void initializeLogo(App app, ImageView logo, ViewFlipper viewFlipper) {
+		logo.setTag(viewFlipper);
+		logo.setImageResource(R.drawable.ic_template);
 
-			final LinearLayout lytPinUp = (LinearLayout)v.findViewById(R.id.lytPinup);
-			final LinearLayout lytRate = (LinearLayout)v.findViewById(R.id.lytRate);
-			final LinearLayout lytShare = (LinearLayout)v.findViewById(R.id.lytShare);
-			final LinearLayout lytBlock = (LinearLayout)v.findViewById(R.id.lytBlock);
+		logo.setOnClickListener(new View.OnClickListener() {
 
-			final RatingBar rbRating = (RatingBar)v.findViewById(R.id.rbRating);
+			@Override
+			public void onClick(View v) {
+				ViewFlipper vf = (ViewFlipper)v.getTag();
 
-			final TextView lblRating = (TextView)v.findViewById(R.id.lblRating);
-			lblRating.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
-
-			rbRating.setRating(o.getAuxTotalRate());
-
-			if(o.getAuxTotalRate() == 0) {
-				lblRating.setText(R.string.unRated);
-			}
-			else {
-				int auxCase = (int)Math.ceil(o.getAuxTotalRate());
-				switch (auxCase) {
-					case 1:
-						lblRating.setText(R.string.poor);
-						break;
-
-					case 2:
-						lblRating.setText(R.string.belowAvg);
-						break;
-
-					case 3:
-						lblRating.setText(R.string.average);
-						break;
-
-					case 4:
-						lblRating.setText(R.string.aboveAvg);
-						break;
-
-					case 5:
-						lblRating.setText(R.string.excellent);
-						break;
-				}
-			}
-
-			ivAppRate.setTag(o);
-			ivAppPinUp.setTag(o);
-			ivAppShare.setTag(o);
-			ivAppBlock.setTag(o);
-
-			lytPinUp.setTag(o);
-			lytRate.setTag(o);
-			lytShare.setTag(o);
-			lytBlock.setTag(o);
-
-			lytRate.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					final App anonLoc = (App)(v.getTag());
-					mRateLoc = anonLoc;
-					if(anonLoc != null) {
-						RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
-						myDialog.show();
-
-						// Activity request action
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
-						activityRequestThread.start();
+				if(vf != null) {
+					if(vf.indexOfChild(vf.getCurrentView()) == 0) {
+						vf.setInAnimation(animFlipInNext);
+						vf.setOutAnimation(animFlipOutNext);
+						vf.showNext();
+					}
+					else {
+						vf.setInAnimation(animFlipInPrevious);
+						vf.setOutAnimation(animFlipOutPrevious);
+						vf.showPrevious();
 					}
 				}
-			});
+			}
+		});
 
-			if(o.isAuxPin()) {
-				ivAppPinUp.setImageResource(R.drawable.action_unpin_button);
-				ttPinUp.setText(R.string.un_pin_up);
+		// Load app logo
+		ImageFileManager imageFileManager = new ImageFileManager();
+		String logoUrl = app.getAppLogo();
+		if(logoUrl != "") {
+			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+				logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
 			}
 			else {
-				ivAppPinUp.setImageResource(R.drawable.action_pin_button);
-				ttPinUp.setText(R.string.pin_up);
+				TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, logo, imageFileManager));
+				imageRequest.execute();
 			}
+		}
+	}
 
-			lytPinUp.setOnClickListener(new View.OnClickListener() {
+	private void initializePinUpLayout(App app, final AppViewHolder cellHolder) {
+		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
+			@Override
+			public void onClick(View v) {
 
-					final App anonLoc = (App)(v.getTag());
-					if(anonLoc != null) {
-						String auxuid = "0";
+				final App anonLoc = (App)(v.getTag());
+				if(anonLoc != null) {
+					String auxuid = "0";
+					if(user != null) {
+						auxuid = String.valueOf(user.getId());
+					}
+
+					final String uid = auxuid;
+
+					if(anonLoc.isAuxPin()) {
+						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
+						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
+						cellHolder.pinUp.setText(R.string.pin_up);
+					}
+					else {
+						cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
+						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
+						cellHolder.pinUp.setText(R.string.un_pin_up);
+					}
+
+					cellHolder.logoRoundCorner.invalidate();
+					v.invalidate();
+					list.invalidate();
+
+					// Activity request thread
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
+					activityRequestThread.start();
+
+					// Pin/unpin request
+					String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+					if(anonLoc.isAuxPin()) {
+						action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+						anonLoc.setAuxPin(false);
+					}
+					else {
+						anonLoc.setAuxPin(true);
+					}
+					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
+					pinRequestThread.start();
+				}
+
+			}
+		});
+	}
+
+	private void initializeBlockLayout(App app, AppViewHolder cellHolder, final View convertView) {
+		cellHolder.blockLayout.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final App anonLoc = (App)(v.getTag());
+				mBlockLoc = anonLoc;
+
+				AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
+				myAlertDialog.setTitle(R.string.block_title);
+				myAlertDialog.setMessage(R.string.block_text);
+				myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+
+						convertView.startAnimation(fadeOutAnimation);
+
+						// Activity request thread
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
+						activityRequestThread.start();
+
+						String uid = "0";
 						if(user != null) {
-							auxuid = String.valueOf(user.getId());
+							uid = String.valueOf(user.getId());
 						}
 
-						final String uid = auxuid;
-
-						if(anonLoc.isAuxPin()) {
-							ivAppPinUp.setImageResource(R.drawable.action_pin_button);
-							ivrc.setBackgroundResource(R.drawable.roundc_btn_selector);
-							// setImageResource(R.drawable.roundc_btn_selector);
-							ttPinUp.setText(R.string.pin_up);
-						}
-						else {
-							ivAppPinUp.setImageResource(R.drawable.action_unpin_button);
-							ivrc.setBackgroundResource(R.drawable.roundc_pinup_selector);
-							// setImageResource(R.drawable.roundc_pinup_selector);
-							ttPinUp.setText(R.string.un_pin_up);
-						}
-
-						ivrc.invalidate();
-						v.invalidate();
-						list.invalidate();
-
-						// Activity request thread
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
-						activityRequestThread.start();
-
-						// Pin/unpin request
-						String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
-						if(anonLoc.isAuxPin()) {
-							action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-							anonLoc.setAuxPin(false);
-						}
-						else {
-							anonLoc.setAuxPin(true);
-						}
-
-						Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
-						pinRequestThread.start();
+						// Block request thread
+						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
+						likeRequestThread.start();
 					}
+				});
+				myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {
 
-				}
-			});
-
-			lytShare.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-
-					final App anonLoc = (App)(v.getTag());
-					if(anonLoc != null) {
-						Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-						// Comprobar que existe y que está instalada la
-						// aplicación en el teléfono
-						// sharingIntent.setPackage("com.whatsapp");
-						sharingIntent.setType("text/plain");
-						String shareBody = anonLoc.getAppName() + " sharing via Synesth";
-						// sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-						// anonLoc.getAppName());
-						sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-						context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
-
-						// Activity request thread
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
-						activityRequestThread.start();
+					public void onClick(DialogInterface arg0, int arg1) {
+						// do something when the Cancel button is clicked
 					}
+				});
 
+				myAlertDialog.show();
+			}
+		});
+	}
+
+	private void initializeRateLayout(App app, AppViewHolder cellHolder) {
+		cellHolder.rateLayout.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final App anonLoc = (App)(v.getTag());
+				mRateLoc = anonLoc;
+				if(anonLoc != null) {
+					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
+					myDialog.show();
+
+					// Activity request action
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
+					activityRequestThread.start();
 				}
-			});
+			}
+		});
 
-			lytBlock.setOnClickListener(new View.OnClickListener() {
+		if(app.isAuxPin()) {
+			cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
+			cellHolder.pinUp.setText(R.string.un_pin_up);
+		}
+		else {
+			cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
+			cellHolder.pinUp.setText(R.string.pin_up);
+		}
+	}
 
-				@Override
-				public void onClick(View v) {
-					final App anonLoc = (App)(v.getTag());
-					mBlockLoc = anonLoc;
+	private void initializeShareLayout(App app, AppViewHolder cellHolder) {
+		cellHolder.shareLayout.setOnClickListener(new View.OnClickListener() {
 
-					AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
-					myAlertDialog.setTitle(R.string.block_title);
-					myAlertDialog.setMessage(R.string.block_text);
-					myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(View v) {
 
-						public void onClick(DialogInterface arg0, int arg1) {
+				final App anonLoc = (App)(v.getTag());
+				if(anonLoc != null) {
+					Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+					// Comprobar que existe y que está instalada la
+					// aplicación en el teléfono
+					// sharingIntent.setPackage("com.whatsapp");
+					sharingIntent.setType("text/plain");
+					String shareBody = anonLoc.getAppName() + " sharing via Synesth";
+					// sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+					// anonLoc.getAppName());
+					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+					context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
 
 							vinner.startAnimation(fadeOutAnimation);
 
@@ -553,11 +556,9 @@ public class AppAdapter extends ArrayAdapter<App> {
 					});
 					myAlertDialog.show();
 				}
-			});
 
-		}
-
-		return v;
+			}
+		});
 	}
 
 	private class OnReadyListener implements RatingDialog.ReadyListener {

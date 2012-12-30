@@ -183,7 +183,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 			switch (type) {
 				case TYPE_ITEM:
 					cellHolder = (NotificationCellHolder)convertView.getTag();
-
+					
 					this.initializeNotificationCell(cellHolder, notification);
 					this.setClickListenerToView(convertView, notification);
 					

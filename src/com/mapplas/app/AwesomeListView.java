@@ -77,7 +77,7 @@ public class AwesomeListView extends ListView {
 	private RelativeLayout viewInnerHeader = null;
 
 	private TextView viewTextHeader = null;
-	
+
 	private TextView viewWifiDisabledText = null;
 
 	private ImageView imageViewHeader = null;
@@ -550,7 +550,7 @@ public class AwesomeListView extends ListView {
 				if(stateChanged) {
 					if(this.viewTextHeader != null) {
 						this.viewTextHeader.setText(strHeaderRefreshing);
-						if (!new NetworkConnectionChecker().isWifiEnabled(mContext)) {
+						if(!new NetworkConnectionChecker().isWifiEnabled(mContext)) {
 							this.viewWifiDisabledText.setVisibility(View.VISIBLE);
 						}
 					}
