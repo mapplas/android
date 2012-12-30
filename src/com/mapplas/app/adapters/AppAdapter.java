@@ -283,7 +283,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 		});
 	}
 
-	private void initializeStartButton(App app, Button buttonStart) {
+	private void initializeStartButton(final App app, Button buttonStart) {
 		if(buttonStart != null) {
 			if(app.getType().equalsIgnoreCase("application")) {
 				if(app.getInternalApplicationInfo() != null) {
@@ -319,14 +319,8 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 				@Override
 				public void onClick(View v) {
-					final App anonLoc = (App)(v.getTag());
-					if(anonLoc != null) {
-						String strUrl = anonLoc.getAppUrl();
-						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
-							strUrl = "http://" + strUrl;
-
 					Intent intent = new Intent(context, AppDetail.class);
-					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, o);
+					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
 					intent.putExtra(Constants.MAPPLAS_DETAIL_USER, user);
 					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, currentLocation);
 					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, currentDescriptiveGeoLoc);
@@ -529,32 +523,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 					context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
 
-							vinner.startAnimation(fadeOutAnimation);
-
-							// Activity request thread
-							Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
-							activityRequestThread.start();
-
-							String uid = "0";
-							if(user != null) {
-								uid = String.valueOf(user.getId());
-							}
-
-							// Block and unpin app
-							Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
-							likeRequestThread.start();
 							
-							Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
-							unPinRequestThread.start();
-						}
-					});
-					myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {
-
-						public void onClick(DialogInterface arg0, int arg1) {
-							// do something when the Cancel button is clicked
-						}
-					});
-					myAlertDialog.show();
 				}
 
 			}
