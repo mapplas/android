@@ -82,16 +82,13 @@ public class DrawableBackgroundDownloader {
 
 	private synchronized void putDrawableInCache(String url, Drawable drawable) {
 		int chacheControllerSize = mChacheController.size();
-		if(chacheControllerSize > MAX_CACHE_SIZE)
+		
+		if(chacheControllerSize > MAX_CACHE_SIZE) {
 			mChacheController.subList(0, MAX_CACHE_SIZE / 2).clear();
-
+		}
+		
 		mChacheController.addLast(drawable);
 		mCache.put(url, new SoftReference<Drawable>(drawable));
-
-	}
-
-	private void queueJob(final String url, final ImageView imageView, final Drawable placeholder) {
-		this.queueJob(url, imageView, placeholder, false, 0);
 	}
 
 	private void queueJob(final String url, final ImageView imageView, final Drawable placeholder, final boolean keepRatio, final int constantw) {
