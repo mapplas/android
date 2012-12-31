@@ -390,14 +390,13 @@ public class AppAdapter extends ArrayAdapter<App> {
 		}
 	}
 
-	private void initializePinUpLayout(App app, final AppViewHolder cellHolder) {
+	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
 		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
-				final App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
+				
+				if(app != null) {
 					String auxuid = "0";
 					if(user != null) {
 						auxuid = String.valueOf(user.getId());
@@ -405,7 +404,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 					final String uid = auxuid;
 
-					if(anonLoc.isAuxPin()) {
+					if(app.isAuxPin()) {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
 						cellHolder.pinUp.setText(R.string.pin_up);
@@ -421,19 +420,19 @@ public class AppAdapter extends ArrayAdapter<App> {
 					list.invalidate();
 
 					// Activity request thread
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
 					activityRequestThread.start();
 
 					// Pin/unpin request
 					String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
-					if(anonLoc.isAuxPin()) {
+					if(app.isAuxPin()) {
 						action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-						anonLoc.setAuxPin(false);
+						app.setAuxPin(false);
 					}
 					else {
-						anonLoc.setAuxPin(true);
+						app.setAuxPin(true);
 					}
-					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
+					Thread pinRequestThread = new Thread(new PinRequestThread(action, app, uid).getThread());
 					pinRequestThread.start();
 				}
 
@@ -441,13 +440,12 @@ public class AppAdapter extends ArrayAdapter<App> {
 		});
 	}
 
-	private void initializeBlockLayout(App app, AppViewHolder cellHolder, final View convertView) {
+	private void initializeBlockLayout(final App app, AppViewHolder cellHolder, final View convertView) {
 		cellHolder.blockLayout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				final App anonLoc = (App)(v.getTag());
-				mBlockLoc = anonLoc;
+				mBlockLoc = app;
 
 				AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
 				myAlertDialog.setTitle(R.string.block_title);
@@ -459,7 +457,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 						convertView.startAnimation(fadeOutAnimation);
 
 						// Activity request thread
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
 						activityRequestThread.start();
 
 						String uid = "0";
@@ -468,7 +466,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 						}
 
 						// Block request thread
-						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
+						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
 						likeRequestThread.start();
 					}
 				});
@@ -484,19 +482,18 @@ public class AppAdapter extends ArrayAdapter<App> {
 		});
 	}
 
-	private void initializeRateLayout(App app, AppViewHolder cellHolder) {
+	private void initializeRateLayout(final App app, AppViewHolder cellHolder) {
 		cellHolder.rateLayout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				final App anonLoc = (App)(v.getTag());
-				mRateLoc = anonLoc;
-				if(anonLoc != null) {
-					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
+				mRateLoc = app;
+				if(app != null) {
+					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), app.getAuxRate(), app.getAuxComment());
 					myDialog.show();
 
 					// Activity request action
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
 					activityRequestThread.start();
 				}
 			}
@@ -512,25 +509,23 @@ public class AppAdapter extends ArrayAdapter<App> {
 		}
 	}
 
-	private void initializeShareLayout(App app, AppViewHolder cellHolder) {
+	private void initializeShareLayout(final App app, AppViewHolder cellHolder) {
 		cellHolder.shareLayout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				final App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
+				if(app != null) {
 					Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 					// Comprobar que existe y que está instalada la
 					// aplicación en el teléfono
 					// sharingIntent.setPackage("com.whatsapp");
 					sharingIntent.setType("text/plain");
-					String shareBody = anonLoc.getAppName() + " sharing via Synesth";
+					String shareBody = app.getAppName() + " sharing via Synesth";
 					// sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
 					// anonLoc.getAppName());
 					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 					context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
-
 				}
 
 			}
