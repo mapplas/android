@@ -21,6 +21,8 @@ import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.async_tasks.LoadImageTask;
+import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.app.threads.PinRequestThread;
@@ -28,7 +30,8 @@ import com.mapplas.app.threads.UnrateRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
-import com.mapplas.utils.DrawableBackgroundDownloader;
+import com.mapplas.utils.cache.CacheFolderFactory;
+import com.mapplas.utils.cache.ImageFileManager;
 
 public class UserAppAdapter extends ArrayAdapter<App> {
 
@@ -167,9 +170,17 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 			final ImageView ivLogo = (ImageView)v.findViewById(R.id.imgLogo);
 
-			String strUrl = o.getAppLogo();
-			if(strUrl != "") {
-				new DrawableBackgroundDownloader().loadDrawable(strUrl, ivLogo, this.context.getResources().getDrawable(R.drawable.ic_template));
+			// Set app logo
+			ImageFileManager imageFileManager = new ImageFileManager();
+			String logoUrl = o.getAppLogo();
+			if(!logoUrl.equals("")) {
+				if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+					ivLogo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+				}
+				else {
+					TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, ivLogo, imageFileManager));
+					imageRequest.execute();
+				}
 			}
 			else {
 				ivLogo.setImageResource(R.drawable.ic_template);
