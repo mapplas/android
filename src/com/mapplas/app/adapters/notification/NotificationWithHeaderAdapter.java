@@ -18,6 +18,8 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.AppNotifications;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.async_tasks.LoadImageTask;
+import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
@@ -25,7 +27,8 @@ import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.notifications.Notification;
 import com.mapplas.utils.DateUtils;
-import com.mapplas.utils.DrawableBackgroundDownloader;
+import com.mapplas.utils.cache.CacheFolderFactory;
+import com.mapplas.utils.cache.ImageFileManager;
 
 public class NotificationWithHeaderAdapter extends BaseAdapter {
 
@@ -183,17 +186,17 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 			switch (type) {
 				case TYPE_ITEM:
 					cellHolder = (NotificationCellHolder)convertView.getTag();
-					
+
 					this.initializeNotificationCell(cellHolder, notification);
 					this.setClickListenerToView(convertView, notification);
-					
+
 					break;
 
 				case TYPE_SEPARATOR:
 					headerHolder = (NotificationHeaderHolder)convertView.getTag();
-					
+
 					this.initializeNotificationHeaderCell(headerHolder, notification);
-					
+
 					break;
 			}
 		}
@@ -240,8 +243,17 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		cellHolder.date.setTypeface(normalTypeface);
 		cellHolder.date.setText(DateUtils.FormatSinceDate(notification.getDate(), notification.getHour(), this.context));
 
-		if(notification.getAuxApp() != null) {
-			new DrawableBackgroundDownloader().loadDrawable(notification.getAuxApp().getAppLogo(), cellHolder.logo, this.context.getResources().getDrawable(R.drawable.ic_template));	
+		// Load notification app logo
+		ImageFileManager imageFileManager = new ImageFileManager();
+		String logoUrl = notification.getAuxApp().getAppLogo();
+		if(!logoUrl.equals("")) {
+			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+				cellHolder.logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+			}
+			else {
+				TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, cellHolder.logo, imageFileManager));
+				imageRequest.execute();
+			}
 		}
 	}
 
@@ -273,7 +285,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		}
 		return null;
 	}
-	
+
 	private void setClickListenerToView(View view, final Notification notification) {
 		view.setOnClickListener(new View.OnClickListener() {
 
