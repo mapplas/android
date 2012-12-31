@@ -314,17 +314,25 @@ public class AppAdapter extends ArrayAdapter<App> {
 			}
 
 			buttonStart.setTag(app);
-
 			buttonStart.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(context, AppDetail.class);
-					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
-					intent.putExtra(Constants.MAPPLAS_DETAIL_USER, user);
-					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, currentLocation);
-					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, currentDescriptiveGeoLoc);
-					((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
+					final App anonLoc = (App)(v.getTag());
+					if(anonLoc != null) {
+						String strUrl = anonLoc.getAppUrl();
+						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
+							strUrl = "http://" + strUrl;
+
+						if(anonLoc.getInternalApplicationInfo() != null) {
+							Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
+							context.startActivity(appIntent);
+						}
+						else {
+							Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
+							context.startActivity(browserIntent);
+						}
+					}
 				}
 			});
 		}
@@ -523,7 +531,6 @@ public class AppAdapter extends ArrayAdapter<App> {
 					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 					context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
 
-							
 				}
 
 			}
