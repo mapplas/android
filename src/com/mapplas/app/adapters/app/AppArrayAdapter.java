@@ -205,6 +205,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		// Set typefaces
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
+		cellHolder.title.setText(app.getName());
 		cellHolder.pinUps.setTypeface(normalTypeface);
 		cellHolder.pinUp.setTypeface(normalTypeface);
 		cellHolder.rate.setTypeface(normalTypeface);
