@@ -35,20 +35,17 @@ public class AroundRequester implements UserLocationListener {
 
 	private AwesomeListView listView;
 
-	private boolean isSplashActive;
-
 	private AppAdapter appAdapter;
 
 	private List<ApplicationInfo> applicationList;
 
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, boolean isSplashActive, AppAdapter appAdapter, List<ApplicationInfo> applicationList) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
 		this.model = model;
 		this.listView = listView;
 		this.userLocationRequester = userLocationRequesterFactory.create(locationManager, this, timeOut);
-		this.isSplashActive = isSplashActive;
 		this.appAdapter = appAdapter;
 		this.applicationList = applicationList;
 	}
@@ -95,7 +92,7 @@ public class AroundRequester implements UserLocationListener {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
-				(new AppGetterTask(this.context, this.model, this.isSplashActive, this.appAdapter, this.listView, this.applicationList)).execute(new Location[] { location });
+				(new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList)).execute(new Location[] { location });
 				(new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage)).execute(new Location[] { location });
 
 			} catch (Exception e) {

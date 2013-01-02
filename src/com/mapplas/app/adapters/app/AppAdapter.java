@@ -3,6 +3,7 @@ package com.mapplas.app.adapters.app;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,10 +64,6 @@ public class AppAdapter extends EndlessAdapter {
 			@SuppressWarnings("unchecked")
 			ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
 
-			int count = this.loadedListCount;
-			int maxCount = this.scrollManager.getMaxCount();
-			boolean restZero = this.scrollManager.isRestZero();
-
 			if(this.loadedListCount == this.scrollManager.getMaxCount() - 1 && !this.scrollManager.isRestZero()) {
 				int rest = this.scrollManager.getRest();
 				for(int i = InfiniteScrollManager.NUMBER_OF_APPS * this.loadedListCount; i <= (InfiniteScrollManager.NUMBER_OF_APPS * this.loadedListCount) + rest - 1; i++) {
@@ -84,9 +81,8 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		int size = getWrappedAdapter().getCount() + InfiniteScrollManager.NUMBER_OF_APPS;
-		boolean eo = size < this.modelData.size();
-		return eo;
+		SystemClock.sleep(2000); // pretend to do work
+		return getWrappedAdapter().getCount() < this.modelData.size();
 	}
 
 	@SuppressWarnings("unchecked")

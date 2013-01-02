@@ -42,8 +42,6 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 
 	private SuperModel model;
 
-	private boolean isSplashActive;
-
 	private AppAdapter listViewAdapter;
 
 	private AwesomeListView listView;
@@ -54,11 +52,10 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 
 	private static boolean occupied = false;
 
-	public AppGetterTask(Context context, SuperModel model, boolean isSplashActive, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList) {
 		super();
 		this.context = context;
 		this.model = model;
-		this.isSplashActive = isSplashActive;
 		this.listViewAdapter = listViewAdapter;
 		this.listView = listView;
 		this.applicationList = applicationList;
@@ -148,7 +145,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		final LinearLayout splashLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.id_splash);
 		final Button notificationsButton = (Button)((MapplasActivity)this.context).findViewById(R.id.btnNotifications);
 
-		if(this.isSplashActive) {
+		if(MapplasActivity.isSplashActive) {
 			final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
 			fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
 			// this
@@ -179,7 +176,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 			});
 
 			mainLayout.startAnimation(fadeOutAnimation);
-			this.isSplashActive = false;
+			MapplasActivity.isSplashActive = false;
 		}
 
 		if(this.listViewAdapter != null) {

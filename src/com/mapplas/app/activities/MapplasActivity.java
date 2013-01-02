@@ -47,7 +47,7 @@ public class MapplasActivity extends Activity {
 	/* Properties */
 	private SuperModel model = new SuperModel();
 
-	private boolean isSplashActive = true;
+	public static boolean isSplashActive = true;
 
 	private LocationManager locationManager = null;
 
@@ -81,7 +81,7 @@ public class MapplasActivity extends Activity {
 		// this.sharedPreferences =
 		// getApplicationContext().getSharedPreferences("synesth",
 		// Context.MODE_PRIVATE);
-		this.isSplashActive = true;
+		MapplasActivity.isSplashActive = true;
 
 		// Identificamos contra el servidor
 		try {
@@ -105,7 +105,7 @@ public class MapplasActivity extends Activity {
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.isSplashActive, this.listViewAdapter, this.applicationList);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList);
 
 		// Check network status
 		this.checkNetworkStatus();
