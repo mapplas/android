@@ -28,7 +28,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
-import com.mapplas.app.adapters.AppAdapter;
+import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
@@ -139,7 +139,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 			appList.add(this.model.appList().get(i));
 		}
 		
-		this.listViewAdapter = new AppAdapter(this.context, this.listView, R.layout.rowloc, android.R.id.text1, appList, this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
+		this.listViewAdapter = new AppAdapter(this.context, this.listView, R.layout.rowloc, android.R.id.text1, this.model.appList(), appList, this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
 		this.listView.setAdapter(this.listViewAdapter);
 		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 
@@ -183,9 +183,6 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		}
 
 		if(this.listViewAdapter != null) {
-//			this.listViewAdapter.clear();
-
-//			this.refreshLocalizations();
 
 			for(int i = 0; i < InfiniteScrollManager.NUMBER_OF_APPS; i++) {
 				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getAppName());
@@ -203,22 +200,9 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 				notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
 			}
 
-//			for(int i = 0; i < this.model.appList().size(); i++) {
-//				ApplicationInfo appInfo = findApplicationInfo(this.model.appList().get(i).getAppName());
-//				if(appInfo != null) {
-//					this.model.appList().get(i).setInternalApplicationInfo(appInfo);
-//				}
-//			}
-
 			this.listViewAdapter.notifyDataSetChanged();
 
 			this.listView.finishRefresing();
-		}
-	}
-
-	private void refreshLocalizations() {
-		for(int i = 0; i < InfiniteScrollManager.NUMBER_OF_APPS; i++) {
-			this.listViewAdapter.add(this.model.appList().get(i));
 		}
 	}
 

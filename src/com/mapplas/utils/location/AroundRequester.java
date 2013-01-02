@@ -13,7 +13,7 @@ import android.widget.Toast;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
-import com.mapplas.app.adapters.AppAdapter;
+import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.model.SuperModel;

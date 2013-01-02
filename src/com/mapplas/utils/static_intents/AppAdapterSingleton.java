@@ -1,6 +1,6 @@
 package com.mapplas.utils.static_intents;
 
-import com.mapplas.app.adapters.AppAdapter;
+import com.mapplas.app.adapters.app.AppAdapter;
 
 public class AppAdapterSingleton {
 

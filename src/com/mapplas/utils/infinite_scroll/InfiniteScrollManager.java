@@ -47,5 +47,18 @@ public class InfiniteScrollManager {
 			return (this.apps.size() / InfiniteScrollManager.NUMBER_OF_APPS) + 1;
 		}
 	}
+	
+	public boolean isRestZero() {
+		if(this.apps.size() % InfiniteScrollManager.NUMBER_OF_APPS == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public int getRest() {
+		return this.apps.size() % InfiniteScrollManager.NUMBER_OF_APPS;
+	}
 
 }

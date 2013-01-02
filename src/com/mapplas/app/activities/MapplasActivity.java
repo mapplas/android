@@ -29,7 +29,7 @@ import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
-import com.mapplas.app.adapters.AppAdapter;
+import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
