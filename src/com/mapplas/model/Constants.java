@@ -4,6 +4,7 @@ public class Constants {
 	
 	// Constants
 	public static final String SYNESTH_SERVER = "h1975711.stratoserver.net";
+//	public static final String SYNESTH_SERVER = "mapplas.com";
 	public static final int SYNESTH_SERVER_PORT = 80;
 	public static final String SYNESTH_SERVER_PATH = "/Publico/";
 	

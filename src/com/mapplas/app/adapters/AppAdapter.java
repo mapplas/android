@@ -18,16 +18,16 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
+import com.commonsware.cwac.endless.EndlessAdapter;
 import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.RatingDialog;
 import com.mapplas.app.activities.AppDetail;
@@ -45,9 +45,10 @@ import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.view_holder.AppViewHolder;
 
-public class AppAdapter extends ArrayAdapter<App> {
+public class AppAdapter extends EndlessAdapter {
 
 	private ArrayList<App> items;
 
@@ -75,119 +76,94 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 	private Animation fadeOutAnimation = null;
 
-	public AppAdapter(Context context, AwesomeListView list, int textViewResourceId, ArrayList<App> items, String currentLocation, String currentDescriptiveGeoLoc, User currentUser) {
-		super(context, textViewResourceId, items);
+	public AppAdapter(Context context, AwesomeListView list, int layout, int textViewResourceId, ArrayList<App> items, String currentLocation, String currentDescriptiveGeoLoc, User currentUser) {
+		super(new ArrayAdapter<App>(context, layout, textViewResourceId, items));
+		// super(context, textViewResourceId, items);
 
 		this.context = context;
-		this.list = list;
 		this.items = items;
+		this.list = list;
 		this.currentLocation = currentLocation;
 		this.currentDescriptiveGeoLoc = currentDescriptiveGeoLoc;
 		this.user = currentUser;
 
-		this.fadeOutAnimation = new AlphaAnimation(1, 0);
-		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
-																				// this
-		this.fadeOutAnimation.setStartOffset(0);
-		this.fadeOutAnimation.setDuration(500);
-		this.fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				if(mBlockLoc != null) {
-					AppAdapter.this.remove(mBlockLoc);
-				}
-			}
-		});
-
-		this.animFlipInNext = AnimationUtils.loadAnimation(this.context, R.anim.flipinnext);
-		this.animFlipOutNext = AnimationUtils.loadAnimation(this.context, R.anim.flipoutnext);
-		this.animFlipInPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipinprevious);
-		this.animFlipOutPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipoutprevious);
+		this.initializeAnimations();
 	}
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		AppViewHolder cellHolder;
-
-		App app = this.items.get(position);
-
-		if(convertView == null) {
-			cellHolder = new AppViewHolder();
-
-			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.rowloc, null);
-
-			cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
-			cellHolder.pinUps = (TextView)convertView.findViewById(R.id.lblPinUps);
-
-			cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
-			cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
-			cellHolder.share = (TextView)convertView.findViewById(R.id.lblShare);
-			cellHolder.block = (TextView)convertView.findViewById(R.id.lblBlock);
-
-			cellHolder.pinUpImg = (ImageView)convertView.findViewById(R.id.btnPinUp);
-			cellHolder.rateImg = (ImageView)convertView.findViewById(R.id.btnRate);
-			cellHolder.shareImg = (ImageView)convertView.findViewById(R.id.btnShare);
-			cellHolder.blockImg = (ImageView)convertView.findViewById(R.id.btnBlock);
-
-			cellHolder.pinUpLayout = (LinearLayout)convertView.findViewById(R.id.lytPinup);
-			cellHolder.rateLayout = (LinearLayout)convertView.findViewById(R.id.lytRate);
-			cellHolder.shareLayout = (LinearLayout)convertView.findViewById(R.id.lytShare);
-			cellHolder.blockLayout = (LinearLayout)convertView.findViewById(R.id.lytBlock);
-
-			cellHolder.buttonStart = (Button)convertView.findViewById(R.id.btnStart);
-			cellHolder.buttonNavigation = (Button)convertView.findViewById(R.id.btnNav);
-
-			cellHolder.viewFlipper = (ViewFlipper)convertView.findViewById(R.id.vfRowLoc);
-			cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
-			cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
-
-			cellHolder.rowUnpressed = (LinearLayout)convertView.findViewById(R.id.id_rowloc_unpressed);
-
-			cellHolder.ratingBar = (RatingBar)convertView.findViewById(R.id.rbRating);
-			cellHolder.ratingText = (TextView)convertView.findViewById(R.id.lblRating);
-
-			this.initializeCellHolder(app, cellHolder);
-
-			this.initializeStartButton(app, cellHolder.buttonStart);
-			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
-
-			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
-			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
-			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
-			this.initializeRating(app, cellHolder);
-
-			this.initializeActionLayouts(app, cellHolder, convertView);
-
-			convertView.setTag(cellHolder);
-		}
-		else {
-			cellHolder = (AppViewHolder)convertView.getTag();
-
-			this.initializeCellHolder(app, cellHolder);
-
-			this.initializeStartButton(app, cellHolder.buttonStart);
-			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
-
-			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
-			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
-			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
-			this.initializeRating(app, cellHolder);
-
-			this.initializeActionLayouts(app, cellHolder, convertView);
-		}
-
-		return convertView;
-	}
+//	@Override
+//	public View getView(int position, View convertView, ViewGroup parent) {
+//		AppViewHolder cellHolder;
+//
+//		App app = this.items.get(position);
+//
+//		if(convertView == null) {
+//			cellHolder = new AppViewHolder();
+//
+//			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//			convertView = inflater.inflate(R.layout.rowloc, null);
+//
+//			cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+//			cellHolder.pinUps = (TextView)convertView.findViewById(R.id.lblPinUps);
+//
+//			cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
+//			cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
+//			cellHolder.share = (TextView)convertView.findViewById(R.id.lblShare);
+//			cellHolder.block = (TextView)convertView.findViewById(R.id.lblBlock);
+//
+//			cellHolder.pinUpImg = (ImageView)convertView.findViewById(R.id.btnPinUp);
+//			cellHolder.rateImg = (ImageView)convertView.findViewById(R.id.btnRate);
+//			cellHolder.shareImg = (ImageView)convertView.findViewById(R.id.btnShare);
+//			cellHolder.blockImg = (ImageView)convertView.findViewById(R.id.btnBlock);
+//
+//			cellHolder.pinUpLayout = (LinearLayout)convertView.findViewById(R.id.lytPinup);
+//			cellHolder.rateLayout = (LinearLayout)convertView.findViewById(R.id.lytRate);
+//			cellHolder.shareLayout = (LinearLayout)convertView.findViewById(R.id.lytShare);
+//			cellHolder.blockLayout = (LinearLayout)convertView.findViewById(R.id.lytBlock);
+//
+//			cellHolder.buttonStart = (Button)convertView.findViewById(R.id.btnStart);
+//			cellHolder.buttonNavigation = (Button)convertView.findViewById(R.id.btnNav);
+//
+//			cellHolder.viewFlipper = (ViewFlipper)convertView.findViewById(R.id.vfRowLoc);
+//			cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
+//			cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
+//
+//			cellHolder.rowUnpressed = (LinearLayout)convertView.findViewById(R.id.id_rowloc_unpressed);
+//
+//			cellHolder.ratingBar = (RatingBar)convertView.findViewById(R.id.rbRating);
+//			cellHolder.ratingText = (TextView)convertView.findViewById(R.id.lblRating);
+//
+//			this.initializeCellHolder(app, cellHolder);
+//
+//			this.initializeStartButton(app, cellHolder.buttonStart);
+//			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
+//
+//			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
+//			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+//			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
+//			this.initializeRating(app, cellHolder);
+//
+//			this.initializeActionLayouts(app, cellHolder, convertView);
+//
+//			convertView.setTag(cellHolder);
+//		}
+//		else {
+//			cellHolder = (AppViewHolder)convertView.getTag();
+//
+//			this.initializeCellHolder(app, cellHolder);
+//
+//			this.initializeStartButton(app, cellHolder.buttonStart);
+//			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
+//
+//			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
+//			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+//			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
+//			this.initializeRating(app, cellHolder);
+//
+//			this.initializeActionLayouts(app, cellHolder, convertView);
+//		}
+//
+//		return convertView;
+//	}
 
 	private void initializeCellHolder(App app, AppViewHolder cellHolder) {
 		// Set total pins
@@ -199,7 +175,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 		}
 
 		// Set typefaces
-		Typeface normalTypeface = ((MapplasApplication)getContext().getApplicationContext()).getTypeFace();
+		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.pinUps.setTypeface(normalTypeface);
 		cellHolder.pinUp.setTypeface(normalTypeface);
@@ -262,6 +238,37 @@ public class AppAdapter extends ArrayAdapter<App> {
 		else {
 			image.setBackgroundResource(R.drawable.roundc_btn_selector);
 		}
+	}
+
+	private void initializeAnimations() {
+		this.fadeOutAnimation = new AlphaAnimation(1, 0);
+		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
+																				// this
+		this.fadeOutAnimation.setStartOffset(0);
+		this.fadeOutAnimation.setDuration(500);
+		this.fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				if(mBlockLoc != null) {
+					((ArrayList<App>)getWrappedAdapter()).remove(mBlockLoc);
+				}
+			}
+		});
+
+		this.animFlipInNext = AnimationUtils.loadAnimation(this.context, R.anim.flipinnext);
+		this.animFlipOutNext = AnimationUtils.loadAnimation(this.context, R.anim.flipoutnext);
+		this.animFlipInPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipinprevious);
+		this.animFlipOutPrevious = AnimationUtils.loadAnimation(this.context, R.anim.flipoutprevious);
 	}
 
 	private void initializeRowUnpressed(final App app, LinearLayout layout, int position) {
@@ -395,7 +402,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
-				
+
 				if(app != null) {
 					String auxuid = "0";
 					if(user != null) {
@@ -560,5 +567,64 @@ public class AppAdapter extends ArrayAdapter<App> {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 
+	 * Endless adapter
+	 * 
+	 */
+
+	@Override
+	protected View getPendingView(ViewGroup parent) {
+		View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.loading_row, null);
+		this.startProgressAnimation(row);
+		return (row);
+	}
+
+	void startProgressAnimation(View view) {
+		ImageView loadingImage = (ImageView)view.findViewById(R.id.throbber);
+		if(loadingImage != null) {
+			RotateAnimation rotate = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+			rotate.setDuration(600);
+			rotate.setRepeatMode(Animation.RESTART);
+			rotate.setRepeatCount(Animation.INFINITE);
+			loadingImage.startAnimation(rotate);
+		}
+	}
+
+	@Override
+	protected void appendCachedData() {
+		if(getWrappedAdapter().getCount() < InfiniteScrollManager.NUMBER_OF_APPS) {
+			@SuppressWarnings("unchecked")
+			ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
+
+			for(int i = 0; i < InfiniteScrollManager.NUMBER_OF_APPS; i++) {
+				adapter.add(this.items.get(i));
+			}
+		}
+	}
+
+	@Override
+	protected boolean cacheInBackground() throws Exception {
+		return (getWrappedAdapter().getCount() < InfiniteScrollManager.NUMBER_OF_APPS);
+	}
+
+//	@SuppressWarnings("unchecked")
+//	public void clear() {
+//		ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
+//		adapter.clear();
+//	}
+
+	@SuppressWarnings("unchecked")
+	public void add(App newApp) {
+		ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
+		adapter.add(newApp);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void remove(App appToRemove) {
+		ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
+		adapter.remove(appToRemove);
 	}
 }

@@ -11,7 +11,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,14 +31,12 @@ import app.mapplas.com.R;
 import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.app.handlers.MessageHandlerFactory;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
-import com.mapplas.utils.static_intents.AppAdapterSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MapplasActivity extends Activity {
@@ -67,8 +64,6 @@ public class MapplasActivity extends Activity {
 	private ImageView listViewHeaderImage = null;
 
 	private AroundRequester aroundRequester = null;
-
-	private Handler messageHandler = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -108,11 +103,9 @@ public class MapplasActivity extends Activity {
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
 
-		this.messageHandler = new MessageHandlerFactory().getMapplasActivityMessageHandler(this.listViewHeaderStatusMessage, this.isSplashActive, this.model, this.listViewAdapter, this.listView, this.applicationList, this);
-		
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.messageHandler, this.listView);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.isSplashActive, this.listViewAdapter, this.applicationList);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -145,7 +138,6 @@ public class MapplasActivity extends Activity {
 	 * 
 	 */
 
-
 	private void setClickListenersToButtons(Typeface normalTypeFace) {
 		// User profile button
 		Button userProfileButton = (Button)findViewById(R.id.btnProfile);
@@ -155,7 +147,8 @@ public class MapplasActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
 				SuperModelSingleton.model = model;
-//				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser());
+				// intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID,
+				// model.currentUser());
 				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
@@ -188,13 +181,13 @@ public class MapplasActivity extends Activity {
 		ImageView headerIV = (ImageView)listViewHeader.findViewById(R.id.ivImage);
 
 		// ListView header status message
-		listViewHeaderStatusMessage = (TextView)listViewHeader.findViewById(R.id.lblStatus);
-		listViewHeaderStatusMessage.setTypeface(normalTypeface);
-		listViewHeaderStatusMessage.setText(R.string.location_searching);
+		this.listViewHeaderStatusMessage = (TextView)listViewHeader.findViewById(R.id.lblStatus);
+		this.listViewHeaderStatusMessage.setTypeface(normalTypeface);
+		this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 
 		// ListView header status image
-		listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
-		listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
+		this.listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
+		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
 		Drawable pullToRefreshArrow = this.getResources().getDrawable(R.drawable.ic_pulltorefresh_arrow);
 		Drawable ic_refreshImage = this.getResources().getDrawable(R.drawable.ic_refresh_photo);
@@ -217,11 +210,6 @@ public class MapplasActivity extends Activity {
 				}
 			}
 		});
-
-		// Set adapter
-		this.listViewAdapter = new AppAdapter(this, this.listView, R.layout.rowloc, model.appList(), this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
-		this.listView.setAdapter(this.listViewAdapter);
-		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 
 		if(this.listView != null) {
 

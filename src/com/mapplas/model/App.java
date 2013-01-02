@@ -3,7 +3,6 @@ package com.mapplas.model;
 import java.util.ArrayList;
 
 import android.content.pm.ApplicationInfo;
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 

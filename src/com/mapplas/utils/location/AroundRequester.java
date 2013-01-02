@@ -1,9 +1,11 @@
 package com.mapplas.utils.location;
 
+import java.util.List;
+
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
+import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.model.SuperModel;
@@ -30,18 +33,24 @@ public class AroundRequester implements UserLocationListener {
 
 	private SuperModel model;
 
-	private Handler messageHandler;
-	
 	private AwesomeListView listView;
 
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, Handler messageHandler, AwesomeListView listView) {
+	private boolean isSplashActive;
+
+	private AppAdapter appAdapter;
+
+	private List<ApplicationInfo> applicationList;
+
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, boolean isSplashActive, AppAdapter appAdapter, List<ApplicationInfo> applicationList) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
 		this.model = model;
-		this.messageHandler = messageHandler;
 		this.listView = listView;
 		this.userLocationRequester = userLocationRequesterFactory.create(locationManager, this, timeOut);
+		this.isSplashActive = isSplashActive;
+		this.appAdapter = appAdapter;
+		this.applicationList = applicationList;
 	}
 
 	public void start() {
@@ -86,8 +95,8 @@ public class AroundRequester implements UserLocationListener {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
-				(new AppGetterTask(this.context, model, messageHandler)).execute(new Location[] { location });
-				(new ReverseGeocodingTask(this.context, model, messageHandler)).execute(new Location[] { location });
+				(new AppGetterTask(this.context, this.model, this.isSplashActive, this.appAdapter, this.listView, this.applicationList)).execute(new Location[] { location });
+				(new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage)).execute(new Location[] { location });
 
 			} catch (Exception e) {
 				Log.i(getClass().getSimpleName(), e.toString());
