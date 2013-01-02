@@ -63,6 +63,10 @@ public class AppAdapter extends EndlessAdapter {
 		if(getWrappedAdapter().getCount() < this.modelData.size()) {
 			@SuppressWarnings("unchecked")
 			ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
+			
+			int count = this.loadedListCount;
+			int maxCount = this.scrollManager.getMaxCount();
+			int resto = this.scrollManager.getRest();
 
 			if(this.loadedListCount == this.scrollManager.getMaxCount() - 1 && !this.scrollManager.isRestZero()) {
 				int rest = this.scrollManager.getRest();

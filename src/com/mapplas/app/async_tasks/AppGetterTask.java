@@ -132,7 +132,12 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		
 		// Get first X applications
 		ArrayList<App> appList = new ArrayList<App>();
-		for(int i = 0; i < InfiniteScrollManager.NUMBER_OF_APPS; i++) {
+		int maxIndex = InfiniteScrollManager.NUMBER_OF_APPS;
+		
+		if(this.model.appList().size() < InfiniteScrollManager.NUMBER_OF_APPS) {
+			maxIndex = this.model.appList().size();
+		}
+		for(int i = 0; i < maxIndex; i++) {
 			appList.add(this.model.appList().get(i));
 		}
 		
@@ -181,7 +186,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 
 		if(this.listViewAdapter != null) {
 
-			for(int i = 0; i < InfiniteScrollManager.NUMBER_OF_APPS; i++) {
+			for(int i = 0; i < maxIndex; i++) {
 				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getAppName());
 				if(ai != null) {
 					this.model.appList().get(i).setInternalApplicationInfo(ai);
