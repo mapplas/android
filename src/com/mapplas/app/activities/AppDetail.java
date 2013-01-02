@@ -528,19 +528,19 @@ public class AppDetail extends Activity {
 		// Define layouts
 		final LinearLayout lytPinup = (LinearLayout)findViewById(R.id.lytPinup);
 		final LinearLayout lytRate = (LinearLayout)findViewById(R.id.lytRate);
-		final LinearLayout lytLike = (LinearLayout)findViewById(R.id.lytLike);
+		//final LinearLayout lytLike = (LinearLayout)findViewById(R.id.lytLike);
 		final LinearLayout lytBlock = (LinearLayout)findViewById(R.id.lytBlock);
 		final LinearLayout lytShare = (LinearLayout)findViewById(R.id.lytShare);
 		final LinearLayout lytPhone = (LinearLayout)findViewById(R.id.lytPhone);
 
 		lytPinup.setTag(this.app);
 		lytRate.setTag(this.app);
-		lytLike.setTag(this.app);
+		//lytLike.setTag(this.app);
 		lytBlock.setTag(this.app);
 		lytShare.setTag(this.app);
 		lytPhone.setTag(this.app);
 
-		this.initFavLayout(lytLike);
+		//this.initFavLayout(lytLike);
 		this.initPinLayout(lytPinup);
 		this.initShareLayout(lytShare);
 		this.initBlockLayout(lytBlock);

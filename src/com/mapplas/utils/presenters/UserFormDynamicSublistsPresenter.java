@@ -35,6 +35,30 @@ public class UserFormDynamicSublistsPresenter {
 		this.setBlocksLayoutBehaviour();
 		this.pinUpsLayoutBehaviour();
 	}
+	
+	private void pinUpsLayoutBehaviour() {
+		this.layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed_left);
+
+		this.layoutComponents.pinUpsLayout().setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// Obtain blocked items data
+				list.removeFooterView(layoutComponents.footerButtonsLayout());
+
+				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
+				layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed_left);
+
+				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
+				if(settings.getBoolean("user_logged", false)) {
+					list.addFooterView(layoutComponents.footerButtonsLayout());
+				}
+
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
+				list.setAdapter(ula);
+			}
+		});
+	}
 
 	private void setBlocksLayoutBehaviour() {
 		this.layoutComponents.blocksLayout().setOnClickListener(new View.OnClickListener() {
@@ -45,7 +69,7 @@ public class UserFormDynamicSublistsPresenter {
 				list.removeFooterView(layoutComponents.footerButtonsLayout());
 
 				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.blocksLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
+				layoutComponents.blocksLayout().setBackgroundResource(R.drawable.bgd_tab_pressed_right);
 
 				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
 				if(settings.getBoolean("user_logged", false)) {
@@ -58,27 +82,5 @@ public class UserFormDynamicSublistsPresenter {
 		});
 	}
 
-	private void pinUpsLayoutBehaviour() {
-		this.layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
-
-		this.layoutComponents.pinUpsLayout().setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// Obtain blocked items data
-				list.removeFooterView(layoutComponents.footerButtonsLayout());
-
-				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed);
-
-				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
-				if(settings.getBoolean("user_logged", false)) {
-					list.addFooterView(layoutComponents.footerButtonsLayout());
-				}
-
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
-				list.setAdapter(ula);
-			}
-		});
-	}
+	
 }

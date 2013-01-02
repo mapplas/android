@@ -86,8 +86,8 @@
 	<string name="signin">Sign-in</string>
 	<string name="signout">Sign-out</string>
 	
-	<string name="wifi_error_toast">Para obtener una ubicación más precisa, activa la conexión wifi. Funcionará incluso sin que te conectes a una red.</string>
-	<string name="pull_to_refresh_wifi_error">Activa el wifi para una mejor precisión!</string>
+	<string name="wifi_error_toast">Obten una busqueda más precisa! Activa la conexión Wi-Fi. Funcionará incluso sin que te conectes a una red.</string>
+	<string name="pull_to_refresh_wifi_error">Activa el Wi-Fi para una mejor precisión!</string>
 	<string name="connection_error_toast">No hay conexión a internet. Activa para continuar.</string>
 	
 	<string name="menu_refresh">Actualizar</string>

@@ -101,9 +101,9 @@
 	<string name="done">Done</string>
 	<string name="free">Free</string>
 	
-	<string name="wifi_error_toast">Improve my location. For more acurate location, turn Wi-Fi on, This works enven when not conected to a network.</string>
-	<string name="pull_to_refresh_wifi_error">Turn wifi on to improve your location!</string>
-	<string name="connection_error_toast">There\'s no internet connection. Please enable to load app.</string>
+	<string name="wifi_error_toast">Improve the search! For more accurate recommendations, turn Wi-Fi on. This works even when not connected to a network.</string>
+	<string name="pull_to_refresh_wifi_error">Turn Wi-Fi on to improve your recommendations!</string>
+	<string name="connection_error_toast">There\'s no data connection. Please enable to load apps.</string>
 	
 	<string name="menu_refresh">Refresh</string>
 	
