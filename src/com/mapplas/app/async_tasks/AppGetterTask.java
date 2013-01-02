@@ -1,5 +1,7 @@
 package com.mapplas.app.async_tasks;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import org.apache.http.HttpResponse;
@@ -11,35 +13,52 @@ import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+import app.mapplas.com.R;
 
+import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.adapters.app.AppAdapter;
+import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.SuperModel;
+import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
+import com.mapplas.utils.static_intents.AppAdapterSingleton;
 
 public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 
 	private Context context;
-	
+
 	private SuperModel model;
-	
-	private Handler handler;
+
+	private AppAdapter listViewAdapter;
+
+	private AwesomeListView listView;
+
+	private List<ApplicationInfo> applicationList;
 
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private static boolean occupied = false;
 
-	public AppGetterTask(Context context, SuperModel model, Handler messageHandler) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList) {
 		super();
 		this.context = context;
 		this.model = model;
-		this.handler = messageHandler;
+		this.listViewAdapter = listViewAdapter;
+		this.listView = listView;
+		this.applicationList = applicationList;
 	}
 
 	@Override
@@ -65,7 +84,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		String serverResponse = "";
 
 		if(this.model.currentUser() != null) {
-			uid = this.model.currentUser().getId() + "";
+			uid = String.valueOf(this.model.currentUser().getId());
 		}
 
 		SharedPreferences sharedPreferences = this.context.getSharedPreferences("synesth", Context.MODE_PRIVATE);
@@ -80,75 +99,9 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				serverResponse = EntityUtils.toString(rp.getEntity());
 
-//				TODO: uncomment for emulator use
-//				serverResponse = "[{'IDLocalization':'21','Name':'Revienta burbujas','Latitude':'42.01','Longitude':'-4.5','Address':'','ZipCode':''," +
-//						"'State':'','City':'','Country':'','Type':'application','IDCompany':'1','OfferID':'0','OfferName':'','OfferLogo':'','OfferLogoMini':''," +
-//						"'OfferURL':'','OfferText':'','URLID':'0','URLName':'','URLLogo':'','URLLogoMini':'','URLValue':'','URLText':'','AppID':'0','AppName':'App 7'," +
-//						"'AppLogo':'http://lh4.ggpht.com/4ek8rG7i-KP-m5sAmm2c9Msj5G9wVHDqou0F25iiGjSoXVpx_dUV2qfRcyfLeJBeUg=w72-h72','AppLogoMini':''," +
-//						"'AppURL':'http://www.organic-software.com','AppDescription':'Descripcion 7','AppType':'android','UserAlarmID':'0','UserAlarmName':'','UserURLID':'0'," +
-//						"'UserURLValue':'','UserURLDescription':'','UserURLTags':'','UserURLComment':'','UserURLPhoto':'','IDUser':'0','Radius':'20'," +
-//						"'CreationDate':'0000-00-00','Phone':'','Wifi':'V','Bluetooth':'V','Location':'V','AppPrice':'0.99','AppIDGpcategory':'0','AppIDGpsubcategory':'0'," +
-//						"'AppCategoryText':'','AppIDGpapp':'0','IndexFilter':'0','MatchRate':'0','AuxPlus':0,'AuxMinus':0,'AuxFavourite':false,'AuxPin':true,'AuxTotalPins':2," +
-//						"'AuxRate':0,'AuxComment':'','AuxTotalRate':3.5,'AuxTotalComments':1," +
-//						"" +
-//						"" +
-//						"'AuxNews':[{'IDNewsfeed':'3','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-08-30'," +
-//						"'Hour':'13:55','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'4','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-07-25'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'5','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-10-28'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'6','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-10'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'7','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'67','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}]," +
-//						"" +
-//						"'AuxComments':[{'IDComment':'18','IDLocalization':'21','Comment':'hhjb'," +
-//						"'Rate':'3.5','Date':'2012-08-25','IDUser':'3','Hour':'','Latitude':'43.2944','Longitude':'-1.99626','DescriptiveGeoLoc':null}],'AuxPhotos':[]," +
-//						"" +
-//						"'AuxNews':[{'IDNewsfeed':'9','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-08-30'," +
-//						"'Hour':'13:55','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'10','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-07-25'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'11','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-10-28'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'12','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-10'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'13','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}," +
-//						
-//						"{'IDNewsfeed':'14','IDCompany':'1','IDLocalization':'21','Title':'App 7 rated (3.5)'," +
-//						"'Body':' rated App 7 at 20018 Donostia-San Sebasti\u00e1n, Donostia-San Sebasti\u00e1n, Espa\u00f1a','Date':'2012-12-6'," +
-//						"'Hour':'13:05','Latitude':'0','Longitude':'0','DescriptiveGeoLoc':''}]" +
-//						"" +
-//						"}]";
-
 				// Comprobamos que el parser funciona correctamente
 				JsonParser jp = new JsonParser(this.context);
-				jp.parseApps(serverResponse, model, false);
-
+				jp.parseApps(serverResponse, this.model, false);
 			}
 			else {
 				if(MapplasActivity.mDebug) {
@@ -156,8 +109,6 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 					Toast.makeText(context, textoToast, Toast.LENGTH_LONG).show();
 				}
 			}
-
-			Message.obtain(handler, Constants.SYNESTH_MAIN_LIST_ID, null).sendToTarget();
 
 		} catch (Exception exc) {
 			Log.i(getClass().getSimpleName(), "ObtainLocalizationTask.doInBackGround: " + exc);
@@ -173,5 +124,94 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected void onPostExecute(Void result) {
+		super.onPostExecute(result);
+		
+		// Get first X applications
+		ArrayList<App> appList = new ArrayList<App>();
+		for(int i = 0; i < InfiniteScrollManager.NUMBER_OF_APPS; i++) {
+			appList.add(this.model.appList().get(i));
+		}
+		
+		this.listViewAdapter = new AppAdapter(this.context, this.listView, R.layout.rowloc, android.R.id.text1, this.model.appList(), appList, this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
+		this.listView.setAdapter(this.listViewAdapter);
+		AppAdapterSingleton.appAdapter = this.listViewAdapter;
+
+		final RelativeLayout mainLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.layoutMain);
+		final LinearLayout mainScreenContentLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.lytContent);
+		final LinearLayout splashLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.id_splash);
+		final Button notificationsButton = (Button)((MapplasActivity)this.context).findViewById(R.id.btnNotifications);
+
+		if(MapplasActivity.isSplashActive) {
+			final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
+			fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
+			// this
+			fadeOutAnimation.setStartOffset(0);
+			fadeOutAnimation.setDuration(500);
+
+			final Animation fadeInAnimation = new AlphaAnimation(0, 1);
+			fadeInAnimation.setInterpolator(new AccelerateInterpolator()); // and
+			// this
+			fadeInAnimation.setStartOffset(0);
+			fadeInAnimation.setDuration(500);
+
+			fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+				@Override
+				public void onAnimationStart(Animation animation) {
+				}
+
+				@Override
+				public void onAnimationRepeat(Animation animation) {
+				}
+
+				@Override
+				public void onAnimationEnd(Animation animation) {
+					mainLayout.removeView(splashLayout);
+					mainScreenContentLayout.startAnimation(fadeInAnimation);
+				}
+			});
+
+			mainLayout.startAnimation(fadeOutAnimation);
+			MapplasActivity.isSplashActive = false;
+		}
+
+		if(this.listViewAdapter != null) {
+
+			for(int i = 0; i < InfiniteScrollManager.NUMBER_OF_APPS; i++) {
+				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getAppName());
+				if(ai != null) {
+					this.model.appList().get(i).setInternalApplicationInfo(ai);
+				}
+			}
+
+			if(this.model.notificationList().size() > 0) {
+				notificationsButton.setText(this.model.notificationList().size() + "");
+				notificationsButton.setBackgroundResource(R.drawable.menu_notifications_number_button);
+			}
+			else {
+				notificationsButton.setText("");
+				notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
+			}
+
+			this.listViewAdapter.notifyDataSetChanged();
+
+			this.listView.finishRefresing();
+		}
+	}
+
+	private ApplicationInfo findApplicationInfo(String id) {
+		ApplicationInfo ret = null;
+
+		for(int i = 0; i < this.applicationList.size(); i++) {
+			ApplicationInfo ai = this.applicationList.get(i);
+			if(id.contentEquals(ai.packageName)) {
+				ret = this.applicationList.get(i);
+			}
+		}
+		return ret;
 	}
 }

@@ -32,9 +32,9 @@ import app.mapplas.com.R;
 import com.mapplas.app.ProblemDialog;
 import com.mapplas.app.RatingDialog;
 import com.mapplas.app.SliderListView;
-import com.mapplas.app.adapters.AppAdapter;
 import com.mapplas.app.adapters.CommentAdapter;
 import com.mapplas.app.adapters.ImageAdapter;
+import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
@@ -347,7 +347,6 @@ public class AppDetail extends Activity {
 
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
-		Bitmap bmp = null;
 
 		new DrawableBackgroundDownloader().loadDrawable(this.app.getAppLogo(), appLogo, this.getResources().getDrawable(R.drawable.ic_template));
 
