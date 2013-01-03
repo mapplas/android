@@ -103,7 +103,7 @@
 	
 	<string name="wifi_error_toast">Improve the search! For more accurate recommendations, turn Wi-Fi on. This works even when not connected to a network.</string>
 	<string name="pull_to_refresh_wifi_error">Turn Wi-Fi on to improve your recommendations!</string>
-	<string name="connection_error_toast">There\'s no data connection. Please enable to load apps and press menu to refresh.</string>
+	<string name="connection_error_toast">There\'s no data connection. Please enable to load apps.</string>
 	
 	<string name="menu_refresh">Refresh</string>
 	
