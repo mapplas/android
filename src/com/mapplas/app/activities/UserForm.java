@@ -35,7 +35,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.UserAppAdapter;
+import com.mapplas.app.adapters.user.UserAppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
 import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
@@ -98,7 +98,7 @@ public class UserForm extends Activity {
 		this.initializeAnimations();
 		this.initLayoutComponents();
 		this.initializeButtonsAndItsBehaviour();
-		
+
 		// Request user app preferences
 		JsonParser parser = new JsonParser(this);
 		new UserPinUpsTask(this.user, parser, this.listView, this, R.id.lblTitle, this.currentLocation, this.refreshListBackgroundFooter).execute();
@@ -126,7 +126,7 @@ public class UserForm extends Activity {
 			imgUser.setImageResource(R.drawable.ic_menu_profile);
 		}
 	}
-	
+
 	@Override
 	protected void onPause() {
 		SuperModelSingleton.model.setCurrentUser(user);
@@ -252,7 +252,7 @@ public class UserForm extends Activity {
 				try {
 					Thread th = new Thread(new UserEditRequestThread(user, currentResponse).getThread());
 					th.start();
-					
+
 					SharedPreferences settings = getSharedPreferences("prefs", 0);
 					Editor editor = settings.edit();
 					editor.putBoolean("user_logged", true);
@@ -350,7 +350,7 @@ public class UserForm extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 						user.setName("");
 						user.setEmail("");
-						
+
 						SharedPreferences settings = getSharedPreferences("prefs", 0);
 						SharedPreferences.Editor editor = settings.edit();
 						editor.putBoolean("user_logged", false);
@@ -389,7 +389,7 @@ public class UserForm extends Activity {
 			case UserForm.USER_SIGN_IN:
 				this.actionButton.setText(R.string.signin);
 				this.actionButton.setVisibility(View.VISIBLE);
-				
+
 				actionText.setText(R.string.newAccount);
 				actionText.setVisibility(View.VISIBLE);
 
@@ -399,7 +399,7 @@ public class UserForm extends Activity {
 			case UserForm.USER_LOG_IN:
 				this.actionButton.setText(R.string.login);
 				this.actionButton.setVisibility(View.VISIBLE);
-				
+
 				actionText.setText(R.string.newAccountSignedIn);
 				actionText.setVisibility(View.VISIBLE);
 
