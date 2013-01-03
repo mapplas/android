@@ -13,6 +13,7 @@ import android.widget.Toast;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
+import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
@@ -68,8 +69,9 @@ public class AroundRequester implements UserLocationListener {
 	@Override
 	public void locationSearchDidTimeout(Location location) {
 		if(location == null) {
-			Toast toast = Toast.makeText(this.context, "TIMEOUT TOAST", Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG);
 			toast.show();
+			((MapplasActivity) this.context).finish();
 		}
 		else {
 			this.loadTasks(location);
@@ -86,6 +88,8 @@ public class AroundRequester implements UserLocationListener {
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
 			Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG).show();
 			this.listView.finishRefresing();
+			
+			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}
 		else {
 			try {
