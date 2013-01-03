@@ -36,7 +36,6 @@ import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.app.adapters.user.UserEmptyAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
 import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;

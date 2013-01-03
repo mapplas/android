@@ -5,10 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.app.adapters.user.UserEmptyAdapter;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
 import com.mapplas.utils.NetRequests;
@@ -26,7 +24,7 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 	private int textViewResourceId;
 
 	private String currentLocation;
-	
+
 	private LinearLayout refreshListBackgroundFooter;
 
 	public UserPinUpsTask(User user, JsonParser parser, ListView listView, Context context, int textViewResourceId, String currentLoc, LinearLayout refreshListBackgroundFooter) {
@@ -57,18 +55,10 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 
 		// Parse result and insert into user
 		this.user.setPinnedApps(this.parser.parseApps(result));
-		
-		this.listView.removeFooterView(this.refreshListBackgroundFooter);
-		
-		if(this.user.pinnedApps().size() > 0) {
-			UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation);
-			this.listView.setAdapter(appAdapter);
-		}
-		else {
-			// Empty adapter
-			UserEmptyAdapter emptyAdapter = new UserEmptyAdapter(this.context, R.id.user_form_empty_list_text, null);
-			this.listView.setAdapter(emptyAdapter);
-		}
 
+		this.listView.removeFooterView(this.refreshListBackgroundFooter);
+
+		UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation);
+		this.listView.setAdapter(appAdapter);
 	}
 }

@@ -26,7 +26,6 @@ import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.app.threads.PinRequestThread;
-import com.mapplas.app.threads.UnrateRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -123,146 +122,140 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 			}
 		});
 	}
+	
+	@Override
+	public int getCount() {
+		int count = 1;
+		if(this.items.size() > 0) {
+			count = this.items.size();
+		}
+		return count;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View view = convertView;
+		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		// boolean isNewView = false;
-		View v = convertView;
-
-		if(v == null) {
-			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		if(this.items.size() == 0) {
+			view = inflater.inflate(R.layout.profile_empty_list_header, null);
+			TextView text = (TextView)view.findViewById(R.id.user_form_empty_list_text);
 			switch (this.mType) {
 				case BLOCK:
-					v = vi.inflate(R.layout.row_blocks, null);
-					break;
-
-				case FAVOURITE:
-					v = vi.inflate(R.layout.row_likes, null);
+					text.setText(R.string.profile_empty_block_list);
 					break;
 
 				case PINUP:
-					v = vi.inflate(R.layout.row_pinup, null);
-					break;
-
-				case RATE:
-					v = vi.inflate(R.layout.row_blocks, null);
+					text.setText(R.string.profile_empty_pinup_list);
 					break;
 			}
-
-			// isNewView = true;
 		}
 		else {
-			// isNewView = false;
-		}
+			if(view == null) {
+				switch (this.mType) {
+					case BLOCK:
+						view = inflater.inflate(R.layout.row_blocks, null);
+						break;
 
-		final View innerView = v;
+					case PINUP:
+						view = inflater.inflate(R.layout.row_pinup, null);
+						break;
+				}
+			}
 
-		final App o = items.get(position);
+			final View innerView = view;
 
-		if(o != null) {
-			v.setTag(position);
+			final App app = items.get(position);
 
-			final TextView lblTitle = (TextView)v.findViewById(R.id.lblTitle);
-			// final TextView lblDescription = (TextView)
-			// v.findViewById(R.id.lblDescription);
-			final ImageView btnAction = (ImageView)v.findViewById(R.id.btnAction);
+			if(app != null) {
+				view.setTag(position);
 
-			final ImageView ivLogo = (ImageView)v.findViewById(R.id.imgLogo);
+				final TextView lblTitle = (TextView)view.findViewById(R.id.lblTitle);
+				// final TextView lblDescription = (TextView)
+				// v.findViewById(R.id.lblDescription);
+				final ImageView btnAction = (ImageView)view.findViewById(R.id.btnAction);
 
-			// Set app logo
-			ImageFileManager imageFileManager = new ImageFileManager();
-			String logoUrl = o.getAppLogo();
-			if(!logoUrl.equals("")) {
-				if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
-					ivLogo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+				final ImageView ivLogo = (ImageView)view.findViewById(R.id.imgLogo);
+
+				// Set app logo
+				ImageFileManager imageFileManager = new ImageFileManager();
+				String logoUrl = app.getAppLogo();
+				if(!logoUrl.equals("")) {
+					if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+						ivLogo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+					}
+					else {
+						TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, ivLogo, imageFileManager));
+						imageRequest.execute();
+					}
 				}
 				else {
-					TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, ivLogo, imageFileManager));
-					imageRequest.execute();
+					ivLogo.setImageResource(R.drawable.ic_template);
 				}
-			}
-			else {
-				ivLogo.setImageResource(R.drawable.ic_template);
-			}
 
-			lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
-			// lblDescription.setTypeface(SynesthActivity.getTypeFace());
+				lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
+				// lblDescription.setTypeface(SynesthActivity.getTypeFace());
 
-			lblTitle.setText(o.getName());
+				lblTitle.setText(app.getName());
 
-			btnAction.setTag(o);
-			btnAction.setOnClickListener(new View.OnClickListener() {
+				btnAction.setTag(app);
+				btnAction.setOnClickListener(new View.OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					final App anonLoc = (App)v.getTag();
-					innerView.startAnimation(UserAppAdapter.this.fadeOutAnimation);
+					@Override
+					public void onClick(View v) {
+						final App anonLoc = (App)v.getTag();
+						innerView.startAnimation(UserAppAdapter.this.fadeOutAnimation);
 
-					UserAppAdapter.this.fadeOutAnimation.setAnimationListener(new AnimationListener() {
+						UserAppAdapter.this.fadeOutAnimation.setAnimationListener(new AnimationListener() {
 
-						@Override
-						public void onAnimationStart(Animation animation) {
-						}
-
-						@Override
-						public void onAnimationRepeat(Animation animation) {
-						}
-
-						@Override
-						public void onAnimationEnd(Animation animation) {
-							items.remove(anonLoc);
-							UserAppAdapter.this.notifyDataSetChanged();
-
-							String uid = String.valueOf(user.getId());
-
-							Thread activityRequestThread = null;
-
-							switch (UserAppAdapter.this.mType) {
-								case BLOCK:
-									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
-									activityRequestThread.start();
-
-									Thread blockRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
-									blockRequestThread.start();
-
-									break;
-
-								case FAVOURITE:
-									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNFAVOURITE).getThread());
-									activityRequestThread.start();
-
-									Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE, anonLoc, uid).getThread());
-									likeRequestThread.start();
-
-									break;
-
-								case PINUP:
-									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
-									activityRequestThread.start();
-
-									Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
-									pinRequestThread.start();
-
-									break;
-
-								case RATE:
-									activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNRATE).getThread());
-									activityRequestThread.start();
-
-									Thread unrateRequestThread = new Thread(new UnrateRequestThread(anonLoc, uid).getThread());
-									unrateRequestThread.start();
-
-									break;
+							@Override
+							public void onAnimationStart(Animation animation) {
 							}
-						}
-					});
 
-				}
-			});
+							@Override
+							public void onAnimationRepeat(Animation animation) {
+							}
+
+							@Override
+							public void onAnimationEnd(Animation animation) {
+								items.remove(anonLoc);
+								UserAppAdapter.this.notifyDataSetChanged();
+
+								String uid = String.valueOf(user.getId());
+								Thread activityRequestThread = null;
+
+								switch (UserAppAdapter.this.mType) {
+									case BLOCK:
+										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
+										activityRequestThread.start();
+
+										Thread blockRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
+										blockRequestThread.start();
+
+										// Remove blocked app from blocked list
+										user.blockedApps().remove(anonLoc);
+
+										break;
+									case PINUP:
+										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
+										activityRequestThread.start();
+
+										Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
+										pinRequestThread.start();
+
+										user.pinnedApps().remove(anonLoc);
+
+										break;
+								}
+							}
+						});
+
+					}
+
+				});
+			}
 		}
 
-		return v;
+		return view;
 	}
-
 }

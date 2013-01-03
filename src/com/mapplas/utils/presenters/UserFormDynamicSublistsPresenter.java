@@ -8,7 +8,6 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.app.adapters.user.UserEmptyAdapter;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 
@@ -55,15 +54,16 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				if(user.pinnedApps().size() > 0) {
-					UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
-					list.setAdapter(ula);
-				}
-				else {
-					// Empty adapter
-					UserEmptyAdapter emptyAdapter = new UserEmptyAdapter(context, R.id.user_form_empty_list_text, null);
-					list.setAdapter(emptyAdapter);
-				}
+				// if(user.pinnedApps().size() > 0) {
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
+				list.setAdapter(ula);
+				// }
+				// else {
+				// // Empty adapter
+				// UserEmptyAdapter emptyAdapter = new UserEmptyAdapter(context,
+				// R.id.user_form_empty_list_text, null);
+				// list.setAdapter(emptyAdapter);
+				// }
 			}
 		});
 	}
@@ -84,15 +84,8 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				if(user.blockedApps().size() > 0) {
-					UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation);
-					list.setAdapter(ula);
-				}
-				else {
-					// Empty adapter
-					UserEmptyAdapter emptyAdapter = new UserEmptyAdapter(context, R.id.user_form_empty_list_text, null);
-					list.setAdapter(emptyAdapter);
-				}
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation);
+				list.setAdapter(ula);
 			}
 		});
 	}
