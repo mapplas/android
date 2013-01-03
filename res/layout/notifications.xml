@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" >
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="@drawable/bgd_menu" >
-        
+
         <TextView
             android:id="@+id/lblTitle"
             android:layout_width="fill_parent"
@@ -20,21 +21,20 @@
             android:text="@string/activity"
             android:textColor="#333333"
             android:textSize="22sp" />
-        
+
         <Button
             android:id="@+id/btnBack"
             android:layout_width="64dp"
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
             android:background="@drawable/menu_back_button_right" />
+    </RelativeLayout>
 
-    </RelativeLayout>
     <ListView
         android:id="@+id/lvLista"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#f7f8f8" >
-
     </ListView>
 
 </LinearLayout>

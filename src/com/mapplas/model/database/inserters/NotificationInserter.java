@@ -1,5 +1,9 @@
 package com.mapplas.model.database.inserters;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -40,6 +44,7 @@ public class NotificationInserter {
 				notification.setAuxApp(app);
 				notification.setArrivalTimestamp(currentTimestamp);
 				notification.setCurrentLocation(model.currentDescriptiveGeoLoc());
+				notification.setDateInMiliseconds(getMsFromDateAndHour(notification.getDate(), notification.getHour()));
 				
 				model.notificationList().add(notification);
 
@@ -61,6 +66,32 @@ public class NotificationInserter {
 			e.printStackTrace();
 		}
 
+	}
+
+	private long getMsFromDateAndHour(String date, String hour) {
+		long totalMs = 0;
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date d1 = null;
+        try {
+            d1 = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }         
+        totalMs += d1.getTime();
+        
+        if(!hour.equals("00:00")) {
+        	SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm");
+    		Date d2 = null;
+            try {
+                d2 = hourFormat.parse(hour);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            totalMs += d2.getTime();
+		}
+				
+		return totalMs;
 	}
 
 	private void deleteNotificationsUpTo(App app, SuperModel model) {

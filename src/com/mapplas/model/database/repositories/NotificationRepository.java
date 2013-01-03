@@ -71,7 +71,7 @@ public class NotificationRepository extends Repository {
 		try {
 			// Get first 100 notifications ordered by date
 			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
-			queryBuilder.selectColumns("id", "idCompany", "idLocalization", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation").orderBy("date", false).limit((long)NotificationRepository.MAX_NOTIFICATIONS_IN_TABLE);
+			queryBuilder.selectColumns("id", "idCompany", "idLocalization", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation", "dateInMs").orderBy("dateInMs", false).limit((long)NotificationRepository.MAX_NOTIFICATIONS_IN_TABLE);
 			List<Notification> notificationList = this.getDao().query(queryBuilder.prepare());
 
 			// Delete table
@@ -112,8 +112,8 @@ public class NotificationRepository extends Repository {
 		for(Notification currentNotification : listOfNotificationsTimestamps) {
 			currentNotificationTimestamp = currentNotification.arrivalTimestamp();
 			try {
-				queryBuilder.selectColumns("id", "idCompany", "idApp", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation").where().eq("arrivalTimestamp", currentNotificationTimestamp);
-				queryBuilder.orderBy("date", false);
+				queryBuilder.selectColumns("id", "idCompany", "idApp", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation", "dateInMs").where().eq("arrivalTimestamp", currentNotificationTimestamp);
+				queryBuilder.orderBy("dateInMs", false);
 				listOfNotifications = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());
 				
 				notificationData.put(currentNotificationTimestamp, listOfNotifications);
