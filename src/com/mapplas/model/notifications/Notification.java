@@ -49,7 +49,10 @@ public class Notification implements Parcelable, Unit {
 
 	@DatabaseField
 	private String currentLocation = "";
-	
+
+	@DatabaseField
+	private long dateInMs = 0;
+
 	// Needed by ormlite
 	public Notification() {
 	}
@@ -194,8 +197,16 @@ public class Notification implements Parcelable, Unit {
 		this.currentLocation = currentLocation;
 	}
 
+	public long dateInMiliseconds() {
+		return this.dateInMs;
+	}
+
+	public void setDateInMiliseconds(long ms) {
+		this.dateInMs = ms;
+	}
+
 	// ---------------------------------------------------------------------------
-	
+
 	/**
 	 * Parcelable methods
 	 */
@@ -218,6 +229,7 @@ public class Notification implements Parcelable, Unit {
 		dest.writeInt(this.shown);
 		dest.writeLong(this.arrivalTimestamp);
 		dest.writeString(this.currentLocation);
+		dest.writeLong(this.dateInMs);
 	}
 
 	public Notification(Parcel parcel) {
@@ -233,6 +245,7 @@ public class Notification implements Parcelable, Unit {
 		this.shown = parcel.readInt();
 		this.arrivalTimestamp = parcel.readLong();
 		this.currentLocation = parcel.readString();
+		this.dateInMs = parcel.readLong();
 	}
 
 	public static final Parcelable.Creator<Notification> CREATOR = new Parcelable.Creator<Notification>() {

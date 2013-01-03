@@ -21,6 +21,8 @@ import com.mapplas.model.User;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 
 public class AppAdapter extends EndlessAdapter {
+	
+	private static int SLEEP_MILISECONDS = 2000;
 
 	private ArrayList<App> modelData;
 
@@ -66,9 +68,9 @@ public class AppAdapter extends EndlessAdapter {
 			@SuppressWarnings("unchecked")
 			ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
 			
-			int count = this.loadedListCount;
-			int maxCount = this.scrollManager.getMaxCount();
-			int resto = this.scrollManager.getRest();
+//			int count = this.loadedListCount;
+//			int maxCount = this.scrollManager.getMaxCount();
+//			int resto = this.scrollManager.getRest();
 
 			if(this.loadedListCount == this.scrollManager.getMaxCount() - 1 && !this.scrollManager.isRestZero()) {
 				int rest = this.scrollManager.getRest();
@@ -87,7 +89,7 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		SystemClock.sleep(2000); // pretend to do work
+		SystemClock.sleep(AppAdapter.SLEEP_MILISECONDS); // pretend to do work
 		return getWrappedAdapter().getCount() < this.modelData.size();
 	}
 
