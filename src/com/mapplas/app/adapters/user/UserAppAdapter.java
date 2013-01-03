@@ -1,4 +1,4 @@
-package com.mapplas.app.adapters;
+package com.mapplas.app.adapters.user;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;

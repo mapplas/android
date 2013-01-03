@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.ListView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.UserAppAdapter;
+import com.mapplas.app.adapters.user.UserAppAdapter;
+import com.mapplas.app.adapters.user.UserEmptyAdapter;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 
@@ -35,7 +36,7 @@ public class UserFormDynamicSublistsPresenter {
 		this.setBlocksLayoutBehaviour();
 		this.pinUpsLayoutBehaviour();
 	}
-	
+
 	private void pinUpsLayoutBehaviour() {
 		this.layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed_left);
 
@@ -54,8 +55,15 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
-				list.setAdapter(ula);
+				if(user.pinnedApps().size() > 0) {
+					UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
+					list.setAdapter(ula);
+				}
+				else {
+					// Empty adapter
+					UserEmptyAdapter emptyAdapter = new UserEmptyAdapter(context, R.id.user_form_empty_list_text, null);
+					list.setAdapter(emptyAdapter);
+				}
 			}
 		});
 	}
@@ -76,11 +84,17 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation);
-				list.setAdapter(ula);
+				if(user.blockedApps().size() > 0) {
+					UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation);
+					list.setAdapter(ula);
+				}
+				else {
+					// Empty adapter
+					UserEmptyAdapter emptyAdapter = new UserEmptyAdapter(context, R.id.user_form_empty_list_text, null);
+					list.setAdapter(emptyAdapter);
+				}
 			}
 		});
 	}
 
-	
 }
