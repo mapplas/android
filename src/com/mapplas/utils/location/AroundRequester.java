@@ -68,7 +68,7 @@ public class AroundRequester implements UserLocationListener {
 	@Override
 	public void locationSearchDidTimeout(Location location) {
 		if(location == null) {
-			Toast toast = Toast.makeText(this.context, "TIMEOUT TOAST", Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG);
 			toast.show();
 		}
 		else {
@@ -86,6 +86,8 @@ public class AroundRequester implements UserLocationListener {
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
 			Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG).show();
 			this.listView.finishRefresing();
+			
+			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}
 		else {
 			try {
