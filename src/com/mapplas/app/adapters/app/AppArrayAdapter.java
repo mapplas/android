@@ -437,7 +437,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					else {
 						app.setAuxPin(true);
 					}
-					Thread pinRequestThread = new Thread(new PinRequestThread(action, app, uid).getThread());
+					Thread pinRequestThread = new Thread(new PinRequestThread(action, app, uid, currentLocation).getThread());
 					pinRequestThread.start();
 				}
 

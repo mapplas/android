@@ -634,7 +634,7 @@ public class AppDetail extends Activity {
 						anonLoc.setAuxPin(true);
 					}
 
-					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
+					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid, currentLocation).getThread());
 					pinRequestThread.start();
 
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(action, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
@@ -692,7 +692,7 @@ public class AppDetail extends Activity {
 								Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
 								likeRequestThread.start();
 								
-								Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
+								Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
 								unPinRequestThread.start();
 
 								Thread activityRequestThread = new Thread(new ActivityRequestThread(uid, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());

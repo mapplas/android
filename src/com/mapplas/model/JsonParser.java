@@ -1,12 +1,18 @@
 package com.mapplas.model;
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 
 import com.mapplas.model.database.inserters.NotificationInserter;
 
@@ -107,6 +113,8 @@ public class JsonParser {
 				loc.setAuxTotalRate((float)jArray.getJSONObject(i).getDouble("AuxTotalRate"));
 				loc.setAuxTotalPins(jArray.getJSONObject(i).getInt("AuxTotalPins"));
 				loc.setAuxTotalComments(jArray.getJSONObject(i).getInt("AuxTotalComments"));
+				
+				this.setPinnedAppLocation(jArray.getJSONObject(i), loc);
 
 				// Parse notifications
 				new NotificationInserter(this.context).insert(jArray, i, loc, model, currentTimestamp);
@@ -152,6 +160,39 @@ public class JsonParser {
 			model.setErrorText(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	private void setPinnedAppLocation(JSONObject jsonObject, App loc) throws JSONException {
+		String auxLatitude = jsonObject.getString("la");
+		loc.setPinnedLatitude(Float.parseFloat(auxLatitude));
+		String auxLongitude = jsonObject.getString("lo");
+		loc.setPinnedLongitude(Float.parseFloat(auxLongitude));
+		
+		Geocoder geocoder = new Geocoder(this.context, Locale.getDefault());
+		String addresText = "";
+
+		List<Address> addresses = null;
+		try {
+			// Call the synchronous getFromLocation() method by passing in
+			// the lat/long values.
+			addresses = geocoder.getFromLocation(loc.getPinnedLatitude(), loc.getPinnedLongitude(), 1);
+		} catch (IOException e) {
+			try {
+				// Call the synchronous getFromLocation() method by passing
+				// in the lat/long values.
+				addresses = geocoder.getFromLocation(loc.getPinnedLatitude(), loc.getPinnedLongitude(), 1);
+			} catch (IOException e2) {
+				e.printStackTrace();
+			}
+		}
+		if(addresses != null && addresses.size() > 0) {
+			Address address = addresses.get(0);
+			// Format the first line of address (if available), city, and
+			// country name.
+			addresText = String.format("%s, %s.", address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "", address.getLocality());
+		}
+		
+		loc.setPinnedGeocodedLocation(addresText);
 	}
 
 	public User ParseUser(String input) {

@@ -54,8 +54,6 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
-	// private static App mRateLoc = null;
-
 	private static App mBlockLoc = null;
 
 	final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
@@ -159,6 +157,10 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 					case PINUP:
 						view = inflater.inflate(R.layout.row_pinup, null);
+						
+						final TextView pinnedLocation = (TextView)view.findViewById(R.id.lblLocation);
+						pinnedLocation.setText(items.get(position).getPinnedGeocodedLocation());
+						
 						break;
 				}
 			}
@@ -171,10 +173,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 				view.setTag(position);
 
 				final TextView lblTitle = (TextView)view.findViewById(R.id.lblTitle);
-				// final TextView lblDescription = (TextView)
-				// v.findViewById(R.id.lblDescription);
 				final ImageView btnAction = (ImageView)view.findViewById(R.id.btnAction);
-
 				final ImageView ivLogo = (ImageView)view.findViewById(R.id.imgLogo);
 
 				// Set app logo
@@ -194,10 +193,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 				}
 
 				lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
-				// lblDescription.setTypeface(SynesthActivity.getTypeFace());
-
 				lblTitle.setText(app.getName());
-
+				
 				btnAction.setTag(app);
 				btnAction.setOnClickListener(new View.OnClickListener() {
 
@@ -240,7 +237,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
 										activityRequestThread.start();
 
-										Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
+										Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
 										pinRequestThread.start();
 
 										user.pinnedApps().remove(anonLoc);
