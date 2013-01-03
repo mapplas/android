@@ -18,7 +18,7 @@ import com.mapplas.model.notifications.NotificationList;
 
 public class NotificationRepository extends Repository {
 
-	public static int MAX_NOTIFICATIONS_IN_TABLE = 50;
+	public static int MAX_NOTIFICATIONS_IN_TABLE = 100;
 
 	public NotificationRepository(Dao<Notification, Integer> dao, String tableName) {
 		super(dao, tableName);

@@ -245,14 +245,17 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 
 		// Load notification app logo
 		ImageFileManager imageFileManager = new ImageFileManager();
-		String logoUrl = notification.getAuxApp().getAppLogo();
-		if(!logoUrl.equals("")) {
-			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
-				cellHolder.logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
-			}
-			else {
-				TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, cellHolder.logo, imageFileManager));
-				imageRequest.execute();
+		
+		if(notification.getAuxApp() != null) {
+			String logoUrl = notification.getAuxApp().getAppLogo();
+			if(!logoUrl.equals("")) {
+				if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+					cellHolder.logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+				}
+				else {
+					TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, cellHolder.logo, imageFileManager));
+					imageRequest.execute();
+				}
 			}
 		}
 	}
