@@ -6,9 +6,12 @@
 
     <TextView
         android:id="@android:id/text1"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="72dp"
-        android:gravity="center"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="false"
+        android:gravity="center_vertical|center_horizontal"
         android:minHeight="?android:attr/listPreferredItemHeight"
         android:text="@string/ptr_refreshing"
         android:textColor="#333333"
@@ -18,8 +21,8 @@
         android:id="@+id/throbber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|left"
-        android:layout_marginLeft="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@android:id/text1"
         android:contentDescription="@string/image_content_description"
         android:cropToPadding="false"
         android:src="@drawable/ic_refresh" />
