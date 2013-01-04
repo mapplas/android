@@ -71,7 +71,7 @@ public class NotificationRepository extends Repository {
 		try {
 			// Get first 100 notifications ordered by date
 			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
-			queryBuilder.selectColumns("id", "idCompany", "idLocalization", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation", "dateInMs").orderBy("dateInMs", false).limit((long)NotificationRepository.MAX_NOTIFICATIONS_IN_TABLE);
+			queryBuilder.selectColumns("id", "idCompany", "idApp", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation", "dateInMs").orderBy("dateInMs", false).limit((long)NotificationRepository.MAX_NOTIFICATIONS_IN_TABLE);
 			List<Notification> notificationList = this.getDao().query(queryBuilder.prepare());
 
 			// Delete table

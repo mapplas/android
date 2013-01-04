@@ -26,7 +26,7 @@ public class JsonToNotificationMapper implements ReturnMapper {
 
 			mappers.add(new KeyValueMapper("IDNewsfeed", Notification.class.getMethod("setId", int.class)));
 			mappers.add(new KeyValueMapper("IDCompany", Notification.class.getMethod("setIdCompany", int.class)));
-			mappers.add(new KeyValueMapper("IDLocalization", Notification.class.getMethod("setIdLocalization", int.class)));
+			mappers.add(new KeyValueMapper("IDLocalization", Notification.class.getMethod("setAppId", int.class)));
 
 			mappers.add(new KeyValueScapedMapper("Title", Notification.class.getMethod("setName", String.class)));
 			mappers.add(new KeyValueScapedMapper("Body", Notification.class.getMethod("setDescription", String.class)));
