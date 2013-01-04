@@ -1,5 +1,6 @@
 package com.mapplas.app.activities;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import android.app.Activity;
@@ -34,6 +35,8 @@ import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
+import com.mapplas.model.database.repositories.RepositoryManager;
+import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
@@ -146,12 +149,18 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
-				SuperModelSingleton.model = model;
-				// intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID,
-				// model.currentUser());
+				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser().getId());
 				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
+				
+				// Save current user into DB
+				try {
+					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
+					userRepo.createOrUpdate(model.currentUser());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
