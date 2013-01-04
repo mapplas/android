@@ -54,31 +54,31 @@ public class App implements Parcelable {
 
 	private String type = "?";
 
-	private int idCompany = 0;
-
-	private int offerId = 0;
-
-	private String offerName = "?";
-
-	private String offerLogo = "?";
-
-	private String offerLogoMini = "?";
-
-	private String offerURL = "?";
-
-	private String offerText = "?";
-
-	private int urlId = 0;
-
-	private String urlName = "?";
-
-	private String urlLogo = "?";
-
-	private String urlLogoMini = "?";
-
-	private String urlValue = "?";
-
-	private String urlText = "?";
+//	private int idCompany = 0;
+//
+//	private int offerId = 0;
+//
+//	private String offerName = "?";
+//
+//	private String offerLogo = "?";
+//
+//	private String offerLogoMini = "?";
+//
+//	private String offerURL = "?";
+//
+//	private String offerText = "?";
+//
+//	private int urlId = 0;
+//
+//	private String urlName = "?";
+//
+//	private String urlLogo = "?";
+//
+//	private String urlLogoMini = "?";
+//
+//	private String urlValue = "?";
+//
+//	private String urlText = "?";
 
 	private int appId = 0;
 
@@ -92,27 +92,27 @@ public class App implements Parcelable {
 
 	private String appDescription = "?";
 
-	private String appType = "?";
-
-	private int userAlarmId = 0;
-
-	private String userAlarmName = "?";
-
-	private int userUrlId = 0;
-
-	private String userUrlValue = "?";
-
-	private String userUrlDescription = "?";
-
-	private String userUrlTags = "?";
-
-	private String userUrlComment = "?";
-
-	private String userUrlPhoto = "?";
-
-	private int idUser = 0;
-
-	private double radius = 0.0f;
+//	private String appType = "?";
+//
+//	private int userAlarmId = 0;
+//
+//	private String userAlarmName = "?";
+//
+//	private int userUrlId = 0;
+//
+//	private String userUrlValue = "?";
+//
+//	private String userUrlDescription = "?";
+//
+//	private String userUrlTags = "?";
+//
+//	private String userUrlComment = "?";
+//
+//	private String userUrlPhoto = "?";
+//
+//	private int idUser = 0;
+//
+//	private double radius = 0.0f;
 
 	private String Phone = "";
 
@@ -151,6 +151,12 @@ public class App implements Parcelable {
 //	private Bitmap internalLogo = null;
 
 	private ApplicationInfo internalApplicationInfo = null;
+	
+	private double pinnedLatitude = 0.0f;
+	
+	private double pinnedLongitude = 0.0f;
+	
+	private String setPinnedGeocodedLocation = "";
 
 	// ---------------------------------------------------------------------------
 
@@ -161,55 +167,55 @@ public class App implements Parcelable {
 		
 	}
 	
-	public String toString() {
-		String ret = "";
-
-		if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_APPLICATION)) {
-			ret = this.id + ") " + this.name + " [APPLICATION " + this.appId + "]: " + this.appName + "\n";
-			ret += "     IDCompany: " + this.idCompany + "\n";
-			ret += "     Logo: " + this.appLogo + "\n";
-			ret += "     Logo Mini: " + this.appLogoMini + "\n";
-			ret += "     Type: " + this.appType + "\n";
-			ret += "     URL: " + this.appUrl + "\n";
-			ret += "     Description: " + this.appDescription + "\n";
-		}
-		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_OFFER)) {
-			ret = this.id + ") " + this.name + " [OFFER " + this.offerId + "]: " + this.offerName + "\n";
-			ret += "     IDCompany: " + this.idCompany + "\n";
-			ret += "     Logo: " + this.offerLogo + "\n";
-			ret += "     Logo Mini: " + this.offerLogoMini + "\n";
-			ret += "     URL: " + this.offerURL + "\n";
-			ret += "     Text: " + this.offerText + "\n";
-		}
-		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_URL)) {
-			ret = this.id + ") " + this.name + " [URL " + this.urlId + "]: " + this.urlName + "\n";
-			ret += "     IDCompany: " + this.idCompany + "\n";
-			ret += "     Logo: " + this.urlLogo + "\n";
-			ret += "     Logo Mini: " + this.urlLogoMini + "\n";
-			ret += "     URL: " + this.urlValue + "\n";
-			ret += "     Text: " + this.urlText + "\n";
-		}
-		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_USERALARM)) {
-			ret = this.id + ") " + this.name + " [USERALARM " + this.userAlarmId + "]: " + this.userAlarmName + "\n";
-			ret += "     IDUser: " + this.idUser + "\n";
-		}
-		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_USERURL)) {
-			ret = this.id + ") " + this.name + " [USERURL " + this.userUrlId + "]: " + this.userUrlComment + "\n";
-			ret += "     IDUser: " + this.idUser + "\n";
-			ret += "     Tags: " + this.userUrlTags + "\n";
-			ret += "     Photo: " + this.userUrlPhoto + "\n";
-			ret += "     URL: " + this.userUrlValue + "\n";
-			ret += "     Description: " + this.userUrlDescription + "\n";
-		}
-		else {
-			ret = this.id + ") " + this.name + " [UNKNOWN (" + this.type + ")]: " + super.toString() + "\n";
-		}
-
-		ret += "     Radius: " + this.radius + "\n";
-		ret += "     Location: " + this.latitude + "," + this.longitude + "\n";
-
-		return ret;
-	}
+//	public String toString() {
+//		String ret = "";
+//
+//		if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_APPLICATION)) {
+//			ret = this.id + ") " + this.name + " [APPLICATION " + this.appId + "]: " + this.appName + "\n";
+//			ret += "     IDCompany: " + this.idCompany + "\n";
+//			ret += "     Logo: " + this.appLogo + "\n";
+//			ret += "     Logo Mini: " + this.appLogoMini + "\n";
+//			ret += "     Type: " + this.appType + "\n";
+//			ret += "     URL: " + this.appUrl + "\n";
+//			ret += "     Description: " + this.appDescription + "\n";
+//		}
+//		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_OFFER)) {
+//			ret = this.id + ") " + this.name + " [OFFER " + this.offerId + "]: " + this.offerName + "\n";
+//			ret += "     IDCompany: " + this.idCompany + "\n";
+//			ret += "     Logo: " + this.offerLogo + "\n";
+//			ret += "     Logo Mini: " + this.offerLogoMini + "\n";
+//			ret += "     URL: " + this.offerURL + "\n";
+//			ret += "     Text: " + this.offerText + "\n";
+//		}
+//		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_URL)) {
+//			ret = this.id + ") " + this.name + " [URL " + this.urlId + "]: " + this.urlName + "\n";
+//			ret += "     IDCompany: " + this.idCompany + "\n";
+//			ret += "     Logo: " + this.urlLogo + "\n";
+//			ret += "     Logo Mini: " + this.urlLogoMini + "\n";
+//			ret += "     URL: " + this.urlValue + "\n";
+//			ret += "     Text: " + this.urlText + "\n";
+//		}
+//		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_USERALARM)) {
+//			ret = this.id + ") " + this.name + " [USERALARM " + this.userAlarmId + "]: " + this.userAlarmName + "\n";
+//			ret += "     IDUser: " + this.idUser + "\n";
+//		}
+//		else if(this.type.equalsIgnoreCase(App.SYNESTH_TYPE_USERURL)) {
+//			ret = this.id + ") " + this.name + " [USERURL " + this.userUrlId + "]: " + this.userUrlComment + "\n";
+//			ret += "     IDUser: " + this.idUser + "\n";
+//			ret += "     Tags: " + this.userUrlTags + "\n";
+//			ret += "     Photo: " + this.userUrlPhoto + "\n";
+//			ret += "     URL: " + this.userUrlValue + "\n";
+//			ret += "     Description: " + this.userUrlDescription + "\n";
+//		}
+//		else {
+//			ret = this.id + ") " + this.name + " [UNKNOWN (" + this.type + ")]: " + super.toString() + "\n";
+//		}
+//
+//		ret += "     Radius: " + this.radius + "\n";
+//		ret += "     Location: " + this.latitude + "," + this.longitude + "\n";
+//
+//		return ret;
+//	}
 
 	// ---------------------------------------------------------------------------
 
@@ -690,6 +696,31 @@ public class App implements Parcelable {
 		this.auxTotalComments = auxTotalComments;
 	}
 	
+	public double getPinnedLatitude() {
+		return this.pinnedLatitude;
+	}
+	
+	public void setPinnedLatitude(double lat) {
+		this.pinnedLatitude = lat;
+	}
+	
+	public double getPinnedLongitude() {
+		return this.pinnedLongitude;
+	}
+	
+	public void setPinnedLongitude(double lon) {
+		this.pinnedLongitude = lon;
+	}
+	
+	public String getPinnedGeocodedLocation() {
+		return this.setPinnedGeocodedLocation;
+	}
+	
+	public void setPinnedGeocodedLocation(String loc) {
+		this.setPinnedGeocodedLocation = loc;
+	}
+
+	
 	/**
 	 * Parcelable methods
 	 */
@@ -759,6 +790,9 @@ public class App implements Parcelable {
 //		dest.writeByte((byte)(this.internalLogoLoaded ? 1 : 0));
 //		dest.writeParcelable(this.internalLogo, 0);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
+		dest.writeDouble(this.pinnedLatitude);
+		dest.writeDouble(this.pinnedLongitude);
+		dest.writeString(this.setPinnedGeocodedLocation);
 	}
 
 	public App(Parcel parcel) {
@@ -821,6 +855,9 @@ public class App implements Parcelable {
 //		this.internalLogoLoaded = parcel.readByte() == 1;
 //		this.internalLogo = parcel.readParcelable(null);
 		this.internalApplicationInfo = parcel.readParcelable(null);
+		this.pinnedLatitude = parcel.readDouble();
+		this.pinnedLongitude = parcel.readDouble();
+		this.setPinnedGeocodedLocation = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {

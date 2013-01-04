@@ -3,8 +3,8 @@ package com.mapplas.model;
 public class Constants {
 	
 	// Constants
-	public static final String SYNESTH_SERVER = "h1975711.stratoserver.net";
-//	public static final String SYNESTH_SERVER = "mapplas.com";
+//	public static final String SYNESTH_SERVER = "h1975711.stratoserver.net";
+	public static final String SYNESTH_SERVER = "mapplas.com";
 	public static final int SYNESTH_SERVER_PORT = 80;
 	public static final String SYNESTH_SERVER_PATH = "/Publico/";
 	
@@ -33,6 +33,7 @@ public class Constants {
 	// Login Activity
 	public static final String MAPPLAS_LOGIN_USER_ID = "com.mapplas.model.login.user";
 	public static final String MAPPLAS_LOGIN_LOCATION_ID = "com.mapplas.model.login.location";
+
 	
 	public static final String SYNESTH_LAST_NOTIFICATIONS = "com.synesth.model.lastNotifications";
 	

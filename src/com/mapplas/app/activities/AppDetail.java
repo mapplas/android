@@ -548,51 +548,51 @@ public class AppDetail extends Activity {
 		this.initPhoneLayout(lytPhone);
 	}
 
-	private void initFavLayout(LinearLayout lytLike) {
-		// Favourite
-		final ImageView ivFavourite = (ImageView)findViewById(R.id.btnFavourite);
-		ivFavourite.setTag(this.app);
-
-		if(this.app.isAuxFavourite()) {
-			ivFavourite.setImageResource(R.drawable.action_like_button_done);
-		}
-
-		lytLike.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				final App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
-					String auxuid = "0";
-					if(user != null) {
-						auxuid = user.getId() + "";
-					}
-
-					final String uid = auxuid;
-
-					String auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_LIKE;
-					if(anonLoc.isAuxFavourite()) {
-						auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE;
-						ivFavourite.setImageResource(R.drawable.action_like_button);
-						anonLoc.setAuxFavourite(false);
-					}
-					else {
-						ivFavourite.setImageResource(R.drawable.action_like_button_done);
-						anonLoc.setAuxFavourite(true);
-					}
-
-					final String action = auxaction;
-
-					Thread likeRequestThread = new Thread(new LikeRequestThread(action, anonLoc, uid).getThread());
-					likeRequestThread.start();
-
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_FAVOURITE).getThread());
-					activityRequestThread.start();
-
-				}
-			}
-		});
-	}
+//	private void initFavLayout(LinearLayout lytLike) {
+//		// Favourite
+//		final ImageView ivFavourite = (ImageView)findViewById(R.id.btnFavourite);
+//		ivFavourite.setTag(this.app);
+//
+//		if(this.app.isAuxFavourite()) {
+//			ivFavourite.setImageResource(R.drawable.action_like_button_done);
+//		}
+//
+//		lytLike.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				final App anonLoc = (App)(v.getTag());
+//				if(anonLoc != null) {
+//					String auxuid = "0";
+//					if(user != null) {
+//						auxuid = user.getId() + "";
+//					}
+//
+//					final String uid = auxuid;
+//
+//					String auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_LIKE;
+//					if(anonLoc.isAuxFavourite()) {
+//						auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE;
+//						ivFavourite.setImageResource(R.drawable.action_like_button);
+//						anonLoc.setAuxFavourite(false);
+//					}
+//					else {
+//						ivFavourite.setImageResource(R.drawable.action_like_button_done);
+//						anonLoc.setAuxFavourite(true);
+//					}
+//
+//					final String action = auxaction;
+//
+//					Thread likeRequestThread = new Thread(new LikeRequestThread(action, anonLoc, uid).getThread());
+//					likeRequestThread.start();
+//
+//					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_FAVOURITE).getThread());
+//					activityRequestThread.start();
+//
+//				}
+//			}
+//		});
+//	}
 
 	private void initPinLayout(LinearLayout lytPinup) {
 		final ImageView ivPinup = (ImageView)findViewById(R.id.btnPinUp);
@@ -634,7 +634,7 @@ public class AppDetail extends Activity {
 						anonLoc.setAuxPin(true);
 					}
 
-					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid).getThread());
+					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid, currentLocation).getThread());
 					pinRequestThread.start();
 
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(action, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
@@ -692,8 +692,11 @@ public class AppDetail extends Activity {
 								Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
 								likeRequestThread.start();
 								
-								Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid).getThread());
-								unPinRequestThread.start();
+								// Si la app esta pineada, la despineamos
+								if(anonLoc.isAuxPin()) {
+									Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
+									unPinRequestThread.start();
+								}
 
 								Thread activityRequestThread = new Thread(new ActivityRequestThread(uid, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
 								activityRequestThread.start();

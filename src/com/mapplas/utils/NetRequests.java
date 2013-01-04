@@ -384,14 +384,16 @@ public class NetRequests {
 	 * @param state
 	 * @param id
 	 * @param uid
+	 * @param currentLatitude 
+	 * @param currentLongitude 
 	 * @return
 	 * @throws Exception
 	 */
-	public static String PinRequest(String state, String id, String uid) throws Exception {
-		return NetRequests.PinRequest(state, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
+	public static String PinRequest(String state, String id, String uid, String currentLongitude, String currentLatitude) throws Exception {
+		return NetRequests.PinRequest(state, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid, currentLongitude, currentLatitude);
 	}
 
-	public static String PinRequest(String state, String serverIpAddress, int serverPort, String serverPath, String id, String uid) throws Exception {
+	public static String PinRequest(String state, String serverIpAddress, int serverPort, String serverPath, String id, String uid, String currentLongitude, String currentLatitude) throws Exception {
 		String serverResponse = "";
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_pin.php");
@@ -401,6 +403,8 @@ public class NetRequests {
 		nameValuePairs.add(new BasicNameValuePair("s", state));
 		nameValuePairs.add(new BasicNameValuePair("id", id));
 		nameValuePairs.add(new BasicNameValuePair("uid", uid));
+		nameValuePairs.add(new BasicNameValuePair("la", currentLatitude));
+		nameValuePairs.add(new BasicNameValuePair("lo", currentLongitude));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {
