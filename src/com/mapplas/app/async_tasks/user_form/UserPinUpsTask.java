@@ -61,4 +61,6 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 		UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation);
 		this.listView.setAdapter(appAdapter);
 	}
+	
+	
 }

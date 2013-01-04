@@ -54,16 +54,8 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				// if(user.pinnedApps().size() > 0) {
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
 				list.setAdapter(ula);
-				// }
-				// else {
-				// // Empty adapter
-				// UserEmptyAdapter emptyAdapter = new UserEmptyAdapter(context,
-				// R.id.user_form_empty_list_text, null);
-				// list.setAdapter(emptyAdapter);
-				// }
 			}
 		});
 	}

@@ -313,6 +313,8 @@ public class UserForm extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				user.pinnedApps().clear();
+				user.blockedApps().clear();
 				finish();
 			}
 		});

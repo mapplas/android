@@ -473,6 +473,11 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						// Block request thread
 						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
 						likeRequestThread.start();
+						// Do unpin
+						if(mBlockLoc.isAuxPin()) {
+							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, currentLocation).getThread());
+							unpinRequestThread.start();
+						}
 					}
 				});
 				myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {
