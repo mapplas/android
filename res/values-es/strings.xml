@@ -95,4 +95,6 @@
 	<string name="profile_empty_pinup_list">No has pinneado ninguna app</string>
 	<string name="profile_empty_block_list">No has bloqueado ninguna app</string>
 	
+	<string name="not_avaliable">No disponible</string>
+	
 </resources>
