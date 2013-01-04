@@ -15,7 +15,11 @@ public class Notification implements Parcelable, Unit {
 
 	// ---------------------------------------------------------------------------
 	// Properties
-	@DatabaseField(id = true)
+	
+	@DatabaseField (generatedId=true)
+	private int autoincrementId;
+	
+	@DatabaseField
 	private int id = 0;
 
 	@DatabaseField

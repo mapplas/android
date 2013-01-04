@@ -111,4 +111,6 @@
 	
 	<string name="profile_empty_pinup_list">You don\'t have any pinned up apps</string>
 	<string name="profile_empty_block_list">You don\'t have any blocked apps</string>
+	
+	<string name="not_avaliable">Not avaliable</string>
 </resources>

@@ -264,7 +264,11 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 
 		if(notification != null) {
-			headerHolder.location.setText(notification.currentLocation());
+			String currentLocation = notification.currentLocation();
+			if(currentLocation.equals("")) {
+				currentLocation = context.getString(R.string.not_avaliable);
+			}
+			headerHolder.location.setText(currentLocation);
 			headerHolder.location.setTypeface(normalTypeface);
 		}
 	}
