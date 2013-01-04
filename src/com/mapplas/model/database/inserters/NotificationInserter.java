@@ -45,7 +45,7 @@ public class NotificationInserter {
 				notification.setArrivalTimestamp(currentTimestamp);
 				notification.setCurrentLocation(model.currentDescriptiveGeoLoc());
 				notification.setDateInMiliseconds(getMsFromDateAndHour(notification.getDate(), notification.getHour()));
-				
+
 				model.notificationList().add(notification);
 
 				this.notificationsRepository.insertNotifications(notification);
@@ -70,27 +70,27 @@ public class NotificationInserter {
 
 	private long getMsFromDateAndHour(String date, String hour) {
 		long totalMs = 0;
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date d1 = null;
-        try {
-            d1 = dateFormat.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }         
-        totalMs += d1.getTime();
-        
-        if(!hour.equals("00:00")) {
-        	SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm");
-    		Date d2 = null;
-            try {
-                d2 = hourFormat.parse(hour);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            totalMs += d2.getTime();
+		try {
+			d1 = dateFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-				
+		totalMs += d1.getTime();
+
+		if(!hour.equals("00:00")) {
+			SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm");
+			Date d2 = null;
+			try {
+				d2 = hourFormat.parse(hour);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			totalMs += d2.getTime();
+		}
+
 		return totalMs;
 	}
 

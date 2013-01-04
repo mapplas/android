@@ -83,7 +83,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 					// Intent to app detail activity
 					Intent intent = new Intent(context, AppDetail.class);
 
-					int appPosition = o.getIdLocalization();
+					int appPosition = o.getAppId();
 					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, model.getAppWithIdInList(appPosition));
 					intent.putExtra(Constants.MAPPLAS_DETAIL_USER, model.currentUser());
 					intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, model.currentLocation());

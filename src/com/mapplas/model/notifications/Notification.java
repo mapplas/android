@@ -69,12 +69,12 @@ public class Notification implements Parcelable, Unit {
 		this.id = id;
 	}
 
-	public int getIdLocalization() {
+	public int getAppId() {
 		return idApp;
 	}
 
-	public void setIdLocalization(int idLocalization) {
-		this.idApp = idLocalization;
+	public void setAppId(int idApp) {
+		this.idApp = idApp;
 	}
 
 	public String getName() {

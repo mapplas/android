@@ -45,8 +45,9 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
+import com.mapplas.model.database.repositories.RepositoryManager;
+import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
-import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class UserForm extends Activity {
 
@@ -87,6 +88,9 @@ public class UserForm extends Activity {
 	private View headerLayout = null;
 
 	private Button actionButton = null;
+	
+	private int userId = 0;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,7 @@ public class UserForm extends Activity {
 		this.setContentView(R.layout.user);
 
 		this.getDataFromBundle();
+		this.getUserFromDB();
 
 		this.initializeAnimations();
 		this.initLayoutComponents();
@@ -129,7 +134,10 @@ public class UserForm extends Activity {
 
 	@Override
 	protected void onPause() {
-		SuperModelSingleton.model.setCurrentUser(user);
+		SharedPreferences settings = getSharedPreferences("prefs", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("user_id", this.userId);
+		editor.commit();
 		super.onPause();
 	}
 
@@ -138,14 +146,25 @@ public class UserForm extends Activity {
 	 * Private methods
 	 * 
 	 */
+	private void getUserFromDB() {
+		UserRepository userRepo = RepositoryManager.users(this);
+		this.user = (User)userRepo.findFromId(this.userId);
+	}
+	
 	private void getDataFromBundle() {
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION_ID)) {
 				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION_ID);
 			}
+			
+			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
+				this.userId = bundle.getInt(Constants.MAPPLAS_LOGIN_USER_ID);
+			} else {
+				SharedPreferences settings = getSharedPreferences("prefs", 0);
+				this.userId = settings.getInt("user_id", 0);
+			}
 		}
-		this.user = SuperModelSingleton.model.currentUser();
 	}
 
 	private void initializeAnimations() {

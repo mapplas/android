@@ -2,31 +2,49 @@ package com.mapplas.model;
 
 import java.util.ArrayList;
 
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class User implements Parcelable {
+@DatabaseTable(tableName = "users")
+public class User implements Parcelable, Unit {
+	
+	public static final String TABLE_NAME = "users";
 
+	@DatabaseField (id = true)
 	private int id = 0;
 
+	@DatabaseField
 	private String name = "";
 
+	@DatabaseField
 	private String lastname = "";
 
+	@DatabaseField
 	private String gender = "";
 
+	@DatabaseField
 	private String birthdate = "";
 
+	@DatabaseField
 	private String login = "";
 
+	@DatabaseField
 	private String password = "";
 
+	@DatabaseField
 	private String email = "";
 
+	@DatabaseField
 	private String imei = "";
 
+	@DatabaseField (dataType = DataType.SERIALIZABLE)
 	private ArrayList<App> pinnedApps = new ArrayList<App>();
 
+	@DatabaseField (dataType = DataType.SERIALIZABLE)
 	private ArrayList<App> blockedApps = new ArrayList<App>();
 
 	public User() {

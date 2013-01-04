@@ -277,7 +277,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 		for(Map.Entry<Long, ArrayList<Notification>> entry : this.mData.entrySet()) {
 			ArrayList<Notification> value = entry.getValue();
 			for(Notification currentNotification : value) {
-				int appId = currentNotification.getIdLocalization();
+				int appId = currentNotification.getAppId();
 				currentNotification.setAuxApp(this.searchAppWithId(appId));
 			}
 		}
@@ -306,7 +306,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 				// Intent to app detail activity
 				Intent intent = new Intent(context, AppDetail.class);
 
-				int appPosition = notification.getIdLocalization();
+				int appPosition = notification.getAppId();
 				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, model.getAppWithIdInList(appPosition));
 				intent.putExtra(Constants.MAPPLAS_DETAIL_USER, model.currentUser());
 				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, model.currentLocation());
