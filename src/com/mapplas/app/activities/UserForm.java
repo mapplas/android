@@ -206,7 +206,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
 		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation);
+		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation, false);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview

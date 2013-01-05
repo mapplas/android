@@ -51,6 +51,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 	private User user = null;
 
 	private String currentLocation = "";
+	
+	private boolean showEmptyMessage;
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
@@ -89,7 +91,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		}
 	};
 
-	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation) {
+	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation, boolean showEmptyMessage) {
 		super(context, textViewResourceId, items);
 
 		this.context = context;
@@ -97,6 +99,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		this.mType = type;
 		this.user = user;
 		this.currentLocation = currentLocation;
+		this.showEmptyMessage = showEmptyMessage;
 
 		fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
 																		// this
@@ -137,6 +140,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 		if(this.items.size() == 0) {
 			view = inflater.inflate(R.layout.profile_empty_list_header, null);
+			view.setVisibility(View.VISIBLE);
 			TextView text = (TextView)view.findViewById(R.id.user_form_empty_list_text);
 			switch (this.mType) {
 				case BLOCK:
@@ -146,6 +150,9 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 				case PINUP:
 					text.setText(R.string.profile_empty_pinup_list);
 					break;
+			}
+			if(!this.showEmptyMessage) {
+				view.setVisibility(View.GONE);
 			}
 		}
 		else {
