@@ -54,7 +54,7 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation, true);
 				list.setAdapter(ula);
 			}
 		});
@@ -76,7 +76,7 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation, true);
 				list.setAdapter(ula);
 			}
 		});
