@@ -19,13 +19,29 @@ import com.mapplas.model.notifications.NotificationList;
 public class NotificationRepository extends Repository {
 
 	public static int MAX_NOTIFICATIONS_IN_TABLE = 100;
-	
-	private LinkedHashMap<Integer, Boolean> notificationIds = null;
-	
+
+	private LinkedHashMap<Integer, Integer> notificationIds = null;
 
 	public NotificationRepository(Dao<Notification, Integer> dao, String tableName) {
 		super(dao, tableName);
-		this.notificationIds = new LinkedHashMap<Integer, Boolean>();
+		this.notificationIds = new LinkedHashMap<Integer, Integer>();
+		this.loadNotificationIds();
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void loadNotificationIds() {
+		try {
+			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
+			queryBuilder.selectColumns("id");
+			List<Notification> notificationList = this.getDao().query(queryBuilder.prepare());
+
+			for(Notification currentNot : notificationList) {
+				this.incrementNotificationIntoArrayOfId(currentNot);
+			}
+
+		} catch (SQLException e) {
+			Log.e(this.getClass().getName(), e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -34,21 +50,60 @@ public class NotificationRepository extends Repository {
 	public void insertNotifications(Notification notification) {
 		try {
 			this.createOrUpdateBatch(notification);
-			this.notificationIds.put(notification.getId(), true);
+			this.incrementNotificationIntoArrayOfId(notification);
 		} catch (Exception e) {
 			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 		}
 	}
-	
+
 	public void insertNotificationsByChecking(Notification notification) {
-		if(!this.checkIfNotificationExists(notification)) {
+		// If notification does not exists OR is from different day
+		boolean check1 = this.checkIfNotificationExists(notification);
+		boolean check2 = this.checkIfExistingNotificationIsEnoughOld(notification);
+		if(!check1 || !check2) {
 			try {
 				this.createOrUpdateBatch(notification);
-				this.notificationIds.put(notification.getId(), true);
+				this.incrementNotificationIntoArrayOfId(notification);
 			} catch (Exception e) {
 				Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 			}
 		}
+	}
+
+	private boolean checkIfExistingNotificationIsEnoughOld(Notification notification) {
+		Notification dbNotification = (Notification)this.findNotificationFromNotificationId(notification.getId());
+		if(dbNotification != null) {
+			if(this.moreThanOneDayAgo(notification, dbNotification)) {
+				this.delete(dbNotification);
+				this.decrementNotificationIntoArrayOfId(dbNotification);
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		return true;
+	}
+	
+	private boolean moreThanOneDayAgo(Notification notification, Notification dbNotification) {
+		return notification.arrivalTimestamp() > dbNotification.arrivalTimestamp() + 86400000;
+	}
+
+	@SuppressWarnings("unchecked")
+	private Notification findNotificationFromNotificationId(int id) {
+		Notification notification = null;
+		try {
+			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
+			queryBuilder.selectColumns("id", "idCompany", "idApp", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation", "dateInMs").where().eq("id", String.valueOf(id));
+			List<Notification> notificationList = this.getDao().query(queryBuilder.prepare());
+			
+			if(notificationList.size() > 0) {
+				notification = notificationList.get(0);
+			}
+		} catch (SQLException e) {
+			Log.e(this.getClass().getName(), e.getMessage(), e);
+		}
+		return notification;
 	}
 
 	private boolean checkIfNotificationExists(Notification notification) {
@@ -129,20 +184,20 @@ public class NotificationRepository extends Repository {
 		ArrayList<Notification> listOfNotifications = new ArrayList<Notification>();
 		QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
 		long currentNotificationTimestamp = 0;
-		
+
 		for(Notification currentNotification : listOfNotificationsTimestamps) {
 			currentNotificationTimestamp = currentNotification.arrivalTimestamp();
 			try {
 				queryBuilder.selectColumns("id", "idCompany", "idApp", "name", "description", "date", "hour", "seen", "shown", "arrivalTimestamp", "currentLocation", "dateInMs").where().eq("arrivalTimestamp", currentNotificationTimestamp);
 				queryBuilder.orderBy("dateInMs", false);
 				listOfNotifications = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());
-				
+
 				notificationData.put(currentNotificationTimestamp, listOfNotifications);
 			} catch (SQLException e) {
 				Log.e(this.getClass().getName(), e.getMessage(), e);
 			}
 		}
-		
+
 		return notificationData;
 	}
 
@@ -156,11 +211,35 @@ public class NotificationRepository extends Repository {
 		try {
 			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
 			queryBuilder.distinct().selectColumns("arrivalTimestamp").orderBy("arrivalTimestamp", false);
-			listOfNotificationsTimestamps = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());			
+			listOfNotificationsTimestamps = (ArrayList<Notification>)this.getDao().query(queryBuilder.prepare());
 		} catch (SQLException e) {
 			Log.e(this.getClass().getName(), e.getMessage(), e);
 		}
 		return listOfNotificationsTimestamps;
 	}
-	
+
+	/**
+	 * 
+	 * Actions with array list of notification id's
+	 * 
+	 */
+	private void decrementNotificationIntoArrayOfId(Notification notification) {
+		int count = this.notificationIds.get(notification.getId());
+		if(count > 0) {
+			this.notificationIds.put(notification.getId(), count - 1);
+		}
+		else {
+			this.notificationIds.remove(notification.getId());
+		}
+	}
+
+	private void incrementNotificationIntoArrayOfId(Notification notification) {
+		if(!notificationIds.containsKey(notification.getId())) {
+			this.notificationIds.put(notification.getId(), 1);
+		} else {
+			int count = this.notificationIds.get(notification.getId());
+			this.notificationIds.put(notification.getId(), count + 1);
+		}
+	}
+
 }
