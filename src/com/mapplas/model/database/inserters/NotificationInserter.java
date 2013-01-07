@@ -48,7 +48,7 @@ public class NotificationInserter {
 
 				model.notificationList().add(notification);
 
-				this.notificationsRepository.insertNotifications(notification);
+				this.notificationsRepository.insertNotificationsByChecking(notification);
 				inserted = true;
 				Log.d(this.getClass().getSimpleName(), "NOTIFICATION INSERTED. ID: " + notification.getId() + " NAME: " + notification.getName());
 			}
