@@ -2,6 +2,7 @@ package com.mapplas.app.activities;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +20,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -85,6 +89,7 @@ public class MapplasActivity extends Activity {
 		// getApplicationContext().getSharedPreferences("synesth",
 		// Context.MODE_PRIVATE);
 		MapplasActivity.isSplashActive = true;
+		this.startRadarAnimation();
 
 		// Identificamos contra el servidor
 		try {
@@ -153,7 +158,7 @@ public class MapplasActivity extends Activity {
 				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
-				
+
 				// Save current user into DB
 				try {
 					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
@@ -248,6 +253,57 @@ public class MapplasActivity extends Activity {
 				}
 			});
 		}
+	}
+
+	/**
+	 * Radar animation
+	 */
+	private void startRadarAnimation() {
+		ImageView outerImage = (ImageView)this.findViewById(R.id.imgOuter);
+		RotateAnimation rotate = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		rotate.setDuration(1200);
+		rotate.setRepeatMode(Animation.RESTART);
+		rotate.setRepeatCount(Animation.INFINITE);
+		rotate.setInterpolator(new LinearInterpolator());
+		outerImage.startAnimation(rotate);
+		
+		ImageView northSouthImage = (ImageView)this.findViewById(R.id.imgMeasures);
+		RotateAnimation rotate2 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		rotate2.setDuration(1200);
+		rotate2.setRepeatMode(Animation.RESTART);
+		rotate2.setRepeatCount(Animation.INFINITE);
+		rotate2.setInterpolator(new LinearInterpolator());
+		northSouthImage.startAnimation(rotate2);
+		
+		ImageView trianglesImage = (ImageView)this.findViewById(R.id.imgTriangles);
+		RotateAnimation rotate3 = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		rotate3.setDuration(1200);
+		rotate3.setRepeatMode(Animation.RESTART);
+		rotate3.setRepeatCount(Animation.INFINITE);
+		rotate3.setInterpolator(new LinearInterpolator());
+		trianglesImage.startAnimation(rotate3);
+		
+		ImageView shadowImage = (ImageView)this.findViewById(R.id.imgShadow);
+		RotateAnimation rotate4 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		rotate4.setDuration(1200);
+		rotate4.setRepeatMode(Animation.RESTART);
+		rotate4.setRepeatCount(Animation.INFINITE);
+		rotate4.setInterpolator(new LinearInterpolator());
+		shadowImage.startAnimation(rotate4);
+		
+		final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
+		final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
+		
+		Thread randomNumbersThread = new Thread(
+			new Runnable() {
+				Random random = new Random();
+				@Override
+				public void run() {
+					latitude.setText(random.nextInt());
+					longitude.setText(random.nextInt());
+				}
+			});
+		randomNumbersThread.start();
 	}
 
 	/**
