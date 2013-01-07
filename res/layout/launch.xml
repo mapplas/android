@@ -66,13 +66,15 @@
                 android:id="@+id/lblLat"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Lat" />
 
             <TextView
                 android:id="@+id/lblLon"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Lon" />
         </LinearLayout>
     </RelativeLayout>
 

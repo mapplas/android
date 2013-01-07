@@ -294,16 +294,16 @@ public class MapplasActivity extends Activity {
 		final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
 		final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
 		
-		Thread randomNumbersThread = new Thread(
-			new Runnable() {
-				Random random = new Random();
-				@Override
-				public void run() {
-					latitude.setText(random.nextInt());
-					longitude.setText(random.nextInt());
-				}
-			});
-		randomNumbersThread.start();
+//		Thread randomNumbersThread = new Thread(
+//			new Runnable() {
+//				Random random = new Random();
+//				@Override
+//				public void run() {
+//					latitude.setText(random.nextInt());
+//					longitude.setText(random.nextInt());
+//				}
+//			});
+//		randomNumbersThread.start();
 	}
 
 	/**
