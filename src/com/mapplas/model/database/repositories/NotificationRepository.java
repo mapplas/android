@@ -19,9 +19,13 @@ import com.mapplas.model.notifications.NotificationList;
 public class NotificationRepository extends Repository {
 
 	public static int MAX_NOTIFICATIONS_IN_TABLE = 100;
+	
+	private LinkedHashMap<Integer, Boolean> notificationIds = null;
+	
 
 	public NotificationRepository(Dao<Notification, Integer> dao, String tableName) {
 		super(dao, tableName);
+		this.notificationIds = new LinkedHashMap<Integer, Boolean>();
 	}
 
 	/**
@@ -30,9 +34,25 @@ public class NotificationRepository extends Repository {
 	public void insertNotifications(Notification notification) {
 		try {
 			this.createOrUpdateBatch(notification);
+			this.notificationIds.put(notification.getId(), true);
 		} catch (Exception e) {
 			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 		}
+	}
+	
+	public void insertNotificationsByChecking(Notification notification) {
+		if(!this.checkIfNotificationExists(notification)) {
+			try {
+				this.createOrUpdateBatch(notification);
+				this.notificationIds.put(notification.getId(), true);
+			} catch (Exception e) {
+				Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
+			}
+		}
+	}
+
+	private boolean checkIfNotificationExists(Notification notification) {
+		return this.notificationIds.containsKey(notification.getId());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -76,6 +96,7 @@ public class NotificationRepository extends Repository {
 
 			// Delete table
 			this.empty();
+			this.notificationIds.clear();
 
 			NotificationList appNotifications = new NotificationList();
 			// Insert elements in query to database table and model
