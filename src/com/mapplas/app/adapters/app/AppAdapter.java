@@ -17,12 +17,14 @@ import app.mapplas.com.R;
 import com.commonsware.cwac.endless.EndlessAdapter;
 import com.mapplas.app.AwesomeListView;
 import com.mapplas.model.App;
-import com.mapplas.model.User;
+import com.mapplas.model.SuperModel;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 
 public class AppAdapter extends EndlessAdapter {
 	
 	private static int SLEEP_MILISECONDS = 2000;
+	
+	private SuperModel model = null;
 
 	private ArrayList<App> modelData;
 
@@ -30,10 +32,11 @@ public class AppAdapter extends EndlessAdapter {
 
 	private int loadedListCount = 1;
 
-	public AppAdapter(Context context, AwesomeListView list, int layout, int textViewResourceId, ArrayList<App> modelItems, ArrayList<App> appList, String currentLocation, String currentDescriptiveGeoLoc, User currentUser) {
-		super(new AppArrayAdapter(context, layout, textViewResourceId, appList, list, currentLocation, currentDescriptiveGeoLoc, currentUser));
+	public AppAdapter(Context context, AwesomeListView list, int layout, int textViewResourceId, SuperModel model, ArrayList<App> appList) {
+		super(new AppArrayAdapter(context, layout, textViewResourceId, appList, list, model));
 
-		this.modelData = modelItems;
+		this.model = model;
+		this.modelData = this.model.appList();
 		this.scrollManager = new InfiniteScrollManager(this.modelData);
 	}
 

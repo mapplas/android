@@ -2,7 +2,6 @@ package com.mapplas.app.activities;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;

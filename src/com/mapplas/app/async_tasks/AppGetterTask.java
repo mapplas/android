@@ -141,7 +141,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 			appList.add(this.model.appList().get(i));
 		}
 		
-		this.listViewAdapter = new AppAdapter(this.context, this.listView, R.layout.rowloc, android.R.id.text1, this.model.appList(), appList, this.model.currentLocation(), this.model.currentDescriptiveGeoLoc(), this.model.currentUser());
+		this.listViewAdapter = new AppAdapter(this.context, this.listView, R.layout.rowloc, android.R.id.text1, this.model, appList);
 		this.listView.setAdapter(this.listViewAdapter);
 		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 

@@ -1,5 +1,7 @@
 package com.mapplas.app;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -20,6 +22,9 @@ import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.adapters.app.AppAdapter;
+import com.mapplas.model.App;
+import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 
 public class AwesomeListView extends ListView {
@@ -749,15 +754,15 @@ public class AwesomeListView extends ListView {
 			AwesomeListView.this.CheckAutomaticStateTransitions();
 		}
 
-		boolean isFlinging() {
-			return !scroller.isFinished();
-		}
-
-		void forceFinished() {
-			if(!scroller.isFinished()) {
-				scroller.forceFinished(true);
-			}
-		}
+//		boolean isFlinging() {
+//			return !scroller.isFinished();
+//		}
+//
+//		void forceFinished() {
+//			if(!scroller.isFinished()) {
+//				scroller.forceFinished(true);
+//			}
+//		}
 	}
 
 	private class Timeouter implements Runnable {
@@ -839,6 +844,15 @@ public class AwesomeListView extends ListView {
 		public void ForceFinish() {
 			this.forceFinish = true;
 		}
+	}
+
+	/**
+	 * 
+	 * Update adapter to see local changes on list
+	 * 
+	 */
+	public void updateAdapter(Context context, int layout, int textViewResourceId, SuperModel model, ArrayList<App> appList) {
+		this.setAdapter(new AppAdapter(context, this, layout, textViewResourceId, model, appList));
 	}
 
 }

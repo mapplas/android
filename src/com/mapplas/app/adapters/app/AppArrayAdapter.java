@@ -40,6 +40,7 @@ import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
+import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
@@ -50,6 +51,10 @@ import com.mapplas.utils.view_holder.AppViewHolder;
 public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private Context context;
+	
+	private  int layout;
+	
+	private int textViewResourceId;
 
 	private ArrayList<App> items;
 	
@@ -62,28 +67,29 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	private Animation animFlipOutPrevious = null;
 	
 	private AwesomeListView list = null;
-
-	private String currentLocation;
-
-	private String currentDescriptiveGeoLoc;
+	
+	private SuperModel model = null;
 
 	private User user = null;
 	
-	private static App mRateLoc = null;
+	private static App mRateApp = null;
 
-	private static App mBlockLoc = null;
-
+	private static App mBlockApp = null;
+	
 	private Animation fadeOutAnimation = null;
+	
 
-	public AppArrayAdapter(Context context, int layout, int textViewResourceId, ArrayList<App> items, AwesomeListView list, String currentLocation, String currentDescriptiveGeoLoc, User currentUser) {
+	public AppArrayAdapter(Context context, int layout, int textViewResourceId, ArrayList<App> items, AwesomeListView list, SuperModel model) {
 		super(context, layout, textViewResourceId, items);
 		
 		this.context = context;
 		this.items = items;
 		this.list = list;
-		this.currentLocation = currentLocation;
-		this.currentDescriptiveGeoLoc = currentDescriptiveGeoLoc;
-		this.user = currentUser;
+		this.model = model;
+		
+		this.layout = layout;
+		this.textViewResourceId = textViewResourceId;
+		this.user = this.model.currentUser();
 		
 		this.initializeAnimations();
 	}
@@ -181,8 +187,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				if(mBlockLoc != null) {
-					remove(mBlockLoc);
+				if(mBlockApp != null) {
+					remove(mBlockApp);
 				}
 			}
 		});
@@ -240,8 +246,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				// (int)((Integer)v.getTag()));
 				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
 				intent.putExtra(Constants.MAPPLAS_DETAIL_USER, user);
-				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, currentLocation);
-				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, currentDescriptiveGeoLoc);
+				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, model.currentLocation());
+				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, model.currentDescriptiveGeoLoc());
 				((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 			}
 		});
@@ -350,7 +356,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			@Override
 			public void onClick(View v) {
 				App anonLoc = (App)v.getTag();
-				Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + currentLocation + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
+				Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + model.currentLocation() + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
 				context.startActivity(navigation);
 			}
 		});
@@ -396,11 +402,11 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
+		
 		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
-
+			
 			@Override
-			public void onClick(View v) {
-
+			public void onClick(View v) {				
 				if(app != null) {
 					String auxuid = "0";
 					if(user != null) {
@@ -425,20 +431,32 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					list.invalidate();
 
 					// Activity request thread
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
 					activityRequestThread.start();
 
 					// Pin/unpin request
 					String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
 					if(app.isAuxPin()) {
 						action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-						app.setAuxPin(false);
 					}
-					else {
-						app.setAuxPin(true);
-					}
-					Thread pinRequestThread = new Thread(new PinRequestThread(action, app, uid, currentLocation).getThread());
+		
+					Thread pinRequestThread = new Thread(new PinRequestThread(action, app, uid, model.currentLocation()).getThread());
 					pinRequestThread.start();
+					
+					// Set app object as pinned or unpinned
+					// Pin/unpin app
+					boolean found = false;
+					int i = 0;
+					while(!found && i < model.appList().size()) {
+						if(model.appList().get(i).equals(app)) {
+							model.appList().get(i).setAuxPin(!app.isAuxPin());
+							found = true;
+						}
+						i++;
+					}
+					
+					// Update app adapter
+					list.updateAdapter(context, layout, textViewResourceId, model, items);
 				}
 
 			}
@@ -450,7 +468,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
-				mBlockLoc = app;
+				mBlockApp = app;
 
 				AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
 				myAlertDialog.setTitle(R.string.block_title);
@@ -462,7 +480,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						convertView.startAnimation(fadeOutAnimation);
 
 						// Activity request thread
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
+						Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
 						activityRequestThread.start();
 
 						String uid = "0";
@@ -474,8 +492,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
 						likeRequestThread.start();
 						// Do unpin
-						if(mBlockLoc.isAuxPin()) {
-							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, currentLocation).getThread());
+						if(mBlockApp.isAuxPin()) {
+							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, model.currentLocation()).getThread());
 							unpinRequestThread.start();
 						}
 					}
@@ -497,13 +515,13 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
-				mRateLoc = app;
+				mRateApp = app;
 				if(app != null) {
 					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), app.getAuxRate(), app.getAuxComment());
 					myDialog.show();
 
 					// Activity request action
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
 					activityRequestThread.start();
 				}
 			}
@@ -563,7 +581,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					String rat = name.substring(0, name.indexOf("|"));
 					String com = name.substring(name.indexOf("|") + 1);
 
-					resp = NetRequests.RateRequest(rat, com, currentLocation, currentDescriptiveGeoLoc, String.valueOf(mRateLoc.getId()), uid);
+					resp = NetRequests.RateRequest(rat, com, model.currentLocation(), model.currentDescriptiveGeoLoc(), String.valueOf(mRateApp.getId()), uid);
 					Toast.makeText(context, resp, Toast.LENGTH_LONG).show();
 				} catch (Exception exc) {
 					Toast.makeText(context, exc.toString(), Toast.LENGTH_LONG).show();

@@ -30,7 +30,8 @@ public class PinRequestThread {
 			public void run() {
 				String[] splitedLocation = currentLocation.split(",");
 				try {
-					NetRequests.PinRequest(action, String.valueOf(app.getId()), uid, splitedLocation[1], splitedLocation[0]);
+					String response = NetRequests.PinRequest(action, String.valueOf(app.getId()), uid, splitedLocation[1], splitedLocation[0]);
+					response = response + ".";
 				} catch (Exception e) {
 					Log.i(getClass().getSimpleName(), "Thread Action Pin: " + e);
 				}
