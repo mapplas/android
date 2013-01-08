@@ -40,9 +40,11 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MapplasActivity extends Activity {
@@ -124,6 +126,16 @@ public class MapplasActivity extends Activity {
 		// messageHandler)).execute(new Location[] { location });
 		// (new ReverseGeocodingTask(MapplasActivity.this, model,
 		// messageHandler)).execute(new Location[] { location });
+	}
+	
+	@Override
+	protected void onStart() {
+		if(AppChangedSingleton.somethingChanged) {
+			AppChangedSingleton.somethingChanged = false;
+			
+			this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
+		}
+		super.onStart();
 	}
 
 	@Override

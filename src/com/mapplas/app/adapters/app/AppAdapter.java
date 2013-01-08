@@ -23,15 +23,15 @@ import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 public class AppAdapter extends EndlessAdapter {
 	
 	private static int SLEEP_MILISECONDS = 2000;
-	
+		
 	private ArrayList<App> modelData;
 
 	private InfiniteScrollManager scrollManager;
 
 	private int loadedListCount = 1;
 
-	public AppAdapter(Context context, AwesomeListView list, int layout, int textViewResourceId, SuperModel model, ArrayList<App> appList) {
-		super(new AppArrayAdapter(context, layout, textViewResourceId, appList, list, model));
+	public AppAdapter(Context context, AwesomeListView list, SuperModel model, ArrayList<App> appList) {
+		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, appList, list, model));
 
 		this.modelData = model.appList().getAppList();
 		this.scrollManager = new InfiniteScrollManager(this.modelData);

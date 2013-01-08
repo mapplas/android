@@ -47,15 +47,12 @@ import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.view_holder.AppViewHolder;
 
 public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private Context context;
-	
-	private  int layout;
-	
-	private int textViewResourceId;
 
 	private ArrayList<App> items;
 	
@@ -87,9 +84,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		this.items = items;
 		this.list = list;
 		this.model = model;
-		
-		this.layout = layout;
-		this.textViewResourceId = textViewResourceId;
+	
 		this.user = this.model.currentUser();
 		
 		this.initializeAnimations();
@@ -243,12 +238,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			public void onClick(View v) {
 
 				Intent intent = new Intent(context, AppDetail.class);
-				// intent.putExtra(Constants.MAPPLAS_DETAIL_APP,
-				// (int)((Integer)v.getTag()));
 				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
-				intent.putExtra(Constants.MAPPLAS_DETAIL_USER, user);
-				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, model.currentLocation());
-				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, model.currentDescriptiveGeoLoc());
+				SuperModelSingleton.model = model;
 				((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 			}
 		});
@@ -459,7 +450,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					model.sortAppList();
 					
 					// Update app adapter
-					list.updateAdapter(context, layout, textViewResourceId, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
+					list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
 				}
 
 			}

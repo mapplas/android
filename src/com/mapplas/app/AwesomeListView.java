@@ -851,8 +851,8 @@ public class AwesomeListView extends ListView {
 	 * Update adapter to see local changes on list
 	 * 
 	 */
-	public void updateAdapter(Context context, int layout, int textViewResourceId, SuperModel model, ArrayList<App> appList) {
-		this.setAdapter(new AppAdapter(context, this, layout, textViewResourceId, model, appList));
+	public void updateAdapter(Context context, SuperModel model, ArrayList<App> appList) {
+		this.setAdapter(new AppAdapter(context, this, model, appList));
 	}
 
 }
