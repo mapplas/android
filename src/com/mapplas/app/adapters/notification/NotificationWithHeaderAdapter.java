@@ -284,7 +284,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 	}
 
 	private App searchAppWithId(int appId) {
-		ArrayList<App> appList = this.model.appList();
+		ArrayList<App> appList = this.model.appList().getAppList();
 		for(App currentApp : appList) {
 			if(currentApp.getId() == appId) {
 				return currentApp;

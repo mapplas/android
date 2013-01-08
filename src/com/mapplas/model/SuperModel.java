@@ -1,7 +1,6 @@
 package com.mapplas.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -29,7 +28,7 @@ public class SuperModel implements Parcelable {
 	private String errorText = "";
 
 	public SuperModel() {
-		this.appList = new AppOrderedList();
+		this.appList = new AppOrderedList(this);
 		this.notificationList = new NotificationList();
 	}
 
@@ -53,8 +52,8 @@ public class SuperModel implements Parcelable {
 		this.currentDescriptiveGeoLoc = currentDescriptiveGeoLoc;
 	}
 
-	public ArrayList<App> appList() {
-		return this.appList.getAppList();
+	public AppOrderedList appList() {
+		return this.appList;
 	}
 
 	public void setAppList(ArrayList<App> appList) {

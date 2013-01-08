@@ -33,7 +33,7 @@ public class AppAdapter extends EndlessAdapter {
 	public AppAdapter(Context context, AwesomeListView list, int layout, int textViewResourceId, SuperModel model, ArrayList<App> appList) {
 		super(new AppArrayAdapter(context, layout, textViewResourceId, appList, list, model));
 
-		this.modelData = model.appList();
+		this.modelData = model.appList().getAppList();
 		this.scrollManager = new InfiniteScrollManager(this.modelData);
 	}
 

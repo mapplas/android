@@ -10,9 +10,12 @@ import android.os.Parcelable;
 public class AppOrderedList implements Comparator<App>, Parcelable {
 
 	private ArrayList<App> appList;
+	
+	private SuperModel model;
 
-	public AppOrderedList() {
+	public AppOrderedList(SuperModel model) {
 		this.appList = new ArrayList<App>();
+		this.model = model;
 	}
 
 	public ArrayList<App> getAppList() {
@@ -23,8 +26,21 @@ public class AppOrderedList implements Comparator<App>, Parcelable {
 		this.appList = list;
 	}
 	
+	public void add(App app) {
+		this.appList.add(app);
+		Collections.sort(this.appList, this);
+	}
+	
 	public void reset() {
 		this.appList.clear();
+	}
+	
+	public int size() {
+		return this.appList.size();
+	}
+	
+	public App get(int index) {
+		return this.appList.get(index);
 	}
 	
 	public void sort() {
@@ -38,22 +54,20 @@ public class AppOrderedList implements Comparator<App>, Parcelable {
 		}
 		else if(!app1.isAuxPin() && app2.isAuxPin()) {
 			return 1;
-//		}
-//		else if(app1.isAuxPin() && app2.isAuxPin()) {
-			// Check distance
-//			if(distancia(app1.getLatitude(), app1.getLongitude(), lat2, lon2) > distancia(app2.getLatitude(), app2.getLongitude(), lat2, lon2)) {
-//				return -1;
-//			}
-//			else {
-//				return 1;
-//			}
 		}
-		else
-			return 0;
+		else {
+			String[] currentLongLat = this.model.currentLocation().split(",");
+			if(distancia(app1.getLatitude(), app1.getLongitude(), Double.parseDouble(currentLongLat[1]), Double.parseDouble(currentLongLat[0])) > distancia(app2.getLatitude(), app2.getLongitude(), Double.parseDouble(currentLongLat[1]), Double.parseDouble(currentLongLat[0]))) {
+				return 1;
+			}
+			else {
+				return -1;
+			}
+		}
 	}
 
-	protected double distancia(long lat1, long lon1, long lat2, long lon2) {
-		long theta = lon1 - lon2;
+	protected double distancia(double lat1, double lon1, double lat2, double lon2) {
+		double theta = lon1 - lon2;
 		double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
 		dist = Math.acos(dist);
 		dist = Math.toDegrees(dist);
