@@ -24,8 +24,6 @@ public class AppAdapter extends EndlessAdapter {
 	
 	private static int SLEEP_MILISECONDS = 2000;
 	
-	private SuperModel model = null;
-
 	private ArrayList<App> modelData;
 
 	private InfiniteScrollManager scrollManager;
@@ -35,8 +33,7 @@ public class AppAdapter extends EndlessAdapter {
 	public AppAdapter(Context context, AwesomeListView list, int layout, int textViewResourceId, SuperModel model, ArrayList<App> appList) {
 		super(new AppArrayAdapter(context, layout, textViewResourceId, appList, list, model));
 
-		this.model = model;
-		this.modelData = this.model.appList();
+		this.modelData = model.appList();
 		this.scrollManager = new InfiniteScrollManager(this.modelData);
 	}
 

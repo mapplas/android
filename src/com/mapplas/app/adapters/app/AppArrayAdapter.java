@@ -46,6 +46,7 @@ import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.view_holder.AppViewHolder;
 
 public class AppArrayAdapter extends ArrayAdapter<App> {
@@ -455,8 +456,10 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						i++;
 					}
 					
+					model.sortAppList();
+					
 					// Update app adapter
-					list.updateAdapter(context, layout, textViewResourceId, model, items);
+					list.updateAdapter(context, layout, textViewResourceId, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
 				}
 
 			}

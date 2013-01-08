@@ -1,6 +1,7 @@
 package com.mapplas.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -19,7 +20,7 @@ public class SuperModel implements Parcelable {
 
 	private String currentDescriptiveGeoLoc = "";
 
-	private ArrayList<App> appList;
+	private AppOrderedList appList;
 
 	private NotificationList notificationList;
 
@@ -28,7 +29,7 @@ public class SuperModel implements Parcelable {
 	private String errorText = "";
 
 	public SuperModel() {
-		this.appList = new ArrayList<App>();
+		this.appList = new AppOrderedList();
 		this.notificationList = new NotificationList();
 	}
 
@@ -53,11 +54,11 @@ public class SuperModel implements Parcelable {
 	}
 
 	public ArrayList<App> appList() {
-		return appList;
+		return this.appList.getAppList();
 	}
 
 	public void setAppList(ArrayList<App> appList) {
-		this.appList = appList;
+		this.appList.setAppList(appList);
 	}
 
 	public boolean operationError() {
@@ -118,7 +119,7 @@ public class SuperModel implements Parcelable {
 	}
 
 	public void resetLocalizations() {
-		this.appList = new ArrayList<App>();
+		this.appList.reset();
 	}
 
 	public void resetNotifications() {
@@ -131,12 +132,16 @@ public class SuperModel implements Parcelable {
 	}
 
 	public App getAppWithIdInList(int position) {
-		for(App currentApp : this.appList) {
+		for(App currentApp : this.appList.getAppList()) {
 			if(currentApp.getId() == position) {
 				return currentApp;
 			}
 		}
 		return null;
+	}
+	
+	public void sortAppList() {
+		this.appList.sort();
 	}
 
 	/**
@@ -154,7 +159,7 @@ public class SuperModel implements Parcelable {
 		dest.writeString(this.currentRadius);
 		dest.writeString(this.currentIMEI);
 		dest.writeString(this.currentDescriptiveGeoLoc);
-		dest.writeTypedList(this.appList);
+		dest.writeParcelable(this.appList, flags);
 		dest.writeParcelable(this.notificationList, flags);
 		dest.writeByte((byte)(this.operationError ? 1 : 0));
 		dest.writeString(this.errorText);
@@ -166,7 +171,7 @@ public class SuperModel implements Parcelable {
 		this.currentRadius = parcel.readString();
 		this.currentIMEI = parcel.readString();
 		this.currentDescriptiveGeoLoc = parcel.readString();
-		parcel.writeTypedList(this.appList);
+		this.appList = parcel.readParcelable(AppOrderedList.class.getClassLoader());
 		parcel.writeTypedList(this.notificationList);
 		this.operationError = parcel.readByte() == 1;
 		this.errorText = parcel.readString();
