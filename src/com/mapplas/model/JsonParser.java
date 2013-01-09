@@ -151,6 +151,7 @@ public class JsonParser {
 				}
 
 				model.appList().add(loc);
+				model.appList().sort();
 			}
 
 		} catch (Exception e) {
