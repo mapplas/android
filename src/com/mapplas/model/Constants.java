@@ -32,6 +32,9 @@ public class Constants {
 	// Constant of the return values of the activities
 	// Login Activity
 	public static final String MAPPLAS_LOGIN_USER_ID = "com.mapplas.model.login.user";
+	public static final String MAPPLAS_LOGIN_LOCATION = "com.mapplas.model.login.location";
+	public static final String MAPPLAS_LOGIN_APP_LIST = "com.mapplas.model.login.app.list";
+
 	public static final String MAPPLAS_LOGIN_LOCATION_ID = "com.mapplas.model.login.location";
 
 	
@@ -39,9 +42,7 @@ public class Constants {
 	
 	// App Detail Activity
 	public static final String MAPPLAS_DETAIL_APP = "com.mapplas.model.detail.app";
-	public static final String MAPPLAS_DETAIL_USER = "com.mapplas.model.detail.user";
-	public static final String MAPPLAS_DETAIL_CURRENT_LOCATION = "com.mapplas.model.detail.current_location";
-	public static final String MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION = "com.mapplas.model.detail.current_descriptive_geo_location";
+	
 	public static final String SYNESTH_DETAIL_CAMERA = "com.synesth.model.detail.camera";
 	
 	// Notification Activity

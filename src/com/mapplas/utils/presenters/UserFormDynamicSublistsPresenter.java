@@ -20,15 +20,15 @@ public class UserFormDynamicSublistsPresenter {
 	private Context context;
 
 	private User user;
-
+	
 	private String currentLocation;
-
-	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, String currentLocation) {
+	
+	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, String location) {
 		this.layoutComponents = layoutComponents;
 		this.list = list;
 		this.context = context;
 		this.user = user;
-		this.currentLocation = currentLocation;
+		this.currentLocation = location;
 	}
 
 	public void present() {

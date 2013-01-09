@@ -17,7 +17,7 @@ public class RepositoryManager {
 	private static NotificationRepository notifications = null;
 
 	private static UserRepository users = null;
-
+	
 	static public NotificationRepository notifications(Context context) {
 		if(RepositoryManager.notifications == null) {
 			Dao<Notification, Integer> dao = null;

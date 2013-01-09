@@ -13,8 +13,6 @@ import com.mapplas.utils.NetRequests;
 
 public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 
-	private User user;
-
 	private JsonParser parser;
 
 	private ListView listView;
@@ -23,18 +21,20 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 
 	private int textViewResourceId;
 
-	private String currentLocation;
-
 	private LinearLayout refreshListBackgroundFooter;
-
-	public UserPinUpsTask(User user, JsonParser parser, ListView listView, Context context, int textViewResourceId, String currentLoc, LinearLayout refreshListBackgroundFooter) {
+	
+	private User user;
+	
+	private String currentLocation;
+	
+	public UserPinUpsTask(User user, String currentLocation, JsonParser parser, ListView listView, Context context, int textViewResourceId, LinearLayout refreshListBackgroundFooter) {
 		super();
 		this.user = user;
+		this.currentLocation = currentLocation;
 		this.parser = parser;
 		this.listView = listView;
 		this.context = context;
 		this.textViewResourceId = textViewResourceId;
-		this.currentLocation = currentLoc;
 		this.refreshListBackgroundFooter = refreshListBackgroundFooter;
 	}
 

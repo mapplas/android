@@ -83,6 +83,7 @@ public class AroundRequester implements UserLocationListener {
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
 		this.model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
+		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 
 		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
@@ -96,8 +97,8 @@ public class AroundRequester implements UserLocationListener {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
-				(new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList)).execute(new Location[] { location });
-				(new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage)).execute(new Location[] { location });
+				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList).execute(new Location(location));
+				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 
 			} catch (Exception e) {
 				Log.i(getClass().getSimpleName(), e.toString());

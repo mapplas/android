@@ -2,7 +2,6 @@ package com.mapplas.app.activities;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
@@ -37,13 +36,16 @@ import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.threads.ServerIdentificationThread;
+import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MapplasActivity extends Activity {
@@ -126,6 +128,21 @@ public class MapplasActivity extends Activity {
 		// (new ReverseGeocodingTask(MapplasActivity.this, model,
 		// messageHandler)).execute(new Location[] { location });
 	}
+	
+	@Override
+	protected void onStart() {
+		if(AppChangedSingleton.somethingChanged) {
+			AppChangedSingleton.somethingChanged = false;
+			if(AppChangedSingleton.changedList != null) {
+				AppOrderedList changedList = AppChangedSingleton.changedList;
+				this.model.setAppList(changedList);
+				AppChangedSingleton.changedList = null;
+			}
+			
+			this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
+		}
+		super.onStart();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -155,17 +172,18 @@ public class MapplasActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
 				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser().getId());
-				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION_ID, model.currentLocation());
-
-				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
-
+				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION, model.currentLocation());
+				intent.putExtra(Constants.MAPPLAS_LOGIN_APP_LIST, model.appList());
+				
 				// Save current user into DB
 				try {
 					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
 					userRepo.createOrUpdate(model.currentUser());
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Log.e(MapplasActivity.this.getClass().getSimpleName(), e.toString());
 				}
+				
+				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
 			}
 		});
 
@@ -291,8 +309,8 @@ public class MapplasActivity extends Activity {
 		rotate4.setInterpolator(new LinearInterpolator());
 		shadowImage.startAnimation(rotate4);
 		
-		final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
-		final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
+//		final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
+//		final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
 		
 //		Thread randomNumbersThread = new Thread(
 //			new Runnable() {

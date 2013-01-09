@@ -29,6 +29,7 @@ import com.mapplas.model.notifications.Notification;
 import com.mapplas.utils.DateUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class NotificationWithHeaderAdapter extends BaseAdapter {
 
@@ -284,7 +285,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 	}
 
 	private App searchAppWithId(int appId) {
-		ArrayList<App> appList = this.model.appList();
+		ArrayList<App> appList = this.model.appList().getAppList();
 		for(App currentApp : appList) {
 			if(currentApp.getId() == appId) {
 				return currentApp;
@@ -308,9 +309,7 @@ public class NotificationWithHeaderAdapter extends BaseAdapter {
 
 				int appPosition = notification.getAppId();
 				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, model.getAppWithIdInList(appPosition));
-				intent.putExtra(Constants.MAPPLAS_DETAIL_USER, model.currentUser());
-				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_LOCATION, model.currentLocation());
-				intent.putExtra(Constants.MAPPLAS_DETAIL_CURRENT_DESCRIPT_GEO_LOCATION, model.currentDescriptiveGeoLoc());
+				SuperModelSingleton.model = model;
 
 				((AppNotifications)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 			}

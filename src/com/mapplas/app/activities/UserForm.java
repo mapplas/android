@@ -41,6 +41,7 @@ import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
 import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
+import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
@@ -48,6 +49,7 @@ import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
+import com.mapplas.utils.static_intents.AppChangedSingleton;
 
 public class UserForm extends Activity {
 
@@ -80,6 +82,8 @@ public class UserForm extends Activity {
 	private User user = null;
 
 	private String currentLocation = "";
+	
+	public static AppOrderedList appOrderedList = null;
 
 	private LinearLayout refreshListBackgroundFooter = null;
 
@@ -88,9 +92,10 @@ public class UserForm extends Activity {
 	private View headerLayout = null;
 
 	private Button actionButton = null;
-	
+
 	private int userId = 0;
-	
+
+	public static boolean somethingChanged = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +111,7 @@ public class UserForm extends Activity {
 
 		// Request user app preferences
 		JsonParser parser = new JsonParser(this);
-		new UserPinUpsTask(this.user, parser, this.listView, this, R.id.lblTitle, this.currentLocation, this.refreshListBackgroundFooter).execute();
+		new UserPinUpsTask(this.user, this.currentLocation, parser, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
 		new UserBlocksTask(this.user, parser).execute();
 
 		// Load presenter
@@ -138,6 +143,14 @@ public class UserForm extends Activity {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putInt("user_id", this.userId);
 		editor.commit();
+
+		if(UserForm.somethingChanged) {
+			AppChangedSingleton.somethingChanged = true;
+			UserForm.appOrderedList.sort();
+			AppChangedSingleton.changedList = UserForm.appOrderedList;
+			UserForm.somethingChanged = false;
+		}
+
 		super.onPause();
 	}
 
@@ -150,20 +163,26 @@ public class UserForm extends Activity {
 		UserRepository userRepo = RepositoryManager.users(this);
 		this.user = (User)userRepo.findFromId(this.userId);
 	}
-	
+
 	private void getDataFromBundle() {
+		
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
-			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION_ID)) {
-				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION_ID);
-			}
-			
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
 				this.userId = bundle.getInt(Constants.MAPPLAS_LOGIN_USER_ID);
-			} else {
-				SharedPreferences settings = getSharedPreferences("prefs", 0);
-				this.userId = settings.getInt("user_id", 0);
 			}
+			
+			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION)) {
+				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION);
+			}
+			
+			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_APP_LIST)) {
+				UserForm.appOrderedList = bundle.getParcelable(Constants.MAPPLAS_LOGIN_APP_LIST);
+			}
+		}
+		else {
+			SharedPreferences settings = getSharedPreferences("prefs", 0);
+			this.userId = settings.getInt("user_id", 0);
 		}
 	}
 

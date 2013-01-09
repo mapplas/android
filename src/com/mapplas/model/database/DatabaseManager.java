@@ -7,7 +7,7 @@ public class DatabaseManager {
 	private static NotificationDatabase notificationDatabase = null;
 
 	private static UserDatabase userDatabase = null;
-
+	
 	static public NotificationDatabase notification(Context context) {
 		if(DatabaseManager.notificationDatabase == null) {
 			DatabaseManager.notificationDatabase = new NotificationDatabase(context);
