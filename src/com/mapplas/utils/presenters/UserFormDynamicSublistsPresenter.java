@@ -8,7 +8,7 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.model.User;
+import com.mapplas.model.SuperModel;
 import com.mapplas.model.UserFormLayoutComponents;
 
 public class UserFormDynamicSublistsPresenter {
@@ -19,16 +19,13 @@ public class UserFormDynamicSublistsPresenter {
 
 	private Context context;
 
-	private User user;
+	private SuperModel model;
 
-	private String currentLocation;
-
-	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, String currentLocation) {
+	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, SuperModel model) {
 		this.layoutComponents = layoutComponents;
 		this.list = list;
 		this.context = context;
-		this.user = user;
-		this.currentLocation = currentLocation;
+		this.model = model;
 	}
 
 	public void present() {
@@ -54,7 +51,7 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation, true);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, model.currentUser().pinnedApps(), UserAppAdapter.PINUP, model, true);
 				list.setAdapter(ula);
 			}
 		});
@@ -76,7 +73,7 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation, true);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, model.currentUser().blockedApps(), UserAppAdapter.BLOCK, model, true);
 				list.setAdapter(ula);
 			}
 		});

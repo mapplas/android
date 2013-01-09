@@ -43,11 +43,14 @@ import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.UserEditRequestThread;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
+import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
+import com.mapplas.utils.static_intents.AppChangedSingleton;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class UserForm extends Activity {
 
@@ -81,6 +84,8 @@ public class UserForm extends Activity {
 
 	private String currentLocation = "";
 
+	private SuperModel model = null;
+
 	private LinearLayout refreshListBackgroundFooter = null;
 
 	private LinearLayout buttonsFooter = null;
@@ -88,9 +93,10 @@ public class UserForm extends Activity {
 	private View headerLayout = null;
 
 	private Button actionButton = null;
-	
+
 	private int userId = 0;
-	
+
+	public static boolean somethingChanged = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +104,6 @@ public class UserForm extends Activity {
 		this.setContentView(R.layout.user);
 
 		this.getDataFromBundle();
-		this.getUserFromDB();
 
 		this.initializeAnimations();
 		this.initLayoutComponents();
@@ -106,7 +111,7 @@ public class UserForm extends Activity {
 
 		// Request user app preferences
 		JsonParser parser = new JsonParser(this);
-		new UserPinUpsTask(this.user, parser, this.listView, this, R.id.lblTitle, this.currentLocation, this.refreshListBackgroundFooter).execute();
+		new UserPinUpsTask(this.model, parser, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
 		new UserBlocksTask(this.user, parser).execute();
 
 		// Load presenter
@@ -115,7 +120,7 @@ public class UserForm extends Activity {
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
-		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation).present();
+		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.model).present();
 
 		// Try to get image
 		ImageView imgUser = (ImageView)findViewById(R.id.imgUser);
@@ -138,6 +143,12 @@ public class UserForm extends Activity {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putInt("user_id", this.userId);
 		editor.commit();
+
+		if(UserForm.somethingChanged) {
+			AppChangedSingleton.somethingChanged = true;
+			UserForm.somethingChanged = false;
+		}
+
 		super.onPause();
 	}
 
@@ -150,20 +161,22 @@ public class UserForm extends Activity {
 		UserRepository userRepo = RepositoryManager.users(this);
 		this.user = (User)userRepo.findFromId(this.userId);
 	}
-	
+
 	private void getDataFromBundle() {
+		// Get model object from singleton
+		this.model = SuperModelSingleton.model;
+		this.currentLocation = this.model.currentLocation();
+		
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
-			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION_ID)) {
-				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION_ID);
-			}
+			this.user = this.model.currentUser();
+			this.userId = this.user.getId();
+		}
+		else {
+			SharedPreferences settings = getSharedPreferences("prefs", 0);
+			this.userId = settings.getInt("user_id", 0);
 			
-			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
-				this.userId = bundle.getInt(Constants.MAPPLAS_LOGIN_USER_ID);
-			} else {
-				SharedPreferences settings = getSharedPreferences("prefs", 0);
-				this.userId = settings.getInt("user_id", 0);
-			}
+			this.getUserFromDB();
 		}
 	}
 
@@ -206,7 +219,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
 		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation, false);
+		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.model, false);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview

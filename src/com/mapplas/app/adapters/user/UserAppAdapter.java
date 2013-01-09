@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
+import com.mapplas.app.activities.UserForm;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
@@ -28,6 +29,7 @@ import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
+import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
@@ -47,6 +49,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 	private ArrayList<App> items;
 
 	private Context context = null;
+	
+	private SuperModel model = null;
 
 	private User user = null;
 
@@ -91,21 +95,23 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		}
 	};
 
-	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation, boolean showEmptyMessage) {
+	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, SuperModel model, boolean showEmptyMessage) {
 		super(context, textViewResourceId, items);
 
 		this.context = context;
 		this.items = items;
 		this.mType = type;
-		this.user = user;
-		this.currentLocation = currentLocation;
+		this.model = model;
 		this.showEmptyMessage = showEmptyMessage;
+		
+		this.user = this.model.currentUser();
+		this.currentLocation = this.model.currentLocation();
 
-		fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
+		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
 																		// this
-		fadeOutAnimation.setStartOffset(0);
-		fadeOutAnimation.setDuration(500);
-		fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+		this.fadeOutAnimation.setStartOffset(0);
+		this.fadeOutAnimation.setDuration(500);
+		this.fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
@@ -238,8 +244,18 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 										// Remove blocked app from blocked list
 										user.blockedApps().remove(anonLoc);
+										
+										// Add unblocked object to model list
+										model.appList().add(anonLoc);
+										
+										// Set something changed to true
+										UserForm.somethingChanged = true;
+
+										// Sort model app list with new data
+										model.sortAppList();
 
 										break;
+										
 									case PINUP:
 										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
 										activityRequestThread.start();
@@ -247,7 +263,27 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
 										pinRequestThread.start();
 
+										// Remove pinned app from pinned list
 										user.pinnedApps().remove(anonLoc);
+										
+										// Set app object as pinned or unpinned
+										// Pin/unpin app
+										boolean found = false;
+										int i = 0;
+										while (!found && i < model.appList().size()) {
+											App currentApp = model.appList().get(i);
+											if(currentApp.getId() == anonLoc.getId()) {
+												currentApp.setAuxPin(!currentApp.isAuxPin());
+												found = true;
+											}
+											i++;
+										}
+										
+										// Set something changed to true
+										UserForm.somethingChanged = true;
+
+										// Sort model app list with new data
+										model.sortAppList();
 
 										break;
 								}
