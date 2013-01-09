@@ -36,6 +36,7 @@ import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.threads.ServerIdentificationThread;
+import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.RepositoryManager;
@@ -132,6 +133,11 @@ public class MapplasActivity extends Activity {
 	protected void onStart() {
 		if(AppChangedSingleton.somethingChanged) {
 			AppChangedSingleton.somethingChanged = false;
+			if(AppChangedSingleton.changedList != null) {
+				AppOrderedList changedList = AppChangedSingleton.changedList;
+				this.model.setAppList(changedList);
+				AppChangedSingleton.changedList = null;
+			}
 			
 			this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
 		}

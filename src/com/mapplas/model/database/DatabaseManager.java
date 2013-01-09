@@ -8,8 +8,6 @@ public class DatabaseManager {
 
 	private static UserDatabase userDatabase = null;
 	
-	private static AppListDatabase appDatabase = null;
-
 	static public NotificationDatabase notification(Context context) {
 		if(DatabaseManager.notificationDatabase == null) {
 			DatabaseManager.notificationDatabase = new NotificationDatabase(context);
@@ -25,14 +23,6 @@ public class DatabaseManager {
 
 		return DatabaseManager.userDatabase;
 	}
-	
-	static public AppListDatabase app(Context context) {
-		if(DatabaseManager.appDatabase == null) {
-			DatabaseManager.appDatabase = new AppListDatabase(context);
-		}
-		
-		return DatabaseManager.appDatabase;
-	}
 
 	static public void close() {
 		if(DatabaseManager.notificationDatabase != null && DatabaseManager.notificationDatabase.isOpen()) {
@@ -42,14 +32,9 @@ public class DatabaseManager {
 		if(DatabaseManager.userDatabase != null && DatabaseManager.userDatabase.isOpen()) {
 			DatabaseManager.userDatabase.close();
 		}
-		
-		if(DatabaseManager.appDatabase != null && DatabaseManager.appDatabase.isOpen()) {
-			DatabaseManager.appDatabase.close();
-		}
 
 		DatabaseManager.notificationDatabase = null;
 		DatabaseManager.userDatabase = null;
-		DatabaseManager.appDatabase = null;
 
 		System.gc();
 	}

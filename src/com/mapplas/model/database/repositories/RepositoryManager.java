@@ -6,9 +6,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
-import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.User;
-import com.mapplas.model.database.AppListDatabase;
 import com.mapplas.model.database.DatabaseManager;
 import com.mapplas.model.database.NotificationDatabase;
 import com.mapplas.model.database.UserDatabase;
@@ -20,8 +18,6 @@ public class RepositoryManager {
 
 	private static UserRepository users = null;
 	
-	private static AppListRepository app = null;
-
 	static public NotificationRepository notifications(Context context) {
 		if(RepositoryManager.notifications == null) {
 			Dao<Notification, Integer> dao = null;
@@ -53,27 +49,10 @@ public class RepositoryManager {
 		}
 		return RepositoryManager.users;
 	}
-	
-	static public AppListRepository app(Context context) {
-		if(RepositoryManager.app == null) {
-			Dao<AppOrderedList, Integer> dao = null;
-			AppListDatabase modelDatabase = DatabaseManager.app(context);
-			try {
-				dao = (Dao<AppOrderedList, Integer>)modelDatabase.getAppListDao();
-			} catch (SQLException e) {
-				Log.e("RepositoryManager", e.getMessage(), e);
-				throw new RuntimeException();
-			}
-			
-			RepositoryManager.app = new AppListRepository(dao, AppOrderedList.TABLE_NAME);
-		}
-		return RepositoryManager.app;
-	}
 
 	static public void close() {
 		RepositoryManager.notifications = null;
 		RepositoryManager.users = null;
-		RepositoryManager.app = null;
 
 		System.gc();
 

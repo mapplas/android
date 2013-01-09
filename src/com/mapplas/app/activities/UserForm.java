@@ -146,6 +146,8 @@ public class UserForm extends Activity {
 
 		if(UserForm.somethingChanged) {
 			AppChangedSingleton.somethingChanged = true;
+			UserForm.appOrderedList.sort();
+			AppChangedSingleton.changedList = UserForm.appOrderedList;
 			UserForm.somethingChanged = false;
 		}
 

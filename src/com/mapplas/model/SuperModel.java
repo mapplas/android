@@ -1,7 +1,5 @@
 package com.mapplas.model;
 
-import java.util.ArrayList;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,17 +17,15 @@ public class SuperModel implements Parcelable {
 
 	private String currentDescriptiveGeoLoc = "";
 
-	private AppOrderedList appList;
+	private AppOrderedList appList = new AppOrderedList();
 
-	private NotificationList notificationList;
+	private NotificationList notificationList = new NotificationList();
 
 	private boolean operationError = false;
 
 	private String errorText = "";
 
 	public SuperModel() {
-		this.appList = new AppOrderedList();
-		this.notificationList = new NotificationList();
 	}
 
 	/**
@@ -56,8 +52,8 @@ public class SuperModel implements Parcelable {
 		return this.appList;
 	}
 
-	public void setAppList(ArrayList<App> appList) {
-		this.appList.setAppList(appList);
+	public void setAppList(AppOrderedList appList) {
+		this.appList = appList;
 	}
 
 	public boolean operationError() {
@@ -167,7 +163,8 @@ public class SuperModel implements Parcelable {
 		this.currentIMEI = parcel.readString();
 		this.currentDescriptiveGeoLoc = parcel.readString();
 		this.appList = parcel.readParcelable(AppOrderedList.class.getClassLoader());
-		parcel.writeTypedList(this.notificationList);
+		parcel.readParcelable(NotificationList.class.getClassLoader());
+		parcel.readParcelable(AppOrderedList.class.getClassLoader());
 		this.operationError = parcel.readByte() == 1;
 		this.errorText = parcel.readString();
 	}

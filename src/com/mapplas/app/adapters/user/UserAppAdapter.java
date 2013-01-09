@@ -246,9 +246,6 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										// Set something changed to true
 										UserForm.somethingChanged = true;
 
-										// Sort model app list with new data
-										UserForm.appOrderedList.sort();
-
 										break;
 										
 									case PINUP:
@@ -276,9 +273,6 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										
 										// Set something changed to true
 										UserForm.somethingChanged = true;
-
-										// Sort model app list with new data
-										UserForm.appOrderedList.sort();
 
 										break;
 								}
