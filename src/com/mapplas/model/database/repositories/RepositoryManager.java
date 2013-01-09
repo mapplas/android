@@ -17,6 +17,8 @@ public class RepositoryManager {
 	private static NotificationRepository notifications = null;
 
 	private static UserRepository users = null;
+	
+//	private static ModelRepository model = null;
 
 	static public NotificationRepository notifications(Context context) {
 		if(RepositoryManager.notifications == null) {
@@ -49,10 +51,27 @@ public class RepositoryManager {
 		}
 		return RepositoryManager.users;
 	}
+	
+//	static public ModelRepository model(Context context) {
+//		if(RepositoryManager.model == null) {
+//			Dao<SuperModel, Integer> dao = null;
+//			ModelDatabase modelDatabase = DatabaseManager.model(context);
+//			try {
+//				dao = (Dao<SuperModel, Integer>)modelDatabase.getSupermodelDao();
+//			} catch (SQLException e) {
+//				Log.e("RepositoryManager", e.getMessage(), e);
+//				throw new RuntimeException();
+//			}
+//			
+//			RepositoryManager.model = new ModelRepository(dao, SuperModel.TABLE_NAME);
+//		}
+//		return RepositoryManager.model;
+//	}
 
 	static public void close() {
 		RepositoryManager.notifications = null;
 		RepositoryManager.users = null;
+//		RepositoryManager.model = null;
 
 		System.gc();
 

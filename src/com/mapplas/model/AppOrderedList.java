@@ -11,11 +11,10 @@ public class AppOrderedList implements Comparator<App>, Parcelable {
 
 	private ArrayList<App> appList;
 	
-	private SuperModel model;
+	private String currentLocation = "";
 
-	public AppOrderedList(SuperModel model) {
+	public AppOrderedList() {
 		this.appList = new ArrayList<App>();
-		this.model = model;
 	}
 
 	public ArrayList<App> getAppList() {
@@ -46,6 +45,10 @@ public class AppOrderedList implements Comparator<App>, Parcelable {
 	public void sort() {
 		Collections.sort(this.appList, this);
 	}
+	
+	public void setCurrentLocation(String location) {
+		this.currentLocation = location;
+	}
 
 	@Override
 	public int compare(App app1, App app2) {
@@ -56,7 +59,7 @@ public class AppOrderedList implements Comparator<App>, Parcelable {
 			return 1;
 		}
 		else {
-			String[] currentLongLat = this.model.currentLocation().split(",");
+			String[] currentLongLat = this.currentLocation.split(",");
 			if(distancia(app1.getLatitude(), app1.getLongitude(), Double.parseDouble(currentLongLat[1]), Double.parseDouble(currentLongLat[0])) > distancia(app2.getLatitude(), app2.getLongitude(), Double.parseDouble(currentLongLat[1]), Double.parseDouble(currentLongLat[0]))) {
 				return 1;
 			}
@@ -90,10 +93,12 @@ public class AppOrderedList implements Comparator<App>, Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeTypedList(this.appList);
+		dest.writeString(this.currentLocation);
 	}
 
 	public AppOrderedList(Parcel parcel) {
 		parcel.writeTypedList(this.appList);
+		parcel.writeString(this.currentLocation);
 	}
 
 	public static final Parcelable.Creator<AppOrderedList> CREATOR = new Parcelable.Creator<AppOrderedList>() {

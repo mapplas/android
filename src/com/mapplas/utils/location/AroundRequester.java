@@ -83,6 +83,7 @@ public class AroundRequester implements UserLocationListener {
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
 		this.model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
+		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 
 		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {

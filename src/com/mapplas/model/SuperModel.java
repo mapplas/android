@@ -28,7 +28,7 @@ public class SuperModel implements Parcelable {
 	private String errorText = "";
 
 	public SuperModel() {
-		this.appList = new AppOrderedList(this);
+		this.appList = new AppOrderedList();
 		this.notificationList = new NotificationList();
 	}
 
