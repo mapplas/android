@@ -32,6 +32,9 @@ public class Constants {
 	// Constant of the return values of the activities
 	// Login Activity
 	public static final String MAPPLAS_LOGIN_USER_ID = "com.mapplas.model.login.user";
+	public static final String MAPPLAS_LOGIN_LOCATION = "com.mapplas.model.login.location";
+	public static final String MAPPLAS_LOGIN_APP_LIST = "com.mapplas.model.login.app.list";
+
 	public static final String MAPPLAS_LOGIN_LOCATION_ID = "com.mapplas.model.login.location";
 
 	

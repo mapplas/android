@@ -29,7 +29,6 @@ import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
-import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
@@ -50,14 +49,12 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 	private Context context = null;
 	
-	private SuperModel model = null;
-
 	private User user = null;
 
 	private String currentLocation = "";
 	
 	private boolean showEmptyMessage;
-
+	
 	private static Semaphore mSemaphore = new Semaphore(1);
 
 	private static App mBlockLoc = null;
@@ -95,17 +92,15 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		}
 	};
 
-	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, SuperModel model, boolean showEmptyMessage) {
+	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation, boolean showEmptyMessage) {
 		super(context, textViewResourceId, items);
 
 		this.context = context;
 		this.items = items;
 		this.mType = type;
-		this.model = model;
+		this.user = user;
+		this.currentLocation = currentLocation;
 		this.showEmptyMessage = showEmptyMessage;
-		
-		this.user = this.model.currentUser();
-		this.currentLocation = this.model.currentLocation();
 
 		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
 																		// this
@@ -246,13 +241,13 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										user.blockedApps().remove(anonLoc);
 										
 										// Add unblocked object to model list
-										model.appList().add(anonLoc);
+										UserForm.appOrderedList.add(anonLoc);
 										
 										// Set something changed to true
 										UserForm.somethingChanged = true;
 
 										// Sort model app list with new data
-										model.sortAppList();
+										UserForm.appOrderedList.sort();
 
 										break;
 										
@@ -270,8 +265,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										// Pin/unpin app
 										boolean found = false;
 										int i = 0;
-										while (!found && i < model.appList().size()) {
-											App currentApp = model.appList().get(i);
+										while (!found && i < UserForm.appOrderedList.size()) {
+											App currentApp = UserForm.appOrderedList.get(i);
 											if(currentApp.getId() == anonLoc.getId()) {
 												currentApp.setAuxPin(!currentApp.isAuxPin());
 												found = true;
@@ -283,7 +278,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										UserForm.somethingChanged = true;
 
 										// Sort model app list with new data
-										model.sortAppList();
+										UserForm.appOrderedList.sort();
 
 										break;
 								}

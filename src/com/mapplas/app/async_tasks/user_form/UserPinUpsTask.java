@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
 import com.mapplas.model.JsonParser;
-import com.mapplas.model.SuperModel;
+import com.mapplas.model.User;
 import com.mapplas.utils.NetRequests;
 
 public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
@@ -23,23 +23,26 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 
 	private LinearLayout refreshListBackgroundFooter;
 	
-	private SuperModel model;
-
-	public UserPinUpsTask(SuperModel model, JsonParser parser, ListView listView, Context context, int textViewResourceId, LinearLayout refreshListBackgroundFooter) {
+	private User user;
+	
+	private String currentLocation;
+	
+	public UserPinUpsTask(User user, String currentLocation, JsonParser parser, ListView listView, Context context, int textViewResourceId, LinearLayout refreshListBackgroundFooter) {
 		super();
-		this.model = model;
+		this.user = user;
+		this.currentLocation = currentLocation;
 		this.parser = parser;
 		this.listView = listView;
 		this.context = context;
 		this.textViewResourceId = textViewResourceId;
-		this.refreshListBackgroundFooter = refreshListBackgroundFooter;	
+		this.refreshListBackgroundFooter = refreshListBackgroundFooter;
 	}
 
 	@Override
 	protected String doInBackground(Void... params) {
 		String response = "";
 		try {
-			response = NetRequests.UserPinUpsRequest(String.valueOf(this.model.currentUser().getId()));
+			response = NetRequests.UserPinUpsRequest(String.valueOf(this.user.getId()));
 		} catch (Exception e) {
 			Log.d(this.getClass().getSimpleName(), "Get PinUps", e);
 		}
@@ -51,11 +54,11 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 		super.onPostExecute(result);
 
 		// Parse result and insert into user
-		this.model.currentUser().setPinnedApps(this.parser.parseApps(result));
+		this.user.setPinnedApps(this.parser.parseApps(result));
 
 		this.listView.removeFooterView(this.refreshListBackgroundFooter);
 
-		UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.model.currentUser().pinnedApps(), UserAppAdapter.PINUP, this.model, true);
+		UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation, true);
 		this.listView.setAdapter(appAdapter);
 	}
 	

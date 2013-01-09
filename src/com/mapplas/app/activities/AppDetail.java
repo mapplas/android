@@ -659,7 +659,7 @@ public class AppDetail extends Activity {
 					}
 
 					somethingChanged = true;
-					model.sortAppList();
+					model.appList().sort();
 
 					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid, currentLocation).getThread());
 					pinRequestThread.start();
@@ -740,7 +740,7 @@ public class AppDetail extends Activity {
 									i++;
 								}
 
-								model.sortAppList();
+								model.appList().sort();
 								somethingChanged = true;
 
 								AppDetail.this.finish();

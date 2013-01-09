@@ -138,10 +138,6 @@ public class SuperModel implements Parcelable {
 		}
 		return null;
 	}
-	
-	public void sortAppList() {
-		this.appList.sort();
-	}
 
 	/**
 	 * Parcelable methods

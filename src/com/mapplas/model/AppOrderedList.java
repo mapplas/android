@@ -4,17 +4,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class AppOrderedList implements Comparator<App>, Parcelable {
-
-	private ArrayList<App> appList;
+@DatabaseTable(tableName = "orderedList")
+public class AppOrderedList implements Comparator<App>, Parcelable, Unit {
 	
+	public static final String TABLE_NAME = "orderedList";
+
+	@DatabaseField (generatedId=true)
+	private int autoincrementId;
+	
+	@DatabaseField (dataType = DataType.SERIALIZABLE)
+	private ArrayList<App> appList = new ArrayList<App>();
+
+	@DatabaseField
 	private String currentLocation = "";
 
 	public AppOrderedList() {
-		this.appList = new ArrayList<App>();
 	}
 
 	public ArrayList<App> getAppList() {
@@ -94,11 +105,13 @@ public class AppOrderedList implements Comparator<App>, Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeTypedList(this.appList);
 		dest.writeString(this.currentLocation);
+		dest.writeInt(this.autoincrementId);
 	}
 
 	public AppOrderedList(Parcel parcel) {
-		parcel.writeTypedList(this.appList);
-		parcel.writeString(this.currentLocation);
+		parcel.readTypedList(this.appList, App.CREATOR);
+		this.currentLocation = parcel.readString();
+		this.autoincrementId = parcel.readInt();
 	}
 
 	public static final Parcelable.Creator<AppOrderedList> CREATOR = new Parcelable.Creator<AppOrderedList>() {

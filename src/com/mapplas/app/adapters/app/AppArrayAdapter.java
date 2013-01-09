@@ -447,7 +447,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						i++;
 					}
 					
-					model.sortAppList();
+					model.appList().sort();
 					
 					// Update app adapter
 					list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));

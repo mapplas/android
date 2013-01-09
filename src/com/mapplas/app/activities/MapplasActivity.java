@@ -166,18 +166,18 @@ public class MapplasActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
 				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser().getId());
+				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION, model.currentLocation());
+				intent.putExtra(Constants.MAPPLAS_LOGIN_APP_LIST, model.appList());
 				
-				SuperModelSingleton.model = model;
-
-				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
-
 				// Save current user into DB
 				try {
 					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
 					userRepo.createOrUpdate(model.currentUser());
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Log.e(MapplasActivity.this.getClass().getSimpleName(), e.toString());
 				}
+				
+				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
 			}
 		});
 
@@ -303,8 +303,8 @@ public class MapplasActivity extends Activity {
 		rotate4.setInterpolator(new LinearInterpolator());
 		shadowImage.startAnimation(rotate4);
 		
-		final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
-		final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
+//		final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
+//		final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
 		
 //		Thread randomNumbersThread = new Thread(
 //			new Runnable() {
