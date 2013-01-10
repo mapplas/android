@@ -62,7 +62,6 @@ public class AroundRequester implements UserLocationListener {
 
 	@Override
 	public void locationSearchEnded(Location location) {
-		// locationManager.removeUpdates(locationListener);
 		this.loadTasks(location);
 	}
 
