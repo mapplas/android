@@ -245,6 +245,7 @@ public class UserForm extends Activity {
 
 	private void initializeButtonsAndItsBehaviour() {
 		ViewFlipper profileRow = (ViewFlipper)findViewById(R.id.vfRowProfile);
+		
 		this.initializeFormButton(profileRow);
 		this.initializeActionButton(profileRow);
 		this.initializeBackButton();
@@ -334,11 +335,15 @@ public class UserForm extends Activity {
 					profileRow.setInAnimation(animFlipInNext);
 					profileRow.setOutAnimation(animFlipOutNext);
 					profileRow.showNext();
+					
+					actionButton.setText(R.string.cancel);
 				}
 				else {
 					profileRow.setInAnimation(animFlipInPrevious);
 					profileRow.setOutAnimation(animFlipOutPrevious);
 					profileRow.showPrevious();
+					
+					actionButton.setText(R.string.signin);
 				}
 			}
 		});
