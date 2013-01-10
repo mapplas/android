@@ -39,6 +39,7 @@ import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
+import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
@@ -128,7 +129,7 @@ public class MapplasActivity extends Activity {
 		// (new ReverseGeocodingTask(MapplasActivity.this, model,
 		// messageHandler)).execute(new Location[] { location });
 	}
-	
+
 	@Override
 	protected void onStart() {
 		if(AppChangedSingleton.somethingChanged) {
@@ -139,10 +140,20 @@ public class MapplasActivity extends Activity {
 				this.model.appList().sort();
 				AppChangedSingleton.changedList = null;
 			}
-			
+
 			this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
 		}
 		super.onStart();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == Constants.SYNESTH_USER_ID) {
+			if(data != null && data.getExtras() != null && data.getExtras().containsKey(Constants.MAPPLAS_LOGIN_USER)) {
+				this.model.setCurrentUser((User)data.getExtras().getParcelable(Constants.MAPPLAS_LOGIN_USER));
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
@@ -172,10 +183,11 @@ public class MapplasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, UserForm.class);
+				intent.putExtra(Constants.MAPPLAS_LOGIN_USER, model.currentUser());
 				intent.putExtra(Constants.MAPPLAS_LOGIN_USER_ID, model.currentUser().getId());
 				intent.putExtra(Constants.MAPPLAS_LOGIN_LOCATION, model.currentLocation());
 				intent.putExtra(Constants.MAPPLAS_LOGIN_APP_LIST, model.appList());
-				
+
 				// Save current user into DB
 				try {
 					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
@@ -183,7 +195,7 @@ public class MapplasActivity extends Activity {
 				} catch (SQLException e) {
 					Log.e(MapplasActivity.this.getClass().getSimpleName(), e.toString());
 				}
-				
+
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
 			}
 		});
@@ -285,7 +297,7 @@ public class MapplasActivity extends Activity {
 		rotate.setRepeatCount(Animation.INFINITE);
 		rotate.setInterpolator(new LinearInterpolator());
 		outerImage.startAnimation(rotate);
-		
+
 		ImageView northSouthImage = (ImageView)this.findViewById(R.id.imgMeasures);
 		RotateAnimation rotate2 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		rotate2.setDuration(1200);
@@ -293,7 +305,7 @@ public class MapplasActivity extends Activity {
 		rotate2.setRepeatCount(Animation.INFINITE);
 		rotate2.setInterpolator(new LinearInterpolator());
 		northSouthImage.startAnimation(rotate2);
-		
+
 		ImageView trianglesImage = (ImageView)this.findViewById(R.id.imgTriangles);
 		RotateAnimation rotate3 = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		rotate3.setDuration(1200);
@@ -301,7 +313,7 @@ public class MapplasActivity extends Activity {
 		rotate3.setRepeatCount(Animation.INFINITE);
 		rotate3.setInterpolator(new LinearInterpolator());
 		trianglesImage.startAnimation(rotate3);
-		
+
 		ImageView shadowImage = (ImageView)this.findViewById(R.id.imgShadow);
 		RotateAnimation rotate4 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		rotate4.setDuration(1200);
@@ -309,20 +321,20 @@ public class MapplasActivity extends Activity {
 		rotate4.setRepeatCount(Animation.INFINITE);
 		rotate4.setInterpolator(new LinearInterpolator());
 		shadowImage.startAnimation(rotate4);
-		
-//		final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
-//		final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
-		
-//		Thread randomNumbersThread = new Thread(
-//			new Runnable() {
-//				Random random = new Random();
-//				@Override
-//				public void run() {
-//					latitude.setText(random.nextInt());
-//					longitude.setText(random.nextInt());
-//				}
-//			});
-//		randomNumbersThread.start();
+
+		// final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
+		// final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
+
+		// Thread randomNumbersThread = new Thread(
+		// new Runnable() {
+		// Random random = new Random();
+		// @Override
+		// public void run() {
+		// latitude.setText(random.nextInt());
+		// longitude.setText(random.nextInt());
+		// }
+		// });
+		// randomNumbersThread.start();
 	}
 
 	/**
