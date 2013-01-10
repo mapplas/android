@@ -18,8 +18,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -148,8 +153,22 @@ public class UserForm extends Activity {
 			AppChangedSingleton.changedList = UserForm.appOrderedList;
 			UserForm.somethingChanged = false;
 		}
-
 		super.onPause();
+	}
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = this.getMenuInflater();
+		menuInflater.inflate(R.layout.config_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = new Intent(this, PreferencesActivity.class);
+		startActivity(intent);
+		return super.onOptionsItemSelected(item);
 	}
 
 	/**

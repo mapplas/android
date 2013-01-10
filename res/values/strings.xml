@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Mapplas</string>
     <string name="filter">Filter</string>
     <string name="install">Install</string>
@@ -29,8 +30,8 @@
     <string name="cancel">Cancel</string>
     <string name="send">Send</string>
     <string name="support">Support</string>
-    <string name="comment">Comment</string>    
-    <string name="activity">Activity</string>    
+    <string name="comment">Comment</string>
+    <string name="activity">Activity</string>
     <string name="rates">rates</string>
     <string name="rate">rate</string>
     <string name="reviews">reviews</string>
@@ -38,81 +39,75 @@
     <string name="pin_up">pin</string>
     <string name="un_pin_up">unpin</string>
     <string name="likes">likes</string>
-	<string name="share">share</string>
-	<string name="block">block</string>	
-	<string name="ptr_pull_to_refresh">Pull to refresh&#8230;</string>
-	<string name="ptr_release_to_refresh">Release to refresh&#8230;</string>
-    <string name="ptr_refreshing">Loading Apps&#8230;</string>	
-	<string name="unable_geoloc">Ups, we can\'t get your position!!!</string>	
-	<string name="block_title">Block App</string>
-	<string name="block_text">You are going to block this app. Are you sure?</string>
-	<string name="block_accept">Block it!</string>
-	<string name="block_cancel">Cancel</string>
-	<string name="review">Review</string>
-	<string name="like">like</string>
-	<string name="call">call</string>
-	<string name="developer">Developer</string>
-	<string name="devMail">Developer Mail</string>
-	<string name="devWeb">Developer Web</string>
-	<string name="isuser">Alredy a user? Login!</string>
-	<string name="password">Password</string>
-	<string name="login">Log In</string>
-	<string name="blocks">blocks</string>
-	<string name="edit">Edit</string>
-	<string name="rateIt">Rate it!</string>
-	<string name="ok">OK</string>
-	<string name="unRated">Unrated</string>
-	<string name="poor">Poor</string>
-	<string name="belowAvg">Below Average</string>
-	<string name="average">Average</string>
-	<string name="aboveAvg">Above Average</string>
-	<string name="excellent">Excellent</string>
-	<string name="newAccount">If you would like to backup your preferences, signin!</string>
-	<string name="newAccountSignedIn">To access your configuration, login!</string>
-	<string name="connect">You can connect with Facebook and Twitter.</string>
-	<string name="year">yr</string>
-	<string name="years">yrs</string>
-	<string name="month">mth</string>
-	<string name="months">mths</string>
-	<string name="day">d</string>
-	<string name="days">d</string>
-	<string name="hour">h</string>
-	<string name="hours">h</string>
-	<string name="minute">m</string>
-	<string name="minutes">m</string>
-	
-	<string name="category">Category</string>
-	
-	<string name="name_not_set">Name</string>
-	<string name="email_not_set">Email</string>
-	
-	<string name="really_logout">Do you really want to log out?</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
-	
-	<string name="getting_configuration">Loading configuration&#8230;</string>
-	
-	<string name="signin">Sign In</string>
-	<string name="signout">Sign Out</string>
-	
-	<string name="allow">allow</string>
-	
-	<string name="dislike">dislike</string>
-	<string name="done">Done</string>
-	<string name="free">Free</string>
-	
-	<string name="wifi_error_toast">Improve the search! For more accurate recommendations, turn Wi-Fi on. This works even when not connected to a network.</string>
-	<string name="pull_to_refresh_wifi_error">Turn Wi-Fi on to improve your recommendations!</string>
-	<string name="connection_error_toast">There\'s no data connection. Please enable to load apps.</string>
-	
-	<string name="menu_refresh">Refresh</string>
-	
-	<string name="image_content_description">content description</string>
-	
-	<string name="profile_empty_pinup_list">You don\'t have any pinned up apps</string>
-	<string name="profile_empty_block_list">You don\'t have any blocked apps</string>
-	
-	<string name="not_avaliable">Not available</string>
-	
-	<string name="descriptive_geoloc_error">Oops\! It seems that you\'re in Wonderland.</string>
+    <string name="share">share</string>
+    <string name="block">block</string>
+    <string name="ptr_pull_to_refresh">Pull to refresh&#8230;</string>
+    <string name="ptr_release_to_refresh">Release to refresh&#8230;</string>
+    <string name="ptr_refreshing">Loading Apps&#8230;</string>
+    <string name="unable_geoloc">Ups, we can\'t get your position!!!</string>
+    <string name="block_title">Block App</string>
+    <string name="block_text">You are going to block this app. Are you sure?</string>
+    <string name="block_accept">Block it!</string>
+    <string name="block_cancel">Cancel</string>
+    <string name="review">Review</string>
+    <string name="like">like</string>
+    <string name="call">call</string>
+    <string name="developer">Developer</string>
+    <string name="devMail">Developer Mail</string>
+    <string name="devWeb">Developer Web</string>
+    <string name="isuser">Alredy a user? Login!</string>
+    <string name="password">Password</string>
+    <string name="login">Log In</string>
+    <string name="blocks">blocks</string>
+    <string name="edit">Edit</string>
+    <string name="rateIt">Rate it!</string>
+    <string name="ok">OK</string>
+    <string name="unRated">Unrated</string>
+    <string name="poor">Poor</string>
+    <string name="belowAvg">Below Average</string>
+    <string name="average">Average</string>
+    <string name="aboveAvg">Above Average</string>
+    <string name="excellent">Excellent</string>
+    <string name="newAccount">If you would like to backup your preferences, signin!</string>
+    <string name="newAccountSignedIn">To access your configuration, login!</string>
+    <string name="connect">You can connect with Facebook and Twitter.</string>
+    <string name="year">yr</string>
+    <string name="years">yrs</string>
+    <string name="month">mth</string>
+    <string name="months">mths</string>
+    <string name="day">d</string>
+    <string name="days">d</string>
+    <string name="hour">h</string>
+    <string name="hours">h</string>
+    <string name="minute">m</string>
+    <string name="minutes">m</string>
+    <string name="category">Category</string>
+    <string name="name_not_set">Name</string>
+    <string name="email_not_set">Email</string>
+    <string name="really_logout">Do you really want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="getting_configuration">Loading configuration&#8230;</string>
+    <string name="signin">Sign In</string>
+    <string name="signout">Sign Out</string>
+    <string name="allow">allow</string>
+    <string name="dislike">dislike</string>
+    <string name="done">Done</string>
+    <string name="free">Free</string>
+    <string name="wifi_error_toast">Improve the search! For more accurate recommendations, turn Wi-Fi on. This works even when not connected to a network.</string>
+    <string name="pull_to_refresh_wifi_error">Turn Wi-Fi on to improve your recommendations!</string>
+    <string name="connection_error_toast">There\'s no data connection. Please enable to load apps.</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="image_content_description">content description</string>
+    <string name="profile_empty_pinup_list">You don\'t have any pinned up apps</string>
+    <string name="profile_empty_block_list">You don\'t have any blocked apps</string>
+    <string name="not_avaliable">Not available</string>
+    <string name="descriptive_geoloc_error">Oops\! It seems that you\'re in Wonderland.</string>
+    <string name="menu_config">Configuration</string>
+    <string name="preferences_title">Configuration</string>
+    <string name="terms_of_use_title">Terms of use</string>
+    <string name="terms_of_use_message">Terms of use. \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tellus sapien. Nullam placerat, lorem nec lobortis gravida, nisi ipsum placerat augue, non auctor justo diam non nisi. Phasellus ullamcorper sodales dolor sed tincidunt. Nulla aliquet quam vel nisi dignissim id elementum tellus aliquet. Vivamus sodales posuere augue sed accumsan. Vivamus fermentum erat quis quam hendrerit dapibus faucibus ligula condimentum. Fusce convallis vulputate turpis, in iaculis orci tempus non. Nulla varius augue quis nibh venenatis pharetra. Proin luctus, turpis id ultrices convallis, massa lectus hendrerit purus, eu vehicula velit arcu vel turpis.</string>
+	<string name="privacy_policy_title">Privacy policy</string>
+    <string name="privacy_policy_message">Privacy policy. \n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tellus sapien. Nullam placerat, lorem nec lobortis gravida, nisi ipsu</string>
+    
 </resources>

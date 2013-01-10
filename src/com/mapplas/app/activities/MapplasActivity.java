@@ -159,7 +159,7 @@ public class MapplasActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = this.getMenuInflater();
-		menuInflater.inflate(R.layout.menu, menu);
+		menuInflater.inflate(R.layout.refresh_menu, menu);
 		return true;
 	}
 
