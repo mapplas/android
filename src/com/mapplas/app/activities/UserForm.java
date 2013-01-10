@@ -103,7 +103,6 @@ public class UserForm extends Activity {
 		this.setContentView(R.layout.user);
 
 		this.getDataFromBundle();
-		this.getUserFromDB();
 
 		this.initializeAnimations();
 		this.initLayoutComponents();
@@ -178,10 +177,20 @@ public class UserForm extends Activity {
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_APP_LIST)) {
 				UserForm.appOrderedList = bundle.getParcelable(Constants.MAPPLAS_LOGIN_APP_LIST);
 			}
+			
+			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER)) {
+				this.user = bundle.getParcelable(Constants.MAPPLAS_LOGIN_USER);
+			}
+			else {
+				SharedPreferences settings = getSharedPreferences("prefs", 0);
+				this.userId = settings.getInt("user_id", 0);
+				this.getUserFromDB();
+			}
 		}
 		else {
 			SharedPreferences settings = getSharedPreferences("prefs", 0);
 			this.userId = settings.getInt("user_id", 0);
+			this.getUserFromDB();
 		}
 	}
 
@@ -357,6 +366,11 @@ public class UserForm extends Activity {
 			public void onClick(View v) {
 				user.pinnedApps().clear();
 				user.blockedApps().clear();
+				
+				Intent intent = new Intent();
+				intent.putExtra(Constants.MAPPLAS_LOGIN_USER, user);
+				setResult(Constants.SYNESTH_USER_ID, intent);
+				
 				finish();
 			}
 		});
@@ -425,9 +439,13 @@ public class UserForm extends Activity {
 	private void changeLayoutComponents(int userState) {
 		Typeface normalTypeface = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 
-		this.setUserNameAndEmailFields(normalTypeface);
-
-		TextView actionText = (TextView)this.headerLayout.findViewById(R.id.lblLogin);
+		LinearLayout nameEmailLayout = (LinearLayout)findViewById(R.id.profile_unpressed_signed_values);
+		TextView nameTextView = (TextView)findViewById(R.id.lblName);
+		nameTextView.setTypeface(normalTypeface);
+		TextView emailTextView = (TextView)findViewById(R.id.lblEmail);
+		emailTextView.setTypeface(normalTypeface);
+		
+		TextView actionText = (TextView)findViewById(R.id.profile_unpressed_unsigned_text);
 
 		switch (userState) {
 			case UserForm.USER_SIGN_IN:
@@ -436,6 +454,8 @@ public class UserForm extends Activity {
 
 				actionText.setText(R.string.newAccount);
 				actionText.setVisibility(View.VISIBLE);
+				
+				nameEmailLayout.setVisibility(View.GONE);
 
 				this.listView.removeFooterView(this.buttonsFooter);
 				break;
@@ -446,48 +466,24 @@ public class UserForm extends Activity {
 
 				actionText.setText(R.string.newAccountSignedIn);
 				actionText.setVisibility(View.VISIBLE);
+				
+				nameEmailLayout.setVisibility(View.GONE);
 
 				this.listView.removeFooterView(this.buttonsFooter);
 				break;
 
 			case UserForm.USER_LOGGED_IN:
 				this.actionButton.setVisibility(View.INVISIBLE);
-				actionText.setVisibility(View.INVISIBLE);
+				
+				actionText.setVisibility(View.GONE);
+				
+				nameEmailLayout.setVisibility(View.VISIBLE);
+				nameTextView.setText(user.getName());
+				emailTextView.setText(user.getEmail());
 
 				this.listView.addFooterView(this.buttonsFooter);
 				break;
 		}
-	}
-
-	private void setUserNameAndEmailFields(Typeface normalTypeface) {
-
-		// Initialize name text view field
-		TextView lblName = (TextView)findViewById(R.id.lblName);
-		lblName.setTypeface(normalTypeface);
-		lblName.setText(this.user.getName());
-
-		if(this.user.getName().equals("")) {
-			lblName.setText(R.string.name_not_set);
-		}
-
-		// Initialize email text view field
-		TextView lblEmail = (TextView)findViewById(R.id.lblEmail);
-		lblEmail.setTypeface(normalTypeface);
-		lblEmail.setText(this.user.getEmail());
-
-		if(this.user.getEmail().equals("")) {
-			lblEmail.setText(R.string.email_not_set);
-		}
-
-		// Initialize name edit text field
-		EditText txtName = (EditText)findViewById(R.id.txtName);
-		txtName.setTypeface(normalTypeface);
-		txtName.setText(this.user.getName());
-
-		// Initialize email edit text field
-		EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
-		txtEmail.setTypeface(normalTypeface);
-		txtEmail.setText(this.user.getEmail());
 	}
 
 	private int checkUserState() {

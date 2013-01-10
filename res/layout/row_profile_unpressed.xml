@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="78dp"
     android:orientation="horizontal" >
 
     <LinearLayout
+        android:id="@+id/profile_unpressed_signed_values"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
         android:orientation="vertical" >
 
         <TextView
@@ -21,7 +21,8 @@
             android:text="@string/user_name"
             android:textColor="#333333"
             android:textSize="18sp"
-            android:typeface="normal" />
+            android:typeface="normal"
+            android:inputType="textCapWords"/>
 
         <TextView
             android:id="@+id/lblEmail"
@@ -36,5 +37,14 @@
             android:textSize="18sp"
             android:typeface="normal" />
     </LinearLayout>
+    
+    <TextView
+        android:id="@+id/profile_unpressed_unsigned_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="#999999"
+        android:textSize="12sp" />
 
-</LinearLayout>
+</RelativeLayout>
