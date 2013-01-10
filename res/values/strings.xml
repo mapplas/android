@@ -112,5 +112,7 @@
 	<string name="profile_empty_pinup_list">You don\'t have any pinned up apps</string>
 	<string name="profile_empty_block_list">You don\'t have any blocked apps</string>
 	
-	<string name="not_avaliable">Not avaliable</string>
+	<string name="not_avaliable">Not available</string>
+	
+	<string name="descriptive_geoloc_error">Oops\! It seems that you\'re in Wonderland.</string>
 </resources>

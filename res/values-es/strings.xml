@@ -97,4 +97,6 @@
 	
 	<string name="not_avaliable">No disponible</string>
 	
+	<string name="descriptive_geoloc_error">Ups! Google no es capaz de posicionarte.</string>
+	
 </resources>

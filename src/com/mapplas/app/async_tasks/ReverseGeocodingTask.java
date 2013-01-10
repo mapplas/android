@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.widget.TextView;
+import app.mapplas.com.R;
 
 import com.mapplas.model.SuperModel;
 
@@ -52,6 +53,10 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 			// Format the first line of address (if available), city, and
 			// country name.
 			addresText = String.format("%s, %s.", address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "", address.getLocality());
+			
+			if(addresText.equals("")) {
+				addresText = this.context.getString(R.string.descriptive_geoloc_error);
+			}
 		}
 		return addresText;
 	}
