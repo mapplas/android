@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Mapplas</string>
     <string name="filter">Filtro</string>
     <string name="install">Instalar</string>
@@ -29,74 +30,73 @@
     <string name="cancel">Cancelar</string>
     <string name="send">Enviar</string>
     <string name="support">Asistencia</string>
-    <string name="comment">Comentario</string> 
-    <string name="activity">Actividad</string>    
+    <string name="comment">Comentario</string>
+    <string name="activity">Actividad</string>
     <string name="rates">valoraciones</string>
     <string name="rate">valora</string>
-    <string name="reviews">valoraciones</string>   
+    <string name="reviews">valoraciones</string>
     <string name="likes">me gusta</string>
-	<string name="share">comparte</string>
-	<string name="block">bloquea</string>	
-	<string name="ptr_pull_to_refresh">Tira para refrescar&#8230;</string>
-	<string name="ptr_release_to_refresh">Suelta para refrescar&#8230;</string>
-    <string name="ptr_refreshing">Cargando aplicaciones&#8230;</string>	
-	<string name="unable_geoloc">No podemos obtener tu posición!!!</string>	
-	<string name="block_title">Bloquea esta Aplicación</string>
-	<string name="block_text">Vas a bloquear esta aplicación. ¿Estas seguro?</string>
-	<string name="block_accept">Bloqueala!</string>
-	<string name="block_cancel">Cancelar</string>
-	<string name="review">Comentar</string>	
-	<string name="like">me gusta</string>
-	<string name="call">llama</string>
-	<string name="developer">Desarrollador</string>
-	<string name="devMail">Email Desarrollador</string>
-	<string name="devWeb">Web del Desarrollador</string>
-	<string name="isuser">¿Ya eres usuario? Inicia sesión!</string>
-	<string name="password">Contraseña</string>
-	<string name="login">Ingresa</string>
-	<string name="blocks">bloqueadas</string>
-	<string name="edit">Editar</string>
-	<string name="rateIt">¡Puntúalo!</string>
-	<string name="unRated">Sin valorar</string>
-	<string name="poor">Baja</string>
-	<string name="belowAvg">Inferior a la media</string>
-	<string name="average">Media</string>
-	<string name="aboveAvg">Superior a la media</string>
-	<string name="excellent">Excelente</string>
-	<string name="newAccount">Si deseas guardar tus preferencias, create una cuenta!</string>
-	<string name="newAccountSignedIn">Pulsa login para acceder a tus preferencias.</string>
-	<string name="connect">También puedes conectar con Facebook y Twitter.</string>
-	<string name="year">año</string>
-	<string name="years">años</string>
-	<string name="month">mes</string>
-	<string name="months">meses</string>
-	<string name="day">d</string>
-	<string name="days">d</string>
-	<string name="hour">h</string>
-	<string name="hours">h</string>
-	<string name="minute">m</string>
-	<string name="minutes">m</string>
-	
-	<string name="really_logout">¿Realmente quieres salir?</string>
-	<string name="yes">Si</string>
-	<string name="no">No</string>
-	<string name="done">OK</string>
-	<string name="free">Gratis</string>
-	
-	<string name="signin">Sign-in</string>
-	<string name="signout">Sign-out</string>
-	
-	<string name="wifi_error_toast">Obten una busqueda más precisa! Activa la conexión Wi-Fi. Funcionará incluso sin que te conectes a una red.</string>
-	<string name="pull_to_refresh_wifi_error">Activa el Wi-Fi para una mejor precisión!</string>
-	<string name="connection_error_toast">No hay conexión a internet. Activa para continuar.</string>
-	
-	<string name="menu_refresh">Actualizar</string>
-	
-	<string name="profile_empty_pinup_list">No has pinneado ninguna app</string>
-	<string name="profile_empty_block_list">No has bloqueado ninguna app</string>
-	
-	<string name="not_avaliable">No disponible</string>
-	
-	<string name="descriptive_geoloc_error">Ups! Google no es capaz de posicionarte.</string>
-	
+    <string name="share">comparte</string>
+    <string name="block">bloquea</string>
+    <string name="ptr_pull_to_refresh">Tira para refrescar&#8230;</string>
+    <string name="ptr_release_to_refresh">Suelta para refrescar&#8230;</string>
+    <string name="ptr_refreshing">Cargando aplicaciones&#8230;</string>
+    <string name="unable_geoloc">No podemos obtener tu posición!!!</string>
+    <string name="block_title">Bloquea esta Aplicación</string>
+    <string name="block_text">Vas a bloquear esta aplicación. ¿Estas seguro?</string>
+    <string name="block_accept">Bloqueala!</string>
+    <string name="block_cancel">Cancelar</string>
+    <string name="review">Comentar</string>
+    <string name="like">me gusta</string>
+    <string name="call">llama</string>
+    <string name="developer">Desarrollador</string>
+    <string name="devMail">Email Desarrollador</string>
+    <string name="devWeb">Web del Desarrollador</string>
+    <string name="isuser">¿Ya eres usuario? Inicia sesión!</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Ingresa</string>
+    <string name="blocks">bloqueadas</string>
+    <string name="edit">Editar</string>
+    <string name="rateIt">¡Puntúalo!</string>
+    <string name="unRated">Sin valorar</string>
+    <string name="poor">Baja</string>
+    <string name="belowAvg">Inferior a la media</string>
+    <string name="average">Media</string>
+    <string name="aboveAvg">Superior a la media</string>
+    <string name="excellent">Excelente</string>
+    <string name="newAccount">Si deseas guardar tus preferencias, create una cuenta!</string>
+    <string name="newAccountSignedIn">Pulsa login para acceder a tus preferencias.</string>
+    <string name="connect">También puedes conectar con Facebook y Twitter.</string>
+    <string name="year">año</string>
+    <string name="years">años</string>
+    <string name="month">mes</string>
+    <string name="months">meses</string>
+    <string name="day">d</string>
+    <string name="days">d</string>
+    <string name="hour">h</string>
+    <string name="hours">h</string>
+    <string name="minute">m</string>
+    <string name="minutes">m</string>
+    <string name="really_logout">¿Realmente quieres salir?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="done">OK</string>
+    <string name="free">Gratis</string>
+    <string name="signin">Sign-in</string>
+    <string name="signout">Sign-out</string>
+    <string name="wifi_error_toast">Obten una busqueda más precisa! Activa la conexión Wi-Fi. Funcionará incluso sin que te conectes a una red.</string>
+    <string name="pull_to_refresh_wifi_error">Activa el Wi-Fi para una mejor precisión!</string>
+    <string name="connection_error_toast">No hay conexión a internet. Activa para continuar.</string>
+    <string name="menu_refresh">Actualizar</string>
+    <string name="profile_empty_pinup_list">No has pinneado ninguna app</string>
+    <string name="profile_empty_block_list">No has bloqueado ninguna app</string>
+    <string name="not_avaliable">No disponible</string>
+    <string name="descriptive_geoloc_error">Ups! Google no es capaz de posicionarte.</string>
+    <string name="menu_config">Configuración</string>
+    <string name="preferences_title">Configuración</string>
+    <string name="terms_of_use_title">Terminos de uso</string>
+    <string name="terms_of_use_message">Terminos de uso. \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tellus sapien. Nullam placerat, lorem nec lobortis gravida, nisi ipsum placerat augue, non auctor justo diam non nisi. Phasellus ullamcorper sodales dolor sed tincidunt. Nulla aliquet quam vel nisi dignissim id elementum tellus aliquet. Vivamus sodales posuere augue sed accumsan. Vivamus fermentum erat quis quam hendrerit dapibus faucibus ligula condimentum. Fusce convallis vulputate turpis, in iaculis orci tempus non. Nulla varius augue quis nibh venenatis pharetra. Proin luctus, turpis id ultrices convallis, massa lectus hendrerit purus, eu vehicula velit arcu vel turpis.</string>
+    <string name="privacy_policy_title">Política de privacidad.</string>
+    <string name="privacy_policy_message">Política de privacidad. \n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tellus sapien. Nullam placerat, lorem nec lobortis gravida, nisi ipsu</string>
+
 </resources>

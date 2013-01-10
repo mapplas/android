@@ -82,5 +82,9 @@ public class Constants {
 	public static final String MAPPLAS_EXTRA_BITMAP_POSITION = "extra_bitmap.position";
 	
 	public static final String MAPPLAS_ACTION_BROADCAST_IMAGE_APP_ADAPTER = "com.mapplas.action.image.app_adapter";
+	
+	// TextActivity
+	public static final String MAPPLAS_TEXT_ACTIVITY_EXTRA_TITLE = "text_activity.extra_title";
+	public static final String MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE = "text_activity.extra_message";
 
 }
