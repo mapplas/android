@@ -244,7 +244,7 @@ public class Notification implements Parcelable, Unit {
 		this.description = parcel.readString();
 		this.date = parcel.readString();
 		this.hour = parcel.readString();
-		this.auxApp = parcel.readParcelable(null);
+		this.auxApp = parcel.readParcelable(App.class.getClassLoader());
 		this.seen = parcel.readInt();
 		this.shown = parcel.readInt();
 		this.arrivalTimestamp = parcel.readLong();

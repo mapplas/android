@@ -20,7 +20,10 @@ public class NotificationRepository extends Repository {
 
 	public static int MAX_NOTIFICATIONS_IN_TABLE = 100;
 
+	// 1 day = 86400000ms
 	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 86400000;
+//	10 minutes = 600000ms
+//	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 600000;
 
 	private LinkedHashMap<Integer, Integer> notificationIds = null;
 
