@@ -91,7 +91,11 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		String strLastNotifications = sharedPreferences.getString(Constants.SYNESTH_LAST_NOTIFICATIONS, "");
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_locations.php?l=" + location.getLatitude() + "," + location.getLongitude() + "&uid=" + uid + "&ln=" + strLastNotifications + "&v=" + Constants.SYNESTH_VERSION);
+		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_locations.php?l=" + location.getLatitude() + "," + location.getLongitude() 
+			+ "&uid=" + uid 
+			+ "&ln=" + strLastNotifications 
+			+ "&v=" + Constants.SYNESTH_VERSION
+			+ "&p=" + location.getAccuracy());
 
 		try {
 			HttpResponse rp = hc.execute(post);
