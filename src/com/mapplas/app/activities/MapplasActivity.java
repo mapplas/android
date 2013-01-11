@@ -105,7 +105,7 @@ public class MapplasActivity extends Activity {
 
 		// Get user application list
 		final PackageManager pm = getPackageManager();
-		this.applicationList = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+		this.applicationList = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
 
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
