@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -277,15 +278,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		}
 	}
 
-	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
-		if(app.isAuxPin()) {
-			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
-		}
-		else {
-			image.setBackgroundResource(R.drawable.roundc_btn_selector);
-		}
-	}
-
 	private void initializeStartButton(final App app, Button buttonStart) {
 		if(buttonStart != null) {
 			if(app.getType().equalsIgnoreCase("application")) {
@@ -353,15 +345,24 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 		});
 	}
+	
+	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
+		if(app.isAuxPin()) {
+			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
+		}
+		else {
+			image.setBackgroundResource(R.drawable.roundc_btn_selector);
+		}
+	}
 
 	private void initializeLogo(App app, ImageView logo, ViewFlipper viewFlipper) {
 		logo.setTag(viewFlipper);
 		logo.setImageResource(R.drawable.ic_template);
 
-		logo.setOnClickListener(new View.OnClickListener() {
-
+		logo.setOnTouchListener(new View.OnTouchListener() {
+			
 			@Override
-			public void onClick(View v) {
+			public boolean onTouch(View v, MotionEvent event) {
 				ViewFlipper vf = (ViewFlipper)v.getTag();
 
 				if(vf != null) {
@@ -376,6 +377,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						vf.showPrevious();
 					}
 				}
+				return false;
 			}
 		});
 
