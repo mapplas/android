@@ -40,6 +40,7 @@ public class JsonParser {
 			jArray = new JSONArray(jString);
 
 			long currentTimestamp = System.currentTimeMillis();
+			NotificationInserter notifInserter = new NotificationInserter(this.context);
 
 			for(int i = 0; i < jArray.length(); i++) {
 				App loc = new App();
@@ -115,7 +116,7 @@ public class JsonParser {
 				loc.setAuxTotalComments(jArray.getJSONObject(i).getInt("AuxTotalComments"));
 
 				// Parse notifications
-				new NotificationInserter(this.context).insert(jArray, i, loc, model, currentTimestamp);
+				notifInserter.insert(jArray, i, loc, model, currentTimestamp);
 
 				// Parse comments
 				JSONArray auxArray = jArray.getJSONObject(i).getJSONArray("AuxComments");
@@ -153,12 +154,15 @@ public class JsonParser {
 				model.appList().add(loc);
 				model.appList().sort();
 			}
+			
+			notifInserter.flush();
 
 		} catch (Exception e) {
 			model.setOperationError(true);
 			model.setErrorText(e.getMessage());
 			e.printStackTrace();
 		}
+		
 	}
 
 	public User ParseUser(String input) {

@@ -1,6 +1,7 @@
 package com.mapplas.app.activities;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -97,8 +98,9 @@ public class MapplasActivity extends Activity {
 		}
 
 		// Get user application list
-		final PackageManager pm = getPackageManager();
-		this.applicationList = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
+		this.applicationList = new ArrayList<ApplicationInfo>();
+//		final PackageManager pm = getPackageManager();
+//		this.applicationList = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
 
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();

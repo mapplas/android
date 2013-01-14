@@ -101,9 +101,8 @@ public class AroundRequester implements UserLocationListener {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList).execute(new Location(location));
+				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList, this.activityManager).execute(new Location(location));
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-				new AppInfoSenderTask(this.applicationList, location, this.activityManager).execute();
 
 			} catch (Exception e) {
 				Log.i(getClass().getSimpleName(), e.toString());

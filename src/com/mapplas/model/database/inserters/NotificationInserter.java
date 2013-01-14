@@ -32,9 +32,7 @@ public class NotificationInserter {
 		// Parse notifications
 		JsonToNotificationMapper notificationMapper = new JsonToNotificationMapper();
 		Notification notification = new Notification();
-
-		boolean inserted = false;
-
+		
 		try {
 			JSONArray auxArray = jArray.getJSONObject(i).getJSONArray("AuxNews");
 			for(int j = 0; j < auxArray.length(); j++) {
@@ -49,15 +47,9 @@ public class NotificationInserter {
 				model.notificationList().add(notification);
 
 				this.notificationsRepository.insertNotificationsByChecking(notification);
-				inserted = true;
 				Log.d(this.getClass().getSimpleName(), "NOTIFICATION INSERTED. ID: " + notification.getId() + " NAME: " + notification.getName());
 			}
-
-			if(inserted) {
-				this.notificationsRepository.createOrUpdateFlush();
-				Log.d(this.getClass().getSimpleName(), "NOTIFICATIONS FLUSHED");
-			}
-
+			
 			this.deleteNotificationsUpTo(app, model);
 
 		} catch (Exception e) {
@@ -65,7 +57,15 @@ public class NotificationInserter {
 			model.setErrorText(e.getMessage());
 			e.printStackTrace();
 		}
+	}
 
+	public void flush() {
+		try {
+			this.notificationsRepository.createOrUpdateFlush();
+			Log.d(this.getClass().getSimpleName(), "NOTIFICATIONS FLUSHED");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private long getMsFromDateAndHour(String date, String hour) {
