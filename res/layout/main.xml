@@ -52,19 +52,18 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
+            <!-- Radar -->
+
+            <include layout="@layout/radar" />
+
             <com.mapplas.app.AwesomeListView
                 android:id="@+id/lvLista"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="#f7f8f8" >
+                android:background="#f7f8f8"
+                android:visibility="invisible" >
             </com.mapplas.app.AwesomeListView>
         </LinearLayout>
     </LinearLayout>
-
-    <include
-        android:id="@+id/id_splash"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        layout="@layout/launch" />
 
 </RelativeLayout>
