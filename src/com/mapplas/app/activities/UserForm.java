@@ -18,13 +18,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -68,7 +66,7 @@ public class UserForm extends Activity {
 
 	private RotateAnimation reverseFlipAnimation;
 
-	private RotateAnimation refreshAnimation;
+//	private RotateAnimation refreshAnimation;
 
 	private Animation animFlipInNext;
 
@@ -214,12 +212,12 @@ public class UserForm extends Activity {
 	}
 
 	private void initializeAnimations() {
-		this.refreshAnimation = new RotateAnimation(-360, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-		this.refreshAnimation.setInterpolator(new LinearInterpolator());
-		this.refreshAnimation.setDuration(1500);
-		this.refreshAnimation.setFillAfter(true);
-		this.refreshAnimation.setRepeatCount(Animation.INFINITE);
-		this.refreshAnimation.setRepeatMode(Animation.RESTART);
+//		this.refreshAnimation = new RotateAnimation(-360, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+//		this.refreshAnimation.setInterpolator(new LinearInterpolator());
+//		this.refreshAnimation.setDuration(1500);
+//		this.refreshAnimation.setFillAfter(true);
+//		this.refreshAnimation.setRepeatCount(Animation.INFINITE);
+//		this.refreshAnimation.setRepeatMode(Animation.RESTART);
 
 		this.flipAnimation = new RotateAnimation(0, 90, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 		this.flipAnimation.setInterpolator(new LinearInterpolator());
@@ -244,8 +242,6 @@ public class UserForm extends Activity {
 		this.headerLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
 		this.buttonsFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
 		this.refreshListBackgroundFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
-		ImageView mPrivateRefreshIcon = (ImageView)this.refreshListBackgroundFooter.findViewById(R.id.ivImage);
-		mPrivateRefreshIcon.startAnimation(refreshAnimation);
 
 		this.listView = (ListView)findViewById(R.id.lvList);
 		this.listView.addHeaderView(this.headerLayout);
