@@ -16,6 +16,7 @@ import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.async_tasks.AppGetterTask;
+import com.mapplas.app.async_tasks.AppInfoSenderTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.NetworkConnectionChecker;
@@ -98,6 +99,7 @@ public class AroundRequester implements UserLocationListener {
 
 				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList).execute(new Location(location));
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
+				new AppInfoSenderTask(this.applicationList, location).execute();
 
 			} catch (Exception e) {
 				Log.i(getClass().getSimpleName(), e.toString());
