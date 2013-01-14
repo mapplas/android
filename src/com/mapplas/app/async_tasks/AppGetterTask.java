@@ -11,9 +11,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -33,7 +35,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.static_intents.AppAdapterSingleton;
 
-public class AppGetterTask extends AsyncTask<Location, Void, Void> {
+public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 
 	private Context context;
 
@@ -44,23 +46,25 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 	private AwesomeListView listView;
 
 	private List<ApplicationInfo> applicationList;
+	
+	private ActivityManager activityManager;
 
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private static boolean occupied = false;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
 		super();
 		this.context = context;
 		this.model = model;
 		this.listViewAdapter = listViewAdapter;
 		this.listView = listView;
 		this.applicationList = applicationList;
+		this.activityManager = activityManager;
 	}
 
 	@Override
-	protected Void doInBackground(Location... params) {
-
+	protected Location doInBackground(Location... params) {
 		try {
 			semaphore.acquire();
 			if(occupied) {
@@ -88,11 +92,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		String strLastNotifications = sharedPreferences.getString(Constants.SYNESTH_LAST_NOTIFICATIONS, "");
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_locations.php?l=" + location.getLatitude() + "," + location.getLongitude() 
-			+ "&uid=" + uid 
-			+ "&ln=" + strLastNotifications 
-			+ "&v=" + Constants.SYNESTH_VERSION
-			+ "&p=" + location.getAccuracy());
+		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_locations.php?l=" + location.getLatitude() + "," + location.getLongitude() + "&uid=" + uid + "&ln=" + strLastNotifications + "&v=" + Constants.SYNESTH_VERSION + "&p=" + location.getAccuracy());
 
 		try {
 			HttpResponse rp = hc.execute(post);
@@ -103,6 +103,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 				// Comprobamos que el parser funciona correctamente
 				JsonParser jp = new JsonParser(this.context);
 				jp.parseApps(serverResponse, this.model, false);
+
 			}
 			else {
 				if(MapplasActivity.mDebug) {
@@ -124,72 +125,39 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 			return null;
 		}
 
-		return null;
+		return location;
 	}
 
 	@Override
-	protected void onPostExecute(Void result) {
-		super.onPostExecute(result);
-		
+	protected void onPostExecute(Location location) {
+		super.onPostExecute(location);
+
 		// Get first X applications
 		ArrayList<App> appList = new ArrayList<App>();
 		int maxIndex = InfiniteScrollManager.NUMBER_OF_APPS;
-		
+
 		if(this.model.appList().size() < InfiniteScrollManager.NUMBER_OF_APPS) {
 			maxIndex = this.model.appList().size();
 		}
 		for(int i = 0; i < maxIndex; i++) {
 			appList.add(this.model.appList().get(i));
 		}
-		
+
 		this.listViewAdapter = new AppAdapter(this.context, this.listView, this.model, appList);
 		this.listView.setAdapter(this.listViewAdapter);
 		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 		this.listView.setVisibility(View.VISIBLE);
-		
+
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
 
-//		final RelativeLayout mainLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.layoutMain);
-//		final LinearLayout mainScreenContentLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.lytContent);
-//		final LinearLayout splashLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.id_splash);
 		final Button notificationsButton = (Button)((MapplasActivity)this.context).findViewById(R.id.btnNotifications);
 
-//		if(MapplasActivity.isSplashActive) {
-//			final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
-//			fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
-//			// this
-//			fadeOutAnimation.setStartOffset(0);
-//			fadeOutAnimation.setDuration(500);
-//
-//			final Animation fadeInAnimation = new AlphaAnimation(0, 1);
-//			fadeInAnimation.setInterpolator(new AccelerateInterpolator()); // and
-//			// this
-//			fadeInAnimation.setStartOffset(0);
-//			fadeInAnimation.setDuration(500);
-//
-//			fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
-//
-//				@Override
-//				public void onAnimationStart(Animation animation) {
-//				}
-//
-//				@Override
-//				public void onAnimationRepeat(Animation animation) {
-//				}
-//
-//				@Override
-//				public void onAnimationEnd(Animation animation) {
-//					mainLayout.removeView(splashLayout);
-//					mainScreenContentLayout.startAnimation(fadeInAnimation);
-//				}
-//			});
-//
-//			mainLayout.startAnimation(fadeOutAnimation);
-//			MapplasActivity.isSplashActive = false;
-//		}
-
 		if(this.listViewAdapter != null) {
+			
+			// Get app list from telf.
+			final PackageManager pm = this.context.getPackageManager();
+			this.applicationList = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
 
 			for(int i = 0; i < maxIndex; i++) {
 				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getAppName());
@@ -211,6 +179,9 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 
 			this.listView.finishRefresing();
 		}
+
+		// Send app info to server
+		new AppInfoSenderTask(this.applicationList, location, this.activityManager).execute();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {
