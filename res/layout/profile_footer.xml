@@ -11,13 +11,13 @@
         android:layout_height="128dp"
         android:orientation="horizontal" >
 
-        <ImageView
+       <!--  <ImageView
             android:id="@+id/ivImage"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_refresh_photo" />
+            android:src="@drawable/ic_refresh_photo" /> -->
 
         <TextView
             android:id="@+id/lblAction"
