@@ -17,11 +17,8 @@ import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
+import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -148,45 +145,49 @@ public class AppGetterTask extends AsyncTask<Location, Void, Void> {
 		this.listViewAdapter = new AppAdapter(this.context, this.listView, this.model, appList);
 		this.listView.setAdapter(this.listViewAdapter);
 		AppAdapterSingleton.appAdapter = this.listViewAdapter;
+		this.listView.setVisibility(View.VISIBLE);
+		
+		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
+		radarLayout.setVisibility(View.GONE);
 
-		final RelativeLayout mainLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.layoutMain);
-		final LinearLayout mainScreenContentLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.lytContent);
-		final LinearLayout splashLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.id_splash);
+//		final RelativeLayout mainLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.layoutMain);
+//		final LinearLayout mainScreenContentLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.lytContent);
+//		final LinearLayout splashLayout = (LinearLayout)((MapplasActivity)this.context).findViewById(R.id.id_splash);
 		final Button notificationsButton = (Button)((MapplasActivity)this.context).findViewById(R.id.btnNotifications);
 
-		if(MapplasActivity.isSplashActive) {
-			final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
-			fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
-			// this
-			fadeOutAnimation.setStartOffset(0);
-			fadeOutAnimation.setDuration(500);
-
-			final Animation fadeInAnimation = new AlphaAnimation(0, 1);
-			fadeInAnimation.setInterpolator(new AccelerateInterpolator()); // and
-			// this
-			fadeInAnimation.setStartOffset(0);
-			fadeInAnimation.setDuration(500);
-
-			fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
-
-				@Override
-				public void onAnimationStart(Animation animation) {
-				}
-
-				@Override
-				public void onAnimationRepeat(Animation animation) {
-				}
-
-				@Override
-				public void onAnimationEnd(Animation animation) {
-					mainLayout.removeView(splashLayout);
-					mainScreenContentLayout.startAnimation(fadeInAnimation);
-				}
-			});
-
-			mainLayout.startAnimation(fadeOutAnimation);
-			MapplasActivity.isSplashActive = false;
-		}
+//		if(MapplasActivity.isSplashActive) {
+//			final Animation fadeOutAnimation = new AlphaAnimation(1, 0);
+//			fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
+//			// this
+//			fadeOutAnimation.setStartOffset(0);
+//			fadeOutAnimation.setDuration(500);
+//
+//			final Animation fadeInAnimation = new AlphaAnimation(0, 1);
+//			fadeInAnimation.setInterpolator(new AccelerateInterpolator()); // and
+//			// this
+//			fadeInAnimation.setStartOffset(0);
+//			fadeInAnimation.setDuration(500);
+//
+//			fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+//
+//				@Override
+//				public void onAnimationStart(Animation animation) {
+//				}
+//
+//				@Override
+//				public void onAnimationRepeat(Animation animation) {
+//				}
+//
+//				@Override
+//				public void onAnimationEnd(Animation animation) {
+//					mainLayout.removeView(splashLayout);
+//					mainScreenContentLayout.startAnimation(fadeInAnimation);
+//				}
+//			});
+//
+//			mainLayout.startAnimation(fadeOutAnimation);
+//			MapplasActivity.isSplashActive = false;
+//		}
 
 		if(this.listViewAdapter != null) {
 

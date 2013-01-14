@@ -46,7 +46,6 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 			}
 		}
 		
-//		Recently used apps - NECESITA NUEVO PERMISO
         List<RecentTaskInfo> task = this.activityManager.getRecentTasks(5,0);
         String lastUsedApps = task.get(0).baseIntent.getPackage();
 

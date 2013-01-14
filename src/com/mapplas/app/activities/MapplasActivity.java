@@ -58,8 +58,6 @@ public class MapplasActivity extends Activity {
 	/* Properties */
 	private SuperModel model = new SuperModel();
 
-	public static boolean isSplashActive = true;
-
 	private LocationManager locationManager = null;
 
 	public List<ApplicationInfo> applicationList = null;
@@ -67,8 +65,6 @@ public class MapplasActivity extends Activity {
 	private AwesomeListView listView = null;
 
 	private AppAdapter listViewAdapter = null;
-
-	// private static SharedPreferences sharedPreferences = null;
 
 	private TextView listViewHeaderStatusMessage = null;
 
@@ -89,10 +85,6 @@ public class MapplasActivity extends Activity {
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
 
-		// this.sharedPreferences =
-		// getApplicationContext().getSharedPreferences("synesth",
-		// Context.MODE_PRIVATE);
-		MapplasActivity.isSplashActive = true;
 		this.startRadarAnimation();
 
 		// Identificamos contra el servidor
