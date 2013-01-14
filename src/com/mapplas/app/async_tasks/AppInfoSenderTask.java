@@ -28,10 +28,13 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 	private List<ApplicationInfo> applicationList;
 
 	private Location location;
+	
+	private ActivityManager activityManager;
 
-	public AppInfoSenderTask(List<ApplicationInfo> applicationList, Location location) {
+	public AppInfoSenderTask(List<ApplicationInfo> applicationList, Location location, ActivityManager activityManager) {
 		this.applicationList = applicationList;
 		this.location = location;
+		this.activityManager = activityManager;
 	}
 
 	@Override
@@ -44,9 +47,8 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 		}
 		
 //		Recently used apps - NECESITA NUEVO PERMISO
-//		ActivityManager m = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-//        List<RecentTaskInfo> task = m.getRecentTasks(5,0);
-//        String packagee = task.get(0).baseIntent.getPackage();
+        List<RecentTaskInfo> task = this.activityManager.getRecentTasks(5,0);
+        String lastUsedApps = task.get(0).baseIntent.getPackage();
 
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "TODO.php");
@@ -54,6 +56,7 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("loc", this.location.getLatitude() + "," + this.location.getLongitude()));
 		nameValuePairs.add(new BasicNameValuePair("apps", installedAppsPackage.toString()));
+		nameValuePairs.add(new BasicNameValuePair("last", lastUsedApps));
 
 		String serverResponse = "";
 		try {

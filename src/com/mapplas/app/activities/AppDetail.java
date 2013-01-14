@@ -653,6 +653,15 @@ public class AppDetail extends Activity {
 						App currentApp = model.appList().get(i);
 						if(currentApp.getId() == anonLoc.getId()) {
 							currentApp.setAuxPin(!currentApp.isAuxPin());
+							
+							// Add or not 1 element to total pins count
+							if(currentApp.isAuxPin()) {
+								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() + 1);
+							}
+							else {
+								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() - 1);
+							}
+							
 							found = true;
 						}
 						i++;

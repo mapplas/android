@@ -2,6 +2,7 @@ package com.mapplas.utils.location;
 
 import java.util.List;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
@@ -40,8 +41,10 @@ public class AroundRequester implements UserLocationListener {
 	private AppAdapter appAdapter;
 
 	private List<ApplicationInfo> applicationList;
+	
+	private ActivityManager activityManager;
 
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -50,6 +53,7 @@ public class AroundRequester implements UserLocationListener {
 		this.userLocationRequester = userLocationRequesterFactory.create(locationManager, this, timeOut);
 		this.appAdapter = appAdapter;
 		this.applicationList = applicationList;
+		this.activityManager = activityManager;
 	}
 
 	public void start() {
@@ -99,7 +103,7 @@ public class AroundRequester implements UserLocationListener {
 
 				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList).execute(new Location(location));
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-				new AppInfoSenderTask(this.applicationList, location).execute();
+				new AppInfoSenderTask(this.applicationList, location, this.activityManager).execute();
 
 			} catch (Exception e) {
 				Log.i(getClass().getSimpleName(), e.toString());

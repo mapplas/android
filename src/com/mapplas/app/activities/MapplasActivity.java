@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -116,7 +117,8 @@ public class MapplasActivity extends Activity {
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList);
+		ActivityManager activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager);
 
 		// Check network status
 		this.checkNetworkStatus();

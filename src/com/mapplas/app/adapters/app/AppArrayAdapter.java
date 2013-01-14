@@ -413,11 +413,15 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
 						cellHolder.pinUp.setText(R.string.pin_up);
+						
+						app.setAuxTotalPins(app.getAuxTotalPins() - 1);
 					}
 					else {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
+						
+						app.setAuxTotalPins(app.getAuxTotalPins() + 1);
 					}
 
 					cellHolder.logoRoundCorner.invalidate();
