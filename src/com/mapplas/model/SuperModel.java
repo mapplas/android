@@ -1,5 +1,7 @@
 package com.mapplas.model;
 
+import java.util.ArrayList;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -24,6 +26,8 @@ public class SuperModel implements Parcelable {
 	private boolean operationError = false;
 
 	private String errorText = "";
+	
+	private ArrayList<String> notificationRawList = new ArrayList<String>();
 
 	public SuperModel() {
 	}
@@ -103,6 +107,14 @@ public class SuperModel implements Parcelable {
 	public void setNotificationList(NotificationList list) {
 		this.notificationList = list;
 	}
+	
+	public ArrayList<String> notificationRawList() {
+		return this.notificationRawList;
+	}
+	
+	public void setNotificationRawList(ArrayList<String> rawList) {
+		this.notificationRawList = rawList;
+	}
 
 	/**
 	 * 
@@ -154,6 +166,7 @@ public class SuperModel implements Parcelable {
 		dest.writeParcelable(this.notificationList, flags);
 		dest.writeByte((byte)(this.operationError ? 1 : 0));
 		dest.writeString(this.errorText);
+		dest.writeSerializable(this.notificationRawList);
 	}
 
 	public SuperModel(Parcel parcel) {
@@ -167,6 +180,7 @@ public class SuperModel implements Parcelable {
 		parcel.readParcelable(AppOrderedList.class.getClassLoader());
 		this.operationError = parcel.readByte() == 1;
 		this.errorText = parcel.readString();
+		parcel.readList(this.notificationList, String.class.getClassLoader());
 	}
 
 	public static final Parcelable.Creator<SuperModel> CREATOR = new Parcelable.Creator<SuperModel>() {

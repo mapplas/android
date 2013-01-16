@@ -9,7 +9,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
@@ -99,8 +98,6 @@ public class MapplasActivity extends Activity {
 
 		// Get user application list
 		this.applicationList = new ArrayList<ApplicationInfo>();
-//		final PackageManager pm = getPackageManager();
-//		this.applicationList = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
 
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
@@ -112,7 +109,8 @@ public class MapplasActivity extends Activity {
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		ActivityManager activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager);
+		Button notificationsButton = (Button)this.findViewById(R.id.btnNotifications);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager, notificationsButton);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -320,17 +318,6 @@ public class MapplasActivity extends Activity {
 
 		// final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
 		// final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
-
-		// Thread randomNumbersThread = new Thread(
-		// new Runnable() {
-		// Random random = new Random();
-		// @Override
-		// public void run() {
-		// latitude.setText(random.nextInt());
-		// longitude.setText(random.nextInt());
-		// }
-		// });
-		// randomNumbersThread.start();
 	}
 
 	/**
