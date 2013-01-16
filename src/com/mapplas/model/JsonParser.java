@@ -31,21 +31,21 @@ public class JsonParser {
 
 	public void parseApps(String input, SuperModel model, boolean append) {
 		model.resetError();
-		String jString = input;
 
 		if(!append) {
 			model.resetModel();
 		}
 
 		try {
-			jArray = new JSONArray(jString);
+			this.jArray = new JSONArray(input);
 
 			long currentTimestamp = System.currentTimeMillis();
 			NotificationInserter notifInserter = new NotificationInserter(this.context);
-
-			for(int i = 0; i < jArray.length(); i++) {
+			JSONObject currentJson = new JSONObject();
+			
+			for(int i = 0; i < this.jArray.length(); i++) {
 				App loc = new App();
-				JSONObject currentJson = jArray.getJSONObject(i);
+				currentJson = this.jArray.getJSONObject(i);
 				
 				loc.setId(currentJson.getInt("IDLocalization"));
 				loc.setName(currentJson.getString("Name"));
@@ -76,19 +76,22 @@ public class JsonParser {
 				loc.setAuxTotalComments(currentJson.getInt("AuxTotalComments"));
 
 				// Parse notifications
-				notifInserter.insert(jArray, i, loc, model, currentTimestamp);
+				notifInserter.insert(this.jArray, i, loc, model, currentTimestamp);
 
 				// Parse comments
 				JSONArray auxArray = currentJson.getJSONArray("AuxComments");
+				JSONObject currentComment = new JSONObject();
 				for(int j = 0; j < auxArray.length(); j++) {
 					Comment com = new Comment();
-					com.setId(auxArray.getJSONObject(j).getInt("IDComment"));
-					com.setIdLocalization(auxArray.getJSONObject(j).getInt("IDLocalization"));
-					com.setComment(URLDecoder.decode(auxArray.getJSONObject(j).getString("Comment")));
-					com.setDate(auxArray.getJSONObject(j).getString("Date"));
-					com.setHour(auxArray.getJSONObject(j).getString("Hour"));
-					com.setRate((float)auxArray.getJSONObject(j).getDouble("Rate"));
-					com.setIdUser(auxArray.getJSONObject(j).getInt("IDUser"));
+					currentComment = auxArray.getJSONObject(j);
+					
+					com.setId(currentComment.getInt("IDComment"));
+					com.setIdLocalization(currentComment.getInt("IDLocalization"));
+					com.setComment(URLDecoder.decode(currentComment.getString("Comment")));
+					com.setDate(currentComment.getString("Date"));
+					com.setHour(currentComment.getString("Hour"));
+					com.setRate((float)currentComment.getDouble("Rate"));
+					com.setIdUser(currentComment.getInt("IDUser"));
 
 					// com.setAuxLocalization(loc);
 
@@ -96,15 +99,18 @@ public class JsonParser {
 				}
 
 				auxArray = currentJson.getJSONArray("AuxPhotos");
+				JSONObject currentPhoto = new JSONObject();
 				for(int j = 0; j < auxArray.length(); j++) {
 					Photo pho = new Photo();
-					pho.setId(auxArray.getJSONObject(j).getInt("IDPhoto"));
-					pho.setIdLocalization(auxArray.getJSONObject(j).getInt("IDLocalization"));
-					pho.setComment(auxArray.getJSONObject(j).getString("Comment"));
-					pho.setDate(auxArray.getJSONObject(j).getString("Date"));
-					pho.setHour(auxArray.getJSONObject(j).getString("Hour"));
-					pho.setPhoto(auxArray.getJSONObject(j).getString("Photo"));
-					pho.setIdUser(auxArray.getJSONObject(j).getInt("IDUser"));
+					currentPhoto = auxArray.getJSONObject(j);
+					
+					pho.setId(currentPhoto.getInt("IDPhoto"));
+					pho.setIdLocalization(currentPhoto.getInt("IDLocalization"));
+					pho.setComment(currentPhoto.getString("Comment"));
+					pho.setDate(currentPhoto.getString("Date"));
+					pho.setHour(currentPhoto.getString("Hour"));
+					pho.setPhoto(currentPhoto.getString("Photo"));
+					pho.setIdUser(currentPhoto.getInt("IDUser"));
 
 					// pho.setAuxLocalization(loc);
 
@@ -120,9 +126,9 @@ public class JsonParser {
 				}
 
 				model.appList().add(loc);
-				model.appList().sort();
 			}
-
+			
+			model.appList().sort();
 			notifInserter.flush();
 
 		} catch (Exception e) {
@@ -137,19 +143,19 @@ public class JsonParser {
 		String jString = input;
 
 		try {
-			jObject = new JSONObject(jString);
+			this.jObject = new JSONObject(jString);
 
 			User usr = new User();
 
-			usr.setId(jObject.getInt("IDUser"));
-			usr.setName(jObject.getString("Name"));
-			usr.setLastname(jObject.getString("Lastname"));
-			usr.setGender(jObject.getString("Gender"));
-			usr.setBirthdate(jObject.getString("Birthdate"));
-			usr.setLogin(jObject.getString("Login"));
-			usr.setPassword(jObject.getString("Password"));
-			usr.setEmail(jObject.getString("Email"));
-			usr.setImei(jObject.getString("Imei"));
+			usr.setId(this.jObject.getInt("IDUser"));
+			usr.setName(this.jObject.getString("Name"));
+			usr.setLastname(this.jObject.getString("Lastname"));
+			usr.setGender(this.jObject.getString("Gender"));
+			usr.setBirthdate(this.jObject.getString("Birthdate"));
+			usr.setLogin(this.jObject.getString("Login"));
+			usr.setPassword(this.jObject.getString("Password"));
+			usr.setEmail(this.jObject.getString("Email"));
+			usr.setImei(this.jObject.getString("Imei"));
 
 			return usr;
 
@@ -262,56 +268,16 @@ public class JsonParser {
 				loc.setName(jArray.getJSONObject(i).getString("Name"));
 				loc.setLatitude(jArray.getJSONObject(i).getDouble("Latitude"));
 				loc.setLongitude(jArray.getJSONObject(i).getDouble("Longitude"));
-				// loc.setAddress(jArray.getJSONObject(i).getString("Address"));
-				// loc.setZipCode(jArray.getJSONObject(i).getString("ZipCode"));
-				// loc.setState(jArray.getJSONObject(i).getString("State"));
-				// loc.setCity(jArray.getJSONObject(i).getString("City"));
-				// loc.setCountry(jArray.getJSONObject(i).getString("Country"));
 
 				loc.setType(jArray.getJSONObject(i).getString("Type"));
 
-				// loc.setIdCompany(jArray.getJSONObject(i).getInt("IDCompany"));
-				//
-				// loc.setOfferId(jArray.getJSONObject(i).getInt("OfferID"));
-				// loc.setOfferName(jArray.getJSONObject(i).getString("OfferName"));
-				// loc.setOfferLogo(jArray.getJSONObject(i).getString("OfferLogo"));
-				// loc.setOfferLogoMini(jArray.getJSONObject(i).getString("OfferLogoMini"));
-				// loc.setOfferURL(jArray.getJSONObject(i).getString("OfferURL"));
-				// loc.setOfferText(jArray.getJSONObject(i).getString("OfferText"));
-
-				// loc.setUrlId(jArray.getJSONObject(i).getInt("URLID"));
-				// loc.setUrlName(jArray.getJSONObject(i).getString("URLName"));
-				// loc.setUrlLogo(jArray.getJSONObject(i).getString("URLLogo"));
-				// loc.setUrlLogoMini(jArray.getJSONObject(i).getString("URLLogoMini"));
-				// loc.setUrlValue(jArray.getJSONObject(i).getString("URLValue"));
-				// loc.setUrlText(jArray.getJSONObject(i).getString("URLText"));
-
-				// loc.setAppId(jArray.getJSONObject(i).getInt("AppID"));
 				loc.setAppName(jArray.getJSONObject(i).getString("AppName"));
 				loc.setAppLogo(jArray.getJSONObject(i).getString("AppLogo"));
 				loc.setAppLogoMini(jArray.getJSONObject(i).getString("AppLogoMini"));
 				loc.setAppUrl(jArray.getJSONObject(i).getString("AppURL"));
 				loc.setAppDescription(jArray.getJSONObject(i).getString("AppDescription"));
-				// loc.setAppType(jArray.getJSONObject(i).getString("AppType"));
-
-				// loc.setUserAlarmId(jArray.getJSONObject(i).getInt("UserAlarmID"));
-				// loc.setUserAlarmName(jArray.getJSONObject(i).getString("UserAlarmName"));
-				//
-				// loc.setUserUrlId(jArray.getJSONObject(i).getInt("UserURLID"));
-				// loc.setUserUrlTags(jArray.getJSONObject(i).getString("UserURLTags"));
-				// loc.setUserUrlComment(jArray.getJSONObject(i).getString("UserURLComment"));
-				// loc.setUserUrlPhoto(jArray.getJSONObject(i).getString("UserURLPhoto"));
-				// loc.setUserUrlValue(jArray.getJSONObject(i).getString("UserURLValue"));
-				// loc.setUserUrlDescription(jArray.getJSONObject(i).getString("UserURLDescription"));
-				//
-				// loc.setIdUser(jArray.getJSONObject(i).getInt("IDUser"));
-
-				// loc.setRadius(jArray.getJSONObject(i).getDouble("Radius"));
 
 				loc.setPhone(jArray.getJSONObject(i).getString("Phone"));
-				// loc.setWifi(jArray.getJSONObject(i).getString("Wifi"));
-				// loc.setBluetooth(jArray.getJSONObject(i).getString("Bluetooth"));
-				// loc.setLocation(jArray.getJSONObject(i).getString("Location"));
 
 				loc.setAppPrice((float)jArray.getJSONObject(i).getDouble("AppPrice"));
 
