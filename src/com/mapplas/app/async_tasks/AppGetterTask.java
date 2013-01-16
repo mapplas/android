@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
@@ -48,12 +47,14 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 	private List<ApplicationInfo> applicationList;
 	
 	private ActivityManager activityManager;
+	
+	private Button notificationsButton;
 
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private static boolean occupied = false;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, ActivityManager activityManager, Button notificationsButton) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -61,6 +62,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 		this.listView = listView;
 		this.applicationList = applicationList;
 		this.activityManager = activityManager;
+		this.notificationsButton = notificationsButton;
 	}
 
 	@Override
@@ -103,13 +105,6 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 				// Comprobamos que el parser funciona correctamente
 				JsonParser jp = new JsonParser(this.context);
 				jp.parseApps(serverResponse, this.model, false);
-
-			}
-			else {
-				if(MapplasActivity.mDebug) {
-					String textoToast = "ESTADO: " + rp.getStatusLine().getStatusCode();
-					Toast.makeText(context, textoToast, Toast.LENGTH_LONG).show();
-				}
 			}
 
 		} catch (Exception exc) {
@@ -151,7 +146,6 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
 
-		final Button notificationsButton = (Button)((MapplasActivity)this.context).findViewById(R.id.btnNotifications);
 
 		if(this.listViewAdapter != null) {
 			
@@ -166,19 +160,13 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 				}
 			}
 
-			if(this.model.notificationList().size() > 0) {
-				notificationsButton.setText(this.model.notificationList().size() + "");
-				notificationsButton.setBackgroundResource(R.drawable.menu_notifications_number_button);
-			}
-			else {
-				notificationsButton.setText("");
-				notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
-			}
-
 			this.listViewAdapter.notifyDataSetChanged();
 
 			this.listView.finishRefresing();
 		}
+		
+		// Insert notifications into database
+		new NotificationDatabaseInserterTask(this.model, this.context, this.notificationsButton).execute();
 
 		// Send app info to server
 		new AppInfoSenderTask(this.applicationList, location, this.activityManager).execute();

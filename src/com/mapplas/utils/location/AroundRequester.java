@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,6 @@ import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.async_tasks.AppGetterTask;
-import com.mapplas.app.async_tasks.AppInfoSenderTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.NetworkConnectionChecker;
@@ -43,8 +43,10 @@ public class AroundRequester implements UserLocationListener {
 	private List<ApplicationInfo> applicationList;
 	
 	private ActivityManager activityManager;
+	
+	private Button notificationsButton;
 
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList, ActivityManager activityManager, Button notificationsButton) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -54,6 +56,7 @@ public class AroundRequester implements UserLocationListener {
 		this.appAdapter = appAdapter;
 		this.applicationList = applicationList;
 		this.activityManager = activityManager;
+		this.notificationsButton = notificationsButton;
 	}
 
 	public void start() {
@@ -100,10 +103,12 @@ public class AroundRequester implements UserLocationListener {
 			try {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
+				
+				this.notificationsButton.setEnabled(false);
 
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList, this.activityManager).execute(new Location(location));
-				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-
+				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList, this.activityManager, notificationsButton).execute(new Location(location));
+				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));		
+				
 			} catch (Exception e) {
 				Log.i(getClass().getSimpleName(), e.toString());
 			}

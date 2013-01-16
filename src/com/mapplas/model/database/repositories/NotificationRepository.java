@@ -158,7 +158,7 @@ public class NotificationRepository extends Repository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void deleteRowsUpTo(int numberOfRowsToSave, SuperModel model, App app) {
+	public void deleteRowsUpTo(int numberOfRowsToSave, SuperModel model) {
 		try {
 			// Get first 100 notifications ordered by date
 			QueryBuilder<Notification, Integer> queryBuilder = this.getDao().queryBuilder();
@@ -172,7 +172,7 @@ public class NotificationRepository extends Repository {
 			NotificationList appNotifications = new NotificationList();
 			// Insert elements in query to database table and model
 			for(Notification current : notificationList) {
-				current.setAuxApp(app);
+				current.setAuxApp(this.getAppForId(current.getAppId(), model));
 				this.insertNotifications(current);
 
 				appNotifications.add(current);
@@ -188,6 +188,16 @@ public class NotificationRepository extends Repository {
 		} catch (Exception e) {
 			Log.e(this.getClass().getName(), e.getMessage(), e);
 		}
+	}
+	
+	private App getAppForId(int appId, SuperModel model) {
+		ArrayList<App> appList = model.appList().getAppList();
+		for(App app : appList) {
+			if(app.getId() == appId) {
+				return app;
+			}
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")

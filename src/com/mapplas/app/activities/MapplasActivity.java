@@ -109,7 +109,8 @@ public class MapplasActivity extends Activity {
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		ActivityManager activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager);
+		Button notificationsButton = (Button)this.findViewById(R.id.btnNotifications);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager, notificationsButton);
 
 		// Check network status
 		this.checkNetworkStatus();

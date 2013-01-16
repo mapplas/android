@@ -14,7 +14,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 
-import com.mapplas.model.database.inserters.NotificationInserter;
 import com.mapplas.utils.LocationCurrency;
 
 public class JsonParser {
@@ -31,6 +30,7 @@ public class JsonParser {
 
 	public void parseApps(String input, SuperModel model, boolean append) {
 		model.resetError();
+		model.notificationRawList().clear();
 
 		if(!append) {
 			model.resetModel();
@@ -39,8 +39,6 @@ public class JsonParser {
 		try {
 			this.jArray = new JSONArray(input);
 
-			long currentTimestamp = System.currentTimeMillis();
-			NotificationInserter notifInserter = new NotificationInserter(this.context);
 			JSONObject currentJson = new JSONObject();
 			
 			for(int i = 0; i < this.jArray.length(); i++) {
@@ -75,9 +73,6 @@ public class JsonParser {
 				loc.setAuxTotalPins(currentJson.getInt("AuxTotalPins"));
 				loc.setAuxTotalComments(currentJson.getInt("AuxTotalComments"));
 
-				// Parse notifications
-				notifInserter.insert(this.jArray, i, loc, model, currentTimestamp);
-
 				// Parse comments
 				JSONArray auxArray = currentJson.getJSONArray("AuxComments");
 				JSONObject currentComment = new JSONObject();
@@ -105,12 +100,12 @@ public class JsonParser {
 					currentPhoto = auxArray.getJSONObject(j);
 					
 					pho.setId(currentPhoto.getInt("IDPhoto"));
-					pho.setIdLocalization(currentPhoto.getInt("IDLocalization"));
-					pho.setComment(currentPhoto.getString("Comment"));
-					pho.setDate(currentPhoto.getString("Date"));
-					pho.setHour(currentPhoto.getString("Hour"));
+//					pho.setIdLocalization(currentPhoto.getInt("IDLocalization"));
+//					pho.setComment(currentPhoto.getString("Comment"));
+//					pho.setDate(currentPhoto.getString("Date"));
+//					pho.setHour(currentPhoto.getString("Hour"));
 					pho.setPhoto(currentPhoto.getString("Photo"));
-					pho.setIdUser(currentPhoto.getInt("IDUser"));
+//					pho.setIdUser(currentPhoto.getInt("IDUser"));
 
 					// pho.setAuxLocalization(loc);
 
@@ -126,10 +121,10 @@ public class JsonParser {
 				}
 
 				model.appList().add(loc);
+				model.notificationRawList().add(currentJson.getJSONArray("AuxNews").toString());
 			}
 			
 			model.appList().sort();
-			notifInserter.flush();
 
 		} catch (Exception e) {
 			model.setOperationError(true);
