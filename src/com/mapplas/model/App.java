@@ -6,6 +6,8 @@ import android.content.pm.ApplicationInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.mapplas.utils.LocationCurrency;
+
 public class App implements Parcelable {
 
 	// ---------------------------------------------------------------------------
@@ -63,7 +65,7 @@ public class App implements Parcelable {
 	private boolean auxFavourite = false;
 
 	private boolean auxPin = false;
-	
+
 	private boolean auxBlocked = false;
 
 	private float auxRate = 0.0f;
@@ -87,6 +89,8 @@ public class App implements Parcelable {
 	private double pinnedLongitude = 0.0f;
 
 	private String setPinnedGeocodedLocation = "";
+
+	private LocationCurrency locationCurrency = null;
 
 	public App() {
 
@@ -251,11 +255,11 @@ public class App implements Parcelable {
 	public void setAuxPin(boolean auxPin) {
 		this.auxPin = auxPin;
 	}
-	
+
 	public boolean isAuxBlocked() {
 		return this.auxBlocked;
 	}
-	
+
 	public void setAuxBlocked(boolean auxBlocked) {
 		this.auxBlocked = auxBlocked;
 	}
@@ -300,6 +304,14 @@ public class App implements Parcelable {
 		this.setPinnedGeocodedLocation = loc;
 	}
 
+	public LocationCurrency getLocationCurrency() {
+		return this.locationCurrency;
+	}
+
+	public void setLocationCurrency(LocationCurrency currency) {
+		this.locationCurrency = currency;
+	}
+
 	/**
 	 * Parcelable methods
 	 */
@@ -337,6 +349,7 @@ public class App implements Parcelable {
 		dest.writeDouble(this.pinnedLatitude);
 		dest.writeDouble(this.pinnedLongitude);
 		dest.writeString(this.setPinnedGeocodedLocation);
+		dest.writeString(this.locationCurrency.name());
 	}
 
 	public App(Parcel parcel) {
@@ -367,6 +380,7 @@ public class App implements Parcelable {
 		this.pinnedLatitude = parcel.readDouble();
 		this.pinnedLongitude = parcel.readDouble();
 		this.setPinnedGeocodedLocation = parcel.readString();
+		this.locationCurrency = LocationCurrency.valueOf(parcel.readString());
 	}
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {

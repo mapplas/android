@@ -1,8 +1,6 @@
 package com.mapplas.app.adapters.app;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -43,6 +41,7 @@ import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
+import com.mapplas.utils.LocationCurrency;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
@@ -56,7 +55,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	private Context context;
 
 	private ArrayList<App> items;
-	
+
 	private Animation animFlipInNext = null;
 
 	private Animation animFlipOutNext = null;
@@ -64,30 +63,29 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	private Animation animFlipInPrevious = null;
 
 	private Animation animFlipOutPrevious = null;
-	
+
 	private AwesomeListView list = null;
-	
+
 	private SuperModel model = null;
 
 	private User user = null;
-	
+
 	private static App mRateApp = null;
 
 	private static App mBlockApp = null;
-	
+
 	private Animation fadeOutAnimation = null;
-	
 
 	public AppArrayAdapter(Context context, int layout, int textViewResourceId, ArrayList<App> items, AwesomeListView list, SuperModel model) {
 		super(context, layout, textViewResourceId, items);
-		
+
 		this.context = context;
 		this.items = items;
 		this.list = list;
 		this.model = model;
-	
+
 		this.user = this.model.currentUser();
-		
+
 		this.initializeAnimations();
 	}
 
@@ -165,7 +163,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 		return convertView;
 	}
-	
+
 	private void initializeAnimations() {
 		this.fadeOutAnimation = new AlphaAnimation(1, 0);
 		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
@@ -230,7 +228,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		this.initializeBlockLayout(app, cellHolder, convertView);
 		this.initializeShareLayout(app, cellHolder);
 	}
-	
+
 	private void initializeRowUnpressed(final App app, LinearLayout layout, int position) {
 		layout.setTag(position);
 		layout.setOnClickListener(new View.OnClickListener() {
@@ -290,11 +288,13 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					// Install
 					if(app.getAppPrice() > 0) {
 						buttonStart.setBackgroundResource(R.drawable.badge_price);
-						// buttonStart.setText("$" + o.getAppPrice());
-						// String country = o.getCountry();
-						NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-						buttonStart.setText(nf.format(app.getAppPrice()));
 
+						if(app.getLocationCurrency() == LocationCurrency.EURO) {
+							buttonStart.setText(this.context.getString(R.string.currency_euro) + " " + app.getAppPrice());
+						}
+						else {
+							buttonStart.setText(this.context.getString(R.string.currency_dollar) + " " + app.getAppPrice());
+						}
 					}
 					else {
 						buttonStart.setBackgroundResource(R.drawable.badge_free);
@@ -345,7 +345,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 		});
 	}
-	
+
 	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
 		if(app.isAuxPin()) {
 			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
@@ -360,7 +360,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		logo.setImageResource(R.drawable.ic_template);
 
 		logo.setOnTouchListener(new View.OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				ViewFlipper vf = (ViewFlipper)v.getTag();
@@ -396,11 +396,11 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
-		
+
 		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
-			public void onClick(View v) {				
+			public void onClick(View v) {
 				if(app != null) {
 					String auxuid = "0";
 					if(user != null) {
@@ -413,14 +413,14 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
 						cellHolder.pinUp.setText(R.string.pin_up);
-						
+
 						app.setAuxTotalPins(app.getAuxTotalPins() - 1);
 					}
 					else {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
-						
+
 						app.setAuxTotalPins(app.getAuxTotalPins() + 1);
 					}
 
@@ -437,24 +437,24 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					if(app.isAuxPin()) {
 						action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
 					}
-		
+
 					Thread pinRequestThread = new Thread(new PinRequestThread(action, app, uid, model.currentLocation()).getThread());
 					pinRequestThread.start();
-					
+
 					// Set app object as pinned or unpinned
 					// Pin/unpin app
 					boolean found = false;
 					int i = 0;
-					while(!found && i < model.appList().size()) {
+					while (!found && i < model.appList().size()) {
 						if(model.appList().get(i).equals(app)) {
 							model.appList().get(i).setAuxPin(!app.isAuxPin());
 							found = true;
 						}
 						i++;
 					}
-					
+
 					model.appList().sort();
-					
+
 					// Update app adapter
 					list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
 				}

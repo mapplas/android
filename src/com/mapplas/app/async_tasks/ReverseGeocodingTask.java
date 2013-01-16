@@ -50,23 +50,33 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 		}
 		if(addresses != null && addresses.size() > 0) {
 			Address address = addresses.get(0);
-			// Format the first line of address (if available), city, and
-			// country name.
-			addresText = String.format("%s, %s.", address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "", address.getLocality());
-			
+
+			String firstAddressLine = "";
+			if(address.getMaxAddressLineIndex() > 0) {
+				firstAddressLine = address.getAddressLine(0);
+			}
+			String locality = address.getLocality();
+
+			if(firstAddressLine.contains(locality)) {
+				addresText = String.format("%s.", firstAddressLine);
+			}
+			else {
+				addresText = String.format("%s, %s.", firstAddressLine, locality);
+			}
+
 			if(addresText.equals("")) {
 				addresText = this.context.getString(R.string.descriptive_geoloc_error);
 			}
 		}
 		return addresText;
 	}
-	
+
 	@Override
 	protected void onPostExecute(String addresText) {
 		super.onPostExecute(addresText);
-		
+
 		this.model.setCurrentDescriptiveGeoLoc(addresText);
-		
+
 		if(listViewHeaderStatusMessage != null) {
 			listViewHeaderStatusMessage.setText(addresText);
 		}
