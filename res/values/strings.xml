@@ -109,5 +109,6 @@
     <string name="terms_of_use_message">Terms of use. \n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tellus sapien. Nullam placerat, lorem nec lobortis gravida, nisi ipsum placerat augue, non auctor justo diam non nisi. Phasellus ullamcorper sodales dolor sed tincidunt. Nulla aliquet quam vel nisi dignissim id elementum tellus aliquet. Vivamus sodales posuere augue sed accumsan. Vivamus fermentum erat quis quam hendrerit dapibus faucibus ligula condimentum. Fusce convallis vulputate turpis, in iaculis orci tempus non. Nulla varius augue quis nibh venenatis pharetra. Proin luctus, turpis id ultrices convallis, massa lectus hendrerit purus, eu vehicula velit arcu vel turpis.</string>
 	<string name="privacy_policy_title">Privacy policy</string>
     <string name="privacy_policy_message">Privacy policy. \n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tellus sapien. Nullam placerat, lorem nec lobortis gravida, nisi ipsu</string>
-    
+    <string name="currency_euro">€</string>
+    <string name="currency_dollar">$</string>
 </resources>
