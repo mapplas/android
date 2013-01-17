@@ -73,6 +73,8 @@ public class MapplasActivity extends Activity {
 	private AroundRequester aroundRequester = null;
 
 	private Button notificationsButton;
+	
+	private boolean pressedNotificationScreen = false;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -140,6 +142,18 @@ public class MapplasActivity extends Activity {
 		}
 		super.onStart();
 	}
+	
+	@Override
+	protected void onStop() {
+		if(this.pressedNotificationScreen) {
+			// Remove notifications red background
+			this.notificationsButton.setText("");
+			this.notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
+			
+			this.pressedNotificationScreen = false;
+		}
+		super.onStop();
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -202,16 +216,11 @@ public class MapplasActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// Set notifications to 0
-				notificationsButton.setText(String.valueOf(0));
-				notificationsButton.setBackgroundResource(R.drawable.menu_notifications_number_button);
-//				v.setText("");
-//				v.setBackgroundResource(R.drawable.menu_notifications_button);
-
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
 				SuperModelSingleton.model = model;
-				// intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
-				MapplasActivity.this.startActivity(intent);
+				startActivity(intent);
+				
+				pressedNotificationScreen = true;
 			}
 		});
 	}
