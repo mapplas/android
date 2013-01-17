@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.mapplas.model.Constants;
+import com.mapplas.model.User;
 
 public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 
@@ -30,11 +31,14 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 	private Location location;
 	
 	private ActivityManager activityManager;
+	
+	private User currentUser;
 
-	public AppInfoSenderTask(List<ApplicationInfo> applicationList, Location location, ActivityManager activityManager) {
+	public AppInfoSenderTask(List<ApplicationInfo> applicationList, Location location, ActivityManager activityManager, User currentUser) {
 		this.applicationList = applicationList;
 		this.location = location;
 		this.activityManager = activityManager;
+		this.currentUser = currentUser;
 	}
 
 	@Override
@@ -50,12 +54,13 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
         String lastUsedApps = task.get(0).baseIntent.getPackage();
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "TODO.php");
+		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_userInfo.php");
 	
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("loc", this.location.getLatitude() + "," + this.location.getLongitude()));
 		nameValuePairs.add(new BasicNameValuePair("apps", installedAppsPackage.toString()));
 		nameValuePairs.add(new BasicNameValuePair("last", lastUsedApps));
+		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(this.currentUser.getId())));
 
 		String serverResponse = "";
 		try {

@@ -68,6 +68,10 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 				addresText = this.context.getString(R.string.descriptive_geoloc_error);
 			}
 		}
+		else {
+			addresText = this.context.getString(R.string.descriptive_geoloc_error);
+		}
+		
 		return addresText;
 	}
 

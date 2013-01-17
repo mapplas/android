@@ -72,6 +72,10 @@ public class MapplasActivity extends Activity {
 
 	private AroundRequester aroundRequester = null;
 
+	private Button notificationsButton;
+	
+	private boolean pressedNotificationScreen = false;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -109,8 +113,7 @@ public class MapplasActivity extends Activity {
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		ActivityManager activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-		Button notificationsButton = (Button)this.findViewById(R.id.btnNotifications);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager, notificationsButton);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager, this.notificationsButton);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -138,6 +141,18 @@ public class MapplasActivity extends Activity {
 			this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
 		}
 		super.onStart();
+	}
+	
+	@Override
+	protected void onStop() {
+		if(this.pressedNotificationScreen) {
+			// Remove notifications red background
+			this.notificationsButton.setText("");
+			this.notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
+			
+			this.pressedNotificationScreen = false;
+		}
+		super.onStop();
 	}
 
 	@Override
@@ -195,16 +210,17 @@ public class MapplasActivity extends Activity {
 		});
 
 		// Notifications button
-		Button notificationsButton = (Button)findViewById(R.id.btnNotifications);
-		notificationsButton.setTypeface(normalTypeFace);
-		notificationsButton.setOnClickListener(new View.OnClickListener() {
+		this.notificationsButton = (Button)this.findViewById(R.id.btnNotifications);
+		this.notificationsButton.setTypeface(normalTypeFace);
+		this.notificationsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
 				SuperModelSingleton.model = model;
-				// intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
-				MapplasActivity.this.startActivity(intent);
+				startActivity(intent);
+				
+				pressedNotificationScreen = true;
 			}
 		});
 	}
