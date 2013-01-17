@@ -169,7 +169,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 		new NotificationDatabaseInserterTask(this.model, this.context, this.notificationsButton).execute();
 
 		// Send app info to server
-		new AppInfoSenderTask(this.applicationList, location, this.activityManager).execute();
+		new AppInfoSenderTask(this.applicationList, location, this.activityManager, this.model.currentUser()).execute();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {

@@ -92,9 +92,7 @@ public class NotificationDatabaseInserterTask extends AsyncTask<Void, Void, Void
 
 	@Override
 	protected void onPostExecute(Void result) {
-		
 		this.notificationButton.setEnabled(true);
-		
 		if(this.model.notificationList().size() > 0) {
 			this.notificationButton.setText(String.valueOf(this.count));
 			this.notificationButton.setBackgroundResource(R.drawable.menu_notifications_number_button);

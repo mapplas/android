@@ -22,6 +22,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:background="@drawable/menu_notifications_button"
+                android:enabled="false"
                 android:paddingBottom="17dp"
                 android:paddingLeft="16dp"
                 android:textColor="#ebebeb"

@@ -72,6 +72,8 @@ public class MapplasActivity extends Activity {
 
 	private AroundRequester aroundRequester = null;
 
+	private Button notificationsButton;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -109,8 +111,7 @@ public class MapplasActivity extends Activity {
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		ActivityManager activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-		Button notificationsButton = (Button)this.findViewById(R.id.btnNotifications);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager, notificationsButton);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager, this.notificationsButton);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -195,12 +196,18 @@ public class MapplasActivity extends Activity {
 		});
 
 		// Notifications button
-		Button notificationsButton = (Button)findViewById(R.id.btnNotifications);
-		notificationsButton.setTypeface(normalTypeFace);
-		notificationsButton.setOnClickListener(new View.OnClickListener() {
+		this.notificationsButton = (Button)this.findViewById(R.id.btnNotifications);
+		this.notificationsButton.setTypeface(normalTypeFace);
+		this.notificationsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				// Set notifications to 0
+				notificationsButton.setText(String.valueOf(0));
+				notificationsButton.setBackgroundResource(R.drawable.menu_notifications_number_button);
+//				v.setText("");
+//				v.setBackgroundResource(R.drawable.menu_notifications_button);
+
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
 				SuperModelSingleton.model = model;
 				// intent.putExtra(Constants.MAPPLAS_NOTIFICATION_MODEL, model);
