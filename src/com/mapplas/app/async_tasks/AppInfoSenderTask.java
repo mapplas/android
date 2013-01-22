@@ -54,8 +54,8 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 		
 		ArrayList<String> lastUsedApps = new ArrayList<String>();
         List<RecentTaskInfo> task = this.activityManager.getRecentTasks(NUMBER_OF_LAST_USED_APPS, 0);
-        for(int i = 0; i < NUMBER_OF_LAST_USED_APPS; i++) {
-			lastUsedApps.add(task.get(i).baseIntent.getComponent().getPackageName());
+        for(int i = 0; i < task.size(); i++) {
+    		lastUsedApps.add(task.get(i).baseIntent.getComponent().getPackageName());
 		}
 
 		HttpClient hc = new DefaultHttpClient();
