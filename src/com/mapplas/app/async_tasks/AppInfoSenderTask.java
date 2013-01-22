@@ -25,6 +25,8 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 
 public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
+	
+	private static int NUMBER_OF_LAST_USED_APPS = 5;
 
 	private List<ApplicationInfo> applicationList;
 
@@ -50,8 +52,11 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 			}
 		}
 		
-        List<RecentTaskInfo> task = this.activityManager.getRecentTasks(5,0);
-        String lastUsedApps = task.get(0).baseIntent.getPackage();
+		ArrayList<String> lastUsedApps = new ArrayList<String>();
+        List<RecentTaskInfo> task = this.activityManager.getRecentTasks(NUMBER_OF_LAST_USED_APPS, 0);
+        for(int i = 0; i < NUMBER_OF_LAST_USED_APPS; i++) {
+			lastUsedApps.add(task.get(i).baseIntent.getComponent().getPackageName());
+		}
 
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_userInfo.php");
@@ -59,7 +64,7 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("loc", this.location.getLatitude() + "," + this.location.getLongitude()));
 		nameValuePairs.add(new BasicNameValuePair("apps", installedAppsPackage.toString()));
-		nameValuePairs.add(new BasicNameValuePair("last", lastUsedApps));
+		nameValuePairs.add(new BasicNameValuePair("last", lastUsedApps.toString()));
 		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(this.currentUser.getId())));
 
 		String serverResponse = "";
