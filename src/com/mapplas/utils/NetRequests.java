@@ -3,6 +3,7 @@ package com.mapplas.utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -159,6 +160,7 @@ public class NetRequests {
 		nameValuePairs.add(new BasicNameValuePair("e", email));
 		nameValuePairs.add(new BasicNameValuePair("ii", imei));
 		nameValuePairs.add(new BasicNameValuePair("uid", uid));
+		nameValuePairs.add(new BasicNameValuePair("l", Locale.getDefault().getLanguage()));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {
