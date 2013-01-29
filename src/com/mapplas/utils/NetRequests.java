@@ -3,6 +3,7 @@ package com.mapplas.utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -159,6 +160,7 @@ public class NetRequests {
 		nameValuePairs.add(new BasicNameValuePair("e", email));
 		nameValuePairs.add(new BasicNameValuePair("ii", imei));
 		nameValuePairs.add(new BasicNameValuePair("uid", uid));
+		nameValuePairs.add(new BasicNameValuePair("l", Locale.getDefault().getLanguage()));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {
@@ -452,18 +454,17 @@ public class NetRequests {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String UserIRequest(String location, String ii) throws Exception {
-		return NetRequests.UserIRequest(location, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, ii);
+	public static String UserIRequest(String ii) throws Exception {
+		return NetRequests.UserIRequest(Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, ii);
 	}
 
-	public static String UserIRequest(String location, String serverIpAddress, int serverPort, String serverPath, String ii) throws Exception {
+	public static String UserIRequest(String serverIpAddress, int serverPort, String serverPath, String ii) throws Exception {
 		String serverResponse = "";
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_ii.php");
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("v", Constants.SYNESTH_VERSION));
-		nameValuePairs.add(new BasicNameValuePair("l", location));
 		nameValuePairs.add(new BasicNameValuePair("ii", ii));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 

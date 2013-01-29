@@ -21,6 +21,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 
@@ -53,9 +54,11 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 		}
 		
 		ArrayList<String> lastUsedApps = new ArrayList<String>();
-        List<RecentTaskInfo> task = this.activityManager.getRecentTasks(NUMBER_OF_LAST_USED_APPS, 0);
+        List<RecentTaskInfo> task = this.activityManager.getRecentTasks(NUMBER_OF_LAST_USED_APPS + 1, 0);
         for(int i = 0; i < task.size(); i++) {
-    		lastUsedApps.add(task.get(i).baseIntent.getComponent().getPackageName());
+        	if(!task.get(i).baseIntent.getComponent().getPackageName().equals(MapplasActivity.PACKAGE_NAME)) {
+        		lastUsedApps.add(task.get(i).baseIntent.getComponent().getPackageName());
+			}
 		}
 
 		HttpClient hc = new DefaultHttpClient();

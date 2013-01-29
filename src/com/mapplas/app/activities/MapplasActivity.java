@@ -51,6 +51,8 @@ import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MapplasActivity extends Activity {
+	
+	public static String PACKAGE_NAME = "";
 
 	/* Debug Values */
 	public final static boolean mDebug = false;
@@ -85,6 +87,8 @@ public class MapplasActivity extends Activity {
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 
+		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
+		
 		// Obtenemos el IMEI como identificador (ANDROID_ID da problemas)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());

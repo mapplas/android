@@ -24,7 +24,7 @@ public class ServerIdentificationThread {
 			@Override
 			public void run() {
 				try {
-					String response = NetRequests.UserIRequest(model.currentLocation(), model.currentIMEI());
+					String response = NetRequests.UserIRequest(model.currentIMEI());
 					JsonParser jp = new JsonParser(context);
 
 					model.setCurrentUser(jp.ParseUser(response));
