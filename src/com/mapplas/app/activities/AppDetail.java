@@ -636,9 +636,11 @@ public class AppDetail extends Activity {
 						ivPinup.setImageResource(R.drawable.action_unpin_button);
 					}
 
-					String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+					String activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
 					if(anonLoc.isAuxPin()) {
-						action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+						pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+						activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
 						anonLoc.setAuxPin(false);
 					}
 					else {
@@ -670,10 +672,10 @@ public class AppDetail extends Activity {
 					somethingChanged = true;
 					model.appList().sort();
 
-					Thread pinRequestThread = new Thread(new PinRequestThread(action, anonLoc, uid, currentLocation).getThread());
+					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, currentLocation).getThread());
 					pinRequestThread.start();
 
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(action, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, activityRequestConstant).getThread());
 					activityRequestThread.start();
 				}
 			}

@@ -427,18 +427,20 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					cellHolder.logoRoundCorner.invalidate();
 					v.invalidate();
 					list.invalidate();
+					
+					String pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+					String actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
+					if(app.isAuxPin()) {
+						pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+						actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
+					}
 
 					// Activity request thread
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN).getThread());
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, actionRequestConstant).getThread());
 					activityRequestThread.start();
 
 					// Pin/unpin request
-					String action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
-					if(app.isAuxPin()) {
-						action = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-					}
-
-					Thread pinRequestThread = new Thread(new PinRequestThread(action, app, uid, model.currentLocation()).getThread());
+					Thread pinRequestThread = new Thread(new PinRequestThread(pinRequestConstant, app, uid, model.currentLocation()).getThread());
 					pinRequestThread.start();
 
 					// Set app object as pinned or unpinned
