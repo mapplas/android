@@ -551,7 +551,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					// aplicación en el teléfono
 					// sharingIntent.setPackage("com.whatsapp");
 					sharingIntent.setType("text/plain");
-					String shareBody = app.getAppName() + " sharing via Synesth";
+					String shareBody = app.getAppName() + " sharing via Mapplas";
 					// sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
 					// anonLoc.getAppName());
 					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
