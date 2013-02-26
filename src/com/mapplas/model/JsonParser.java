@@ -112,14 +112,19 @@ public class JsonParser {
 					loc.getAuxPhotos().add(pho);
 				}
 
-				String location = currentJson.getString("Market");
-				if(location.equals("Usa")) {
-					loc.setLocationCurrency(LocationCurrency.DOLAR);
+				if(currentJson.has("Market")) {
+					String location = currentJson.getString("Market");
+					if(location.equals("Usa")) {
+						loc.setLocationCurrency(LocationCurrency.DOLAR);
+					}
+					else {
+						loc.setLocationCurrency(LocationCurrency.EURO);
+					}
 				}
 				else {
 					loc.setLocationCurrency(LocationCurrency.EURO);
 				}
-
+				
 				model.appList().add(loc);
 				model.notificationRawList().add(currentJson.getJSONArray("AuxNews").toString());
 			}
