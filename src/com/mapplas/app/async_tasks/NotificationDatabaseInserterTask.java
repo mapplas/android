@@ -68,10 +68,13 @@ public class NotificationDatabaseInserterTask extends AsyncTask<Void, Void, Void
 
 					this.model.notificationList().add(notification);
 
-					this.notificationsRepository.insertNotificationsByChecking(notification);
+					this.notificationsRepository.insertNotifications(notification);
 					Log.d(this.getClass().getSimpleName(), "NOTIFICATION INSERTED. ID: " + notification.getId() + " NAME: " + notification.getName());
+					
+					this.notificationsRepository.checkSameApps(notification);
 				}
 			}
+			this.notificationsRepository.createOrUpdateFlush();
 
 			this.deleteNotificationsUpTo(this.model);
 
