@@ -51,7 +51,7 @@ import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MapplasActivity extends Activity {
-	
+
 	public static String PACKAGE_NAME = "";
 
 	/* Debug Values */
@@ -75,7 +75,7 @@ public class MapplasActivity extends Activity {
 	private AroundRequester aroundRequester = null;
 
 	private Button notificationsButton;
-	
+
 	private boolean pressedNotificationScreen = false;
 
 	/** Called when the activity is first created. */
@@ -124,11 +124,11 @@ public class MapplasActivity extends Activity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-		// Location location = new Location("");
-		// (new AppGetterTask(MapplasActivity.this, model,
-		// messageHandler)).execute(new Location[] { location });
-		// (new ReverseGeocodingTask(MapplasActivity.this, model,
-		// messageHandler)).execute(new Location[] { location });
+//		 Location location = new Location("");
+//		 location.setLatitude(43.291248);
+//		 location.setLongitude(-1.982539);
+//		 new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.applicationList, activityManager, this.notificationsButton).execute(new Location(location));
+//		 new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));		
 	}
 
 	@Override
@@ -146,14 +146,14 @@ public class MapplasActivity extends Activity {
 		}
 		super.onStart();
 	}
-	
+
 	@Override
 	protected void onStop() {
 		if(this.pressedNotificationScreen) {
 			// Remove notifications red background
 			this.notificationsButton.setText("");
 			this.notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
-			
+
 			this.pressedNotificationScreen = false;
 		}
 		super.onStop();
@@ -223,7 +223,7 @@ public class MapplasActivity extends Activity {
 				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
 				SuperModelSingleton.model = model;
 				startActivity(intent);
-				
+
 				pressedNotificationScreen = true;
 			}
 		});

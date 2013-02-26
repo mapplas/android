@@ -8,6 +8,7 @@ import java.util.List;
 import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.mapplas.model.App;
@@ -22,8 +23,8 @@ public class NotificationRepository extends Repository {
 
 	// 1 day = 86400000ms
 	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 86400000;
-//	10 minutes = 600000ms
-//	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 600000;
+//	1 minutes = 60000ms
+//	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 10000;
 
 	private LinkedHashMap<Integer, Integer> notificationIds = null;
 
@@ -242,6 +243,18 @@ public class NotificationRepository extends Repository {
 			Log.e(this.getClass().getName(), e.getMessage(), e);
 		}
 		return listOfNotificationsTimestamps;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void checkSameApps(Notification notification) {
+		long oldNotificationTimestamp = notification.arrivalTimestamp() + NotificationRepository.DUPLICATE_APPS_OLDER_THAN_MSECONDS;
+		DeleteBuilder<Notification, Integer> deleter = this.getDao().deleteBuilder();
+		try {
+			deleter.where().eq("id", notification.getId()).and().lt("arrivalTimestamp", oldNotificationTimestamp);
+			this.getDao().delete(deleter.prepare());
+		} catch (Exception e) {
+			Log.e(this.getClass().getName(), e.getMessage(), e);
+		}
 	}
 
 	/**

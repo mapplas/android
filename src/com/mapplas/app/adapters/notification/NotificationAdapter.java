@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,12 +33,15 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 	private Context context = null;
 
 	private SuperModel model = null;
+	
+	private ArrayList<Integer> notificationSet = null;
 
-	public NotificationAdapter(Context context, int textViewResourceId, ArrayList<Notification> items, SuperModel model) {
+	public NotificationAdapter(Context context, int textViewResourceId, ArrayList<Notification> items, SuperModel model, ArrayList<Integer> notificationSet) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.context = context;
 		this.model = model;
+		this.notificationSet = notificationSet;
 	}
 
 	@Override
@@ -91,9 +95,13 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 					((AppNotifications)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 				}
 			});
-
-			// TODO: Carga asincrona de las imágenes en un hilo
-
+		}
+		
+		if(this.notificationSet.get(position) == AppNotifications.typeHighlightedItem && this.notificationSet.size() > 0) {
+			v.setBackgroundColor(Color.rgb(153, 204, 255));
+		}
+		else {
+			v.setBackgroundColor(Color.TRANSPARENT);
 		}
 		
 		return v;
