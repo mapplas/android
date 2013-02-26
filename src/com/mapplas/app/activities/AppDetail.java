@@ -46,6 +46,7 @@ import com.mapplas.model.User;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
+import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
@@ -172,8 +173,8 @@ public class AppDetail extends Activity {
 					 */
 
 					String uid = "0";
-					String id = "0";
-					String resp = "";
+//					String id = "0";
+//					String resp = "";
 
 					if(this.user != null) {
 						uid = this.user.getId() + "";
@@ -187,42 +188,6 @@ public class AppDetail extends Activity {
 					Log.e("Camera", e.toString());
 				}
 			}
-		}
-	}
-
-	private class OnReadyListener implements RatingDialog.ReadyListener {
-
-		@Override
-		public void ready(String name) {
-
-			// Guardamos la valoración del usuario en el servidor
-
-			if(!name.equals("CANCEL")) {
-				// Ponemos en amarillo el botón
-				ImageView img = (ImageView)findViewById(R.id.btnRate);
-				img.setImageResource(R.drawable.action_rate_button_done);
-
-				// Enviamos la nota por internet
-				String uid = "0";
-				String id = "0";
-				String resp = "";
-
-				if(user != null) {
-					uid = user.getId() + "";
-				}
-
-				try {
-
-					String rat = name.substring(0, name.indexOf("|"));
-					String com = name.substring(name.indexOf("|") + 1);
-
-					resp = NetRequests.RateRequest(rat, com, currentLocation, currentDescriptiveGeoLoc, AppDetail.this.app.getId() + "", uid);
-					Toast.makeText(AppDetail.this, resp, Toast.LENGTH_LONG).show();
-				} catch (Exception exc) {
-					Toast.makeText(AppDetail.this, exc.toString(), Toast.LENGTH_LONG).show();
-				}
-			}
-
 		}
 	}
 
@@ -297,7 +262,7 @@ public class AppDetail extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(), app.getAuxRate(), app.getAuxComment());
+				RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), app.getAuxRate(), app.getAuxComment());
 				myDialog.show();
 			}
 		});
@@ -785,7 +750,7 @@ public class AppDetail extends Activity {
 			public void onClick(View v) {
 				final App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
-					RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(), anonLoc.getAuxRate(), anonLoc.getAuxComment());
+					RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), anonLoc.getAuxRate(), anonLoc.getAuxComment());
 					myDialog.show();
 
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
