@@ -556,6 +556,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					// anonLoc.getAppName());
 					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 					context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
+					
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
+					activityRequestThread.start();
 				}
 
 			}
