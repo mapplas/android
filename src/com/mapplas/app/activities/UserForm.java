@@ -164,7 +164,7 @@ public class UserForm extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(this, PreferencesActivity.class);
+		Intent intent = new Intent(this, AboutUsActivity.class);
 		startActivity(intent);
 		return super.onOptionsItemSelected(item);
 	}
