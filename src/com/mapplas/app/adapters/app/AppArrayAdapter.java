@@ -551,11 +551,14 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					// aplicación en el teléfono
 					// sharingIntent.setPackage("com.whatsapp");
 					sharingIntent.setType("text/plain");
-					String shareBody = app.getAppName() + " sharing via Synesth";
+					String shareBody = app.getAppName() + " sharing via Mapplas";
 					// sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
 					// anonLoc.getAppName());
 					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 					context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
+					
+					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
+					activityRequestThread.start();
 				}
 
 			}
