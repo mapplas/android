@@ -195,8 +195,9 @@
                         android:text="@string/rate"
                         android:textSize="10sp" />
                 </LinearLayout>
-                
- 			<!-- Likes deprecated
+
+                <!--
+                Likes deprecated
                 <LinearLayout
                     android:id="@+id/lytLike"
                     android:layout_width="wrap_content"
@@ -221,8 +222,8 @@
                         android:text="@string/like"
                         android:textSize="10sp" />
                 </LinearLayout>
-				-->
-				
+                -->
+
                 <LinearLayout
                     android:id="@+id/lytBlock"
                     android:layout_width="wrap_content"
@@ -340,47 +341,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lytComments"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/bgd_lblcom" >
-
-                <TextView
-                    android:id="@+id/btnComments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="5dp"
-                    android:text="@string/comments"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/lblNumberOfComments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="2dp"
-                    android:text="()" />
-
-                <ImageView
-                    android:id="@+id/ivArrow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_arrow_com" />
-            </LinearLayout>
-
-            <com.mapplas.app.SliderListView
-                android:id="@+id/lvComments"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:fadingEdgeLength="0dp"
-                android:footerDividersEnabled="false" >
-            </com.mapplas.app.SliderListView>
-
-            <LinearLayout
                 android:id="@+id/lytDeveloper"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -392,7 +352,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:layout_marginTop="10dp"
-                    android:gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="left"
                     android:text="@string/developer"
                     android:textSize="18sp" />
 
@@ -402,7 +363,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp" >
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" >
 
                     <Button
                         android:id="@+id/lblWeb"
@@ -425,16 +387,6 @@
                         android:text="@string/devMail" />
                 </LinearLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btnReportProblem"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/action_standar_button"
-                android:text="@string/support" />
         </LinearLayout>
     </ScrollView>
 
