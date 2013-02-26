@@ -10,10 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.PreferencesAdapter;
+import com.mapplas.app.adapters.AboutUsAdapter;
 import com.mapplas.app.application.MapplasApplication;
 
-public class PreferencesActivity extends Activity {
+public class AboutUsActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class PreferencesActivity extends Activity {
 		});
 
 		ListView list = (ListView)this.findViewById(R.id.preferences_list);
-		list.setAdapter(new PreferencesAdapter(this, normalTypeFace));
+		list.setAdapter(new AboutUsAdapter(this, normalTypeFace));
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.mapplas.app.adapters;
 
-import com.mapplas.app.activities.PreferencesActivity;
+import com.mapplas.app.activities.AboutUsActivity;
 import com.mapplas.app.activities.TextActivity;
 import com.mapplas.model.Constants;
 
@@ -15,7 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-public class PreferencesAdapter extends BaseAdapter {
+public class AboutUsAdapter extends BaseAdapter {
 
 	private Context context;
 
@@ -23,7 +23,7 @@ public class PreferencesAdapter extends BaseAdapter {
 	
 	private Typeface normalTypeface;
 
-	public PreferencesAdapter(Context context, Typeface normalTypeface) {
+	public AboutUsAdapter(Context context, Typeface normalTypeface) {
 		this.context = context;
 		this.normalTypeface = normalTypeface;
 
@@ -32,7 +32,7 @@ public class PreferencesAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return 2;
+		return 3;
 	}
 
 	@Override
@@ -63,14 +63,19 @@ public class PreferencesAdapter extends BaseAdapter {
 
 		switch (position) {
 			case 0:
-				text.setText("Terms of use");
+				text.setText(this.context.getString(R.string.terms_of_use_title));
 				break;
 
 			case 1:
-				text.setText("Privacy policy");
+				text.setText(this.context.getString(R.string.privacy_policy_title));
+				break;
+			case 2:
+				text.setText(this.context.getString(R.string.conf_screen_contact_title));
+				break;
+				
+			default:
 				break;
 		}
-
 		return view;
 	}
 	
@@ -79,22 +84,38 @@ public class PreferencesAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent((PreferencesActivity)context, TextActivity.class);
+				Intent intent = new Intent((AboutUsActivity)context, TextActivity.class);
 				
 				String title = "";
 				String message = "";
-				if(position == 0) {
-					title = context.getString(R.string.terms_of_use_title);
-					message = context.getString(R.string.terms_of_use_message);
-				}
-				else {
-					title = context.getString(R.string.privacy_policy_title);
-					message = context.getString(R.string.privacy_policy_message);
+				
+				switch (position) {
+					case 0:
+						title = context.getString(R.string.terms_of_use_title);
+						message = context.getString(R.string.terms_of_use_message);
+						break;
+						
+					case 1:
+						title = context.getString(R.string.privacy_policy_title);
+						message = context.getString(R.string.privacy_policy_message);
+						break;
+						
+					default:
+						break;
 				}
 					
-				intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_TITLE, title);
-				intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE, message);
-				context.startActivity(intent);
+				if(position == 0 || position == 1) {
+					intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_TITLE, title);
+					intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE, message);
+					context.startActivity(intent);
+				}
+				else {
+					Intent emailIntent = new Intent(Intent.ACTION_SEND);
+					emailIntent.setType("text/html");
+					emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {context.getString(R.string.config_contact_us_email)});
+					emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.config_contact_us_email_subject));
+					context.startActivity(Intent.createChooser(emailIntent, "Send Email"));
+				}
 			}
 		};
 	}
