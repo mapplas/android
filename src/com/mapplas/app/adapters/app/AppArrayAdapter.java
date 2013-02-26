@@ -47,6 +47,7 @@ import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.rating_dialog.OnReadyListener;
+import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.view_holder.AppViewHolder;
 
@@ -553,16 +554,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			public void onClick(View v) {
 
 				if(app != null) {
-					Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-					// Comprobar que existe y que está instalada la
-					// aplicación en el teléfono
-					// sharingIntent.setPackage("com.whatsapp");
-					sharingIntent.setType("text/plain");
-					String shareBody = app.getAppName() + " sharing via Mapplas";
-					// sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-					// anonLoc.getAppName());
-					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-					context.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
+					context.startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(context, app), context.getString(R.string.share)));
 					
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
 					activityRequestThread.start();
