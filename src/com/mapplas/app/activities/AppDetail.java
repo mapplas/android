@@ -448,7 +448,7 @@ public class AppDetail extends Activity {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
-		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getBoldTypeFace());
+		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
 		if(this.app.getType().equalsIgnoreCase("application")) {
 			if(this.app.getInternalApplicationInfo() != null) {
