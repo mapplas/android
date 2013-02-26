@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
@@ -42,11 +41,11 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.LocationCurrency;
-import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
+import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.view_holder.AppViewHolder;
 
@@ -519,7 +518,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			public void onClick(View v) {
 				mRateApp = app;
 				if(app != null) {
-					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(), app.getAuxRate(), app.getAuxComment());
+					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(user, context, model, app), app.getAuxRate(), app.getAuxComment());
 					myDialog.show();
 
 					// Activity request action
@@ -563,36 +562,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			}
 		});
-	}
-
-	private class OnReadyListener implements RatingDialog.ReadyListener {
-
-		@Override
-		public void ready(String name) {
-
-			// Guardamos la valoración del usuario en el servidor
-
-			if(!name.equals("CANCEL")) {
-				// Enviamos la nota por internet
-				String uid = "0";
-				// String id = "0";
-				String resp = "";
-
-				if(user != null) {
-					uid = String.valueOf(user.getId());
-				}
-
-				try {
-					String rat = name.substring(0, name.indexOf("|"));
-					String com = name.substring(name.indexOf("|") + 1);
-
-					resp = NetRequests.RateRequest(rat, com, model.currentLocation(), model.currentDescriptiveGeoLoc(), String.valueOf(mRateApp.getId()), uid);
-					Toast.makeText(context, resp, Toast.LENGTH_LONG).show();
-				} catch (Exception exc) {
-					Toast.makeText(context, exc.toString(), Toast.LENGTH_LONG).show();
-				}
-			}
-		}
 	}
 
 }
