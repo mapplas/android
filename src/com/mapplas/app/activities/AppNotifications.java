@@ -2,11 +2,14 @@ package com.mapplas.app.activities;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -16,6 +19,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.notification.NotificationAdapter;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
@@ -68,8 +72,9 @@ public class AppNotifications extends Activity {
 		this.hashData = notificationRepository.getNotificationsSeparatedByLocation();
 		this.orderTableData();
 		this.initializeNotificationSet();
+		this.setAuxAppToNotificationsAndReloadModelData();
 		
-		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.model.notificationList().getList(), this.model, this.notificationSet);
+		this.mListAdapter = new NotificationAdapter(this, this.model, this.notificationSet, this.hashData);
 		ListView lv = (ListView)findViewById(R.id.lvLista);
 		lv.setAdapter(this.mListAdapter);
 
@@ -104,7 +109,52 @@ public class AppNotifications extends Activity {
 					this.notificationSet.add(AppNotifications.typeNormalItem);
 				}
 			}
-			
 		}
 	}
+	
+	private void setAuxAppToNotificationsAndReloadModelData() {
+		this.model.notificationList().empty();
+		
+		Iterator<Entry<Long, ArrayList<Notification>>> it = this.hashData.entrySet().iterator();
+	    while (it.hasNext()) {
+	    	Entry<Long, ArrayList<Notification>> entry = it.next();
+			ArrayList<Notification> arrayOfNotif = entry.getValue();
+	        for(Notification notification : arrayOfNotif) {
+				int appId = notification.getId();
+				notification.setAuxApp(this.getAppForId(appId));
+				
+				model.notificationList().add(notification);
+	        }
+	    }
+	}
+	
+	private App getAppForId(int appId) {
+		for(App app : this.model.appList().getAppList()) {
+			if(app.getId() == appId) {
+				Log.d("sssssssssssss", "Set app");
+				return app;
+			}
+		}
+		Log.d("sssssssssssss", "Set null app");
+		return null;
+	}
+	
+//	- (void)setAuxAppToNotificationsAndReloadModelData {
+//	    [model.notificationList reset];
+//	    
+//	    NSEnumerator *keyEnumerator = [tableData keyEnumerator];
+//	    
+//	    for (NSNumber *key in keyEnumerator) {
+//	        NSMutableArray *value = [tableData objectForKey:key];
+//	        NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"dateInMs" ascending:NO];
+//	        [value sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+//	        
+//	        for (Notification *currentNotif in value) {
+//	            NSString *appId = currentNotif.appId;
+//	            currentNotif.auxApp = [self getAppForId:appId];
+//	            
+//	            [model.notificationList addNotification:currentNotif];
+//	        }
+//	    }
+//	}
 }

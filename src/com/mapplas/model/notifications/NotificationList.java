@@ -38,6 +38,10 @@ public class NotificationList extends AbstractList<Notification> implements Parc
 		return this.list;
 	}
 	
+	public void empty() {
+		this.list.clear();
+	}
+	
 	/**
 	 * Parcelable methods
 	 */

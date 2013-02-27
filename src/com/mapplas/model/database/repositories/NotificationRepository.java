@@ -22,9 +22,9 @@ public class NotificationRepository extends Repository {
 	public static int MAX_NOTIFICATIONS_IN_TABLE = 100;
 
 	// 1 day = 86400000ms
-	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 86400000;
+//	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 86400000;
 //	1 minutes = 60000ms
-//	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 10000;
+	private static int DUPLICATE_APPS_OLDER_THAN_MSECONDS = 1000;
 
 	private LinkedHashMap<Integer, Integer> notificationIds = null;
 
@@ -247,10 +247,10 @@ public class NotificationRepository extends Repository {
 	
 	@SuppressWarnings("unchecked")
 	public void checkSameApps(Notification notification) {
-		long oldNotificationTimestamp = notification.arrivalTimestamp() + NotificationRepository.DUPLICATE_APPS_OLDER_THAN_MSECONDS;
+		long oldNotificationTimestamp = notification.arrivalTimestamp() - NotificationRepository.DUPLICATE_APPS_OLDER_THAN_MSECONDS;
 		DeleteBuilder<Notification, Integer> deleter = this.getDao().deleteBuilder();
 		try {
-			deleter.where().eq("id", notification.getId()).and().lt("arrivalTimestamp", oldNotificationTimestamp);
+			deleter.where().eq("id", notification.getId()).and().gt("arrivalTimestamp", oldNotificationTimestamp);
 			this.getDao().delete(deleter.prepare());
 		} catch (Exception e) {
 			Log.e(this.getClass().getName(), e.getMessage(), e);
