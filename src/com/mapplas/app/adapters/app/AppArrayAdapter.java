@@ -30,6 +30,7 @@ import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.RatingDialog;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.activities.WebViewActivity;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
@@ -315,16 +316,23 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
 						String strUrl = anonLoc.getAppUrl();
-						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
-							strUrl = "http://" + strUrl;
+//						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
+//							strUrl = "http://" + strUrl;
 
 						if(anonLoc.getInternalApplicationInfo() != null) {
 							Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
 							context.startActivity(appIntent);
 						}
 						else {
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
-							context.startActivity(browserIntent);
+							if(strUrl.startsWith("market://")) {
+								Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
+								context.startActivity(browserIntent);
+							}
+							else {
+								Intent webViewIntent = new Intent(context, WebViewActivity.class);
+								webViewIntent.putExtra(AppDetail.APP_DEV_URL_INTENT_DATA, anonLoc);
+								context.startActivity(webViewIntent);
+							}
 						}
 					}
 				}

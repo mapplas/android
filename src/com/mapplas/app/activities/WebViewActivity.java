@@ -49,7 +49,7 @@ public class WebViewActivity extends Activity {
 			titleText.setText(getString(R.string.error));
 		}
 		else {
-			titleText.setText(this.app.getName() + " " + getString(R.string.webview_title));
+			titleText.setText(this.app.getName());
 		}
 	}
 
