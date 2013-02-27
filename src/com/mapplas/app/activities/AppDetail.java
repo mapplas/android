@@ -32,7 +32,6 @@ import app.mapplas.com.R;
 import com.mapplas.app.ProblemDialog;
 import com.mapplas.app.RatingDialog;
 import com.mapplas.app.SliderListView;
-import com.mapplas.app.adapters.CommentAdapter;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.threads.ActivityRequestThread;
@@ -45,7 +44,6 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
-import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -56,6 +54,8 @@ public class AppDetail extends Activity {
 	// private static final boolean mDebug = true;
 
 	/* */
+	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
+	
 	private App app = null; // mLoc
 
 	private User user = null;
@@ -345,9 +345,10 @@ public class AppDetail extends Activity {
 				developerWebMailTextView.setOnClickListener(new View.OnClickListener() {
 
 					@Override
-					public void onClick(View v) {
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppDetail.this.app.getAppUrl()));
-						AppDetail.this.startActivity(browserIntent);
+					public void onClick(View v) {						
+						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
+						intent.putExtra(AppDetail.APP_DEV_URL_INTENT_DATA, app);
+						AppDetail.this.startActivity(intent);
 					}
 				});
 			}
