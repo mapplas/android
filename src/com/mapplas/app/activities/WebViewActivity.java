@@ -2,10 +2,13 @@ package com.mapplas.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -16,6 +19,8 @@ import com.mapplas.model.App;
 public class WebViewActivity extends Activity {
 
 	private App app = null;
+	
+	private RelativeLayout navBar = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,11 @@ public class WebViewActivity extends Activity {
 
 		this.initializeTitle();
 		this.initializeBackButton();
+		
+		this.navBar = (RelativeLayout)findViewById(R.id.webview_navbar);
+		this.setTimerToNavigationBar();
+		
+//		GestureDetector gestureDetector = new GestureDetect
 	}
 
 	private void initializeTitle() {
@@ -64,4 +74,13 @@ public class WebViewActivity extends Activity {
 		});
 	}
 
+	private void setTimerToNavigationBar() {
+		this.navBar.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				navBar.setVisibility(View.GONE);
+			}
+		}, 3000);
+	}
+	
 }

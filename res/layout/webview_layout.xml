@@ -5,6 +5,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/webview_navbar"
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="@drawable/bgd_menu" >
@@ -18,8 +19,6 @@
             android:gravity="center_horizontal|center_vertical"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#333333" >
-
-            <requestFocus />
         </TextView>
 
         <Button
