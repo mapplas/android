@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,9 +43,9 @@ public class AroundRequester implements UserLocationListener {
 	private AppAdapter appAdapter;
 
 	private List<ApplicationInfo> applicationList;
-	
+
 	private ActivityManager activityManager;
-	
+
 	private Button notificationsButton;
 
 	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList, ActivityManager activityManager, Button notificationsButton) {
@@ -78,7 +80,7 @@ public class AroundRequester implements UserLocationListener {
 		if(location == null) {
 			Toast toast = Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG);
 			toast.show();
-			((MapplasActivity) this.context).finish();
+			((MapplasActivity)this.context).finish();
 		}
 		else {
 			this.loadTasks(location);
@@ -92,24 +94,34 @@ public class AroundRequester implements UserLocationListener {
 		this.model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 
+		ConnectivityManager connManager = (ConnectivityManager)this.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		NetworkInfo mMobile = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
 		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
 			Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG).show();
 			this.listView.finishRefresing();
-			
+
 			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}
-		else {
+		else if(mWifi.isConnected() || mMobile.isConnected()) {
 			try {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
-				
+
 				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList, this.activityManager, this.notificationsButton).execute(new Location(location));
-				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));		
-				
+				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
+
 			} catch (Exception e) {
 				Log.i(getClass().getSimpleName(), e.toString());
 			}
+		}
+		else {
+			Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG).show();
+			this.listView.finishRefresing();
+
+			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}
 	}
 }
