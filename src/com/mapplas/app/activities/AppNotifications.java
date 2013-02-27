@@ -2,14 +2,15 @@ package com.mapplas.app.activities;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -91,8 +92,9 @@ public class AppNotifications extends Activity {
 		for(Long currentArrivalTimestamp : keySet) {
 			this.orderedDataKeys.add(currentArrivalTimestamp);
 		}
-	
-		Collections.sort(this.orderedDataKeys);
+		
+		Collections.sort(this.orderedDataKeys, new LongNumbersComparator());
+		Collections.reverse(this.orderedDataKeys);
 	}
 	
 	private void initializeNotificationSet() {
@@ -119,8 +121,12 @@ public class AppNotifications extends Activity {
 	    while (it.hasNext()) {
 	    	Entry<Long, ArrayList<Notification>> entry = it.next();
 			ArrayList<Notification> arrayOfNotif = entry.getValue();
+			
+			Collections.sort(arrayOfNotif, new NotificationComparator());
+			Collections.reverse(arrayOfNotif);
+			
 	        for(Notification notification : arrayOfNotif) {
-				int appId = notification.getId();
+				int appId = notification.getAppId();
 				notification.setAuxApp(this.getAppForId(appId));
 				
 				model.notificationList().add(notification);
@@ -128,33 +134,28 @@ public class AppNotifications extends Activity {
 	    }
 	}
 	
+    @SuppressLint("UseValueOf")
+	public class NotificationComparator implements Comparator<Notification> {
+		@Override
+	    public int compare(Notification n1, Notification n2) {
+	        return new Long(n1.dateInMiliseconds()).compareTo(new Long(n2.dateInMiliseconds()));
+	    }
+	}
+    
+    public class LongNumbersComparator implements Comparator<Long> {
+		@Override
+		public int compare(Long lhs, Long rhs) {
+			return lhs.compareTo(rhs);
+		}
+    }
+	
 	private App getAppForId(int appId) {
 		for(App app : this.model.appList().getAppList()) {
 			if(app.getId() == appId) {
-				Log.d("sssssssssssss", "Set app");
 				return app;
 			}
 		}
-		Log.d("sssssssssssss", "Set null app");
 		return null;
 	}
-	
-//	- (void)setAuxAppToNotificationsAndReloadModelData {
-//	    [model.notificationList reset];
-//	    
-//	    NSEnumerator *keyEnumerator = [tableData keyEnumerator];
-//	    
-//	    for (NSNumber *key in keyEnumerator) {
-//	        NSMutableArray *value = [tableData objectForKey:key];
-//	        NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"dateInMs" ascending:NO];
-//	        [value sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
-//	        
-//	        for (Notification *currentNotif in value) {
-//	            NSString *appId = currentNotif.appId;
-//	            currentNotif.auxApp = [self getAppForId:appId];
-//	            
-//	            [model.notificationList addNotification:currentNotif];
-//	        }
-//	    }
-//	}
+
 }
