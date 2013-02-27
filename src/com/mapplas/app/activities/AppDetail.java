@@ -32,7 +32,6 @@ import app.mapplas.com.R;
 import com.mapplas.app.ProblemDialog;
 import com.mapplas.app.RatingDialog;
 import com.mapplas.app.SliderListView;
-import com.mapplas.app.adapters.CommentAdapter;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.threads.ActivityRequestThread;
@@ -45,7 +44,6 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
-import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -56,6 +54,8 @@ public class AppDetail extends Activity {
 	// private static final boolean mDebug = true;
 
 	/* */
+	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
+	
 	private App app = null; // mLoc
 
 	private User user = null;
@@ -173,8 +173,8 @@ public class AppDetail extends Activity {
 					 */
 
 					String uid = "0";
-//					String id = "0";
-//					String resp = "";
+					// String id = "0";
+					// String resp = "";
 
 					if(this.user != null) {
 						uid = this.user.getId() + "";
@@ -267,56 +267,6 @@ public class AppDetail extends Activity {
 			}
 		});
 
-		// Comments list
-		this.commentsListView = (SliderListView)findViewById(R.id.lvComments);
-		CommentAdapter auxComAd = new CommentAdapter(this, R.layout.rowcom, this.app.getAuxComments());
-		this.commentsListView.setAdapter(auxComAd);
-
-		// Comments arrow image
-		this.commentsArrow = (ImageView)findViewById(R.id.ivArrow);
-
-		// Comments
-		TextView tvComments = (TextView)findViewById(R.id.btnComments);
-		tvComments.setTypeface(normalTypeFace);
-		tvComments.setTag(this.app);
-
-		// Number of comments
-		TextView numberOfComments = (TextView)findViewById(R.id.lblNumberOfComments);
-		numberOfComments.setText("(" + NumberUtils.FormatNumber(this.app.getAuxTotalComments()) + ")");
-
-		// Comments layout
-		LinearLayout lytComments = (LinearLayout)findViewById(R.id.lytComments);
-		lytComments.setTag(this.app);
-		lytComments.setOnClickListener(new View.OnClickListener() {
-
-			private boolean open = false;
-
-			@Override
-			public void onClick(View v) {
-				// Intent intent = new Intent(AppDetail.this, Comments.class);
-				// intent.putExtra(Constants.SYNESTH_DETAIL_INDEX,
-				// AppDetail.mIndex);
-				// AppDetail.this.startActivity(intent);
-				int h = (int)(AppDetail.this.app.getAuxComments().size() * 70 * metrics.density);
-				float vel = AppDetail.this.app.getAuxComments().size() * 500 * metrics.density;
-
-				if(open) {
-					commentsListView.SlideUp(vel);
-					commentsArrow.startAnimation(reverseFlipAnimation);
-				}
-				else {
-					commentsListView.SlideDown(h, vel);
-					commentsArrow.startAnimation(flipAnimation);
-				}
-				open = !open;
-
-				App anonLoc = (App)(v.getTag());
-
-				Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHOW_COMMENTS).getThread());
-				activityRequestThread.start();
-			}
-		});
-
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
 
@@ -360,41 +310,7 @@ public class AppDetail extends Activity {
 			}
 		});
 
-		// Developer text view
-		TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
-		developerTextView.setTypeface(normalTypeFace);
-
-		// Developer mail and web buttons layout
-		TextView developerWebMailTextView = (TextView)findViewById(R.id.lblWeb);
-		// tv.setText(this.mLoc.getAppUrl());
-		developerWebMailTextView.setTypeface(normalTypeFace);
-		developerWebMailTextView.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppDetail.this.app.getAppUrl()));
-				AppDetail.this.startActivity(browserIntent);
-			}
-		});
-
-		// Developer mail button
-		TextView tv = (TextView)findViewById(R.id.lblEMail);
-		// tv.setText(this.mLoc.getAppEmail());
-		tv.setTypeface(normalTypeFace);
-		tv.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(Intent.ACTION_SEND);
-				// i.setType("text/plain"); //use this line for testing in the
-				// emulator
-				i.setType("message/rfc822"); // use from live device
-				i.putExtra(Intent.EXTRA_EMAIL, new String[] { "test@gmail.com" });
-				i.putExtra(Intent.EXTRA_SUBJECT, "subject goes here");
-				i.putExtra(Intent.EXTRA_TEXT, "body goes here");
-				startActivity(Intent.createChooser(i, "Select email application."));
-			}
-		});
+		this.manageDeveloperLayout(normalTypeFace);
 
 		// Back button
 		Button backButton = (Button)findViewById(R.id.btnBack);
@@ -407,6 +323,56 @@ public class AppDetail extends Activity {
 			}
 		});
 
+	}
+
+	private void manageDeveloperLayout(Typeface normalTypeFace) {
+//		if(this.app.getAppUrl().equals("") && this.app.getDeveloperMail.equals("")) {
+		if(this.app.getAppUrl().equals("")) {
+			findViewById(R.id.lytDeveloper).setVisibility(View.INVISIBLE);
+		}
+		else {
+			// Developer text view
+			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
+			developerTextView.setTypeface(normalTypeFace);
+
+			// Developer mail and web buttons layout
+			TextView developerWebMailTextView = (TextView)findViewById(R.id.lblWeb);
+
+			if(this.app.getAppUrl().equals("")) {
+				developerWebMailTextView.setVisibility(View.GONE);
+			} else {
+				developerWebMailTextView.setTypeface(normalTypeFace);
+				developerWebMailTextView.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {						
+						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
+						intent.putExtra(AppDetail.APP_DEV_URL_INTENT_DATA, app);
+						AppDetail.this.startActivity(intent);
+					}
+				});
+			}
+
+			// Developer mail button
+			TextView tv = (TextView)findViewById(R.id.lblEMail);
+			
+//			if(this.app.getDeveloperMail().equals("")) {
+//				tv.setVisibility(View.GONE);
+//			} else {
+				tv.setTypeface(normalTypeFace);
+				tv.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(Intent.ACTION_SEND);
+						i.setType("text/html"); // use from live device
+						i.putExtra(Intent.EXTRA_EMAIL, new String[] { "contact@mapplas.com" });
+						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
+						startActivity(Intent.createChooser(i, "Select email application."));
+					}
+				});
+//			}
+		}
 	}
 
 	private void initializeButtonsAndBehaviour() {
@@ -475,25 +441,6 @@ public class AppDetail extends Activity {
 				}
 			}
 		});
-
-		// Support button
-		Button supportButton = (Button)findViewById(R.id.btnReportProblem);
-		supportButton.setTypeface(normalTypeFace);
-		supportButton.setTag(this.app);
-		supportButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				final App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
-					ProblemDialog myDialog = new ProblemDialog(AppDetail.this, "", new OnReadyListenerProblem());
-					myDialog.show();
-
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PROBLEM).getThread());
-					activityRequestThread.start();
-				}
-			}
-		});
 	}
 
 	private void initializeActionsLayout() {
@@ -520,55 +467,6 @@ public class AppDetail extends Activity {
 		this.initRateLayout(lytRate);
 		this.initPhoneLayout(lytPhone);
 	}
-
-	// private void initFavLayout(LinearLayout lytLike) {
-	// // Favourite
-	// final ImageView ivFavourite = (ImageView)findViewById(R.id.btnFavourite);
-	// ivFavourite.setTag(this.app);
-	//
-	// if(this.app.isAuxFavourite()) {
-	// ivFavourite.setImageResource(R.drawable.action_like_button_done);
-	// }
-	//
-	// lytLike.setOnClickListener(new View.OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// final App anonLoc = (App)(v.getTag());
-	// if(anonLoc != null) {
-	// String auxuid = "0";
-	// if(user != null) {
-	// auxuid = user.getId() + "";
-	// }
-	//
-	// final String uid = auxuid;
-	//
-	// String auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_LIKE;
-	// if(anonLoc.isAuxFavourite()) {
-	// auxaction = Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE;
-	// ivFavourite.setImageResource(R.drawable.action_like_button);
-	// anonLoc.setAuxFavourite(false);
-	// }
-	// else {
-	// ivFavourite.setImageResource(R.drawable.action_like_button_done);
-	// anonLoc.setAuxFavourite(true);
-	// }
-	//
-	// final String action = auxaction;
-	//
-	// Thread likeRequestThread = new Thread(new LikeRequestThread(action,
-	// anonLoc, uid).getThread());
-	// likeRequestThread.start();
-	//
-	// Thread activityRequestThread = new Thread(new
-	// ActivityRequestThread(currentLocation, anonLoc, user,
-	// Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_FAVOURITE).getThread());
-	// activityRequestThread.start();
-	//
-	// }
-	// }
-	// });
-	// }
 
 	private void initPinLayout(LinearLayout lytPinup) {
 		final ImageView ivPinup = (ImageView)findViewById(R.id.btnPinUp);
@@ -620,7 +518,7 @@ public class AppDetail extends Activity {
 						App currentApp = model.appList().get(i);
 						if(currentApp.getId() == anonLoc.getId()) {
 							currentApp.setAuxPin(!currentApp.isAuxPin());
-							
+
 							// Add or not 1 element to total pins count
 							if(currentApp.isAuxPin()) {
 								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() + 1);
@@ -628,7 +526,7 @@ public class AppDetail extends Activity {
 							else {
 								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() - 1);
 							}
-							
+
 							found = true;
 						}
 						i++;
@@ -784,34 +682,4 @@ public class AppDetail extends Activity {
 			lytPhone.setVisibility(View.GONE);
 		}
 	}
-	/*
-	 * btn = (Button) findViewById(R.id.btnCamera); btn.setTag(this.mLoc);
-	 * btn.setOnClickListener(new View.OnClickListener() {
-	 * 
-	 * @Override public void onClick(View v) { Intent cameraIntent = new
-	 * Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-	 * 
-	 * File photo = new File(Environment.getExternalStorageDirectory(),
-	 * "synesth.jpg"); cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-	 * Uri.fromFile(photo)); imageUri = Uri.fromFile(photo); imagePath =
-	 * photo.getAbsolutePath();
-	 * 
-	 * startActivityForResult(cameraIntent,
-	 * Constants.SYNESTH_DETAILS_CAMERA_ID);
-	 * 
-	 * 
-	 * 
-	 * final Localization anonLoc = (Localization)(v.getTag()); if(anonLoc !=
-	 * null) { try { Thread th = new Thread(new Runnable() {
-	 * 
-	 * @Override public void run() { try {
-	 * NetRequests.ActivityRequest(SynesthActivity .GetModel().currentLocation,
-	 * "camera", anonLoc.getId() + "",
-	 * SynesthActivity.GetModel().currentUser.getId() + ""); } catch (Exception
-	 * e) { Log.i(getClass().getSimpleName(), "Thread Action Camera: " + e); } }
-	 * }); th.start();
-	 * 
-	 * }catch(Exception exc) { Log.i(getClass().getSimpleName(),
-	 * "Action Camera: " + exc); } } } });
-	 */
 }
