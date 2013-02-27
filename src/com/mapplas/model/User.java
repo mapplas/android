@@ -2,12 +2,12 @@ package com.mapplas.model;
 
 import java.util.ArrayList;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import android.os.Parcel;
-import android.os.Parcelable;
 
 @DatabaseTable(tableName = "users")
 public class User implements Parcelable, Unit {
