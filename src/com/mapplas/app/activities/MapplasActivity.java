@@ -125,13 +125,13 @@ public class MapplasActivity extends Activity {
 		// Check network status
 		this.checkNetworkStatus();
 
-//		this.loadLocalization();
+		this.loadLocalization();
 		// TODO: uncomment for emulator use
-		 Location location = new Location("");
-		 location.setLatitude(43.291248);
-		 location.setLongitude(-1.982539);
-		 new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.applicationList, activityManager, this.notificationsButton).execute(new Location(location));
-		 new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));		
+//		 Location location = new Location("");
+//		 location.setLatitude(43.291248);
+//		 location.setLongitude(-1.982539);
+//		 new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.applicationList, activityManager, this.notificationsButton).execute(new Location(location));
+//		 new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));		
 	}
 
 	@Override

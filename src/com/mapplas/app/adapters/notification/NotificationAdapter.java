@@ -20,13 +20,17 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.AppNotifications;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.async_tasks.LoadImageTask;
+import com.mapplas.app.async_tasks.TaskAsyncExecuter;
+import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.notifications.Notification;
 import com.mapplas.utils.DateUtils;
-import com.mapplas.utils.DrawableBackgroundDownloader;
+import com.mapplas.utils.cache.CacheFolderFactory;
+import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class NotificationAdapter extends BaseAdapter {
@@ -75,9 +79,23 @@ public class NotificationAdapter extends BaseAdapter {
 			tt.setTypeface(normalTypeface);
 			tt.setText(DateUtils.FormatSinceDate(o.getDate(), o.getHour(), this.context));
 
+			// Load app logo
 			if(o.getAuxApp() != null) {
-				ImageView iv = (ImageView)v.findViewById(R.id.imgLogo);
-				new DrawableBackgroundDownloader().loadDrawable(o.getAuxApp().getAppLogo(), iv, this.context.getResources().getDrawable(R.drawable.ic_template));	
+				ImageFileManager imageFileManager = new ImageFileManager();
+				ImageView logoImageView = (ImageView)v.findViewById(R.id.imgLogo);
+
+				App auxApp = o.getAuxApp();
+				String logoUrl = auxApp.getAppLogo();
+				
+				if(!logoUrl.equals("")) {
+					if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+						logoImageView.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+					}
+					else {
+						TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, logoImageView, imageFileManager));
+						imageRequest.execute();
+					}
+				}
 			}
 
 			v.setOnClickListener(new View.OnClickListener() {
