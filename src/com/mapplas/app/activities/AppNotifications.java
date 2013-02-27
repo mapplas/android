@@ -2,9 +2,13 @@ package com.mapplas.app.activities;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +20,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.notification.NotificationAdapter;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
@@ -68,8 +73,9 @@ public class AppNotifications extends Activity {
 		this.hashData = notificationRepository.getNotificationsSeparatedByLocation();
 		this.orderTableData();
 		this.initializeNotificationSet();
+		this.setAuxAppToNotificationsAndReloadModelData();
 		
-		this.mListAdapter = new NotificationAdapter(this, R.layout.rownot, this.model.notificationList().getList(), this.model, this.notificationSet);
+		this.mListAdapter = new NotificationAdapter(this, this.model, this.notificationSet, this.hashData);
 		ListView lv = (ListView)findViewById(R.id.lvLista);
 		lv.setAdapter(this.mListAdapter);
 
@@ -86,8 +92,9 @@ public class AppNotifications extends Activity {
 		for(Long currentArrivalTimestamp : keySet) {
 			this.orderedDataKeys.add(currentArrivalTimestamp);
 		}
-	
-		Collections.sort(this.orderedDataKeys);
+		
+		Collections.sort(this.orderedDataKeys, new LongNumbersComparator());
+		Collections.reverse(this.orderedDataKeys);
 	}
 	
 	private void initializeNotificationSet() {
@@ -104,7 +111,51 @@ public class AppNotifications extends Activity {
 					this.notificationSet.add(AppNotifications.typeNormalItem);
 				}
 			}
-			
 		}
 	}
+	
+	private void setAuxAppToNotificationsAndReloadModelData() {
+		this.model.notificationList().empty();
+		
+		Iterator<Entry<Long, ArrayList<Notification>>> it = this.hashData.entrySet().iterator();
+	    while (it.hasNext()) {
+	    	Entry<Long, ArrayList<Notification>> entry = it.next();
+			ArrayList<Notification> arrayOfNotif = entry.getValue();
+			
+			Collections.sort(arrayOfNotif, new NotificationComparator());
+			Collections.reverse(arrayOfNotif);
+			
+	        for(Notification notification : arrayOfNotif) {
+				int appId = notification.getAppId();
+				notification.setAuxApp(this.getAppForId(appId));
+				
+				model.notificationList().add(notification);
+	        }
+	    }
+	}
+	
+    @SuppressLint("UseValueOf")
+	public class NotificationComparator implements Comparator<Notification> {
+		@Override
+	    public int compare(Notification n1, Notification n2) {
+	        return new Long(n1.dateInMiliseconds()).compareTo(new Long(n2.dateInMiliseconds()));
+	    }
+	}
+    
+    public class LongNumbersComparator implements Comparator<Long> {
+		@Override
+		public int compare(Long lhs, Long rhs) {
+			return lhs.compareTo(rhs);
+		}
+    }
+	
+	private App getAppForId(int appId) {
+		for(App app : this.model.appList().getAppList()) {
+			if(app.getId() == appId) {
+				return app;
+			}
+		}
+		return null;
+	}
+
 }

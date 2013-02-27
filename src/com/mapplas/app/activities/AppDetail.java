@@ -34,6 +34,8 @@ import com.mapplas.app.RatingDialog;
 import com.mapplas.app.SliderListView;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.app.async_tasks.LoadImageTask;
+import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.app.threads.PinRequestThread;
@@ -42,8 +44,9 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.Photo;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
-import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
+import com.mapplas.utils.cache.CacheFolderFactory;
+import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -270,9 +273,20 @@ public class AppDetail extends Activity {
 
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
+		ImageFileManager imageFileManager = new ImageFileManager();
 
-		new DrawableBackgroundDownloader().loadDrawable(this.app.getAppLogo(), appLogo, this.getResources().getDrawable(R.drawable.ic_template));
-
+		String logoUrl = this.app.getAppLogo();
+		
+		if(!logoUrl.equals("")) {
+			if(imageFileManager.exists(new CacheFolderFactory(this).create(), logoUrl)) {
+				appLogo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this).create(), logoUrl));
+			}
+			else {
+				TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this, logoUrl, appLogo, imageFileManager));
+				imageRequest.execute();
+			}
+		}
+		
 		// App detail header text view
 		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
 		appNameTextView.setText(this.app.getName());
