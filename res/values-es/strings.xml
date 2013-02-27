@@ -100,6 +100,8 @@
     <string name="privacy_policy_message">Política de privacidad. \n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tellus sapien. Nullam placerat, lorem nec lobortis gravida, nisi ipsu</string>
     <string name="toast_after_rate_ok">Comentario enviado correctamente!</string>
     <string name="toast_after_rate_nok">Error al enviar la valoración, inténtalo de nuevo!</string>
+    <string name="share_message_part1">Compartiendo</string>
+    <string name="share_message_part2"> via Mapplas</string>
     <string name="conf_screen_contact_title">Contacta con nosotros</string>
     <string name="config_contact_us_email">support@mapplas.com</string>
     <string name="config_contact_us_email_subject">¡Hola!</string>

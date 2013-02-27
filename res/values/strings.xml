@@ -113,6 +113,8 @@
     <string name="currency_dollar">$</string>
     <string name="toast_after_rate_ok">Rating correctly sent!</string>
     <string name="toast_after_rate_nok">Error sending rating, try again!</string>
+    <string name="share_message_part1">Sharing</string>
+    <string name="share_message_part2"> via Mapplas</string>
     <string name="conf_screen_contact_title">Contact us</string>
     <string name="config_contact_us_email">support@mapplas.com</string>
     <string name="config_contact_us_email_subject">Hello!</string>

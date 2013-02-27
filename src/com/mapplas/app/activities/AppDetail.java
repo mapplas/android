@@ -45,6 +45,7 @@ import com.mapplas.model.User;
 import com.mapplas.utils.DrawableBackgroundDownloader;
 import com.mapplas.utils.NetRequests;
 import com.mapplas.utils.rating_dialog.OnReadyListener;
+import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 
@@ -555,16 +556,7 @@ public class AppDetail extends Activity {
 			public void onClick(View v) {
 				final App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
-					Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-					// Comprobar que existe y que está instalada la aplicación
-					// en el teléfono
-					sharingIntent.setPackage("com.whatsapp");
-					sharingIntent.setType("text/plain");
-					String shareBody = anonLoc.getAppName() + " sharing via Synesth";
-					// sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-					anonLoc.getAppName();
-					sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-					startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
+					startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(AppDetail.this, anonLoc), getString(R.string.share)));
 
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
 					activityRequestThread.start();
