@@ -106,6 +106,4 @@
     <string name="app_developer_email_contact_subject">TODO</string>
     <string name="app_detail_app_web_dev_url_error">Error abriendo página web. Inténtalo más tarde.</string>
     <string name="error">error</string>
-    <string name="webview_title">developer</string>
-
 </resources>
