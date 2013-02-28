@@ -28,9 +28,16 @@
             android:background="@drawable/menu_back_button_left" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/webview_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </LinearLayout>
+    <!--
     <WebView
         android:id="@+id/webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
+    -->
 
 </LinearLayout>
