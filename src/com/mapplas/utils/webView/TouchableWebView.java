@@ -2,7 +2,6 @@ package com.mapplas.utils.webView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
@@ -38,15 +37,15 @@ public class TouchableWebView extends WebView {
 		}, 3000);
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		switch (event.getAction()) {
-			case (MotionEvent.ACTION_DOWN):
-				this.navBar.setVisibility(View.VISIBLE);
-				this.setTimerToNavigationBar();
-				return true;
-			default:
-				return false;
-		}
-	}
+//	@Override
+//	public boolean onTouchEvent(MotionEvent event) {
+//		switch (event.getAction()) {
+//			case (MotionEvent.ACTION_DOWN):
+//				this.navBar.setVisibility(View.VISIBLE);
+//				this.setTimerToNavigationBar();
+//				return true;
+//			default:
+//				return false;
+//		}
+//	}
 }

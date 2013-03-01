@@ -4,32 +4,35 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
+import com.mapplas.utils.webView.TouchableScrollView;
 import com.mapplas.utils.webView.TouchableWebView;
 
 public class WebViewActivity extends Activity {
 
 	private App app = null;
-	
+
 	private RelativeLayout navBar = null;
-	
-	private LinearLayout webLayout = null;
-	
+
+	private TouchableScrollView scroll = null;
+
 	private TouchableWebView gestureWebview = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.webview_layout);
-		
+
 		this.initializeNavigationBarAnimation();
 		this.extractDataFromBundle();
 
@@ -44,7 +47,7 @@ public class WebViewActivity extends Activity {
 				this.app = (App)extras.getParcelable(AppDetail.APP_DEV_URL_INTENT_DATA);
 				if(!this.app.getAppUrl().equals("")) {
 					this.gestureWebview.loadUrl(this.app.getAppUrl());
-//					this.gestureWebview.loadUrl("www.google.es");
+					// this.gestureWebview.loadUrl("www.google.es");
 
 				}
 				else {
@@ -58,7 +61,7 @@ public class WebViewActivity extends Activity {
 	private void initializeTitle() {
 		TextView titleText = (TextView)findViewById(R.id.lblAppDetail);
 		titleText.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
-		
+
 		if(this.app == null) {
 			titleText.setText(getString(R.string.error));
 		}
@@ -77,13 +80,15 @@ public class WebViewActivity extends Activity {
 			}
 		});
 	}
-	
+
 	private void initializeNavigationBarAnimation() {
-		this.webLayout = (LinearLayout)findViewById(R.id.webview_layout);
+		this.scroll = (TouchableScrollView)findViewById(R.id.scrollView1);
 		this.navBar = (RelativeLayout)findViewById(R.id.webview_navbar);
-		
+
 		this.gestureWebview = new TouchableWebView(this);
 		this.gestureWebview.setNavBar(this.navBar);
-		this.webLayout.addView(gestureWebview);
+		this.scroll.setNavBar(this.navBar);
+		this.scroll.addView(gestureWebview);
 	}
+
 }

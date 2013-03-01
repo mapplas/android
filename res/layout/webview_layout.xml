@@ -28,16 +28,10 @@
             android:background="@drawable/menu_back_button_left" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/webview_layout"
+    <com.mapplas.utils.webView.TouchableScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-    </LinearLayout>
-    <!--
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
-    -->
+    </com.mapplas.utils.webView.TouchableScrollView>
 
 </LinearLayout>
