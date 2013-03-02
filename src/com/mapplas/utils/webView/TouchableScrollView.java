@@ -13,12 +13,12 @@ import android.widget.ScrollView;
 public class TouchableScrollView extends ScrollView {
 
 	private RelativeLayout navBar;
-	
+
 	private ProgressDialog progressDialog;
 
-	private Animation translateOutAnimation;
+	private Animation fadeOutAnimation;
 
-	private Animation translateInAnimation;
+	private Animation fadeInAnimation;
 
 	public TouchableScrollView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -36,11 +36,11 @@ public class TouchableScrollView extends ScrollView {
 		this.navBar = navigationBar;
 		this.initAnimations();
 	}
-	
+
 	public void setProgressDialog(ProgressDialog progressDialog) {
 		this.progressDialog = progressDialog;
 	}
-	
+
 	public void stopDialogAndStartAnimation() {
 		this.progressDialog.hide();
 		this.setTimerToNavigationBar();
@@ -49,9 +49,17 @@ public class TouchableScrollView extends ScrollView {
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
 		if(t <= 10) {
-			// this.navBar.startAnimation(this.translateInAnimation);
+			this.navBar.startAnimation(this.fadeInAnimation);
 			this.setTimerToNavigationBar();
 		}
+
+		View view = (View)getChildAt(getChildCount() - 1);
+		int diff = (view.getBottom() - (getHeight() + getScrollY()));
+		if(diff == 0) {
+			this.navBar.startAnimation(this.fadeInAnimation);
+			this.setTimerToNavigationBar();
+		}
+
 		super.onScrollChanged(l, t, oldl, oldt);
 	}
 
@@ -60,17 +68,17 @@ public class TouchableScrollView extends ScrollView {
 
 			@Override
 			public void run() {
-				navBar.startAnimation(translateOutAnimation);
+				navBar.startAnimation(fadeOutAnimation);
 			}
-		}, 9000);
+		}, 3000);
 	}
 
 	private void initAnimations() {
-		this.translateOutAnimation = new AlphaAnimation(1, 0);
-		this.translateOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
-		this.translateOutAnimation.setStartOffset(0);
-		this.translateOutAnimation.setDuration(500);
-		this.translateOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+		this.fadeOutAnimation = new AlphaAnimation(1, 0);
+		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
+		this.fadeOutAnimation.setStartOffset(0);
+		this.fadeOutAnimation.setDuration(500);
+		this.fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
@@ -86,27 +94,26 @@ public class TouchableScrollView extends ScrollView {
 			}
 		});
 
-		// this.translateInAnimation = new TranslateAnimation(0, 0, -100, 0);
-		// this.translateInAnimation.setInterpolator(new
-		// AccelerateInterpolator());
-		// this.translateInAnimation.setStartOffset(0);
-		// this.translateInAnimation.setDuration(700);
-		// this.translateOutAnimation.setAnimationListener(new
-		// Animation.AnimationListener() {
-		//
-		// @Override
-		// public void onAnimationStart(Animation animation) {
-		// navBar.setVisibility(View.VISIBLE);
-		// }
-		//
-		// @Override
-		// public void onAnimationRepeat(Animation animation) {
-		// }
-		//
-		// @Override
-		// public void onAnimationEnd(Animation animation) {
-		// }
-		// });
+		this.fadeInAnimation = new AlphaAnimation(0, 1);
+		this.fadeInAnimation.setInterpolator(new AccelerateInterpolator()); // and
+		this.fadeInAnimation.setStartOffset(0);
+		this.fadeInAnimation.setDuration(500);
+		this.fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+				navBar.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+			}
+		});
+
 	}
 
 }
