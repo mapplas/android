@@ -325,7 +325,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 							context.startActivity(appIntent);
 						}
 						else {
-							if(strUrl.startsWith("market://")) {
+							if(strUrl.startsWith("market://") || strUrl.startsWith("https://play.google.com") || strUrl.startsWith("http://play.google.com")) {
 								Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
 								context.startActivity(browserIntent);
 							}
