@@ -3,6 +3,7 @@ package com.mapplas.app.activities;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -13,6 +14,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,6 +80,14 @@ public class MapplasActivity extends Activity {
 
 	private boolean pressedNotificationScreen = false;
 
+	private TextView latitudeTV;
+
+	private TextView longitudeTV;
+	
+	private Handler latitudeTVHandler = new Handler();
+	
+	private Handler longitudeTVHandler = new Handler();
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,12 +98,13 @@ public class MapplasActivity extends Activity {
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 
 		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
-		
+
 		// Obtenemos el IMEI como identificador (ANDROID_ID da problemas)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
 
 		this.startRadarAnimation();
+		this.startLatLongAnimation();
 
 		// Identificamos contra el servidor
 		try {
@@ -124,11 +135,14 @@ public class MapplasActivity extends Activity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-//		 Location location = new Location("");
-//		 location.setLatitude(43.291248);
-//		 location.setLongitude(-1.982539);
-//		 new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.applicationList, activityManager, this.notificationsButton).execute(new Location(location));
-//		 new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));		
+		// Location location = new Location("");
+		// location.setLatitude(43.291248);
+		// location.setLongitude(-1.982539);
+		// new AppGetterTask(this, this.model, this.listViewAdapter,
+		// this.listView, this.applicationList, activityManager,
+		// this.notificationsButton).execute(new Location(location));
+		// new ReverseGeocodingTask(this, this.model,
+		// this.listViewHeaderStatusMessage).execute(new Location(location));
 	}
 
 	@Override
@@ -335,10 +349,32 @@ public class MapplasActivity extends Activity {
 		rotate4.setRepeatCount(Animation.INFINITE);
 		rotate4.setInterpolator(new LinearInterpolator());
 		shadowImage.startAnimation(rotate4);
-
-		// final TextView latitude = (TextView)this.findViewById(R.id.lblLat);
-		// final TextView longitude = (TextView)this.findViewById(R.id.lblLon);
 	}
+
+	private void startLatLongAnimation() {
+		this.latitudeTV = (TextView)this.findViewById(R.id.lblLat);
+		this.latitudeTVHandler.post(this.latitudeTVRunnable);
+
+		this.longitudeTV = (TextView)this.findViewById(R.id.lblLon);
+		this.longitudeTVHandler.post(this.longitudeTVRunnable);
+	}
+	
+	private Runnable latitudeTVRunnable = new Runnable() {
+        public void run() {
+			Random random = new Random();
+        	latitudeTV.setText((random.nextInt(180 + 180) - 180) + "," + random.nextInt(99999));
+            latitudeTVHandler.postDelayed(latitudeTVRunnable, 100);
+        }
+    };
+    
+    private Runnable longitudeTVRunnable = new Runnable() {
+		@Override
+		public void run() {
+			Random random = new Random();
+			longitudeTV.setText((random.nextInt(90 + 90) - 90) + "," + random.nextInt(99999));
+			longitudeTVHandler.postDelayed(longitudeTVRunnable, 100);
+		}
+	};
 
 	/**
 	 * Load localization
