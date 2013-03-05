@@ -78,7 +78,7 @@ public class AroundRequester implements UserLocationListener {
 	@Override
 	public void locationSearchDidTimeout(Location location) {
 		if(location == null) {
-			Toast toast = Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG);
 			toast.show();
 			((MapplasActivity)this.context).finish();
 		}
@@ -100,7 +100,7 @@ public class AroundRequester implements UserLocationListener {
 
 		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
-			Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG).show();
+			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
 			this.listView.finishRefresing();
 
 			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
@@ -118,7 +118,7 @@ public class AroundRequester implements UserLocationListener {
 			}
 		}
 		else {
-			Toast.makeText(this.context, R.string.connection_error_toast, Toast.LENGTH_LONG).show();
+			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
 			this.listView.finishRefresing();
 
 			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
