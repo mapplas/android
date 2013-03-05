@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:gravity="bottom|center_horizontal"
-                android:text="@string/pin_ups"
+                android:text="@string/user_screen_segmented_control_pins"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:gravity="bottom|center_horizontal"
-                android:text="@string/blocks"
+                android:text="@string/user_screen_segmented_control_blocks"
                 android:textSize="10sp" />
         </LinearLayout>
 
