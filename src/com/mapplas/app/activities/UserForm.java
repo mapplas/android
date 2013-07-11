@@ -1,49 +1,29 @@
 package com.mapplas.app.activities;
 
-import java.io.File;
-import java.util.List;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
 import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
-import com.mapplas.app.threads.ActivityRequestThread;
-import com.mapplas.app.threads.UserEditRequestThread;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.JsonParser;
@@ -65,18 +45,6 @@ public class UserForm extends Activity {
 	private RotateAnimation flipAnimation;
 
 	private RotateAnimation reverseFlipAnimation;
-
-//	private RotateAnimation refreshAnimation;
-
-	private Animation animFlipInNext;
-
-	private Animation animFlipOutNext;
-
-	private Animation animFlipInPrevious;
-
-	private Animation animFlipOutPrevious;
-
-	private Uri mImageCaptureUri;
 
 	public static String currentResponse = "";
 
@@ -123,20 +91,6 @@ public class UserForm extends Activity {
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
 		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation).present();
-
-		// Try to get image
-		ImageView imgUser = (ImageView)findViewById(R.id.imgUser);
-		try {
-			SharedPreferences settings = getSharedPreferences("prefs", 0);
-			String uri = settings.getString("user_image", "");
-
-			if(!uri.equals("")) {
-				Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(uri));
-				imgUser.setImageBitmap(bmp);
-			}
-		} catch (Exception exc) {
-			imgUser.setImageResource(R.drawable.ic_menu_profile);
-		}
 	}
 
 	@Override
@@ -228,11 +182,6 @@ public class UserForm extends Activity {
 		this.reverseFlipAnimation.setInterpolator(new LinearInterpolator());
 		this.reverseFlipAnimation.setDuration(300);
 		this.reverseFlipAnimation.setFillAfter(true);
-
-		this.animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
-		this.animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
-		this.animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
-		this.animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
 	}
 
 	private void initLayoutComponents() {
@@ -240,7 +189,6 @@ public class UserForm extends Activity {
 		this.actionButton = (Button)findViewById(R.id.btnAction);
 
 		this.headerLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
-		this.buttonsFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer_info, null);
 		this.refreshListBackgroundFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
 
 		this.listView = (ListView)findViewById(R.id.lvList);
@@ -267,110 +215,8 @@ public class UserForm extends Activity {
 		this.changeLayoutComponents(this.checkUserState());
 	}
 
-	private void initializeButtonsAndItsBehaviour() {
-		ViewFlipper profileRow = (ViewFlipper)findViewById(R.id.vfRowProfile);
-		
-		this.initializeFormButton(profileRow);
-		this.initializeActionButton(profileRow);
+	private void initializeButtonsAndItsBehaviour() {		
 		this.initializeBackButton();
-		this.initializeProfileImageButton();
-		this.initializeSignOutButton();
-	}
-
-	private void initializeFormButton(final ViewFlipper profileRow) {
-		Button btnSend = (Button)findViewById(R.id.btnSend);
-		btnSend.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				// Send and store the user data.
-				EditText txtName = (EditText)findViewById(R.id.txtName);
-				user.setName(txtName.getText().toString());
-				txtName.setText(user.getName());
-
-				EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
-				user.setEmail(txtEmail.getText().toString());
-				txtEmail.setText(user.getEmail());
-
-				TextView lblName = (TextView)findViewById(R.id.lblName);
-				lblName.setText(user.getName());
-				if(user.getName().equals("")) {
-					lblName.setText(R.string.name_not_set);
-				}
-
-				TextView lblEmail = (TextView)findViewById(R.id.lblEmail);
-				lblEmail.setText(user.getEmail());
-				if(user.getEmail().equals("")) {
-					lblEmail.setTag(R.string.email_not_set);
-				}
-
-				// Hide keyboard
-				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(txtName.getWindowToken(), 0);
-				imm.hideSoftInputFromWindow(txtEmail.getWindowToken(), 0);
-
-				// Send user edit request
-				try {
-					Thread th = new Thread(new UserEditRequestThread(user, currentResponse).getThread());
-					th.start();
-
-					SharedPreferences settings = getSharedPreferences("prefs", 0);
-					Editor editor = settings.edit();
-					editor.putBoolean("user_logged", true);
-					editor.commit();
-
-					// Change layout components
-					changeLayoutComponents(checkUserState());
-
-				} catch (Exception exc) {
-					// Change layout components
-
-					SharedPreferences settings = getSharedPreferences("prefs", 0);
-					Editor editor = settings.edit();
-					editor.putBoolean("user_logged", false);
-					editor.commit();
-
-					changeLayoutComponents(checkUserState());
-
-					Log.i(getClass().getSimpleName(), "Edit User: " + exc);
-				}
-
-				if(profileRow.indexOfChild(profileRow.getCurrentView()) == 0) {
-					profileRow.setInAnimation(animFlipInNext);
-					profileRow.setOutAnimation(animFlipOutNext);
-					profileRow.showNext();
-				}
-				else {
-					profileRow.setInAnimation(animFlipInPrevious);
-					profileRow.setOutAnimation(animFlipOutPrevious);
-					profileRow.showPrevious();
-				}
-			}
-		});
-	}
-
-	private void initializeActionButton(final ViewFlipper profileRow) {
-		this.actionButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if(profileRow.indexOfChild(profileRow.getCurrentView()) == 0) {
-					profileRow.setInAnimation(animFlipInNext);
-					profileRow.setOutAnimation(animFlipOutNext);
-					profileRow.showNext();
-					
-					actionButton.setText(R.string.cancel);
-				}
-				else {
-					profileRow.setInAnimation(animFlipInPrevious);
-					profileRow.setOutAnimation(animFlipOutPrevious);
-					profileRow.showPrevious();
-					
-					actionButton.setText(R.string.signin);
-				}
-			}
-		});
 	}
 
 	private void initializeBackButton() {
@@ -391,60 +237,6 @@ public class UserForm extends Activity {
 		});
 	}
 
-	private void initializeProfileImageButton() {
-		Button btnProfileImage = (Button)findViewById(R.id.btnProfileImage);
-		btnProfileImage.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-
-				intent.setType("image/*");
-				intent.setAction(Intent.ACTION_GET_CONTENT);
-
-				startActivityForResult(Intent.createChooser(intent, "Select Picture"), Constants.SYNESTH_DETAILS_CAMERA_ID);
-			}
-		});
-	}
-
-	private void initializeSignOutButton() {
-		Button logoutButton = (Button)this.buttonsFooter.findViewById(R.id.lblSignout);
-		logoutButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// Send and store the user data.
-				final String name = user.getName();
-				final String email = user.getEmail();
-
-				new AlertDialog.Builder(UserForm.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.signout).setMessage(R.string.really_logout).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						user.setName("");
-						user.setEmail("");
-
-						SharedPreferences settings = getSharedPreferences("prefs", 0);
-						SharedPreferences.Editor editor = settings.edit();
-						editor.putBoolean("user_logged", false);
-						editor.commit();
-
-						changeLayoutComponents(checkUserState());
-
-						// Logout request
-						String message = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_LOGOUT + " (" + name + ":" + email + ")";
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, null, user, message).getThread());
-						activityRequestThread.start();
-
-						// User edit request
-						Thread userEditRequestThread = new Thread(new UserEditRequestThread(user, currentResponse).getThread());
-						userEditRequestThread.start();
-					}
-
-				}).setNegativeButton(R.string.no, null).show();
-			}
-		});
-	}
 
 	/**
 	 * 
@@ -514,85 +306,6 @@ public class UserForm extends Activity {
 		}
 		else {
 			return UserForm.USER_SIGN_IN;
-		}
-	}
-
-	/**
-	 * 
-	 * IMAGES
-	 * 
-	 */
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode != RESULT_OK)
-			return;
-
-		switch (requestCode) {
-			case Constants.SYNESTH_DETAILS_CAMERA_ID:
-				this.mImageCaptureUri = data.getData();
-
-				// final ImageView imgUser = (ImageView)
-				// findViewById(R.id.imgUser);
-				// Drawable dw =
-				// Drawable.createFromPath(mImageCaptureUri.getPath());
-
-				// imgUser.setImageDrawable(dw);
-				doCrop();
-				break;
-
-			case Constants.SYNESTH_DETAILS_CAMERA_ID2:
-				Bundle extras = data.getExtras();
-
-				if(extras != null) {
-					Bitmap photo = extras.getParcelable("data");
-
-					final ImageView imgUser = (ImageView)findViewById(R.id.imgUser);
-					// Drawable dw =
-					// Drawable.createFromPath(mImageCaptureUri.getPath());
-
-					imgUser.setImageBitmap(photo);
-
-					String url = MediaStore.Images.Media.insertImage(getContentResolver(), photo, "synesth", "synesth");
-
-					SharedPreferences settings = getSharedPreferences("prefs", 0);
-					SharedPreferences.Editor editor = settings.edit();
-					editor.putString("user_image", url);
-
-					// Commit the edits!
-					editor.commit();
-				}
-
-				File f = new File(mImageCaptureUri.getPath());
-
-				if(f.exists())
-					f.delete();
-				break;
-		}
-	}
-
-	private void doCrop() {
-		Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.setType("image/*");
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("scale", true);
-		intent.putExtra("return-data", true);
-
-		List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, 0);
-
-		int size = list.size();
-
-		if(size == 0) {
-			Toast.makeText(this, "Can not find image crop app", Toast.LENGTH_SHORT).show();
-
-			return;
-		}
-		else {
-			intent.setData(mImageCaptureUri);
-
-			startActivityForResult(Intent.createChooser(intent, "Select Picture"), Constants.SYNESTH_DETAILS_CAMERA_ID2);
 		}
 	}
 }
