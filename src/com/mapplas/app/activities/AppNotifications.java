@@ -8,7 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -134,7 +133,7 @@ public class AppNotifications extends Activity {
 	    }
 	}
 	
-    @SuppressLint("UseValueOf")
+//    @SuppressLint("UseValueOf")
 	public class NotificationComparator implements Comparator<Notification> {
 		@Override
 	    public int compare(Notification n1, Notification n2) {

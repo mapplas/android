@@ -2,7 +2,6 @@ package com.mapplas.app.handlers.adapters;
 
 import java.util.concurrent.Semaphore;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +15,7 @@ public class AppAdapterMessageHandler {
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
-	@SuppressLint("HandlerLeak")
+//	@SuppressLint("HandlerLeak")
 	public Handler getHandler() {
 		return new Handler() {
 
