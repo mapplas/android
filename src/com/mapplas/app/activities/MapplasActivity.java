@@ -50,7 +50,6 @@ import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
-import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MapplasActivity extends Activity {
 
@@ -224,21 +223,6 @@ public class MapplasActivity extends Activity {
 				}
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
-			}
-		});
-
-		// Notifications button
-		this.notificationsButton = (Button)this.findViewById(R.id.btnNotifications);
-		this.notificationsButton.setTypeface(normalTypeFace);
-		this.notificationsButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(MapplasActivity.this, AppNotifications.class);
-				SuperModelSingleton.model = model;
-				startActivity(intent);
-
-				pressedNotificationScreen = true;
 			}
 		});
 	}
