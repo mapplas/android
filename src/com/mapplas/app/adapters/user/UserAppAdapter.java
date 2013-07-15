@@ -167,7 +167,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 						view = inflater.inflate(R.layout.row_pinup, null);
 						
 						final TextView pinnedLocation = (TextView)view.findViewById(R.id.lblLocation);
-						pinnedLocation.setText(items.get(position).getPinnedGeocodedLocation());
+//						pinnedLocation.setText(items.get(position).getPinnedGeocodedLocation());
 						
 						break;
 				}
@@ -265,7 +265,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										while (!found && i < UserForm.appOrderedList.size()) {
 											App currentApp = UserForm.appOrderedList.get(i);
 											if(currentApp.getId() == anonLoc.getId()) {
-												currentApp.setAuxPin(!currentApp.isAuxPin());
+//												currentApp.setAuxPin(!currentApp.isAuxPin());
 												found = true;
 											}
 											i++;

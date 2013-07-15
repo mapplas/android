@@ -23,7 +23,6 @@ import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
 import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
-import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.model.database.repositories.RepositoryManager;
@@ -69,9 +68,8 @@ public class UserForm extends Activity {
 		this.initializeButtonsAndItsBehaviour();
 
 		// Request user app preferences
-		JsonParser parser = new JsonParser(this);
-		new UserPinUpsTask(this.user, this.currentLocation, parser, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
-		new UserBlocksTask(this.user, parser).execute();
+		new UserPinUpsTask(this.user, this.currentLocation, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
+		new UserBlocksTask(this.user).execute();
 
 		// Load presenter
 		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);

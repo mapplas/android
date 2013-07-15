@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mapplas.model.notifications.NotificationList;
-
 public class SuperModel implements Parcelable {
 
 	private String currentLocation = "";
@@ -20,8 +18,6 @@ public class SuperModel implements Parcelable {
 	private String currentDescriptiveGeoLoc = "";
 
 	private AppOrderedList appList = new AppOrderedList();
-
-	private NotificationList notificationList = new NotificationList();
 
 	private boolean operationError = false;
 
@@ -99,14 +95,6 @@ public class SuperModel implements Parcelable {
 	public void setCurrentIMEI(String imei) {
 		this.currentIMEI = imei;
 	}
-
-	public NotificationList notificationList() {
-		return notificationList;
-	}
-
-	public void setNotificationList(NotificationList list) {
-		this.notificationList = list;
-	}
 	
 	public ArrayList<String> notificationRawList() {
 		return this.notificationRawList;
@@ -129,22 +117,9 @@ public class SuperModel implements Parcelable {
 		this.appList.reset();
 	}
 
-	public void resetNotifications() {
-		this.notificationList = new NotificationList();
-	}
 
 	public void resetModel() {
 		this.resetLocalizations();
-		this.resetNotifications();
-	}
-
-	public App getAppWithIdInList(int position) {
-		for(App currentApp : this.appList.getAppList()) {
-			if(currentApp.getId() == position) {
-				return currentApp;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -163,7 +138,6 @@ public class SuperModel implements Parcelable {
 		dest.writeString(this.currentIMEI);
 		dest.writeString(this.currentDescriptiveGeoLoc);
 		dest.writeParcelable(this.appList, flags);
-		dest.writeParcelable(this.notificationList, flags);
 		dest.writeByte((byte)(this.operationError ? 1 : 0));
 		dest.writeString(this.errorText);
 		dest.writeSerializable(this.notificationRawList);
@@ -176,11 +150,9 @@ public class SuperModel implements Parcelable {
 		this.currentIMEI = parcel.readString();
 		this.currentDescriptiveGeoLoc = parcel.readString();
 		this.appList = parcel.readParcelable(AppOrderedList.class.getClassLoader());
-		parcel.readParcelable(NotificationList.class.getClassLoader());
 		parcel.readParcelable(AppOrderedList.class.getClassLoader());
 		this.operationError = parcel.readByte() == 1;
 		this.errorText = parcel.readString();
-		parcel.readList(this.notificationList, String.class.getClassLoader());
 	}
 
 	public static final Parcelable.Creator<SuperModel> CREATOR = new Parcelable.Creator<SuperModel>() {

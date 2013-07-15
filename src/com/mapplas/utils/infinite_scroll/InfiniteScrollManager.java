@@ -7,7 +7,7 @@ import com.mapplas.model.SuperModel;
 
 public class InfiniteScrollManager {
 
-	public static int NUMBER_OF_APPS = 10;
+	public static int NUMBER_OF_APPS = 20;
 
 	private ArrayList<App> apps;
 

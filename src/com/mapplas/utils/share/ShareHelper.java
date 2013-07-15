@@ -18,7 +18,7 @@ public class ShareHelper {
 		}
 		sharingIntent.setType("text/plain");
 		
-		String shareBody = context.getString(R.string.share_message_part1) + " " + app.getAppUrl() + " " + context.getString(R.string.share_message_part2);
+		String shareBody = context.getString(R.string.share_message_part1) + " " + app.getId() + " " + context.getString(R.string.share_message_part2);
 		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 
 		return sharingIntent;

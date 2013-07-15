@@ -12,7 +12,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
@@ -39,13 +38,11 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 	
 	private ActivityManager activityManager;
 	
-	private Button notificationsButton;
-
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private static boolean occupied = false;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, ActivityManager activityManager, Button notificationsButton) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -53,7 +50,6 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 		this.listView = listView;
 		this.applicationList = applicationList;
 		this.activityManager = activityManager;
-		this.notificationsButton = notificationsButton;
 	}
 
 	@Override
@@ -75,7 +71,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 		Location location = params[0];
 
 		try {
-			AppGetterConnector.request(location, this.model.currentUser());
+			AppGetterConnector.request(location, this.model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -123,9 +119,9 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 			this.applicationList = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
 
 			for(int i = 0; i < maxIndex; i++) {
-				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getAppName());
+				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getName());
 				if(ai != null) {
-					this.model.appList().get(i).setInternalApplicationInfo(ai);
+//					this.model.appList().get(i).setInternalApplicationInfo(ai);
 				}
 			}
 
@@ -134,9 +130,6 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 			this.listView.finishRefresing();
 		}
 		
-		// Insert notifications into database
-		new NotificationDatabaseInserterTask(this.model, this.context, this.notificationsButton).execute();
-
 		// Send app info to server
 		new AppInfoSenderTask(this.applicationList, location, this.activityManager, this.model.currentUser()).execute();
 	}

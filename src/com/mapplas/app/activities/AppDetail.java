@@ -30,7 +30,6 @@ import android.widget.Toast;
 import app.mapplas.com.R;
 
 import com.mapplas.app.ProblemDialog;
-import com.mapplas.app.RatingDialog;
 import com.mapplas.app.SliderListView;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
@@ -38,7 +37,6 @@ import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
-import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.Photo;
@@ -47,7 +45,6 @@ import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.network.requests.NetRequests;
-import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -257,19 +254,19 @@ public class AppDetail extends Activity {
 
 		// Set stars
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
-		rbRating.setRating(this.app.getAuxTotalRate());
+//		rbRating.setRating(this.app.getAuxTotalRate());
 
 		// When tapping between app image and price, rating dialog is shown. (In
 		// app cathegory or static stars).
-		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
-		layout.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), app.getAuxRate(), app.getAuxComment());
-				myDialog.show();
-			}
-		});
+//		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
+//		layout.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), app.getAuxRate(), app.getAuxComment());
+//				myDialog.show();
+//			}
+//		});
 
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
@@ -342,7 +339,7 @@ public class AppDetail extends Activity {
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
 //		if(this.app.getAppUrl().equals("") && this.app.getDeveloperMail.equals("")) {
-		if(this.app.getAppUrl().equals("")) {
+		if(this.app.getId().equals("")) {
 			findViewById(R.id.lytDeveloper).setVisibility(View.INVISIBLE);
 		}
 		else {
@@ -353,7 +350,7 @@ public class AppDetail extends Activity {
 			// Developer mail and web buttons layout
 			TextView developerWebMailTextView = (TextView)findViewById(R.id.lblWeb);
 
-			if(this.app.getAppUrl().equals("")) {
+			if(this.app.getId().equals("")) {
 				developerWebMailTextView.setVisibility(View.GONE);
 			} else {
 				developerWebMailTextView.setTypeface(normalTypeFace);
@@ -396,7 +393,7 @@ public class AppDetail extends Activity {
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
 		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-		if(this.app.getType().equalsIgnoreCase("application")) {
+//		if(this.app.getType().equalsIgnoreCase("application")) {
 			if(this.app.getInternalApplicationInfo() != null) {
 				// Start
 				buttonStart.setBackgroundResource(R.drawable.badge_launch);
@@ -404,24 +401,24 @@ public class AppDetail extends Activity {
 			}
 			else {
 				// Install
-				if(this.app.getAppPrice() > 0) {
-					// buttonStart.setBackgroundResource(R.drawable.badge_price);
-					// buttonStart.setText("$" + this.app.getAppPrice());
+//				if(this.app.getAppPrice() > 0) {
+					buttonStart.setBackgroundResource(R.drawable.badge_price);
+					buttonStart.setText(this.app.getAppPrice());
 
 					NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 					buttonStart.setText(nf.format(this.app.getAppPrice()));
 				}
-				else {
-					buttonStart.setBackgroundResource(R.drawable.badge_free);
-					buttonStart.setText(R.string.free);
-				}
-			}
-		}
-		else {
-			// Info
-			buttonStart.setBackgroundResource(R.drawable.badge_html5);
-			buttonStart.setText("");
-		}
+//				else {
+//					buttonStart.setBackgroundResource(R.drawable.badge_free);
+//					buttonStart.setText(R.string.free);
+//				}
+//			}
+//		}
+//		else {
+//			// Info
+//			buttonStart.setBackgroundResource(R.drawable.badge_html5);
+//			buttonStart.setText("");
+//		}
 
 		buttonStart.setTag(this.app);
 		buttonStart.setOnClickListener(new OnClickListener() {
@@ -430,7 +427,7 @@ public class AppDetail extends Activity {
 			public void onClick(View v) {
 				App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
-					String strUrl = anonLoc.getAppUrl();
+					String strUrl = anonLoc.getId();
 					if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
 						strUrl = "http://" + strUrl;
 
@@ -480,19 +477,18 @@ public class AppDetail extends Activity {
 		this.initShareLayout(lytShare);
 		this.initBlockLayout(lytBlock);
 		this.initRateLayout(lytRate);
-		this.initPhoneLayout(lytPhone);
 	}
 
 	private void initPinLayout(LinearLayout lytPinup) {
 		final ImageView ivPinup = (ImageView)findViewById(R.id.btnPinUp);
 		ivPinup.setTag(this.app);
 
-		if(!this.app.isAuxPin()) {
-			ivPinup.setImageResource(R.drawable.action_pin_button);
-		}
-		else {
-			ivPinup.setImageResource(R.drawable.action_unpin_button);
-		}
+//		if(!this.app.isAuxPin()) {
+//			ivPinup.setImageResource(R.drawable.action_pin_button);
+//		}
+//		else {
+//			ivPinup.setImageResource(R.drawable.action_unpin_button);
+//		}
 
 		lytPinup.setOnClickListener(new View.OnClickListener() {
 
@@ -507,54 +503,53 @@ public class AppDetail extends Activity {
 
 					final String uid = auxuid;
 
-					if(anonLoc.isAuxPin()) {
+//					if(anonLoc.isAuxPin()) {
 						ivPinup.setImageResource(R.drawable.action_pin_button);
-					}
-					else {
-						ivPinup.setImageResource(R.drawable.action_unpin_button);
-					}
+//					}
+//					else {
+//						ivPinup.setImageResource(R.drawable.action_unpin_button);
+//					}
 
-					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
-					String activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
-					if(anonLoc.isAuxPin()) {
-						pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-						activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
-						anonLoc.setAuxPin(false);
-					}
-					else {
-						anonLoc.setAuxPin(true);
-					}
+//					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+//					String activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
+//					if(anonLoc.isAuxPin()) {
+//						pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+//						activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
+//						anonLoc.setAuxPin(false);
+//					}
+//					else {
+//						anonLoc.setAuxPin(true);
+//					}
 
 					// Set app object as pinned or unpinned
 					// Pin/unpin app
 					boolean found = false;
 					int i = 0;
-					while (!found && i < model.appList().size()) {
-						App currentApp = model.appList().get(i);
-						if(currentApp.getId() == anonLoc.getId()) {
-							currentApp.setAuxPin(!currentApp.isAuxPin());
-
-							// Add or not 1 element to total pins count
-							if(currentApp.isAuxPin()) {
-								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() + 1);
-							}
-							else {
-								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() - 1);
-							}
-
-							found = true;
-						}
-						i++;
-					}
+//					while (!found && i < model.appList().size()) {
+//						App currentApp = model.appList().get(i);
+//						if(currentApp.getId() == anonLoc.getId()) {
+//							currentApp.setAuxPin(!currentApp.isAuxPin());
+//
+//							// Add or not 1 element to total pins count
+//							if(currentApp.isAuxPin()) {
+//								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() + 1);
+//							}
+//							else {
+//								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() - 1);
+//							}
+//
+//							found = true;
+//						}
+//						i++;
+//					}
 
 					somethingChanged = true;
-					model.appList().sort();
 
-					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, currentLocation).getThread());
-					pinRequestThread.start();
-
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, activityRequestConstant).getThread());
-					activityRequestThread.start();
+//					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, currentLocation).getThread());
+//					pinRequestThread.start();
+//
+//					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, activityRequestConstant).getThread());
+//					activityRequestThread.start();
 				}
 			}
 		});
@@ -600,10 +595,10 @@ public class AppDetail extends Activity {
 								likeRequestThread.start();
 
 								// Si la app esta pineada, la despineamos
-								if(anonLoc.isAuxPin()) {
-									Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
-									unPinRequestThread.start();
-								}
+//								if(anonLoc.isAuxPin()) {
+//									Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
+//									unPinRequestThread.start();
+//								}
 
 								Thread activityRequestThread = new Thread(new ActivityRequestThread(uid, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
 								activityRequestThread.start();
@@ -620,7 +615,6 @@ public class AppDetail extends Activity {
 									i++;
 								}
 
-								model.appList().sort();
 								somethingChanged = true;
 
 								AppDetail.this.finish();
@@ -643,9 +637,9 @@ public class AppDetail extends Activity {
 	private void initRateLayout(LinearLayout lytRate) {
 		ImageView bimg = (ImageView)findViewById(R.id.btnRate);
 
-		if(this.app.getAuxRate() > 0) {
-			bimg.setImageResource(R.drawable.action_rate_button_done);
-		}
+//		if(this.app.getAuxRate() > 0) {
+//			bimg.setImageResource(R.drawable.action_rate_button_done);
+//		}
 		bimg.setTag(this.app);
 
 		lytRate.setOnClickListener(new View.OnClickListener() {
@@ -654,38 +648,13 @@ public class AppDetail extends Activity {
 			public void onClick(View v) {
 				final App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
-					RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), anonLoc.getAuxRate(), anonLoc.getAuxComment());
-					myDialog.show();
+//					RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), anonLoc.getAuxRate(), anonLoc.getAuxComment());
+//					myDialog.show();
 
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
 					activityRequestThread.start();
 				}
 			}
 		});
-	}
-
-	private void initPhoneLayout(LinearLayout lytPhone) {
-		ImageView bimg = (ImageView)findViewById(R.id.btnPhone);
-		bimg.setTag(this.app);
-
-		lytPhone.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				final App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
-					String number = "tel:" + anonLoc.getPhone();
-					Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(number));
-					startActivity(callIntent);
-
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_CALL).getThread());
-					activityRequestThread.start();
-				}
-			}
-		});
-
-		if(this.app.getPhone().equals("")) {
-			lytPhone.setVisibility(View.GONE);
-		}
 	}
 }

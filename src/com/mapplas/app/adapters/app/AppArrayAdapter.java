@@ -27,7 +27,6 @@ import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
-import com.mapplas.app.RatingDialog;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.activities.WebViewActivity;
@@ -41,12 +40,9 @@ import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
-import com.mapplas.utils.LocationCurrency;
-import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
-import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.view_holder.AppViewHolder;
@@ -135,7 +131,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			this.initializeCellHolder(app, cellHolder);
 
 			this.initializeStartButton(app, cellHolder.buttonStart);
-			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
 
 			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
 			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
@@ -152,7 +147,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			this.initializeCellHolder(app, cellHolder);
 
 			this.initializeStartButton(app, cellHolder.buttonStart);
-			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
 
 			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
 			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
@@ -196,14 +190,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeCellHolder(App app, AppViewHolder cellHolder) {
-		// Set total pins
-		if(app.getAuxTotalPins() == 1) {
-			cellHolder.pinUps.setText(NumberUtils.FormatNumber(app.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_up));
-		}
-		else {
-			cellHolder.pinUps.setText(NumberUtils.FormatNumber(app.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_ups));
-		}
-
 		// Set typefaces
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
@@ -246,40 +232,40 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeRating(App app, AppViewHolder cellHolder) {
-		cellHolder.ratingBar.setRating(app.getAuxTotalRate());
+//		cellHolder.ratingBar.setRating(app.getAuxTotalRate());
 
-		if(app.getAuxTotalRate() == 0) {
-			cellHolder.ratingText.setText(R.string.unRated);
-		}
-		else {
-			int auxCase = (int)Math.ceil(app.getAuxTotalRate());
-			switch (auxCase) {
-				case 1:
-					cellHolder.ratingText.setText(R.string.poor);
-					break;
-
-				case 2:
-					cellHolder.ratingText.setText(R.string.belowAvg);
-					break;
-
-				case 3:
-					cellHolder.ratingText.setText(R.string.average);
-					break;
-
-				case 4:
-					cellHolder.ratingText.setText(R.string.aboveAvg);
-					break;
-
-				case 5:
-					cellHolder.ratingText.setText(R.string.excellent);
-					break;
-			}
-		}
+//		if(app.getAuxTotalRate() == 0) {
+//			cellHolder.ratingText.setText(R.string.unRated);
+//		}
+//		else {
+//			int auxCase = (int)Math.ceil(app.getAuxTotalRate());
+//			switch (auxCase) {
+//				case 1:
+//					cellHolder.ratingText.setText(R.string.poor);
+//					break;
+//
+//				case 2:
+//					cellHolder.ratingText.setText(R.string.belowAvg);
+//					break;
+//
+//				case 3:
+//					cellHolder.ratingText.setText(R.string.average);
+//					break;
+//
+//				case 4:
+//					cellHolder.ratingText.setText(R.string.aboveAvg);
+//					break;
+//
+//				case 5:
+//					cellHolder.ratingText.setText(R.string.excellent);
+//					break;
+//			}
+//		}
 	}
 
 	private void initializeStartButton(final App app, Button buttonStart) {
 		if(buttonStart != null) {
-			if(app.getType().equalsIgnoreCase("application")) {
+//			if(app.getType().equalsIgnoreCase("application")) {
 				if(app.getInternalApplicationInfo() != null) {
 					// Start
 					buttonStart.setBackgroundResource(R.drawable.badge_launch);
@@ -287,27 +273,21 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				}
 				else {
 					// Install
-					if(app.getAppPrice() > 0) {
+//					if(app.getAppPrice() > 0) {
 						buttonStart.setBackgroundResource(R.drawable.badge_price);
-
-						if(app.getLocationCurrency() == LocationCurrency.EURO) {
-							buttonStart.setText(this.context.getString(R.string.currency_euro) + " " + app.getAppPrice());
-						}
-						else {
-							buttonStart.setText(this.context.getString(R.string.currency_dollar) + " " + app.getAppPrice());
-						}
-					}
-					else {
-						buttonStart.setBackgroundResource(R.drawable.badge_free);
-						buttonStart.setText(R.string.free);
-					}
+						buttonStart.setText(app.getAppPrice());
+//					}
+//					else {
+//						buttonStart.setBackgroundResource(R.drawable.badge_free);
+//						buttonStart.setText(R.string.free);
+//					}
 				}
-			}
-			else {
-				// Info
-				buttonStart.setBackgroundResource(R.drawable.badge_html5);
-				buttonStart.setText("");
-			}
+//			}
+//			else {
+//				// Info
+//				buttonStart.setBackgroundResource(R.drawable.badge_html5);
+//				buttonStart.setText("");
+//			}
 
 			buttonStart.setTag(app);
 			buttonStart.setOnClickListener(new OnClickListener() {
@@ -316,7 +296,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				public void onClick(View v) {
 					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
-						String strUrl = anonLoc.getAppUrl();
+						String strUrl = anonLoc.getId();
 //						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
 //							strUrl = "http://" + strUrl;
 
@@ -339,19 +319,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				}
 			});
 		}
-	}
-
-	private void initializeNavigationButton(App app, Button button) {
-		button.setTag(app);
-		button.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				App anonLoc = (App)v.getTag();
-				Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + model.currentLocation() + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
-				context.startActivity(navigation);
-			}
-		});
 	}
 
 	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
@@ -421,15 +388,11 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
 						cellHolder.pinUp.setText(R.string.pin_up);
-
-						app.setAuxTotalPins(app.getAuxTotalPins() - 1);
 					}
 					else {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
-
-						app.setAuxTotalPins(app.getAuxTotalPins() + 1);
 					}
 
 					cellHolder.logoRoundCorner.invalidate();
@@ -462,8 +425,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						}
 						i++;
 					}
-
-					model.appList().sort();
 
 					// Update app adapter
 					list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
@@ -527,8 +488,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			public void onClick(View v) {
 				mRateApp = app;
 				if(app != null) {
-					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(user, context, model, app), app.getAuxRate(), app.getAuxComment());
-					myDialog.show();
+//					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(user, context, model, app), app.getAuxRate());
+//					myDialog.show();
 
 					// Activity request action
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
