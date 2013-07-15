@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.mapplas.app.adapters.user.UserAppAdapter;
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
-import com.mapplas.utils.NetRequests;
+import com.mapplas.utils.network.requests.NetRequests;
 
 public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 

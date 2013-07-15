@@ -139,32 +139,6 @@ public class JsonParser {
 
 	}
 
-	public User ParseUser(String input) {
-		String jString = input;
-
-		try {
-			this.jObject = new JSONObject(jString);
-
-			User usr = new User();
-
-			usr.setId(this.jObject.getInt("IDUser"));
-			usr.setName(this.jObject.getString("Name"));
-			usr.setLastname(this.jObject.getString("Lastname"));
-			usr.setGender(this.jObject.getString("Gender"));
-			usr.setBirthdate(this.jObject.getString("Birthdate"));
-			usr.setLogin(this.jObject.getString("Login"));
-			usr.setPassword(this.jObject.getString("Password"));
-			usr.setEmail(this.jObject.getString("Email"));
-			usr.setImei(this.jObject.getString("Imei"));
-
-			return usr;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
 
 	// public App ParseLocalization(String input) {
 	// App loc = new App();

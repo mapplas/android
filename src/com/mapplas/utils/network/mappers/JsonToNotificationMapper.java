@@ -1,4 +1,4 @@
-package com.mapplas.utils.mappers;
+package com.mapplas.utils.network.mappers;
 
 import java.util.ArrayList;
 
@@ -7,11 +7,11 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.mapplas.model.notifications.Notification;
-import com.mapplas.utils.mappers.generic.GenericMapper;
-import com.mapplas.utils.mappers.generic.base.KeyValueMapper;
-import com.mapplas.utils.mappers.generic.base.KeyValueScapedMapper;
-import com.mapplas.utils.mappers.generic.base.ReturnMapper;
-import com.mapplas.utils.mappers.generic.base.TargetMapper;
+import com.mapplas.utils.network.mappers.generic.GenericMapper;
+import com.mapplas.utils.network.mappers.generic.base.KeyValueMapper;
+import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
+import com.mapplas.utils.network.mappers.generic.base.ReturnMapper;
+import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
 public class JsonToNotificationMapper implements ReturnMapper {
 

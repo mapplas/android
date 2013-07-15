@@ -1,10 +1,10 @@
-package com.mapplas.utils.mappers.generic;
+package com.mapplas.utils.network.mappers.generic;
 
 import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-import com.mapplas.utils.mappers.generic.base.TargetMapper;
+import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
 public class GenericMapper implements TargetMapper {
 

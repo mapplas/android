@@ -19,7 +19,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.database.repositories.NotificationRepository;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.notifications.Notification;
-import com.mapplas.utils.mappers.JsonToNotificationMapper;
+import com.mapplas.utils.network.mappers.JsonToNotificationMapper;
 
 public class NotificationDatabaseInserterTask extends AsyncTask<Void, Void, Void> {
 

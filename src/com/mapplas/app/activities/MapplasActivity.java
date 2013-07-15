@@ -38,7 +38,6 @@ import app.mapplas.com.R;
 import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.app.threads.ServerIdentificationThread;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
@@ -49,6 +48,7 @@ import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 
 public class MapplasActivity extends Activity {
@@ -98,7 +98,7 @@ public class MapplasActivity extends Activity {
 
 		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
 
-		// Obtenemos el IMEI como identificador (ANDROID_ID da problemas)
+		// Get phone IMEI as identifier (problems with ANDROID_ID)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
 
@@ -107,7 +107,7 @@ public class MapplasActivity extends Activity {
 
 		// Identificamos contra el servidor
 		try {
-			Thread serverIdentificationThread = new Thread(new ServerIdentificationThread(this.model, this).getThread());
+			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model, this).getThread());
 			serverIdentificationThread.run();
 		} catch (Exception e) {
 			this.model.setCurrentUser(null);

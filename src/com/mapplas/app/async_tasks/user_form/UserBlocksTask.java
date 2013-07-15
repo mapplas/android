@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
-import com.mapplas.utils.NetRequests;
+import com.mapplas.utils.network.requests.NetRequests;
 
 public class UserBlocksTask extends AsyncTask<Void, Void, String> {
 

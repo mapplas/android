@@ -3,7 +3,7 @@ package com.mapplas.app.threads;
 import android.util.Log;
 
 import com.mapplas.model.App;
-import com.mapplas.utils.NetRequests;
+import com.mapplas.utils.network.requests.NetRequests;
 
 public class PinRequestThread {
 

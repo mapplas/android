@@ -3,10 +3,9 @@ package com.mapplas.model;
 public class Constants {
 	
 	// Constants
-//	public static final String SYNESTH_SERVER = "h1975711.stratoserver.net";
-	public static final String SYNESTH_SERVER = "mapplas.com";
+	public static final String SYNESTH_SERVER = "54.217.233.146";
 	public static final int SYNESTH_SERVER_PORT = 80;
-	public static final String SYNESTH_SERVER_PATH = "/Publico/";
+	public static final String SYNESTH_SERVER_PATH = "/api/";
 	
 	public static final String SYNESTH_VERSION = "1";
 	

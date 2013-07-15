@@ -8,7 +8,7 @@ import com.mapplas.app.RatingDialog;
 import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
-import com.mapplas.utils.NetRequests;
+import com.mapplas.utils.network.requests.NetRequests;
 
 
 public class OnReadyListener implements RatingDialog.ReadyListener {

@@ -1,4 +1,4 @@
-package com.mapplas.utils.mappers.generic.base;
+package com.mapplas.utils.network.mappers.generic.base;
 
 import java.util.ArrayList;
 

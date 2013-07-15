@@ -1,4 +1,4 @@
-package com.mapplas.utils;
+package com.mapplas.utils.network.requests;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.mapplas.model.Constants;
+import com.mapplas.utils.Base64;
 
 public class NetRequests {
 
@@ -446,44 +447,7 @@ public class NetRequests {
 		return serverResponse;
 	}
 
-	/**
-	 * UserI request
-	 * 
-	 * @param location
-	 * @param ii
-	 * @return
-	 * @throws Exception
-	 */
-	public static String UserIRequest(String ii) throws Exception {
-		return NetRequests.UserIRequest(Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, ii);
-	}
-
-	public static String UserIRequest(String serverIpAddress, int serverPort, String serverPath, String ii) throws Exception {
-		String serverResponse = "";
-		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_ii.php");
-
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-		nameValuePairs.add(new BasicNameValuePair("v", Constants.SYNESTH_VERSION));
-		nameValuePairs.add(new BasicNameValuePair("ii", ii));
-		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-		try {
-			HttpResponse rp = hc.execute(post);
-
-			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				serverResponse = EntityUtils.toString(rp.getEntity());
-
-			}
-			else {
-				throw new Exception("HttpStatus != SC_OK");
-			}
-		} catch (IOException e) {
-			throw e;
-		}
-
-		return serverResponse;
-	}
+	
 
 	// /**
 	// * Notifications request
