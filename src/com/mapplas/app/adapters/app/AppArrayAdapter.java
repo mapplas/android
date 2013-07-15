@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -97,7 +99,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			convertView = inflater.inflate(R.layout.rowloc, null);
 
 			cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
-			cellHolder.pinUps = (TextView)convertView.findViewById(R.id.lblPinUps);
 
 			cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
 			cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
@@ -115,7 +116,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			cellHolder.blockLayout = (LinearLayout)convertView.findViewById(R.id.lytBlock);
 
 			cellHolder.buttonStart = (Button)convertView.findViewById(R.id.btnStart);
-			cellHolder.buttonNavigation = (Button)convertView.findViewById(R.id.btnNav);
 
 			cellHolder.viewFlipper = (ViewFlipper)convertView.findViewById(R.id.vfRowLoc);
 			cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
@@ -192,7 +192,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
-		cellHolder.pinUps.setTypeface(normalTypeface);
 		cellHolder.pinUp.setTypeface(normalTypeface);
 		cellHolder.rate.setTypeface(normalTypeface);
 		cellHolder.share.setTypeface(normalTypeface);
@@ -263,7 +262,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private void initializeStartButton(final App app, Button buttonStart) {
 		if(buttonStart != null) {
-//			if(app.getType().equalsIgnoreCase("application")) {
+			if(app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
 				if(app.getInternalApplicationInfo() != null) {
 					// Start
 					buttonStart.setBackgroundResource(R.drawable.badge_launch);
@@ -271,21 +270,21 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				}
 				else {
 					// Install
-//					if(app.getAppPrice() > 0) {
+					if(app.getAppPrice().equals("Free") || app.getAppPrice().equals("Gratis")) {
+						buttonStart.setBackgroundResource(R.drawable.badge_free);
+						buttonStart.setText(R.string.free);
+					}
+					else {
 						buttonStart.setBackgroundResource(R.drawable.badge_price);
 						buttonStart.setText(app.getAppPrice());
-//					}
-//					else {
-//						buttonStart.setBackgroundResource(R.drawable.badge_free);
-//						buttonStart.setText(R.string.free);
-//					}
+					}
 				}
-//			}
-//			else {
-//				// Info
-//				buttonStart.setBackgroundResource(R.drawable.badge_html5);
-//				buttonStart.setText("");
-//			}
+			}
+			else {
+				// Info
+				buttonStart.setBackgroundResource(R.drawable.badge_html5);
+				buttonStart.setText("");
+			}
 
 			buttonStart.setTag(app);
 			buttonStart.setOnClickListener(new OnClickListener() {
@@ -294,16 +293,17 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				public void onClick(View v) {
 					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
-						String strUrl = anonLoc.getId();
-//						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
-//							strUrl = "http://" + strUrl;
+						
+						String strUrl = "market://details?id=" + anonLoc.getId();
 
 						if(anonLoc.getInternalApplicationInfo() != null) {
-							Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
+							ApplicationInfo packageInfo = anonLoc.getInternalApplicationInfo();
+							String package_name = packageInfo.packageName;
+							Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(package_name);
 							context.startActivity(appIntent);
 						}
 						else {
-							if(strUrl.startsWith("market://") || strUrl.startsWith("https://play.google.com") || strUrl.startsWith("http://play.google.com")) {
+							if(app.getAppType().equals(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
 								Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
 								context.startActivity(browserIntent);
 							}

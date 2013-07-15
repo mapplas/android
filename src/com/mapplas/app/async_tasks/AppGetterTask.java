@@ -119,9 +119,9 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 			this.applicationList = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
 
 			for(int i = 0; i < maxIndex; i++) {
-				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getName());
+				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getId());
 				if(ai != null) {
-//					this.model.appList().get(i).setInternalApplicationInfo(ai);
+					this.model.appList().get(i).setInternalApplicationInfo(ai);
 				}
 			}
 

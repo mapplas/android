@@ -9,6 +9,7 @@ import android.util.Log;
 import com.mapplas.model.User;
 import com.mapplas.utils.network.mappers.generic.GenericMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyValueMapper;
+import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
 import com.mapplas.utils.network.mappers.generic.base.ReturnMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
@@ -24,8 +25,8 @@ public class JsonToUserMapper implements ReturnMapper {
 			ArrayList<TargetMapper> mappers = new ArrayList<TargetMapper>();
 
 			mappers.add(new KeyValueMapper("user", User.class.getMethod("setId", int.class)));
-			mappers.add(new KeyValueMapper("tel", User.class.getMethod("setTelf", String.class)));
-			mappers.add(new KeyValueMapper("imei", User.class.getMethod("setImei", String.class)));
+			mappers.add(new KeyValueScapedMapper("tel", User.class.getMethod("setTelf", String.class)));
+			mappers.add(new KeyValueScapedMapper("imei", User.class.getMethod("setImei", String.class)));
 
 			GenericMapper mapper = new GenericMapper(mappers);
 			mapper.map(json, user);

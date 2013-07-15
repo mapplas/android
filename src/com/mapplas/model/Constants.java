@@ -85,4 +85,7 @@ public class Constants {
 	public static final String MAPPLAS_TEXT_ACTIVITY_EXTRA_TITLE = "text_activity.extra_title";
 	public static final String MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE = "text_activity.extra_message";
 
+	// App types
+	public static final String MAPPLAS_APPLICATION_TYPE_HTML5 = "html_5";
+	public static final String MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION = "application";
 }

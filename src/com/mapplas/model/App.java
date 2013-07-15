@@ -58,6 +58,7 @@ public class App implements Parcelable {
 //	
 //	private String operatingSystem;
 
+	private String type = Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION;
 
 	public App() {
 
@@ -151,7 +152,14 @@ public class App implements Parcelable {
 	public void setInternalApplicationInfo(ApplicationInfo internalApplicationInfo) {
 		this.internalApplicationInfo = internalApplicationInfo;
 	}
+	
+	public String getAppType() {
+		return this.type;
+	}
 
+	public void setAppType(String type) {
+		this.type = type;
+	}
 
 	/**
 	 * Parcelable methods
@@ -173,6 +181,7 @@ public class App implements Parcelable {
 //		dest.writeByte((byte)(this.auxBlocked ? 1 : 0));
 		dest.writeTypedList(this.auxPhotos);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
+		dest.writeString(this.type);
 	}
 
 	public App(Parcel parcel) {
@@ -190,6 +199,7 @@ public class App implements Parcelable {
 //		this.auxTotalPins = parcel.readInt();
 		parcel.readTypedList(this.auxPhotos, Photo.CREATOR);
 		this.internalApplicationInfo = parcel.readParcelable(null);
+		this.type = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
