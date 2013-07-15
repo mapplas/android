@@ -4,16 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -28,10 +20,9 @@ import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.model.App;
-import com.mapplas.model.Constants;
-import com.mapplas.model.JsonParser;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
+import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.static_intents.AppAdapterSingleton;
 
 public class AppGetterTask extends AsyncTask<Location, Void, Location> {
@@ -83,32 +74,10 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 
 		Location location = params[0];
 
-		String uid = "0";
-		String serverResponse = "";
-
-		if(this.model.currentUser() != null) {
-			uid = String.valueOf(this.model.currentUser().getId());
-		}
-
-		SharedPreferences sharedPreferences = this.context.getSharedPreferences("synesth", Context.MODE_PRIVATE);
-		String strLastNotifications = sharedPreferences.getString(Constants.SYNESTH_LAST_NOTIFICATIONS, "");
-
-		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_locations.php?l=" + location.getLatitude() + "," + location.getLongitude() + "&uid=" + uid + "&ln=" + strLastNotifications + "&v=" + Constants.SYNESTH_VERSION + "&p=" + location.getAccuracy());
-
 		try {
-			HttpResponse rp = hc.execute(post);
-
-			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				serverResponse = EntityUtils.toString(rp.getEntity());
-
-				// Comprobamos que el parser funciona correctamente
-				JsonParser jp = new JsonParser(this.context);
-				jp.parseApps(serverResponse, this.model, false);
-			}
-
-		} catch (Exception exc) {
-			Log.i(getClass().getSimpleName(), "ObtainLocalizationTask.doInBackGround: " + exc);
+			AppGetterConnector.request(location, this.model.currentUser());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		try {
