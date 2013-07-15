@@ -20,8 +20,6 @@ public class JsonParser {
 
 	private JSONArray jArray;
 
-	private JSONObject jObject;
-
 	private Context context;
 
 	public JsonParser(Context context) {
@@ -138,94 +136,6 @@ public class JsonParser {
 		}
 
 	}
-
-
-	// public App ParseLocalization(String input) {
-	// App loc = new App();
-	// String jString = input;
-	//
-	// try {
-	// jObject = new JSONObject(jString);
-	//
-	// loc.setId(jObject.getInt("IDLocalization"));
-	// loc.setName(jObject.getString("Name"));
-	// loc.setLatitude(jObject.getDouble("Latitude"));
-	// loc.setLongitude(jObject.getDouble("Longitude"));
-	// loc.setAddress(jObject.getString("Address"));
-	// loc.setZipCode(jObject.getString("ZipCode"));
-	// loc.setState(jObject.getString("State"));
-	// loc.setCity(jObject.getString("City"));
-	// loc.setCountry(jObject.getString("Country"));
-	//
-	// loc.setType(jObject.getString("Type"));
-	//
-	// loc.setIdCompany(jObject.getInt("IDCompany"));
-	//
-	// loc.setOfferId(jObject.getInt("OfferID"));
-	// loc.setOfferName(jObject.getString("OfferName"));
-	// loc.setOfferLogo(jObject.getString("OfferLogo"));
-	// loc.setOfferLogoMini(jObject.getString("OfferLogoMini"));
-	// loc.setOfferURL(jObject.getString("OfferURL"));
-	// loc.setOfferText(jObject.getString("OfferText"));
-	//
-	// loc.setUrlId(jObject.getInt("URLID"));
-	// loc.setUrlName(jObject.getString("URLName"));
-	// loc.setUrlLogo(jObject.getString("URLLogo"));
-	// loc.setUrlLogoMini(jObject.getString("URLLogoMini"));
-	// loc.setUrlValue(jObject.getString("URLValue"));
-	// loc.setUrlText(jObject.getString("URLText"));
-	//
-	// loc.setAppId(jObject.getInt("AppID"));
-	// loc.setAppName(jObject.getString("AppName"));
-	// loc.setAppLogo(jObject.getString("AppLogo"));
-	// loc.setAppLogoMini(jObject.getString("AppLogoMini"));
-	// loc.setAppUrl(jObject.getString("AppURL"));
-	// loc.setAppDescription(jObject.getString("AppDescription"));
-	// loc.setAppType(jObject.getString("AppType"));
-	//
-	// loc.setUserAlarmId(jObject.getInt("UserAlarmID"));
-	// loc.setUserAlarmName(jObject.getString("UserAlarmName"));
-	//
-	// loc.setUserUrlId(jObject.getInt("UserURLID"));
-	// loc.setUserUrlTags(jObject.getString("UserURLTags"));
-	// loc.setUserUrlComment(jObject.getString("UserURLComment"));
-	// loc.setUserUrlPhoto(jObject.getString("UserURLPhoto"));
-	// loc.setUserUrlValue(jObject.getString("UserURLValue"));
-	// loc.setUserUrlDescription(jObject.getString("UserURLDescription"));
-	//
-	// loc.setIdUser(jObject.getInt("IDUser"));
-	//
-	// loc.setRadius(jObject.getDouble("Radius"));
-	//
-	// loc.setPhone(jObject.getString("Phone"));
-	// loc.setWifi(jObject.getString("Wifi"));
-	// loc.setBluetooth(jObject.getString("Bluetooth"));
-	// loc.setLocation(jObject.getString("Location"));
-	//
-	// loc.setAppPrice((float)jObject.getDouble("AppPrice"));
-	//
-	// loc.setAuxPlus(jObject.getInt("AuxPlus"));
-	// loc.setAuxMinus(jObject.getInt("AuxMinus"));
-	//
-	// loc.setAuxFavourite(jObject.getBoolean("AuxFavourite"));
-	//
-	// loc.setAuxPin(jObject.getBoolean("AuxPin"));
-	//
-	// loc.setAuxRate((float)jObject.getDouble("AuxRate"));
-	// loc.setAuxComment(jObject.getString("AuxComment"));
-	//
-	// loc.setAuxTotalRate((float)jObject.getDouble("AuxTotalRate"));
-	//
-	// loc.setAuxTotalPins(jObject.getInt("AuxTotalPins"));
-	// loc.setAuxTotalComments(jObject.getInt("AuxTotalComments"));
-	//
-	// } catch (Exception e) {
-	// loc = null;
-	// e.printStackTrace();
-	// }
-	//
-	// return loc;
-	// }
 
 	public ArrayList<App> parseApps(String input) {
 

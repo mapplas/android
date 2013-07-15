@@ -1,9 +1,9 @@
 package com.mapplas.utils.network.requests;
 
-import android.content.Context;
+import org.json.JSONObject;
+
 import android.util.Log;
 
-import com.mapplas.model.JsonParser;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.connectors.UserIdentificationConnector;
 import com.mapplas.utils.network.mappers.JsonToUserMapper;
@@ -12,11 +12,8 @@ public class UserIdentificationRequester {
 
 	private SuperModel model;
 	
-	private Context context;
-
-	public UserIdentificationRequester(SuperModel model, Context context) {
+	public UserIdentificationRequester(SuperModel model) {
 		this.model = model;
-		this.context = context;
 	}
 
 	public Runnable getThread() {
@@ -26,10 +23,9 @@ public class UserIdentificationRequester {
 			public void run() {
 				try {
 					String response = UserIdentificationConnector.request(model.currentIMEI());
-					JsonParser jp = new JsonParser(context);
-
+					
 					JsonToUserMapper userMapper = new JsonToUserMapper();
-					//model.setCurrentUser(userMapper.map(response));
+					model.setCurrentUser(userMapper.map(new JSONObject(response)));
 
 				} catch (Exception e) {
 					model.setCurrentUser(null);

@@ -107,7 +107,7 @@ public class MapplasActivity extends Activity {
 
 		// Identificamos contra el servidor
 		try {
-			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model, this).getThread());
+			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model).getThread());
 			serverIdentificationThread.run();
 		} catch (Exception e) {
 			this.model.setCurrentUser(null);
