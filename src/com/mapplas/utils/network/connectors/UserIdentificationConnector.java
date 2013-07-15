@@ -34,7 +34,7 @@ public class UserIdentificationConnector {
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("imei", ii));
-		nameValuePairs.add(new BasicNameValuePair("tel", "android"));
+		nameValuePairs.add(new BasicNameValuePair("tel", android.os.Build.MODEL + " " + android.os.Build.VERSION.RELEASE));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {
