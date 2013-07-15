@@ -3,7 +3,6 @@ package com.mapplas.app.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,16 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
 import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
-import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.model.database.repositories.RepositoryManager;
@@ -35,12 +31,6 @@ import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 
 public class UserForm extends Activity {
-
-	private static final int USER_SIGN_IN = 0;
-
-	private static final int USER_LOG_IN = 1;
-
-	private static final int USER_LOGGED_IN = 2;
 
 	private RotateAnimation flipAnimation;
 
@@ -62,8 +52,6 @@ public class UserForm extends Activity {
 
 	private View headerLayout = null;
 
-	private Button actionButton = null;
-
 	private int userId = 0;
 
 	public static boolean somethingChanged = false;
@@ -80,9 +68,8 @@ public class UserForm extends Activity {
 		this.initializeButtonsAndItsBehaviour();
 
 		// Request user app preferences
-		JsonParser parser = new JsonParser(this);
-		new UserPinUpsTask(this.user, this.currentLocation, parser, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
-		new UserBlocksTask(this.user, parser).execute();
+		new UserPinUpsTask(this.user, this.currentLocation, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
+		new UserBlocksTask(this.user).execute();
 
 		// Load presenter
 		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);
@@ -185,9 +172,6 @@ public class UserForm extends Activity {
 	}
 
 	private void initLayoutComponents() {
-		// Action button
-		this.actionButton = (Button)findViewById(R.id.btnAction);
-
 		this.headerLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
 		this.refreshListBackgroundFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
 
@@ -203,16 +187,6 @@ public class UserForm extends Activity {
 		ColorDrawable color = new ColorDrawable(this.getResources().getColor(R.color.user_list_divider));
 		this.listView.setDivider(color);
 		this.listView.setDividerHeight(1);
-
-		// Init typeface
-		Typeface italicTypeface = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
-
-		// Initialize profile textView
-		TextView profileTextView = (TextView)findViewById(R.id.lblProfile);
-		profileTextView.setTypeface(italicTypeface);
-
-		// Init layout other components
-		this.changeLayoutComponents(this.checkUserState());
 	}
 
 	private void initializeButtonsAndItsBehaviour() {		
@@ -235,77 +209,5 @@ public class UserForm extends Activity {
 				finish();
 			}
 		});
-	}
-
-
-	/**
-	 * 
-	 * USER LOG-IN, SIGN-IN... ACTIONS
-	 * 
-	 */
-	private void changeLayoutComponents(int userState) {
-		Typeface normalTypeface = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-
-		LinearLayout nameEmailLayout = (LinearLayout)findViewById(R.id.profile_unpressed_signed_values);
-		TextView nameTextView = (TextView)findViewById(R.id.lblName);
-		nameTextView.setTypeface(normalTypeface);
-		TextView emailTextView = (TextView)findViewById(R.id.lblEmail);
-		emailTextView.setTypeface(normalTypeface);
-		
-		TextView actionText = (TextView)findViewById(R.id.profile_unpressed_unsigned_text);
-
-		switch (userState) {
-			case UserForm.USER_SIGN_IN:
-				this.actionButton.setText(R.string.signin);
-				this.actionButton.setVisibility(View.VISIBLE);
-
-				actionText.setText(R.string.newAccount);
-				actionText.setVisibility(View.VISIBLE);
-				
-				nameEmailLayout.setVisibility(View.GONE);
-
-				this.listView.removeFooterView(this.buttonsFooter);
-				break;
-
-			case UserForm.USER_LOG_IN:
-				this.actionButton.setText(R.string.login);
-				this.actionButton.setVisibility(View.VISIBLE);
-
-				actionText.setText(R.string.newAccountSignedIn);
-				actionText.setVisibility(View.VISIBLE);
-				
-				nameEmailLayout.setVisibility(View.GONE);
-
-				this.listView.removeFooterView(this.buttonsFooter);
-				break;
-
-			case UserForm.USER_LOGGED_IN:
-				this.actionButton.setVisibility(View.INVISIBLE);
-				
-				actionText.setVisibility(View.GONE);
-				
-				nameEmailLayout.setVisibility(View.VISIBLE);
-				nameTextView.setText(user.getName());
-				emailTextView.setText(user.getEmail());
-
-				this.listView.addFooterView(this.buttonsFooter);
-				break;
-		}
-	}
-
-	private int checkUserState() {
-		SharedPreferences settings = UserForm.this.getSharedPreferences("prefs", 0);
-
-		if(!this.user.getEmail().equals("")) {
-			if(settings.getBoolean("user_logged", false)) {
-				return UserForm.USER_LOGGED_IN;
-			}
-			else {
-				return UserForm.USER_LOG_IN;
-			}
-		}
-		else {
-			return UserForm.USER_SIGN_IN;
-		}
 	}
 }

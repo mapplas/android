@@ -7,13 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
-import com.mapplas.utils.NetRequests;
+import com.mapplas.utils.network.requests.NetRequests;
 
 public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
-
-	private JsonParser parser;
 
 	private ListView listView;
 
@@ -27,11 +24,10 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 	
 	private String currentLocation;
 	
-	public UserPinUpsTask(User user, String currentLocation, JsonParser parser, ListView listView, Context context, int textViewResourceId, LinearLayout refreshListBackgroundFooter) {
+	public UserPinUpsTask(User user, String currentLocation, ListView listView, Context context, int textViewResourceId, LinearLayout refreshListBackgroundFooter) {
 		super();
 		this.user = user;
 		this.currentLocation = currentLocation;
-		this.parser = parser;
 		this.listView = listView;
 		this.context = context;
 		this.textViewResourceId = textViewResourceId;
@@ -54,7 +50,7 @@ public class UserPinUpsTask extends AsyncTask<Void, Void, String> {
 		super.onPostExecute(result);
 
 		// Parse result and insert into user
-		this.user.setPinnedApps(this.parser.parseApps(result));
+//		this.user.setPinnedApps(this.parser.parseApps(result));
 
 		this.listView.removeFooterView(this.refreshListBackgroundFooter);
 

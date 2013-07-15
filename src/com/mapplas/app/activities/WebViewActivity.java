@@ -57,9 +57,9 @@ public class WebViewActivity extends Activity {
 		if(extras != null) {
 			if(extras.containsKey(AppDetail.APP_DEV_URL_INTENT_DATA) && extras.getParcelable(AppDetail.APP_DEV_URL_INTENT_DATA) != null) {
 				this.app = (App)extras.getParcelable(AppDetail.APP_DEV_URL_INTENT_DATA);
-				if(!this.app.getAppUrl().equals("")) {
+				if(!this.app.getId().equals("")) {
 					this.webView = (WebView)findViewById(R.id.webView);
-					this.webView.loadUrl(this.app.getAppUrl());
+					this.webView.loadUrl(this.app.getId());
 				}
 				else {
 					Toast errorToast = Toast.makeText(this, getString(R.string.app_detail_app_web_dev_url_error), Toast.LENGTH_LONG);

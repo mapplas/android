@@ -1,8 +1,6 @@
 package com.mapplas.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,7 +10,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "orderedList")
-public class AppOrderedList implements Comparator<App>, Parcelable, Unit {
+public class AppOrderedList implements Parcelable, Unit {
 	
 	public static final String TABLE_NAME = "orderedList";
 
@@ -53,55 +51,8 @@ public class AppOrderedList implements Comparator<App>, Parcelable, Unit {
 		return this.appList.get(index);
 	}
 	
-	public void sort() {
-		Collections.sort(this.appList, this);
-	}
-	
 	public void setCurrentLocation(String location) {
 		this.currentLocation = location;
-	}
-
-	@Override
-	public int compare(App app1, App app2) {
-		if(app1.isAuxPin() && !app2.isAuxPin()) {
-			return -1;
-		}
-		else if(!app1.isAuxPin() && app2.isAuxPin()) {
-			return 1;
-		}
-		else {
-			String[] currentLongLat = this.currentLocation.split(",");
-			double distance1 = distancia(app1.getLatitude(), app1.getLongitude(), Double.parseDouble(currentLongLat[1]), Double.parseDouble(currentLongLat[0]));
-			double distance2 = distancia(app2.getLatitude(), app2.getLongitude(), Double.parseDouble(currentLongLat[1]), Double.parseDouble(currentLongLat[0]));
-			if(distance1 > distance2) {
-				return 1;
-			}
-			else if(distance2 > distance1) {
-				return -1;
-			}
-			else {
-				if(app1.getAuxTotalRate() > app2.getAuxTotalRate()) {
-					return -1;
-				} 
-				else if(app1.getAuxTotalRate() < app2.getAuxTotalRate()) {
-					return 1;
-				}
-				else {
-					return 0;
-				}
-			}
-		}
-	}
-
-	protected double distancia(double lat1, double lon1, double lat2, double lon2) {
-		double theta = lon1 - lon2;
-		double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
-		dist = Math.acos(dist);
-		dist = Math.toDegrees(dist);
-
-		double miles = dist * 60 * 1.1515;
-
-		return miles * 1.609344;
 	}
 
 	/**

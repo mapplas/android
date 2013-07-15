@@ -27,16 +27,6 @@
             android:textColor="#333333"
             android:textSize="22sp" />
 
-        <Button
-            android:id="@+id/btnAction"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/btn_edit"
-            android:textColor="#333333" />
     </RelativeLayout>
 
     <LinearLayout

@@ -3,20 +3,16 @@ package com.mapplas.app.async_tasks.user_form;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.mapplas.model.JsonParser;
 import com.mapplas.model.User;
-import com.mapplas.utils.NetRequests;
+import com.mapplas.utils.network.requests.NetRequests;
 
 public class UserBlocksTask extends AsyncTask<Void, Void, String> {
 
 	private User user;
 	
-	private JsonParser parser;
-
-	public UserBlocksTask(User user, JsonParser parser) {
+	public UserBlocksTask(User user) {
 		super();
 		this.user = user;
-		this.parser = parser;
 	}
 
 	@Override
@@ -35,6 +31,6 @@ public class UserBlocksTask extends AsyncTask<Void, Void, String> {
 		super.onPostExecute(response);
 		
 		// Parse result and insert into user
-		this.user.setBlockedApps(this.parser.parseApps(response));
+//		this.user.setBlockedApps(this.parser.parseApps(response));
 	}
 }

@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -27,7 +29,6 @@ import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
 import com.mapplas.app.AwesomeListView;
-import com.mapplas.app.RatingDialog;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.activities.WebViewActivity;
@@ -41,12 +42,9 @@ import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
-import com.mapplas.utils.LocationCurrency;
-import com.mapplas.utils.NumberUtils;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
-import com.mapplas.utils.rating_dialog.OnReadyListener;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.view_holder.AppViewHolder;
@@ -70,8 +68,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	private SuperModel model = null;
 
 	private User user = null;
-
-	private static App mRateApp = null;
 
 	private static App mBlockApp = null;
 
@@ -103,7 +99,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			convertView = inflater.inflate(R.layout.rowloc, null);
 
 			cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
-			cellHolder.pinUps = (TextView)convertView.findViewById(R.id.lblPinUps);
 
 			cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
 			cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
@@ -121,7 +116,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			cellHolder.blockLayout = (LinearLayout)convertView.findViewById(R.id.lytBlock);
 
 			cellHolder.buttonStart = (Button)convertView.findViewById(R.id.btnStart);
-			cellHolder.buttonNavigation = (Button)convertView.findViewById(R.id.btnNav);
 
 			cellHolder.viewFlipper = (ViewFlipper)convertView.findViewById(R.id.vfRowLoc);
 			cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
@@ -135,7 +129,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			this.initializeCellHolder(app, cellHolder);
 
 			this.initializeStartButton(app, cellHolder.buttonStart);
-			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
 
 			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
 			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
@@ -152,7 +145,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			this.initializeCellHolder(app, cellHolder);
 
 			this.initializeStartButton(app, cellHolder.buttonStart);
-			this.initializeNavigationButton(app, cellHolder.buttonNavigation);
 
 			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
 			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
@@ -196,19 +188,10 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeCellHolder(App app, AppViewHolder cellHolder) {
-		// Set total pins
-		if(app.getAuxTotalPins() == 1) {
-			cellHolder.pinUps.setText(NumberUtils.FormatNumber(app.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_up));
-		}
-		else {
-			cellHolder.pinUps.setText(NumberUtils.FormatNumber(app.getAuxTotalPins()) + " " + this.context.getString(R.string.pin_ups));
-		}
-
 		// Set typefaces
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
-		cellHolder.pinUps.setTypeface(normalTypeface);
 		cellHolder.pinUp.setTypeface(normalTypeface);
 		cellHolder.rate.setTypeface(normalTypeface);
 		cellHolder.share.setTypeface(normalTypeface);
@@ -246,40 +229,40 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeRating(App app, AppViewHolder cellHolder) {
-		cellHolder.ratingBar.setRating(app.getAuxTotalRate());
+//		cellHolder.ratingBar.setRating(app.getAuxTotalRate());
 
-		if(app.getAuxTotalRate() == 0) {
-			cellHolder.ratingText.setText(R.string.unRated);
-		}
-		else {
-			int auxCase = (int)Math.ceil(app.getAuxTotalRate());
-			switch (auxCase) {
-				case 1:
-					cellHolder.ratingText.setText(R.string.poor);
-					break;
-
-				case 2:
-					cellHolder.ratingText.setText(R.string.belowAvg);
-					break;
-
-				case 3:
-					cellHolder.ratingText.setText(R.string.average);
-					break;
-
-				case 4:
-					cellHolder.ratingText.setText(R.string.aboveAvg);
-					break;
-
-				case 5:
-					cellHolder.ratingText.setText(R.string.excellent);
-					break;
-			}
-		}
+//		if(app.getAuxTotalRate() == 0) {
+//			cellHolder.ratingText.setText(R.string.unRated);
+//		}
+//		else {
+//			int auxCase = (int)Math.ceil(app.getAuxTotalRate());
+//			switch (auxCase) {
+//				case 1:
+//					cellHolder.ratingText.setText(R.string.poor);
+//					break;
+//
+//				case 2:
+//					cellHolder.ratingText.setText(R.string.belowAvg);
+//					break;
+//
+//				case 3:
+//					cellHolder.ratingText.setText(R.string.average);
+//					break;
+//
+//				case 4:
+//					cellHolder.ratingText.setText(R.string.aboveAvg);
+//					break;
+//
+//				case 5:
+//					cellHolder.ratingText.setText(R.string.excellent);
+//					break;
+//			}
+//		}
 	}
 
 	private void initializeStartButton(final App app, Button buttonStart) {
 		if(buttonStart != null) {
-			if(app.getType().equalsIgnoreCase("application")) {
+			if(app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
 				if(app.getInternalApplicationInfo() != null) {
 					// Start
 					buttonStart.setBackgroundResource(R.drawable.badge_launch);
@@ -287,19 +270,13 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				}
 				else {
 					// Install
-					if(app.getAppPrice() > 0) {
-						buttonStart.setBackgroundResource(R.drawable.badge_price);
-
-						if(app.getLocationCurrency() == LocationCurrency.EURO) {
-							buttonStart.setText(this.context.getString(R.string.currency_euro) + " " + app.getAppPrice());
-						}
-						else {
-							buttonStart.setText(this.context.getString(R.string.currency_dollar) + " " + app.getAppPrice());
-						}
-					}
-					else {
+					if(app.getAppPrice().equals("Free") || app.getAppPrice().equals("Gratis")) {
 						buttonStart.setBackgroundResource(R.drawable.badge_free);
 						buttonStart.setText(R.string.free);
+					}
+					else {
+						buttonStart.setBackgroundResource(R.drawable.badge_price);
+						buttonStart.setText(app.getAppPrice());
 					}
 				}
 			}
@@ -316,16 +293,17 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				public void onClick(View v) {
 					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
-						String strUrl = anonLoc.getAppUrl();
-//						if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
-//							strUrl = "http://" + strUrl;
+						
+						String strUrl = "market://details?id=" + anonLoc.getId();
 
 						if(anonLoc.getInternalApplicationInfo() != null) {
-							Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
+							ApplicationInfo packageInfo = anonLoc.getInternalApplicationInfo();
+							String package_name = packageInfo.packageName;
+							Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(package_name);
 							context.startActivity(appIntent);
 						}
 						else {
-							if(strUrl.startsWith("market://") || strUrl.startsWith("https://play.google.com") || strUrl.startsWith("http://play.google.com")) {
+							if(app.getAppType().equals(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
 								Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
 								context.startActivity(browserIntent);
 							}
@@ -341,21 +319,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		}
 	}
 
-	private void initializeNavigationButton(App app, Button button) {
-		button.setTag(app);
-		button.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				App anonLoc = (App)v.getTag();
-				Intent navigation = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + model.currentLocation() + "&daddr=" + anonLoc.getLatitude() + "," + anonLoc.getLongitude() + "&dirflg=w"));
-				context.startActivity(navigation);
-			}
-		});
-	}
-
 	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
-		if(app.isAuxPin()) {
+		if(app.isAuxPin() == 1) {
 			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
 		}
 		else {
@@ -417,19 +382,15 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 					final String uid = auxuid;
 
-					if(app.isAuxPin()) {
+					if(app.isAuxPin() == 1) {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
 						cellHolder.pinUp.setText(R.string.pin_up);
-
-						app.setAuxTotalPins(app.getAuxTotalPins() - 1);
 					}
 					else {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
-
-						app.setAuxTotalPins(app.getAuxTotalPins() + 1);
 					}
 
 					cellHolder.logoRoundCorner.invalidate();
@@ -438,7 +399,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					
 					String pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
 					String actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
-					if(app.isAuxPin()) {
+					if(app.isAuxPin() == 1) {
 						pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
 						actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
 					}
@@ -457,13 +418,18 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					int i = 0;
 					while (!found && i < model.appList().size()) {
 						if(model.appList().get(i).equals(app)) {
-							model.appList().get(i).setAuxPin(!app.isAuxPin());
+							int auxPin = app.isAuxPin();
+							
+							if(auxPin == 0) {
+								model.appList().get(i).setAuxPin(1);
+							} else {
+								model.appList().get(i).setAuxPin(0);
+							}
+				
 							found = true;
 						}
 						i++;
 					}
-
-					model.appList().sort();
 
 					// Update app adapter
 					list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
@@ -502,7 +468,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
 						likeRequestThread.start();
 						// Do unpin
-						if(mBlockApp.isAuxPin()) {
+						if(mBlockApp.isAuxPin() == 1) {
 							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, model.currentLocation()).getThread());
 							unpinRequestThread.start();
 						}
@@ -525,10 +491,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
-				mRateApp = app;
 				if(app != null) {
-					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(user, context, model, app), app.getAuxRate(), app.getAuxComment());
-					myDialog.show();
+//					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(user, context, model, app), app.getAuxRate());
+//					myDialog.show();
 
 					// Activity request action
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
@@ -537,7 +502,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 		});
 
-		if(app.isAuxPin()) {
+		if(app.isAuxPin() == 1) {
 			cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
 			cellHolder.pinUp.setText(R.string.un_pin_up);
 		}
