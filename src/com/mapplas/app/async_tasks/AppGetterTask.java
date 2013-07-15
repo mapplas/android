@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
-import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.model.App;
@@ -23,6 +22,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.static_intents.AppAdapterSingleton;
+import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 
@@ -32,7 +32,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 
 	private AppAdapter listViewAdapter;
 
-	private AwesomeListView listView;
+	private RefreshableListView listView;
 
 	private List<ApplicationInfo> applicationList;
 	
@@ -42,7 +42,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 
 	private static boolean occupied = false;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, AwesomeListView listView, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -127,7 +127,7 @@ public class AppGetterTask extends AsyncTask<Location, Void, Location> {
 
 			this.listViewAdapter.notifyDataSetChanged();
 
-			this.listView.finishRefresing();
+			this.listView.completeRefreshing();
 		}
 		
 		// Send app info to server

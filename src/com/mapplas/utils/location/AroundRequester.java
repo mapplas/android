@@ -15,13 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
-import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AroundRequester implements UserLocationListener {
 
@@ -37,7 +37,7 @@ public class AroundRequester implements UserLocationListener {
 
 	private SuperModel model;
 
-	private AwesomeListView listView;
+	private RefreshableListView listView;
 
 	private AppAdapter appAdapter;
 
@@ -45,7 +45,7 @@ public class AroundRequester implements UserLocationListener {
 
 	private ActivityManager activityManager;
 
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, RefreshableListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -97,7 +97,7 @@ public class AroundRequester implements UserLocationListener {
 		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
 			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
-			this.listView.finishRefresing();
+			this.listView.completeRefreshing();
 
 			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}
@@ -115,7 +115,7 @@ public class AroundRequester implements UserLocationListener {
 		}
 		else {
 			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
-			this.listView.finishRefresing();
+			this.listView.completeRefreshing();
 
 			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}

@@ -15,10 +15,10 @@ import android.widget.ImageView;
 import app.mapplas.com.R;
 
 import com.commonsware.cwac.endless.EndlessAdapter;
-import com.mapplas.app.AwesomeListView;
 import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
+import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AppAdapter extends EndlessAdapter {
 	
@@ -30,7 +30,7 @@ public class AppAdapter extends EndlessAdapter {
 
 	private int loadedListCount = 1;
 
-	public AppAdapter(Context context, AwesomeListView list, SuperModel model, ArrayList<App> appList) {
+	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<App> appList) {
 		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, appList, list, model));
 
 		this.modelData = model.appList().getAppList();

@@ -18,7 +18,7 @@
             android:layout_height="32dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_refresh_photo" />
+            android:src="@drawable/ic_pulltorefresh_arrow" />
 
         <TextView
             android:id="@+id/lblAction"

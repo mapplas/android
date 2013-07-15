@@ -35,7 +35,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
-import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppOrderedList;
@@ -44,12 +43,12 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
-import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
+import com.mapplas.utils.third_party.RefreshableListView;
 
 public class MapplasActivity extends Activity {
 
@@ -65,7 +64,7 @@ public class MapplasActivity extends Activity {
 
 	public List<ApplicationInfo> applicationList = null;
 
-	private AwesomeListView listView = null;
+	private RefreshableListView listView = null;
 
 	private AppAdapter listViewAdapter = null;
 
@@ -154,7 +153,7 @@ public class MapplasActivity extends Activity {
 				AppChangedSingleton.changedList = null;
 			}
 
-			this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
+			//this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
 		}
 		super.onStart();
 	}
@@ -227,7 +226,7 @@ public class MapplasActivity extends Activity {
 	}
 
 	private void loadApplicationsListView(Typeface normalTypeface) {
-		this.listView = (AwesomeListView)findViewById(R.id.lvLista);
+		this.listView = (RefreshableListView)findViewById(R.id.lvLista);
 
 		// Add header to list
 		LinearLayout listViewHeader = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.ptr_header, null);
@@ -252,20 +251,20 @@ public class MapplasActivity extends Activity {
 		String releaseToRefresh = this.getResources().getString(R.string.ptr_release_to_refresh);
 		String loadingApps = this.getResources().getString(R.string.ptr_refreshing);
 
-		this.listView.insertHeader(listViewHeader, headerLayout, headerTV, wifiDisabledTV, headerIV, pullToRefreshArrow, ic_refreshImage, pullToRefresh, releaseToRefresh, loadingApps);
+		//this.listView.insertHeader(listViewHeader, headerLayout, headerTV, wifiDisabledTV, headerIV, pullToRefreshArrow, ic_refreshImage, pullToRefresh, releaseToRefresh, loadingApps);
 
 		// Set release header listener
-		this.listView.setOnReleasehHeaderListener(new AwesomeListView.OnRelease() {
-
-			@Override
-			public void onRelease() {
-				try {
-					loadLocalization();
-				} catch (Exception e) {
-					Log.i(this.getClass().getSimpleName(), e.toString());
-				}
-			}
-		});
+//		this.listView.setOnReleasehHeaderListener(new AwesomeListView.OnRelease() {
+//
+//			@Override
+//			public void onRelease() {
+//				try {
+//					loadLocalization();
+//				} catch (Exception e) {
+//					Log.i(this.getClass().getSimpleName(), e.toString());
+//				}
+//			}
+//		});
 
 		if(this.listView != null) {
 
@@ -275,7 +274,7 @@ public class MapplasActivity extends Activity {
 				@Override
 				public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-					listView.mScrollState = scrollState;
+					//listView.mScrollState = scrollState;
 
 					for(int i = 0; i < listView.getCount(); i++) {
 						View v = listView.getChildAt(i);
@@ -376,7 +375,7 @@ public class MapplasActivity extends Activity {
 	/**
 	 * Getter and setters
 	 */
-	public AwesomeListView getListView() {
-		return listView;
+	public RefreshableListView getListView() {
+		return this.listView;
 	}
 }
