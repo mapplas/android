@@ -67,8 +67,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private User user = null;
 
-	private static App mRateApp = null;
-
 	private static App mBlockApp = null;
 
 	private Animation fadeOutAnimation = null;
@@ -322,7 +320,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
-		if(app.isAuxPin()) {
+		if(app.isAuxPin() == 1) {
 			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
 		}
 		else {
@@ -384,7 +382,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 					final String uid = auxuid;
 
-					if(app.isAuxPin()) {
+					if(app.isAuxPin() == 1) {
 						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
 						cellHolder.pinUp.setText(R.string.pin_up);
@@ -401,7 +399,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					
 					String pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
 					String actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
-					if(app.isAuxPin()) {
+					if(app.isAuxPin() == 1) {
 						pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
 						actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
 					}
@@ -420,7 +418,14 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					int i = 0;
 					while (!found && i < model.appList().size()) {
 						if(model.appList().get(i).equals(app)) {
-							model.appList().get(i).setAuxPin(!app.isAuxPin());
+							int auxPin = app.isAuxPin();
+							
+							if(auxPin == 0) {
+								model.appList().get(i).setAuxPin(1);
+							} else {
+								model.appList().get(i).setAuxPin(0);
+							}
+				
 							found = true;
 						}
 						i++;
@@ -463,7 +468,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
 						likeRequestThread.start();
 						// Do unpin
-						if(mBlockApp.isAuxPin()) {
+						if(mBlockApp.isAuxPin() == 1) {
 							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, model.currentLocation()).getThread());
 							unpinRequestThread.start();
 						}
@@ -486,7 +491,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
-				mRateApp = app;
 				if(app != null) {
 //					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(user, context, model, app), app.getAuxRate());
 //					myDialog.show();
@@ -498,7 +502,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 		});
 
-		if(app.isAuxPin()) {
+		if(app.isAuxPin() == 1) {
 			cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
 			cellHolder.pinUp.setText(R.string.un_pin_up);
 		}

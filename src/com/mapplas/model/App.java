@@ -36,7 +36,7 @@ public class App implements Parcelable {
 //	
 //	private String privacy;
 //
-	private boolean auxPin = false;
+	private int auxPin = 0;
 //	
 //	private int auxTotalPins = 0;
 //	
@@ -119,11 +119,11 @@ public class App implements Parcelable {
 		this.auxPhotos = auxPhotos;
 	}
 
-	public boolean isAuxPin() {
+	public int isAuxPin() {
 		return this.auxPin;
 	}
 
-	public void setAuxPin(boolean auxPin) {
+	public void setAuxPin(int auxPin) {
 		this.auxPin = auxPin;
 	}
 
@@ -169,7 +169,7 @@ public class App implements Parcelable {
 		dest.writeString(this.logo);
 		dest.writeString(this.price);
 //		dest.writeByte((byte)(this.auxFavourite ? 1 : 0));
-		dest.writeByte((byte)(this.auxPin ? 1 : 0));
+		dest.writeInt(this.auxPin);
 //		dest.writeByte((byte)(this.auxBlocked ? 1 : 0));
 		dest.writeTypedList(this.auxPhotos);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
@@ -182,7 +182,7 @@ public class App implements Parcelable {
 		this.logo = parcel.readString();
 		this.price = parcel.readString();
 //		this.auxFavourite = parcel.readByte() == 1;
-		this.auxPin = parcel.readByte() == 1;
+		this.auxPin = parcel.readInt();
 //		this.auxBlocked = parcel.readByte() == 1;
 //		this.auxRate = parcel.readFloat();
 //		this.auxComment = parcel.readString();
