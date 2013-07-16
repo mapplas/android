@@ -28,7 +28,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,14 +47,14 @@ public class RefreshableListView extends ListView {
 	private ImageView mArrowOrRefresing = null;
 
 	private TextView mText = null;
-
+	
 	private float mY = 0;
 
 	private float mHistoricalY = 0;
 
 	private int mHistoricalTop = 0;
 
-	private int mInitialHeight = -30;
+	private int mInitialHeight = 0;
 
 	private boolean mFlag = false;
 
@@ -59,15 +62,17 @@ public class RefreshableListView extends ListView {
 
 	private boolean mIsRefreshing = false;
 
-	private int mHeaderHeight = 30;
+	private int mHeaderHeight = 0;
 
 	private OnRefreshListener mListener = null;
 
 	private static final int REFRESH = 0;
 
 	private static final int NORMAL = 1;
-
+	
 	private static final int HEADER_HEIGHT_DP = 128 + 30;
+	
+	private RotateAnimation reloadAnimation; 
 
 	public RefreshableListView(final Context context) {
 		super(context);
@@ -91,6 +96,10 @@ public class RefreshableListView extends ListView {
 	public void completeRefreshing() {
 		mHandler.sendMessage(mHandler.obtainMessage(NORMAL, mHeaderHeight, 0));
 		mIsRefreshing = false;
+		
+		mArrowOrRefresing.setAnimation(null);
+		mArrowOrRefresing.setImageResource(R.drawable.ic_pulltorefresh_arrow);
+		
 		invalidateViews();
 	}
 
@@ -210,24 +219,30 @@ public class RefreshableListView extends ListView {
 
 	private void initialize() {
 		LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mHeaderContainer = inflater.inflate(R.layout.ptr_header, null);
-		mHeaderView = mHeaderContainer.findViewById(R.id.llInnerPtr);
+        mHeaderContainer = inflater.inflate(R.layout.ptr_header, null);
+		mHeaderView = mHeaderContainer.findViewById(R.id.all_header);
 		mArrowOrRefresing = (ImageView)mHeaderContainer.findViewById(R.id.ivImage);
+		mArrowOrRefresing.setAnimation(null);
+		mArrowOrRefresing.setImageResource(R.drawable.ic_pulltorefresh_arrow);
 		mText = (TextView)mHeaderContainer.findViewById(R.id.lblAction);
 		addHeaderView(mHeaderContainer);
 
 		mHeaderHeight = (int)(HEADER_HEIGHT_DP * getContext().getResources().getDisplayMetrics().density);
 		setHeaderHeight(0);
+		
+		reloadAnimation = new RotateAnimation(-180, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+		reloadAnimation.setInterpolator(new LinearInterpolator());
+		reloadAnimation.setDuration(300);
+		reloadAnimation.setFillAfter(true);
+		reloadAnimation.setRepeatCount(Animation.INFINITE);
+		reloadAnimation.setRepeatMode(Animation.RESTART);
+	}
+	
+	public LinearLayout getHeader() {
+		return (LinearLayout)this.mHeaderContainer;
 	}
 
 	private void setHeaderHeight(final int height) {
-		if(height <= 1) {
-			mHeaderView.setVisibility(View.GONE);
-		}
-		else {
-			mHeaderView.setVisibility(View.VISIBLE);
-		}
-
 		// Extends refresh bar
 		LayoutParams lp = (LayoutParams)mHeaderContainer.getLayoutParams();
 		if(lp == null) {
@@ -248,13 +263,13 @@ public class RefreshableListView extends ListView {
 			// If scroll reaches the trigger line, start refreshing
 			if(height > mHeaderHeight && !mArrowUp) {
 				mArrowOrRefresing.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.rotate));
-				mText.setText("Release to update");
+				mText.setText(R.string.ptr_release_to_refresh);
 				rotateArrow();
 				mArrowUp = true;
 			}
 			else if(height < mHeaderHeight && mArrowUp) {
 				mArrowOrRefresing.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.rotate));
-				mText.setText("Pull down to update");
+				mText.setText(R.string.ptr_pull_to_refresh);
 				rotateArrow();
 				mArrowUp = false;
 			}
@@ -274,9 +289,10 @@ public class RefreshableListView extends ListView {
 	}
 
 	private void startRefreshing() {
-		mText.setText("Loading...");
+		mText.setText(R.string.ptr_refreshing);
 		mIsRefreshing = true;
-		mArrowOrRefresing.setBackgroundResource(R.drawable.ic_refresh_photo);
+		mArrowOrRefresing.setImageResource(R.drawable.ic_refresh_photo);
+		mArrowOrRefresing.startAnimation(reloadAnimation);
 
 		if(mListener != null) {
 			mListener.onRefresh(this);
@@ -295,7 +311,7 @@ public class RefreshableListView extends ListView {
 					limit = mHeaderHeight;
 					break;
 				case NORMAL:
-					limit = 0;
+					limit = (int)(30 * getContext().getResources().getDisplayMetrics().density);
 					break;
 			}
 
@@ -317,6 +333,7 @@ public class RefreshableListView extends ListView {
 	public interface OnRefreshListener {
 
 		public void onRefresh(RefreshableListView listView);
+		
 	}
 
 }
