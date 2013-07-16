@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
-import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.activities.WebViewActivity;
@@ -44,14 +42,14 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
-import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
+import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.view_holder.AppViewHolder;
 
 public class AppArrayAdapter extends ArrayAdapter<App> {
 
-	private Context context;
+	public Context context;
 
 	private ArrayList<App> items;
 
@@ -63,17 +61,17 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private Animation animFlipOutPrevious = null;
 
-	private AwesomeListView list = null;
+	private RefreshableListView list = null;
 
-	private SuperModel model = null;
+	protected SuperModel model = null;
 
-	private User user = null;
+	public User user = null;
 
 	private static App mBlockApp = null;
 
 	private Animation fadeOutAnimation = null;
 
-	public AppArrayAdapter(Context context, int layout, int textViewResourceId, ArrayList<App> items, AwesomeListView list, SuperModel model) {
+	public AppArrayAdapter(Context context, int layout, int textViewResourceId, ArrayList<App> items, RefreshableListView list, SuperModel model) {
 		super(context, layout, textViewResourceId, items);
 
 		this.context = context;
@@ -432,7 +430,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					}
 
 					// Update app adapter
-					list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
+					//list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
 				}
 
 			}

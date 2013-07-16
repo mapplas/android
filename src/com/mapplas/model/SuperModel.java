@@ -2,12 +2,15 @@ package com.mapplas.model;
 
 import java.util.ArrayList;
 
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class SuperModel implements Parcelable {
 
 	private String currentLocation = "";
+	
+	private Location location;
 
 	private User currentUser = null;
 
@@ -24,6 +27,8 @@ public class SuperModel implements Parcelable {
 	private String errorText = "";
 	
 	private ArrayList<String> notificationRawList = new ArrayList<String>();
+	
+	private boolean moreData = true;
 
 	public SuperModel() {
 	}
@@ -103,6 +108,14 @@ public class SuperModel implements Parcelable {
 	public void setNotificationRawList(ArrayList<String> rawList) {
 		this.notificationRawList = rawList;
 	}
+	
+	public void setLocation(Location loc) {
+		this.location = loc;
+	}
+	
+	public Location getLocation() {
+		return this.location;
+	}
 
 	/**
 	 * 
@@ -120,6 +133,14 @@ public class SuperModel implements Parcelable {
 
 	public void resetModel() {
 		this.resetLocalizations();
+	}
+	
+	public boolean moreData() {
+		return moreData;
+	}
+
+	public void setMoreData(boolean moreData) {
+		this.moreData = moreData;
 	}
 
 	/**
@@ -141,6 +162,8 @@ public class SuperModel implements Parcelable {
 		dest.writeByte((byte)(this.operationError ? 1 : 0));
 		dest.writeString(this.errorText);
 		dest.writeSerializable(this.notificationRawList);
+		dest.writeParcelable(this.location, flags);
+		dest.writeByte((byte)(this.moreData ? 1 : 0));
 	}
 
 	public SuperModel(Parcel parcel) {
@@ -153,6 +176,8 @@ public class SuperModel implements Parcelable {
 		parcel.readParcelable(AppOrderedList.class.getClassLoader());
 		this.operationError = parcel.readByte() == 1;
 		this.errorText = parcel.readString();
+		parcel.readParcelable(Location.class.getClassLoader());
+		this.moreData = parcel.readByte() == 1;
 	}
 
 	public static final Parcelable.Creator<SuperModel> CREATOR = new Parcelable.Creator<SuperModel>() {

@@ -2,7 +2,6 @@ package com.mapplas.utils.location;
 
 import java.util.List;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
@@ -15,17 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
-import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AroundRequester implements UserLocationListener {
-
-	public static final int LOCATION_TIMEOUT_IN_MILLISECONDS = 9000;
 
 	private final UserLocationRequester userLocationRequester;
 
@@ -37,24 +34,21 @@ public class AroundRequester implements UserLocationListener {
 
 	private SuperModel model;
 
-	private AwesomeListView listView;
+	private RefreshableListView listView;
 
 	private AppAdapter appAdapter;
+	
+	private List<ApplicationInfo> appsInstalledList;
 
-	private List<ApplicationInfo> applicationList;
-
-	private ActivityManager activityManager;
-
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, int timeOut, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AwesomeListView listView, AppAdapter appAdapter, List<ApplicationInfo> applicationList, ActivityManager activityManager) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, List<ApplicationInfo> appsInstalledList) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
 		this.model = model;
-		this.listView = listView;
-		this.userLocationRequester = userLocationRequesterFactory.create(locationManager, this, timeOut);
+		this.userLocationRequester = userLocationRequesterFactory.create(locationManager, this);
 		this.appAdapter = appAdapter;
-		this.applicationList = applicationList;
-		this.activityManager = activityManager;
+		this.listView = listView;
+		this.appsInstalledList = appsInstalledList;
 	}
 
 	public void start() {
@@ -68,7 +62,7 @@ public class AroundRequester implements UserLocationListener {
 
 	@Override
 	public void locationSearchEnded(Location location) {
-		this.loadTasks(location);
+		this.loadTasks(location, true);
 	}
 
 	@Override
@@ -79,16 +73,17 @@ public class AroundRequester implements UserLocationListener {
 			((MapplasActivity)this.context).finish();
 		}
 		else {
-			this.loadTasks(location);
+			this.loadTasks(location, true);
 		}
 	}
 
-	private void loadTasks(Location location) {
+	private void loadTasks(Location location, boolean reset_pagination) {
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
 		this.model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
+		this.model.setLocation(location);
 
 		ConnectivityManager connManager = (ConnectivityManager)this.context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -97,7 +92,7 @@ public class AroundRequester implements UserLocationListener {
 		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
 			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
-			this.listView.finishRefresing();
+			this.listView.completeRefreshing();
 
 			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}
@@ -106,7 +101,7 @@ public class AroundRequester implements UserLocationListener {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
 
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.applicationList, this.activityManager).execute(new Location(location));
+				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList).execute(new Location(location), reset_pagination);
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 
 			} catch (Exception e) {
@@ -115,7 +110,7 @@ public class AroundRequester implements UserLocationListener {
 		}
 		else {
 			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
-			this.listView.finishRefresing();
+			this.listView.completeRefreshing();
 
 			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
 		}

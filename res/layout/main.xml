@@ -46,13 +46,13 @@
 
             <include layout="@layout/radar" />
 
-            <com.mapplas.app.AwesomeListView
+            <com.mapplas.utils.third_party.RefreshableListView
                 android:id="@+id/lvLista"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="#f7f8f8"
                 android:visibility="invisible" >
-            </com.mapplas.app.AwesomeListView>
+            </com.mapplas.utils.third_party.RefreshableListView>
         </LinearLayout>
     </LinearLayout>
 

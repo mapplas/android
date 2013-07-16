@@ -6,18 +6,15 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,17 +22,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 import app.mapplas.com.R;
 
-import com.mapplas.app.AwesomeListView;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppOrderedList;
@@ -44,12 +37,14 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
-import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
+import com.mapplas.utils.static_intents.AppAdapterSingleton;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
+import com.mapplas.utils.third_party.RefreshableListView;
+import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 
 public class MapplasActivity extends Activity {
 
@@ -63,9 +58,9 @@ public class MapplasActivity extends Activity {
 
 	private LocationManager locationManager = null;
 
-	public List<ApplicationInfo> applicationList = null;
+	public List<ApplicationInfo> appsInstalledList = null;
 
-	private AwesomeListView listView = null;
+	private RefreshableListView listView = null;
 
 	private AppAdapter listViewAdapter = null;
 
@@ -115,7 +110,7 @@ public class MapplasActivity extends Activity {
 		}
 
 		// Get user application list
-		this.applicationList = new ArrayList<ApplicationInfo>();
+		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
@@ -126,8 +121,12 @@ public class MapplasActivity extends Activity {
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		ActivityManager activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager);
+		
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList);
+		this.listView.setAdapter(this.listViewAdapter);
+		AppAdapterSingleton.appAdapter = this.listViewAdapter;
+		
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -154,7 +153,7 @@ public class MapplasActivity extends Activity {
 				AppChangedSingleton.changedList = null;
 			}
 
-			this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
+			//this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
 		}
 		super.onStart();
 	}
@@ -227,74 +226,26 @@ public class MapplasActivity extends Activity {
 	}
 
 	private void loadApplicationsListView(Typeface normalTypeface) {
-		this.listView = (AwesomeListView)findViewById(R.id.lvLista);
+		this.listView = (RefreshableListView)findViewById(R.id.lvLista);
+        LinearLayout listViewHeader = this.listView.getHeader();
+        
+        // ListView header status message
+ 		this.listViewHeaderStatusMessage = (TextView)listViewHeader.findViewById(R.id.lblStatus);
+ 		this.listViewHeaderStatusMessage.setTypeface(normalTypeface);
+ 		this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 
-		// Add header to list
-		LinearLayout listViewHeader = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.ptr_header, null);
-		RelativeLayout headerLayout = (RelativeLayout)listViewHeader.findViewById(R.id.llInnerPtr);
-		TextView headerTV = (TextView)listViewHeader.findViewById(R.id.lblAction);
-		TextView wifiDisabledTV = (TextView)listViewHeader.findViewById(R.id.lblWifiDisabledMessage);
-		ImageView headerIV = (ImageView)listViewHeader.findViewById(R.id.ivImage);
-
-		// ListView header status message
-		this.listViewHeaderStatusMessage = (TextView)listViewHeader.findViewById(R.id.lblStatus);
-		this.listViewHeaderStatusMessage.setTypeface(normalTypeface);
-		this.listViewHeaderStatusMessage.setText(R.string.location_searching);
-
-		// ListView header status image
-		this.listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
-		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
-
-		Drawable pullToRefreshArrow = this.getResources().getDrawable(R.drawable.ic_pulltorefresh_arrow);
-		Drawable ic_refreshImage = this.getResources().getDrawable(R.drawable.ic_refresh_photo);
-
-		String pullToRefresh = this.getResources().getString(R.string.ptr_pull_to_refresh);
-		String releaseToRefresh = this.getResources().getString(R.string.ptr_release_to_refresh);
-		String loadingApps = this.getResources().getString(R.string.ptr_refreshing);
-
-		this.listView.insertHeader(listViewHeader, headerLayout, headerTV, wifiDisabledTV, headerIV, pullToRefreshArrow, ic_refreshImage, pullToRefresh, releaseToRefresh, loadingApps);
-
-		// Set release header listener
-		this.listView.setOnReleasehHeaderListener(new AwesomeListView.OnRelease() {
+ 		// ListView header status image
+ 		this.listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
+ 		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
+		
+		// Set refresh header listener
+		this.listView.setOnRefreshListener(new OnRefreshListener() {
 
 			@Override
-			public void onRelease() {
-				try {
-					loadLocalization();
-				} catch (Exception e) {
-					Log.i(this.getClass().getSimpleName(), e.toString());
-				}
+			public void onRefresh(RefreshableListView listView) {
+				loadLocalization();
 			}
 		});
-
-		if(this.listView != null) {
-
-			// Set scroll listener
-			this.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-				@Override
-				public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-					listView.mScrollState = scrollState;
-
-					for(int i = 0; i < listView.getCount(); i++) {
-						View v = listView.getChildAt(i);
-						if(v != null) {
-							ViewFlipper vf = (ViewFlipper)v.findViewById(R.id.vfRowLoc);
-							if(vf != null) {
-								vf.setInAnimation(null);
-								vf.setOutAnimation(null);
-								vf.setDisplayedChild(0);
-							}
-						}
-					}
-				}
-
-				@Override
-				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				}
-			});
-		}
 	}
 
 	/**
@@ -376,7 +327,7 @@ public class MapplasActivity extends Activity {
 	/**
 	 * Getter and setters
 	 */
-	public AwesomeListView getListView() {
-		return listView;
+	public RefreshableListView getListView() {
+		return this.listView;
 	}
 }
