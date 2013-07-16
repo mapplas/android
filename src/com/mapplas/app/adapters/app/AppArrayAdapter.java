@@ -34,13 +34,13 @@ import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
-import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -466,7 +466,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						}
 
 						// Block request thread
-						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
+						Thread likeRequestThread = new Thread(new BlockRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
 						likeRequestThread.start();
 
 						// Do unpin also

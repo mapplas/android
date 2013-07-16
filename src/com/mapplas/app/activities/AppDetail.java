@@ -36,7 +36,6 @@ import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
-import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.Photo;
@@ -44,6 +43,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.NetRequests;
 import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
@@ -599,7 +599,7 @@ public class AppDetail extends Activity {
 								// Block and unpin app
 
 								String uid = String.valueOf(user.getId());
-								Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
+								Thread likeRequestThread = new Thread(new BlockRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
 								likeRequestThread.start();
 
 								// Si la app esta pineada, la despineamos

@@ -70,8 +70,8 @@ public class Constants {
 	public static final String MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN = "unpin";
 	
 	// Block-request constants
-	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK = "m";
-	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK = "mr";
+	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK = "block";
+	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK = "unblock";
 	
 	// Images
 	public static final String MAPPLAS_EXTRA_BITMAP = "extra_bitmap";

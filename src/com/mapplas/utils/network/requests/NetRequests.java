@@ -317,47 +317,7 @@ public class NetRequests {
 
 	
 
-	/**
-	 * Like request
-	 * 
-	 * @param action
-	 * @param id
-	 * @param uid
-	 * @return
-	 * @throws Exception
-	 */
-	public static String LikeRequest(String action, String id, String uid) throws Exception {
-		return NetRequests.LikeRequest(action, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid);
-	}
-
-	public static String LikeRequest(String action, String serverIpAddress, int serverPort, String serverPath, String id, String uid) throws Exception {
-		String serverResponse = "";
-		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_like.php");
-
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-		nameValuePairs.add(new BasicNameValuePair("v", Constants.SYNESTH_VERSION));
-		nameValuePairs.add(new BasicNameValuePair("t", action));
-		nameValuePairs.add(new BasicNameValuePair("id", id));
-		nameValuePairs.add(new BasicNameValuePair("uid", uid));
-		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-		try {
-			HttpResponse rp = hc.execute(post);
-
-			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				serverResponse = EntityUtils.toString(rp.getEntity());
-
-			}
-			else {
-				throw new Exception("HttpStatus != SC_OK");
-			}
-		} catch (IOException e) {
-			throw e;
-		}
-
-		return serverResponse;
-	}
+	
 
 	/**
 	 * Activity request
@@ -402,54 +362,5 @@ public class NetRequests {
 
 		return serverResponse;
 	}
-
-	
-
-	// /**
-	// * Notifications request
-	// *
-	// * @param location
-	// * @param ii
-	// * @return
-	// * @throws Exception
-	// */
-	// public static String NotificationsRequest(String location, String ii)
-	// throws Exception {
-	// return NetRequests.NotificationsRequest(location,
-	// Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT,
-	// Constants.SYNESTH_SERVER_PATH, ii);
-	// }
-	//
-	// public static String NotificationsRequest(String location, String
-	// serverIpAddress, int serverPort, String serverPath, String ii) throws
-	// Exception {
-	// String serverResponse = "";
-	// HttpClient hc = new DefaultHttpClient();
-	// HttpPost post = new HttpPost("http://" + serverIpAddress + ":" +
-	// serverPort + serverPath + "ipc_notifications.php");
-	//
-	// List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-	// nameValuePairs.add(new BasicNameValuePair("v",
-	// Constants.SYNESTH_VERSION));
-	// nameValuePairs.add(new BasicNameValuePair("l", location));
-	// nameValuePairs.add(new BasicNameValuePair("ii", ii));
-	// post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	//
-	// try {
-	// HttpResponse rp = hc.execute(post);
-	//
-	// if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-	// serverResponse = EntityUtils.toString(rp.getEntity());
-	//
-	// }
-	// else {
-	// throw new Exception("HttpStatus != SC_OK");
-	// }
-	// } catch (IOException e) {
-	// throw e;
-	// }
-	//
-	// return serverResponse;
-	// }
 
 }

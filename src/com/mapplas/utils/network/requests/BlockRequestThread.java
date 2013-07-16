@@ -1,11 +1,11 @@
-package com.mapplas.app.threads;
+package com.mapplas.utils.network.requests;
 
 import android.util.Log;
 
 import com.mapplas.model.App;
-import com.mapplas.utils.network.requests.NetRequests;
+import com.mapplas.utils.network.connectors.BlockRequestConnector;
 
-public class LikeRequestThread {
+public class BlockRequestThread {
 
 	private String action;
 
@@ -13,7 +13,7 @@ public class LikeRequestThread {
 
 	private String uid;
 
-	public LikeRequestThread(String action, App anonLoc, String uid) {
+	public BlockRequestThread(String action, App anonLoc, String uid) {
 		this.action = action;
 		this.app = anonLoc;
 		this.uid = uid;
@@ -25,7 +25,7 @@ public class LikeRequestThread {
 			@Override
 			public void run() {
 				try {
-					NetRequests.LikeRequest(action, String.valueOf(app.getId()), uid);
+					BlockRequestConnector.request(action, app.getId(), uid);
 				} catch (Exception e) {
 					Log.i(getClass().getSimpleName(), "Thread Action Like: " + e);
 				}

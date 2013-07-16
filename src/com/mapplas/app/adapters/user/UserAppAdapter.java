@@ -24,12 +24,12 @@ import com.mapplas.app.activities.UserForm;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
-import com.mapplas.app.threads.LikeRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
 
 public class UserAppAdapter extends ArrayAdapter<App> {
@@ -233,7 +233,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 //										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
 //										activityRequestThread.start();
 
-										Thread blockRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
+										Thread blockRequestThread = new Thread(new BlockRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
 										blockRequestThread.start();
 
 										// Remove blocked app from blocked list
