@@ -15,7 +15,7 @@ public class App implements Parcelable {
 	private String id;
 
 	private String name;
-	
+
 	private String shortDescription;
 
 	private String description;
@@ -23,40 +23,42 @@ public class App implements Parcelable {
 	private String logo;
 
 	private String price;
-	
-//	private String version;
-//	
-//	private String versionUpdated;
-//    
-//	private String size;
-//	
-//	private float rating;
-//	
-//	private int votes;
-//	
-//	private String privacy;
-//
-	private int auxPin = 0;
-//	
-//	private int auxTotalPins = 0;
-//	
-//	private String auxPinnedGeocodedLocation;
-//
-//	private boolean auxBlocked = false;
-//
-//	private float auxRate = 0.0f;
+
+	// private String version;
+	//
+	// private String versionUpdated;
+	//
+	// private String size;
+	//
+	// private float rating;
+	//
+	// private int votes;
+	//
+	// private String privacy;
+	//
+	private int auxPin;
+
+	//
+	// private int auxTotalPins = 0;
+	//
+	// private String auxPinnedGeocodedLocation;
+	//
+	// private boolean auxBlocked = false;
+	//
+	// private float auxRate = 0.0f;
 
 	private ArrayList<Photo> auxPhotos = new ArrayList<Photo>();
-	
-//	private String video;
-//	
-//	private String banner;
-//
+
+	// private String video;
+	//
+	// private String banner;
+	//
 	private ApplicationInfo internalApplicationInfo = null;
-//	
-//	private String contentRating;
-//	
-//	private String operatingSystem;
+
+	//
+	// private String contentRating;
+	//
+	// private String operatingSystem;
 
 	private String type = Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION;
 
@@ -79,7 +81,7 @@ public class App implements Parcelable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getAppShortDescription() {
 		return this.shortDescription;
 	}
@@ -95,7 +97,7 @@ public class App implements Parcelable {
 	public void setAppDescription(String appDescription) {
 		this.description = appDescription;
 	}
-	
+
 	public String getAppLogo() {
 		return this.logo;
 	}
@@ -128,31 +130,30 @@ public class App implements Parcelable {
 		this.auxPin = auxPin;
 	}
 
-//	public boolean isAuxBlocked() {
-//		return this.auxBlocked;
-//	}
-//
-//	public void setAuxBlocked(boolean auxBlocked) {
-//		this.auxBlocked = auxBlocked;
-//	}
-//
-//	public int getAuxTotalPins() {
-//		return auxTotalPins;
-//	}
-//
-//	public void setAuxTotalPins(int auxTotalPins) {
-//		this.auxTotalPins = auxTotalPins;
-//	}
-	
+	// public boolean isAuxBlocked() {
+	// return this.auxBlocked;
+	// }
+	//
+	// public void setAuxBlocked(boolean auxBlocked) {
+	// this.auxBlocked = auxBlocked;
+	// }
+	//
+	// public int getAuxTotalPins() {
+	// return auxTotalPins;
+	// }
+	//
+	// public void setAuxTotalPins(int auxTotalPins) {
+	// this.auxTotalPins = auxTotalPins;
+	// }
+
 	public ApplicationInfo getInternalApplicationInfo() {
 		return internalApplicationInfo;
 	}
 
-	
 	public void setInternalApplicationInfo(ApplicationInfo internalApplicationInfo) {
 		this.internalApplicationInfo = internalApplicationInfo;
 	}
-	
+
 	public String getAppType() {
 		return this.type;
 	}
@@ -176,9 +177,9 @@ public class App implements Parcelable {
 		dest.writeString(this.description);
 		dest.writeString(this.logo);
 		dest.writeString(this.price);
-//		dest.writeByte((byte)(this.auxFavourite ? 1 : 0));
+		// dest.writeByte((byte)(this.auxFavourite ? 1 : 0));
 		dest.writeInt(this.auxPin);
-//		dest.writeByte((byte)(this.auxBlocked ? 1 : 0));
+		// dest.writeByte((byte)(this.auxBlocked ? 1 : 0));
 		dest.writeTypedList(this.auxPhotos);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
 		dest.writeString(this.type);
@@ -190,13 +191,13 @@ public class App implements Parcelable {
 		this.description = parcel.readString();
 		this.logo = parcel.readString();
 		this.price = parcel.readString();
-//		this.auxFavourite = parcel.readByte() == 1;
+		// this.auxFavourite = parcel.readByte() == 1;
 		this.auxPin = parcel.readInt();
-//		this.auxBlocked = parcel.readByte() == 1;
-//		this.auxRate = parcel.readFloat();
-//		this.auxComment = parcel.readString();
-//		this.auxTotalRate = parcel.readFloat();
-//		this.auxTotalPins = parcel.readInt();
+		// this.auxBlocked = parcel.readByte() == 1;
+		// this.auxRate = parcel.readFloat();
+		// this.auxComment = parcel.readString();
+		// this.auxTotalRate = parcel.readFloat();
+		// this.auxTotalPins = parcel.readInt();
 		parcel.readTypedList(this.auxPhotos, Photo.CREATOR);
 		this.internalApplicationInfo = parcel.readParcelable(null);
 		this.type = parcel.readString();
