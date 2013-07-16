@@ -549,6 +549,7 @@ public class AppDetail extends Activity {
 					}
 
 					somethingChanged = true;
+					model.appList().sort();
 
 					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
 					pinRequestThread.start();
@@ -625,6 +626,7 @@ public class AppDetail extends Activity {
 								}
 
 								somethingChanged = true;
+								model.appList().sort();
 
 								AppDetail.this.finish();
 							}

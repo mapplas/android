@@ -150,6 +150,7 @@ public class MapplasActivity extends Activity {
 			if(AppChangedSingleton.changedList != null) {
 				AppOrderedList changedList = AppChangedSingleton.changedList;
 				this.model.setAppList(changedList);
+				this.model.appList().sort();
 				AppChangedSingleton.changedList = null;
 			}
 

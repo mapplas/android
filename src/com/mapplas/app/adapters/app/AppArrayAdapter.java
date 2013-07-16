@@ -428,6 +428,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						}
 						i++;
 					}
+					
+					model.appList().sort();
 
 					// Update app adapter
 					// list.updateAdapter(context, model, new
