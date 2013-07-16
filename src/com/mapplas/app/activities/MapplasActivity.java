@@ -154,7 +154,7 @@ public class MapplasActivity extends Activity {
 				AppChangedSingleton.changedList = null;
 			}
 
-			//this.listView.updateAdapter(this, this.model, new InfiniteScrollManager().getFirstXNumberOfApps(this.model));
+			this.listViewAdapter.notifyDataSetChanged();
 		}
 		super.onStart();
 	}
