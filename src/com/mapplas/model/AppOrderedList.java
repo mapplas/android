@@ -1,6 +1,8 @@
 package com.mapplas.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,14 +12,14 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "orderedList")
-public class AppOrderedList implements Parcelable, Unit {
-	
+public class AppOrderedList implements Parcelable, Unit, Comparator<App> {
+
 	public static final String TABLE_NAME = "orderedList";
 
-	@DatabaseField (generatedId=true)
+	@DatabaseField(generatedId = true)
 	private int autoincrementId;
-	
-	@DatabaseField (dataType = DataType.SERIALIZABLE)
+
+	@DatabaseField(dataType = DataType.SERIALIZABLE)
 	private ArrayList<App> appList = new ArrayList<App>();
 
 	@DatabaseField
@@ -33,24 +35,24 @@ public class AppOrderedList implements Parcelable, Unit {
 	public void setAppList(ArrayList<App> list) {
 		this.appList = list;
 	}
-	
+
 	public void add(App app) {
 		this.appList.add(app);
-//		Collections.sort(this.appList, this);
+		// Collections.sort(this.appList, this);
 	}
-	
+
 	public void reset() {
 		this.appList.clear();
 	}
-	
+
 	public int size() {
 		return this.appList.size();
 	}
-	
+
 	public App get(int index) {
 		return this.appList.get(index);
 	}
-	
+
 	public void setCurrentLocation(String location) {
 		this.currentLocation = location;
 	}
@@ -90,5 +92,18 @@ public class AppOrderedList implements Parcelable, Unit {
 			return new AppOrderedList[size];
 		}
 	};
+
+	public void sort() {
+		Collections.sort(this.appList, this);
+	}
+
+	public int compare(App app1, App app2) {
+		if(app1.isAuxPin() == 1 && app2.isAuxPin() == 0) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
+	}
 
 }
