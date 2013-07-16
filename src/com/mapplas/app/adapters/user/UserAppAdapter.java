@@ -24,14 +24,13 @@ import com.mapplas.app.activities.UserForm;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
-import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
-import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.requests.PinRequestThread;
 
 public class UserAppAdapter extends ArrayAdapter<App> {
 
@@ -48,13 +47,13 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 	private ArrayList<App> items;
 
 	private Context context = null;
-	
+
 	private User user = null;
 
 	private String currentLocation = "";
-	
+
 	private boolean showEmptyMessage;
-	
+
 	private static Semaphore mSemaphore = new Semaphore(1);
 
 	private static App mBlockLoc = null;
@@ -103,7 +102,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		this.showEmptyMessage = showEmptyMessage;
 
 		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
-																		// this
+		// this
 		this.fadeOutAnimation.setStartOffset(0);
 		this.fadeOutAnimation.setDuration(500);
 		this.fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -124,7 +123,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 			}
 		});
 	}
-	
+
 	@Override
 	public int getCount() {
 		int count = 1;
@@ -231,8 +230,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 								switch (UserAppAdapter.this.mType) {
 									case BLOCK:
-										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
-										activityRequestThread.start();
+//										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
+//										activityRequestThread.start();
 
 										Thread blockRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
 										blockRequestThread.start();
@@ -249,10 +248,10 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										break;
 										
 									case PINUP:
-										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
-										activityRequestThread.start();
+//										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
+//										activityRequestThread.start();
 
-										Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
+										Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, null, "").getThread());
 										pinRequestThread.start();
 
 										// Remove pinned app from pinned list

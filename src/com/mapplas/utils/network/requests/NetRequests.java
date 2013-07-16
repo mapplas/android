@@ -315,51 +315,7 @@ public class NetRequests {
 		return serverResponse;
 	}
 
-	/**
-	 * Pin request
-	 * 
-	 * @param state
-	 * @param id
-	 * @param uid
-	 * @param currentLatitude
-	 * @param currentLongitude
-	 * @return
-	 * @throws Exception
-	 */
-	public static String PinRequest(String state, String id, String uid, String currentLongitude, String currentLatitude) throws Exception {
-		return NetRequests.PinRequest(state, Constants.SYNESTH_SERVER, Constants.SYNESTH_SERVER_PORT, Constants.SYNESTH_SERVER_PATH, id, uid, currentLongitude, currentLatitude);
-	}
-
-	public static String PinRequest(String state, String serverIpAddress, int serverPort, String serverPath, String id, String uid, String currentLongitude, String currentLatitude) throws Exception {
-		String serverResponse = "";
-		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + serverIpAddress + ":" + serverPort + serverPath + "ipc_pin.php");
-
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-		nameValuePairs.add(new BasicNameValuePair("v", Constants.SYNESTH_VERSION));
-		nameValuePairs.add(new BasicNameValuePair("s", state));
-		nameValuePairs.add(new BasicNameValuePair("id", id));
-		nameValuePairs.add(new BasicNameValuePair("uid", uid));
-		nameValuePairs.add(new BasicNameValuePair("la", currentLatitude));
-		nameValuePairs.add(new BasicNameValuePair("lo", currentLongitude));
-		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-		try {
-			HttpResponse rp = hc.execute(post);
-
-			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				serverResponse = EntityUtils.toString(rp.getEntity());
-
-			}
-			else {
-				throw new Exception("HttpStatus != SC_OK");
-			}
-		} catch (IOException e) {
-			throw e;
-		}
-
-		return serverResponse;
-	}
+	
 
 	/**
 	 * Like request

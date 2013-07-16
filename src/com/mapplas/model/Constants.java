@@ -69,9 +69,7 @@ public class Constants {
 	public static final String MAPPLAS_ACTIVITY_PIN_REQUEST_PIN = "pin";
 	public static final String MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN = "unpin";
 	
-	// Like-request constants
-//	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_LIKE = "p";
-//	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNLIKE = "pr";
+	// Block-request constants
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK = "m";
 	public static final String MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK = "mr";
 	

@@ -35,13 +35,13 @@ import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.app.threads.LikeRequestThread;
-import com.mapplas.app.threads.PinRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -227,35 +227,35 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeRating(App app, AppViewHolder cellHolder) {
-//		cellHolder.ratingBar.setRating(app.getAuxTotalRate());
+		// cellHolder.ratingBar.setRating(app.getAuxTotalRate());
 
-//		if(app.getAuxTotalRate() == 0) {
-//			cellHolder.ratingText.setText(R.string.unRated);
-//		}
-//		else {
-//			int auxCase = (int)Math.ceil(app.getAuxTotalRate());
-//			switch (auxCase) {
-//				case 1:
-//					cellHolder.ratingText.setText(R.string.poor);
-//					break;
-//
-//				case 2:
-//					cellHolder.ratingText.setText(R.string.belowAvg);
-//					break;
-//
-//				case 3:
-//					cellHolder.ratingText.setText(R.string.average);
-//					break;
-//
-//				case 4:
-//					cellHolder.ratingText.setText(R.string.aboveAvg);
-//					break;
-//
-//				case 5:
-//					cellHolder.ratingText.setText(R.string.excellent);
-//					break;
-//			}
-//		}
+		// if(app.getAuxTotalRate() == 0) {
+		// cellHolder.ratingText.setText(R.string.unRated);
+		// }
+		// else {
+		// int auxCase = (int)Math.ceil(app.getAuxTotalRate());
+		// switch (auxCase) {
+		// case 1:
+		// cellHolder.ratingText.setText(R.string.poor);
+		// break;
+		//
+		// case 2:
+		// cellHolder.ratingText.setText(R.string.belowAvg);
+		// break;
+		//
+		// case 3:
+		// cellHolder.ratingText.setText(R.string.average);
+		// break;
+		//
+		// case 4:
+		// cellHolder.ratingText.setText(R.string.aboveAvg);
+		// break;
+		//
+		// case 5:
+		// cellHolder.ratingText.setText(R.string.excellent);
+		// break;
+		// }
+		// }
 	}
 
 	private void initializeStartButton(final App app, Button buttonStart) {
@@ -291,7 +291,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				public void onClick(View v) {
 					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
-						
+
 						String strUrl = "market://details?id=" + anonLoc.getId();
 
 						if(anonLoc.getInternalApplicationInfo() != null) {
@@ -394,7 +394,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					cellHolder.logoRoundCorner.invalidate();
 					v.invalidate();
 					list.invalidate();
-					
+
 					String pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
 					String actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
 					if(app.isAuxPin() == 1) {
@@ -407,7 +407,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					activityRequestThread.start();
 
 					// Pin/unpin request
-					Thread pinRequestThread = new Thread(new PinRequestThread(pinRequestConstant, app, uid, model.currentLocation()).getThread());
+					Thread pinRequestThread = new Thread(new PinRequestThread(pinRequestConstant, app, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
 					pinRequestThread.start();
 
 					// Set app object as pinned or unpinned
@@ -416,21 +416,24 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					int i = 0;
 					while (!found && i < model.appList().size()) {
 						if(model.appList().get(i).equals(app)) {
-							int auxPin = app.isAuxPin();
-							
-							if(auxPin == 0) {
-								model.appList().get(i).setAuxPin(1);
-							} else {
+
+							if(app.isAuxPin() == 1) {
 								model.appList().get(i).setAuxPin(0);
 							}
-				
+							else {
+								model.appList().get(i).setAuxPin(1);
+							}
+
 							found = true;
 						}
 						i++;
 					}
+					
+					model.appList().sort();
 
 					// Update app adapter
-					//list.updateAdapter(context, model, new InfiniteScrollManager().getFirstXNumberOfApps(model));
+					// list.updateAdapter(context, model, new
+					// InfiniteScrollManager().getFirstXNumberOfApps(model));
 				}
 
 			}
@@ -465,9 +468,10 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						// Block request thread
 						Thread likeRequestThread = new Thread(new LikeRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, app, uid).getThread());
 						likeRequestThread.start();
-						// Do unpin
+
+						// Do unpin also
 						if(mBlockApp.isAuxPin() == 1) {
-							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, model.currentLocation()).getThread());
+							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
 							unpinRequestThread.start();
 						}
 					}
@@ -490,8 +494,10 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			@Override
 			public void onClick(View v) {
 				if(app != null) {
-//					RatingDialog myDialog = new RatingDialog(context, "", new OnReadyListener(user, context, model, app), app.getAuxRate());
-//					myDialog.show();
+					// RatingDialog myDialog = new RatingDialog(context, "", new
+					// OnReadyListener(user, context, model, app),
+					// app.getAuxRate());
+					// myDialog.show();
 
 					// Activity request action
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
@@ -518,7 +524,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 				if(app != null) {
 					context.startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(context, app), context.getString(R.string.share)));
-					
+
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
 					activityRequestThread.start();
 				}

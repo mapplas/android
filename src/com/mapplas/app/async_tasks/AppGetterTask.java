@@ -121,7 +121,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 
 		for(int i = 0; i < this.appsInstalledInfo.size(); i++) {
 			ApplicationInfo ai = this.appsInstalledInfo.get(i);
-			if(id.contentEquals(ai.packageName)) {
+			if(ai.packageName != null && id.contentEquals(ai.packageName)) {
 				ret = this.appsInstalledInfo.get(i);
 			}
 		}

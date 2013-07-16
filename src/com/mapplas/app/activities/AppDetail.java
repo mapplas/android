@@ -45,6 +45,7 @@ import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.network.requests.NetRequests;
+import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -56,7 +57,7 @@ public class AppDetail extends Activity {
 
 	/* */
 	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
-	
+
 	private App app = null; // mLoc
 
 	private User user = null;
@@ -254,26 +255,29 @@ public class AppDetail extends Activity {
 
 		// Set stars
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
-//		rbRating.setRating(this.app.getAuxTotalRate());
+		// rbRating.setRating(this.app.getAuxTotalRate());
 
 		// When tapping between app image and price, rating dialog is shown. (In
 		// app cathegory or static stars).
-//		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
-//		layout.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), app.getAuxRate(), app.getAuxComment());
-//				myDialog.show();
-//			}
-//		});
+		// LinearLayout layout =
+		// (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
+		// layout.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new
+		// OnReadyListener(user, AppDetail.this, model, app), app.getAuxRate(),
+		// app.getAuxComment());
+		// myDialog.show();
+		// }
+		// });
 
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
 		ImageFileManager imageFileManager = new ImageFileManager();
 
 		String logoUrl = this.app.getAppLogo();
-		
+
 		if(!logoUrl.equals("")) {
 			if(imageFileManager.exists(new CacheFolderFactory(this).create(), logoUrl)) {
 				appLogo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this).create(), logoUrl));
@@ -283,7 +287,7 @@ public class AppDetail extends Activity {
 				imageRequest.execute();
 			}
 		}
-		
+
 		// App detail header text view
 		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
 		appNameTextView.setText(this.app.getName());
@@ -338,7 +342,8 @@ public class AppDetail extends Activity {
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
-//		if(this.app.getAppUrl().equals("") && this.app.getDeveloperMail.equals("")) {
+		// if(this.app.getAppUrl().equals("") &&
+		// this.app.getDeveloperMail.equals("")) {
 		if(this.app.getId().equals("")) {
 			findViewById(R.id.lytDeveloper).setVisibility(View.INVISIBLE);
 		}
@@ -352,12 +357,13 @@ public class AppDetail extends Activity {
 
 			if(this.app.getId().equals("")) {
 				developerWebMailTextView.setVisibility(View.GONE);
-			} else {
+			}
+			else {
 				developerWebMailTextView.setTypeface(normalTypeFace);
 				developerWebMailTextView.setOnClickListener(new View.OnClickListener() {
 
 					@Override
-					public void onClick(View v) {						
+					public void onClick(View v) {
 						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
 						intent.putExtra(AppDetail.APP_DEV_URL_INTENT_DATA, app);
 						AppDetail.this.startActivity(intent);
@@ -367,23 +373,23 @@ public class AppDetail extends Activity {
 
 			// Developer mail button
 			TextView tv = (TextView)findViewById(R.id.lblEMail);
-			
-//			if(this.app.getDeveloperMail().equals("")) {
-//				tv.setVisibility(View.GONE);
-//			} else {
-				tv.setTypeface(normalTypeFace);
-				tv.setOnClickListener(new View.OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						Intent i = new Intent(Intent.ACTION_SEND);
-						i.setType("text/html"); // use from live device
-						i.putExtra(Intent.EXTRA_EMAIL, new String[] { "contact@mapplas.com" });
-						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
-						startActivity(Intent.createChooser(i, "Select email application."));
-					}
-				});
-//			}
+			// if(this.app.getDeveloperMail().equals("")) {
+			// tv.setVisibility(View.GONE);
+			// } else {
+			tv.setTypeface(normalTypeFace);
+			tv.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(Intent.ACTION_SEND);
+					i.setType("text/html"); // use from live device
+					i.putExtra(Intent.EXTRA_EMAIL, new String[] { "contact@mapplas.com" });
+					i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
+					startActivity(Intent.createChooser(i, "Select email application."));
+				}
+			});
+			// }
 		}
 	}
 
@@ -393,32 +399,32 @@ public class AppDetail extends Activity {
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
 		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-//		if(this.app.getType().equalsIgnoreCase("application")) {
-			if(this.app.getInternalApplicationInfo() != null) {
-				// Start
-				buttonStart.setBackgroundResource(R.drawable.badge_launch);
-				buttonStart.setText("");
-			}
-			else {
-				// Install
-//				if(this.app.getAppPrice() > 0) {
-					buttonStart.setBackgroundResource(R.drawable.badge_price);
-					buttonStart.setText(this.app.getAppPrice());
+		// if(this.app.getType().equalsIgnoreCase("application")) {
+		if(this.app.getInternalApplicationInfo() != null) {
+			// Start
+			buttonStart.setBackgroundResource(R.drawable.badge_launch);
+			buttonStart.setText("");
+		}
+		else {
+			// Install
+			// if(this.app.getAppPrice() > 0) {
+			buttonStart.setBackgroundResource(R.drawable.badge_price);
+			buttonStart.setText(this.app.getAppPrice());
 
-					NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-					buttonStart.setText(nf.format(this.app.getAppPrice()));
-				}
-//				else {
-//					buttonStart.setBackgroundResource(R.drawable.badge_free);
-//					buttonStart.setText(R.string.free);
-//				}
-//			}
-//		}
-//		else {
-//			// Info
-//			buttonStart.setBackgroundResource(R.drawable.badge_html5);
-//			buttonStart.setText("");
-//		}
+			NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+			buttonStart.setText(nf.format(this.app.getAppPrice()));
+		}
+		// else {
+		// buttonStart.setBackgroundResource(R.drawable.badge_free);
+		// buttonStart.setText(R.string.free);
+		// }
+		// }
+		// }
+		// else {
+		// // Info
+		// buttonStart.setBackgroundResource(R.drawable.badge_html5);
+		// buttonStart.setText("");
+		// }
 
 		buttonStart.setTag(this.app);
 		buttonStart.setOnClickListener(new OnClickListener() {
@@ -483,12 +489,12 @@ public class AppDetail extends Activity {
 		final ImageView ivPinup = (ImageView)findViewById(R.id.btnPinUp);
 		ivPinup.setTag(this.app);
 
-//		if(!this.app.isAuxPin()) {
-//			ivPinup.setImageResource(R.drawable.action_pin_button);
-//		}
-//		else {
-//			ivPinup.setImageResource(R.drawable.action_unpin_button);
-//		}
+		if(this.app.isAuxPin() == 1) {
+			ivPinup.setImageResource(R.drawable.action_pin_button);
+		}
+		else {
+			ivPinup.setImageResource(R.drawable.action_unpin_button);
+		}
 
 		lytPinup.setOnClickListener(new View.OnClickListener() {
 
@@ -503,53 +509,55 @@ public class AppDetail extends Activity {
 
 					final String uid = auxuid;
 
-//					if(anonLoc.isAuxPin()) {
+					if(anonLoc.isAuxPin() == 1) {
 						ivPinup.setImageResource(R.drawable.action_pin_button);
-//					}
-//					else {
-//						ivPinup.setImageResource(R.drawable.action_unpin_button);
-//					}
+					}
+					else {
+						ivPinup.setImageResource(R.drawable.action_unpin_button);
+					}
 
-//					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
-//					String activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
-//					if(anonLoc.isAuxPin()) {
-//						pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-//						activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
-//						anonLoc.setAuxPin(false);
-//					}
-//					else {
-//						anonLoc.setAuxPin(true);
-//					}
+					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
+					String activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
+					if(anonLoc.isAuxPin() == 1) {
+						pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
+						activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
+						anonLoc.setAuxPin(0);
+					}
+					else {
+						anonLoc.setAuxPin(1);
+					}
 
 					// Set app object as pinned or unpinned
-					// Pin/unpin app
+					// Pin / unpin app
 					boolean found = false;
 					int i = 0;
-//					while (!found && i < model.appList().size()) {
-//						App currentApp = model.appList().get(i);
-//						if(currentApp.getId() == anonLoc.getId()) {
-//							currentApp.setAuxPin(!currentApp.isAuxPin());
-//
-//							// Add or not 1 element to total pins count
-//							if(currentApp.isAuxPin()) {
-//								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() + 1);
-//							}
-//							else {
-//								currentApp.setAuxTotalPins(currentApp.getAuxTotalPins() - 1);
-//							}
-//
-//							found = true;
-//						}
-//						i++;
-//					}
+					while (!found && i < model.appList().size()) {
+						App currentApp = model.appList().get(i);
+						if(currentApp.getId() == anonLoc.getId()) {
+							
+							int pinned = currentApp.isAuxPin();
+							if(pinned == 1) {
+								currentApp.setAuxPin(0);
+							}
+							else {
+								currentApp.setAuxPin(1);
+							}
+
+							found = true;
+						}
+						i++;
+					}
 
 					somethingChanged = true;
+					model.appList().sort();
 
-//					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, currentLocation).getThread());
-//					pinRequestThread.start();
-//
-//					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, activityRequestConstant).getThread());
-//					activityRequestThread.start();
+					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
+					pinRequestThread.start();
+
+					// Thread activityRequestThread = new Thread(new
+					// ActivityRequestThread(currentLocation, anonLoc, user,
+					// activityRequestConstant).getThread());
+					// activityRequestThread.start();
 				}
 			}
 		});
@@ -595,10 +603,12 @@ public class AppDetail extends Activity {
 								likeRequestThread.start();
 
 								// Si la app esta pineada, la despineamos
-//								if(anonLoc.isAuxPin()) {
-//									Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, currentLocation).getThread());
-//									unPinRequestThread.start();
-//								}
+								// if(anonLoc.isAuxPin()) {
+								// Thread unPinRequestThread = new Thread(new
+								// PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN,
+								// anonLoc, uid, currentLocation).getThread());
+								// unPinRequestThread.start();
+								// }
 
 								Thread activityRequestThread = new Thread(new ActivityRequestThread(uid, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
 								activityRequestThread.start();
@@ -616,6 +626,7 @@ public class AppDetail extends Activity {
 								}
 
 								somethingChanged = true;
+								model.appList().sort();
 
 								AppDetail.this.finish();
 							}
@@ -637,9 +648,9 @@ public class AppDetail extends Activity {
 	private void initRateLayout(LinearLayout lytRate) {
 		ImageView bimg = (ImageView)findViewById(R.id.btnRate);
 
-//		if(this.app.getAuxRate() > 0) {
-//			bimg.setImageResource(R.drawable.action_rate_button_done);
-//		}
+		// if(this.app.getAuxRate() > 0) {
+		// bimg.setImageResource(R.drawable.action_rate_button_done);
+		// }
 		bimg.setTag(this.app);
 
 		lytRate.setOnClickListener(new View.OnClickListener() {
@@ -648,8 +659,10 @@ public class AppDetail extends Activity {
 			public void onClick(View v) {
 				final App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
-//					RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new OnReadyListener(user, AppDetail.this, model, app), anonLoc.getAuxRate(), anonLoc.getAuxComment());
-//					myDialog.show();
+					// RatingDialog myDialog = new RatingDialog(AppDetail.this,
+					// "", new OnReadyListener(user, AppDetail.this, model,
+					// app), anonLoc.getAuxRate(), anonLoc.getAuxComment());
+					// myDialog.show();
 
 					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
 					activityRequestThread.start();
