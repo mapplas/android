@@ -23,11 +23,13 @@ import com.mapplas.utils.network.mappers.JsonToAppReponseMapper;
 
 public class AppGetterConnector {
 	
-	public static String request(Location location, SuperModel model) throws Exception {
+	public static String request(Location location, SuperModel model, boolean resetPagination) throws Exception {
 		String serverResponse = "";
 		
+		int page = checkPageToRequest(resetPagination, model);
+		
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "apps/0/");
+		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "apps/" + page + "/");
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(location.getLatitude())));
@@ -43,6 +45,7 @@ public class AppGetterConnector {
 				serverResponse = EntityUtils.toString(rp.getEntity());
 
 				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
+				mapper.setResetPagination(resetPagination);
 				// Iterative mapper
 				mapper.map(new JSONObject(serverResponse), model);
 			}
@@ -52,5 +55,16 @@ public class AppGetterConnector {
 		}
 		
 		return serverResponse;
+	}
+	
+	private static int checkPageToRequest(boolean resetPagination, SuperModel model) {
+		int page = 0;
+		
+		if (!resetPagination) {
+			int loadedApps = model.appList().size();
+			page = loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER;
+		}
+		
+		return page;
 	}
 }

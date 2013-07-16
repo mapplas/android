@@ -1,9 +1,10 @@
 package com.mapplas.app.adapters.app;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
-import android.os.SystemClock;
+import android.content.pm.ApplicationInfo;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,26 +16,29 @@ import android.widget.ImageView;
 import app.mapplas.com.R;
 
 import com.commonsware.cwac.endless.EndlessAdapter;
+import com.mapplas.app.async_tasks.AppGetterTask;
 import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
-import com.mapplas.utils.infinite_scroll.InfiniteScrollManager;
+import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AppAdapter extends EndlessAdapter {
+				
+	private Context context;
 	
-	private static int SLEEP_MILISECONDS = 2000;
+	private SuperModel model;
+	
+	private RefreshableListView list;
 		
-	private ArrayList<App> modelData;
+	private List<ApplicationInfo> applicationList;
+		
+	public AppAdapter(Context context, RefreshableListView list, SuperModel model, List<ApplicationInfo> applicationList) {
+		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
 
-	private InfiniteScrollManager scrollManager;
-
-	private int loadedListCount = 1;
-
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<App> appList) {
-		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, appList, list, model));
-
-		this.modelData = model.appList().getAppList();
-		this.scrollManager = new InfiniteScrollManager(this.modelData);
+		this.context = context;
+		this.model = model;
+		this.list = list;
+		this.applicationList = applicationList;
 	}
 
 	/**
@@ -45,12 +49,15 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected View getPendingView(ViewGroup parent) {
+		Log.d("TAG", "getPendingView");
 		View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.loading_row, null);
-		startProgressAnimation(row);
+		this.startProgressAnimation(row);
 		return (row);
 	}
 
-	void startProgressAnimation(View view) {
+	private void startProgressAnimation(View view) {
+		Log.d("TAG", "startProgressAnimation");
+
 		ImageView loadingImage = (ImageView)view.findViewById(R.id.throbber);
 		if(loadingImage != null) {
 			RotateAnimation rotate = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -64,33 +71,22 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected void appendCachedData() {
-		if(getWrappedAdapter().getCount() < this.modelData.size()) {
-			@SuppressWarnings("unchecked")
-			ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
-			
-//			int count = this.loadedListCount;
-//			int maxCount = this.scrollManager.getMaxCount();
-//			int resto = this.scrollManager.getRest();
+		Log.d("TAG", "appendCachedData");
 
-			if(this.loadedListCount == this.scrollManager.getMaxCount() - 1 && !this.scrollManager.isRestZero()) {
-				int rest = this.scrollManager.getRest();
-				for(int i = InfiniteScrollManager.NUMBER_OF_APPS * this.loadedListCount; i <= (InfiniteScrollManager.NUMBER_OF_APPS * this.loadedListCount) + rest - 1; i++) {
-					adapter.add(this.modelData.get(i));
-				}
-			}
-			else {
-				for(int i = InfiniteScrollManager.NUMBER_OF_APPS * this.loadedListCount; i <= (InfiniteScrollManager.NUMBER_OF_APPS * this.loadedListCount) + (InfiniteScrollManager.NUMBER_OF_APPS - 1); i++) {
-					adapter.add(this.modelData.get(i));
-				}
-			}
-			this.loadedListCount++;
-		}
+		this.notifyDataSetChanged();
 	}
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		SystemClock.sleep(AppAdapter.SLEEP_MILISECONDS); // pretend to do work
-		return getWrappedAdapter().getCount() < this.modelData.size();
+		Log.d("TAG", "cacheInBackground");
+
+		if (this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
+			Log.d("TAG", "REQUEST");
+
+			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList).execute(this.model.getLocation(), false);
+		}
+		
+		return this.model.moreData();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -109,6 +105,15 @@ public class AppAdapter extends EndlessAdapter {
 	public void remove(App appToRemove) {
 		ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
 		adapter.remove(appToRemove);
+	}
+	
+	public void addNewApps() {
+		this.clear();
+		Log.d("TAG", "addNewApps");
+
+		for (int i=0; i<this.model.appList().size(); i++) {
+			this.add(this.model.appList().get(i));
+		}
 	}
 
 }

@@ -88,4 +88,10 @@ public class Constants {
 	// App types
 	public static final String MAPPLAS_APPLICATION_TYPE_HTML5 = "html_5";
 	public static final String MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION = "application";
+	
+	// Number of apps to request
+	public static final int MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER = 20;
+	
+	public static final int LOCATION_TIMEOUT_IN_MILLISECONDS = 9000;
+
 }

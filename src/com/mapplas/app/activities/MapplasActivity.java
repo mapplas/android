@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -42,6 +41,7 @@ import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
+import com.mapplas.utils.static_intents.AppAdapterSingleton;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
@@ -58,7 +58,7 @@ public class MapplasActivity extends Activity {
 
 	private LocationManager locationManager = null;
 
-	public List<ApplicationInfo> applicationList = null;
+	public List<ApplicationInfo> appsInstalledList = null;
 
 	private RefreshableListView listView = null;
 
@@ -110,7 +110,7 @@ public class MapplasActivity extends Activity {
 		}
 
 		// Get user application list
-		this.applicationList = new ArrayList<ApplicationInfo>();
+		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
@@ -121,8 +121,12 @@ public class MapplasActivity extends Activity {
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		ActivityManager activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, AroundRequester.LOCATION_TIMEOUT_IN_MILLISECONDS, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listView, this.listViewAdapter, this.applicationList, activityManager);
+		
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList);
+		this.listView.setAdapter(this.listViewAdapter);
+		AppAdapterSingleton.appAdapter = this.listViewAdapter;
+		
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList);
 
 		// Check network status
 		this.checkNetworkStatus();

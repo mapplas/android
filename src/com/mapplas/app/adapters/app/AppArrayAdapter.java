@@ -49,7 +49,7 @@ import com.mapplas.utils.view_holder.AppViewHolder;
 
 public class AppArrayAdapter extends ArrayAdapter<App> {
 
-	private Context context;
+	public Context context;
 
 	private ArrayList<App> items;
 
@@ -63,9 +63,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private RefreshableListView list = null;
 
-	private SuperModel model = null;
+	protected SuperModel model = null;
 
-	private User user = null;
+	public User user = null;
 
 	private static App mBlockApp = null;
 
