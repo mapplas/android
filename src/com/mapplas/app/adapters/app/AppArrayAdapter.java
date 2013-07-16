@@ -33,7 +33,6 @@ import com.mapplas.app.activities.WebViewActivity;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
-import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
@@ -396,15 +395,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					list.invalidate();
 
 					String pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
-					String actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
 					if(app.isAuxPin() == 1) {
 						pinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-						actionRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
 					}
-
-					// Activity request thread
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, actionRequestConstant).getThread());
-					activityRequestThread.start();
 
 					// Pin/unpin request
 					Thread pinRequestThread = new Thread(new PinRequestThread(pinRequestConstant, app, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
@@ -456,10 +449,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 						convertView.startAnimation(fadeOutAnimation);
 
-						// Activity request thread
-						Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
-						activityRequestThread.start();
-
 						String uid = "0";
 						if(user != null) {
 							uid = String.valueOf(user.getId());
@@ -498,10 +487,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					// OnReadyListener(user, context, model, app),
 					// app.getAuxRate());
 					// myDialog.show();
-
-					// Activity request action
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
-					activityRequestThread.start();
 				}
 			}
 		});
@@ -525,8 +510,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				if(app != null) {
 					context.startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(context, app), context.getString(R.string.share)));
 
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(model.currentLocation(), app, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
-					activityRequestThread.start();
+					// TODO: SHARE REQUEST
 				}
 
 			}

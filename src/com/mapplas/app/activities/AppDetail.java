@@ -1,21 +1,16 @@
 package com.mapplas.app.activities;
 
-import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.LinearInterpolator;
@@ -26,16 +21,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.mapplas.com.R;
 
-import com.mapplas.app.ProblemDialog;
 import com.mapplas.app.SliderListView;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.app.async_tasks.LoadImageTask;
 import com.mapplas.app.async_tasks.TaskAsyncExecuter;
-import com.mapplas.app.threads.ActivityRequestThread;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.Photo;
@@ -44,7 +36,6 @@ import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.network.requests.BlockRequestThread;
-import com.mapplas.utils.network.requests.NetRequests;
 import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -124,97 +115,6 @@ public class AppDetail extends Activity {
 			this.somethingChanged = false;
 		}
 		super.onPause();
-	}
-
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(requestCode == Constants.SYNESTH_DETAILS_CAMERA_ID) {
-			if(resultCode == RESULT_OK) {
-				Uri selectedImage = imageUri;
-				getContentResolver().notifyChange(selectedImage, null);
-				ContentResolver cr = getContentResolver();
-				Bitmap bitmap;
-				try {
-
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
-
-					int width = bitmap.getWidth();
-					int height = bitmap.getHeight();
-					int x = 0;
-					int y = 0;
-
-					if(width > height) {
-						x = (width - height) / 2;
-						width = height;
-					}
-					else {
-						y = (height - width) / 2;
-						height = width;
-					}
-
-					Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, x, y, width, height);
-					Bitmap scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, 256, 256, true);
-
-					scaledBitmap.compress(CompressFormat.JPEG, 75, bos);
-					byte[] scaledImageData = bos.toByteArray();
-
-					/*
-					 * FileInputStream fis = new FileInputStream(imagePath);
-					 * 
-					 * byte[] bucket = new byte[32*1024];
-					 * 
-					 * //Use buffering? No. Buffering avoids costly access to
-					 * disk or network; //buffering to an in-memory stream makes
-					 * no sense. ByteArrayOutputStream result = new
-					 * ByteArrayOutputStream(bucket.length); int bytesRead = 0;
-					 * while(bytesRead != -1){ //aInput.read() returns -1, 0, or
-					 * more : bytesRead = fis.read(bucket); if(bytesRead > 0){
-					 * result.write(bucket, 0, bytesRead); } }
-					 * 
-					 * byte[] scaledImageData = result.toByteArray();
-					 */
-
-					String uid = "0";
-					// String id = "0";
-					// String resp = "";
-
-					if(this.user != null) {
-						uid = this.user.getId() + "";
-					}
-
-					NetRequests.ImageRequest(scaledImageData, AppDetail.this.app.getId() + "", uid);
-
-					Toast.makeText(this, selectedImage.toString(), Toast.LENGTH_LONG).show();
-				} catch (Exception e) {
-					Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT).show();
-					Log.e("Camera", e.toString());
-				}
-			}
-		}
-	}
-
-	private class OnReadyListenerProblem implements ProblemDialog.ReadyListener {
-
-		@Override
-		public void ready(String name) {
-			Toast.makeText(AppDetail.this, name, Toast.LENGTH_LONG).show();
-
-			// Guardamos la valoración del usuario en el servidor
-			// Enviamos la nota por internet
-			String uid = "0";
-			String id = "0";
-			String resp = "";
-
-			if(user != null) {
-				uid = user.getId() + "";
-			}
-			try {
-				resp = NetRequests.ProblemRequest(name, String.valueOf(AppDetail.this.app.getId()), uid);
-				Toast.makeText(AppDetail.this, resp, Toast.LENGTH_LONG).show();
-			} catch (Exception exc) {
-				Toast.makeText(AppDetail.this, exc.toString(), Toast.LENGTH_LONG).show();
-			}
-		}
 	}
 
 	/**
@@ -440,21 +340,11 @@ public class AppDetail extends Activity {
 					if(anonLoc.getInternalApplicationInfo() != null) {
 						Intent appIntent = AppDetail.this.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
 						AppDetail.this.startActivity(appIntent);
-						try {
-							NetRequests.ActivityRequest(currentLocation, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_START, String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
-							finish();
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Action Start: " + exc);
-						}
+						finish();
 					}
 					else {
 						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
 						AppDetail.this.startActivity(browserIntent);
-						try {
-							NetRequests.ActivityRequest(currentLocation, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_INSTALL, String.valueOf(anonLoc.getId()), String.valueOf(user.getId()));
-						} catch (Exception exc) {
-							Log.i(getClass().getSimpleName(), "Action Install: " + exc);
-						}
 					}
 				}
 			}
@@ -517,10 +407,8 @@ public class AppDetail extends Activity {
 					}
 
 					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
-					String activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_PIN;
 					if(anonLoc.isAuxPin() == 1) {
 						pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN;
-						activityRequestConstant = Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN;
 						anonLoc.setAuxPin(0);
 					}
 					else {
@@ -534,7 +422,7 @@ public class AppDetail extends Activity {
 					while (!found && i < model.appList().size()) {
 						App currentApp = model.appList().get(i);
 						if(currentApp.getId() == anonLoc.getId()) {
-							
+
 							int pinned = currentApp.isAuxPin();
 							if(pinned == 1) {
 								currentApp.setAuxPin(0);
@@ -553,11 +441,6 @@ public class AppDetail extends Activity {
 
 					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
 					pinRequestThread.start();
-
-					// Thread activityRequestThread = new Thread(new
-					// ActivityRequestThread(currentLocation, anonLoc, user,
-					// activityRequestConstant).getThread());
-					// activityRequestThread.start();
 				}
 			}
 		});
@@ -575,8 +458,7 @@ public class AppDetail extends Activity {
 				if(anonLoc != null) {
 					startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(AppDetail.this, anonLoc), getString(R.string.share)));
 
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_SHARE).getThread());
-					activityRequestThread.start();
+					// TODO: SHARE REQUEST
 				}
 			}
 		});
@@ -603,15 +485,10 @@ public class AppDetail extends Activity {
 								likeRequestThread.start();
 
 								// Si la app esta pineada, la despineamos
-								// if(anonLoc.isAuxPin()) {
-								// Thread unPinRequestThread = new Thread(new
-								// PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN,
-								// anonLoc, uid, currentLocation).getThread());
-								// unPinRequestThread.start();
-								// }
-
-								Thread activityRequestThread = new Thread(new ActivityRequestThread(uid, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_BLOCK).getThread());
-								activityRequestThread.start();
+								if(anonLoc.isAuxPin() == 1) {
+									Thread unPinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
+									unPinRequestThread.start();
+								}
 
 								// Set app object as blocked
 								boolean found = false;
@@ -664,8 +541,6 @@ public class AppDetail extends Activity {
 					// app), anonLoc.getAuxRate(), anonLoc.getAuxComment());
 					// myDialog.show();
 
-					Thread activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_RATE).getThread());
-					activityRequestThread.start();
 				}
 			}
 		});
