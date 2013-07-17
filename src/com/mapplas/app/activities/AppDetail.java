@@ -31,10 +31,11 @@ import com.mapplas.utils.network.async_tasks.LoadImageTask;
 import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
-import com.mapplas.utils.share.ShareHelper;
+import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
+import com.mapplas.utils.visual.helpers.ShareHelper;
 
 public class AppDetail extends Activity {
 
@@ -390,7 +391,8 @@ public class AppDetail extends Activity {
 				if(anonLoc != null) {
 					startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(AppDetail.this, anonLoc), getString(R.string.share)));
 
-					// TODO: SHARE REQUEST
+					Thread shareThread = new Thread(new ShareRequestThread(anonLoc.getId(), user.getId(), model.getLocation()).getThread());
+					shareThread.run();
 				}
 			}
 		});

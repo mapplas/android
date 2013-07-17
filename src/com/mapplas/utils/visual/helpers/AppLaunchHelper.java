@@ -62,7 +62,7 @@ public class AppLaunchHelper {
 					final App anonLoc = (App)(v.getTag());
 					if(anonLoc != null) {
 
-						String strUrl = "market://details?id=" + anonLoc.getId();
+						String strUrl = new PlayStoreLinkCreator().createLinkForApp(anonLoc.getId());
 
 						if(anonLoc.getInternalApplicationInfo() != null) {
 							ApplicationInfo packageInfo = anonLoc.getInternalApplicationInfo();
