@@ -16,7 +16,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.Resizer;
 import com.mapplas.app.activities.AppDetail;
-import com.mapplas.utils.DrawableBackgroundDownloader;
+import com.mapplas.utils.image.DrawableBackgroundDownloader;
 
 public class ImageAdapter extends BaseAdapter {
 

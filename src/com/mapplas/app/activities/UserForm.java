@@ -26,8 +26,8 @@ import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.network.async_tasks.UserPinBlocksTask;
-import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
+import com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter;
 
 public class UserForm extends Activity {
 

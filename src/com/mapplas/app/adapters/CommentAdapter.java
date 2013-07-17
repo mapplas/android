@@ -12,7 +12,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Comment;
-import com.mapplas.utils.DateUtils;
+import com.mapplas.utils.utils.DateUtils;
 
 public class CommentAdapter extends ArrayAdapter<Comment> {
 

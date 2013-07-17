@@ -26,7 +26,6 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
-import com.mapplas.utils.helpers.AppLaunchHelper;
 import com.mapplas.utils.network.async_tasks.AppDetailTask;
 import com.mapplas.utils.network.async_tasks.LoadImageTask;
 import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
@@ -35,6 +34,7 @@ import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
+import com.mapplas.utils.visual.helpers.AppLaunchHelper;
 
 public class AppDetail extends Activity {
 

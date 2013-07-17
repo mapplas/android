@@ -1,4 +1,4 @@
-package com.mapplas.utils;
+package com.mapplas.utils.utils;
 
 import java.util.Arrays;
 
