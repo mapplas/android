@@ -49,7 +49,7 @@ public class App implements Parcelable {
 	//
 	// private float auxRate = 0.0f;
 
-	private ArrayList<Photo> auxPhotos = new ArrayList<Photo>();
+	private ArrayList<String> auxPhotos = new ArrayList<String>();
 
 	// private String video;
 	//
@@ -116,11 +116,11 @@ public class App implements Parcelable {
 		price = appPrice;
 	}
 
-	public ArrayList<Photo> getAuxPhotos() {
+	public ArrayList<String> getAuxPhotos() {
 		return auxPhotos;
 	}
 
-	public void setAuxPhotos(ArrayList<Photo> auxPhotos) {
+	public void setAuxPhotos(ArrayList<String> auxPhotos) {
 		this.auxPhotos = auxPhotos;
 	}
 
@@ -190,12 +190,13 @@ public class App implements Parcelable {
 		// dest.writeByte((byte)(this.auxFavourite ? 1 : 0));
 		dest.writeInt(this.auxPin);
 		// dest.writeByte((byte)(this.auxBlocked ? 1 : 0));
-		dest.writeTypedList(this.auxPhotos);
+		dest.writeSerializable(this.auxPhotos);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
 		dest.writeString(this.type);
 		dest.writeString(this.address);
 	}
 
+	@SuppressWarnings("unchecked")
 	public App(Parcel parcel) {
 		this.id = parcel.readString();
 		this.name = parcel.readString();
@@ -209,7 +210,7 @@ public class App implements Parcelable {
 		// this.auxComment = parcel.readString();
 		// this.auxTotalRate = parcel.readFloat();
 		// this.auxTotalPins = parcel.readInt();
-		parcel.readTypedList(this.auxPhotos, Photo.CREATOR);
+		this.auxPhotos = (ArrayList<String>)parcel.readSerializable();
 		this.internalApplicationInfo = parcel.readParcelable(null);
 		this.type = parcel.readString();
 		this.address = parcel.readString();

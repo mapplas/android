@@ -1,8 +1,5 @@
 package com.mapplas.app.activities;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,28 +20,26 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.SliderListView;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.app.async_tasks.LoadImageTask;
-import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
-import com.mapplas.model.Photo;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.async_tasks.AppDetailTask;
+import com.mapplas.utils.network.async_tasks.LoadImageTask;
+import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
-import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class AppDetail extends Activity {
 
 	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
-	
+
 	private App app;
 
 	private User user = null;
@@ -66,6 +61,7 @@ public class AppDetail extends Activity {
 		setContentView(R.layout.app);
 
 		this.extractDataFromBundle();
+		this.requestApplicationDetailInfo();
 		this.initializeAnimations();
 
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -73,21 +69,6 @@ public class AppDetail extends Activity {
 		this.initializeLayoutComponents();
 		this.initializeButtonsAndBehaviour();
 		this.initializeActionsLayout();
-
-		// Cargamos la imágenes en la galería
-		Gallery gal = (Gallery)findViewById(R.id.galleryPhotos);
-		ImageAdapter imgAdapter = new ImageAdapter(this, gal);
-
-		for(Photo p : this.app.getAuxPhotos()) {
-			String strUrl = p.getPhoto();
-			imgAdapter.mImages.add(strUrl);
-		}
-		gal.setAdapter(imgAdapter);
-
-		if(imgAdapter.getCount() > 0) {
-			// resizer = new Resizer(gal);
-			// resizer.start(480, 500 * metrics.density);
-		}
 	}
 
 	@Override
@@ -112,6 +93,34 @@ public class AppDetail extends Activity {
 				this.app = (App)extras.getParcelable(Constants.MAPPLAS_DETAIL_APP);
 			}
 		}
+	}
+
+	private void requestApplicationDetailInfo() {
+		new AppDetailTask(this, this.app).execute();
+	}
+
+	public void detailRequestFinishedOk() {
+		// Description text
+		this.initDescriptionLayout();
+		
+		// Cargamos la imágenes en la galería
+		Gallery gallery = (Gallery)findViewById(R.id.galleryPhotos);
+		ImageAdapter imgAdapter = new ImageAdapter(this, gallery);
+
+		for(String photo : this.app.getAuxPhotos()) {
+			imgAdapter.mImages.add(photo);
+		}
+		gallery.setAdapter(imgAdapter);
+
+		if(imgAdapter.getCount() > 0) {
+			// resizer = new Resizer(gal);
+			// resizer.start(480, 500 * metrics.density);
+		}
+	}
+
+	public void detailRequestFinishedNok() {
+		// Detail loading error. Try again.
+		new AppDetailTask(this, this.app).execute();
 	}
 
 	private void initializeAnimations() {
@@ -173,35 +182,6 @@ public class AppDetail extends Activity {
 		TextView appNameAboveRatingTextView = (TextView)findViewById(R.id.lblTitle);
 		appNameAboveRatingTextView.setText(this.app.getName());
 		appNameAboveRatingTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
-
-		// More info text view
-		TextView moreInfoTextView = (TextView)findViewById(R.id.lblMoreInfo);
-		moreInfoTextView.setText(this.app.getAppDescription());
-		moreInfoTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
-
-		// Description layout - content of screen except header
-		LinearLayout descriptionLayout = (LinearLayout)findViewById(R.id.lytDescription);
-		descriptionLayout.setTag(this.app);
-		descriptionLayout.setOnClickListener(new View.OnClickListener() {
-
-			private boolean close = true;
-
-			@Override
-			public void onClick(View v) {
-				TextView tv = (TextView)findViewById(R.id.lblMoreInfo);
-				ImageView iv = (ImageView)findViewById(R.id.imgDots);
-
-				if(close) {
-					tv.setMaxLines(10000);
-					iv.setVisibility(ImageView.INVISIBLE);
-				}
-				else {
-					tv.setMaxLines(6);
-					iv.setVisibility(ImageView.VISIBLE);
-				}
-				close = !close;
-			}
-		});
 
 		this.manageDeveloperLayout(normalTypeFace);
 
@@ -270,6 +250,37 @@ public class AppDetail extends Activity {
 		}
 	}
 
+	private void initDescriptionLayout() {
+		// Set text
+		TextView moreInfoTextView = (TextView)findViewById(R.id.lblMoreInfo);
+		moreInfoTextView.setText(this.app.getAppDescription());
+		moreInfoTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
+		
+		// Init layout
+		LinearLayout descriptionLayout = (LinearLayout)findViewById(R.id.lytDescription);
+		descriptionLayout.setTag(this.app);
+		descriptionLayout.setOnClickListener(new View.OnClickListener() {
+
+			private boolean close = true;
+
+			@Override
+			public void onClick(View v) {
+				TextView tv = (TextView)findViewById(R.id.lblMoreInfo);
+				ImageView iv = (ImageView)findViewById(R.id.imgDots);
+
+				if(close) {
+					tv.setMaxLines(10000);
+					iv.setVisibility(ImageView.INVISIBLE);
+				}
+				else {
+					tv.setMaxLines(6);
+					iv.setVisibility(ImageView.VISIBLE);
+				}
+				close = !close;
+			}
+		});
+	}
+
 	private void initializeButtonsAndBehaviour() {
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
 		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
@@ -297,7 +308,7 @@ public class AppDetail extends Activity {
 			buttonStart.setBackgroundResource(R.drawable.badge_html5);
 			buttonStart.setText("");
 		}
-		
+
 		buttonStart.setTag(this.app);
 		buttonStart.setOnClickListener(new OnClickListener() {
 
@@ -327,18 +338,13 @@ public class AppDetail extends Activity {
 		// Define layouts
 		final LinearLayout lytPinup = (LinearLayout)findViewById(R.id.lytPinup);
 		final LinearLayout lytRate = (LinearLayout)findViewById(R.id.lytRate);
-		// final LinearLayout lytLike =
-		// (LinearLayout)findViewById(R.id.lytLike);
 		final LinearLayout lytBlock = (LinearLayout)findViewById(R.id.lytBlock);
 		final LinearLayout lytShare = (LinearLayout)findViewById(R.id.lytShare);
-		final LinearLayout lytPhone = (LinearLayout)findViewById(R.id.lytPhone);
 
 		lytPinup.setTag(this.app);
 		lytRate.setTag(this.app);
-		// lytLike.setTag(this.app);
 		lytBlock.setTag(this.app);
 		lytShare.setTag(this.app);
-		lytPhone.setTag(this.app);
 
 		// this.initFavLayout(lytLike);
 		this.initPinLayout(lytPinup);

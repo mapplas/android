@@ -19,13 +19,13 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.app.async_tasks.UserPinBlocksTask;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.network.async_tasks.UserPinBlocksTask;
 import com.mapplas.utils.presenters.UserFormDynamicSublistsPresenter;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 

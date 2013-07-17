@@ -22,13 +22,13 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.UserForm;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.app.async_tasks.LoadImageTask;
-import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.async_tasks.LoadImageTask;
+import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
 
