@@ -38,8 +38,6 @@ import com.mapplas.utils.static_intents.AppChangedSingleton;
 
 public class AppDetail extends Activity {
 
-	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
-
 	private App app;
 
 	private User user = null;
@@ -100,9 +98,13 @@ public class AppDetail extends Activity {
 	}
 
 	public void detailRequestFinishedOk() {
-		// Description text
+		// Description layout
 		this.initDescriptionLayout();
 		
+		// Developer layout
+		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
+		this.manageDeveloperLayout(normalTypeFace);
+
 		// Cargamos la imágenes en la galería
 		Gallery gallery = (Gallery)findViewById(R.id.galleryPhotos);
 		ImageAdapter imgAdapter = new ImageAdapter(this, gallery);
@@ -183,8 +185,6 @@ public class AppDetail extends Activity {
 		appNameAboveRatingTextView.setText(this.app.getName());
 		appNameAboveRatingTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-		this.manageDeveloperLayout(normalTypeFace);
-
 		// Back button
 		Button backButton = (Button)findViewById(R.id.btnBack);
 		backButton.setTypeface(normalTypeFace);
@@ -199,54 +199,57 @@ public class AppDetail extends Activity {
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
-		// if(this.app.getAppUrl().equals("") &&
-		// this.app.getDeveloperMail.equals("")) {
-		if(this.app.getId().equals("")) {
-			findViewById(R.id.lytDeveloper).setVisibility(View.INVISIBLE);
-		}
-		else {
+
+		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("")) {
+
+			// Developer layout
+			LinearLayout developerLayout = (LinearLayout)findViewById(R.id.lytDeveloper);
+			developerLayout.setVisibility(View.VISIBLE);
+
 			// Developer text view
 			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
 			developerTextView.setTypeface(normalTypeFace);
 
-			// Developer mail and web buttons layout
-			TextView developerWebMailTextView = (TextView)findViewById(R.id.lblWeb);
+			// Developer web buttons layout
+			Button developerAppWebTextView = (Button)findViewById(R.id.lblWeb);
 
-			if(this.app.getId().equals("")) {
-				developerWebMailTextView.setVisibility(View.GONE);
+			if(this.app.appDeveloperWeb().equals("")) {
+				developerAppWebTextView.setVisibility(View.GONE);
 			}
 			else {
-				developerWebMailTextView.setTypeface(normalTypeFace);
-				developerWebMailTextView.setOnClickListener(new View.OnClickListener() {
+				developerAppWebTextView.setTypeface(normalTypeFace);
+				developerAppWebTextView.setOnClickListener(new View.OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
-						intent.putExtra(AppDetail.APP_DEV_URL_INTENT_DATA, app);
+						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
+						intent.putExtra(Constants.APP_DEV_APP_NAMEL_INTENT_DATA, app.getName());
 						AppDetail.this.startActivity(intent);
 					}
 				});
 			}
 
 			// Developer mail button
-			TextView tv = (TextView)findViewById(R.id.lblEMail);
+			Button developerSupportTextView = (Button)findViewById(R.id.lblEMail);
 
-			// if(this.app.getDeveloperMail().equals("")) {
-			// tv.setVisibility(View.GONE);
-			// } else {
-			tv.setTypeface(normalTypeFace);
-			tv.setOnClickListener(new View.OnClickListener() {
+			if(this.app.appDeveloperEmail().equals("")) {
+				developerSupportTextView.setVisibility(View.GONE);
+			}
+			else {
+				developerSupportTextView.setTypeface(normalTypeFace);
+				developerSupportTextView.setOnClickListener(new View.OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("text/html"); // use from live device
-					i.putExtra(Intent.EXTRA_EMAIL, new String[] { "contact@mapplas.com" });
-					i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
-					startActivity(Intent.createChooser(i, "Select email application."));
-				}
-			});
-			// }
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(Intent.ACTION_SEND);
+						i.setType("text/html"); // use from live device
+						i.putExtra(Intent.EXTRA_EMAIL, new String[] {app.appDeveloperEmail()});
+						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
+						startActivity(Intent.createChooser(i, "Select email application."));
+					}
+				});
+			}
 		}
 	}
 
@@ -255,7 +258,7 @@ public class AppDetail extends Activity {
 		TextView moreInfoTextView = (TextView)findViewById(R.id.lblMoreInfo);
 		moreInfoTextView.setText(this.app.getAppDescription());
 		moreInfoTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
-		
+
 		// Init layout
 		LinearLayout descriptionLayout = (LinearLayout)findViewById(R.id.lytDescription);
 		descriptionLayout.setTag(this.app);

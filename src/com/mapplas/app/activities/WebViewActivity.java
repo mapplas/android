@@ -14,19 +14,21 @@ import android.widget.Toast;
 import app.mapplas.com.R;
 
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 import com.mapplas.utils.webView.TouchableScrollView;
 
 public class WebViewActivity extends Activity {
 
-	private App app = null;
+	private String url;
+
+	private String title;
 
 	private RelativeLayout navBar = null;
 
 	private TouchableScrollView scroll = null;
-	
+
 	private WebView webView = null;
-	
+
 	private ProgressDialog progressDialog = null;
 
 	@Override
@@ -44,6 +46,7 @@ public class WebViewActivity extends Activity {
 
 	private void setWebViewClientToWebView() {
 		this.webView.setWebViewClient(new WebViewClient() {
+
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
@@ -55,16 +58,16 @@ public class WebViewActivity extends Activity {
 	private void extractDataFromBundle() {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null) {
-			if(extras.containsKey(AppDetail.APP_DEV_URL_INTENT_DATA) && extras.getParcelable(AppDetail.APP_DEV_URL_INTENT_DATA) != null) {
-				this.app = (App)extras.getParcelable(AppDetail.APP_DEV_URL_INTENT_DATA);
-				if(!this.app.getId().equals("")) {
-					this.webView = (WebView)findViewById(R.id.webView);
-					this.webView.loadUrl(this.app.getId());
-				}
-				else {
-					Toast errorToast = Toast.makeText(this, getString(R.string.app_detail_app_web_dev_url_error), Toast.LENGTH_LONG);
-					errorToast.show();
-				}
+			if(extras.containsKey(Constants.APP_DEV_URL_INTENT_DATA) && extras.containsKey(Constants.APP_DEV_APP_NAMEL_INTENT_DATA)) {
+				this.url = extras.getString(Constants.APP_DEV_URL_INTENT_DATA);
+				this.title = extras.getString(Constants.APP_DEV_APP_NAMEL_INTENT_DATA);
+
+				this.webView = (WebView)findViewById(R.id.webView);
+				this.webView.loadUrl(this.url);
+			}
+			else {
+				Toast errorToast = Toast.makeText(this, getString(R.string.app_detail_app_web_dev_url_error), Toast.LENGTH_LONG);
+				errorToast.show();
 			}
 		}
 	}
@@ -73,12 +76,7 @@ public class WebViewActivity extends Activity {
 		TextView titleText = (TextView)findViewById(R.id.lblAppDetail);
 		titleText.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
 
-		if(this.app == null) {
-			titleText.setText(getString(R.string.error));
-		}
-		else {
-			titleText.setText(this.app.getName());
-		}
+		titleText.setText(this.title);
 	}
 
 	private void initializeBackButton() {
@@ -94,10 +92,10 @@ public class WebViewActivity extends Activity {
 
 	private void initializeComponents() {
 		this.scroll = (TouchableScrollView)findViewById(R.id.scrollView1);
-		
+
 		this.navBar = (RelativeLayout)findViewById(R.id.webview_navbar);
 		this.scroll.setNavBar(this.navBar);
-		
+
 		this.progressDialog = ProgressDialog.show(this, "", "Please wait...");
 		this.scroll.setProgressDialog(this.progressDialog);
 	}

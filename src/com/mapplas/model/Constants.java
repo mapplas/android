@@ -90,5 +90,8 @@ public class Constants {
 	public static final int MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER = 20;
 	
 	public static final int LOCATION_TIMEOUT_IN_MILLISECONDS = 9000;
-
+	
+	// Intent bundle strings for webview
+	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
+	public static String APP_DEV_APP_NAMEL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url_app_name";
 }

@@ -1,6 +1,5 @@
 package com.mapplas.utils.network.mappers;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
@@ -22,6 +21,8 @@ public class JsonToAppDetailMapper implements TargetMapper {
 			ArrayList<TargetMapper> mappers = new ArrayList<TargetMapper>();
 
 			mappers.add(new KeyValueScapedMapper("d", App.class.getMethod("setAppDescription", String.class)));
+			mappers.add(new KeyValueScapedMapper("surl", App.class.getMethod("setAppDeveloperEmail", String.class)));
+			mappers.add(new KeyValueScapedMapper("curl", App.class.getMethod("setAppDeveloperWeb", String.class)));
 
 			GenericMapper mapper = new GenericMapper(mappers);
 			mapper.map(json, app);

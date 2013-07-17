@@ -61,6 +61,10 @@ public class App implements Parcelable {
 	// private String contentRating;
 	//
 	// private String operatingSystem;
+	
+	private String appDeveloperEmail = "";
+	
+	private String appDeveloperWeb = "";
 
 	private String type = Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION;
 
@@ -171,6 +175,22 @@ public class App implements Parcelable {
 	public void setAdress(String addr) {
 		this.address = addr;
 	}
+	
+	public String appDeveloperEmail() {
+		return appDeveloperEmail;
+	}
+
+	public void setAppDeveloperEmail(String appDeveloperEmail) {
+		this.appDeveloperEmail = appDeveloperEmail;
+	}
+
+	public String appDeveloperWeb() {
+		return appDeveloperWeb;
+	}
+
+	public void setAppDeveloperWeb(String appDeveloperWeb) {
+		this.appDeveloperWeb = appDeveloperWeb;
+	}
 
 	/**
 	 * Parcelable methods
@@ -194,6 +214,8 @@ public class App implements Parcelable {
 		dest.writeParcelable(this.internalApplicationInfo, flags);
 		dest.writeString(this.type);
 		dest.writeString(this.address);
+		dest.writeString(this.appDeveloperEmail);
+		dest.writeString(this.appDeveloperWeb);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -214,7 +236,10 @@ public class App implements Parcelable {
 		this.internalApplicationInfo = parcel.readParcelable(null);
 		this.type = parcel.readString();
 		this.address = parcel.readString();
+		this.appDeveloperEmail = parcel.readString();
+		this.appDeveloperWeb = parcel.readString();
 	}
+
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
 

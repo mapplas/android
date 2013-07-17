@@ -305,7 +305,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 							}
 							else {
 								Intent webViewIntent = new Intent(context, WebViewActivity.class);
-								webViewIntent.putExtra(AppDetail.APP_DEV_URL_INTENT_DATA, anonLoc);
+								webViewIntent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, anonLoc.appDeveloperWeb());
+								webViewIntent.putExtra(Constants.APP_DEV_APP_NAMEL_INTENT_DATA, anonLoc.getName());
 								context.startActivity(webViewIntent);
 							}
 						}
