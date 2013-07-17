@@ -102,7 +102,7 @@ public class AppDetail extends Activity {
 	public void detailRequestFinishedOk() {
 		// Description layout
 		this.initDescriptionLayout();
-		
+
 		// Developer layout
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.manageDeveloperLayout(normalTypeFace);
@@ -145,22 +145,18 @@ public class AppDetail extends Activity {
 
 		// Set stars
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
-		// rbRating.setRating(this.app.getAuxTotalRate());
+		rbRating.setRating(this.app.rating());
 
 		// When tapping between app image and price, rating dialog is shown. (In
 		// app cathegory or static stars).
-		// LinearLayout layout =
-		// (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
-		// layout.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// RatingDialog myDialog = new RatingDialog(AppDetail.this, "", new
-		// OnReadyListener(user, AppDetail.this, model, app), app.getAuxRate(),
-		// app.getAuxComment());
-		// myDialog.show();
-		// }
-		// });
+		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
+		layout.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO: sent user to play store
+			}
+		});
 
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
@@ -246,7 +242,7 @@ public class AppDetail extends Activity {
 					public void onClick(View v) {
 						Intent i = new Intent(Intent.ACTION_SEND);
 						i.setType("text/html"); // use from live device
-						i.putExtra(Intent.EXTRA_EMAIL, new String[] {app.appDeveloperEmail()});
+						i.putExtra(Intent.EXTRA_EMAIL, new String[] { app.appDeveloperEmail() });
 						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
 						startActivity(Intent.createChooser(i, "Select email application."));
 					}
