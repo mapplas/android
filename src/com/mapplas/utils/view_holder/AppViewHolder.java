@@ -3,7 +3,6 @@ package com.mapplas.utils.view_holder;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -14,6 +13,8 @@ public class AppViewHolder {
 	public ImageView logoRoundCorner;
 
 	public TextView title;
+	
+	public TextView shortDescription;
 
 	public TextView pinUps;
 
@@ -48,8 +49,4 @@ public class AppViewHolder {
 	public ViewFlipper viewFlipper;
 
 	public LinearLayout rowUnpressed;
-
-	public RatingBar ratingBar;
-
-	public TextView ratingText;
 }

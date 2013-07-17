@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 import app.mapplas.com.R;
@@ -93,6 +92,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			convertView = inflater.inflate(R.layout.rowloc, null);
 
 			cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+			cellHolder.shortDescription = (TextView)convertView.findViewById(R.id.lblShortDescription);
 
 			cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
 			cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
@@ -117,9 +117,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			cellHolder.rowUnpressed = (LinearLayout)convertView.findViewById(R.id.id_rowloc_unpressed);
 
-			cellHolder.ratingBar = (RatingBar)convertView.findViewById(R.id.rbRating);
-			cellHolder.ratingText = (TextView)convertView.findViewById(R.id.lblRating);
-
 			this.initializeCellHolder(app, cellHolder);
 
 			this.initializeStartButton(app, cellHolder.buttonStart);
@@ -127,7 +124,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
 			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
 			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
-			this.initializeRating(app, cellHolder);
 
 			this.initializeActionLayouts(app, cellHolder, convertView);
 
@@ -143,7 +139,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
 			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
 			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
-			this.initializeRating(app, cellHolder);
 
 			this.initializeActionLayouts(app, cellHolder, convertView);
 		}
@@ -186,13 +181,15 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
+		cellHolder.shortDescription.setTypeface(normalTypeface);
+		cellHolder.shortDescription.setText(app.getAppShortDescription());
+		
 		cellHolder.pinUp.setTypeface(normalTypeface);
 		cellHolder.rate.setTypeface(normalTypeface);
 		cellHolder.share.setTypeface(normalTypeface);
 		cellHolder.block.setTypeface(normalTypeface);
 
 		cellHolder.buttonStart.setTypeface(normalTypeface);
-		cellHolder.ratingText.setTypeface(normalTypeface);
 
 		// Initialize viewFlipper
 		cellHolder.viewFlipper.setInAnimation(null);
@@ -220,38 +217,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 			}
 		});
-	}
-
-	private void initializeRating(App app, AppViewHolder cellHolder) {
-		// cellHolder.ratingBar.setRating(app.getAuxTotalRate());
-
-		// if(app.getAuxTotalRate() == 0) {
-		// cellHolder.ratingText.setText(R.string.unRated);
-		// }
-		// else {
-		// int auxCase = (int)Math.ceil(app.getAuxTotalRate());
-		// switch (auxCase) {
-		// case 1:
-		// cellHolder.ratingText.setText(R.string.poor);
-		// break;
-		//
-		// case 2:
-		// cellHolder.ratingText.setText(R.string.belowAvg);
-		// break;
-		//
-		// case 3:
-		// cellHolder.ratingText.setText(R.string.average);
-		// break;
-		//
-		// case 4:
-		// cellHolder.ratingText.setText(R.string.aboveAvg);
-		// break;
-		//
-		// case 5:
-		// cellHolder.ratingText.setText(R.string.excellent);
-		// break;
-		// }
-		// }
 	}
 
 	private void initializeStartButton(final App app, Button buttonStart) {
