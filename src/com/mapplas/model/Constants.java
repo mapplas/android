@@ -43,7 +43,6 @@ public class Constants {
 	// App Detail Activity
 	public static final String MAPPLAS_DETAIL_APP = "com.mapplas.model.detail.app";
 	
-	public static final String SYNESTH_DETAIL_CAMERA = "com.synesth.model.detail.camera";
 	
 	// Notification Activity
 	public static final String MAPPLAS_NOTIFICATION_MODEL = "com.mapplas.model.notification.model";

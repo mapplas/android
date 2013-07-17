@@ -43,35 +43,17 @@ import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class AppDetail extends Activity {
 
-	/* Debug Values */
-	// private static final boolean mDebug = true;
-
-	/* */
 	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
-
-	private App app = null; // mLoc
+	
+	private App app;
 
 	private User user = null;
 
 	private SuperModel model = null;
 
-	private String currentLocation = "";
-
-	private String currentDescriptiveGeoLoc = "";
-
-	private Uri imageUri;
-
-	// private String imagePath;
-
-	private SliderListView commentsListView = null;
-
-	private ImageView commentsArrow = null;
-
 	private RotateAnimation flipAnimation;
 
 	private RotateAnimation reverseFlipAnimation;
-
-	// private Resizer resizer;
 
 	private DisplayMetrics metrics = new DisplayMetrics();
 
@@ -123,17 +105,12 @@ public class AppDetail extends Activity {
 	 * 
 	 */
 	private void extractDataFromBundle() {
-		// Get the app pressed
+		// Get the id of the app selected
 		Bundle extras = getIntent().getExtras();
 		if(extras != null) {
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_APP)) {
 				this.app = (App)extras.getParcelable(Constants.MAPPLAS_DETAIL_APP);
 			}
-
-			this.model = SuperModelSingleton.model;
-			this.user = this.model.currentUser();
-			this.currentLocation = this.model.currentLocation();
-			this.currentDescriptiveGeoLoc = this.model.currentDescriptiveGeoLoc();
 		}
 	}
 
@@ -294,38 +271,33 @@ public class AppDetail extends Activity {
 	}
 
 	private void initializeButtonsAndBehaviour() {
-		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
 		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-		// if(this.app.getType().equalsIgnoreCase("application")) {
-		if(this.app.getInternalApplicationInfo() != null) {
-			// Start
-			buttonStart.setBackgroundResource(R.drawable.badge_launch);
-			buttonStart.setText("");
+		if(app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
+			if(app.getInternalApplicationInfo() != null) {
+				// Start
+				buttonStart.setBackgroundResource(R.drawable.badge_launch);
+				buttonStart.setText("");
+			}
+			else {
+				// Install
+				if(app.getAppPrice().equals("Free") || app.getAppPrice().equals("Gratis")) {
+					buttonStart.setBackgroundResource(R.drawable.badge_free);
+					buttonStart.setText(R.string.free);
+				}
+				else {
+					buttonStart.setBackgroundResource(R.drawable.badge_price);
+					buttonStart.setText(app.getAppPrice());
+				}
+			}
 		}
 		else {
-			// Install
-			// if(this.app.getAppPrice() > 0) {
-			buttonStart.setBackgroundResource(R.drawable.badge_price);
-			buttonStart.setText(this.app.getAppPrice());
-
-			NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-			buttonStart.setText(nf.format(this.app.getAppPrice()));
+			// Info
+			buttonStart.setBackgroundResource(R.drawable.badge_html5);
+			buttonStart.setText("");
 		}
-		// else {
-		// buttonStart.setBackgroundResource(R.drawable.badge_free);
-		// buttonStart.setText(R.string.free);
-		// }
-		// }
-		// }
-		// else {
-		// // Info
-		// buttonStart.setBackgroundResource(R.drawable.badge_html5);
-		// buttonStart.setText("");
-		// }
-
+		
 		buttonStart.setTag(this.app);
 		buttonStart.setOnClickListener(new OnClickListener() {
 

@@ -219,7 +219,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 				Intent intent = new Intent(context, AppDetail.class);
 				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
-				SuperModelSingleton.model = model;
 				((MapplasActivity)context).startActivityForResult(intent, Constants.SYNESTH_DETAILS_ID);
 			}
 		});
