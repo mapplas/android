@@ -35,6 +35,7 @@ import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class AppDetail extends Activity {
 
@@ -89,6 +90,8 @@ public class AppDetail extends Activity {
 		if(extras != null) {
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_APP)) {
 				this.app = (App)extras.getParcelable(Constants.MAPPLAS_DETAIL_APP);
+				this.model = SuperModelSingleton.model;
+				this.user = this.model.currentUser();
 			}
 		}
 	}
@@ -349,7 +352,6 @@ public class AppDetail extends Activity {
 		lytBlock.setTag(this.app);
 		lytShare.setTag(this.app);
 
-		// this.initFavLayout(lytLike);
 		this.initPinLayout(lytPinup);
 		this.initShareLayout(lytShare);
 		this.initBlockLayout(lytBlock);
@@ -360,7 +362,7 @@ public class AppDetail extends Activity {
 		final ImageView ivPinup = (ImageView)findViewById(R.id.btnPinUp);
 		ivPinup.setTag(this.app);
 
-		if(this.app.isAuxPin() == 1) {
+		if(this.app.isAuxPin() == 0) {
 			ivPinup.setImageResource(R.drawable.action_pin_button);
 		}
 		else {
