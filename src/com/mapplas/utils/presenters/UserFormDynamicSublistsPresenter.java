@@ -20,15 +20,12 @@ public class UserFormDynamicSublistsPresenter {
 	private Context context;
 
 	private User user;
-	
-	private String currentLocation;
-	
+		
 	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, String location) {
 		this.layoutComponents = layoutComponents;
 		this.list = list;
 		this.context = context;
 		this.user = user;
-		this.currentLocation = location;
 	}
 
 	public void present() {
@@ -54,7 +51,7 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, currentLocation, true);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, true);
 				list.setAdapter(ula);
 			}
 		});
@@ -76,7 +73,7 @@ public class UserFormDynamicSublistsPresenter {
 					list.addFooterView(layoutComponents.footerButtonsLayout());
 				}
 
-				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, currentLocation, true);
+				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, true);
 				list.setAdapter(ula);
 			}
 		});

@@ -50,8 +50,6 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 	private User user = null;
 
-	private String currentLocation = "";
-
 	private boolean showEmptyMessage;
 
 	private static Semaphore mSemaphore = new Semaphore(1);
@@ -91,14 +89,13 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		}
 	};
 
-	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, String currentLocation, boolean showEmptyMessage) {
+	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, boolean showEmptyMessage) {
 		super(context, textViewResourceId, items);
 
 		this.context = context;
 		this.items = items;
 		this.mType = type;
 		this.user = user;
-		this.currentLocation = currentLocation;
 		this.showEmptyMessage = showEmptyMessage;
 
 		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
@@ -166,7 +163,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 						view = inflater.inflate(R.layout.row_pinup, null);
 						
 						final TextView pinnedLocation = (TextView)view.findViewById(R.id.lblLocation);
-//						pinnedLocation.setText(items.get(position).getPinnedGeocodedLocation());
+						pinnedLocation.setText(items.get(position).getAddress());
 						
 						break;
 				}

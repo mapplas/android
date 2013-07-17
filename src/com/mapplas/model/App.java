@@ -37,6 +37,8 @@ public class App implements Parcelable {
 	// private String privacy;
 	//
 	private int auxPin;
+	
+	private String address;
 
 	//
 	// private int auxTotalPins = 0;
@@ -161,6 +163,14 @@ public class App implements Parcelable {
 	public void setAppType(String type) {
 		this.type = type;
 	}
+	
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAdress(String addr) {
+		this.address = addr;
+	}
 
 	/**
 	 * Parcelable methods
@@ -183,6 +193,7 @@ public class App implements Parcelable {
 		dest.writeTypedList(this.auxPhotos);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
 		dest.writeString(this.type);
+		dest.writeString(this.address);
 	}
 
 	public App(Parcel parcel) {
@@ -201,6 +212,7 @@ public class App implements Parcelable {
 		parcel.readTypedList(this.auxPhotos, Photo.CREATOR);
 		this.internalApplicationInfo = parcel.readParcelable(null);
 		this.type = parcel.readString();
+		this.address = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
