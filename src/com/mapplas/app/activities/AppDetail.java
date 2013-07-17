@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
+import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 import com.mapplas.utils.visual.helpers.ShareHelper;
 
 public class AppDetail extends Activity {
@@ -297,15 +299,22 @@ public class AppDetail extends Activity {
 		final LinearLayout lytBlock = (LinearLayout)findViewById(R.id.lytBlock);
 		final LinearLayout lytShare = (LinearLayout)findViewById(R.id.lytShare);
 
+		// If app is not installed, cannot be rated
+		if(this.app.getInternalApplicationInfo() != null) {
+			this.initRateLayout(lytRate);
+			lytRate.setTag(this.app);
+		}
+		else {
+			lytRate.setVisibility(View.GONE);
+		}
+		
 		lytPinup.setTag(this.app);
-		lytRate.setTag(this.app);
 		lytBlock.setTag(this.app);
 		lytShare.setTag(this.app);
 
 		this.initPinLayout(lytPinup);
 		this.initShareLayout(lytShare);
 		this.initBlockLayout(lytBlock);
-		this.initRateLayout(lytRate);
 	}
 
 	private void initPinLayout(LinearLayout lytPinup) {
@@ -458,10 +467,6 @@ public class AppDetail extends Activity {
 
 	private void initRateLayout(LinearLayout lytRate) {
 		ImageView bimg = (ImageView)findViewById(R.id.btnRate);
-
-		// if(this.app.getAuxRate() > 0) {
-		// bimg.setImageResource(R.drawable.action_rate_button_done);
-		// }
 		bimg.setTag(this.app);
 
 		lytRate.setOnClickListener(new View.OnClickListener() {
@@ -470,11 +475,9 @@ public class AppDetail extends Activity {
 			public void onClick(View v) {
 				final App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
-					// RatingDialog myDialog = new RatingDialog(AppDetail.this,
-					// "", new OnReadyListener(user, AppDetail.this, model,
-					// app), anonLoc.getAuxRate(), anonLoc.getAuxComment());
-					// myDialog.show();
-
+					String strUrl = new PlayStoreLinkCreator().createLinkForApp(app.getId());
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
+					AppDetail.this.startActivity(browserIntent);
 				}
 			}
 		});

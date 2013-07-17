@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +42,7 @@ import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.view_holder.AppViewHolder;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
+import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 import com.mapplas.utils.visual.helpers.ShareHelper;
 
 public class AppArrayAdapter extends ArrayAdapter<App> {
@@ -184,7 +186,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		cellHolder.title.setText(app.getName());
 		cellHolder.shortDescription.setTypeface(normalTypeface);
 		cellHolder.shortDescription.setText(app.getAppShortDescription());
-		
+
 		cellHolder.pinUp.setTypeface(normalTypeface);
 		cellHolder.rate.setTypeface(normalTypeface);
 		cellHolder.share.setTypeface(normalTypeface);
@@ -199,10 +201,17 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeActionLayouts(App app, AppViewHolder cellHolder, View convertView) {
+
 		this.initializePinUpLayout(app, cellHolder);
-		this.initializeRateLayout(app, cellHolder);
 		this.initializeBlockLayout(app, cellHolder, convertView);
 		this.initializeShareLayout(app, cellHolder);
+
+		if(app.getInternalApplicationInfo() != null) {
+			this.initializeRateLayout(app, cellHolder);
+		}
+		else {
+			cellHolder.rateLayout.setVisibility(View.GONE);
+		}
 	}
 
 	private void initializeRowUnpressed(final App app, LinearLayout layout, int position) {
@@ -329,7 +338,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						}
 						i++;
 					}
-					
+
 					model.appList().sort();
 
 					// Update app adapter
@@ -391,22 +400,12 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			@Override
 			public void onClick(View v) {
 				if(app != null) {
-					// RatingDialog myDialog = new RatingDialog(context, "", new
-					// OnReadyListener(user, context, model, app),
-					// app.getAuxRate());
-					// myDialog.show();
+					String strUrl = new PlayStoreLinkCreator().createLinkForApp(app.getId());
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
+					context.startActivity(browserIntent);
 				}
 			}
 		});
-
-		if(app.isAuxPin() == 1) {
-			cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
-			cellHolder.pinUp.setText(R.string.un_pin_up);
-		}
-		else {
-			cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
-			cellHolder.pinUp.setText(R.string.pin_up);
-		}
 	}
 
 	private void initializeShareLayout(final App app, AppViewHolder cellHolder) {
