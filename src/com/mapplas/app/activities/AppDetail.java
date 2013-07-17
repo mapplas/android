@@ -5,11 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
@@ -28,6 +26,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.helpers.AppLaunchHelper;
 import com.mapplas.utils.network.async_tasks.AppDetailTask;
 import com.mapplas.utils.network.async_tasks.LoadImageTask;
 import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
@@ -66,7 +65,7 @@ public class AppDetail extends Activity {
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
 		this.initializeLayoutComponents();
-		this.initializeButtonsAndBehaviour();
+		this.initializeLaunchButtonAndBehaviour();
 		this.initializeActionsLayout();
 	}
 
@@ -287,57 +286,11 @@ public class AppDetail extends Activity {
 		});
 	}
 
-	private void initializeButtonsAndBehaviour() {
+	private void initializeLaunchButtonAndBehaviour() {
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
 		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-		if(app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
-			if(app.getInternalApplicationInfo() != null) {
-				// Start
-				buttonStart.setBackgroundResource(R.drawable.badge_launch);
-				buttonStart.setText("");
-			}
-			else {
-				// Install
-				if(app.getAppPrice().equals("Free") || app.getAppPrice().equals("Gratis")) {
-					buttonStart.setBackgroundResource(R.drawable.badge_free);
-					buttonStart.setText(R.string.free);
-				}
-				else {
-					buttonStart.setBackgroundResource(R.drawable.badge_price);
-					buttonStart.setText(app.getAppPrice());
-				}
-			}
-		}
-		else {
-			// Info
-			buttonStart.setBackgroundResource(R.drawable.badge_html5);
-			buttonStart.setText("");
-		}
-
-		buttonStart.setTag(this.app);
-		buttonStart.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
-					String strUrl = anonLoc.getId();
-					if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
-						strUrl = "http://" + strUrl;
-
-					if(anonLoc.getInternalApplicationInfo() != null) {
-						Intent appIntent = AppDetail.this.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
-						AppDetail.this.startActivity(appIntent);
-						finish();
-					}
-					else {
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
-						AppDetail.this.startActivity(browserIntent);
-					}
-				}
-			}
-		});
+		new AppLaunchHelper(this, buttonStart, this.app).help();
 	}
 
 	private void initializeActionsLayout() {
