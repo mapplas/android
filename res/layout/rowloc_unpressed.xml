@@ -17,46 +17,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/title"
             android:textColor="#333333"
-            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:typeface="normal" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/lblShortDescription"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-
-            <RelativeLayout
-                android:id="@+id/lytRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <RatingBar
-                    android:id="@+id/rbRating"
-                    style="@style/custom_rating_bar_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dp"
-                    android:layout_marginLeft="0dp"
-                    android:isIndicator="true"
-                    android:max="5"
-                    android:paddingBottom="0dp"
-                    android:paddingTop="0dp"
-                    android:rating="2.5" />
-
-                <TextView
-                    android:id="@+id/lblRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rbRating"
-                    android:layout_centerHorizontal="true"
-                    android:maxLines="1"
-                    android:text="@string/unRated"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:typeface="normal" />
-            </RelativeLayout>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:lines="2"
+            android:textColor="#333333"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <Button
@@ -68,4 +43,5 @@
         android:gravity="center_vertical|center_horizontal"
         android:textColor="#ffffff"
         android:textSize="14sp" />
+
 </LinearLayout>
