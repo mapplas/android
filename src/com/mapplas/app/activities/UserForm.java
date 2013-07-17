@@ -19,8 +19,7 @@ import android.widget.ListView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
-import com.mapplas.app.async_tasks.user_form.UserBlocksTask;
-import com.mapplas.app.async_tasks.user_form.UserPinUpsTask;
+import com.mapplas.app.async_tasks.UserPinBlocksTask;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -68,8 +67,7 @@ public class UserForm extends Activity {
 		this.initializeButtonsAndItsBehaviour();
 
 		// Request user app preferences
-		new UserPinUpsTask(this.user, this.currentLocation, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
-		new UserBlocksTask(this.user).execute();
+		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
 
 		// Load presenter
 		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);
@@ -180,7 +178,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
 		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, this.currentLocation, false);
+		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, false);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview
