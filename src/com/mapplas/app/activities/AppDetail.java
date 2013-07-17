@@ -1,18 +1,13 @@
 package com.mapplas.app.activities;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
@@ -23,18 +18,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.SliderListView;
 import com.mapplas.app.adapters.ImageAdapter;
 import com.mapplas.app.application.MapplasApplication;
-import com.mapplas.app.async_tasks.LoadImageTask;
-import com.mapplas.app.async_tasks.TaskAsyncExecuter;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
-import com.mapplas.model.Photo;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.helpers.AppLaunchHelper;
+import com.mapplas.utils.network.async_tasks.AppDetailTask;
+import com.mapplas.utils.network.async_tasks.LoadImageTask;
+import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.share.ShareHelper;
@@ -43,35 +38,15 @@ import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class AppDetail extends Activity {
 
-	/* Debug Values */
-	// private static final boolean mDebug = true;
-
-	/* */
-	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
-
-	private App app = null; // mLoc
+	private App app;
 
 	private User user = null;
 
 	private SuperModel model = null;
 
-	private String currentLocation = "";
-
-	private String currentDescriptiveGeoLoc = "";
-
-	private Uri imageUri;
-
-	// private String imagePath;
-
-	private SliderListView commentsListView = null;
-
-	private ImageView commentsArrow = null;
-
 	private RotateAnimation flipAnimation;
 
 	private RotateAnimation reverseFlipAnimation;
-
-	// private Resizer resizer;
 
 	private DisplayMetrics metrics = new DisplayMetrics();
 
@@ -84,28 +59,14 @@ public class AppDetail extends Activity {
 		setContentView(R.layout.app);
 
 		this.extractDataFromBundle();
+		this.requestApplicationDetailInfo();
 		this.initializeAnimations();
 
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
 		this.initializeLayoutComponents();
-		this.initializeButtonsAndBehaviour();
+		this.initializeLaunchButtonAndBehaviour();
 		this.initializeActionsLayout();
-
-		// Cargamos la imágenes en la galería
-		Gallery gal = (Gallery)findViewById(R.id.galleryPhotos);
-		ImageAdapter imgAdapter = new ImageAdapter(this, gal);
-
-		for(Photo p : this.app.getAuxPhotos()) {
-			String strUrl = p.getPhoto();
-			imgAdapter.mImages.add(strUrl);
-		}
-		gal.setAdapter(imgAdapter);
-
-		if(imgAdapter.getCount() > 0) {
-			// resizer = new Resizer(gal);
-			// resizer.start(480, 500 * metrics.density);
-		}
 	}
 
 	@Override
@@ -123,18 +84,47 @@ public class AppDetail extends Activity {
 	 * 
 	 */
 	private void extractDataFromBundle() {
-		// Get the app pressed
+		// Get the id of the app selected
 		Bundle extras = getIntent().getExtras();
 		if(extras != null) {
 			if(extras.containsKey(Constants.MAPPLAS_DETAIL_APP)) {
 				this.app = (App)extras.getParcelable(Constants.MAPPLAS_DETAIL_APP);
+				this.model = SuperModelSingleton.model;
+				this.user = this.model.currentUser();
 			}
-
-			this.model = SuperModelSingleton.model;
-			this.user = this.model.currentUser();
-			this.currentLocation = this.model.currentLocation();
-			this.currentDescriptiveGeoLoc = this.model.currentDescriptiveGeoLoc();
 		}
+	}
+
+	private void requestApplicationDetailInfo() {
+		new AppDetailTask(this, this.app).execute();
+	}
+
+	public void detailRequestFinishedOk() {
+		// Description layout
+		this.initDescriptionLayout();
+		
+		// Developer layout
+		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
+		this.manageDeveloperLayout(normalTypeFace);
+
+		// Cargamos la imágenes en la galería
+		Gallery gallery = (Gallery)findViewById(R.id.galleryPhotos);
+		ImageAdapter imgAdapter = new ImageAdapter(this, gallery);
+
+		for(String photo : this.app.getAuxPhotos()) {
+			imgAdapter.mImages.add(photo);
+		}
+		gallery.setAdapter(imgAdapter);
+
+		if(imgAdapter.getCount() > 0) {
+			// resizer = new Resizer(gal);
+			// resizer.start(480, 500 * metrics.density);
+		}
+	}
+
+	public void detailRequestFinishedNok() {
+		// Detail loading error. Try again.
+		new AppDetailTask(this, this.app).execute();
 	}
 
 	private void initializeAnimations() {
@@ -197,12 +187,81 @@ public class AppDetail extends Activity {
 		appNameAboveRatingTextView.setText(this.app.getName());
 		appNameAboveRatingTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-		// More info text view
+		// Back button
+		Button backButton = (Button)findViewById(R.id.btnBack);
+		backButton.setTypeface(normalTypeFace);
+		backButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+
+	}
+
+	private void manageDeveloperLayout(Typeface normalTypeFace) {
+
+		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("")) {
+
+			// Developer layout
+			LinearLayout developerLayout = (LinearLayout)findViewById(R.id.lytDeveloper);
+			developerLayout.setVisibility(View.VISIBLE);
+
+			// Developer text view
+			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
+			developerTextView.setTypeface(normalTypeFace);
+
+			// Developer web buttons layout
+			Button developerAppWebTextView = (Button)findViewById(R.id.lblWeb);
+
+			if(this.app.appDeveloperWeb().equals("")) {
+				developerAppWebTextView.setVisibility(View.GONE);
+			}
+			else {
+				developerAppWebTextView.setTypeface(normalTypeFace);
+				developerAppWebTextView.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
+						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
+						intent.putExtra(Constants.APP_DEV_APP_NAMEL_INTENT_DATA, app.getName());
+						AppDetail.this.startActivity(intent);
+					}
+				});
+			}
+
+			// Developer mail button
+			Button developerSupportTextView = (Button)findViewById(R.id.lblEMail);
+
+			if(this.app.appDeveloperEmail().equals("")) {
+				developerSupportTextView.setVisibility(View.GONE);
+			}
+			else {
+				developerSupportTextView.setTypeface(normalTypeFace);
+				developerSupportTextView.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(Intent.ACTION_SEND);
+						i.setType("text/html"); // use from live device
+						i.putExtra(Intent.EXTRA_EMAIL, new String[] {app.appDeveloperEmail()});
+						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
+						startActivity(Intent.createChooser(i, "Select email application."));
+					}
+				});
+			}
+		}
+	}
+
+	private void initDescriptionLayout() {
+		// Set text
 		TextView moreInfoTextView = (TextView)findViewById(R.id.lblMoreInfo);
 		moreInfoTextView.setText(this.app.getAppDescription());
 		moreInfoTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
 
-		// Description layout - content of screen except header
+		// Init layout
 		LinearLayout descriptionLayout = (LinearLayout)findViewById(R.id.lytDescription);
 		descriptionLayout.setTag(this.app);
 		descriptionLayout.setOnClickListener(new View.OnClickListener() {
@@ -225,150 +284,27 @@ public class AppDetail extends Activity {
 				close = !close;
 			}
 		});
-
-		this.manageDeveloperLayout(normalTypeFace);
-
-		// Back button
-		Button backButton = (Button)findViewById(R.id.btnBack);
-		backButton.setTypeface(normalTypeFace);
-		backButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-
 	}
 
-	private void manageDeveloperLayout(Typeface normalTypeFace) {
-		// if(this.app.getAppUrl().equals("") &&
-		// this.app.getDeveloperMail.equals("")) {
-		if(this.app.getId().equals("")) {
-			findViewById(R.id.lytDeveloper).setVisibility(View.INVISIBLE);
-		}
-		else {
-			// Developer text view
-			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
-			developerTextView.setTypeface(normalTypeFace);
-
-			// Developer mail and web buttons layout
-			TextView developerWebMailTextView = (TextView)findViewById(R.id.lblWeb);
-
-			if(this.app.getId().equals("")) {
-				developerWebMailTextView.setVisibility(View.GONE);
-			}
-			else {
-				developerWebMailTextView.setTypeface(normalTypeFace);
-				developerWebMailTextView.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
-						intent.putExtra(AppDetail.APP_DEV_URL_INTENT_DATA, app);
-						AppDetail.this.startActivity(intent);
-					}
-				});
-			}
-
-			// Developer mail button
-			TextView tv = (TextView)findViewById(R.id.lblEMail);
-
-			// if(this.app.getDeveloperMail().equals("")) {
-			// tv.setVisibility(View.GONE);
-			// } else {
-			tv.setTypeface(normalTypeFace);
-			tv.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("text/html"); // use from live device
-					i.putExtra(Intent.EXTRA_EMAIL, new String[] { "contact@mapplas.com" });
-					i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
-					startActivity(Intent.createChooser(i, "Select email application."));
-				}
-			});
-			// }
-		}
-	}
-
-	private void initializeButtonsAndBehaviour() {
-		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-
+	private void initializeLaunchButtonAndBehaviour() {
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
 		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-		// if(this.app.getType().equalsIgnoreCase("application")) {
-		if(this.app.getInternalApplicationInfo() != null) {
-			// Start
-			buttonStart.setBackgroundResource(R.drawable.badge_launch);
-			buttonStart.setText("");
-		}
-		else {
-			// Install
-			// if(this.app.getAppPrice() > 0) {
-			buttonStart.setBackgroundResource(R.drawable.badge_price);
-			buttonStart.setText(this.app.getAppPrice());
-
-			NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-			buttonStart.setText(nf.format(this.app.getAppPrice()));
-		}
-		// else {
-		// buttonStart.setBackgroundResource(R.drawable.badge_free);
-		// buttonStart.setText(R.string.free);
-		// }
-		// }
-		// }
-		// else {
-		// // Info
-		// buttonStart.setBackgroundResource(R.drawable.badge_html5);
-		// buttonStart.setText("");
-		// }
-
-		buttonStart.setTag(this.app);
-		buttonStart.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				App anonLoc = (App)(v.getTag());
-				if(anonLoc != null) {
-					String strUrl = anonLoc.getId();
-					if(!(strUrl.startsWith("http://") || strUrl.startsWith("https://") || strUrl.startsWith("market://")))
-						strUrl = "http://" + strUrl;
-
-					if(anonLoc.getInternalApplicationInfo() != null) {
-						Intent appIntent = AppDetail.this.getPackageManager().getLaunchIntentForPackage(anonLoc.getInternalApplicationInfo().packageName);
-						AppDetail.this.startActivity(appIntent);
-						finish();
-					}
-					else {
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
-						AppDetail.this.startActivity(browserIntent);
-					}
-				}
-			}
-		});
+		new AppLaunchHelper(this, buttonStart, this.app).help();
 	}
 
 	private void initializeActionsLayout() {
 		// Define layouts
 		final LinearLayout lytPinup = (LinearLayout)findViewById(R.id.lytPinup);
 		final LinearLayout lytRate = (LinearLayout)findViewById(R.id.lytRate);
-		// final LinearLayout lytLike =
-		// (LinearLayout)findViewById(R.id.lytLike);
 		final LinearLayout lytBlock = (LinearLayout)findViewById(R.id.lytBlock);
 		final LinearLayout lytShare = (LinearLayout)findViewById(R.id.lytShare);
-		final LinearLayout lytPhone = (LinearLayout)findViewById(R.id.lytPhone);
 
 		lytPinup.setTag(this.app);
 		lytRate.setTag(this.app);
-		// lytLike.setTag(this.app);
 		lytBlock.setTag(this.app);
 		lytShare.setTag(this.app);
-		lytPhone.setTag(this.app);
 
-		// this.initFavLayout(lytLike);
 		this.initPinLayout(lytPinup);
 		this.initShareLayout(lytShare);
 		this.initBlockLayout(lytBlock);
@@ -379,7 +315,7 @@ public class AppDetail extends Activity {
 		final ImageView ivPinup = (ImageView)findViewById(R.id.btnPinUp);
 		ivPinup.setTag(this.app);
 
-		if(this.app.isAuxPin() == 1) {
+		if(this.app.isAuxPin() == 0) {
 			ivPinup.setImageResource(R.drawable.action_pin_button);
 		}
 		else {

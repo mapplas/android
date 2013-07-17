@@ -1,4 +1,4 @@
-package com.mapplas.app.async_tasks;
+package com.mapplas.utils.network.async_tasks;
 
 
 public interface AsyncTaskListener {

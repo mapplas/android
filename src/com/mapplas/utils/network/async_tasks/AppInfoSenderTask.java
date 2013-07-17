@@ -1,4 +1,4 @@
-package com.mapplas.app.async_tasks;
+package com.mapplas.utils.network.async_tasks;
 
 import java.io.IOException;
 import java.util.ArrayList;

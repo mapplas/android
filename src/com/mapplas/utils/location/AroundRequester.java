@@ -16,10 +16,10 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
-import com.mapplas.app.async_tasks.AppGetterTask;
-import com.mapplas.app.async_tasks.ReverseGeocodingTask;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.network.async_tasks.AppGetterTask;
+import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
 import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AroundRequester implements UserLocationListener {

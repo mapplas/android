@@ -49,7 +49,7 @@ public class App implements Parcelable {
 	//
 	// private float auxRate = 0.0f;
 
-	private ArrayList<Photo> auxPhotos = new ArrayList<Photo>();
+	private ArrayList<String> auxPhotos = new ArrayList<String>();
 
 	// private String video;
 	//
@@ -61,6 +61,10 @@ public class App implements Parcelable {
 	// private String contentRating;
 	//
 	// private String operatingSystem;
+	
+	private String appDeveloperEmail = "";
+	
+	private String appDeveloperWeb = "";
 
 	private String type = Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION;
 
@@ -116,11 +120,11 @@ public class App implements Parcelable {
 		price = appPrice;
 	}
 
-	public ArrayList<Photo> getAuxPhotos() {
+	public ArrayList<String> getAuxPhotos() {
 		return auxPhotos;
 	}
 
-	public void setAuxPhotos(ArrayList<Photo> auxPhotos) {
+	public void setAuxPhotos(ArrayList<String> auxPhotos) {
 		this.auxPhotos = auxPhotos;
 	}
 
@@ -171,6 +175,22 @@ public class App implements Parcelable {
 	public void setAdress(String addr) {
 		this.address = addr;
 	}
+	
+	public String appDeveloperEmail() {
+		return appDeveloperEmail;
+	}
+
+	public void setAppDeveloperEmail(String appDeveloperEmail) {
+		this.appDeveloperEmail = appDeveloperEmail;
+	}
+
+	public String appDeveloperWeb() {
+		return appDeveloperWeb;
+	}
+
+	public void setAppDeveloperWeb(String appDeveloperWeb) {
+		this.appDeveloperWeb = appDeveloperWeb;
+	}
 
 	/**
 	 * Parcelable methods
@@ -190,12 +210,15 @@ public class App implements Parcelable {
 		// dest.writeByte((byte)(this.auxFavourite ? 1 : 0));
 		dest.writeInt(this.auxPin);
 		// dest.writeByte((byte)(this.auxBlocked ? 1 : 0));
-		dest.writeTypedList(this.auxPhotos);
+		dest.writeSerializable(this.auxPhotos);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
 		dest.writeString(this.type);
 		dest.writeString(this.address);
+		dest.writeString(this.appDeveloperEmail);
+		dest.writeString(this.appDeveloperWeb);
 	}
 
+	@SuppressWarnings("unchecked")
 	public App(Parcel parcel) {
 		this.id = parcel.readString();
 		this.name = parcel.readString();
@@ -209,11 +232,14 @@ public class App implements Parcelable {
 		// this.auxComment = parcel.readString();
 		// this.auxTotalRate = parcel.readFloat();
 		// this.auxTotalPins = parcel.readInt();
-		parcel.readTypedList(this.auxPhotos, Photo.CREATOR);
+		this.auxPhotos = (ArrayList<String>)parcel.readSerializable();
 		this.internalApplicationInfo = parcel.readParcelable(null);
 		this.type = parcel.readString();
 		this.address = parcel.readString();
+		this.appDeveloperEmail = parcel.readString();
+		this.appDeveloperWeb = parcel.readString();
 	}
+
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
 
