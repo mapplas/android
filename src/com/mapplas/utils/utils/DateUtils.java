@@ -1,4 +1,4 @@
-package com.mapplas.utils;
+package com.mapplas.utils.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -96,10 +96,6 @@ public class DateUtils {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		int m = DateUtils.Minutes(hour);
-		int h = DateUtils.Hours(hour);
-
 		return ret;
 	}
 }

@@ -1,4 +1,4 @@
-package com.mapplas.utils.helpers;
+package com.mapplas.utils.visual.helpers;
 
 import android.content.Context;
 import android.content.Intent;

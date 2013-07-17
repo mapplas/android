@@ -1,4 +1,4 @@
-package com.mapplas.utils;
+package com.mapplas.utils.image;
 
 import java.io.IOException;
 import java.io.InputStream;

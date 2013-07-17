@@ -1,4 +1,4 @@
-package com.mapplas.utils.presenters;
+package com.mapplas.utils.visual.presenters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
