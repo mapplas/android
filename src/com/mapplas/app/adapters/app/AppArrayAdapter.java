@@ -36,11 +36,12 @@ import com.mapplas.utils.network.async_tasks.LoadImageTask;
 import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
-import com.mapplas.utils.share.ShareHelper;
+import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.view_holder.AppViewHolder;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
+import com.mapplas.utils.visual.helpers.ShareHelper;
 
 public class AppArrayAdapter extends ArrayAdapter<App> {
 
@@ -417,7 +418,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				if(app != null) {
 					context.startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(context, app), context.getString(R.string.share)));
 
-					// TODO: SHARE REQUEST
+					Thread shareThread = new Thread(new ShareRequestThread(app.getId(), user.getId(), model.getLocation()).getThread());
+					shareThread.run();
 				}
 
 			}
