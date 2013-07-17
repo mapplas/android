@@ -6,13 +6,13 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class KeyValueMapper implements TargetMapper {
+public class KeyIntegerValueMapper implements TargetMapper {
 
 	private final String key;
 
 	private final Method method;
 
-	public KeyValueMapper(String key, Method method) {
+	public KeyIntegerValueMapper(String key, Method method) {
 		this.key = key;
 		this.method = method;
 	}

@@ -29,9 +29,9 @@ public class App implements Parcelable {
 	// private String versionUpdated;
 	//
 	// private String size;
-	//
-	// private float rating;
-	//
+	
+	 private float rating;
+	
 	// private int votes;
 	//
 	// private String privacy;
@@ -192,6 +192,14 @@ public class App implements Parcelable {
 		this.appDeveloperWeb = appDeveloperWeb;
 	}
 
+	public float rating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = Float.valueOf(rating);
+	}
+
 	/**
 	 * Parcelable methods
 	 */
@@ -209,13 +217,13 @@ public class App implements Parcelable {
 		dest.writeString(this.price);
 		// dest.writeByte((byte)(this.auxFavourite ? 1 : 0));
 		dest.writeInt(this.auxPin);
-		// dest.writeByte((byte)(this.auxBlocked ? 1 : 0));
 		dest.writeSerializable(this.auxPhotos);
 		dest.writeParcelable(this.internalApplicationInfo, flags);
 		dest.writeString(this.type);
 		dest.writeString(this.address);
 		dest.writeString(this.appDeveloperEmail);
 		dest.writeString(this.appDeveloperWeb);
+		dest.writeFloat(this.rating);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -227,17 +235,13 @@ public class App implements Parcelable {
 		this.price = parcel.readString();
 		// this.auxFavourite = parcel.readByte() == 1;
 		this.auxPin = parcel.readInt();
-		// this.auxBlocked = parcel.readByte() == 1;
-		// this.auxRate = parcel.readFloat();
-		// this.auxComment = parcel.readString();
-		// this.auxTotalRate = parcel.readFloat();
-		// this.auxTotalPins = parcel.readInt();
 		this.auxPhotos = (ArrayList<String>)parcel.readSerializable();
 		this.internalApplicationInfo = parcel.readParcelable(null);
 		this.type = parcel.readString();
 		this.address = parcel.readString();
 		this.appDeveloperEmail = parcel.readString();
 		this.appDeveloperWeb = parcel.readString();
+		this.rating = parcel.readFloat();
 	}
 
 
