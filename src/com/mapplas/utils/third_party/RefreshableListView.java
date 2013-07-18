@@ -171,7 +171,8 @@ public class RefreshableListView extends ListView {
 					if(getChildAt(0).getTop() == 0) {
 						if(mHistoricalTop < 0) {
 
-							// mY = ev.getY(); // TODO works without
+							// mY = ev.getY(); 
+							// works without
 							// this?mHistoricalTop = 0;
 						}
 

@@ -111,5 +111,6 @@
     <string name="comming_soon_title">Mapplas muestra las mejores aplicaciones a tu alrededor.</string>
     <string name="comming_soon_subtitle">Puede que tu país no esté disponible o que algo haya salido mal.</string>
     <string name="comming_soon_pull">Desliza hacia abajo para refrescar</string>
-   
+   	<string name="problem_launching_app">Lo sentimos, ha ocurrido un problema al lanzar la aplicación.</string>
+    
 </resources>

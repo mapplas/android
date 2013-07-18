@@ -151,17 +151,6 @@ public class AppDetail extends Activity {
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
 		rbRating.setRating(this.app.rating());
 
-		// When tapping between app image and price, rating dialog is shown. (In
-		// app cathegory or static stars).
-		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
-		layout.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO: sent user to play store
-			}
-		});
-
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
 		ImageFileManager imageFileManager = new ImageFileManager();
@@ -469,6 +458,22 @@ public class AppDetail extends Activity {
 		bimg.setTag(this.app);
 
 		lytRate.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final App anonLoc = (App)(v.getTag());
+				if(anonLoc != null) {
+					String strUrl = new PlayStoreLinkCreator().createLinkForApp(app.getId());
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
+					AppDetail.this.startActivity(browserIntent);
+				}
+			}
+		});
+		
+		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
+		layout.setTag(this.app);
+		
+		layout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
