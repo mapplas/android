@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.AboutUsAdapter;
+import com.mapplas.app.adapters.about_us.AboutUsAdapter;
 import com.mapplas.app.application.MapplasApplication;
 
 public class AboutUsActivity extends Activity {

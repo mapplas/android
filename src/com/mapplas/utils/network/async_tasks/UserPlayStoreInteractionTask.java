@@ -22,7 +22,7 @@ public class UserPlayStoreInteractionTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		try {
-			String server_response = UserPlayStoreInteractionConnector.request(this.appId, this.userId, this.location);
+			UserPlayStoreInteractionConnector.request(this.appId, this.userId, this.location);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
