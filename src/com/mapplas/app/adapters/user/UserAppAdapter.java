@@ -161,10 +161,10 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 					case PINUP:
 						view = inflater.inflate(R.layout.row_pinup, null);
-						
+
 						final TextView pinnedLocation = (TextView)view.findViewById(R.id.lblLocation);
 						pinnedLocation.setText(items.get(position).getAddress());
-						
+
 						break;
 				}
 			}
@@ -198,7 +198,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 
 				lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
 				lblTitle.setText(app.getName());
-				
+
 				btnAction.setTag(app);
 				btnAction.setOnClickListener(new View.OnClickListener() {
 
@@ -223,37 +223,31 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 								UserAppAdapter.this.notifyDataSetChanged();
 
 								String uid = String.valueOf(user.getId());
-								Thread activityRequestThread = null;
 
 								switch (UserAppAdapter.this.mType) {
-									case BLOCK:
-//										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNBLOCK).getThread());
-//										activityRequestThread.start();
 
+									case BLOCK:
 										Thread blockRequestThread = new Thread(new BlockRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_UNBLOCK, anonLoc, uid).getThread());
 										blockRequestThread.start();
 
 										// Remove blocked app from blocked list
 										user.blockedApps().remove(anonLoc);
-										
+
 										// Add unblocked object to model list
 										UserForm.appOrderedList.add(anonLoc);
-										
+
 										// Set something changed to true
 										UserForm.somethingChanged = true;
 
 										break;
-										
-									case PINUP:
-//										activityRequestThread = new Thread(new ActivityRequestThread(currentLocation, anonLoc, user, Constants.MAPPLAS_ACTIVITY_REQUEST_ACTION_UNPIN).getThread());
-//										activityRequestThread.start();
 
+									case PINUP:
 										Thread pinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, anonLoc, uid, null, "").getThread());
 										pinRequestThread.start();
 
 										// Remove pinned app from pinned list
 										user.pinnedApps().remove(anonLoc);
-										
+
 										// Set app object as pinned or unpinned
 										// Pin/unpin app
 										boolean found = false;
@@ -261,12 +255,12 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										while (!found && i < UserForm.appOrderedList.size()) {
 											App currentApp = UserForm.appOrderedList.get(i);
 											if(currentApp.getId() == anonLoc.getId()) {
-//												currentApp.setAuxPin(!currentApp.isAuxPin());
+												// currentApp.setAuxPin(!currentApp.isAuxPin());
 												found = true;
 											}
 											i++;
 										}
-										
+
 										// Set something changed to true
 										UserForm.somethingChanged = true;
 

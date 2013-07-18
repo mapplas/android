@@ -1,4 +1,4 @@
-package com.mapplas.app.adapters;
+package com.mapplas.app.adapters.about_us;
 
 import android.content.Context;
 import android.content.Intent;
