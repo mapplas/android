@@ -1,6 +1,6 @@
 package com.mapplas.utils.network.async_tasks;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import android.content.Context;
@@ -30,13 +30,13 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 
 	private RefreshableListView listView;
 	
-	private List<ApplicationInfo> appsInstalledInfo;
+	private ArrayList<ApplicationInfo> appsInstalledInfo;
 	
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private static boolean occupied = false;
 	
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, List<ApplicationInfo> applicationList) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -96,7 +96,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 			
 			// Get app list from telf.
 			final PackageManager pm = this.context.getPackageManager();
-			this.appsInstalledInfo = pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
+			this.appsInstalledInfo = (ArrayList<ApplicationInfo>)pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
 
 			for(int i = 0; i < this.model.appList().size(); i++) {
 				ApplicationInfo ai = findApplicationInfo(this.model.appList().get(i).getId());
@@ -105,10 +105,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 				}
 			}
 
-			// Order app list
-			this.model.appList().sort();
-			
-			this.listViewAdapter.addNewApps();
+			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}
 		

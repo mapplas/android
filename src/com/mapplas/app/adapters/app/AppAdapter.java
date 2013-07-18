@@ -1,6 +1,6 @@
 package com.mapplas.app.adapters.app;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -29,9 +29,9 @@ public class AppAdapter extends EndlessAdapter {
 	
 	private RefreshableListView list;
 		
-	private List<ApplicationInfo> applicationList;
+	private ArrayList<ApplicationInfo> applicationList;
 		
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, List<ApplicationInfo> applicationList) {
+	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList) {
 		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
 
 		this.context = context;
@@ -94,14 +94,6 @@ public class AppAdapter extends EndlessAdapter {
 	public void remove(App appToRemove) {
 		ArrayAdapter<App> adapter = (ArrayAdapter<App>)getWrappedAdapter();
 		adapter.remove(appToRemove);
-	}
-	
-	public void addNewApps() {
-		this.clear();
-
-		for (int i=0; i<this.model.appList().size(); i++) {
-			this.add(this.model.appList().get(i));
-		}
 	}
 
 }

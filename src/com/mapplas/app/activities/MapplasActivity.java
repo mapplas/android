@@ -2,7 +2,6 @@ package com.mapplas.app.activities;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
@@ -58,7 +57,7 @@ public class MapplasActivity extends Activity {
 
 	private LocationManager locationManager = null;
 
-	public List<ApplicationInfo> appsInstalledList = null;
+	public ArrayList<ApplicationInfo> appsInstalledList = null;
 
 	private RefreshableListView listView = null;
 
@@ -150,11 +149,10 @@ public class MapplasActivity extends Activity {
 			if(AppChangedSingleton.changedList != null) {
 				AppOrderedList changedList = AppChangedSingleton.changedList;
 				this.model.setAppList(changedList);
-				this.model.appList().sort();
 				AppChangedSingleton.changedList = null;
 			}
 			
-			this.listViewAdapter.notifyDataSetChanged();
+			this.listView.updateAdapter(this, this.model, this.appsInstalledList);
 		}
 		super.onStart();
 	}

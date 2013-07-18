@@ -1,6 +1,6 @@
 package com.mapplas.utils.location;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -38,9 +38,9 @@ public class AroundRequester implements UserLocationListener {
 
 	private AppAdapter appAdapter;
 	
-	private List<ApplicationInfo> appsInstalledList;
+	private ArrayList<ApplicationInfo> appsInstalledList;
 
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, List<ApplicationInfo> appsInstalledList) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;

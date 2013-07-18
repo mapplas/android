@@ -343,6 +343,7 @@ public class RefreshableListView extends ListView {
 	}
 	
 	public void updateAdapter(Context context, SuperModel model, ArrayList<ApplicationInfo> appInstalledList) {
+		model.appList().sort();
 		this.setAdapter(new AppAdapter(context, this, model, appInstalledList));
 	}
 

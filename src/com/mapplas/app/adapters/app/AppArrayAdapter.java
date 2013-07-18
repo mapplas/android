@@ -345,8 +345,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						i++;
 					}
 
-					model.appList().sort();
-
 					list.updateAdapter(context, model, new ArrayList<ApplicationInfo>());
 				}
 
