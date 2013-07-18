@@ -77,6 +77,7 @@ public class AppDetail extends Activity {
 		if(this.somethingChanged) {
 			AppChangedSingleton.somethingChanged = true;
 			this.somethingChanged = false;
+			AppChangedSingleton.changedList = this.model.appList();
 		}
 		super.onPause();
 	}
@@ -363,7 +364,7 @@ public class AppDetail extends Activity {
 					int i = 0;
 					while (!found && i < model.appList().size()) {
 						App currentApp = model.appList().get(i);
-						if(currentApp.getId() == anonLoc.getId()) {
+						if(currentApp.getId().equals(anonLoc.getId())) {
 
 							int pinned = currentApp.isAuxPin();
 							if(pinned == 1) {
@@ -379,7 +380,6 @@ public class AppDetail extends Activity {
 					}
 
 					somethingChanged = true;
-					model.appList().sort();
 
 					Thread pinRequestThread = new Thread(new PinRequestThread(pinUnpinRequestConstant, anonLoc, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
 					pinRequestThread.start();
@@ -438,7 +438,7 @@ public class AppDetail extends Activity {
 								int i = 0;
 								while (!found && i < model.appList().size()) {
 									App currentApp = model.appList().get(i);
-									if(currentApp.getId() == anonLoc.getId()) {
+									if(currentApp.getId().equals(anonLoc.getId())) {
 										model.appList().getAppList().remove(i);
 										found = true;
 									}
@@ -446,7 +446,6 @@ public class AppDetail extends Activity {
 								}
 
 								somethingChanged = true;
-								model.appList().sort();
 
 								AppDetail.this.finish();
 							}

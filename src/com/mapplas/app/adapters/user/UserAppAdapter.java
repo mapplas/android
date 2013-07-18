@@ -254,8 +254,15 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										int i = 0;
 										while (!found && i < UserForm.appOrderedList.size()) {
 											App currentApp = UserForm.appOrderedList.get(i);
-											if(currentApp.getId() == anonLoc.getId()) {
-												// currentApp.setAuxPin(!currentApp.isAuxPin());
+											if(currentApp.getId().equals(anonLoc.getId())) {
+												int pinned = currentApp.isAuxPin();
+												if(pinned == 1) {
+													currentApp.setAuxPin(0);
+												}
+												else {
+													currentApp.setAuxPin(1);
+												}
+
 												found = true;
 											}
 											i++;

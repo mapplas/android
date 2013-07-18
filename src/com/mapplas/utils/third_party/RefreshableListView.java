@@ -16,7 +16,10 @@
 
 package com.mapplas.utils.third_party;
 
+import java.util.ArrayList;
+
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -37,6 +40,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
+
+import com.mapplas.app.adapters.app.AppAdapter;
+import com.mapplas.model.SuperModel;
 
 public class RefreshableListView extends ListView {
 
@@ -334,6 +340,11 @@ public class RefreshableListView extends ListView {
 
 		public void onRefresh(RefreshableListView listView);
 		
+	}
+	
+	public void updateAdapter(Context context, SuperModel model, ArrayList<ApplicationInfo> appInstalledList) {
+		model.appList().sort();
+		this.setAdapter(new AppAdapter(context, this, model, appInstalledList));
 	}
 
 }

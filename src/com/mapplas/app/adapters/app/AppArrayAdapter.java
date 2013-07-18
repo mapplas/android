@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -86,7 +87,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		AppViewHolder cellHolder;
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
+
 		if(this.items.size() == 1 && this.items.get(0).getAppType().equals(Constants.MAPPLAS_APPLICATION_TYPE_MOCK)) {
 			return inflater.inflate(R.layout.empty_apps, null);
 		}
@@ -344,11 +345,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						i++;
 					}
 
-					model.appList().sort();
-
-					// Update app adapter
-					// list.updateAdapter(context, model, new
-					// InfiniteScrollManager().getFirstXNumberOfApps(model));
+					list.updateAdapter(context, model, new ArrayList<ApplicationInfo>());
 				}
 
 			}
