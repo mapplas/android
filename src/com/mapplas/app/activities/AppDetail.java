@@ -289,7 +289,7 @@ public class AppDetail extends Activity {
 		Button buttonStart = (Button)this.findViewById(R.id.btnStart);
 		buttonStart.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
 
-		new AppLaunchHelper(this, buttonStart, this.app).help();
+		new AppLaunchHelper(this, buttonStart, this.app, this.user, this.model.getLocation()).help();
 	}
 
 	private void initializeActionsLayout() {
