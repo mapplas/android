@@ -1,8 +1,8 @@
 package com.mapplas.utils.location;
 
-import com.mapplas.model.Constants;
-
 import android.location.LocationManager;
+
+import com.mapplas.model.Constants;
 
 public class UserLocationRequesterFactory {
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,15 +48,12 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected View getPendingView(ViewGroup parent) {
-		Log.d("TAG", "getPendingView");
 		View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.loading_row, null);
 		this.startProgressAnimation(row);
 		return (row);
 	}
 
 	private void startProgressAnimation(View view) {
-		Log.d("TAG", "startProgressAnimation");
-
 		ImageView loadingImage = (ImageView)view.findViewById(R.id.throbber);
 		if(loadingImage != null) {
 			RotateAnimation rotate = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -71,21 +67,14 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected void appendCachedData() {
-		Log.d("TAG", "appendCachedData");
-
 		this.notifyDataSetChanged();
 	}
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		Log.d("TAG", "cacheInBackground");
-
 		if (this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
-			Log.d("TAG", "REQUEST");
-
 			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList).execute(this.model.getLocation(), false);
 		}
-		
 		return this.model.moreData();
 	}
 
@@ -109,7 +98,6 @@ public class AppAdapter extends EndlessAdapter {
 	
 	public void addNewApps() {
 		this.clear();
-		Log.d("TAG", "addNewApps");
 
 		for (int i=0; i<this.model.appList().size(); i++) {
 			this.add(this.model.appList().get(i));

@@ -85,6 +85,7 @@ public class Constants {
 	// App types
 	public static final String MAPPLAS_APPLICATION_TYPE_HTML5 = "html_5";
 	public static final String MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION = "application";
+	public static final String MAPPLAS_APPLICATION_TYPE_MOCK = "mock";
 	
 	// Number of apps to request
 	public static final int MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER = 20;

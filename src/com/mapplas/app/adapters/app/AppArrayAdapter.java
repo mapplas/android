@@ -85,68 +85,73 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		AppViewHolder cellHolder;
-
-		App app = this.items.get(position);
-
-		if(convertView == null) {
-			cellHolder = new AppViewHolder();
-
-			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.rowloc, null);
-
-			cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
-			cellHolder.shortDescription = (TextView)convertView.findViewById(R.id.lblShortDescription);
-
-			cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
-			cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
-			cellHolder.share = (TextView)convertView.findViewById(R.id.lblShare);
-			cellHolder.block = (TextView)convertView.findViewById(R.id.lblBlock);
-
-			cellHolder.pinUpImg = (ImageView)convertView.findViewById(R.id.btnPinUp);
-			cellHolder.rateImg = (ImageView)convertView.findViewById(R.id.btnRate);
-			cellHolder.shareImg = (ImageView)convertView.findViewById(R.id.btnShare);
-			cellHolder.blockImg = (ImageView)convertView.findViewById(R.id.btnBlock);
-
-			cellHolder.pinUpLayout = (LinearLayout)convertView.findViewById(R.id.lytPinup);
-			cellHolder.rateLayout = (LinearLayout)convertView.findViewById(R.id.lytRate);
-			cellHolder.shareLayout = (LinearLayout)convertView.findViewById(R.id.lytShare);
-			cellHolder.blockLayout = (LinearLayout)convertView.findViewById(R.id.lytBlock);
-
-			cellHolder.buttonStart = (Button)convertView.findViewById(R.id.btnStart);
-
-			cellHolder.viewFlipper = (ViewFlipper)convertView.findViewById(R.id.vfRowLoc);
-			cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
-			cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
-
-			cellHolder.rowUnpressed = (LinearLayout)convertView.findViewById(R.id.id_rowloc_unpressed);
-
-			this.initializeCellHolder(app, cellHolder);
-
-			this.initializeStartButton(app, cellHolder.buttonStart);
-
-			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
-			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
-			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
-
-			this.initializeActionLayouts(app, cellHolder, convertView);
-
-			convertView.setTag(cellHolder);
+		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		if(this.items.size() == 1 && this.items.get(0).getAppType().equals(Constants.MAPPLAS_APPLICATION_TYPE_MOCK)) {
+			return inflater.inflate(R.layout.empty_apps, null);
 		}
 		else {
-			cellHolder = (AppViewHolder)convertView.getTag();
+			App app = this.items.get(position);
 
-			this.initializeCellHolder(app, cellHolder);
+			if(convertView == null || !(convertView.getTag() instanceof AppViewHolder)) {
+				cellHolder = new AppViewHolder();
 
-			this.initializeStartButton(app, cellHolder.buttonStart);
+				convertView = inflater.inflate(R.layout.rowloc, null);
 
-			this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
-			this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
-			this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
+				cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+				cellHolder.shortDescription = (TextView)convertView.findViewById(R.id.lblShortDescription);
 
-			this.initializeActionLayouts(app, cellHolder, convertView);
+				cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
+				cellHolder.rate = (TextView)convertView.findViewById(R.id.lblRate);
+				cellHolder.share = (TextView)convertView.findViewById(R.id.lblShare);
+				cellHolder.block = (TextView)convertView.findViewById(R.id.lblBlock);
+
+				cellHolder.pinUpImg = (ImageView)convertView.findViewById(R.id.btnPinUp);
+				cellHolder.rateImg = (ImageView)convertView.findViewById(R.id.btnRate);
+				cellHolder.shareImg = (ImageView)convertView.findViewById(R.id.btnShare);
+				cellHolder.blockImg = (ImageView)convertView.findViewById(R.id.btnBlock);
+
+				cellHolder.pinUpLayout = (LinearLayout)convertView.findViewById(R.id.lytPinup);
+				cellHolder.rateLayout = (LinearLayout)convertView.findViewById(R.id.lytRate);
+				cellHolder.shareLayout = (LinearLayout)convertView.findViewById(R.id.lytShare);
+				cellHolder.blockLayout = (LinearLayout)convertView.findViewById(R.id.lytBlock);
+
+				cellHolder.buttonStart = (Button)convertView.findViewById(R.id.btnStart);
+
+				cellHolder.viewFlipper = (ViewFlipper)convertView.findViewById(R.id.vfRowLoc);
+				cellHolder.logo = (ImageView)convertView.findViewById(R.id.imgLogo);
+				cellHolder.logoRoundCorner = (ImageView)convertView.findViewById(R.id.imgRonundC);
+
+				cellHolder.rowUnpressed = (LinearLayout)convertView.findViewById(R.id.id_rowloc_unpressed);
+
+				this.initializeCellHolder(app, cellHolder);
+
+				this.initializeStartButton(app, cellHolder.buttonStart);
+
+				this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
+				this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+				this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
+
+				this.initializeActionLayouts(app, cellHolder, convertView);
+
+				convertView.setTag(cellHolder);
+			}
+			else {
+				cellHolder = (AppViewHolder)convertView.getTag();
+
+				this.initializeCellHolder(app, cellHolder);
+
+				this.initializeStartButton(app, cellHolder.buttonStart);
+
+				this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
+				this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+				this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
+
+				this.initializeActionLayouts(app, cellHolder, convertView);
+			}
+
+			return convertView;
 		}
-
-		return convertView;
 	}
 
 	private void initializeAnimations() {
