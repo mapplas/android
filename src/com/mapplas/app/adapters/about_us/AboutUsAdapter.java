@@ -12,7 +12,7 @@ import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.AboutUsActivity;
-import com.mapplas.app.activities.TextActivity;
+import com.mapplas.app.activities.HtmlTextActivity;
 import com.mapplas.model.Constants;
 
 public class AboutUsAdapter extends BaseAdapter {
@@ -84,7 +84,7 @@ public class AboutUsAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent((AboutUsActivity)context, TextActivity.class);
+				Intent intent = new Intent((AboutUsActivity)context, HtmlTextActivity.class);
 				
 				String title = "";
 				String message = "";

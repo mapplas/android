@@ -71,7 +71,7 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name="com.mapplas.app.activities.TextActivity"
+            android:name="com.mapplas.app.activities.HtmlTextActivity"
             android:label="Preferences"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar"

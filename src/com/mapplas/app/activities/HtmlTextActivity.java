@@ -13,14 +13,13 @@ import app.mapplas.com.R;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 
-public class TextActivity extends Activity {
+public class HtmlTextActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.text_layout);
 		
-		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
 
 		Bundle bundle = this.getIntent().getExtras();
