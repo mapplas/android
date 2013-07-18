@@ -3,6 +3,7 @@ package com.mapplas.utils.visual.helpers;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.location.Location;
 import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,8 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.WebViewActivity;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
+import com.mapplas.model.User;
+import com.mapplas.utils.network.async_tasks.UserPlayStoreInteractionTask;
 
 public class AppLaunchHelper {
 
@@ -22,22 +25,31 @@ public class AppLaunchHelper {
 
 	private App app;
 
-	public AppLaunchHelper(Context context, Button button, App app) {
+	private User user;
+
+	private Location location;
+
+	public AppLaunchHelper(Context context, Button button, App app, User user, Location location) {
 		this.context = context;
 		this.button = button;
 		this.app = app;
+		this.user = user;
+		this.location = location;
 	}
 
 	public void help() {
 		if(this.button != null) {
+			
+			// APPLICATION TYPE APP
 			if(this.app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
+				
+				// LAUNCH APP
 				if(this.app.getInternalApplicationInfo() != null) {
-					// Start
 					this.button.setBackgroundResource(R.drawable.badge_launch);
 					this.button.setText("");
 				}
 				else {
-					// Install
+					// INSTALL APP
 					if(app.getAppPrice().equals("Free") || app.getAppPrice().equals("Gratis")) {
 						this.button.setBackgroundResource(R.drawable.badge_free);
 						this.button.setText(R.string.free);
@@ -49,7 +61,7 @@ public class AppLaunchHelper {
 				}
 			}
 			else {
-				// Info
+				// HTML5 TYPE APP
 				this.button.setBackgroundResource(R.drawable.badge_html5);
 				this.button.setText("");
 			}
@@ -83,9 +95,12 @@ public class AppLaunchHelper {
 							}
 						}
 						else {
+							// USER-PLAY STORE INTERACTION CONNECTOR
 							if(app.getAppType().equals(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
 								Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
 								context.startActivity(browserIntent);
+								
+								new UserPlayStoreInteractionTask(app.getId(), user.getId(), location).execute();
 							}
 							else {
 								Intent webViewIntent = new Intent(context, WebViewActivity.class);

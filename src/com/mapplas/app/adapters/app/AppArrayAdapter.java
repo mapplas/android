@@ -230,7 +230,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializeStartButton(final App app, Button buttonStart) {
-		new AppLaunchHelper(this.context, buttonStart, app).help();
+		new AppLaunchHelper(this.context, buttonStart, app, this.user, this.model.getLocation()).help();
 	}
 
 	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
