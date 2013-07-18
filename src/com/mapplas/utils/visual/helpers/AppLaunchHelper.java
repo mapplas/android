@@ -85,13 +85,11 @@ public class AppLaunchHelper {
 									context.startActivity(appIntent);
 								}
 								else {
-									// TODO: LITERALS!
-									Toast.makeText(context, "Problem launching", Toast.LENGTH_SHORT).show();
+									Toast.makeText(context, context.getString(R.string.problem_launching_app), Toast.LENGTH_SHORT).show();
 								}
 							}
 							else {
-								// TODO: LITERALS!
-								Toast.makeText(context, "Problem launching", Toast.LENGTH_SHORT).show();
+								Toast.makeText(context, context.getString(R.string.problem_launching_app), Toast.LENGTH_SHORT).show();
 							}
 						}
 						else {
