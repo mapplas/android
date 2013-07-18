@@ -35,13 +35,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.app.AppAdapter;
+import com.mapplas.app.adapters.app.AppArrayAdapter;
 import com.mapplas.model.SuperModel;
 
 public class RefreshableListView extends ListView {
@@ -345,7 +346,9 @@ public class RefreshableListView extends ListView {
 	
 	public void updateAdapter(Context context, SuperModel model, ArrayList<ApplicationInfo> appInstalledList) {
 		model.appList().sort();
-		this.setAdapter(new AppAdapter(context, this, model, appInstalledList));
+//		this.setAdapter(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), this, model));
+		AppArrayAdapter adapter = (AppArrayAdapter)((HeaderViewListAdapter)this.getAdapter()).getWrappedAdapter();
+		adapter.notifyDataSetChanged();
 	}
 
 }

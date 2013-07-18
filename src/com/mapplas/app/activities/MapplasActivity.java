@@ -40,7 +40,6 @@ import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
-import com.mapplas.utils.static_intents.AppAdapterSingleton;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
@@ -120,10 +119,8 @@ public class MapplasActivity extends Activity {
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		
 		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList);
 		this.listView.setAdapter(this.listViewAdapter);
-		AppAdapterSingleton.appAdapter = this.listViewAdapter;
 		
 		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList);
 
