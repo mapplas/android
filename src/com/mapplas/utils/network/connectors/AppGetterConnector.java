@@ -51,6 +51,8 @@ public class AppGetterConnector {
 			}
 
 		} catch (Exception exc) {
+			JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
+			mapper.setMockedAppToList(model);
 			throw exc;
 		}
 		
