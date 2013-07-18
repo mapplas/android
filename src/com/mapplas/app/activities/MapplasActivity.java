@@ -153,7 +153,7 @@ public class MapplasActivity extends Activity {
 				this.model.appList().sort();
 				AppChangedSingleton.changedList = null;
 			}
-
+			
 			this.listViewAdapter.notifyDataSetChanged();
 		}
 		super.onStart();

@@ -105,6 +105,9 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 				}
 			}
 
+			// Order app list
+			this.model.appList().sort();
+			
 			this.listViewAdapter.addNewApps();
 			this.listView.completeRefreshing();
 		}
