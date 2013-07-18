@@ -44,17 +44,22 @@ public class JsonToAppReponseMapper implements TargetMapper {
 				AppOrderedList appOrderedList = model.appList();
 				ArrayList<App> mappedList = appMapper.map(apps);
 
-				if(this.resetPagination) {
-					appOrderedList = new AppOrderedList();
-					appOrderedList.setAppList(mappedList);
+				if(mappedList.size() == 0) {
+					this.setMockedAppToList(model);
 				}
 				else {
-					for(int i = 0; i < mappedList.size(); i++) {
-						appOrderedList.add(mappedList.get(i));
+					if(this.resetPagination) {
+						appOrderedList = new AppOrderedList();
+						appOrderedList.setAppList(mappedList);
 					}
-				}
+					else {
+						for(int i = 0; i < mappedList.size(); i++) {
+							appOrderedList.add(mappedList.get(i));
+						}
+					}
 
-				model.setAppList(appOrderedList);
+					model.setAppList(appOrderedList);
+				}
 			}
 			else {
 				this.setMockedAppToList(model);
@@ -62,11 +67,11 @@ public class JsonToAppReponseMapper implements TargetMapper {
 
 		} catch (JSONException e) {
 			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
-			
+
 			this.setMockedAppToList(model);
 		}
 	}
-	
+
 	public void setMockedAppToList(SuperModel model) {
 		App mockedApp = new App();
 		mockedApp.setId("");
@@ -74,5 +79,6 @@ public class JsonToAppReponseMapper implements TargetMapper {
 		AppOrderedList list = new AppOrderedList();
 		list.add(mockedApp);
 		model.setAppList(list);
+		model.setMoreData(false);
 	}
 }

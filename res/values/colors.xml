@@ -142,4 +142,6 @@
  <color name="Black">#000000</color>
  
  <color name="user_list_divider">#ffffff</color>
+ <color name="comming_soon_pull">#0099CC</color>
+ <color name="comming_soon_subtitle">#AAAAAA</color>
 </resources>
