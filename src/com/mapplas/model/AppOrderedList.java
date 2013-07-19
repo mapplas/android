@@ -107,10 +107,13 @@ public class AppOrderedList implements Parcelable, Unit, Comparator<App> {
 	}
 
 	public void update(ArrayList<App> appList2) {
-		this.appList.clear();
-		
-		for(int i = 0; i < appList2.size(); i++) {
-			this.appList.add(appList2.get(i));
+		// If list object is the same, we dont update it!!
+		if(!this.appList.equals(appList2)) {
+			this.appList.clear();
+
+			for(int i = 0; i < appList2.size(); i++) {
+				this.appList.add(appList2.get(i));
+			}
 		}
 	}
 

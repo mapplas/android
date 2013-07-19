@@ -41,7 +41,7 @@ public class UserForm extends Activity {
 	private User user = null;
 
 	private String currentLocation = "";
-	
+
 	public AppOrderedList appOrderedList;
 
 	private LinearLayout refreshListBackgroundFooter = null;
@@ -63,7 +63,7 @@ public class UserForm extends Activity {
 
 		this.initializeAnimations();
 		this.initLayoutComponents();
-		this.initializeButtonsAndItsBehaviour();
+		this.initializeBackButton();
 
 		// Request user app preferences
 		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter, this.appOrderedList).execute();
@@ -91,15 +91,14 @@ public class UserForm extends Activity {
 		}
 		super.onPause();
 	}
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = this.getMenuInflater();
 		menuInflater.inflate(R.layout.config_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, AboutUsActivity.class);
@@ -118,21 +117,21 @@ public class UserForm extends Activity {
 	}
 
 	private void getDataFromBundle() {
-		
+
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
 				this.userId = bundle.getInt(Constants.MAPPLAS_LOGIN_USER_ID);
 			}
-			
+
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION)) {
 				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION);
 			}
-			
+
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_APP_LIST)) {
 				this.appOrderedList = bundle.getParcelable(Constants.MAPPLAS_LOGIN_APP_LIST);
 			}
-			
+
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER)) {
 				this.user = bundle.getParcelable(Constants.MAPPLAS_LOGIN_USER);
 			}
@@ -169,18 +168,10 @@ public class UserForm extends Activity {
 		this.listView.addHeaderView(this.headerLayout);
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
-//		// Set list adapter
-//		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, false, this.appOrderedList);
-//		this.listView.setAdapter(ula);
-
 		// Define the divider color of the listview
 		ColorDrawable color = new ColorDrawable(this.getResources().getColor(R.color.user_list_divider));
 		this.listView.setDivider(color);
 		this.listView.setDividerHeight(1);
-	}
-
-	private void initializeButtonsAndItsBehaviour() {		
-		this.initializeBackButton();
 	}
 
 	private void initializeBackButton() {
@@ -191,11 +182,11 @@ public class UserForm extends Activity {
 			public void onClick(View v) {
 				user.pinnedApps().clear();
 				user.blockedApps().clear();
-				
+
 				Intent intent = new Intent();
 				intent.putExtra(Constants.MAPPLAS_LOGIN_USER, user);
 				setResult(Constants.SYNESTH_USER_ID, intent);
-				
+
 				finish();
 			}
 		});
