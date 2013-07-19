@@ -30,6 +30,10 @@ public class AppAdapter extends EndlessAdapter {
 	private RefreshableListView list;
 		
 	private ArrayList<ApplicationInfo> applicationList;
+	
+//	private String TAG = "AppAdapter";
+	
+	public boolean SLEEP = false;
 		
 	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList) {
 		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
@@ -57,7 +61,7 @@ public class AppAdapter extends EndlessAdapter {
 		ImageView loadingImage = (ImageView)view.findViewById(R.id.throbber);
 		if(loadingImage != null) {
 			RotateAnimation rotate = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-			rotate.setDuration(1200);
+			rotate.setDuration(800);
 			rotate.setRepeatMode(Animation.RESTART);
 			rotate.setRepeatCount(Animation.INFINITE);
 			rotate.setInterpolator(new LinearInterpolator());
@@ -73,7 +77,12 @@ public class AppAdapter extends EndlessAdapter {
 	@Override
 	protected boolean cacheInBackground() throws Exception {
 		if (this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
+			this.SLEEP = true;
 			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList).execute(this.model.getLocation(), false);
+			// WAIT UNTIL APP GETTER TASK FINISHES
+			while(this.SLEEP) {
+				Thread.sleep(200);
+			}
 		}
 		return this.model.moreData();
 	}
