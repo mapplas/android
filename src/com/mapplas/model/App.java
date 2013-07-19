@@ -224,6 +224,7 @@ public class App implements Parcelable {
 		dest.writeString(this.appDeveloperEmail);
 		dest.writeString(this.appDeveloperWeb);
 		dest.writeFloat(this.rating);
+		dest.writeString(this.shortDescription);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -242,6 +243,7 @@ public class App implements Parcelable {
 		this.appDeveloperEmail = parcel.readString();
 		this.appDeveloperWeb = parcel.readString();
 		this.rating = parcel.readFloat();
+		this.shortDescription = parcel.readString();
 	}
 
 

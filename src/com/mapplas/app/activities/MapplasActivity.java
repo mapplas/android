@@ -75,9 +75,9 @@ public class MapplasActivity extends Activity {
 	private TextView latitudeTV;
 
 	private TextView longitudeTV;
-	
+
 	private Handler latitudeTVHandler = new Handler();
-	
+
 	private Handler longitudeTVHandler = new Handler();
 
 	/** Called when the activity is first created. */
@@ -121,7 +121,7 @@ public class MapplasActivity extends Activity {
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList);
 		this.listView.setAdapter(this.listViewAdapter);
-		
+
 		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList);
 
 		// Check network status
@@ -148,7 +148,7 @@ public class MapplasActivity extends Activity {
 				this.model.updateAppList(changedList);
 				AppChangedSingleton.changedList = null;
 			}
-			
+
 			this.listView.updateAdapter(this, this.model, this.appsInstalledList);
 		}
 		super.onStart();
@@ -223,17 +223,17 @@ public class MapplasActivity extends Activity {
 
 	private void loadApplicationsListView(Typeface normalTypeface) {
 		this.listView = (RefreshableListView)findViewById(R.id.lvLista);
-        LinearLayout listViewHeader = this.listView.getHeader();
-        
-        // ListView header status message
- 		this.listViewHeaderStatusMessage = (TextView)listViewHeader.findViewById(R.id.lblStatus);
- 		this.listViewHeaderStatusMessage.setTypeface(normalTypeface);
- 		this.listViewHeaderStatusMessage.setText(R.string.location_searching);
+		LinearLayout listViewHeader = this.listView.getHeader();
 
- 		// ListView header status image
- 		this.listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
- 		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
-		
+		// ListView header status message
+		this.listViewHeaderStatusMessage = (TextView)listViewHeader.findViewById(R.id.lblStatus);
+		this.listViewHeaderStatusMessage.setTypeface(normalTypeface);
+		this.listViewHeaderStatusMessage.setText(R.string.location_searching);
+
+		// ListView header status image
+		this.listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
+		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
+
 		// Set refresh header listener
 		this.listView.setOnRefreshListener(new OnRefreshListener() {
 
@@ -288,16 +288,18 @@ public class MapplasActivity extends Activity {
 		this.longitudeTV = (TextView)this.findViewById(R.id.lblLon);
 		this.longitudeTVHandler.post(this.longitudeTVRunnable);
 	}
-	
+
 	private Runnable latitudeTVRunnable = new Runnable() {
-        public void run() {
+
+		public void run() {
 			Random random = new Random();
-        	latitudeTV.setText((random.nextInt(180 + 180) - 180) + "," + random.nextInt(99999));
-            latitudeTVHandler.postDelayed(latitudeTVRunnable, 100);
-        }
-    };
-    
-    private Runnable longitudeTVRunnable = new Runnable() {
+			latitudeTV.setText((random.nextInt(180 + 180) - 180) + "," + random.nextInt(99999));
+			latitudeTVHandler.postDelayed(latitudeTVRunnable, 100);
+		}
+	};
+
+	private Runnable longitudeTVRunnable = new Runnable() {
+
 		@Override
 		public void run() {
 			Random random = new Random();
@@ -319,11 +321,5 @@ public class MapplasActivity extends Activity {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
-
-	/**
-	 * Getter and setters
-	 */
-	public RefreshableListView getListView() {
-		return this.listView;
-	}
+	
 }

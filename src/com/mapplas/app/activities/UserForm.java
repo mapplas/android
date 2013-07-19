@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.user.UserAppAdapter;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -170,9 +169,9 @@ public class UserForm extends Activity {
 		this.listView.addHeaderView(this.headerLayout);
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
-		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, false, this.appOrderedList);
-		this.listView.setAdapter(ula);
+//		// Set list adapter
+//		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, false, this.appOrderedList);
+//		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview
 		ColorDrawable color = new ColorDrawable(this.getResources().getColor(R.color.user_list_divider));

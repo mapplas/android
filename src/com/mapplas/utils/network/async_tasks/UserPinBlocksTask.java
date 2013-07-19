@@ -36,6 +36,7 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 		this.context = context;
 		this.textViewResourceId = textViewResourceId;
 		this.refreshListBackgroundFooter = refreshListBackgroundFooter;
+		this.appOrderedList = appOrderedList;
 	}
 
 	@Override
