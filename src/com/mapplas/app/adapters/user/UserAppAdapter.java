@@ -23,6 +23,7 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.UserForm;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
+import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
@@ -51,6 +52,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 	private User user = null;
 
 	private boolean showEmptyMessage;
+	
+	private AppOrderedList appOrderedList;
 
 	private static Semaphore mSemaphore = new Semaphore(1);
 
@@ -89,7 +92,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		}
 	};
 
-	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, boolean showEmptyMessage) {
+	public UserAppAdapter(Context context, int textViewResourceId, ArrayList<App> items, int type, User user, boolean showEmptyMessage, AppOrderedList appOrderedList) {
 		super(context, textViewResourceId, items);
 
 		this.context = context;
@@ -97,6 +100,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 		this.mType = type;
 		this.user = user;
 		this.showEmptyMessage = showEmptyMessage;
+		this.appOrderedList = appOrderedList;
 
 		this.fadeOutAnimation.setInterpolator(new AccelerateInterpolator()); // and
 		// this
@@ -234,7 +238,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										user.blockedApps().remove(anonLoc);
 
 										// Add unblocked object to model list
-										UserForm.appOrderedList.add(anonLoc);
+										appOrderedList.add(anonLoc);
 
 										// Set something changed to true
 										UserForm.somethingChanged = true;
@@ -252,8 +256,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 										// Pin/unpin app
 										boolean found = false;
 										int i = 0;
-										while (!found && i < UserForm.appOrderedList.size()) {
-											App currentApp = UserForm.appOrderedList.get(i);
+										while (!found && i < appOrderedList.size()) {
+											App currentApp = appOrderedList.get(i);
 											if(currentApp.getId().equals(anonLoc.getId())) {
 												int pinned = currentApp.isAuxPin();
 												if(pinned == 1) {

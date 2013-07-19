@@ -105,7 +105,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 				}
 			}
 
-//			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
+			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}
 		

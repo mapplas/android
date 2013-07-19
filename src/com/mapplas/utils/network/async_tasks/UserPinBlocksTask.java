@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mapplas.app.adapters.user.UserAppAdapter;
+import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.User;
 import com.mapplas.utils.network.connectors.UserPinBlocksConnector;
 import com.mapplas.utils.network.mappers.JsonToBlockedAppsMapper;
@@ -25,8 +26,10 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 	private LinearLayout refreshListBackgroundFooter;
 	
 	private User user;
+	
+	private AppOrderedList appOrderedList;
 		
-	public UserPinBlocksTask(User user, ListView listView, Context context, int textViewResourceId, LinearLayout refreshListBackgroundFooter) {
+	public UserPinBlocksTask(User user, ListView listView, Context context, int textViewResourceId, LinearLayout refreshListBackgroundFooter, AppOrderedList appOrderedList) {
 		super();
 		this.user = user;
 		this.listView = listView;
@@ -62,7 +65,7 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 
 		this.listView.removeFooterView(this.refreshListBackgroundFooter);
 
-		UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, true);
+		UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, true, this.appOrderedList);
 		this.listView.setAdapter(appAdapter);
 	}
 	

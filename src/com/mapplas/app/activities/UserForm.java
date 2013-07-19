@@ -43,7 +43,7 @@ public class UserForm extends Activity {
 
 	private String currentLocation = "";
 	
-	public static AppOrderedList appOrderedList = null;
+	public AppOrderedList appOrderedList;
 
 	private LinearLayout refreshListBackgroundFooter = null;
 
@@ -67,7 +67,7 @@ public class UserForm extends Activity {
 		this.initializeButtonsAndItsBehaviour();
 
 		// Request user app preferences
-		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
+		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter, this.appOrderedList).execute();
 
 		// Load presenter
 		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);
@@ -75,7 +75,7 @@ public class UserForm extends Activity {
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
-		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation).present();
+		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation, this.appOrderedList).present();
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class UserForm extends Activity {
 
 		if(UserForm.somethingChanged) {
 			AppChangedSingleton.somethingChanged = true;
-			AppChangedSingleton.changedList = UserForm.appOrderedList;
+			AppChangedSingleton.changedList = this.appOrderedList;
 			UserForm.somethingChanged = false;
 		}
 		super.onPause();
@@ -131,7 +131,7 @@ public class UserForm extends Activity {
 			}
 			
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_APP_LIST)) {
-				UserForm.appOrderedList = bundle.getParcelable(Constants.MAPPLAS_LOGIN_APP_LIST);
+				this.appOrderedList = bundle.getParcelable(Constants.MAPPLAS_LOGIN_APP_LIST);
 			}
 			
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER)) {
@@ -151,13 +151,6 @@ public class UserForm extends Activity {
 	}
 
 	private void initializeAnimations() {
-//		this.refreshAnimation = new RotateAnimation(-360, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-//		this.refreshAnimation.setInterpolator(new LinearInterpolator());
-//		this.refreshAnimation.setDuration(1500);
-//		this.refreshAnimation.setFillAfter(true);
-//		this.refreshAnimation.setRepeatCount(Animation.INFINITE);
-//		this.refreshAnimation.setRepeatMode(Animation.RESTART);
-
 		this.flipAnimation = new RotateAnimation(0, 90, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 		this.flipAnimation.setInterpolator(new LinearInterpolator());
 		this.flipAnimation.setDuration(300);
@@ -178,7 +171,7 @@ public class UserForm extends Activity {
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
 		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, false);
+		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, false, this.appOrderedList);
 		this.listView.setAdapter(ula);
 
 		// Define the divider color of the listview
