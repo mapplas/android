@@ -193,4 +193,8 @@ public class SuperModel implements Parcelable {
 		}
 	};
 
+	
+	public void updateAppList(AppOrderedList newList) {
+		this.appList.update(newList.getAppList());
+	}
 }

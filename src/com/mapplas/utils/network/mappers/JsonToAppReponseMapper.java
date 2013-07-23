@@ -49,16 +49,11 @@ public class JsonToAppReponseMapper implements TargetMapper {
 				}
 				else {
 					if(this.resetPagination) {
-						appOrderedList = new AppOrderedList();
-						appOrderedList.setAppList(mappedList);
+						appOrderedList.reset();
 					}
-					else {
-						for(int i = 0; i < mappedList.size(); i++) {
-							appOrderedList.add(mappedList.get(i));
-						}
+					for(int i = 0; i < mappedList.size(); i++) {
+						appOrderedList.add(mappedList.get(i));
 					}
-
-					model.setAppList(appOrderedList);
 				}
 			}
 			else {

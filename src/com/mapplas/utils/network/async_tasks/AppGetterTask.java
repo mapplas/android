@@ -35,7 +35,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private static boolean occupied = false;
-	
+		
 	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList) {
 		super();
 		this.context = context;
@@ -104,7 +104,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 					this.model.appList().get(i).setInternalApplicationInfo(ai);
 				}
 			}
-
+			this.listViewAdapter.SLEEP = false;
 			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}

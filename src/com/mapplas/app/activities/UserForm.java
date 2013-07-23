@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.user.UserAppAdapter;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -42,8 +41,8 @@ public class UserForm extends Activity {
 	private User user = null;
 
 	private String currentLocation = "";
-	
-	public static AppOrderedList appOrderedList = null;
+
+	public AppOrderedList appOrderedList;
 
 	private LinearLayout refreshListBackgroundFooter = null;
 
@@ -64,10 +63,10 @@ public class UserForm extends Activity {
 
 		this.initializeAnimations();
 		this.initLayoutComponents();
-		this.initializeButtonsAndItsBehaviour();
+		this.initializeBackButton();
 
 		// Request user app preferences
-		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter).execute();
+		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter, this.appOrderedList).execute();
 
 		// Load presenter
 		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);
@@ -75,7 +74,7 @@ public class UserForm extends Activity {
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
 		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
-		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation).present();
+		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation, this.appOrderedList).present();
 	}
 
 	@Override
@@ -87,20 +86,19 @@ public class UserForm extends Activity {
 
 		if(UserForm.somethingChanged) {
 			AppChangedSingleton.somethingChanged = true;
-			AppChangedSingleton.changedList = UserForm.appOrderedList;
+			AppChangedSingleton.changedList = this.appOrderedList;
 			UserForm.somethingChanged = false;
 		}
 		super.onPause();
 	}
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = this.getMenuInflater();
 		menuInflater.inflate(R.layout.config_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, AboutUsActivity.class);
@@ -119,21 +117,21 @@ public class UserForm extends Activity {
 	}
 
 	private void getDataFromBundle() {
-		
+
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER_ID)) {
 				this.userId = bundle.getInt(Constants.MAPPLAS_LOGIN_USER_ID);
 			}
-			
+
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_LOCATION)) {
 				this.currentLocation = bundle.getString(Constants.MAPPLAS_LOGIN_LOCATION);
 			}
-			
+
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_APP_LIST)) {
-				UserForm.appOrderedList = bundle.getParcelable(Constants.MAPPLAS_LOGIN_APP_LIST);
+				this.appOrderedList = bundle.getParcelable(Constants.MAPPLAS_LOGIN_APP_LIST);
 			}
-			
+
 			if(bundle.containsKey(Constants.MAPPLAS_LOGIN_USER)) {
 				this.user = bundle.getParcelable(Constants.MAPPLAS_LOGIN_USER);
 			}
@@ -151,13 +149,6 @@ public class UserForm extends Activity {
 	}
 
 	private void initializeAnimations() {
-//		this.refreshAnimation = new RotateAnimation(-360, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-//		this.refreshAnimation.setInterpolator(new LinearInterpolator());
-//		this.refreshAnimation.setDuration(1500);
-//		this.refreshAnimation.setFillAfter(true);
-//		this.refreshAnimation.setRepeatCount(Animation.INFINITE);
-//		this.refreshAnimation.setRepeatMode(Animation.RESTART);
-
 		this.flipAnimation = new RotateAnimation(0, 90, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 		this.flipAnimation.setInterpolator(new LinearInterpolator());
 		this.flipAnimation.setDuration(300);
@@ -177,18 +168,10 @@ public class UserForm extends Activity {
 		this.listView.addHeaderView(this.headerLayout);
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
-		// Set list adapter
-		UserAppAdapter ula = new UserAppAdapter(this, R.id.lblTitle, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, false);
-		this.listView.setAdapter(ula);
-
 		// Define the divider color of the listview
 		ColorDrawable color = new ColorDrawable(this.getResources().getColor(R.color.user_list_divider));
 		this.listView.setDivider(color);
 		this.listView.setDividerHeight(1);
-	}
-
-	private void initializeButtonsAndItsBehaviour() {		
-		this.initializeBackButton();
 	}
 
 	private void initializeBackButton() {
@@ -199,11 +182,11 @@ public class UserForm extends Activity {
 			public void onClick(View v) {
 				user.pinnedApps().clear();
 				user.blockedApps().clear();
-				
+
 				Intent intent = new Intent();
 				intent.putExtra(Constants.MAPPLAS_LOGIN_USER, user);
 				setResult(Constants.SYNESTH_USER_ID, intent);
-				
+
 				finish();
 			}
 		});
