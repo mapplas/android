@@ -332,16 +332,13 @@
                         android:singleLine="true"
                         android:text="@string/devMail" />
 
-                    <Button
-                        android:id="@+id/lblMore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/action_standar_button"
-                        android:singleLine="true"
-                        android:text="TODO MORE" />
-                </LinearLayout>
+                
+                </LinearLayout><ListView
+                    android:id="@+id/list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+                </ListView>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
