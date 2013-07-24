@@ -2,11 +2,16 @@ package com.mapplas.app.activities;
 
 import java.util.ArrayList;
 
-import android.app.ListActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
@@ -14,10 +19,13 @@ import com.mapplas.app.adapters.detail.MoreAppsArrayAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.model.MoreFromDeveloperApp;
+import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 
-public class MoreFromDeveloperActivity extends ListActivity {
+public class MoreFromDeveloperActivity extends Activity {
 
 	private ArrayList<MoreFromDeveloperApp> items;
+
+	private ListView list;
 
 	private MoreAppsArrayAdapter adapter;
 
@@ -29,8 +37,19 @@ public class MoreFromDeveloperActivity extends ListActivity {
 		this.extractDataFromBundle();
 
 		this.adapter = new MoreAppsArrayAdapter(this, R.layout.row_more_apps, this.items);
-		this.setListAdapter(this.adapter);
-		
+		this.list = (ListView)this.findViewById(R.id.list);
+		this.list.setAdapter(this.adapter);
+
+		this.list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(items.get(position).id());
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreLink));
+				MoreFromDeveloperActivity.this.startActivity(browserIntent);
+			}
+		});
+
 		this.initLayoutComponents();
 	}
 
@@ -48,7 +67,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 				finish();
 			}
 		});
-		
+
 		// Header text
 		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
 		appNameTextView.setText("TODO MORE FROM DEVELOPER");
@@ -64,4 +83,5 @@ public class MoreFromDeveloperActivity extends ListActivity {
 			}
 		}
 	}
+
 }
