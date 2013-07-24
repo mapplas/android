@@ -50,6 +50,8 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 		}
 		if(addresses != null && addresses.size() > 0) {
 			Address address = addresses.get(0);
+			
+			this.model.setCountryCode(address.getCountryCode());
 
 			String firstAddressLine = "";
 			if(address.getMaxAddressLineIndex() > 0) {

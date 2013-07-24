@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class SuperModel implements Parcelable {
 
 	private String currentLocation = "";
-	
+
 	private Location location;
 
 	private User currentUser = null;
@@ -20,14 +20,16 @@ public class SuperModel implements Parcelable {
 
 	private String currentDescriptiveGeoLoc = "";
 
+	private String countryCode;
+
 	private AppOrderedList appList = new AppOrderedList();
 
 	private boolean operationError = false;
 
 	private String errorText = "";
-	
+
 	private ArrayList<String> notificationRawList = new ArrayList<String>();
-	
+
 	private boolean moreData = true;
 
 	public SuperModel() {
@@ -100,19 +102,19 @@ public class SuperModel implements Parcelable {
 	public void setCurrentIMEI(String imei) {
 		this.currentIMEI = imei;
 	}
-	
+
 	public ArrayList<String> notificationRawList() {
 		return this.notificationRawList;
 	}
-	
+
 	public void setNotificationRawList(ArrayList<String> rawList) {
 		this.notificationRawList = rawList;
 	}
-	
+
 	public void setLocation(Location loc) {
 		this.location = loc;
 	}
-	
+
 	public Location getLocation() {
 		return this.location;
 	}
@@ -130,17 +132,24 @@ public class SuperModel implements Parcelable {
 		this.appList.reset();
 	}
 
-
 	public void resetModel() {
 		this.resetLocalizations();
 	}
-	
+
 	public boolean moreData() {
 		return moreData;
 	}
 
 	public void setMoreData(boolean moreData) {
 		this.moreData = moreData;
+	}
+
+	public String countryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 	/**
@@ -164,6 +173,7 @@ public class SuperModel implements Parcelable {
 		dest.writeSerializable(this.notificationRawList);
 		dest.writeParcelable(this.location, flags);
 		dest.writeByte((byte)(this.moreData ? 1 : 0));
+		dest.writeString(this.countryCode);
 	}
 
 	public SuperModel(Parcel parcel) {
@@ -178,6 +188,7 @@ public class SuperModel implements Parcelable {
 		this.errorText = parcel.readString();
 		parcel.readParcelable(Location.class.getClassLoader());
 		this.moreData = parcel.readByte() == 1;
+		this.countryCode = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<SuperModel> CREATOR = new Parcelable.Creator<SuperModel>() {
@@ -193,7 +204,6 @@ public class SuperModel implements Parcelable {
 		}
 	};
 
-	
 	public void updateAppList(AppOrderedList newList) {
 		this.appList.update(newList.getAppList());
 	}

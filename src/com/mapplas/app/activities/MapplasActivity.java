@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,8 +39,6 @@ import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
-import com.mapplas.utils.network.async_tasks.AppGetterTask;
-import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -133,11 +130,11 @@ public class MapplasActivity extends Activity {
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
 //		Location location = new Location("");
-//		location.setLatitude(43.2608);
-//		location.setLongitude(-2.9246);
+//		location.setLatitude(40.720982);
+//		location.setLongitude(-74.003563);
 //		this.model.setLocation(location);
-//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList).execute(new Location(location), true);
 //		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
+//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList).execute(new Location(location), true);
 	}
 
 	@Override
