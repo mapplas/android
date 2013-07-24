@@ -68,12 +68,14 @@ public class JsonToAppReponseMapper implements TargetMapper {
 	}
 
 	public void setMockedAppToList(SuperModel model) {
+		AppOrderedList list = model.appList();
+		list.reset();
+		
 		App mockedApp = new App();
 		mockedApp.setId("");
 		mockedApp.setAppType(Constants.MAPPLAS_APPLICATION_TYPE_MOCK);
-		AppOrderedList list = new AppOrderedList();
 		list.add(mockedApp);
-		model.setAppList(list);
+	
 		model.setMoreData(false);
 	}
 }

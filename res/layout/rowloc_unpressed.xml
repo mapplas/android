@@ -22,7 +22,8 @@
             android:textColor="#333333"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:typeface="normal" />
+            android:typeface="normal" 
+            android:lineSpacingExtra="-2sp"/>
 
         <TextView
             android:id="@+id/lblShortDescription"
@@ -31,7 +32,8 @@
             android:layout_marginLeft="2dp"
             android:lines="2"
             android:textColor="#333333"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:lineSpacingExtra="-1sp" />
     </LinearLayout>
 
     <Button
