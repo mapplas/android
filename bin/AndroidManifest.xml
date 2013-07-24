@@ -43,27 +43,6 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name="com.mapplas.app.activities.AppNotifications"
-            android:label="Notifications"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        <activity
-            android:name="com.mapplas.app.activities.Comments"
-            android:label="Comments"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        <activity
-            android:name="com.mapplas.app.activities.SplashScreen"
-            android:label="SplashScreen"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        <activity
             android:name="com.mapplas.app.activities.UserForm"
             android:label="User"
             android:screenOrientation="portrait"
@@ -80,6 +59,13 @@
         <activity
             android:name="com.mapplas.app.activities.AboutUsActivity"
             android:label="Preferences"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.mapplas.app.activities.MoreFromDeveloperActivity"
+            android:label="MoreFromDeveloper"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >

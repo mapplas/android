@@ -186,12 +186,11 @@ public class AppDetail extends Activity {
 				finish();
 			}
 		});
-
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
 
-		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("")) {
+		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("") || this.app.moreFromDev().size() > 0) {
 
 			// Developer layout
 			LinearLayout developerLayout = (LinearLayout)findViewById(R.id.lytDeveloper);
@@ -240,6 +239,25 @@ public class AppDetail extends Activity {
 						startActivity(Intent.createChooser(i, "Select email application."));
 					}
 				});
+			}
+
+			// Developer more apps button
+			Button developerMoreAppsButton = (Button)findViewById(R.id.lblMore);
+
+			if(this.app.moreFromDev().size() > 0) {
+				developerMoreAppsButton.setTypeface(normalTypeFace);
+				developerMoreAppsButton.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
+						intent.putExtra(Constants.MORE_FROM_DEVELOPER_APP_ARRAY, app.moreFromDev());
+						startActivity(intent);
+					}
+				});
+			}
+			else {
+				developerMoreAppsButton.setVisibility(View.GONE);
 			}
 		}
 	}
@@ -297,7 +315,7 @@ public class AppDetail extends Activity {
 		else {
 			lytRate.setVisibility(View.GONE);
 		}
-		
+
 		lytPinup.setTag(this.app);
 		lytBlock.setTag(this.app);
 		lytShare.setTag(this.app);
@@ -469,10 +487,10 @@ public class AppDetail extends Activity {
 				}
 			}
 		});
-		
+
 		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
 		layout.setTag(this.app);
-		
+
 		layout.setOnClickListener(new View.OnClickListener() {
 
 			@Override

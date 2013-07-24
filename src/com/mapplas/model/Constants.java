@@ -95,4 +95,7 @@ public class Constants {
 	// Intent bundle strings for webview
 	public static String APP_DEV_URL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url";
 	public static String APP_DEV_APP_NAMEL_INTENT_DATA = "com.mapplas.activity.bundle.dev_url_app_name";
+	
+	// Intent bundle more from developer apps
+	public static String MORE_FROM_DEVELOPER_APP_ARRAY = "com.mapplas.activity.bundle.more_from_dev_app_array";
 }
