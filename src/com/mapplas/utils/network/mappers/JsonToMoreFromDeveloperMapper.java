@@ -10,23 +10,28 @@ import com.mapplas.utils.network.mappers.generic.base.IteratingMapper;
 
 public class JsonToMoreFromDeveloperMapper implements IteratingMapper {
 
+	private ArrayList<MoreFromDeveloperApp> mapList;
+
+	public JsonToMoreFromDeveloperMapper(ArrayList<MoreFromDeveloperApp> mapList) {
+		this.mapList = mapList;
+	}
+
 	@Override
 	public ArrayList<MoreFromDeveloperApp> map(JSONArray json) {
 
 		JsonToMoreAppsMapper subMapper = new JsonToMoreAppsMapper();
-		ArrayList<MoreFromDeveloperApp> appList = new ArrayList<MoreFromDeveloperApp>();
 
 		for(int i = 0; i < json.length(); i++) {
 
 			try {
-				appList.add(subMapper.map(json.getJSONObject(i)));
+				this.mapList.add(subMapper.map(json.getJSONObject(i)));
 
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 
-		return appList;
+		return this.mapList;
 	}
 
 }

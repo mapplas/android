@@ -2,6 +2,7 @@ package com.mapplas.utils.network.async_tasks;
 
 import org.json.JSONObject;
 
+import android.location.Location;
 import android.os.AsyncTask;
 
 import com.mapplas.app.activities.AppDetail;
@@ -15,17 +16,20 @@ public class AppDetailTask extends AsyncTask<Void, Void, String> {
 
 	private App app;
 
-	public AppDetailTask(AppDetail detailActivity, App app) {
+	private Location location;
+
+	public AppDetailTask(AppDetail detailActivity, App app, Location location) {
 		super();
 		this.appDetail = detailActivity;
 		this.app = app;
+		this.location = location;
 	}
 
 	@Override
 	protected String doInBackground(Void... params) {
 		String server_response = "";
 		try {
-			server_response = AppDetailConnector.request(this.app.getId());
+			server_response = AppDetailConnector.request(this.app.getId(), this.location);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.appDetail.detailRequestFinishedNok();
@@ -43,7 +47,7 @@ public class AppDetailTask extends AsyncTask<Void, Void, String> {
 		} catch (Exception e) {
 			this.appDetail.detailRequestFinishedNok();
 		}
-		
+
 		this.appDetail.detailRequestFinishedOk();
 	}
 

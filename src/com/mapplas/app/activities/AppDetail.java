@@ -100,7 +100,7 @@ public class AppDetail extends Activity {
 	}
 
 	private void requestApplicationDetailInfo() {
-		new AppDetailTask(this, this.app).execute();
+		new AppDetailTask(this, this.app, this.model.getLocation()).execute();
 	}
 
 	public void detailRequestFinishedOk() {
@@ -128,7 +128,7 @@ public class AppDetail extends Activity {
 
 	public void detailRequestFinishedNok() {
 		// Detail loading error. Try again.
-		new AppDetailTask(this, this.app).execute();
+		new AppDetailTask(this, this.app, this.model.getLocation()).execute();
 	}
 
 	private void initializeAnimations() {

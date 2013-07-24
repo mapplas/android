@@ -38,7 +38,7 @@ public class App implements Parcelable {
 
 	private String appDeveloperWeb = "";
 
-	private ArrayList<MoreFromDeveloperApp> moreFromDev = null;
+	private ArrayList<MoreFromDeveloperApp> moreFromDev = new ArrayList<MoreFromDeveloperApp>();
 
 	private String type = Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION;
 

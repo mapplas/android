@@ -18,7 +18,7 @@ public class JsonToAppDetailMapper implements TargetMapper {
 	@Override
 	public void map(JSONObject json, Object target) {
 		App app = (App)target;
-		
+
 		try {
 			ArrayList<TargetMapper> mappers = new ArrayList<TargetMapper>();
 
@@ -28,7 +28,7 @@ public class JsonToAppDetailMapper implements TargetMapper {
 
 			GenericMapper mapper = new GenericMapper(mappers);
 			mapper.map(json, app);
-			
+
 			this.parseScreenshots(json.getString("scr"), app);
 			this.moreFromDeveloper(json.getJSONArray("m"), app);
 
@@ -40,17 +40,18 @@ public class JsonToAppDetailMapper implements TargetMapper {
 	private void parseScreenshots(String screenshots, App app) {
 		String[] screenshotList = screenshots.split(",");
 		ArrayList<String> photos = new ArrayList<String>();
-	
+
 		for(int i = 0; i < screenshotList.length; i++) {
 			photos.add(screenshotList[i]);
 		}
-		
+
 		app.setAuxPhotos(photos);
 	}
-	
+
 	private void moreFromDeveloper(JSONArray json, App app) {
-		ArrayList<MoreFromDeveloperApp> mapList = new JsonToMoreFromDeveloperMapper().map(json);
-		app.setMoreFromDev(mapList);
+		app.moreFromDev().clear();
+		ArrayList<MoreFromDeveloperApp> mapList = app.moreFromDev();
+		new JsonToMoreFromDeveloperMapper(mapList).map(json);
 	}
 
 }
