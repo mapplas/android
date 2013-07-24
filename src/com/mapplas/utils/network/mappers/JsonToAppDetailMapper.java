@@ -2,11 +2,13 @@ package com.mapplas.utils.network.mappers;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.util.Log;
 
 import com.mapplas.model.App;
+import com.mapplas.model.MoreFromDeveloperApp;
 import com.mapplas.utils.network.mappers.generic.GenericMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
@@ -28,6 +30,7 @@ public class JsonToAppDetailMapper implements TargetMapper {
 			mapper.map(json, app);
 			
 			this.parseScreenshots(json.getString("scr"), app);
+			this.moreFromDeveloper(json.getJSONArray("m"), app);
 
 		} catch (Exception e) {
 			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
@@ -43,6 +46,11 @@ public class JsonToAppDetailMapper implements TargetMapper {
 		}
 		
 		app.setAuxPhotos(photos);
+	}
+	
+	private void moreFromDeveloper(JSONArray json, App app) {
+		ArrayList<MoreFromDeveloperApp> mapList = new JsonToMoreFromDeveloperMapper().map(json);
+		app.setMoreFromDev(mapList);
 	}
 
 }

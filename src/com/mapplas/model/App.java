@@ -24,47 +24,21 @@ public class App implements Parcelable {
 
 	private String price;
 
-	// private String version;
-	//
-	// private String versionUpdated;
-	//
-	// private String size;
-	
-	 private float rating;
-	
-	// private int votes;
-	//
-	// private String privacy;
-	//
-	private int auxPin;
-	
-	private String address;
+	private float rating;
 
-	//
-	// private int auxTotalPins = 0;
-	//
-	// private String auxPinnedGeocodedLocation;
-	//
-	// private boolean auxBlocked = false;
-	//
-	// private float auxRate = 0.0f;
+	private int auxPin;
+
+	private String address;
 
 	private ArrayList<String> auxPhotos = new ArrayList<String>();
 
-	// private String video;
-	//
-	// private String banner;
-	//
 	private ApplicationInfo internalApplicationInfo = null;
 
-	//
-	// private String contentRating;
-	//
-	// private String operatingSystem;
-	
 	private String appDeveloperEmail = "";
-	
+
 	private String appDeveloperWeb = "";
+
+	private ArrayList<MoreFromDeveloperApp> moreFromDev = null;
 
 	private String type = Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION;
 
@@ -167,7 +141,7 @@ public class App implements Parcelable {
 	public void setAppType(String type) {
 		this.type = type;
 	}
-	
+
 	public String getAddress() {
 		return this.address;
 	}
@@ -175,7 +149,7 @@ public class App implements Parcelable {
 	public void setAdress(String addr) {
 		this.address = addr;
 	}
-	
+
 	public String appDeveloperEmail() {
 		return appDeveloperEmail;
 	}
@@ -198,6 +172,14 @@ public class App implements Parcelable {
 
 	public void setRating(String rating) {
 		this.rating = Float.valueOf(rating);
+	}
+
+	public ArrayList<MoreFromDeveloperApp> moreFromDev() {
+		return moreFromDev;
+	}
+
+	public void setMoreFromDev(ArrayList<MoreFromDeveloperApp> moreFromDev) {
+		this.moreFromDev = moreFromDev;
 	}
 
 	/**
@@ -225,6 +207,7 @@ public class App implements Parcelable {
 		dest.writeString(this.appDeveloperWeb);
 		dest.writeFloat(this.rating);
 		dest.writeString(this.shortDescription);
+		dest.writeTypedList(this.moreFromDev);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -244,8 +227,8 @@ public class App implements Parcelable {
 		this.appDeveloperWeb = parcel.readString();
 		this.rating = parcel.readFloat();
 		this.shortDescription = parcel.readString();
+		parcel.readTypedList(this.moreFromDev, MoreFromDeveloperApp.CREATOR);
 	}
-
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
 
