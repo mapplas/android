@@ -137,7 +137,7 @@ public class AppDetail extends Activity {
 		
 		// Init more apps button
 		Button moreAppsButton = (Button)this.findViewById(R.id.moreAppsBtn);
-		if(this.app.moreFromDev().size() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
+		if(this.app.moreFromDeveloperCount() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
 			moreAppsButton.setVisibility(View.VISIBLE);
 			moreAppsButton.setOnClickListener(new OnClickListener() {
 

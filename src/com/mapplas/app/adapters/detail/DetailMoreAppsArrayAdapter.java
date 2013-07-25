@@ -13,16 +13,20 @@ import app.mapplas.com.R;
 
 import com.mapplas.model.Constants;
 import com.mapplas.model.MoreFromDeveloperApp;
+import com.mapplas.utils.cache.CacheFolderFactory;
+import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.async_tasks.LoadImageTask;
+import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 
 public class DetailMoreAppsArrayAdapter extends ArrayAdapter<MoreFromDeveloperApp> {
-	
+
 	private ArrayList<MoreFromDeveloperApp> items;
-	
+
 	private Context context;
 
 	public DetailMoreAppsArrayAdapter(Context context, int textViewResourceId, ArrayList<MoreFromDeveloperApp> objects) {
 		super(context, textViewResourceId, objects);
-		
+
 		this.items = objects;
 		this.context = context;
 	}
@@ -36,7 +40,7 @@ public class DetailMoreAppsArrayAdapter extends ArrayAdapter<MoreFromDeveloperAp
 			return this.items.size();
 		}
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
@@ -45,23 +49,35 @@ public class DetailMoreAppsArrayAdapter extends ArrayAdapter<MoreFromDeveloperAp
 		if(view == null) {
 			view = inflater.inflate(R.layout.row_more_apps, null);
 			this.initLayout(view, position);
-		} else {
+		}
+		else {
 			this.initLayout(view, position);
 		}
-	
+
 		return view;
 	}
 
 	private void initLayout(View view, int position) {
 		TextView title = (TextView)view.findViewById(R.id.title);
 		title.setText(this.items.get(position).name());
-		
+
 		TextView description = (TextView)view.findViewById(R.id.description);
 		description.setText(this.items.get(position).shortDescription());
-		
-		// Download apps images
-		ImageView img = (ImageView)view.findViewWithTag(R.id.logo);
-//		img.setImageDrawable(null);
+
+		// Load app logo
+		ImageView logo_iv = (ImageView)view.findViewById(R.id.logo);
+		ImageFileManager imageFileManager = new ImageFileManager();
+
+		String logoUrl = this.items.get(position).logo();
+		if(!logoUrl.equals("")) {
+			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+				logo_iv.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+			}
+			else {
+				TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, logo_iv, imageFileManager));
+				imageRequest.execute();
+			}
+		}
 	}
 
 }

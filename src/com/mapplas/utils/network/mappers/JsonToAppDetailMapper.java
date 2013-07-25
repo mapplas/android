@@ -10,6 +10,7 @@ import android.util.Log;
 import com.mapplas.model.App;
 import com.mapplas.model.MoreFromDeveloperApp;
 import com.mapplas.utils.network.mappers.generic.GenericMapper;
+import com.mapplas.utils.network.mappers.generic.base.KeyIntegerValueMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
@@ -25,6 +26,7 @@ public class JsonToAppDetailMapper implements TargetMapper {
 			mappers.add(new KeyValueScapedMapper("d", App.class.getMethod("setAppDescription", String.class)));
 			mappers.add(new KeyValueScapedMapper("surl", App.class.getMethod("setAppDeveloperEmail", String.class)));
 			mappers.add(new KeyValueScapedMapper("curl", App.class.getMethod("setAppDeveloperWeb", String.class)));
+			mappers.add(new KeyIntegerValueMapper("mc", App.class.getMethod("setMoreFromDeveloperCount", int.class)));
 
 			GenericMapper mapper = new GenericMapper(mappers);
 			mapper.map(json, app);
