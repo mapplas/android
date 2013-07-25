@@ -98,4 +98,7 @@ public class Constants {
 	
 	// Intent bundle more from developer apps
 	public static String MORE_FROM_DEVELOPER_APP_ARRAY = "com.mapplas.activity.bundle.more_from_dev_app_array";
+	
+	public static int NUMBER_OF_RELATED_APPS_TO_SHOW = 3;
+
 }

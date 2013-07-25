@@ -2,20 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/row_more_apps"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="72dp"
     android:background="@drawable/bgd_rownot"
     android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+    <RelativeLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:clickable="true" >
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/image_content_description"
+            android:duplicateParentState="true"
+            android:src="@drawable/ic_template" />
+
+        <ImageView
+            android:id="@+id/imgRonundC"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/image_content_description"
+            android:duplicateParentState="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:gravity="center_vertical"
-        android:lines="1"
-        android:paddingBottom="10sp"
-        android:paddingLeft="10sp"
-        android:paddingTop="10sp"
-        android:textSize="20sp" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:lineSpacingExtra="-2sp"
+            android:maxLines="2"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="normal" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:lineSpacingExtra="-1sp"
+            android:lines="2"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+    </LinearLayout>
 
 </LinearLayout>

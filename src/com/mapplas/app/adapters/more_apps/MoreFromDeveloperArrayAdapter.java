@@ -1,4 +1,4 @@
-package com.mapplas.app.adapters.detail;
+package com.mapplas.app.adapters.more_apps;
 
 import java.util.ArrayList;
 
@@ -7,20 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.model.MoreFromDeveloperApp;
 
-public class MoreAppsArrayAdapter extends ArrayAdapter<MoreFromDeveloperApp> {
+public class MoreFromDeveloperArrayAdapter extends ArrayAdapter<MoreFromDeveloperApp> {
 
 	private ArrayList<MoreFromDeveloperApp> items;
-	
+
 	private Context context;
 
-	public MoreAppsArrayAdapter(Context context, int textViewResourceId, ArrayList<MoreFromDeveloperApp> objects) {
+	public MoreFromDeveloperArrayAdapter(Context context, int textViewResourceId, ArrayList<MoreFromDeveloperApp> objects) {
 		super(context, textViewResourceId, objects);
-		
+
 		this.items = objects;
 		this.context = context;
 	}
@@ -29,7 +30,7 @@ public class MoreAppsArrayAdapter extends ArrayAdapter<MoreFromDeveloperApp> {
 	public int getCount() {
 		return this.items.size();
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
@@ -38,16 +39,24 @@ public class MoreAppsArrayAdapter extends ArrayAdapter<MoreFromDeveloperApp> {
 		if(view == null) {
 			view = inflater.inflate(R.layout.row_more_apps, null);
 			this.initLayout(view, position);
-		} else {
+		}
+		else {
 			this.initLayout(view, position);
 		}
-	
+
 		return view;
 	}
 
 	private void initLayout(View view, int position) {
 		TextView title = (TextView)view.findViewById(R.id.title);
 		title.setText(this.items.get(position).name());
+
+		TextView description = (TextView)view.findViewById(R.id.description);
+		description.setText(this.items.get(position).shortDescription());
+
+		// Download apps images
+		ImageView img = (ImageView)view.findViewWithTag(R.id.logo);
+		img.setImageDrawable(null);
 	}
 
 }

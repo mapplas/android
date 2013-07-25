@@ -8,6 +8,10 @@ public class MoreFromDeveloperApp implements Parcelable {
 	private String id;
 
 	private String name;
+	
+	private String logo;
+	
+	private String shortDescription;
 
 	public MoreFromDeveloperApp() {
 	}
@@ -28,6 +32,22 @@ public class MoreFromDeveloperApp implements Parcelable {
 		this.name = name;
 	}
 
+	public String logo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String shortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -37,11 +57,15 @@ public class MoreFromDeveloperApp implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(this.id);
 		dest.writeString(this.name);
+		dest.writeString(this.logo);
+		dest.writeString(this.shortDescription);
 	}
 
 	public MoreFromDeveloperApp(Parcel parcel) {
 		this.id = parcel.readString();
 		this.name = parcel.readString();
+		this.logo = parcel.readString();
+		this.shortDescription = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<MoreFromDeveloperApp> CREATOR = new Parcelable.Creator<MoreFromDeveloperApp>() {

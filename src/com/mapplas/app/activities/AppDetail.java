@@ -9,9 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -19,11 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.ImageAdapter;
-import com.mapplas.app.adapters.detail.MoreAppsArrayAdapter;
+import com.mapplas.app.adapters.detail.DetailMoreAppsArrayAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
@@ -59,9 +60,9 @@ public class AppDetail extends Activity {
 	private DisplayMetrics metrics = new DisplayMetrics();
 
 	private boolean somethingChanged = false;
-	
-	private MoreAppsArrayAdapter adapter;
-	
+
+	private DetailMoreAppsArrayAdapter adapter;
+
 	private ListView list;
 
 	/** Called when the activity is first created. */
@@ -133,9 +134,9 @@ public class AppDetail extends Activity {
 			// resizer = new Resizer(gal);
 			// resizer.start(480, 500 * metrics.density);
 		}
-		
+
 		// Set correct height to listview to scroll ok
-		
+
 		new ListViewInsideScrollHeigthHelper().setListViewHeightBasedOnChildren(this.list, this.adapter);
 	}
 
@@ -199,21 +200,38 @@ public class AppDetail extends Activity {
 				finish();
 			}
 		});
-		
+
 		// More apps from developer list
-		this.adapter = new MoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
+		this.adapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
 		this.list = (ListView)this.findViewById(R.id.list);
 		this.list.setAdapter(this.adapter);
 		
+		// Item click listener
 		this.list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(app.moreFromDev().get(position).id());
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreLink));
-				AppDetail.this.startActivity(browserIntent);
+				AppDetail.this.startActivity(browserIntent);				
 			}
 		});
+
+		Button moreAppsButton = (Button)this.findViewById(R.id.moreAppsBtn);
+		if(this.app.moreFromDev().size() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
+			moreAppsButton.setVisibility(View.VISIBLE);
+			moreAppsButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO: INTENT TO NEW ACTIVITY
+				
+				}
+			});
+		}
+		else {
+			moreAppsButton.setVisibility(View.GONE);
+		}
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
