@@ -9,17 +9,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.ImageAdapter;
+import com.mapplas.app.adapters.detail.DetailMoreAppsArrayAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
@@ -36,6 +41,7 @@ import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
+import com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper;
 import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 import com.mapplas.utils.visual.helpers.ShareHelper;
 
@@ -54,6 +60,10 @@ public class AppDetail extends Activity {
 	private DisplayMetrics metrics = new DisplayMetrics();
 
 	private boolean somethingChanged = false;
+
+	private DetailMoreAppsArrayAdapter adapter;
+
+	private ListView list;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -100,7 +110,7 @@ public class AppDetail extends Activity {
 	}
 
 	private void requestApplicationDetailInfo() {
-		new AppDetailTask(this, this.app).execute();
+		new AppDetailTask(this, this.app, this.model.countryCode()).execute();
 	}
 
 	public void detailRequestFinishedOk() {
@@ -124,11 +134,33 @@ public class AppDetail extends Activity {
 			// resizer = new Resizer(gal);
 			// resizer.start(480, 500 * metrics.density);
 		}
+		
+		// Init more apps button
+		Button moreAppsButton = (Button)this.findViewById(R.id.moreAppsBtn);
+		if(this.app.moreFromDeveloperCount() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
+			moreAppsButton.setVisibility(View.VISIBLE);
+			moreAppsButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_APP, app);
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, model.countryCode());
+					startActivity(intent);
+				}
+			});
+		}
+		else {
+			moreAppsButton.setVisibility(View.GONE);
+		}
+
+		// Set correct height to listview to scroll ok
+		new ListViewInsideScrollHeigthHelper().setListViewHeightBasedOnChildren(this.list, this.adapter);
 	}
 
 	public void detailRequestFinishedNok() {
 		// Detail loading error. Try again.
-		new AppDetailTask(this, this.app).execute();
+		new AppDetailTask(this, this.app, this.model.countryCode()).execute();
 	}
 
 	private void initializeAnimations() {
@@ -187,11 +219,26 @@ public class AppDetail extends Activity {
 			}
 		});
 
+		// More apps from developer list
+		this.adapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
+		this.list = (ListView)this.findViewById(R.id.list);
+		this.list.setAdapter(this.adapter);
+		
+		// Item click listener
+		this.list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(app.moreFromDev().get(position).id());
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreLink));
+				AppDetail.this.startActivity(browserIntent);				
+			}
+		});
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
 
-		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("")) {
+		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("") || this.app.moreFromDev().size() > 0) {
 
 			// Developer layout
 			LinearLayout developerLayout = (LinearLayout)findViewById(R.id.lytDeveloper);
@@ -297,7 +344,7 @@ public class AppDetail extends Activity {
 		else {
 			lytRate.setVisibility(View.GONE);
 		}
-		
+
 		lytPinup.setTag(this.app);
 		lytBlock.setTag(this.app);
 		lytShare.setTag(this.app);
@@ -469,10 +516,10 @@ public class AppDetail extends Activity {
 				}
 			}
 		});
-		
+
 		LinearLayout layout = (LinearLayout)findViewById(R.id.app_detail_app_title_rating_layout);
 		layout.setTag(this.app);
-		
+
 		layout.setOnClickListener(new View.OnClickListener() {
 
 			@Override

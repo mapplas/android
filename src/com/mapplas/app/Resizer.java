@@ -1,6 +1,5 @@
 package com.mapplas.app;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -44,7 +43,7 @@ public class Resizer implements Runnable {
 
 		this.objective.post(this);
 
-		Log.i("Resizer", "Default Start!");
+//		Log.i("Resizer", "Default Start!");
 	}
 
 	public void start(int h, float v) {
@@ -65,12 +64,12 @@ public class Resizer implements Runnable {
 
 		this.objective.post(this);
 
-		Log.i("Resizer", "Custom Start! h=" + h + " v=" + v);
+//		Log.i("Resizer", "Custom Start! h=" + h + " v=" + v);
 	}
 
 	public void run() {
 
-		Log.i("Resizer", "Run");
+//		Log.i("Resizer", "Run");
 		long milis = System.currentTimeMillis();
 		float delta = ((milis - this.lastMilis) / 1000.0f) * this.velocity;
 

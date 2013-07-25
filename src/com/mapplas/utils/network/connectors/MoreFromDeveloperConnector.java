@@ -15,15 +15,16 @@ import org.apache.http.util.EntityUtils;
 
 import com.mapplas.model.Constants;
 
-public class AppDetailConnector {
+public class MoreFromDeveloperConnector {
 
 	public static String request(String app_id, String country_code) throws Exception {
 		String serverResponse = "";
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "app-detail/" + app_id + "/");
+		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "more-from-dev/");
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+		nameValuePairs.add(new BasicNameValuePair("id", app_id));
 		nameValuePairs.add(new BasicNameValuePair("cc", country_code));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 

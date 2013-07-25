@@ -27,7 +27,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -82,7 +81,7 @@ public class RefreshableListView extends ListView {
 	
 	private RotateAnimation reloadAnimation;
 	
-	private String TAG = "TAG";
+//	private String TAG = "TAG";
 	
 	// MY CONSTANT
 	// Logic to avoid when scrolling top slowly, reverse geocoded location is smaller and smaller
@@ -108,7 +107,7 @@ public class RefreshableListView extends ListView {
 	}
 
 	public void completeRefreshing() {
-		Log.d(TAG, "completeRefreshing");
+//		Log.d(TAG, "completeRefreshing");
 		mHandler.sendMessage(mHandler.obtainMessage(NORMAL, mHeaderHeight, 0));
 		mIsRefreshing = false;
 		
@@ -122,7 +121,7 @@ public class RefreshableListView extends ListView {
 	public boolean onInterceptTouchEvent(final MotionEvent ev) {
 		switch (ev.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				Log.d(TAG, "onInterceptTouchEvent ACTION_DOWN");
+//				Log.d(TAG, "onInterceptTouchEvent ACTION_DOWN");
 				mHandler.removeMessages(REFRESH);
 				mHandler.removeMessages(NORMAL);
 				mY = mHistoricalY = ev.getY();
@@ -138,12 +137,12 @@ public class RefreshableListView extends ListView {
 	public boolean onTouchEvent(final MotionEvent ev) {
 		switch (ev.getAction()) {
 			case MotionEvent.ACTION_MOVE:
-				Log.d(TAG, "onInterceptTouchEvent ACTION_MOVE");
+//				Log.d(TAG, "onInterceptTouchEvent ACTION_MOVE");
 
 				mHistoricalTop = getChildAt(0).getTop();
 				break;
 			case MotionEvent.ACTION_UP:
-				Log.d(TAG, "onInterceptTouchEvent ACTION_UP");
+//				Log.d(TAG, "onInterceptTouchEvent ACTION_UP");
 
 				if(!mIsRefreshing) {
 					if(mArrowUp) {
@@ -167,10 +166,10 @@ public class RefreshableListView extends ListView {
 
 	@Override
 	public boolean dispatchTouchEvent(final MotionEvent ev) {
-		Log.d(TAG, "dispatchTouchEvent");
+//		Log.d(TAG, "dispatchTouchEvent");
 
 		if(ev.getAction() == MotionEvent.ACTION_MOVE && getFirstVisiblePosition() == 0) {
-			Log.d(TAG, "dispatchTouchEvent MotionEvent.ACTION_MOVE && getFirstVisiblePosition() == 0");
+//			Log.d(TAG, "dispatchTouchEvent MotionEvent.ACTION_MOVE && getFirstVisiblePosition() == 0");
 
 			float direction = ev.getY() - mHistoricalY;
 			int height = (int)(ev.getY() - mY) / 2 + mInitialHeight;
@@ -196,7 +195,7 @@ public class RefreshableListView extends ListView {
 
 						// Extends refresh bar
 						
-						Log.d(TAG, "height direction > 0 " + height);
+//						Log.d(TAG, "height direction > 0 " + height);
 						setHeaderHeight(height);
 
 						// Stop list scroll to prevent the list from
@@ -212,7 +211,7 @@ public class RefreshableListView extends ListView {
 					// is
 					// visible
 					if(getChildAt(0).getTop() == 0) {
-						Log.d(TAG, "height  direction < 0 " + height);
+//						Log.d(TAG, "height  direction < 0 " + height);
 						// Logic to avoid when scrolling top slowly, reverse geocoded location is smaller and smaller
 						if(height < MINIMUM_HEADER_HEIGHT) {
 							setHeaderHeight(MINIMUM_HEADER_HEIGHT);
@@ -244,12 +243,12 @@ public class RefreshableListView extends ListView {
 	public boolean performItemClick(final View view, final int position, final long id) {
 		if(position == 0) {
 			// This is the refresh header element
-			Log.d(TAG, "performItemClick position == 0");
+//			Log.d(TAG, "performItemClick position == 0");
 
 			return true;
 		}
 		else {
-			Log.d(TAG, "performItemClick super.performItemClic");
+//			Log.d(TAG, "performItemClick super.performItemClic");
 
 			return super.performItemClick(view, position - 1, id);
 		}
@@ -281,7 +280,7 @@ public class RefreshableListView extends ListView {
 	}
 
 	private void setHeaderHeight(final int height) {
-		Log.d(TAG, "setHeaderHeight " + height);
+//		Log.d(TAG, "setHeaderHeight " + height);
 
 		// Extends refresh bar
 		LayoutParams lp = (LayoutParams)mHeaderContainer.getLayoutParams();
@@ -329,7 +328,7 @@ public class RefreshableListView extends ListView {
 	}
 
 	private void startRefreshing() {
-		Log.d(TAG, "startRefreshing ");
+//		Log.d(TAG, "startRefreshing ");
 
 		mText.setText(R.string.ptr_refreshing);
 		mIsRefreshing = true;
@@ -346,17 +345,17 @@ public class RefreshableListView extends ListView {
 		@Override
 		public void handleMessage(final Message msg) {
 			super.handleMessage(msg);
-			Log.d(TAG, "handleMessage ");
+//			Log.d(TAG, "handleMessage ");
 
 			int limit = 0;
 			switch (msg.what) {
 				case REFRESH:
-					Log.d(TAG, "handleMessage REFRESH");
+//					Log.d(TAG, "handleMessage REFRESH");
 
 					limit = mHeaderHeight;
 					break;
 				case NORMAL:
-					Log.d(TAG, "handleMessage NORMAL");
+//					Log.d(TAG, "handleMessage NORMAL");
 
 					limit = (int)(30 * getContext().getResources().getDisplayMetrics().density);
 					break;
@@ -364,7 +363,7 @@ public class RefreshableListView extends ListView {
 
 			// Elastic scrolling
 			if(msg.arg1 >= limit) {
-				Log.d(TAG, "msg.arg1" + msg.arg1);
+//				Log.d(TAG, "msg.arg1" + msg.arg1);
 				setHeaderHeight(msg.arg1);
 				int displacement = (msg.arg1 - limit) / 10;
 				if(displacement == 0) {

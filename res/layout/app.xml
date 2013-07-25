@@ -290,7 +290,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone" >
+                android:visibility="visible" >
 
                 <TextView
                     android:id="@+id/lblDeveloper"
@@ -302,6 +302,21 @@
                     android:gravity="left"
                     android:text="@string/developer"
                     android:textSize="18sp" />
+
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+                </ListView>
+
+                <Button
+                    android:id="@+id/moreAppsBtn"
+                    android:layout_width="38dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_more" />
 
                 <LinearLayout
                     android:id="@+id/devWeb"
@@ -335,4 +350,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
