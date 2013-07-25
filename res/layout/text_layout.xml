@@ -9,14 +9,14 @@
         android:layout_height="64dp"
         android:background="@drawable/bgd_menu" >
 
-        <Button
+        <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/text_layout_back_button"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_alignParentLeft="true"
             android:background="@drawable/menu_back_button_left" />
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/text_layout_screen_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:src="@drawable/menu_logo" />
 
-            <Button
+            <com.mapplas.utils.visual.custom_views.RobotoButton
                 android:id="@+id/btnProfile"
                 android:layout_width="64dp"
                 android:layout_height="64dp"

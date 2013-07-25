@@ -32,11 +32,11 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblTitle"
                 style="@style/AppTitleCell" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblLocation"
                 style="@style/AppDescriptionCell"
                 android:textSize="12sp" />
@@ -50,7 +50,7 @@
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_unpinup" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblunpin"
                 style="@style/UnblockUnpinActionText"
                 android:text="@string/un_pin_up" />

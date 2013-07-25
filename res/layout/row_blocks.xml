@@ -33,7 +33,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical" >
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_unblock" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblAllow"
                 style="@style/UnblockUnpinActionText"
                 android:text="@string/allow" />

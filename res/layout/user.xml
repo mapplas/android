@@ -6,11 +6,11 @@
 
     <RelativeLayout style="@style/NavigationBar" >
 
-        <Button
+        <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/btnBack"
             style="@style/NavigationBarButton" />
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/lblProfile"
             style="@style/NavigationBarText" />
     </RelativeLayout>

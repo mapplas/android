@@ -6,7 +6,7 @@
     android:background="#f7f8f8"
     android:orientation="vertical" >
 
-    <TextView
+    <com.mapplas.utils.visual.custom_views.RobotoTextView
         android:id="@+id/user_form_empty_list_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

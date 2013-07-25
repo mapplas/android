@@ -11,7 +11,7 @@
         android:layout_margin="10dp"
         android:orientation="vertical" >
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/comming_soon_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:textColor="@color/Black"
             android:textSize="17sp" />
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/comming_soon_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:textColor="@color/comming_soon_subtitle"
             android:textSize="14sp" />
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/comming_soon_pull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -25,7 +25,7 @@
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/ic_pulltorefresh_arrow" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblAction"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblWifiDisabledMessage"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/anim_location" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblStatus"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"

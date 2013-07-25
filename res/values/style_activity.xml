@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ThemeSynesth" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        <item name="android:typeface">monospace</item>
-    </style>
 
     <style name="NavigationBar">
         <item name="android:layout_width">fill_parent</item>
@@ -112,14 +109,14 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:orientation">vertical</item>
     </style>
-    
+
     <style name="UnblockUnpinActionImage">
         <item name="android:layout_width">32dp</item>
         <item name="android:layout_height">32dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_marginTop">9dp</item>
     </style>
-    
+
     <style name="UnblockUnpinActionText">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -128,4 +125,5 @@
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textSize">10sp</item>
     </style>
+
 </resources>

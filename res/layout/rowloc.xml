@@ -37,7 +37,7 @@
             layout="@layout/rowloc_pressed" />
     </ViewFlipper>
 
-    <TextView
+    <com.mapplas.utils.visual.custom_views.RobotoTextView
         android:id="@android:id/text1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

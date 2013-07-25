@@ -26,11 +26,11 @@
         android:id="@+id/layoutInfo"
         style="@style/AppTitleDescriptionInfoLayout" >
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/title"
             style="@style/AppTitleCell" />
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/description"
             style="@style/AppDescriptionCell" />
     </LinearLayout>

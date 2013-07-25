@@ -8,16 +8,16 @@
         android:id="@+id/layoutInfo"
         style="@style/AppTitleDescriptionInfoLayout" >
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/lblTitle"
             style="@style/AppTitleCell" />
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/lblShortDescription"
             style="@style/AppDescriptionCell" />
     </LinearLayout>
 
-    <Button
+    <com.mapplas.utils.visual.custom_views.RobotoButton
         android:id="@+id/btnStart"
         style="@style/AppLaunchCell" />
 

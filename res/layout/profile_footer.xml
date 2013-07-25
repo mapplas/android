@@ -11,7 +11,7 @@
         android:layout_height="128dp"
         android:orientation="horizontal" >
 
-        <TextView
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/lblAction"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

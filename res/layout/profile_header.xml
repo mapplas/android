@@ -29,7 +29,7 @@
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_unpinup" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblPinUp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_block" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblBlock"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/action_rate_button" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblRate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
