@@ -43,29 +43,18 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical" >
+        <LinearLayout style="@style/UnblockUnpinActionLayout" >
 
             <ImageView
                 android:id="@+id/btnAction"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="9dp"
+                style="@style/UnblockUnpinActionImage"
+                android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_unblock" />
 
             <TextView
                 android:id="@+id/lblAllow"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:text="@string/allow"
-                android:textSize="10sp" />
+                style="@style/UnblockUnpinActionText"
+                android:text="@string/allow" />
         </LinearLayout>
     </LinearLayout>
 
