@@ -1,17 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="ThemeSynesth" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:typeface">monospace</item>
     </style>
+
+    <style name="NavigationBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/bgd_menu</item>
+    </style>
+
+    <style name="NavigationBarText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginLeft">64dp</item>
+        <item name="android:layout_marginRight">64dp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/navigation_text_color</item>
+    </style>
+
+    <style name="NavigationBarButton">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/menu_back_button_left</item>
+    </style>
+
+    <style name="ImageLogo">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:src">@drawable/ic_template</item>
+    </style>
+
+    <style name="ImageRoundLogo">
+        <item name="android:layout_width">66dp</item>
+        <item name="android:layout_height">66dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:src">@drawable/roundc</item>
+    </style>
+
+    <style name="AppTitleDescriptionInfoLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AppTitleCell">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/app_title_color_cell</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:lineSpacingExtra">-2sp</item>
+    </style>
+
+    <style name="AppDescriptionCell">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:lines">2</item>
+        <item name="android:textColor">@color/app_description_color_cell</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:lineSpacingExtra">-1sp</item>
+    </style>
+
+    <style name="AppLaunchCell">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_gravity">center_vertical|center_horizontal</item>
+        <item name="android:background">@drawable/ic_badge_price</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ActionButtonsLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.25</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="ActionButtonImage">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="ActionButtonText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:textSize">9sp</item>
+    </style>
+
+    <style name="UnblockUnpinActionLayout">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:orientation">vertical</item>
+    </style>
     
-    <style name="filterEditText">
-	    <item name="android:drawable">@drawable/filter_edit_text</item>
-	</style>
-	
-    <style name="profileButton">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:paddingRight">5dp</item>
+    <style name="UnblockUnpinActionImage">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">9dp</item>
+    </style>
+    
+    <style name="UnblockUnpinActionText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical|center_horizontal</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">10sp</item>
     </style>
 </resources>

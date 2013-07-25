@@ -4,30 +4,18 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:background="@drawable/bgd_menu" >
+    <RelativeLayout style="@style/NavigationBar" >
 
         <TextView
             android:id="@+id/lblAppDetail"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="64dp"
-            android:layout_marginRight="64dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/app_detail"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#333333" >
+            style="@style/NavigationBarText" >
 
             <requestFocus />
         </TextView>
 
         <Button
             android:id="@+id/btnBack"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="@drawable/menu_back_button_left" />
+            style="@style/NavigationBarButton" />
     </RelativeLayout>
 
     <ScrollView
@@ -56,20 +44,12 @@
 
                     <ImageView
                         android:id="@+id/imgLogo"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="4dp"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/ic_template" />
+                        style="@style/ImageLogo"
+                        android:contentDescription="@string/image_content_description" />
 
                     <ImageView
-                        android:layout_width="66dp"
-                        android:layout_height="66dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/roundc" />
+                        style="@style/ImageRoundLogo"
+                        android:contentDescription="@string/image_content_description" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -154,19 +134,14 @@
 
                     <ImageView
                         android:id="@+id/btnPinUp"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center_horizontal"
+                        style="@style/ActionButtonImage"
+                        android:contentDescription="@string/image_content_description"
                         android:src="@drawable/action_pin_button" />
 
                     <TextView
                         android:id="@+id/lblPinUp"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:gravity="bottom|center_horizontal"
-                        android:text="@string/pin_up"
-                        android:textSize="10sp" />
+                        style="@style/ActionButtonText"
+                        android:text="@string/pin_up" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -179,19 +154,14 @@
 
                     <ImageView
                         android:id="@+id/btnRate"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center_horizontal"
+                        style="@style/ActionButtonImage"
+                        android:contentDescription="@string/image_content_description"
                         android:src="@drawable/action_rate_button" />
 
                     <TextView
                         android:id="@+id/lblRate"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:gravity="bottom|center_horizontal"
-                        android:text="@string/rate"
-                        android:textSize="10sp" />
+                        style="@style/ActionButtonText"
+                        android:text="@string/rate" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,19 +174,14 @@
 
                     <ImageView
                         android:id="@+id/btnBlock"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center_horizontal"
+                        style="@style/ActionButtonImage"
+                        android:contentDescription="@string/image_content_description"
                         android:src="@drawable/action_block_button" />
 
                     <TextView
                         android:id="@+id/lblBlock"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:gravity="bottom|center_horizontal"
-                        android:text="@string/block"
-                        android:textSize="10sp" />
+                        style="@style/ActionButtonText"
+                        android:text="@string/block" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -229,19 +194,14 @@
 
                     <ImageView
                         android:id="@+id/btnShare"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center_horizontal"
+                        style="@style/ActionButtonImage"
+                        android:contentDescription="@string/image_content_description"
                         android:src="@drawable/action_share_button" />
 
                     <TextView
                         android:id="@+id/lblShare"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:gravity="bottom|center_horizontal"
-                        android:text="@string/share"
-                        android:textSize="10sp" />
+                        style="@style/ActionButtonText"
+                        android:text="@string/share" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -267,13 +227,12 @@
                     android:id="@+id/lblMoreInfo"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Description"
                     android:maxLines="6"
                     android:paddingLeft="10dp"
                     android:paddingRight="8dp"
                     android:text="@string/description"
                     android:textColor="#333333"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:id="@+id/imgDots"
@@ -282,6 +241,7 @@
                     android:layout_gravity="right"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
+                    android:contentDescription="@string/image_content_description"
                     android:src="@drawable/ic_more" />
             </LinearLayout>
 

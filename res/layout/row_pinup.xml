@@ -12,19 +12,13 @@
 
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_template" />
+            style="@style/ImageLogo"
+            android:contentDescription="@string/image_content_description" />
 
         <ImageView
             android:id="@+id/imgRonundC"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/roundc" />
+            style="@style/ImageRoundLogo"
+            android:contentDescription="@string/image_content_description" />
     </RelativeLayout>
 
     <LinearLayout
@@ -40,45 +34,26 @@
 
             <TextView
                 android:id="@+id/lblTitle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:lines="1"
-                android:text="Title"
-                android:textSize="20sp" />
+                style="@style/AppTitleCell" />
 
             <TextView
                 android:id="@+id/lblLocation"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:lines="1"
-                android:text="Title"
+                style="@style/AppDescriptionCell"
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical" >
+        <LinearLayout style="@style/UnblockUnpinActionLayout" >
 
             <ImageView
                 android:id="@+id/btnAction"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"
+                style="@style/UnblockUnpinActionImage"
+                android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_unpinup" />
 
             <TextView
                 android:id="@+id/lblunpin"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/un_pin_up"
-                android:textSize="10sp" />
+                style="@style/UnblockUnpinActionText"
+                android:text="@string/un_pin_up" />
         </LinearLayout>
     </LinearLayout>
 
