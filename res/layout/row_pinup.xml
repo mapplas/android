@@ -12,19 +12,13 @@
 
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_template" />
+            style="@style/ImageLogo"
+            android:contentDescription="@string/image_content_description" />
 
         <ImageView
             android:id="@+id/imgRonundC"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/roundc" />
+            style="@style/ImageRoundLogo"
+            android:contentDescription="@string/image_content_description" />
     </RelativeLayout>
 
     <LinearLayout

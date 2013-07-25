@@ -4,20 +4,18 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:background="@drawable/bgd_menu" >
+    <RelativeLayout style="@style/NavigationBar" >
 
         <TextView
             android:id="@+id/lblAppDetail"
             style="@style/NavigationBarText" >
+
             <requestFocus />
         </TextView>
 
         <Button
             android:id="@+id/btnBack"
-            style="@style/NavigationBarButton"/>
+            style="@style/NavigationBarButton" />
     </RelativeLayout>
 
     <ScrollView
@@ -46,20 +44,12 @@
 
                     <ImageView
                         android:id="@+id/imgLogo"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="4dp"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/ic_template" />
+                        style="@style/ImageLogo"
+                        android:contentDescription="@string/image_content_description" />
 
                     <ImageView
-                        android:layout_width="66dp"
-                        android:layout_height="66dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/roundc" />
+                        style="@style/ImageRoundLogo"
+                        android:contentDescription="@string/image_content_description" />
                 </RelativeLayout>
 
                 <LinearLayout

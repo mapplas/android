@@ -6,43 +6,19 @@
 
     <LinearLayout
         android:id="@+id/layoutInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="vertical" >
+        style="@style/AppTitleDescriptionInfoLayout" >
 
         <TextView
             android:id="@+id/lblTitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:maxLines="2"
-            android:text="@string/title"
-            android:textColor="#333333"
-            android:textSize="16sp"
-            android:typeface="normal" 
-            android:lineSpacingExtra="-2sp"/>
+            style="@style/AppTitleCell" />
 
         <TextView
             android:id="@+id/lblShortDescription"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:lines="2"
-            android:textColor="#333333"
-            android:textSize="12sp"
-            android:lineSpacingExtra="-1sp" />
+            style="@style/AppDescriptionCell" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:background="@drawable/ic_badge_price"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#ffffff"
-        android:textSize="14sp" />
+        style="@style/AppLaunchCell" />
 
 </LinearLayout>
