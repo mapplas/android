@@ -79,7 +79,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 	 *
 	 */
 	public void requestFinishedNok() {
-		
+		new MoreFromDeveloperTask(this, this.app, this.country_code).execute();
 	}
 	
 	public void requestFinishedOk() {

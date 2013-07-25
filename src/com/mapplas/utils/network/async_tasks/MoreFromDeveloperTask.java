@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import com.mapplas.app.activities.MoreFromDeveloperActivity;
 import com.mapplas.model.App;
 import com.mapplas.utils.network.connectors.MoreFromDeveloperConnector;
-import com.mapplas.utils.network.mappers.JsonToAppDetailMapper;
 import com.mapplas.utils.network.mappers.JsonToMoreFromDeveloperActivityMapper;
 
 public class MoreFromDeveloperTask extends AsyncTask<Void, Void, String> {
