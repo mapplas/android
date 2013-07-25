@@ -86,17 +86,14 @@ public class AboutUsAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				Intent intent = new Intent((AboutUsActivity)context, HtmlTextActivity.class);
 				
-				String title = "";
 				String message = "";
 				
 				switch (position) {
 					case 0:
-						title = context.getString(R.string.terms_of_use_title);
 						message = context.getString(R.string.terms_of_use_message);
 						break;
 						
 					case 1:
-						title = context.getString(R.string.privacy_policy_title);
 						message = context.getString(R.string.privacy_policy_message);
 						break;
 						
@@ -105,7 +102,6 @@ public class AboutUsAdapter extends BaseAdapter {
 				}
 					
 				if(position == 0 || position == 1) {
-					intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_TITLE, title);
 					intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE, message);
 					context.startActivity(intent);
 				}

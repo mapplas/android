@@ -1,8 +1,6 @@
 package com.mapplas.utils.visual.presenters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.ListView;
 import app.mapplas.com.R;
@@ -38,7 +36,7 @@ public class UserFormDynamicSublistsPresenter {
 	}
 
 	private void pinUpsLayoutBehaviour() {
-		this.layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed_left);
+//		this.layoutComponents.pinUpsLayout().setBackgroundResource();
 
 		this.layoutComponents.pinUpsLayout().setOnClickListener(new View.OnClickListener() {
 
@@ -47,13 +45,8 @@ public class UserFormDynamicSublistsPresenter {
 				// Obtain blocked items data
 				list.removeFooterView(layoutComponents.footerButtonsLayout());
 
-				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.pinUpsLayout().setBackgroundResource(R.drawable.bgd_tab_pressed_left);
-
-				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
-				if(settings.getBoolean("user_logged", false)) {
-					list.addFooterView(layoutComponents.footerButtonsLayout());
-				}
+//				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
+//				layoutComponents.pinUpsLayout().setBackgroundResource(Color.BLUE);
 
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, true, appOrderedList);
 				list.setAdapter(ula);
@@ -69,13 +62,8 @@ public class UserFormDynamicSublistsPresenter {
 				// Obtain blocked items data
 				list.removeFooterView(layoutComponents.footerButtonsLayout());
 
-				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
-				layoutComponents.blocksLayout().setBackgroundResource(R.drawable.bgd_tab_pressed_right);
-
-				SharedPreferences settings = context.getSharedPreferences("prefs", 0);
-				if(settings.getBoolean("user_logged", false)) {
-					list.addFooterView(layoutComponents.footerButtonsLayout());
-				}
+//				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
+//				layoutComponents.blocksLayout().setBackgroundResource(Color.BLUE);
 
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, true, appOrderedList);
 				list.setAdapter(ula);

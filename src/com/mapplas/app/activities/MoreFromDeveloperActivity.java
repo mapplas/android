@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter;
@@ -84,12 +83,5 @@ public class MoreFromDeveloperActivity extends ListActivity {
 	
 	public void requestFinishedOk() {
 		this.adapter.notifyDataSetChanged();
-		
-		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
-
-		// Screen title
-		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
-		appNameTextView.setText(this.app.developerName());
-		appNameTextView.setTypeface(italicTypeFace);
 	}
 }

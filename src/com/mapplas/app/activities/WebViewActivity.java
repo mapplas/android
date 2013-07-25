@@ -9,19 +9,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
-import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.webView.TouchableScrollView;
 
 public class WebViewActivity extends Activity {
 
 	private String url;
-
-	private String title;
 
 	private RelativeLayout navBar = null;
 
@@ -40,7 +36,6 @@ public class WebViewActivity extends Activity {
 		this.setWebViewClientToWebView();
 
 		this.initializeComponents();
-		this.initializeTitle();
 		this.initializeBackButton();
 	}
 
@@ -58,10 +53,8 @@ public class WebViewActivity extends Activity {
 	private void extractDataFromBundle() {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null) {
-			if(extras.containsKey(Constants.APP_DEV_URL_INTENT_DATA) && extras.containsKey(Constants.APP_DEV_APP_NAMEL_INTENT_DATA)) {
+			if(extras.containsKey(Constants.APP_DEV_URL_INTENT_DATA)) {
 				this.url = extras.getString(Constants.APP_DEV_URL_INTENT_DATA);
-				this.title = extras.getString(Constants.APP_DEV_APP_NAMEL_INTENT_DATA);
-
 				this.webView = (WebView)findViewById(R.id.webView);
 				this.webView.loadUrl(this.url);
 			}
@@ -70,13 +63,6 @@ public class WebViewActivity extends Activity {
 				errorToast.show();
 			}
 		}
-	}
-
-	private void initializeTitle() {
-		TextView titleText = (TextView)findViewById(R.id.lblAppDetail);
-		titleText.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
-
-		titleText.setText(this.title);
 	}
 
 	private void initializeBackButton() {

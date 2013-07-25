@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.about_us.AboutUsAdapter;
@@ -25,10 +24,6 @@ public class AboutUsActivity extends Activity {
 
 	private void initializeLayoutComponents() {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
-
-		TextView title = (TextView)this.findViewById(R.id.preferences_screen_title);
-		title.setTypeface(italicTypeFace);
 
 		Button backButton = (Button)this.findViewById(R.id.preferences_back_button);
 		backButton.setOnClickListener(new OnClickListener() {

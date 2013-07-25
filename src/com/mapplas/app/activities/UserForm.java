@@ -48,8 +48,6 @@ public class UserForm extends Activity {
 
 	private LinearLayout buttonsFooter = null;
 
-	private View headerLayout = null;
-
 	private int userId = 0;
 
 	public static boolean somethingChanged = false;
@@ -161,11 +159,9 @@ public class UserForm extends Activity {
 	}
 
 	private void initLayoutComponents() {
-		this.headerLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_header, null);
 		this.refreshListBackgroundFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
 
 		this.listView = (ListView)findViewById(R.id.lvList);
-		this.listView.addHeaderView(this.headerLayout);
 		this.listView.addFooterView(this.refreshListBackgroundFooter);
 
 		// Define the divider color of the listview

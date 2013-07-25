@@ -177,7 +177,6 @@ public class AppDetail extends Activity {
 
 	private void initializeLayoutComponents() {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
 
 		// Set stars
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
@@ -200,10 +199,6 @@ public class AppDetail extends Activity {
 		}
 
 		// App detail header text view
-		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
-		appNameTextView.setText(this.app.getName());
-		appNameTextView.setTypeface(italicTypeFace);
-
 		TextView appNameAboveRatingTextView = (TextView)findViewById(R.id.lblTitle);
 		appNameAboveRatingTextView.setText(this.app.getName());
 		appNameAboveRatingTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
@@ -262,7 +257,6 @@ public class AppDetail extends Activity {
 					public void onClick(View v) {
 						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
 						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
-						intent.putExtra(Constants.APP_DEV_APP_NAMEL_INTENT_DATA, app.getName());
 						AppDetail.this.startActivity(intent);
 					}
 				});
