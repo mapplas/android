@@ -56,7 +56,7 @@ public class MoreFromDeveloperArrayAdapter extends ArrayAdapter<MoreFromDevelope
 
 		// Download apps images
 		ImageView img = (ImageView)view.findViewWithTag(R.id.logo);
-		img.setImageDrawable(null);
+//		img.setImageDrawable(null);
 	}
 
 }

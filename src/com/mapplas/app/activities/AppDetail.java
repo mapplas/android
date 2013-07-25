@@ -134,9 +134,26 @@ public class AppDetail extends Activity {
 			// resizer = new Resizer(gal);
 			// resizer.start(480, 500 * metrics.density);
 		}
+		
+		// Init more apps button
+		Button moreAppsButton = (Button)this.findViewById(R.id.moreAppsBtn);
+		if(this.app.moreFromDev().size() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
+			moreAppsButton.setVisibility(View.VISIBLE);
+			moreAppsButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
+					intent.putParcelableArrayListExtra(Constants.MORE_FROM_DEVELOPER_APP_ARRAY, app.moreFromDev());
+					startActivity(intent);
+				}
+			});
+		}
+		else {
+			moreAppsButton.setVisibility(View.GONE);
+		}
 
 		// Set correct height to listview to scroll ok
-
 		new ListViewInsideScrollHeigthHelper().setListViewHeightBasedOnChildren(this.list, this.adapter);
 	}
 
@@ -216,22 +233,6 @@ public class AppDetail extends Activity {
 				AppDetail.this.startActivity(browserIntent);				
 			}
 		});
-
-		Button moreAppsButton = (Button)this.findViewById(R.id.moreAppsBtn);
-		if(this.app.moreFromDev().size() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
-			moreAppsButton.setVisibility(View.VISIBLE);
-			moreAppsButton.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO: INTENT TO NEW ACTIVITY
-				
-				}
-			});
-		}
-		else {
-			moreAppsButton.setVisibility(View.GONE);
-		}
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
