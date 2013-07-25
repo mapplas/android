@@ -68,10 +68,6 @@ public class MapplasActivity extends Activity {
 
 	private AroundRequester aroundRequester = null;
 
-	private Button notificationsButton;
-
-	private boolean pressedNotificationScreen = false;
-
 	private TextView latitudeTV;
 
 	private TextView longitudeTV;
@@ -150,18 +146,6 @@ public class MapplasActivity extends Activity {
 			this.listView.updateAdapter(this, this.model, this.appsInstalledList);
 		}
 		super.onStart();
-	}
-
-	@Override
-	protected void onStop() {
-		if(this.pressedNotificationScreen) {
-			// Remove notifications red background
-			this.notificationsButton.setText("");
-			this.notificationsButton.setBackgroundResource(R.drawable.menu_notifications_button);
-
-			this.pressedNotificationScreen = false;
-		}
-		super.onStop();
 	}
 
 	@Override

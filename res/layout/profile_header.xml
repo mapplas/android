@@ -39,32 +39,6 @@
                 android:textSize="10sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/lytLikes"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:visibility="gone" >
-
-            <ImageView
-                android:id="@+id/btnFavourite"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:contentDescription="@string/image_content_description"
-                android:src="@drawable/ic_action_favourite_done" />
-
-            <TextView
-                android:id="@+id/lblFavourite"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="bottom|center_horizontal"
-                android:text="@string/likes"
-                android:textSize="10sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/lytBlocks"
