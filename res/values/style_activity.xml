@@ -4,14 +4,19 @@
         <item name="android:typeface">monospace</item>
     </style>
     
-    <style name="filterEditText">
-	    <item name="android:drawable">@drawable/filter_edit_text</item>
-	</style>
-	
-    <style name="profileButton">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:paddingRight">5dp</item>
-    </style>
+   <style name="NavigationBarText">
+       <item name="android:layout_width">fill_parent</item>
+       <item name="android:layout_height">fill_parent</item>
+       <item name="android:layout_marginLeft">64dp</item>
+       <item name="android:layout_marginRight">64dp</item>
+       <item name="android:gravity">center_horizontal|center_vertical</item>
+       <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+       <item name="android:textColor">@color/navigation_text_color</item>
+   </style>
+   
+   <style name="NavigationBarButton">
+       <item name="android:layout_width">64dp</item>
+       <item name="android:layout_height">64dp</item>
+       <item name="android:background">@drawable/menu_back_button_left</item>
+   </style>
 </resources>

@@ -144,4 +144,6 @@
  <color name="user_list_divider">#ffffff</color>
  <color name="comming_soon_pull">#0099CC</color>
  <color name="comming_soon_subtitle">#AAAAAA</color>
+ <color name="main_list_background">#f7f8f8</color>
+ <color name="navigation_text_color">#333333</color>
 </resources>
