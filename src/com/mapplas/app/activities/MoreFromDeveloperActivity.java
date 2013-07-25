@@ -1,7 +1,5 @@
 package com.mapplas.app.activities;
 
-import java.util.ArrayList;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,13 +13,16 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.model.App;
 import com.mapplas.model.Constants;
-import com.mapplas.model.MoreFromDeveloperApp;
+import com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask;
 import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 
 public class MoreFromDeveloperActivity extends ListActivity {
-
-	private ArrayList<MoreFromDeveloperApp> items;
+	
+	private App app;
+	
+	private String country_code;
 
 	private MoreFromDeveloperArrayAdapter adapter;
 
@@ -29,17 +30,18 @@ public class MoreFromDeveloperActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.more_apps_layout);
-
+		
 		this.extractDataFromBundle();
+		new MoreFromDeveloperTask(this, this.app, this.country_code).execute();
+
 		this.initializeLayoutComponents();
 	}
 
 	private void initializeLayoutComponents() {
-		this.adapter = new MoreFromDeveloperArrayAdapter(this, R.id.row_more_apps, this.items);
+		this.adapter = new MoreFromDeveloperArrayAdapter(this, R.id.row_more_apps, this.app.moreFromDev());
 		this.setListAdapter(this.adapter);
 
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
 
 		// Back button
 		Button backButton = (Button)findViewById(R.id.btnBack);
@@ -51,24 +53,43 @@ public class MoreFromDeveloperActivity extends ListActivity {
 				finish();
 			}
 		});
-
-		// Screen title
-		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
-		appNameTextView.setText("TODO DEVELOPER NAME");
-		appNameTextView.setTypeface(italicTypeFace);
 	}
 
 	private void extractDataFromBundle() {
-		Intent intent = getIntent();
-		if(intent != null) {
-			this.items = intent.getParcelableArrayListExtra(Constants.MORE_FROM_DEVELOPER_APP_ARRAY);
+		Bundle extras = getIntent().getExtras();
+		if(extras != null) {
+			if(extras.containsKey(Constants.MORE_FROM_DEVELOPER_APP) ) {
+				this.app = (App)extras.getParcelable(Constants.MORE_FROM_DEVELOPER_APP);
+			}
+			if(extras.containsKey(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE)) {
+				this.country_code = extras.getString(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE);
+			}
 		}
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(this.items.get(position).id());
+		String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(this.app.moreFromDev().get(position).id());
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreLink));
 		MoreFromDeveloperActivity.this.startActivity(browserIntent);
+	}
+	
+	/**
+	 * Task response
+	 *
+	 */
+	public void requestFinishedNok() {
+		
+	}
+	
+	public void requestFinishedOk() {
+		this.adapter.notifyDataSetChanged();
+		
+		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
+
+		// Screen title
+		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
+		appNameTextView.setText(this.app.developerName());
+		appNameTextView.setTypeface(italicTypeFace);
 	}
 }

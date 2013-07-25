@@ -144,7 +144,8 @@ public class AppDetail extends Activity {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
-					intent.putParcelableArrayListExtra(Constants.MORE_FROM_DEVELOPER_APP_ARRAY, app.moreFromDev());
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_APP, app);
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, model.countryCode());
 					startActivity(intent);
 				}
 			});

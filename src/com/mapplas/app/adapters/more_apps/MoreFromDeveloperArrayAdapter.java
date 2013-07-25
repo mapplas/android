@@ -12,6 +12,10 @@ import android.widget.TextView;
 import app.mapplas.com.R;
 
 import com.mapplas.model.MoreFromDeveloperApp;
+import com.mapplas.utils.cache.CacheFolderFactory;
+import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.network.async_tasks.LoadImageTask;
+import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 
 public class MoreFromDeveloperArrayAdapter extends ArrayAdapter<MoreFromDeveloperApp> {
 
@@ -54,9 +58,20 @@ public class MoreFromDeveloperArrayAdapter extends ArrayAdapter<MoreFromDevelope
 		TextView description = (TextView)view.findViewById(R.id.description);
 		description.setText(this.items.get(position).shortDescription());
 
-		// Download apps images
-		ImageView img = (ImageView)view.findViewWithTag(R.id.logo);
-//		img.setImageDrawable(null);
+		// Load app logo
+		ImageView logo_iv = (ImageView)view.findViewById(R.id.logo);
+		ImageFileManager imageFileManager = new ImageFileManager();
+
+		String logoUrl = this.items.get(position).logo();
+		if(!logoUrl.equals("")) {
+			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
+				logo_iv.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
+			}
+			else {
+				TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, logo_iv, imageFileManager));
+				imageRequest.execute();
+			}
+		}
 	}
 
 }

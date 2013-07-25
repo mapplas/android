@@ -41,6 +41,8 @@ public class App implements Parcelable {
 	private ArrayList<MoreFromDeveloperApp> moreFromDev = new ArrayList<MoreFromDeveloperApp>();
 	
 	private int moreFromDeveloperCount;
+	
+	private String developerName;
 
 	private String type = Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION;
 
@@ -191,7 +193,15 @@ public class App implements Parcelable {
 	public void setMoreFromDeveloperCount(int moreFromDeveloperCount) {
 		this.moreFromDeveloperCount = moreFromDeveloperCount;
 	}
+	
+	public String developerName() {
+		return this.developerName;
+	}
 
+	public void setDeveloperName(String developerName) {
+		this.developerName = developerName;
+	}
+	
 	/**
 	 * Parcelable methods
 	 */
@@ -219,6 +229,7 @@ public class App implements Parcelable {
 		dest.writeString(this.shortDescription);
 		dest.writeTypedList(this.moreFromDev);
 		dest.writeInt(this.moreFromDeveloperCount);
+		dest.writeString(this.developerName);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -240,6 +251,7 @@ public class App implements Parcelable {
 		this.shortDescription = parcel.readString();
 		parcel.readTypedList(this.moreFromDev, MoreFromDeveloperApp.CREATOR);
 		this.moreFromDeveloperCount = parcel.readInt();
+		this.developerName = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
