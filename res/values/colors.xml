@@ -149,5 +149,5 @@
     <color name="app_title_color_cell">#333333</color>
     <color name="app_description_color_cell">#333333</color>
     <color name="main_screen_title_color">#0099CC</color>
-
+	<color name="lat_lon_color">#0099CC</color>
 </resources>

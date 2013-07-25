@@ -52,13 +52,15 @@
             android:id="@+id/lblLat"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/lat_lon_color" />
 
         <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/lblLon"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center" 
+            android:textColor="@color/lat_lon_color"/>
     </LinearLayout>
 
 </RelativeLayout>
