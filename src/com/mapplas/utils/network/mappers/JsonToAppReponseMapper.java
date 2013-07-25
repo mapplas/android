@@ -6,27 +6,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.mapplas.model.App;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
-import com.mapplas.utils.network.mappers.generic.JsonToAppMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
 public class JsonToAppReponseMapper implements TargetMapper {
 
 	private boolean resetPagination;
+	
+	private Context context;
 
-	public void setResetPagination(boolean reset) {
+	public void setResetPagination(boolean reset, Context context) {
 		this.resetPagination = reset;
+		this.context = context;
 	}
 
 	@Override
 	public void map(JSONObject json, Object target) {
 
-		JsonToAppMapper appMapper = new JsonToAppMapper();
+		JsonToAppMapper appMapper = new JsonToAppMapper(this.context);
 		SuperModel model = (SuperModel)target;
 
 		try {

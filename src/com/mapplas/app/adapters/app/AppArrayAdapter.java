@@ -34,6 +34,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.image.PixelDensityImageChooser;
 import com.mapplas.utils.network.async_tasks.LoadImageTask;
 import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
@@ -277,6 +278,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		// Load app logo
 		ImageFileManager imageFileManager = new ImageFileManager();
 		String logoUrl = app.getAppLogo();
+		
 		if(!logoUrl.equals("")) {
 			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
 				logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));

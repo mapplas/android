@@ -31,7 +31,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 		this.setContentView(R.layout.more_apps_layout);
 		
 		this.extractDataFromBundle();
-		new MoreFromDeveloperTask(this, this.app, this.country_code).execute();
+		new MoreFromDeveloperTask(this, this.app, this.country_code, this).execute();
 
 		this.initializeLayoutComponents();
 	}
@@ -78,7 +78,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 	 *
 	 */
 	public void requestFinishedNok() {
-		new MoreFromDeveloperTask(this, this.app, this.country_code).execute();
+		new MoreFromDeveloperTask(this, this.app, this.country_code, this).execute();
 	}
 	
 	public void requestFinishedOk() {

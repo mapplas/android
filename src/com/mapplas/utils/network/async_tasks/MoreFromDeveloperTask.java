@@ -2,6 +2,7 @@ package com.mapplas.utils.network.async_tasks;
 
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.mapplas.app.activities.MoreFromDeveloperActivity;
@@ -16,11 +17,14 @@ public class MoreFromDeveloperTask extends AsyncTask<Void, Void, String> {
 	private App app;
 
 	private String countryCode;
+	
+	private Context context;
 
-	public MoreFromDeveloperTask(MoreFromDeveloperActivity moreFromDevActivity, App app, String country_code) {
+	public MoreFromDeveloperTask(MoreFromDeveloperActivity moreFromDevActivity, App app, String country_code, Context context) {
 		this.moreFromDevActivity = moreFromDevActivity;
 		this.app = app;
 		this.countryCode = country_code;
+		this.context = context;
 	}
 
 	@Override
@@ -41,7 +45,7 @@ public class MoreFromDeveloperTask extends AsyncTask<Void, Void, String> {
 		
 		// Parse response
 		try {
-			new JsonToMoreFromDeveloperActivityMapper().map(new JSONObject(result), this.app);
+			new JsonToMoreFromDeveloperActivityMapper(this.context).map(new JSONObject(result), this.app);
 		} catch (Exception e) {
 			this.moreFromDevActivity.requestFinishedNok();
 		}

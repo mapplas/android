@@ -67,7 +67,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 		Location location = (Location)params[0];
 
 		try {
-			AppGetterConnector.request(location, this.model, (Boolean)params[1]);
+			AppGetterConnector.request(location, this.model, (Boolean)params[1], context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

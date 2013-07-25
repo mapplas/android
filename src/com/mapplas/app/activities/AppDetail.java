@@ -110,7 +110,7 @@ public class AppDetail extends Activity {
 	}
 
 	private void requestApplicationDetailInfo() {
-		new AppDetailTask(this, this.app, this.model.countryCode()).execute();
+		new AppDetailTask(this, this.app, this.model.countryCode(), this).execute();
 	}
 
 	public void detailRequestFinishedOk() {
@@ -160,7 +160,7 @@ public class AppDetail extends Activity {
 
 	public void detailRequestFinishedNok() {
 		// Detail loading error. Try again.
-		new AppDetailTask(this, this.app, this.model.countryCode()).execute();
+		new AppDetailTask(this, this.app, this.model.countryCode(), this).execute();
 	}
 
 	private void initializeAnimations() {

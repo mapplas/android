@@ -103,5 +103,10 @@ public class Constants {
 
 	
 	public static int NUMBER_OF_RELATED_APPS_TO_SHOW = 3;
+	
+	public static String LOW_PIXEL_DENSITY = "low";
+	public static String MEDIUM_PIXEL_DENSITY = "medium";
+	public static String HIGH_PIXEL_DENSITY = "high";
+	public static String EXTRA_HIGH_PIXEL_DENSITY = "extra_high";
 
 }

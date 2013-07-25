@@ -57,8 +57,8 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 		try {
 			JSONObject jsonResult = new JSONObject(result);
 			
-			this.user.setPinnedApps(new JsonToPinnedAppsMapper().map(jsonResult.getJSONArray("pinned")));
-			this.user.setBlockedApps(new JsonToBlockedAppsMapper().map(jsonResult.getJSONArray("blocked")));
+			this.user.setPinnedApps(new JsonToPinnedAppsMapper(this.context).map(jsonResult.getJSONArray("pinned")));
+			this.user.setBlockedApps(new JsonToBlockedAppsMapper(this.context).map(jsonResult.getJSONArray("blocked")));
 			
 		} catch (Exception e) {
 			Log.d(this.getClass().getSimpleName(), "error parsing", e);

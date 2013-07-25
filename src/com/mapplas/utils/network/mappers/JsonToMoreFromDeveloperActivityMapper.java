@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.mapplas.model.App;
@@ -14,6 +15,12 @@ import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
 public class JsonToMoreFromDeveloperActivityMapper implements TargetMapper {
+
+	private Context context;
+
+	public JsonToMoreFromDeveloperActivityMapper(Context context) {
+		this.context = context;
+	}
 
 	@Override
 	public void map(JSONObject json, Object target) {
@@ -37,7 +44,7 @@ public class JsonToMoreFromDeveloperActivityMapper implements TargetMapper {
 	private void moreFromDeveloper(JSONArray json, App app) {
 		app.moreFromDev().clear();
 		ArrayList<MoreFromDeveloperApp> mapList = app.moreFromDev();
-		new JsonToMoreFromDeveloperMapper(mapList).map(json);
+		new JsonToMoreFromDeveloperMapper(mapList, this.context).map(json);
 	}
 
 }

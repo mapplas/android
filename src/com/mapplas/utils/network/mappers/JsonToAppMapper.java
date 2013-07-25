@@ -1,4 +1,4 @@
-package com.mapplas.utils.network.mappers.generic;
+package com.mapplas.utils.network.mappers;
 
 import java.util.ArrayList;
 
@@ -6,15 +6,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.mapplas.model.App;
+import com.mapplas.utils.image.PixelDensityImageChooser;
+import com.mapplas.utils.network.mappers.generic.GenericMapper;
 import com.mapplas.utils.network.mappers.generic.base.IteratingMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyIntegerValueMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
 public class JsonToAppMapper implements IteratingMapper {
+
+	private Context context;
+
+	public JsonToAppMapper(Context context) {
+		this.context = context;
+	}
 
 	@Override
 	public ArrayList<App> map(JSONArray json) {
@@ -51,6 +60,8 @@ public class JsonToAppMapper implements IteratingMapper {
 			GenericMapper mapper = new GenericMapper(mappers);
 			mapper.map(json, app);
 
+			this.changeLogoUrlDependingOnDensity(app);
+
 		} catch (Exception e) {
 			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
 		}
@@ -58,4 +69,7 @@ public class JsonToAppMapper implements IteratingMapper {
 		return app;
 	}
 
+	private void changeLogoUrlDependingOnDensity(App app) {
+		app.setAppLogo(new PixelDensityImageChooser(this.context).getImageUrlDependingOnDensity(app.getAppLogo()));
+	}
 }
