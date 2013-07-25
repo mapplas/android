@@ -3,6 +3,7 @@ package com.mapplas.app.adapters.more_apps;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
+import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.MoreFromDeveloperApp;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
@@ -52,11 +54,15 @@ public class MoreFromDeveloperArrayAdapter extends ArrayAdapter<MoreFromDevelope
 	}
 
 	private void initLayout(View view, int position) {
+		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
+
 		TextView title = (TextView)view.findViewById(R.id.title);
 		title.setText(this.items.get(position).name());
+		title.setTypeface(normalTypeface);
 
 		TextView description = (TextView)view.findViewById(R.id.description);
 		description.setText(this.items.get(position).shortDescription());
+		description.setTypeface(normalTypeface);
 
 		// Load app logo
 		ImageView logo_iv = (ImageView)view.findViewById(R.id.logo);

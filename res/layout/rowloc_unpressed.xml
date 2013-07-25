@@ -20,7 +20,6 @@
             android:maxLines="2"
             android:text="@string/title"
             android:textColor="#333333"
-            android:textStyle="bold"
             android:textSize="16sp"
             android:typeface="normal" 
             android:lineSpacingExtra="-2sp"/>

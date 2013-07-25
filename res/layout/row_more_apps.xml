@@ -46,9 +46,9 @@
             android:layout_marginLeft="2dp"
             android:lineSpacingExtra="-2sp"
             android:maxLines="2"
+            android:text="@string/title"
             android:textColor="#333333"
             android:textSize="16sp"
-            android:textStyle="bold"
             android:typeface="normal" />
 
         <TextView
