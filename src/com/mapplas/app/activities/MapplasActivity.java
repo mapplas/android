@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.R.anim;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -230,37 +231,48 @@ public class MapplasActivity extends Activity {
 	 * Radar animation
 	 */
 	private void startRadarAnimation() {
-		ImageView outerImage = (ImageView)this.findViewById(R.id.imgOuter);
+		ImageView radar1 = (ImageView)this.findViewById(R.id.radar_1);
 		RotateAnimation rotate = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		this.setRotateAnimConstants(rotate);
 		rotate.setDuration(1200);
-		rotate.setRepeatMode(Animation.RESTART);
-		rotate.setRepeatCount(Animation.INFINITE);
-		rotate.setInterpolator(new LinearInterpolator());
-		outerImage.startAnimation(rotate);
+		radar1.startAnimation(rotate);
 
-		ImageView northSouthImage = (ImageView)this.findViewById(R.id.imgMeasures);
+		ImageView radar2 = (ImageView)this.findViewById(R.id.radar_2);
 		RotateAnimation rotate2 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		rotate2.setDuration(1200);
-		rotate2.setRepeatMode(Animation.RESTART);
-		rotate2.setRepeatCount(Animation.INFINITE);
-		rotate2.setInterpolator(new LinearInterpolator());
-		northSouthImage.startAnimation(rotate2);
+		this.setRotateAnimConstants(rotate2);
+		rotate.setDuration(1200);
+		radar2.startAnimation(rotate2);
 
-		ImageView trianglesImage = (ImageView)this.findViewById(R.id.imgTriangles);
+		ImageView radar3 = (ImageView)this.findViewById(R.id.radar_3);
 		RotateAnimation rotate3 = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		this.setRotateAnimConstants(rotate3);
 		rotate3.setDuration(1200);
-		rotate3.setRepeatMode(Animation.RESTART);
-		rotate3.setRepeatCount(Animation.INFINITE);
-		rotate3.setInterpolator(new LinearInterpolator());
-		trianglesImage.startAnimation(rotate3);
+		radar3.startAnimation(rotate3);
 
-		ImageView shadowImage = (ImageView)this.findViewById(R.id.imgShadow);
-		RotateAnimation rotate4 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		ImageView radar4 = (ImageView)this.findViewById(R.id.radar_4);
+		RotateAnimation rotate4 = new RotateAnimation(0, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		this.setRotateAnimConstants(rotate4);
 		rotate4.setDuration(1200);
-		rotate4.setRepeatMode(Animation.RESTART);
-		rotate4.setRepeatCount(Animation.INFINITE);
-		rotate4.setInterpolator(new LinearInterpolator());
-		shadowImage.startAnimation(rotate4);
+		radar4.startAnimation(rotate4);
+		
+		ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
+		RotateAnimation rotate5 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		this.setRotateAnimConstants(rotate5);
+		rotate5.setDuration(1200);
+		radar5.startAnimation(rotate5);
+		
+		ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
+		RotateAnimation rotate6 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		this.setRotateAnimConstants(rotate6);
+		rotate6.setDuration(1200);
+		radar6.startAnimation(rotate6);
+	}
+	
+	private void setRotateAnimConstants(RotateAnimation animation) {
+		animation.setRepeatMode(Animation.RESTART);
+		animation.setFillAfter(false);
+		animation.setRepeatCount(Animation.INFINITE);
+		animation.setInterpolator(new LinearInterpolator());
 	}
 
 	private void startLatLongAnimation() {
