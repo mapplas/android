@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="72dp"
-    android:background="@drawable/bgd_rowloc" >
+    android:background="@color/White" >
 
     <com.mapplas.utils.visual.custom_views.RobotoTextView
         android:id="@android:id/text1"

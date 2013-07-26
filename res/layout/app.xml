@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <RelativeLayout style="@style/NavigationBar" >
@@ -25,7 +26,7 @@
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#f7f8f8" >
+        android:background="@color/White" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -36,7 +37,7 @@
                 android:id="@+id/lytApp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#f7f8f8"
+                android:background="@color/White"
                 android:baselineAligned="true"
                 android:orientation="horizontal"
                 android:padding="2dp" >
@@ -52,8 +53,8 @@
 
                     <ImageView
                         style="@style/ImageRoundLogo"
-                        android:src="@drawable/roundc"
-                        android:contentDescription="@string/image_content_description" />
+                        android:contentDescription="@string/image_content_description"
+                        android:src="@drawable/roundc" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -125,7 +126,7 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:background="#f7f8f8"
+                android:background="@color/White"
                 android:baselineAligned="true" >
 
                 <LinearLayout

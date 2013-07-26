@@ -141,7 +141,7 @@
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
-    <color name="user_list_divider">#ffffff</color>
+    <color name="user_list_divider">#D3D3D3</color>
     <color name="comming_soon_pull">#0099CC</color>
     <color name="comming_soon_subtitle">#AAAAAA</color>
     <color name="main_list_background">#f7f8f8</color>

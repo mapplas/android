@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -151,6 +152,14 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				this.initializeActionLayouts(app, cellHolder, convertView);
 			}
 
+			// Cell background
+			if(app.isAuxPin() == 0) {
+				convertView.setBackgroundColor(Color.WHITE);
+			}
+			else {
+				convertView.setBackgroundColor(Color.GRAY);
+			}
+
 			return convertView;
 		}
 	}
@@ -233,6 +242,11 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				((MapplasActivity)context).startActivity(intent);
 			}
 		});
+
+		// Background
+		if(app.isAuxPin() == 0) {
+
+		}
 	}
 
 	private void initializeStartButton(final App app, Button buttonStart) {
