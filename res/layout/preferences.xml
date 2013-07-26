@@ -6,14 +6,12 @@
 
     <RelativeLayout style="@style/NavigationBar" >
 
-        <Button
+        <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/preferences_back_button"
             style="@style/NavigationBarButton" />
 
-        <TextView
-            android:id="@+id/preferences_screen_title"
-            style="@style/NavigationBarText"
-            android:text="@string/preferences_title" />
+        <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
+        </com.mapplas.utils.visual.custom_views.RobotoTextView>
     </RelativeLayout>
 
     <ListView

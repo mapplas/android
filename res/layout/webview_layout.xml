@@ -8,12 +8,10 @@
         android:id="@+id/webview_navbar"
         style="@style/NavigationBar" >
 
-        <TextView
-            android:id="@+id/lblAppDetail"
-            style="@style/NavigationBarText" >
-        </TextView>
+        <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
+        </com.mapplas.utils.visual.custom_views.RobotoTextView>
 
-        <Button
+        <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/btnBack"
             style="@style/NavigationBarButton" />
     </RelativeLayout>

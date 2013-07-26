@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.location.Location;
 
 import com.mapplas.model.Constants;
@@ -23,7 +24,7 @@ import com.mapplas.utils.network.mappers.JsonToAppReponseMapper;
 
 public class AppGetterConnector {
 	
-	public static String request(Location location, SuperModel model, boolean resetPagination) throws Exception {
+	public static String request(Location location, SuperModel model, boolean resetPagination, Context context) throws Exception {
 		String serverResponse = "";
 		
 		int page = checkPageToRequest(resetPagination, model);
@@ -45,7 +46,7 @@ public class AppGetterConnector {
 				serverResponse = EntityUtils.toString(rp.getEntity());
 
 				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
-				mapper.setResetPagination(resetPagination);
+				mapper.setResetPagination(resetPagination, context);
 				// Iterative mapper
 				mapper.map(new JSONObject(serverResponse), model);
 			}

@@ -40,6 +40,7 @@ import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
+import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
 import com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper;
 import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
@@ -110,7 +111,7 @@ public class AppDetail extends Activity {
 	}
 
 	private void requestApplicationDetailInfo() {
-		new AppDetailTask(this, this.app, this.model.countryCode()).execute();
+		new AppDetailTask(this, this.app, this.model.countryCode(), this).execute();
 	}
 
 	public void detailRequestFinishedOk() {
@@ -136,10 +137,10 @@ public class AppDetail extends Activity {
 		}
 		
 		// Init more apps button
-		Button moreAppsButton = (Button)this.findViewById(R.id.moreAppsBtn);
+		ImageView moreAppsImg = (ImageView)this.findViewById(R.id.moreAppsBtn);
 		if(this.app.moreFromDeveloperCount() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
-			moreAppsButton.setVisibility(View.VISIBLE);
-			moreAppsButton.setOnClickListener(new OnClickListener() {
+			moreAppsImg.setVisibility(View.VISIBLE);
+			moreAppsImg.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -151,7 +152,7 @@ public class AppDetail extends Activity {
 			});
 		}
 		else {
-			moreAppsButton.setVisibility(View.GONE);
+			moreAppsImg.setVisibility(View.GONE);
 		}
 
 		// Set correct height to listview to scroll ok
@@ -160,7 +161,7 @@ public class AppDetail extends Activity {
 
 	public void detailRequestFinishedNok() {
 		// Detail loading error. Try again.
-		new AppDetailTask(this, this.app, this.model.countryCode()).execute();
+		new AppDetailTask(this, this.app, this.model.countryCode(), this).execute();
 	}
 
 	private void initializeAnimations() {
@@ -177,7 +178,6 @@ public class AppDetail extends Activity {
 
 	private void initializeLayoutComponents() {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
-		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
 
 		// Set stars
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
@@ -198,12 +198,8 @@ public class AppDetail extends Activity {
 				imageRequest.execute();
 			}
 		}
-
+		
 		// App detail header text view
-		TextView appNameTextView = (TextView)findViewById(R.id.lblAppDetail);
-		appNameTextView.setText(this.app.getName());
-		appNameTextView.setTypeface(italicTypeFace);
-
 		TextView appNameAboveRatingTextView = (TextView)findViewById(R.id.lblTitle);
 		appNameAboveRatingTextView.setText(this.app.getName());
 		appNameAboveRatingTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
@@ -262,7 +258,6 @@ public class AppDetail extends Activity {
 					public void onClick(View v) {
 						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
 						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
-						intent.putExtra(Constants.APP_DEV_APP_NAMEL_INTENT_DATA, app.getName());
 						AppDetail.this.startActivity(intent);
 					}
 				});
@@ -356,13 +351,16 @@ public class AppDetail extends Activity {
 
 	private void initPinLayout(LinearLayout lytPinup) {
 		final ImageView ivPinup = (ImageView)findViewById(R.id.btnPinUp);
+		RobotoTextView tvPinup = (RobotoTextView)findViewById(R.id.lblPinUp);
 		ivPinup.setTag(this.app);
 
 		if(this.app.isAuxPin() == 0) {
-			ivPinup.setImageResource(R.drawable.action_pin_button);
+			ivPinup.setImageResource(R.drawable.ic_action_pinup);
+			tvPinup.setText(R.string.pin_up);
 		}
 		else {
-			ivPinup.setImageResource(R.drawable.action_unpin_button);
+			ivPinup.setImageResource(R.drawable.ic_action_unpinup);
+			tvPinup.setText(R.string.un_pin_up);
 		}
 
 		lytPinup.setOnClickListener(new View.OnClickListener() {
@@ -379,10 +377,10 @@ public class AppDetail extends Activity {
 					final String uid = auxuid;
 
 					if(anonLoc.isAuxPin() == 1) {
-						ivPinup.setImageResource(R.drawable.action_pin_button);
+						ivPinup.setImageResource(R.drawable.ic_action_pinup);
 					}
 					else {
-						ivPinup.setImageResource(R.drawable.action_unpin_button);
+						ivPinup.setImageResource(R.drawable.ic_action_unpinup);
 					}
 
 					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;

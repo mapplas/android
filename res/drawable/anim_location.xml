@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animation-list   android:id="@+id/map_animation" android:oneshot="false" 
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/icon_map" android:duration="300" />
-    <item android:drawable="@drawable/icon_map" android:duration="100" />
- </animation-list> 
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/map_animation"
+    android:oneshot="false" >
+
+    <item
+        android:drawable="@drawable/ic_map"
+        android:duration="300"/>
+    <item
+        android:drawable="@drawable/ic_map"
+        android:duration="100"/>
+
+</animation-list>

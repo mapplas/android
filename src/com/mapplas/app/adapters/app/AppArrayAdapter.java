@@ -151,6 +151,14 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				this.initializeActionLayouts(app, cellHolder, convertView);
 			}
 
+			// Cell background
+			if(app.isAuxPin() == 0) {
+				convertView.setBackgroundResource(R.color.White);
+			}
+			else {
+				convertView.setBackgroundResource(R.color.pinned_app_cell_background_color);
+			}
+
 			return convertView;
 		}
 	}
@@ -241,10 +249,10 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
 		if(app.isAuxPin() == 1) {
-			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
+			image.setBackgroundResource(R.drawable.roundc_pinup);
 		}
 		else {
-			image.setBackgroundResource(R.drawable.roundc_btn_selector);
+			image.setBackgroundResource(R.drawable.roundc);
 		}
 	}
 
@@ -277,6 +285,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		// Load app logo
 		ImageFileManager imageFileManager = new ImageFileManager();
 		String logoUrl = app.getAppLogo();
+
 		if(!logoUrl.equals("")) {
 			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
 				logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
@@ -289,6 +298,17 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
+
+		if(app.isAuxPin() == 1) {
+			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
+			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup);
+			cellHolder.pinUp.setText(R.string.un_pin_up);
+		}
+		else {
+			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
+			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc);
+			cellHolder.pinUp.setText(R.string.pin_up);
+		}
 
 		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
 
@@ -303,13 +323,13 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					final String uid = auxuid;
 
 					if(app.isAuxPin() == 1) {
-						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
-						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
+						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
+						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc);
 						cellHolder.pinUp.setText(R.string.pin_up);
 					}
 					else {
-						cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
-						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
+						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
+						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
 					}
 

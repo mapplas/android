@@ -79,7 +79,7 @@ public class AroundRequester implements UserLocationListener {
 
 	private void loadTasks(Location location, boolean reset_pagination) {
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
-		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
+		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
 		this.model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
@@ -99,7 +99,7 @@ public class AroundRequester implements UserLocationListener {
 		else if(mWifi.isConnected() || mMobile.isConnected()) {
 			try {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
-				this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
+				this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
 				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList).execute(new Location(location), reset_pagination);
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));

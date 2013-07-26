@@ -4,27 +4,17 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:background="@drawable/bgd_menu" >
+    <RelativeLayout style="@style/NavigationBar" >
 
-        <Button
+        <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/text_layout_back_button"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_alignParentLeft="true"
             android:background="@drawable/menu_back_button_left" />
 
-        <TextView
-            android:id="@+id/text_layout_screen_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_horizontal"
-            android:textColor="#333333"
-            android:textSize="22sp" />
+        <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
+        </com.mapplas.utils.visual.custom_views.RobotoTextView>
     </RelativeLayout>
 
     <WebView

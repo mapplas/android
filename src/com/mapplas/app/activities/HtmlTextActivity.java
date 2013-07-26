@@ -1,16 +1,13 @@
 package com.mapplas.app.activities;
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 
 public class HtmlTextActivity extends Activity {
@@ -20,15 +17,8 @@ public class HtmlTextActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.text_layout);
 		
-		Typeface italicTypeFace = ((MapplasApplication)this.getApplicationContext()).getItalicTypeFace();
-
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null) {
-			if(bundle.containsKey(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_TITLE)) {
-				TextView screenTitle = (TextView)this.findViewById(R.id.text_layout_screen_title);
-				screenTitle.setTypeface(italicTypeFace);
-				screenTitle.setText(bundle.getString(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_TITLE));
-			}
 
 			if(bundle.containsKey(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE)) {
 				WebView screenMessage = (WebView)this.findViewById(R.id.web_layout_message);

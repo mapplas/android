@@ -112,7 +112,7 @@ public class RefreshableListView extends ListView {
 		mIsRefreshing = false;
 		
 		mArrowOrRefresing.setAnimation(null);
-		mArrowOrRefresing.setImageResource(R.drawable.ic_pulltorefresh_arrow);
+		mArrowOrRefresing.setImageResource(R.drawable.refreshable_listview_arrow);
 		
 		invalidateViews();
 	}
@@ -260,7 +260,7 @@ public class RefreshableListView extends ListView {
 		mHeaderView = mHeaderContainer.findViewById(R.id.all_header);
 		mArrowOrRefresing = (ImageView)mHeaderContainer.findViewById(R.id.ivImage);
 		mArrowOrRefresing.setAnimation(null);
-		mArrowOrRefresing.setImageResource(R.drawable.ic_pulltorefresh_arrow);
+		mArrowOrRefresing.setImageResource(R.drawable.refreshable_listview_arrow);
 		mText = (TextView)mHeaderContainer.findViewById(R.id.lblAction);
 		addHeaderView(mHeaderContainer);
 

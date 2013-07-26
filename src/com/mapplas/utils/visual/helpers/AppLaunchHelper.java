@@ -103,7 +103,6 @@ public class AppLaunchHelper {
 							else {
 								Intent webViewIntent = new Intent(context, WebViewActivity.class);
 								webViewIntent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, anonLoc.appDeveloperWeb());
-								webViewIntent.putExtra(Constants.APP_DEV_APP_NAMEL_INTENT_DATA, anonLoc.getName());
 								context.startActivity(webViewIntent);
 							}
 						}

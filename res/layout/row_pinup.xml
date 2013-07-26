@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_marginRight="5dp"
-    android:background="#f7f8f8"
+    android:background="@color/White"
     android:orientation="horizontal" >
 
     <RelativeLayout
@@ -18,7 +18,8 @@
         <ImageView
             android:id="@+id/imgRonundC"
             style="@style/ImageRoundLogo"
-            android:contentDescription="@string/image_content_description" />
+            android:contentDescription="@string/image_content_description"
+            android:src="@drawable/roundc" />
     </RelativeLayout>
 
     <LinearLayout
@@ -32,11 +33,11 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblTitle"
                 style="@style/AppTitleCell" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblLocation"
                 style="@style/AppDescriptionCell"
                 android:textSize="12sp" />
@@ -50,7 +51,7 @@
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/ic_action_unpinup" />
 
-            <TextView
+            <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblunpin"
                 style="@style/UnblockUnpinActionText"
                 android:text="@string/un_pin_up" />
