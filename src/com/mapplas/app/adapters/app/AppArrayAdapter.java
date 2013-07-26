@@ -277,7 +277,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		// Load app logo
 		ImageFileManager imageFileManager = new ImageFileManager();
 		String logoUrl = app.getAppLogo();
-		
+
 		if(!logoUrl.equals("")) {
 			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
 				logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
@@ -290,6 +290,17 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	}
 
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
+
+		if(app.isAuxPin() == 1) {
+			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
+			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
+			cellHolder.pinUp.setText(R.string.un_pin_up);
+		}
+		else {
+			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
+			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
+			cellHolder.pinUp.setText(R.string.pin_up);
+		}
 
 		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
 
@@ -304,12 +315,12 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					final String uid = auxuid;
 
 					if(app.isAuxPin() == 1) {
-						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
+						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
 						cellHolder.pinUp.setText(R.string.pin_up);
 					}
 					else {
-						cellHolder.pinUpImg.setImageResource(R.drawable.action_unpin_button);
+						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
 					}

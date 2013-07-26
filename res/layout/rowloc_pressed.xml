@@ -20,7 +20,7 @@
                 android:id="@+id/btnPinUp"
                 style="@style/ActionButtonImage"
                 android:contentDescription="@string/image_content_description"
-                android:src="@drawable/action_pin_button" />
+                android:src="@drawable/ic_action_pinup" />
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblPinUp"
