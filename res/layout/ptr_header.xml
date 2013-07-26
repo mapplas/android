@@ -23,7 +23,7 @@
                 android:layout_height="32dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_pulltorefresh_arrow" />
+                android:src="@drawable/refreshable_listview_arrow" />
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblAction"

@@ -1,5 +1,9 @@
 package com.mapplas.utils.network.async_tasks;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -54,8 +58,11 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
 		
+		//Unescape
+		String escapedResult = URLDecoder.decode(result);
+		
 		try {
-			JSONObject jsonResult = new JSONObject(result);
+			JSONObject jsonResult = new JSONObject(escapedResult);
 			
 			this.user.setPinnedApps(new JsonToPinnedAppsMapper(this.context).map(jsonResult.getJSONArray("pinned")));
 			this.user.setBlockedApps(new JsonToBlockedAppsMapper(this.context).map(jsonResult.getJSONArray("blocked")));

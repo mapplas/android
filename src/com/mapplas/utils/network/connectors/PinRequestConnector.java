@@ -1,6 +1,7 @@
 package com.mapplas.utils.network.connectors;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class PinRequestConnector {
 		if(action == Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN) {
 			nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(currentLatitude)));
 			nameValuePairs.add(new BasicNameValuePair("lon", String.valueOf(currentLongitude)));
-			nameValuePairs.add(new BasicNameValuePair("a", reverseGeocodedLocation));
+			nameValuePairs.add(new BasicNameValuePair("a", URLEncoder.encode(reverseGeocodedLocation)));
 		}
 		
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));

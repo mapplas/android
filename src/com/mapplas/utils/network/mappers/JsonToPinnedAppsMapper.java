@@ -6,10 +6,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.mapplas.model.App;
 import com.mapplas.utils.image.PixelDensityImageChooser;
+import com.mapplas.utils.network.mappers.generic.GenericMapper;
 import com.mapplas.utils.network.mappers.generic.base.IteratingMapper;
+import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
+import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
 
 public class JsonToPinnedAppsMapper implements IteratingMapper {
 
@@ -29,21 +33,29 @@ public class JsonToPinnedAppsMapper implements IteratingMapper {
 				JSONObject currentObject = (JSONObject)json.get(i);
 
 				App app = new App();
-				app.setId(currentObject.getString("id"));
-				app.setAppLogo(currentObject.getString("i"));
-				app.setName(currentObject.getString("n"));
-				app.setAdress(currentObject.getString("a"));
-
+				
+				ArrayList<TargetMapper> mappers = new ArrayList<TargetMapper>();
+				
+				mappers.add(new KeyValueScapedMapper("id", App.class.getMethod("setId", String.class)));
+				mappers.add(new KeyValueScapedMapper("i", App.class.getMethod("setAppLogo", String.class)));
+				mappers.add(new KeyValueScapedMapper("n", App.class.getMethod("setName", String.class)));
+				mappers.add(new KeyValueScapedMapper("a", App.class.getMethod("setAdress", String.class)));
+				
+				GenericMapper mapper = new GenericMapper(mappers);
+				mapper.map(currentObject, app);
+				
 				this.changeLogoUrlDependingOnDensity(app);
 
 				pinnedApps.add(app);
+				
 			} catch (Exception e) {
-
+				Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
 			}
 		}
 
 		return pinnedApps;
 	}
+
 
 	private void changeLogoUrlDependingOnDensity(App app) {
 		app.setAppLogo(new PixelDensityImageChooser(this.context).getImageUrlDependingOnDensity(app.getAppLogo()));
