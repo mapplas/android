@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.R.anim;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
