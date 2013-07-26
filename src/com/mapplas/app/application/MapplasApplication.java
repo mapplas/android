@@ -12,9 +12,9 @@ public class MapplasApplication extends Application {
 	private Typeface typefaceItalic = null;
 
 	public void loadTypefaces() {
-		this.typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-		this.typefaceBold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
-		this.typefaceItalic = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Italic.ttf");
+		this.typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Thin.ttf");
+		this.typefaceBold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+		this.typefaceItalic = Typeface.createFromAsset(getAssets(), "fonts/Roboto-ThinItalic.ttf");
 	}
 
 	public Typeface getTypeFace() {
