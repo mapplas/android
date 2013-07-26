@@ -18,7 +18,8 @@
         <ImageView
             android:id="@+id/imgRonundC"
             style="@style/ImageRoundLogo"
-            android:contentDescription="@string/image_content_description" />
+            android:contentDescription="@string/image_content_description"
+            android:src="@drawable/roundc" />
     </RelativeLayout>
 
     <LinearLayout

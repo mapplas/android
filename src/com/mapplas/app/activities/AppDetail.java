@@ -137,10 +137,10 @@ public class AppDetail extends Activity {
 		}
 		
 		// Init more apps button
-		Button moreAppsButton = (Button)this.findViewById(R.id.moreAppsBtn);
+		ImageView moreAppsImg = (ImageView)this.findViewById(R.id.moreAppsBtn);
 		if(this.app.moreFromDeveloperCount() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
-			moreAppsButton.setVisibility(View.VISIBLE);
-			moreAppsButton.setOnClickListener(new OnClickListener() {
+			moreAppsImg.setVisibility(View.VISIBLE);
+			moreAppsImg.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -152,7 +152,7 @@ public class AppDetail extends Activity {
 			});
 		}
 		else {
-			moreAppsButton.setVisibility(View.GONE);
+			moreAppsImg.setVisibility(View.GONE);
 		}
 
 		// Set correct height to listview to scroll ok
@@ -198,7 +198,7 @@ public class AppDetail extends Activity {
 				imageRequest.execute();
 			}
 		}
-
+		
 		// App detail header text view
 		TextView appNameAboveRatingTextView = (TextView)findViewById(R.id.lblTitle);
 		appNameAboveRatingTextView.setText(this.app.getName());

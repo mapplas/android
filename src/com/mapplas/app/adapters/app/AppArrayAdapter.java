@@ -241,10 +241,10 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 	private void initializeLogoBackgroundPinImage(App app, ImageView image) {
 		if(app.isAuxPin() == 1) {
-			image.setBackgroundResource(R.drawable.roundc_pinup_selector);
+			image.setBackgroundResource(R.drawable.roundc_pinup);
 		}
 		else {
-			image.setBackgroundResource(R.drawable.roundc_btn_selector);
+			image.setBackgroundResource(R.drawable.roundc);
 		}
 	}
 
@@ -293,12 +293,12 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 		if(app.isAuxPin() == 1) {
 			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
-			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
+			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup);
 			cellHolder.pinUp.setText(R.string.un_pin_up);
 		}
 		else {
 			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
-			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
+			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc);
 			cellHolder.pinUp.setText(R.string.pin_up);
 		}
 
@@ -316,12 +316,12 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 					if(app.isAuxPin() == 1) {
 						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
-						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_btn_selector);
+						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc);
 						cellHolder.pinUp.setText(R.string.pin_up);
 					}
 					else {
 						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
-						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup_selector);
+						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
 					}
 

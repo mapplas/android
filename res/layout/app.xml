@@ -52,6 +52,7 @@
 
                     <ImageView
                         style="@style/ImageRoundLogo"
+                        android:src="@drawable/roundc"
                         android:contentDescription="@string/image_content_description" />
                 </RelativeLayout>
 
@@ -272,13 +273,14 @@
                     android:layout_height="wrap_content" >
                 </ListView>
 
-                <com.mapplas.utils.visual.custom_views.RobotoButton
+                <ImageView
                     android:id="@+id/moreAppsBtn"
                     android:layout_width="38dp"
                     android:layout_height="10dp"
                     android:layout_gravity="right"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
+                    android:contentDescription="@string/image_content_description"
                     android:src="@drawable/ic_more" />
 
                 <LinearLayout
@@ -288,7 +290,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp" >
+                    android:layout_marginTop="10dp" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoButton
                         android:id="@+id/lblWeb"

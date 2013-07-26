@@ -38,7 +38,6 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:duplicateParentState">true</item>
-        <item name="android:src">@drawable/roundc</item>
     </style>
 
     <style name="AppTitleDescriptionInfoLayout">

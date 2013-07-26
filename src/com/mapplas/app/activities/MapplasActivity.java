@@ -214,7 +214,7 @@ public class MapplasActivity extends Activity {
 
 		// ListView header status image
 		this.listViewHeaderImage = (ImageView)listViewHeader.findViewById(R.id.imgMap);
-		this.listViewHeaderImage.setBackgroundResource(R.drawable.icon_map);
+		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
 		// Set refresh header listener
 		this.listView.setOnRefreshListener(new OnRefreshListener() {
