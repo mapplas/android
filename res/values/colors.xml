@@ -151,5 +151,5 @@
     <color name="main_screen_title_color">#0099CC</color>
     <color name="lat_lon_color">#0099CC</color>
     <color name="pinned_app_cell_background_color">#EAEAEA</color>
-
+	<color name="no_apps_screen_background">#E4E4E4</color>
 </resources>

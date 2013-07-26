@@ -90,7 +90,7 @@ public class MapplasActivity extends Activity {
 		// Get phone IMEI as identifier (problems with ANDROID_ID)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
-
+		
 		this.startRadarAnimation();
 		this.startLatLongAnimation();
 
