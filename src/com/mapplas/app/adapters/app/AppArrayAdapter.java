@@ -201,6 +201,18 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
+		
+		// Check 1-2 lines for app name. 2-3 lines for app short description.
+		if(cellHolder.title.getMeasuredWidth() != 0 && cellHolder.title.getMeasuredWidth() < cellHolder.title.getPaint().measureText(app.getName())) {
+			cellHolder.title.setSingleLine(false);
+			cellHolder.title.setLines(2);
+			cellHolder.shortDescription.setLines(2);
+		}
+		else {
+			cellHolder.title.setSingleLine(true);
+			cellHolder.title.setLines(1);
+			cellHolder.shortDescription.setLines(3);
+		}
 
 		cellHolder.shortDescription.setTypeface(normalTypeface);
 		cellHolder.shortDescription.setText(app.getAppShortDescription());
