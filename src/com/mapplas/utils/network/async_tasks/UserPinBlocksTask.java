@@ -1,9 +1,7 @@
 package com.mapplas.utils.network.async_tasks;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
 import android.content.Context;

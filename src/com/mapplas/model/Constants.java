@@ -108,5 +108,7 @@ public class Constants {
 	public static String MEDIUM_PIXEL_DENSITY = "medium";
 	public static String HIGH_PIXEL_DENSITY = "high";
 	public static String EXTRA_HIGH_PIXEL_DENSITY = "extra_high";
+	
+	public static String SERVER_RESPONSE_ERROR_USER_IDENTIFICATION = "server_response_error_user_ident";
 
 }
