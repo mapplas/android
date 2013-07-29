@@ -11,6 +11,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
@@ -31,6 +33,10 @@ public class AppGetterConnector {
 		
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "apps/" + page + "/");
+		
+		HttpParams params = hc.getParams();
+	    HttpConnectionParams.setConnectionTimeout(params, 8000);
+	    HttpConnectionParams.setSoTimeout(params, 3000);
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(location.getLatitude())));
