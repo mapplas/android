@@ -100,6 +100,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				convertView = inflater.inflate(R.layout.rowloc, null);
 
 				cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+//				Log.d("IF getMeasuredWidth", ""+cellHolder.title.getMeasuredWidth());
+//				Log.d("IF getWidth", ""+cellHolder.title.getWidth());
 				cellHolder.shortDescription = (TextView)convertView.findViewById(R.id.lblShortDescription);
 
 				cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
@@ -139,7 +141,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 			else {
 				cellHolder = (AppViewHolder)convertView.getTag();
-
+//				Log.d("ELSE getMeasuredWidth", ""+cellHolder.title.getMeasuredWidth());
+//				Log.d("ELSE getWidth", ""+cellHolder.title.getWidth());
 				this.initializeCellHolder(app, cellHolder);
 
 				this.initializeStartButton(app, cellHolder.buttonStart);
@@ -198,6 +201,19 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
+		
+		// Check 1-2 lines for app name. 2-3 lines for app short description.
+		if(cellHolder.title.getMeasuredWidth() != 0 && cellHolder.title.getMeasuredWidth() < cellHolder.title.getPaint().measureText(app.getName())) {
+			cellHolder.title.setSingleLine(false);
+			cellHolder.title.setLines(2);
+			cellHolder.shortDescription.setLines(2);
+		}
+		else {
+			cellHolder.title.setSingleLine(true);
+			cellHolder.title.setLines(1);
+			cellHolder.shortDescription.setLines(3);
+		}
+
 		cellHolder.shortDescription.setTypeface(normalTypeface);
 		cellHolder.shortDescription.setText(app.getAppShortDescription());
 

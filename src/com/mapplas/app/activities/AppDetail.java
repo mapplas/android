@@ -40,6 +40,7 @@ import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
+import com.mapplas.utils.utils.NumberUtils;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
 import com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper;
@@ -135,7 +136,7 @@ public class AppDetail extends Activity {
 			// resizer = new Resizer(gal);
 			// resizer.start(480, 500 * metrics.density);
 		}
-		
+
 		// Init more apps button
 		ImageView moreAppsImg = (ImageView)this.findViewById(R.id.moreAppsBtn);
 		if(this.app.moreFromDeveloperCount() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
@@ -180,8 +181,12 @@ public class AppDetail extends Activity {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 
 		// Set stars
+		float rating = this.app.rating();
 		RatingBar rbRating = (RatingBar)findViewById(R.id.rbRating);
-		rbRating.setRating(this.app.rating());
+		rbRating.setRating(rating);
+
+		RobotoTextView ratingValue = (RobotoTextView)findViewById(R.id.rbRatingValue);
+		ratingValue.setText("(" + String.valueOf((NumberUtils.RoundToHalf(rating))) + ")");
 
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);
@@ -198,11 +203,15 @@ public class AppDetail extends Activity {
 				imageRequest.execute();
 			}
 		}
-		
+
 		// App detail header text view
 		TextView appNameAboveRatingTextView = (TextView)findViewById(R.id.lblTitle);
 		appNameAboveRatingTextView.setText(this.app.getName());
 		appNameAboveRatingTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
+
+		if(appNameAboveRatingTextView.getMeasuredWidth() < appNameAboveRatingTextView.getPaint().measureText(this.app.getName())) {
+			appNameAboveRatingTextView.setLines(2);
+		}
 
 		// Back button
 		Button backButton = (Button)findViewById(R.id.btnBack);
@@ -219,7 +228,7 @@ public class AppDetail extends Activity {
 		this.adapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
 		this.list = (ListView)this.findViewById(R.id.list);
 		this.list.setAdapter(this.adapter);
-		
+
 		// Item click listener
 		this.list.setOnItemClickListener(new OnItemClickListener() {
 
@@ -227,7 +236,7 @@ public class AppDetail extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(app.moreFromDev().get(position).id());
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreLink));
-				AppDetail.this.startActivity(browserIntent);				
+				AppDetail.this.startActivity(browserIntent);
 			}
 		});
 	}

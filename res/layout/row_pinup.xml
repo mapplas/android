@@ -35,12 +35,11 @@
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblTitle"
-                style="@style/AppTitleCell" />
+                style="@style/PinnedAppTitleCell" />
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblLocation"
-                style="@style/AppDescriptionCell"
-                android:textSize="12sp" />
+                style="@style/PinnedAppDescriptionCell" />
         </LinearLayout>
 
         <LinearLayout style="@style/UnblockUnpinActionLayout" >

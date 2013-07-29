@@ -21,5 +21,9 @@ public class NumberUtils {
 
 		return String.valueOf(ret);
 	}
+	
+	public static float RoundToHalf(float x) {
+	    return (float) (Math.ceil(x * 2) / 2);
+	}
 
 }
