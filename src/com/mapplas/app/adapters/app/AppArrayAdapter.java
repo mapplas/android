@@ -100,6 +100,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				convertView = inflater.inflate(R.layout.rowloc, null);
 
 				cellHolder.title = (TextView)convertView.findViewById(R.id.lblTitle);
+//				Log.d("IF getMeasuredWidth", ""+cellHolder.title.getMeasuredWidth());
+//				Log.d("IF getWidth", ""+cellHolder.title.getWidth());
 				cellHolder.shortDescription = (TextView)convertView.findViewById(R.id.lblShortDescription);
 
 				cellHolder.pinUp = (TextView)convertView.findViewById(R.id.lblPinUp);
@@ -139,7 +141,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 			else {
 				cellHolder = (AppViewHolder)convertView.getTag();
-
+//				Log.d("ELSE getMeasuredWidth", ""+cellHolder.title.getMeasuredWidth());
+//				Log.d("ELSE getWidth", ""+cellHolder.title.getWidth());
 				this.initializeCellHolder(app, cellHolder);
 
 				this.initializeStartButton(app, cellHolder.buttonStart);
@@ -198,6 +201,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
+
 		cellHolder.shortDescription.setTypeface(normalTypeface);
 		cellHolder.shortDescription.setText(app.getAppShortDescription());
 
