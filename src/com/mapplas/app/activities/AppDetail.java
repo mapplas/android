@@ -203,6 +203,10 @@ public class AppDetail extends Activity {
 		TextView appNameAboveRatingTextView = (TextView)findViewById(R.id.lblTitle);
 		appNameAboveRatingTextView.setText(this.app.getName());
 		appNameAboveRatingTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getTypeFace());
+		
+		if(appNameAboveRatingTextView.getMeasuredWidth() < appNameAboveRatingTextView.getPaint().measureText(this.app.getName())) {
+			appNameAboveRatingTextView.setLines(2);
+		}
 
 		// Back button
 		Button backButton = (Button)findViewById(R.id.btnBack);

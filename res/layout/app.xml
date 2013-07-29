@@ -8,7 +8,7 @@
     <RelativeLayout style="@style/NavigationBar" >
 
         <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
-</com.mapplas.utils.visual.custom_views.RobotoTextView>
+        </com.mapplas.utils.visual.custom_views.RobotoTextView>
 
         <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/btnBack"
@@ -53,23 +53,22 @@
                 <LinearLayout
                     android:id="@+id/app_detail_app_title_rating_layout"
                     android:layout_width="0dp"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
                         android:id="@+id/lblTitle"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:layout_marginTop="4dp"
                         android:lines="1"
-                        android:singleLine="true"
+                        android:gravity="center_vertical"
                         android:text="@string/category"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <RatingBar
                         android:id="@+id/rbRating"
@@ -79,7 +78,6 @@
                         android:layout_gravity="left"
                         android:layout_marginLeft="0dp"
                         android:layout_marginRight="0dp"
-                        android:layout_marginTop="4dp"
                         android:isIndicator="true"
                         android:max="5"
                         android:paddingBottom="0dp"
