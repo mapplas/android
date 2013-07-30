@@ -291,48 +291,28 @@
 
                 <include layout="@layout/separator" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" >
+                <RelativeLayout style="@style/DeveloperContactLayout" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="4dp"
-                        android:text="email"
-                        android:textSize="14dp" />
+                        style="@style/DeveloperContactCellText"
+                        android:text="@string/devMail" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="4dp"
-                        android:src="@drawable/ic_go" />
+                        style="@style/DeveloperContactCellImage"
+                        android:contentDescription="@string/image_content_description" />
                 </RelativeLayout>
 
                 <include layout="@layout/separator" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" >
+                <RelativeLayout style="@style/DeveloperContactLayout" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="4dp"
-                        android:text="web"
-                        android:textSize="14dp" />
+                        style="@style/DeveloperContactCellText"
+                        android:text="@string/devWeb" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="4dp"
-                        android:src="@drawable/ic_go" />
+                        style="@style/DeveloperContactCellImage"
+                        android:contentDescription="@string/image_content_description" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
