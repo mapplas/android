@@ -6,9 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -63,6 +60,7 @@ public class UserForm extends Activity {
 		this.initializeAnimations();
 		this.initLayoutComponents();
 		this.initializeBackButton();
+		this.initializeSettingsButton();
 
 		// Request user app preferences
 		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter, this.appOrderedList).execute();
@@ -89,20 +87,6 @@ public class UserForm extends Activity {
 			UserForm.somethingChanged = false;
 		}
 		super.onPause();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater menuInflater = this.getMenuInflater();
-		menuInflater.inflate(R.layout.config_menu, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(this, AboutUsActivity.class);
-		startActivity(intent);
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -172,8 +156,8 @@ public class UserForm extends Activity {
 	}
 
 	private void initializeBackButton() {
-		Button btn = (Button)findViewById(R.id.btnBack);
-		btn.setOnClickListener(new View.OnClickListener() {
+		Button backBtn = (Button)findViewById(R.id.btnBack);
+		backBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -187,5 +171,18 @@ public class UserForm extends Activity {
 				finish();
 			}
 		});
+	}
+
+	private void initializeSettingsButton() {
+		Button settinsBtn = (Button)this.findViewById(R.id.btnSettings);
+		settinsBtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(UserForm.this, AboutUsActivity.class);
+				startActivity(intent);
+			}
+		});
+
 	}
 }
