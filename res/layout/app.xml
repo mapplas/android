@@ -260,7 +260,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible" >
+                android:visibility="gone" >
 
                 <com.mapplas.utils.visual.custom_views.RobotoTextView
                     android:id="@+id/lblDeveloper"
@@ -287,8 +287,9 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
                     android:contentDescription="@string/image_content_description"
-                    android:src="@drawable/ic_more" />
-
+                    android:src="@drawable/ic_more"
+                    android:layout_marginBottom="10dp" />
+                <!--
                 <RelativeLayout
                     android:id="@+id/developer_email_layout"
                     style="@style/DeveloperContactLayout" >
@@ -301,7 +302,6 @@
                         style="@style/DeveloperContactCellImage"
                         android:contentDescription="@string/image_content_description" />
 
-                    <include layout="@layout/developer_contact_views_separator" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -316,6 +316,7 @@
                         style="@style/DeveloperContactCellImage"
                         android:contentDescription="@string/image_content_description" />
                 </RelativeLayout>
+                -->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
