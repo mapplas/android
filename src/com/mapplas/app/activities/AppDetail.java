@@ -139,10 +139,10 @@ public class AppDetail extends Activity {
 		}
 
 		// Init more apps button
-		ImageView moreAppsImg = (ImageView)this.findViewById(R.id.moreAppsBtn);
+		RelativeLayout moreAppsLayout = (RelativeLayout)this.findViewById(R.id.more_from_developer_plus_layout);
 		if(this.app.moreFromDeveloperCount() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
-			moreAppsImg.setVisibility(View.VISIBLE);
-			moreAppsImg.setOnClickListener(new OnClickListener() {
+			moreAppsLayout.setVisibility(View.VISIBLE);
+			moreAppsLayout.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -154,7 +154,7 @@ public class AppDetail extends Activity {
 			});
 		}
 		else {
-			moreAppsImg.setVisibility(View.GONE);
+			moreAppsLayout.setVisibility(View.GONE);
 		}
 
 		// Set correct height to listview to scroll ok
