@@ -32,7 +32,7 @@ public class HtmlTextActivity extends Activity {
 			}
 		}
 		
-		Button backButton = (Button)this.findViewById(R.id.text_layout_back_button);
+		Button backButton = (Button)this.findViewById(R.id.nav_bar_back_button);
 		backButton.setOnClickListener(new OnClickListener() {
 
 			@Override

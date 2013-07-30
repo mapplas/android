@@ -30,13 +30,13 @@
                 android:text="@string/user_screen_segmented_control_blocks" />
         </LinearLayout>
 
-        <com.mapplas.utils.visual.custom_views.RobotoButton
+        <Button
             android:id="@+id/btnBack"
             style="@style/NavigationBarButton"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true" />
 
-        <com.mapplas.utils.visual.custom_views.RobotoButton
+        <Button
             android:id="@+id/btnSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
