@@ -235,6 +235,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		this.initializeShareLayout(app, cellHolder);
 
 		if(app.getInternalApplicationInfo() != null) {
+			cellHolder.rateLayout.setVisibility(View.VISIBLE);
 			this.initializeRateLayout(app, cellHolder);
 		}
 		else {
@@ -314,12 +315,12 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
 
 		if(app.isAuxPin() == 1) {
-			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
+			cellHolder.pinUpImg.setImageResource(R.drawable.action_un_pinup_button);
 			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup);
 			cellHolder.pinUp.setText(R.string.un_pin_up);
 		}
 		else {
-			cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
+			cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 			cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc);
 			cellHolder.pinUp.setText(R.string.pin_up);
 		}
@@ -337,12 +338,12 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					final String uid = auxuid;
 
 					if(app.isAuxPin() == 1) {
-						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_pinup);
+						cellHolder.pinUpImg.setImageResource(R.drawable.action_pin_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc);
 						cellHolder.pinUp.setText(R.string.pin_up);
 					}
 					else {
-						cellHolder.pinUpImg.setImageResource(R.drawable.ic_action_unpinup);
+						cellHolder.pinUpImg.setImageResource(R.drawable.action_un_pinup_button);
 						cellHolder.logoRoundCorner.setBackgroundResource(R.drawable.roundc_pinup);
 						cellHolder.pinUp.setText(R.string.un_pin_up);
 					}

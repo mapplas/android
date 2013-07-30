@@ -48,7 +48,7 @@
                 android:id="@+id/btnAction"
                 style="@style/UnblockUnpinActionImage"
                 android:contentDescription="@string/image_content_description"
-                android:src="@drawable/ic_action_unpinup" />
+                android:src="@drawable/action_un_pinup_button" />
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblunpin"

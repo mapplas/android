@@ -366,11 +366,11 @@ public class AppDetail extends Activity {
 		ivPinup.setTag(this.app);
 
 		if(this.app.isAuxPin() == 0) {
-			ivPinup.setImageResource(R.drawable.ic_action_pinup);
+			ivPinup.setImageResource(R.drawable.action_pin_button);
 			tvPinup.setText(R.string.pin_up);
 		}
 		else {
-			ivPinup.setImageResource(R.drawable.ic_action_unpinup);
+			ivPinup.setImageResource(R.drawable.action_un_pinup_button);
 			tvPinup.setText(R.string.un_pin_up);
 		}
 
@@ -388,10 +388,10 @@ public class AppDetail extends Activity {
 					final String uid = auxuid;
 
 					if(anonLoc.isAuxPin() == 1) {
-						ivPinup.setImageResource(R.drawable.ic_action_pinup);
+						ivPinup.setImageResource(R.drawable.action_pin_button);
 					}
 					else {
-						ivPinup.setImageResource(R.drawable.ic_action_unpinup);
+						ivPinup.setImageResource(R.drawable.action_un_pinup_button);
 					}
 
 					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;
