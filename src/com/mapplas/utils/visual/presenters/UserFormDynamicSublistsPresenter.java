@@ -36,17 +36,15 @@ public class UserFormDynamicSublistsPresenter {
 	}
 
 	private void pinUpsLayoutBehaviour() {
-//		this.layoutComponents.pinUpsLayout().setBackgroundResource();
-
-		this.layoutComponents.pinUpsLayout().setOnClickListener(new View.OnClickListener() {
+		this.layoutComponents.pinUpsButton().setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// Obtain blocked items data
 				list.removeFooterView(layoutComponents.footerButtonsLayout());
 
-//				layoutComponents.blocksLayout().setBackgroundResource(Color.TRANSPARENT);
-//				layoutComponents.pinUpsLayout().setBackgroundResource(Color.BLUE);
+				layoutComponents.pinUpsButton().setBackgroundResource(R.drawable.btn_segmented_left_pressed);
+				layoutComponents.blocksButton().setBackgroundResource(R.drawable.btn_segmented_right);
 
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.pinnedApps(), UserAppAdapter.PINUP, user, true, appOrderedList);
 				list.setAdapter(ula);
@@ -55,15 +53,15 @@ public class UserFormDynamicSublistsPresenter {
 	}
 
 	private void setBlocksLayoutBehaviour() {
-		this.layoutComponents.blocksLayout().setOnClickListener(new View.OnClickListener() {
+		this.layoutComponents.blocksButton().setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// Obtain blocked items data
 				list.removeFooterView(layoutComponents.footerButtonsLayout());
 
-//				layoutComponents.pinUpsLayout().setBackgroundResource(Color.TRANSPARENT);
-//				layoutComponents.blocksLayout().setBackgroundResource(Color.BLUE);
+				layoutComponents.pinUpsButton().setBackgroundResource(R.drawable.btn_segmented_left);
+				layoutComponents.blocksButton().setBackgroundResource(R.drawable.btn_segmented_right_pressed);
 
 				UserAppAdapter ula = new UserAppAdapter(context, R.id.lblTitle, user.blockedApps(), UserAppAdapter.BLOCK, user, true, appOrderedList);
 				list.setAdapter(ula);
