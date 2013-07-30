@@ -9,47 +9,32 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" >
+            android:layout_centerVertical="true"
+            android:orientation="horizontal" >
 
-            <LinearLayout
-                android:id="@+id/lytAction"
+            <com.mapplas.utils.visual.custom_views.RobotoButton
+                android:id="@+id/pinned_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#f7f8f8"
-                android:layout_gravity="center_horizontal|center_vertical" >
+                android:background="@drawable/btn_segmented_left"
+                android:text="@string/user_screen_segmented_control_pins"
+                android:textSize="12sp" />
 
-                <LinearLayout
-                    android:id="@+id/lytPinups"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_screen_segmented_control_pins"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lytBlocks"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_screen_segmented_control_blocks"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
+            <com.mapplas.utils.visual.custom_views.RobotoButton
+                android:id="@+id/blocked_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_segmented_right_pressed"
+                android:text="@string/user_screen_segmented_control_blocks"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/btnBack"
             style="@style/NavigationBarButton"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 
     <LinearLayout
