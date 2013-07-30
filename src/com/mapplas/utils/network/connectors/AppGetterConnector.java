@@ -36,7 +36,7 @@ public class AppGetterConnector {
 		
 		HttpParams params = hc.getParams();
 	    HttpConnectionParams.setConnectionTimeout(params, 8000);
-	    HttpConnectionParams.setSoTimeout(params, 3000);
+	    HttpConnectionParams.setSoTimeout(params, 6000);
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(location.getLatitude())));

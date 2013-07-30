@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
@@ -52,7 +53,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 	private User user = null;
 
 	private boolean showEmptyMessage;
-	
+
 	private AppOrderedList appOrderedList;
 
 	private static Semaphore mSemaphore = new Semaphore(1);
@@ -181,7 +182,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 				view.setTag(position);
 
 				final TextView lblTitle = (TextView)view.findViewById(R.id.lblTitle);
-				final ImageView btnAction = (ImageView)view.findViewById(R.id.btnAction);
+				final LinearLayout actionLayout = (LinearLayout)view.findViewById(R.id.unpin_unblock_action_layout);
 				final ImageView ivLogo = (ImageView)view.findViewById(R.id.imgLogo);
 
 				// Set app logo
@@ -203,8 +204,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 				lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
 				lblTitle.setText(app.getName());
 
-				btnAction.setTag(app);
-				btnAction.setOnClickListener(new View.OnClickListener() {
+				actionLayout.setTag(app);
+				actionLayout.setOnClickListener(new View.OnClickListener() {
 
 					@Override
 					public void onClick(View v) {

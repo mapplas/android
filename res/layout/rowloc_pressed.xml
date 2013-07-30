@@ -20,7 +20,7 @@
                 android:id="@+id/btnPinUp"
                 style="@style/ActionButtonImage"
                 android:contentDescription="@string/image_content_description"
-                android:src="@drawable/ic_action_pinup" />
+                android:src="@drawable/action_pin_button" />
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblPinUp"
@@ -52,7 +52,7 @@
                 android:id="@+id/btnBlock"
                 style="@style/ActionButtonImage"
                 android:contentDescription="@string/image_content_description"
-                android:src="@drawable/ic_action_block" />
+                android:src="@drawable/action_block_button" />
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblBlock"
@@ -68,7 +68,7 @@
                 android:id="@+id/btnShare"
                 style="@style/ActionButtonImage"
                 android:contentDescription="@string/image_content_description"
-                android:src="@drawable/ic_action_share" />
+                android:src="@drawable/action_share_button" />
 
             <com.mapplas.utils.visual.custom_views.RobotoTextView
                 android:id="@+id/lblShare"

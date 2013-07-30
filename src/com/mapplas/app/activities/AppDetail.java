@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
@@ -138,10 +139,10 @@ public class AppDetail extends Activity {
 		}
 
 		// Init more apps button
-		ImageView moreAppsImg = (ImageView)this.findViewById(R.id.moreAppsBtn);
+		RelativeLayout moreAppsLayout = (RelativeLayout)this.findViewById(R.id.more_from_developer_plus_layout);
 		if(this.app.moreFromDeveloperCount() > Constants.NUMBER_OF_RELATED_APPS_TO_SHOW) {
-			moreAppsImg.setVisibility(View.VISIBLE);
-			moreAppsImg.setOnClickListener(new OnClickListener() {
+			moreAppsLayout.setVisibility(View.VISIBLE);
+			moreAppsLayout.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -153,7 +154,7 @@ public class AppDetail extends Activity {
 			});
 		}
 		else {
-			moreAppsImg.setVisibility(View.GONE);
+			moreAppsLayout.setVisibility(View.GONE);
 		}
 
 		// Set correct height to listview to scroll ok
@@ -225,8 +226,9 @@ public class AppDetail extends Activity {
 		});
 
 		// More apps from developer list
-		this.moreAppsAdapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
 		this.moreAppsList = (ListView)this.findViewById(R.id.list);
+
+		this.moreAppsAdapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
 		this.moreAppsList.setAdapter(this.moreAppsAdapter);
 
 		// Item click listener
@@ -239,11 +241,13 @@ public class AppDetail extends Activity {
 				AppDetail.this.startActivity(browserIntent);
 			}
 		});
+
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
 
-		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("") || this.app.moreFromDev().size() > 0) {
+		if(this.app.moreFromDev().size() > 0) {
+//		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("") || this.app.moreFromDev().size() > 0) {
 
 			// Developer layout
 			LinearLayout developerLayout = (LinearLayout)findViewById(R.id.lytDeveloper);
@@ -253,8 +257,44 @@ public class AppDetail extends Activity {
 			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
 			developerTextView.setTypeface(normalTypeFace);
 
-			// Developer contact
-			
+//			// Developer email
+//			RelativeLayout emailLayout = (RelativeLayout)this.findViewById(R.id.developer_email_layout);
+//			if(!this.app.appDeveloperEmail().equals("")) {
+//				emailLayout.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						v.setBackgroundResource(R.color.pinned_app_cell_background_color);
+//						Intent i = new Intent(Intent.ACTION_SEND);
+//						i.setType("text/html"); // use from live device
+//						i.putExtra(Intent.EXTRA_EMAIL, new String[] { app.appDeveloperEmail() });
+//						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
+//						startActivity(Intent.createChooser(i, "Select email application."));
+//					}
+//				});
+//			}
+//			else {
+//				emailLayout.setVisibility(View.GONE);
+//			}
+//
+//			// Developer web
+//			RelativeLayout webLayout = (RelativeLayout)this.findViewById(R.id.developer_web_layout);
+//			if(!this.app.appDeveloperWeb().equals("")) {
+//				webLayout.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						v.setBackgroundResource(R.color.pinned_app_cell_background_color);
+//						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
+//						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
+//						AppDetail.this.startActivity(intent);
+//					}
+//				});
+//			}
+//			else {
+//				webLayout.setVisibility(View.GONE);
+//			}
+
 		}
 	}
 
@@ -327,11 +367,11 @@ public class AppDetail extends Activity {
 		ivPinup.setTag(this.app);
 
 		if(this.app.isAuxPin() == 0) {
-			ivPinup.setImageResource(R.drawable.ic_action_pinup);
+			ivPinup.setImageResource(R.drawable.action_pin_button);
 			tvPinup.setText(R.string.pin_up);
 		}
 		else {
-			ivPinup.setImageResource(R.drawable.ic_action_unpinup);
+			ivPinup.setImageResource(R.drawable.action_un_pinup_button);
 			tvPinup.setText(R.string.un_pin_up);
 		}
 
@@ -349,10 +389,10 @@ public class AppDetail extends Activity {
 					final String uid = auxuid;
 
 					if(anonLoc.isAuxPin() == 1) {
-						ivPinup.setImageResource(R.drawable.ic_action_pinup);
+						ivPinup.setImageResource(R.drawable.action_pin_button);
 					}
 					else {
-						ivPinup.setImageResource(R.drawable.ic_action_unpinup);
+						ivPinup.setImageResource(R.drawable.action_un_pinup_button);
 					}
 
 					String pinUnpinRequestConstant = Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_PIN;

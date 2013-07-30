@@ -95,7 +95,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:paddingLeft="5dp"
-                            android:textSize="16sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -146,7 +146,7 @@
                         android:id="@+id/btnPinUp"
                         style="@style/ActionButtonImage"
                         android:contentDescription="@string/image_content_description"
-                        android:src="@drawable/ic_action_pinup" />
+                        android:src="@drawable/action_pin_button" />
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
                         android:id="@+id/lblPinUp"
@@ -186,7 +186,7 @@
                         android:id="@+id/btnBlock"
                         style="@style/ActionButtonImage"
                         android:contentDescription="@string/image_content_description"
-                        android:src="@drawable/ic_action_block" />
+                        android:src="@drawable/action_block_button" />
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
                         android:id="@+id/lblBlock"
@@ -248,7 +248,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:contentDescription="@string/image_content_description"
                     android:src="@drawable/ic_more" />
             </LinearLayout>
@@ -260,7 +260,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible" >
+                android:visibility="gone" >
 
                 <com.mapplas.utils.visual.custom_views.RobotoTextView
                     android:id="@+id/lblDeveloper"
@@ -279,61 +279,52 @@
                     android:layout_height="wrap_content" >
                 </ListView>
 
-                <ImageView
-                    android:id="@+id/moreAppsBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
-                    android:contentDescription="@string/image_content_description"
-                    android:src="@drawable/ic_more" />
-
-                <include layout="@layout/separator" />
-
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="4dp"
-                        android:text="email"
-                        android:textSize="14dp" />
+                    android:id="@+id/more_from_developer_plus_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp" >
 
                     <ImageView
+                        android:id="@+id/moreAppsBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="4dp"
-                        android:src="@drawable/ic_go" />
+                        android:layout_marginRight="5dp"
+                        android:contentDescription="@string/image_content_description"
+                        android:src="@drawable/ic_plus" />
                 </RelativeLayout>
 
-                <include layout="@layout/separator" />
-
+                <!--
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" >
+                    android:id="@+id/developer_email_layout"
+                    style="@style/DeveloperContactLayout" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="4dp"
-                        android:text="web"
-                        android:textSize="14dp" />
+                        style="@style/DeveloperContactCellText"
+                        android:text="@string/devMail" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="4dp"
-                        android:src="@drawable/ic_go" />
+                        style="@style/DeveloperContactCellImage"
+                        android:contentDescription="@string/image_content_description" />
+
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/developer_web_layout"
+                    style="@style/DeveloperContactLayout" >
+
+                    <com.mapplas.utils.visual.custom_views.RobotoTextView
+                        style="@style/DeveloperContactCellText"
+                        android:text="@string/devWeb" />
+
+                    <ImageView
+                        style="@style/DeveloperContactCellImage"
+                        android:contentDescription="@string/image_content_description" />
+                </RelativeLayout>
+                -->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

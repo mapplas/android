@@ -40,7 +40,7 @@
                 android:id="@+id/lvLista"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/no_apps_screen_background"
+                android:background="@color/main_list_header_background"
                 android:visibility="invisible" >
             </com.mapplas.utils.third_party.RefreshableListView>
         </LinearLayout>
