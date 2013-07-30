@@ -63,9 +63,9 @@ public class AppDetail extends Activity {
 
 	private boolean somethingChanged = false;
 
-	private DetailMoreAppsArrayAdapter adapter;
+	private DetailMoreAppsArrayAdapter moreAppsAdapter;
 
-	private ListView list;
+	private ListView moreAppsList;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -157,7 +157,7 @@ public class AppDetail extends Activity {
 		}
 
 		// Set correct height to listview to scroll ok
-		new ListViewInsideScrollHeigthHelper().setListViewHeightBasedOnChildren(this.list, this.adapter);
+		new ListViewInsideScrollHeigthHelper().setListViewHeightBasedOnChildren(this.moreAppsList, this.moreAppsAdapter);
 	}
 
 	public void detailRequestFinishedNok() {
@@ -225,12 +225,12 @@ public class AppDetail extends Activity {
 		});
 
 		// More apps from developer list
-		this.adapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
-		this.list = (ListView)this.findViewById(R.id.list);
-		this.list.setAdapter(this.adapter);
+		this.moreAppsAdapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
+		this.moreAppsList = (ListView)this.findViewById(R.id.list);
+		this.moreAppsList.setAdapter(this.moreAppsAdapter);
 
 		// Item click listener
-		this.list.setOnItemClickListener(new OnItemClickListener() {
+		this.moreAppsList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
@@ -253,45 +253,8 @@ public class AppDetail extends Activity {
 			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
 			developerTextView.setTypeface(normalTypeFace);
 
-			// Developer web buttons layout
-			Button developerAppWebTextView = (Button)findViewById(R.id.lblWeb);
-
-			if(this.app.appDeveloperWeb().equals("")) {
-				developerAppWebTextView.setVisibility(View.GONE);
-			}
-			else {
-				developerAppWebTextView.setTypeface(normalTypeFace);
-				developerAppWebTextView.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
-						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
-						AppDetail.this.startActivity(intent);
-					}
-				});
-			}
-
-			// Developer mail button
-			Button developerSupportTextView = (Button)findViewById(R.id.lblEMail);
-
-			if(this.app.appDeveloperEmail().equals("")) {
-				developerSupportTextView.setVisibility(View.GONE);
-			}
-			else {
-				developerSupportTextView.setTypeface(normalTypeFace);
-				developerSupportTextView.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Intent i = new Intent(Intent.ACTION_SEND);
-						i.setType("text/html"); // use from live device
-						i.putExtra(Intent.EXTRA_EMAIL, new String[] { app.appDeveloperEmail() });
-						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
-						startActivity(Intent.createChooser(i, "Select email application."));
-					}
-				});
-			}
+			// Developer contact
+			
 		}
 	}
 
@@ -311,15 +274,15 @@ public class AppDetail extends Activity {
 			@Override
 			public void onClick(View v) {
 				TextView tv = (TextView)findViewById(R.id.lblMoreInfo);
-				ImageView iv = (ImageView)findViewById(R.id.imgDots);
+				ImageView iv = (ImageView)findViewById(R.id.imgMore);
 
 				if(close) {
 					tv.setMaxLines(10000);
-					iv.setVisibility(ImageView.INVISIBLE);
+					iv.setImageResource(R.drawable.ic_less);
 				}
 				else {
 					tv.setMaxLines(6);
-					iv.setVisibility(ImageView.VISIBLE);
+					iv.setImageResource(R.drawable.ic_more);
 				}
 				close = !close;
 			}

@@ -223,7 +223,6 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bgd_ptr"
                 android:gravity="center_vertical"
-                android:paddingBottom="6dp"
                 android:paddingTop="6dp"
                 android:spacing="10dp" />
 
@@ -240,20 +239,21 @@
                     android:maxLines="6"
                     android:paddingLeft="10dp"
                     android:paddingRight="8dp"
-                    android:text="@string/description"
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/imgDots"
-                    android:layout_width="38dp"
-                    android:layout_height="10dp"
+                    android:id="@+id/imgMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
                     android:contentDescription="@string/image_content_description"
                     android:src="@drawable/ic_more" />
             </LinearLayout>
+
+            <include layout="@layout/separator" />
 
             <LinearLayout
                 android:id="@+id/lytDeveloper"
@@ -281,43 +281,59 @@
 
                 <ImageView
                     android:id="@+id/moreAppsBtn"
-                    android:layout_width="38dp"
-                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
                     android:contentDescription="@string/image_content_description"
                     android:src="@drawable/ic_more" />
 
-                <LinearLayout
-                    android:id="@+id/devWeb"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp" >
+                <include layout="@layout/separator" />
 
-                    <com.mapplas.utils.visual.custom_views.RobotoButton
-                        android:id="@+id/lblWeb"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/action_standar_button"
-                        android:singleLine="true"
-                        android:text="@string/devWeb" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" >
 
-                    <com.mapplas.utils.visual.custom_views.RobotoButton
-                        android:id="@+id/lblEMail"
+                    <com.mapplas.utils.visual.custom_views.RobotoTextView
                         android:layout_width="wrap_content"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="4dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/action_standar_button"
-                        android:singleLine="true"
-                        android:text="@string/devMail" />
-                </LinearLayout>
+                        android:text="email"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:src="@drawable/ic_go" />
+                </RelativeLayout>
+
+                <include layout="@layout/separator" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" >
+
+                    <com.mapplas.utils.visual.custom_views.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="4dp"
+                        android:text="web"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:src="@drawable/ic_go" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
