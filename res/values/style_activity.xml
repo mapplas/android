@@ -171,4 +171,9 @@
         <item name="android:textColor">@color/lat_lon_color</item>
     </style>
 
+    <style name="SegmentedControlText">
+        <item name="android:textColor">@color/segmented_control_text</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

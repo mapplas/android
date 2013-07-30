@@ -19,9 +19,9 @@ public class UserFormDynamicSublistsPresenter {
 	private Context context;
 
 	private User user;
-	
+
 	private AppOrderedList appOrderedList;
-		
+
 	public UserFormDynamicSublistsPresenter(UserFormLayoutComponents layoutComponents, ListView list, Context context, User user, String location, AppOrderedList appOrderedList) {
 		this.layoutComponents = layoutComponents;
 		this.list = list;
@@ -31,6 +31,9 @@ public class UserFormDynamicSublistsPresenter {
 	}
 
 	public void present() {
+		layoutComponents.pinUpsButton().setBackgroundResource(R.drawable.btn_segmented_left_pressed);
+		layoutComponents.blocksButton().setBackgroundResource(R.drawable.btn_segmented_right);
+
 		this.setBlocksLayoutBehaviour();
 		this.pinUpsLayoutBehaviour();
 	}
