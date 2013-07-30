@@ -3,11 +3,13 @@ package com.mapplas.model;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.mapplas.utils.visual.custom_views.RobotoButton;
+
 public class UserFormLayoutComponents {
 
-	private LinearLayout blocksLayout;
+	private RobotoButton blocksButton;
 
-	private LinearLayout pinUpsLayout;
+	private RobotoButton pinUpsButton;
 
 	private LinearLayout footerListRefreshLayout;
 
@@ -15,20 +17,20 @@ public class UserFormLayoutComponents {
 	
 	private ImageView refreshIcon;
 
-	public UserFormLayoutComponents(LinearLayout blocksLayout, LinearLayout pinUpsLayout, LinearLayout footerLayout, LinearLayout footerInfoLayout, ImageView mPrivateRefreshIcon) {
-		this.blocksLayout = blocksLayout;
-		this.pinUpsLayout = pinUpsLayout;
+	public UserFormLayoutComponents(RobotoButton blocksButton, RobotoButton pinUpsButton, LinearLayout footerLayout, LinearLayout footerInfoLayout, ImageView mPrivateRefreshIcon) {
+		this.blocksButton = blocksButton;
+		this.pinUpsButton = pinUpsButton;
 		this.footerListRefreshLayout = footerLayout;
 		this.footerButtonsLayout = footerInfoLayout;
 		this.refreshIcon = mPrivateRefreshIcon;
 	}
 
-	public LinearLayout blocksLayout() {
-		return this.blocksLayout;
+	public RobotoButton blocksButton() {
+		return this.blocksButton;
 	}
 
-	public LinearLayout pinUpsLayout() {
-		return this.pinUpsLayout;
+	public RobotoButton pinUpsButton() {
+		return this.pinUpsButton;
 	}
 
 	public LinearLayout footerListRefreshLayout() {

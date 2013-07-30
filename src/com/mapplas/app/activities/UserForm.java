@@ -26,6 +26,7 @@ import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.network.async_tasks.UserPinBlocksTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter;
 
 public class UserForm extends Activity {
@@ -67,10 +68,10 @@ public class UserForm extends Activity {
 		new UserPinBlocksTask(this.user, this.listView, this, R.id.lblTitle, this.refreshListBackgroundFooter, this.appOrderedList).execute();
 
 		// Load presenter
-		LinearLayout blocksLayout = (LinearLayout)findViewById(R.id.lytBlocks);
-		LinearLayout pinUpsLayout = (LinearLayout)findViewById(R.id.lytPinups);
+		RobotoButton blocksButton = (RobotoButton)findViewById(R.id.blocked_btn);
+		RobotoButton pinsButton = (RobotoButton)findViewById(R.id.pinned_btn);
 		ImageView mPrivateRefreshIcon = (ImageView)findViewById(R.id.ivImage);
-		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksLayout, pinUpsLayout, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
+		UserFormLayoutComponents layoutComponents = new UserFormLayoutComponents(blocksButton, pinsButton, this.refreshListBackgroundFooter, this.buttonsFooter, mPrivateRefreshIcon);
 
 		new UserFormDynamicSublistsPresenter(layoutComponents, this.listView, this, this.user, this.currentLocation, this.appOrderedList).present();
 	}
