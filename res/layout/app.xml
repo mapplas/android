@@ -289,8 +289,6 @@
                     android:contentDescription="@string/image_content_description"
                     android:src="@drawable/ic_more" />
 
-                <include layout="@layout/separator" />
-
                 <RelativeLayout
                     android:id="@+id/developer_email_layout"
                     style="@style/DeveloperContactLayout" >
@@ -302,9 +300,9 @@
                     <ImageView
                         style="@style/DeveloperContactCellImage"
                         android:contentDescription="@string/image_content_description" />
-                </RelativeLayout>
 
-                <include layout="@layout/separator" />
+                    <include layout="@layout/developer_contact_views_separator" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/developer_web_layout"

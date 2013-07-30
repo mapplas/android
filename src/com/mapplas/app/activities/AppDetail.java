@@ -226,8 +226,9 @@ public class AppDetail extends Activity {
 		});
 
 		// More apps from developer list
-		this.moreAppsAdapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
 		this.moreAppsList = (ListView)this.findViewById(R.id.list);
+
+		this.moreAppsAdapter = new DetailMoreAppsArrayAdapter(this, R.layout.row_more_apps, this.app.moreFromDev());
 		this.moreAppsList.setAdapter(this.moreAppsAdapter);
 
 		// Item click listener
@@ -240,6 +241,7 @@ public class AppDetail extends Activity {
 				AppDetail.this.startActivity(browserIntent);
 			}
 		});
+
 	}
 
 	private void manageDeveloperLayout(Typeface normalTypeFace) {

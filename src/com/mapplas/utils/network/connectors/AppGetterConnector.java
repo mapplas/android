@@ -36,7 +36,7 @@ public class AppGetterConnector {
 		
 		HttpParams params = hc.getParams();
 	    HttpConnectionParams.setConnectionTimeout(params, 8000);
-	    HttpConnectionParams.setSoTimeout(params, 3000);
+	    HttpConnectionParams.setSoTimeout(params, 6000);
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(location.getLatitude())));
@@ -49,16 +49,12 @@ public class AppGetterConnector {
 			HttpResponse rp = hc.execute(post);
 
 			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-//				serverResponse = EntityUtils.toString(rp.getEntity());
-//
-//				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
-//				mapper.setResetPagination(resetPagination, context);
-//				// Iterative mapper
-//				mapper.map(new JSONObject(serverResponse), model);
-				
-				// mocked
+				serverResponse = EntityUtils.toString(rp.getEntity());
+
 				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
-				mapper.setMockedAppToList(model);
+				mapper.setResetPagination(resetPagination, context);
+				// Iterative mapper
+				mapper.map(new JSONObject(serverResponse), model);
 			}
 
 		} catch (Exception exc) {
