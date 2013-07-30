@@ -3,6 +3,7 @@
     android:id="@+id/radar_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/radar_background"
     android:visibility="visible" >
 
     <ImageView

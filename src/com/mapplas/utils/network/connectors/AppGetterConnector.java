@@ -49,12 +49,16 @@ public class AppGetterConnector {
 			HttpResponse rp = hc.execute(post);
 
 			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				serverResponse = EntityUtils.toString(rp.getEntity());
-
+//				serverResponse = EntityUtils.toString(rp.getEntity());
+//
+//				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
+//				mapper.setResetPagination(resetPagination, context);
+//				// Iterative mapper
+//				mapper.map(new JSONObject(serverResponse), model);
+				
+				// mocked
 				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
-				mapper.setResetPagination(resetPagination, context);
-				// Iterative mapper
-				mapper.map(new JSONObject(serverResponse), model);
+				mapper.setMockedAppToList(model);
 			}
 
 		} catch (Exception exc) {

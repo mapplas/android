@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
@@ -253,8 +254,44 @@ public class AppDetail extends Activity {
 			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
 			developerTextView.setTypeface(normalTypeFace);
 
-			// Developer contact
-			
+			// Developer email
+			RelativeLayout emailLayout = (RelativeLayout)this.findViewById(R.id.developer_email_layout);
+			if(!this.app.appDeveloperEmail().equals("")) {
+				emailLayout.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						v.setBackgroundResource(R.color.pinned_app_cell_background_color);
+						Intent i = new Intent(Intent.ACTION_SEND);
+						i.setType("text/html"); // use from live device
+						i.putExtra(Intent.EXTRA_EMAIL, new String[] { app.appDeveloperEmail() });
+						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
+						startActivity(Intent.createChooser(i, "Select email application."));
+					}
+				});
+			}
+			else {
+				emailLayout.setVisibility(View.GONE);
+			}
+
+			// Developer web
+			RelativeLayout webLayout = (RelativeLayout)this.findViewById(R.id.developer_web_layout);
+			if(!this.app.appDeveloperWeb().equals("")) {
+				webLayout.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						v.setBackgroundResource(R.color.pinned_app_cell_background_color);
+						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
+						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
+						AppDetail.this.startActivity(intent);
+					}
+				});
+			}
+			else {
+				webLayout.setVisibility(View.GONE);
+			}
+
 		}
 	}
 

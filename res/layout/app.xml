@@ -291,7 +291,9 @@
 
                 <include layout="@layout/separator" />
 
-                <RelativeLayout style="@style/DeveloperContactLayout" >
+                <RelativeLayout
+                    android:id="@+id/developer_email_layout"
+                    style="@style/DeveloperContactLayout" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
                         style="@style/DeveloperContactCellText"
@@ -304,7 +306,9 @@
 
                 <include layout="@layout/separator" />
 
-                <RelativeLayout style="@style/DeveloperContactLayout" >
+                <RelativeLayout
+                    android:id="@+id/developer_web_layout"
+                    style="@style/DeveloperContactLayout" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoTextView
                         style="@style/DeveloperContactCellText"
