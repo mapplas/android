@@ -57,9 +57,9 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 			if(address.getMaxAddressLineIndex() > 0) {
 				firstAddressLine = address.getAddressLine(0);
 			}
+			
 			String locality = address.getLocality();
-
-			if(firstAddressLine.contains(locality)) {
+			if(locality != null && firstAddressLine.contains(locality)) {
 				addresText = String.format("%s.", firstAddressLine);
 			}
 			else {
