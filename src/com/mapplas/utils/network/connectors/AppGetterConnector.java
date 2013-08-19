@@ -35,8 +35,8 @@ public class AppGetterConnector {
 		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "apps/" + page + "/");
 		
 		HttpParams params = hc.getParams();
-	    HttpConnectionParams.setConnectionTimeout(params, 8000);
-	    HttpConnectionParams.setSoTimeout(params, 6000);
+	    HttpConnectionParams.setConnectionTimeout(params, 10000);
+	    HttpConnectionParams.setSoTimeout(params, 10000);
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(location.getLatitude())));
