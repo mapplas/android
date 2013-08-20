@@ -1,10 +1,8 @@
 package com.mapplas.app.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,9 +11,12 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.about_us.AboutUsAdapter;
 import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.model.Constants;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
 public class AboutUsActivity extends Activity implements LanguageDialogInterface {
+
+	private AboutUsAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +39,27 @@ public class AboutUsActivity extends Activity implements LanguageDialogInterface
 		});
 
 		ListView list = (ListView)this.findViewById(R.id.preferences_list);
-		list.setAdapter(new AboutUsAdapter(this, normalTypeFace, language));
+		this.adapter = new AboutUsAdapter(this, normalTypeFace);
+		list.setAdapter(this.adapter);
 	}
 
 	// Language dialog interface methods
-	
 	@Override
 	public void onDialogEnglishLanguageClick() {
-		Log.d("", "ENGLISH");
+		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.ENGLISH);
+		this.adapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onDialogSpanishLanguageClick() {
-		Log.d("", "SPANISH");
+		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.SPANISH);
+		this.adapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onDialogBasqueLanguageClick() {
-		Log.d("", "BASQUE");
+		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.BASQUE);
+		this.adapter.notifyDataSetChanged();
 	}
 
 }

@@ -15,6 +15,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.AboutUsActivity;
 import com.mapplas.app.activities.HtmlTextActivity;
+import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
@@ -68,7 +69,7 @@ public class AboutUsAdapter extends BaseAdapter {
 
 		switch (position) {
 			case 0:
-				text.setText(this.context.getString(R.string.language_change_list_item));
+				text.setText(this.context.getString(R.string.language_change_list_item) + " " + ((MapplasApplication)this.context.getApplicationContext()).getLanguage());
 				break;
 			case 1:
 				text.setText(this.context.getString(R.string.terms_of_use_title));
