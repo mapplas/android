@@ -303,6 +303,13 @@ public class AppDetail extends Activity {
 		TextView moreInfoTextView = (TextView)findViewById(R.id.lblMoreInfo);
 		moreInfoTextView.setText(this.app.getAppDescription());
 		moreInfoTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
+		
+		final ImageView moreLessImage = (ImageView)findViewById(R.id.imgMore);
+		if(moreInfoTextView.getMeasuredWidth() * 6 < moreInfoTextView.getPaint().measureText(app.getAppDescription())) {
+			moreLessImage.setVisibility(View.VISIBLE);
+		} else {
+			moreLessImage.setVisibility(View.GONE);
+		}
 
 		// Init layout
 		LinearLayout descriptionLayout = (LinearLayout)findViewById(R.id.lytDescription);
@@ -314,15 +321,13 @@ public class AppDetail extends Activity {
 			@Override
 			public void onClick(View v) {
 				TextView tv = (TextView)findViewById(R.id.lblMoreInfo);
-				ImageView iv = (ImageView)findViewById(R.id.imgMore);
-
 				if(close) {
 					tv.setMaxLines(10000);
-					iv.setImageResource(R.drawable.ic_less);
+					moreLessImage.setImageResource(R.drawable.ic_less);
 				}
 				else {
 					tv.setMaxLines(6);
-					iv.setImageResource(R.drawable.ic_more);
+					moreLessImage.setImageResource(R.drawable.ic_more);
 				}
 				close = !close;
 			}

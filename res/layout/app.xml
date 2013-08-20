@@ -250,7 +250,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     android:contentDescription="@string/image_content_description"
-                    android:src="@drawable/ic_more" />
+                    android:src="@drawable/ic_more"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <include layout="@layout/separator" />
