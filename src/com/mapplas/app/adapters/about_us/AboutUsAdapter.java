@@ -16,6 +16,7 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.AboutUsActivity;
 import com.mapplas.app.activities.HtmlTextActivity;
 import com.mapplas.model.Constants;
+import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
 public class AboutUsAdapter extends BaseAdapter {
 
@@ -24,6 +25,8 @@ public class AboutUsAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 
 	private Typeface normalTypeface;
+
+	private LanguageDialogInterface languageInterface;
 
 	public AboutUsAdapter(Context context, Typeface normalTypeface) {
 		this.context = context;
@@ -135,21 +138,37 @@ public class AboutUsAdapter extends BaseAdapter {
 			}
 		};
 	}
-	
+
 	private void createLanguageListDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
 		builder.setTitle(R.string.language_change_alert_title);
-		
+
 		builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				
+				languageInterface = (LanguageDialogInterface)context;
+
+				switch (which) {
+					case 0:
+						languageInterface.onDialogEnglishLanguageClick();
+						break;
+
+					case 1:
+						languageInterface.onDialogSpanishLanguageClick();
+						break;
+
+					case 2:
+						languageInterface.onDialogBasqueLanguageClick();
+						break;
+					default:
+						break;
+				}
 			}
 		});
-		
+
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
-	
+
 }

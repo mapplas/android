@@ -9,6 +9,11 @@ public class Constants {
 	
 	public static final String SYNESTH_VERSION = "1";
 	
+	// Languages
+	public static final String ENGLISH = "english";
+	public static final String SPANISH = "spanish";
+	public static final String BASQUE = "basque";
+	
 	// Constants of the Activities
 	public static final int SYNESTH_LOGIN_ID = 10;
 	public static final int SYNESTH_USER_ID = 20;
