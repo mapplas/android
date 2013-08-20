@@ -1,6 +1,8 @@
 package com.mapplas.app.adapters.about_us;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -20,7 +22,7 @@ public class AboutUsAdapter extends BaseAdapter {
 	private Context context;
 
 	private LayoutInflater inflater;
-	
+
 	private Typeface normalTypeface;
 
 	public AboutUsAdapter(Context context, Typeface normalTypeface) {
@@ -32,7 +34,7 @@ public class AboutUsAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return 3;
+		return 4;
 	}
 
 	@Override
@@ -58,62 +60,96 @@ public class AboutUsAdapter extends BaseAdapter {
 		TextView text = (TextView)view.findViewById(android.R.id.text1);
 		text.setTypeface(this.normalTypeface);
 		text.setTextSize(16);
-		
+
 		view.setOnClickListener(this.createClickListenerForListElements(position));
 
 		switch (position) {
 			case 0:
+				text.setText(this.context.getString(R.string.language_change_list_item));
+				break;
+			case 1:
 				text.setText(this.context.getString(R.string.terms_of_use_title));
 				break;
 
-			case 1:
+			case 2:
 				text.setText(this.context.getString(R.string.privacy_policy_title));
 				break;
-			case 2:
+			case 3:
 				text.setText(this.context.getString(R.string.conf_screen_contact_title));
 				break;
-				
+
 			default:
 				break;
 		}
 		return view;
 	}
-	
+
 	private OnClickListener createClickListenerForListElements(final int position) {
 		return new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent((AboutUsActivity)context, HtmlTextActivity.class);
-				
+
 				String message = "";
-				
+
 				switch (position) {
 					case 0:
 						message = context.getString(R.string.terms_of_use_message);
 						break;
-						
+
 					case 1:
 						message = context.getString(R.string.privacy_policy_message);
 						break;
-						
+
 					default:
 						break;
 				}
-					
-				if(position == 0 || position == 1) {
-					intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE, message);
-					context.startActivity(intent);
-				}
-				else {
-					Intent emailIntent = new Intent(Intent.ACTION_SEND);
-					emailIntent.setType("text/html");
-					emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {context.getString(R.string.config_contact_us_email)});
-					emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.config_contact_us_email_subject));
-					context.startActivity(Intent.createChooser(emailIntent, "Send Email"));
+
+				switch (position) {
+					case 0:
+						createLanguageListDialog();
+						break;
+
+					case 1:
+						intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE, message);
+						context.startActivity(intent);
+						break;
+
+					case 2:
+						intent.putExtra(Constants.MAPPLAS_TEXT_ACTIVITY_EXTRA_MESSAGE, message);
+						context.startActivity(intent);
+						break;
+
+					case 3:
+						Intent emailIntent = new Intent(Intent.ACTION_SEND);
+						emailIntent.setType("text/html");
+						emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { context.getString(R.string.config_contact_us_email) });
+						emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.config_contact_us_email_subject));
+						context.startActivity(Intent.createChooser(emailIntent, "Send Email"));
+						break;
+
+					default:
+						break;
 				}
 			}
 		};
 	}
-
+	
+	private void createLanguageListDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+		builder.setTitle(R.string.language_change_alert_title);
+		
+		builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+	
 }

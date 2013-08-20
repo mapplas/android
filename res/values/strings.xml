@@ -127,4 +127,7 @@
     <string name="comming_soon_subtitle">Or your country is not currently supported or something went wrong.</string>
     <string name="comming_soon_pull">Pull to refresh</string>
 	<string name="problem_launching_app">Sorry, there is a problem launching the app.</string>
+	<string name="language_change_list_item">Language:</string>
+	<string name="language_change_alert_title">Change language</string>
+	
 </resources>
