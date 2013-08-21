@@ -1,5 +1,7 @@
 package com.mapplas.app.application;
 
+import java.util.Locale;
+
 import com.mapplas.model.Constants;
 
 import android.app.Application;
@@ -13,7 +15,7 @@ public class MapplasApplication extends Application {
 
 	private Typeface typefaceItalic = null;
 
-	private String language = Constants.ENGLISH;
+	private String language = null;
 
 	public void loadTypefaces() {
 		this.typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Thin.ttf");
@@ -31,6 +33,15 @@ public class MapplasApplication extends Application {
 
 	public Typeface getItalicTypeFace() {
 		return this.typefaceItalic;
+	}
+
+	public void setDefaultLanguage() {
+		if(Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
+			this.language = Constants.SPANISH;
+		}
+		else {
+			this.language = Constants.ENGLISH;
+		}
 	}
 
 	public String getLanguage() {

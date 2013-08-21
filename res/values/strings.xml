@@ -129,5 +129,7 @@
 	<string name="problem_launching_app">Sorry, there is a problem launching the app.</string>
 	<string name="language_change_list_item">Language:</string>
 	<string name="language_change_alert_title">Change language</string>
-	
+	<string name="language_english">English</string>
+	<string name="language_spanish">Spanish</string>
+	<string name="language_basque">Basque</string>
 </resources>

@@ -1,6 +1,9 @@
 package com.mapplas.app.activities;
 
+import java.util.Locale;
+
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -47,19 +50,39 @@ public class AboutUsActivity extends Activity implements LanguageDialogInterface
 	@Override
 	public void onDialogEnglishLanguageClick() {
 		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.ENGLISH);
-		this.adapter.notifyDataSetChanged();
+		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
 	}
 
 	@Override
 	public void onDialogSpanishLanguageClick() {
 		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.SPANISH);
-		this.adapter.notifyDataSetChanged();
+		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
 	}
 
 	@Override
 	public void onDialogBasqueLanguageClick() {
 		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.BASQUE);
+		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
+	}
+
+	private void updateLanguage(String language) {
 		this.adapter.notifyDataSetChanged();
+		
+		Locale locale = null;
+		if(language.equals(Constants.ENGLISH)) {
+			locale = new Locale("en");
+		}
+		else if(language.equals(Constants.SPANISH)) {
+			locale = new Locale("es");
+		}
+		else {
+			locale = new Locale("eu");
+		}
+		 
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 	}
 
 }

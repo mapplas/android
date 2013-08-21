@@ -84,6 +84,7 @@ public class MapplasActivity extends Activity {
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
+		((MapplasApplication)this.getApplicationContext()).setDefaultLanguage();
 
 		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
 

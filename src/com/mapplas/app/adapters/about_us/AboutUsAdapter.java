@@ -69,7 +69,17 @@ public class AboutUsAdapter extends BaseAdapter {
 
 		switch (position) {
 			case 0:
-				text.setText(this.context.getString(R.string.language_change_list_item) + " " + ((MapplasApplication)this.context.getApplicationContext()).getLanguage());
+				String constantLanguage = ((MapplasApplication)this.context.getApplicationContext()).getLanguage();
+				
+				String language = this.context.getString(R.string.language_english);
+				if(constantLanguage.equals(Constants.SPANISH)) {
+					language = this.context.getString(R.string.language_spanish);
+				}
+				else if(constantLanguage.equals(Constants.BASQUE)) {
+					language = this.context.getString(R.string.language_basque);
+				}
+				
+				text.setText(this.context.getString(R.string.language_change_list_item) + " " + language);
 				break;
 			case 1:
 				text.setText(this.context.getString(R.string.terms_of_use_title));
