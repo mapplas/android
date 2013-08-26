@@ -35,6 +35,8 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.language.LanguageDialogCreator;
+import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
@@ -42,8 +44,9 @@ import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
+import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class MapplasActivity extends LanguageActivity {
+public class MapplasActivity extends LanguageActivity implements LanguageDialogInterface {
 
 	public static String PACKAGE_NAME = "";
 
@@ -74,6 +77,8 @@ public class MapplasActivity extends LanguageActivity {
 	private Handler latitudeTVHandler = new Handler();
 
 	private Handler longitudeTVHandler = new Handler();
+
+	private LanguageDialogInterface languageInterface;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -181,6 +186,17 @@ public class MapplasActivity extends LanguageActivity {
 	 */
 
 	private void checkLanguage() {
+		// First launch language dialog
+		boolean isFirstLaunch = ((MapplasApplication)this.getApplicationContext()).getIsFirstLaunch();
+
+		if(isFirstLaunch) {
+			// Show language dialog
+			((MapplasApplication)this.getApplicationContext()).setFirstLaunchFalse();
+
+			new LanguageDialogCreator(this, languageInterface).createLanguageListDialog();
+		}
+
+		// Comming from settings after language change
 		if(this.getIntent() == null || this.getIntent().getExtras() == null || !this.getIntent().getExtras().containsKey(Constants.SETTINGS_LANGUAGE_CHANGE_BUNDLE)) {
 			((MapplasApplication)this.getApplicationContext()).setDefaultLanguage();
 		}
@@ -324,4 +340,25 @@ public class MapplasActivity extends LanguageActivity {
 		}
 	}
 
+	@Override
+	public void onDialogEnglishLanguageClick() {
+		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.ENGLISH);
+		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
+	}
+
+	@Override
+	public void onDialogSpanishLanguageClick() {
+		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.SPANISH);
+		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
+	}
+
+	@Override
+	public void onDialogBasqueLanguageClick() {
+		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.BASQUE);
+		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
+	}
+
+	private void updateLanguage(String language) {
+		new LanguageSetter(this).setLanguageToApp(language);
+	}
 }

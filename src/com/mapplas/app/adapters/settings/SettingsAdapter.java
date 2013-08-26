@@ -1,8 +1,6 @@
 package com.mapplas.app.adapters.settings;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -17,6 +15,7 @@ import com.mapplas.app.activities.HtmlTextActivity;
 import com.mapplas.app.activities.SettingsActivity;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
+import com.mapplas.utils.language.LanguageDialogCreator;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
 public class SettingsAdapter extends BaseAdapter {
@@ -122,7 +121,7 @@ public class SettingsAdapter extends BaseAdapter {
 
 				switch (position) {
 					case 0:
-						createLanguageListDialog();
+						new LanguageDialogCreator(context, languageInterface).createLanguageListDialog();
 						break;
 
 					case 1:
@@ -150,36 +149,6 @@ public class SettingsAdapter extends BaseAdapter {
 		};
 	}
 
-	private void createLanguageListDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
-		builder.setTitle(R.string.language_change_alert_title);
-
-		builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				languageInterface = (LanguageDialogInterface)context;
-
-				switch (which) {
-					case 0:
-						languageInterface.onDialogEnglishLanguageClick();
-						break;
-
-					case 1:
-						languageInterface.onDialogSpanishLanguageClick();
-						break;
-
-					case 2:
-						languageInterface.onDialogBasqueLanguageClick();
-						break;
-					default:
-						break;
-				}
-			}
-		});
-
-		AlertDialog dialog = builder.create();
-		dialog.show();
-	}
+	
 
 }

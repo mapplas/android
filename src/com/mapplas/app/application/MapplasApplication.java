@@ -9,6 +9,8 @@ import com.mapplas.model.Constants;
 
 public class MapplasApplication extends Application {
 
+	private boolean firstLaunch = true;
+
 	private Typeface typeface = null;
 
 	private Typeface typefaceBold = null;
@@ -17,6 +19,16 @@ public class MapplasApplication extends Application {
 
 	private String language = null;
 
+	// First launch
+	public boolean getIsFirstLaunch() {
+		return this.firstLaunch;
+	}
+
+	public void setFirstLaunchFalse() {
+		this.firstLaunch = false;
+	}
+
+	// Typefaces
 	public void loadTypefaces() {
 		this.typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Thin.ttf");
 		this.typefaceBold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
@@ -35,6 +47,7 @@ public class MapplasApplication extends Application {
 		return this.typefaceItalic;
 	}
 
+	// Language
 	public void setDefaultLanguage() {
 		if(Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
 			this.language = Constants.SPANISH;

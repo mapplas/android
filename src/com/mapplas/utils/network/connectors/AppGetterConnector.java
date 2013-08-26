@@ -54,6 +54,9 @@ public class AppGetterConnector {
 				// Iterative mapper
 				mapper.map(new JSONObject(serverResponse), model);
 			}
+			else {
+				serverResponse = EntityUtils.toString(rp.getEntity());
+			}
 
 		} catch (Exception exc) {
 			JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
