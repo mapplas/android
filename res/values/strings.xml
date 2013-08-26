@@ -80,5 +80,5 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Spanish</string>
     <string name="language_basque">Basque</string>
-
+	<string name="language_change_restart_app_message">An application restart is needed after language change</string>
 </resources>

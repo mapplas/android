@@ -9,7 +9,7 @@
     <string name="app_detail">Aplikazio xehetasunak</string>
     <string name="web">weba</string>
     <string name="email">Emaila</string>
-    <string name="description">Deskribapena</string> 
+    <string name="description">Deskribapena</string>
     <string name="location_searching">Zure kokalekua aurkitzen!</string>
     <string name="location_done">Zure kokalekua jasota</string>
     <string name="rating_rate">Aplikazioa baloratu</string>
@@ -34,8 +34,9 @@
     <string name="yes">Bai</string>
     <string name="no">Ez</string>
     <string name="done">Ados</string>
+    <string name="allow">onartu</string>
     <string name="free">Dohan</string>
-    <string name="wifi_error_toast">Zure kokalekua prezisio gehiagorekin topatzeko aktibatu WiFi-a! Nahiz eta sare batera ez konektatuta egon bilaketa hobetuko da.</string>    								
+    <string name="wifi_error_toast">Zure kokalekua prezisio gehiagorekin topatzeko aktibatu WiFi-a! Nahiz eta sare batera ez konektatuta egon bilaketa hobetuko da.</string>
     <string name="pull_to_refresh_wifi_error">Aktibatu WiFi-a prezisio hobea lortzeko!</string>
     <string name="location_error_toast">Ezin izan zaitugu aurkitu. Saiatu berriro aurrerago.</string>
     <string name="menu_refresh">Eguneratu</string>
@@ -43,14 +44,14 @@
     <string name="profile_empty_block_list">Ez duzu blokeatutako aplikaziorik</string>
     <string name="descriptive_geoloc_error">Barkatu! Google ez da zure kokapena aurkitzeko gai izan.</string>
     <string name="menu_config">Guri buruz</string>
-    <string name="preferences_title">Guri buruz</string>    
+    <string name="preferences_title">Guri buruz</string>
     <string name="terms_of_use_title">Erabilera baldintzak</string>
     <string name="privacy_policy_title">Pribatutasun politika</string>
     <string name="share_message_part1">Mapplas bitartez</string>
     <string name="share_message_part2"> partekatzen</string>
     <string name="conf_screen_contact_title">Gurekin harremanetan jarri</string>
     <string name="config_contact_us_email">support@mapplas.com</string>
-    <string name="config_contact_us_email_subject">Kaixo!</string>    
+    <string name="config_contact_us_email_subject">Kaixo!</string>
     <string name="app_detail_app_web_dev_url_error">Errorea weba kargatzerakoan. Saiatu berriro beranduago.</string>
     <string name="error">errorea</string>
     <string name="user_screen_segmented_control_blocks">Blokeatutakoak</string>
@@ -60,8 +61,11 @@
     <string name="comming_soon_pull">Mugitu behera eguneratzeko</string>
     <string name="problem_launching_app">Errore bat gertatu da aplikazioa irekitzeko momentuan, barkatu eragozpenak.</string>
     <string name="language_change_list_item">Hizkuntza:</string>
-	<string name="language_change_alert_title">Hizkuntza aldatu</string>
-	<string name="language_english">Ingelera</string>
-	<string name="language_spanish">Gaztelania</string>
-	<string name="language_basque">Euskara</string>
+    <string name="language_change_alert_title">Hizkuntza aldatu</string>
+    <string name="language_english">Ingelera</string>
+    <string name="language_spanish">Gaztelania</string>
+    <string name="language_basque">Euskara</string>
+    <string name="language_change_restart_app">Barkatu baino aplikazioa berrabiaraztea beharrezkoa da hizkuntza aldatzeko</string>
+    <string name="language_change_restart_app_message">Aplikazioa berrabiaraztea beharrezkoa da hizkuntza aldaketak gertatzeko</string>
+
 </resources>

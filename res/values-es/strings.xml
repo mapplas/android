@@ -34,6 +34,7 @@
     <string name="blocks">bloqueadas</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="allow">desbloquear</string>
     <string name="done">OK</string>
     <string name="free">Gratis</string>
     <string name="wifi_error_toast">Obten una busqueda más precisa! Activa la conexión Wi-Fi. Funcionará incluso sin que te conectes a una red.</string>
@@ -65,5 +66,6 @@
     <string name="language_english">Inglés</string>
     <string name="language_spanish">Castellano</string>
     <string name="language_basque">Vasco</string>
+	<string name="language_change_restart_app_message">Es necesario reiniciar la aplicación después del cambio de idioma</string>
 
 </resources>
