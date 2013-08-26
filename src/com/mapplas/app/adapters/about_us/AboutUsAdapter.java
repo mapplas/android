@@ -13,8 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.activities.AboutUsActivity;
 import com.mapplas.app.activities.HtmlTextActivity;
+import com.mapplas.app.activities.SettingsActivity;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
@@ -103,7 +103,7 @@ public class AboutUsAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent((AboutUsActivity)context, HtmlTextActivity.class);
+				Intent intent = new Intent((SettingsActivity)context, HtmlTextActivity.class);
 
 				String message = "";
 

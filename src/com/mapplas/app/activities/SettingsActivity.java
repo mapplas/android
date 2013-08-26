@@ -18,7 +18,7 @@ import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class AboutUsActivity extends Activity implements LanguageDialogInterface {
+public class SettingsActivity extends Activity implements LanguageDialogInterface {
 
 	private AboutUsAdapter adapter;
 
@@ -26,7 +26,7 @@ public class AboutUsActivity extends Activity implements LanguageDialogInterface
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preferences);
-
+		
 		this.initializeLayoutComponents();
 	}
 
@@ -79,18 +79,15 @@ public class AboutUsActivity extends Activity implements LanguageDialogInterface
 		else {
 			locale = new Locale("eu");
 		}
-		 
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
+
+		Locale.setDefault(locale);
+		Configuration config = new Configuration();
+		config.locale = locale;
+		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+		Intent intent = new Intent(this, MapplasActivity.class);
+		this.startActivity(intent);
+		this.finish();
 	}
 
 }

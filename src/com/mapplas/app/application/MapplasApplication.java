@@ -2,10 +2,10 @@ package com.mapplas.app.application;
 
 import java.util.Locale;
 
-import com.mapplas.model.Constants;
-
 import android.app.Application;
 import android.graphics.Typeface;
+
+import com.mapplas.model.Constants;
 
 public class MapplasApplication extends Application {
 
