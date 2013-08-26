@@ -84,14 +84,14 @@ public class MapplasActivity extends Activity {
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
-		((MapplasApplication)this.getApplicationContext()).setDefaultLanguage();
+		this.checkLanguage();
 
 		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
 
 		// Get phone IMEI as identifier (problems with ANDROID_ID)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
-		
+
 		this.startRadarAnimation();
 		this.startLatLongAnimation();
 
@@ -126,12 +126,15 @@ public class MapplasActivity extends Activity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-//		Location location = new Location("");
-//		location.setLatitude(40.720982);
-//		location.setLongitude(-74.003563);
-//		this.model.setLocation(location);
-//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList).execute(new Location(location), true);
+		// Location location = new Location("");
+		// location.setLatitude(40.720982);
+		// location.setLongitude(-74.003563);
+		// this.model.setLocation(location);
+		// new ReverseGeocodingTask(this, this.model,
+		// this.listViewHeaderStatusMessage).execute(new Location(location));
+		// new AppGetterTask(this, this.model, this.listViewAdapter,
+		// this.listView, this.appsInstalledList).execute(new
+		// Location(location), true);
 	}
 
 	@Override
@@ -177,6 +180,12 @@ public class MapplasActivity extends Activity {
 	 * Private methods
 	 * 
 	 */
+
+	private void checkLanguage() {
+		if(this.getIntent() == null || this.getIntent().getExtras() == null || !this.getIntent().getExtras().containsKey(Constants.SETTINGS_LANGUAGE_CHANGE_BUNDLE)) {
+			((MapplasApplication)this.getApplicationContext()).setDefaultLanguage();
+		}
+	}
 
 	private void setClickListenersToButtons(Typeface normalTypeFace) {
 		// User profile button
@@ -254,20 +263,20 @@ public class MapplasActivity extends Activity {
 		this.setRotateAnimConstants(rotate4);
 		rotate4.setDuration(1200);
 		radar4.startAnimation(rotate4);
-		
+
 		ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
 		RotateAnimation rotate5 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate5);
 		rotate5.setDuration(1200);
 		radar5.startAnimation(rotate5);
-		
+
 		ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
 		RotateAnimation rotate6 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate6);
 		rotate6.setDuration(1200);
 		radar6.startAnimation(rotate6);
 	}
-	
+
 	private void setRotateAnimConstants(RotateAnimation animation) {
 		animation.setRepeatMode(Animation.RESTART);
 		animation.setFillAfter(false);
@@ -315,5 +324,5 @@ public class MapplasActivity extends Activity {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 }

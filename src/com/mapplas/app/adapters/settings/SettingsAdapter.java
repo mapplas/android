@@ -1,4 +1,4 @@
-package com.mapplas.app.adapters.about_us;
+package com.mapplas.app.adapters.settings;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class AboutUsAdapter extends BaseAdapter {
+public class SettingsAdapter extends BaseAdapter {
 
 	private Context context;
 
@@ -29,7 +29,7 @@ public class AboutUsAdapter extends BaseAdapter {
 
 	private LanguageDialogInterface languageInterface;
 
-	public AboutUsAdapter(Context context, Typeface normalTypeface) {
+	public SettingsAdapter(Context context, Typeface normalTypeface) {
 		this.context = context;
 		this.normalTypeface = normalTypeface;
 

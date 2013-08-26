@@ -13,14 +13,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import app.mapplas.com.R;
 
-import com.mapplas.app.adapters.about_us.AboutUsAdapter;
+import com.mapplas.app.adapters.settings.SettingsAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
 public class SettingsActivity extends Activity implements LanguageDialogInterface {
 
-	private AboutUsAdapter adapter;
+	private SettingsAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class SettingsActivity extends Activity implements LanguageDialogInterfac
 		});
 
 		ListView list = (ListView)this.findViewById(R.id.preferences_list);
-		this.adapter = new AboutUsAdapter(this, normalTypeFace);
+		this.adapter = new SettingsAdapter(this, normalTypeFace);
 		list.setAdapter(this.adapter);
 	}
 
@@ -86,6 +86,7 @@ public class SettingsActivity extends Activity implements LanguageDialogInterfac
 		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 
 		Intent intent = new Intent(this, MapplasActivity.class);
+		intent.putExtra(Constants.SETTINGS_LANGUAGE_CHANGE_BUNDLE, true);
 		this.startActivity(intent);
 		this.finish();
 	}
