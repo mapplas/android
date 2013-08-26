@@ -1,14 +1,10 @@
 package com.mapplas.app.activities;
 
-import java.util.Locale;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -20,9 +16,10 @@ import app.mapplas.com.R;
 import com.mapplas.app.adapters.settings.SettingsAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
+import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class SettingsActivity extends Activity implements LanguageDialogInterface {
+public class SettingsActivity extends LanguageActivity implements LanguageDialogInterface {
 
 	private SettingsAdapter adapter;
 
@@ -75,22 +72,7 @@ public class SettingsActivity extends Activity implements LanguageDialogInterfac
 
 	private void updateLanguage(String language) {
 		this.adapter.notifyDataSetChanged();
-
-		Locale locale = null;
-		if(language.equals(Constants.ENGLISH)) {
-			locale = new Locale("en");
-		}
-		else if(language.equals(Constants.SPANISH)) {
-			locale = new Locale("es");
-		}
-		else {
-			locale = new Locale("eu");
-		}
-
-		Locale.setDefault(locale);
-		Configuration config = new Configuration();
-		config.locale = locale;
-		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+		new LanguageSetter(this).setLanguageToApp(language);
 	}
 
 	private void showAppRestartDialog() {
@@ -103,6 +85,7 @@ public class SettingsActivity extends Activity implements LanguageDialogInterfac
 				dialog.dismiss();
 				Intent intent = new Intent(SettingsActivity.this, MapplasActivity.class);
 				intent.putExtra(Constants.SETTINGS_LANGUAGE_CHANGE_BUNDLE, true);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				finish();
 			}

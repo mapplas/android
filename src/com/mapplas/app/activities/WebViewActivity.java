@@ -1,6 +1,5 @@
 package com.mapplas.app.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +14,7 @@ import app.mapplas.com.R;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.webView.TouchableScrollView;
 
-public class WebViewActivity extends Activity {
+public class WebViewActivity extends LanguageActivity {
 
 	private String url;
 

@@ -1,6 +1,5 @@
 package com.mapplas.app.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -26,7 +25,7 @@ import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter;
 
-public class UserForm extends Activity {
+public class UserForm extends LanguageActivity {
 
 	private RotateAnimation flipAnimation;
 
