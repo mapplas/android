@@ -3,30 +3,18 @@ package com.mapplas.app.application;
 import java.util.Locale;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 
 import com.mapplas.model.Constants;
 
 public class MapplasApplication extends Application {
 
-	private boolean firstLaunch = true;
-
 	private Typeface typeface = null;
 
 	private Typeface typefaceBold = null;
 
 	private Typeface typefaceItalic = null;
-
-	private String language = null;
-
-	// First launch
-	public boolean getIsFirstLaunch() {
-		return this.firstLaunch;
-	}
-
-	public void setFirstLaunchFalse() {
-		this.firstLaunch = false;
-	}
 
 	// Typefaces
 	public void loadTypefaces() {
@@ -49,20 +37,23 @@ public class MapplasApplication extends Application {
 
 	// Language
 	public void setDefaultLanguage() {
+		SharedPreferences sharedPrefs = getSharedPreferences("MAPPLAS_PREF", MODE_PRIVATE);
 		if(Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
-			this.language = Constants.SPANISH;
+			sharedPrefs.edit().putString("language", Constants.SPANISH).commit();
 		}
 		else {
-			this.language = Constants.ENGLISH;
+			sharedPrefs.edit().putString("language", Constants.ENGLISH).commit();
 		}
 	}
 
 	public String getLanguage() {
-		return this.language;
+		SharedPreferences sharedPrefs = getSharedPreferences("MAPPLAS_PREF", MODE_PRIVATE);
+		return sharedPrefs.getString("language", "");
 	}
 
 	public void setLanguage(String lang) {
-		this.language = lang;
+		SharedPreferences sharedPrefs = getSharedPreferences("MAPPLAS_PREF", MODE_PRIVATE);
+		sharedPrefs.edit().putString("language", lang).commit();
 	}
 
 }

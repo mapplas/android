@@ -6,6 +6,7 @@ import java.util.Random;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
 import android.location.LocationManager;
@@ -85,17 +86,20 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		// Load typefaces from MapplasApplication
-		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
-		this.checkLanguage();
-
+		
 		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
 
 		// Get phone IMEI as identifier (problems with ANDROID_ID)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
 
+		// Load typefaces from MapplasApplication
+		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
+		// Check language
+		this.checkLanguage();
+	}
+	
+	private void onCreate2() {
 		this.startRadarAnimation();
 		this.startLatLongAnimation();
 
@@ -139,6 +143,7 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 		// new AppGetterTask(this, this.model, this.listViewAdapter,
 		// this.listView, this.appsInstalledList).execute(new
 		// Location(location), true);
+
 	}
 
 	@Override
@@ -187,18 +192,18 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 
 	private void checkLanguage() {
 		// First launch language dialog
-		boolean isFirstLaunch = ((MapplasApplication)this.getApplicationContext()).getIsFirstLaunch();
 
-		if(isFirstLaunch) {
+		SharedPreferences sharedPrefs = getSharedPreferences("MAPPLAS_PREF", MODE_PRIVATE);
+		boolean firstboot = sharedPrefs.getBoolean("firstboot", true);
+
+		if(firstboot) {
 			// Show language dialog
-			((MapplasApplication)this.getApplicationContext()).setFirstLaunchFalse();
-
+			sharedPrefs.edit().putBoolean("firstboot", false).commit();
 			new LanguageDialogCreator(this, languageInterface).createLanguageListDialog();
 		}
-
-		// Comming from settings after language change
-		if(this.getIntent() == null || this.getIntent().getExtras() == null || !this.getIntent().getExtras().containsKey(Constants.SETTINGS_LANGUAGE_CHANGE_BUNDLE)) {
-			((MapplasApplication)this.getApplicationContext()).setDefaultLanguage();
+		else {
+			new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
+			this.onCreate2();
 		}
 	}
 
@@ -344,18 +349,21 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 	public void onDialogEnglishLanguageClick() {
 		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.ENGLISH);
 		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
+		
 	}
 
 	@Override
 	public void onDialogSpanishLanguageClick() {
 		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.SPANISH);
 		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
+		this.onCreate2();
 	}
 
 	@Override
 	public void onDialogBasqueLanguageClick() {
 		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.BASQUE);
 		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
+		this.onCreate2();
 	}
 
 	private void updateLanguage(String language) {
