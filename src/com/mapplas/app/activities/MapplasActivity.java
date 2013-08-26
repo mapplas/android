@@ -6,7 +6,6 @@ import java.util.Random;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
 import android.location.LocationManager;
@@ -36,8 +35,6 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
-import com.mapplas.utils.language.LanguageDialogCreator;
-import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
@@ -45,9 +42,8 @@ import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
-import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class MapplasActivity extends LanguageActivity implements LanguageDialogInterface {
+public class MapplasActivity extends LanguageActivity {
 
 	public static String PACKAGE_NAME = "";
 
@@ -79,14 +75,13 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 
 	private Handler longitudeTVHandler = new Handler();
 
-	private LanguageDialogInterface languageInterface;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
 
 		// Get phone IMEI as identifier (problems with ANDROID_ID)
@@ -95,11 +90,7 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
-		// Check language
-		this.checkLanguage();
-	}
-	
-	private void onCreate2() {
+		
 		this.startRadarAnimation();
 		this.startLatLongAnimation();
 
@@ -124,10 +115,10 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList);
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
 		this.listView.setAdapter(this.listViewAdapter);
 
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -143,7 +134,6 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 		// new AppGetterTask(this, this.model, this.listViewAdapter,
 		// this.listView, this.appsInstalledList).execute(new
 		// Location(location), true);
-
 	}
 
 	@Override
@@ -189,23 +179,6 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 	 * Private methods
 	 * 
 	 */
-
-	private void checkLanguage() {
-		// First launch language dialog
-
-		SharedPreferences sharedPrefs = getSharedPreferences("MAPPLAS_PREF", MODE_PRIVATE);
-		boolean firstboot = sharedPrefs.getBoolean("firstboot", true);
-
-		if(firstboot) {
-			// Show language dialog
-			sharedPrefs.edit().putBoolean("firstboot", false).commit();
-			new LanguageDialogCreator(this, languageInterface).createLanguageListDialog();
-		}
-		else {
-			new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
-			this.onCreate2();
-		}
-	}
 
 	private void setClickListenersToButtons(Typeface normalTypeFace) {
 		// User profile button
@@ -345,28 +318,4 @@ public class MapplasActivity extends LanguageActivity implements LanguageDialogI
 		}
 	}
 
-	@Override
-	public void onDialogEnglishLanguageClick() {
-		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.ENGLISH);
-		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
-		
-	}
-
-	@Override
-	public void onDialogSpanishLanguageClick() {
-		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.SPANISH);
-		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
-		this.onCreate2();
-	}
-
-	@Override
-	public void onDialogBasqueLanguageClick() {
-		((MapplasApplication)this.getApplicationContext()).setLanguage(Constants.BASQUE);
-		updateLanguage(((MapplasApplication)this.getApplicationContext()).getLanguage());
-		this.onCreate2();
-	}
-
-	private void updateLanguage(String language) {
-		new LanguageSetter(this).setLanguageToApp(language);
-	}
 }

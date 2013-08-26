@@ -31,6 +31,7 @@ public class SettingsAdapter extends BaseAdapter {
 	public SettingsAdapter(Context context, Typeface normalTypeface) {
 		this.context = context;
 		this.normalTypeface = normalTypeface;
+		this.languageInterface = (LanguageDialogInterface)this.context;
 
 		this.inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -121,7 +122,7 @@ public class SettingsAdapter extends BaseAdapter {
 
 				switch (position) {
 					case 0:
-						new LanguageDialogCreator(context, languageInterface).createLanguageListDialog();
+						new LanguageDialogCreator(context, languageInterface, null).createLanguageListDialog();
 						break;
 
 					case 1:

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -15,12 +16,17 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
+import com.mapplas.app.application.MapplasApplication;
+import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
+import com.mapplas.utils.language.LanguageDialogCreator;
+import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
+import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class AppGetterTask extends AsyncTask<Object, Void, Location> {
+public class AppGetterTask extends AsyncTask<Object, Void, Location> implements LanguageDialogInterface {
 
 	private Context context;
 
@@ -36,13 +42,16 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 
 	private static boolean occupied = false;
 		
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList) {
+	private MapplasActivity mainActivity;
+		
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
 		super();
 		this.context = context;
 		this.model = model;
 		this.listViewAdapter = listViewAdapter;
 		this.listView = listView;
 		this.appsInstalledInfo = applicationList;
+		this.mainActivity = mainActivity;
 	}
 
 	@Override
@@ -87,7 +96,11 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 	@Override
 	protected void onPostExecute(Location location) {
 		super.onPostExecute(location);
-
+		
+		this.checkLanguage();
+	}
+	
+	private void afterLanguageCheck() {
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
 		this.listView.setVisibility(View.VISIBLE);
@@ -126,5 +139,48 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> {
 			}
 		}
 		return ret;
+	}
+	
+	private void checkLanguage() {
+		// First launch language dialog
+
+		SharedPreferences sharedPrefs = this.context.getSharedPreferences("MAPPLAS_PREF", Context.MODE_PRIVATE);
+		boolean firstboot = sharedPrefs.getBoolean("firstboot", true);
+
+		if(firstboot && this.model.isFromBasqueCountry()) {
+			// Show language dialog
+			new LanguageDialogCreator(this.context, this, this).createLanguageListDialog();
+		}
+		else {
+			new LanguageSetter(this.mainActivity).setLanguageToApp(((MapplasApplication)this.context.getApplicationContext()).getLanguage());
+			this.afterLanguageCheck();
+		}
+
+		sharedPrefs.edit().putBoolean("firstboot", false).commit();
+	}
+
+	@Override
+	public void onDialogEnglishLanguageClick() {
+		((MapplasApplication)this.context.getApplicationContext()).setLanguage(Constants.ENGLISH);
+		updateLanguage(((MapplasApplication)this.context.getApplicationContext()).getLanguage());
+		this.afterLanguageCheck();
+	}
+
+	@Override
+	public void onDialogSpanishLanguageClick() {
+		((MapplasApplication)this.context.getApplicationContext()).setLanguage(Constants.SPANISH);
+		updateLanguage(((MapplasApplication)this.context.getApplicationContext()).getLanguage());
+		this.afterLanguageCheck();
+	}
+
+	@Override
+	public void onDialogBasqueLanguageClick() {
+		((MapplasApplication)this.context.getApplicationContext()).setLanguage(Constants.BASQUE);
+		updateLanguage(((MapplasApplication)this.context.getApplicationContext()).getLanguage());
+		this.afterLanguageCheck();
+	}
+	
+	private void updateLanguage(String language) {
+		new LanguageSetter(this.mainActivity).setLanguageToApp(language);
 	}
 }

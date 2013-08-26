@@ -55,7 +55,8 @@ public class AppGetterConnector {
 				mapper.map(new JSONObject(serverResponse), model);
 			}
 			else {
-				serverResponse = EntityUtils.toString(rp.getEntity());
+				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
+				mapper.setMockedAppToList(model);
 			}
 
 		} catch (Exception exc) {
