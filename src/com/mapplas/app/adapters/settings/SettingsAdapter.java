@@ -108,11 +108,11 @@ public class SettingsAdapter extends BaseAdapter {
 				String message = "";
 
 				switch (position) {
-					case 0:
+					case 1:
 						message = context.getString(R.string.terms_of_use_message);
 						break;
 
-					case 1:
+					case 2:
 						message = context.getString(R.string.privacy_policy_message);
 						break;
 
