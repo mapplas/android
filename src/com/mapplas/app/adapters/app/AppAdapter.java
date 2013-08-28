@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import app.mapplas.com.R;
 
 import com.commonsware.cwac.endless.EndlessAdapter;
+import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
@@ -31,17 +32,18 @@ public class AppAdapter extends EndlessAdapter {
 		
 	private ArrayList<ApplicationInfo> applicationList;
 	
-//	private String TAG = "AppAdapter";
+	private MapplasActivity mainActivity;
 	
 	public boolean SLEEP = false;
 		
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList) {
+	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
 		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
 
 		this.context = context;
 		this.model = model;
 		this.list = list;
 		this.applicationList = applicationList;
+		this.mainActivity = mainActivity;
 	}
 
 	/**
@@ -78,7 +80,7 @@ public class AppAdapter extends EndlessAdapter {
 	protected boolean cacheInBackground() throws Exception {
 		if (this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
 			this.SLEEP = true;
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList).execute(this.model.getLocation(), false);
+			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity).execute(this.model.getLocation(), false);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while(this.SLEEP) {
 				Thread.sleep(200);

@@ -14,6 +14,7 @@ import com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
+import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask;
 import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 
@@ -34,6 +35,14 @@ public class MoreFromDeveloperActivity extends ListActivity {
 		new MoreFromDeveloperTask(this, this.app, this.country_code, this).execute();
 
 		this.initializeLayoutComponents();
+	}
+	
+	// All other apps extends from LanguageActivity to avoid setting those three lines of code on each.
+	// Because MoreFromDeveloperActivity is a listActivity code is set here.
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
 	}
 
 	private void initializeLayoutComponents() {

@@ -1,6 +1,5 @@
 package com.mapplas.app.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,7 +47,7 @@ import com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper;
 import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 import com.mapplas.utils.visual.helpers.ShareHelper;
 
-public class AppDetail extends Activity {
+public class AppDetail extends LanguageActivity {
 
 	private App app;
 
@@ -247,7 +246,9 @@ public class AppDetail extends Activity {
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
 
 		if(this.app.moreFromDev().size() > 0) {
-//		if(!this.app.appDeveloperEmail().equals("") || !this.app.appDeveloperWeb().equals("") || this.app.moreFromDev().size() > 0) {
+			// if(!this.app.appDeveloperEmail().equals("") ||
+			// !this.app.appDeveloperWeb().equals("") ||
+			// this.app.moreFromDev().size() > 0) {
 
 			// Developer layout
 			LinearLayout developerLayout = (LinearLayout)findViewById(R.id.lytDeveloper);
@@ -257,43 +258,50 @@ public class AppDetail extends Activity {
 			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
 			developerTextView.setTypeface(normalTypeFace);
 
-//			// Developer email
-//			RelativeLayout emailLayout = (RelativeLayout)this.findViewById(R.id.developer_email_layout);
-//			if(!this.app.appDeveloperEmail().equals("")) {
-//				emailLayout.setOnClickListener(new OnClickListener() {
-//
-//					@Override
-//					public void onClick(View v) {
-//						v.setBackgroundResource(R.color.pinned_app_cell_background_color);
-//						Intent i = new Intent(Intent.ACTION_SEND);
-//						i.setType("text/html"); // use from live device
-//						i.putExtra(Intent.EXTRA_EMAIL, new String[] { app.appDeveloperEmail() });
-//						i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_developer_email_contact_subject));
-//						startActivity(Intent.createChooser(i, "Select email application."));
-//					}
-//				});
-//			}
-//			else {
-//				emailLayout.setVisibility(View.GONE);
-//			}
-//
-//			// Developer web
-//			RelativeLayout webLayout = (RelativeLayout)this.findViewById(R.id.developer_web_layout);
-//			if(!this.app.appDeveloperWeb().equals("")) {
-//				webLayout.setOnClickListener(new OnClickListener() {
-//
-//					@Override
-//					public void onClick(View v) {
-//						v.setBackgroundResource(R.color.pinned_app_cell_background_color);
-//						Intent intent = new Intent(AppDetail.this, WebViewActivity.class);
-//						intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.appDeveloperWeb());
-//						AppDetail.this.startActivity(intent);
-//					}
-//				});
-//			}
-//			else {
-//				webLayout.setVisibility(View.GONE);
-//			}
+			// // Developer email
+			// RelativeLayout emailLayout =
+			// (RelativeLayout)this.findViewById(R.id.developer_email_layout);
+			// if(!this.app.appDeveloperEmail().equals("")) {
+			// emailLayout.setOnClickListener(new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(View v) {
+			// v.setBackgroundResource(R.color.pinned_app_cell_background_color);
+			// Intent i = new Intent(Intent.ACTION_SEND);
+			// i.setType("text/html"); // use from live device
+			// i.putExtra(Intent.EXTRA_EMAIL, new String[] {
+			// app.appDeveloperEmail() });
+			// i.putExtra(Intent.EXTRA_SUBJECT,
+			// getString(R.string.app_developer_email_contact_subject));
+			// startActivity(Intent.createChooser(i,
+			// "Select email application."));
+			// }
+			// });
+			// }
+			// else {
+			// emailLayout.setVisibility(View.GONE);
+			// }
+			//
+			// // Developer web
+			// RelativeLayout webLayout =
+			// (RelativeLayout)this.findViewById(R.id.developer_web_layout);
+			// if(!this.app.appDeveloperWeb().equals("")) {
+			// webLayout.setOnClickListener(new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(View v) {
+			// v.setBackgroundResource(R.color.pinned_app_cell_background_color);
+			// Intent intent = new Intent(AppDetail.this,
+			// WebViewActivity.class);
+			// intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA,
+			// app.appDeveloperWeb());
+			// AppDetail.this.startActivity(intent);
+			// }
+			// });
+			// }
+			// else {
+			// webLayout.setVisibility(View.GONE);
+			// }
 
 		}
 	}
@@ -303,11 +311,12 @@ public class AppDetail extends Activity {
 		TextView moreInfoTextView = (TextView)findViewById(R.id.lblMoreInfo);
 		moreInfoTextView.setText(this.app.getAppDescription());
 		moreInfoTextView.setTypeface(((MapplasApplication)this.getApplicationContext()).getItalicTypeFace());
-		
+
 		final ImageView moreLessImage = (ImageView)findViewById(R.id.imgMore);
 		if(moreInfoTextView.getMeasuredWidth() * 6 < moreInfoTextView.getPaint().measureText(app.getAppDescription())) {
 			moreLessImage.setVisibility(View.VISIBLE);
-		} else {
+		}
+		else {
 			moreLessImage.setVisibility(View.GONE);
 		}
 

@@ -40,6 +40,12 @@ public class JsonToAppReponseMapper implements TargetMapper {
 			else {
 				model.setMoreData(false);
 			}
+			
+			int from_basque_country = 0;
+			if(json.has("eu")) {
+				from_basque_country = json.getInt("eu");
+			}
+			model.setFromBasqueCountry(from_basque_country == 1);
 
 			if(json.has("apps")) {
 				JSONArray apps = json.getJSONArray("apps");

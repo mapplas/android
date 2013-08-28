@@ -39,8 +39,10 @@ public class AroundRequester implements UserLocationListener {
 	private AppAdapter appAdapter;
 	
 	private ArrayList<ApplicationInfo> appsInstalledList;
+	
+	private MapplasActivity mainActivity;
 
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -49,6 +51,7 @@ public class AroundRequester implements UserLocationListener {
 		this.appAdapter = appAdapter;
 		this.listView = listView;
 		this.appsInstalledList = appsInstalledList;
+		this.mainActivity = mainActivity;
 	}
 
 	public void start() {
@@ -78,6 +81,9 @@ public class AroundRequester implements UserLocationListener {
 	}
 
 	private void loadTasks(Location location, boolean reset_pagination) {
+		
+//		new LocationTask(this.context, this.model, this.mainActivity).execute(location);
+		
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
@@ -101,7 +107,7 @@ public class AroundRequester implements UserLocationListener {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList).execute(new Location(location), reset_pagination);
+				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity).execute(new Location(location), reset_pagination);
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 
 			} catch (Exception e) {

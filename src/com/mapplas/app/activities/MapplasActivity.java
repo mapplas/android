@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -44,7 +43,7 @@ import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 
-public class MapplasActivity extends Activity {
+public class MapplasActivity extends LanguageActivity {
 
 	public static String PACKAGE_NAME = "";
 
@@ -76,20 +75,21 @@ public class MapplasActivity extends Activity {
 
 	private Handler longitudeTVHandler = new Handler();
 
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		// Load typefaces from MapplasApplication
-		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
-
 		MapplasActivity.PACKAGE_NAME = this.getApplicationContext().getPackageName();
 
 		// Get phone IMEI as identifier (problems with ANDROID_ID)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		this.model.setCurrentIMEI(manager.getDeviceId());
+
+		// Load typefaces from MapplasApplication
+		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 		
 		this.startRadarAnimation();
 		this.startLatLongAnimation();
@@ -115,22 +115,25 @@ public class MapplasActivity extends Activity {
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList);
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
 		this.listView.setAdapter(this.listViewAdapter);
 
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
 
 		// Check network status
 		this.checkNetworkStatus();
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-//		Location location = new Location("");
-//		location.setLatitude(40.720982);
-//		location.setLongitude(-74.003563);
-//		this.model.setLocation(location);
-//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList).execute(new Location(location), true);
+		// Location location = new Location("");
+		// location.setLatitude(40.720982);
+		// location.setLongitude(-74.003563);
+		// this.model.setLocation(location);
+		// new ReverseGeocodingTask(this, this.model,
+		// this.listViewHeaderStatusMessage).execute(new Location(location));
+		// new AppGetterTask(this, this.model, this.listViewAdapter,
+		// this.listView, this.appsInstalledList).execute(new
+		// Location(location), true);
 	}
 
 	@Override
@@ -253,20 +256,20 @@ public class MapplasActivity extends Activity {
 		this.setRotateAnimConstants(rotate4);
 		rotate4.setDuration(1200);
 		radar4.startAnimation(rotate4);
-		
+
 		ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
 		RotateAnimation rotate5 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate5);
 		rotate5.setDuration(1200);
 		radar5.startAnimation(rotate5);
-		
+
 		ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
 		RotateAnimation rotate6 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate6);
 		rotate6.setDuration(1200);
 		radar6.startAnimation(rotate6);
 	}
-	
+
 	private void setRotateAnimConstants(RotateAnimation animation) {
 		animation.setRepeatMode(Animation.RESTART);
 		animation.setFillAfter(false);
@@ -314,5 +317,5 @@ public class MapplasActivity extends Activity {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 }

@@ -54,6 +54,10 @@ public class AppGetterConnector {
 				// Iterative mapper
 				mapper.map(new JSONObject(serverResponse), model);
 			}
+			else {
+				JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
+				mapper.setMockedAppToList(model);
+			}
 
 		} catch (Exception exc) {
 			JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();

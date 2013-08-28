@@ -9,6 +9,11 @@ public class Constants {
 	
 	public static final String SYNESTH_VERSION = "1";
 	
+	// Languages
+	public static final String ENGLISH = "english";
+	public static final String SPANISH = "spanish";
+	public static final String BASQUE = "basque";
+	
 	// Constants of the Activities
 	public static final int SYNESTH_LOGIN_ID = 10;
 	public static final int SYNESTH_USER_ID = 20;
@@ -110,5 +115,8 @@ public class Constants {
 	public static String EXTRA_HIGH_PIXEL_DENSITY = "extra_high";
 	
 	public static String SERVER_RESPONSE_ERROR_USER_IDENTIFICATION = "server_response_error_user_ident";
+	
+	// Intent bundle settings restart app language change
+	public static String SETTINGS_LANGUAGE_CHANGE_BUNDLE = "com.mapplas.activity.bundle.settings_language_change";
 
 }
