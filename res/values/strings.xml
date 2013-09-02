@@ -11,7 +11,7 @@
     <string name="email">Email</string>
     <string name="description">Description</string>
     <string name="comments">Comments</string>
-    <string name="location_searching">Geting your location!</string>
+    <string name="location_searching">Getting your location!</string>
     <string name="location_done">Location retrived correctly</string>
     <string name="rating_rate">Rate App</string>
     <string name="accept">Accept</string>

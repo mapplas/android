@@ -56,7 +56,7 @@ public class AppAdapter extends EndlessAdapter {
 	protected View getPendingView(ViewGroup parent) {
 		View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.loading_row, null);
 		this.startProgressAnimation(row);
-		return (row);
+		return row;
 	}
 
 	private void startProgressAnimation(View view) {

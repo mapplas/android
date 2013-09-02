@@ -106,7 +106,11 @@ public class AroundRequester implements UserLocationListener {
 			try {
 				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
 				this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
-
+				
+				this.model.initializeForNewAppRequest();
+				// Restart appending adapter data. If reached end of endless adapter and loading cell is hidden, restarting appending loading app is shown again. :)
+				this.appAdapter.restartAppending();
+				
 				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity).execute(new Location(location), reset_pagination);
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 
