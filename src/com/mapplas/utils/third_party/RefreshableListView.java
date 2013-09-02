@@ -107,7 +107,6 @@ public class RefreshableListView extends ListView {
 	}
 
 	public void completeRefreshing() {
-//		Log.d(TAG, "completeRefreshing");
 		mHandler.sendMessage(mHandler.obtainMessage(NORMAL, mHeaderHeight, 0));
 		mIsRefreshing = false;
 		

@@ -161,6 +161,10 @@ public class SuperModel implements Parcelable {
 	public void setFromBasqueCountry(boolean fromBasqueCountry) {
 		this.fromBasqueCountry = fromBasqueCountry;
 	}
+	
+	public void initializeForNewAppRequest() {
+		this.setMoreData(true);
+	}
 
 	/**
 	 * Parcelable methods
