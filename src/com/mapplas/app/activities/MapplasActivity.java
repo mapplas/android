@@ -125,15 +125,13 @@ public class MapplasActivity extends LanguageActivity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator use
-		// Location location = new Location("");
-		// location.setLatitude(40.720982);
-		// location.setLongitude(-74.003563);
-		// this.model.setLocation(location);
-		// new ReverseGeocodingTask(this, this.model,
-		// this.listViewHeaderStatusMessage).execute(new Location(location));
-		// new AppGetterTask(this, this.model, this.listViewAdapter,
-		// this.listView, this.appsInstalledList).execute(new
-		// Location(location), true);
+//		 Location location = new Location("");
+//		 location.setLatitude(40.431);
+//		 location.setLongitude(-3.687);
+//		 this.model.setLocation(location);
+//		 new ReverseGeocodingTask(this, this.model,
+//		 this.listViewHeaderStatusMessage).execute(new Location(location));
+//		 new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this).execute(new Location(location), true);
 	}
 
 	@Override

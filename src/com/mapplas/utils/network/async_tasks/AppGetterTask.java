@@ -144,19 +144,18 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	private void checkLanguage() {
 		// First launch language dialog
 
-		SharedPreferences sharedPrefs = this.context.getSharedPreferences("MAPPLAS_PREF", Context.MODE_PRIVATE);
-		boolean firstboot = sharedPrefs.getBoolean("firstboot", true);
+		SharedPreferences sharedPrefs = this.context.getSharedPreferences(Constants.MAPPLAS_SHARED_PREFS, Context.MODE_PRIVATE);
+		boolean firstboot = sharedPrefs.getBoolean(Constants.MAPPLAS_SHARED_PREFS_LANGUAGE_DIALOG_SHOWN, true);
 
 		if(firstboot && this.model.isFromBasqueCountry()) {
 			// Show language dialog
+			sharedPrefs.edit().putBoolean(Constants.MAPPLAS_SHARED_PREFS_LANGUAGE_DIALOG_SHOWN, false).commit();
 			new LanguageDialogCreator(this.context, this, this).createLanguageListDialog();
 		}
 		else {
 			new LanguageSetter(this.mainActivity).setLanguageToApp(((MapplasApplication)this.context.getApplicationContext()).getLanguage());
 			this.afterLanguageCheck();
 		}
-
-		sharedPrefs.edit().putBoolean("firstboot", false).commit();
 	}
 
 	@Override

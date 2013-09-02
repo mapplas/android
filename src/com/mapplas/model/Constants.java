@@ -118,5 +118,8 @@ public class Constants {
 	
 	// Intent bundle settings restart app language change
 	public static String SETTINGS_LANGUAGE_CHANGE_BUNDLE = "com.mapplas.activity.bundle.settings_language_change";
+	
+	public static String MAPPLAS_SHARED_PREFS = "MAPPLAS_PREF";
+	public static String MAPPLAS_SHARED_PREFS_LANGUAGE_DIALOG_SHOWN = "LANG_DIALOG_FIRST_SHOWN";
 
 }
