@@ -124,7 +124,7 @@ public class MapplasActivity extends LanguageActivity {
 		this.checkNetworkStatus();
 
 		this.loadLocalization();
-		// TODO: uncomment for emulator use
+		// TODO: uncomment for emulator or mocked location use
 //		 Location location = new Location("");
 //		 location.setLatitude(40.431);
 //		 location.setLongitude(-3.687);

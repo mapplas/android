@@ -2,6 +2,7 @@ package com.mapplas.utils.network.mappers.generic.base;
 
 import java.lang.reflect.Method;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -20,9 +21,8 @@ public class KeyValueScapedMapper implements TargetMapper {
 	@Override
 	public void map(JSONObject json, Object target) {
 		try {
-			String mappedValue = json.getString(this.key);
-//			String escapedValue = StringEscapeUtils.unescapeHtml4(mappedValue);
-			method.invoke(target, mappedValue);
+			String escapedValue = StringEscapeUtils.unescapeHtml4(json.getString(this.key));
+			method.invoke(target, escapedValue);
 		} catch (Exception e) {
 			Log.i(this.getClass().getSimpleName(), "Mapping Value Failed. " + e.getMessage());
 		}

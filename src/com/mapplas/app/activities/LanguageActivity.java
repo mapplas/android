@@ -1,9 +1,9 @@
 package com.mapplas.app.activities;
 
+import android.app.Activity;
+
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.utils.language.LanguageSetter;
-
-import android.app.Activity;
 
 public class LanguageActivity extends Activity {
 

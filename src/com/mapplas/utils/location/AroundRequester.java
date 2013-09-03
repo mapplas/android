@@ -82,7 +82,9 @@ public class AroundRequester implements UserLocationListener {
 
 	private void loadTasks(Location location, boolean reset_pagination) {
 		
-//		new LocationTask(this.context, this.model, this.mainActivity).execute(location);
+//		TODO: uncomment for emulator or mocked location use
+//		location.setLatitude(40.431);
+//		location.setLongitude(-3.687);
 		
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);

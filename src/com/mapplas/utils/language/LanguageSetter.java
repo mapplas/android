@@ -2,10 +2,10 @@ package com.mapplas.utils.language;
 
 import java.util.Locale;
 
-import com.mapplas.model.Constants;
-
 import android.app.Activity;
 import android.content.res.Configuration;
+
+import com.mapplas.model.Constants;
 
 public class LanguageSetter {
 
