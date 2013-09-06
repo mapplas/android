@@ -76,9 +76,9 @@
     <string name="comming_soon_pull">Pull to refresh</string>
     <string name="problem_launching_app">Sorry, there is a problem launching the app.</string>
     <string name="language_change_list_item">Language:</string>
-    <string name="language_change_alert_title">Change language</string>
+    <string name="language_change_alert_title">Choose language</string>
     <string name="language_english">English</string>
-    <string name="language_spanish">Spanish</string>
-    <string name="language_basque">Basque</string>
+    <string name="language_spanish">Castellano</string>
+    <string name="language_basque">Euskera</string>
 	<string name="language_change_restart_app_message">An application restart is needed after language change</string>
 </resources>

@@ -62,10 +62,10 @@
     <string name="comming_soon_pull">Desliza hacia abajo para refrescar</string>
     <string name="problem_launching_app">Lo sentimos, ha ocurrido un problema al lanzar la aplicación.</string>
     <string name="language_change_list_item">Idioma:</string>
-    <string name="language_change_alert_title">Cambiar idioma</string>
-    <string name="language_english">Inglés</string>
+    <string name="language_change_alert_title">Elegir idioma</string>
+    <string name="language_english">English</string>
     <string name="language_spanish">Castellano</string>
-    <string name="language_basque">Vasco</string>
+    <string name="language_basque">Euskera</string>
 	<string name="language_change_restart_app_message">Es necesario reiniciar la aplicación después del cambio de idioma</string>
 
 </resources>

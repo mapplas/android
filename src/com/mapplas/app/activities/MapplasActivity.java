@@ -2,15 +2,14 @@ package com.mapplas.app.activities;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
@@ -67,13 +66,13 @@ public class MapplasActivity extends LanguageActivity {
 
 	private AroundRequester aroundRequester = null;
 
-	private TextView latitudeTV;
-
-	private TextView longitudeTV;
-
-	private Handler latitudeTVHandler = new Handler();
-
-	private Handler longitudeTVHandler = new Handler();
+//	private TextView latitudeTV;
+//
+//	private TextView longitudeTV;
+//
+//	private Handler latitudeTVHandler = new Handler();
+//
+//	private Handler longitudeTVHandler = new Handler();
 
 
 	/** Called when the activity is first created. */
@@ -92,7 +91,7 @@ public class MapplasActivity extends LanguageActivity {
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 		
 		this.startRadarAnimation();
-		this.startLatLongAnimation();
+//		this.startLatLongAnimation();
 
 		// Identificamos contra el servidor
 		try {
@@ -232,40 +231,50 @@ public class MapplasActivity extends LanguageActivity {
 	 */
 	private void startRadarAnimation() {
 		ImageView radar1 = (ImageView)this.findViewById(R.id.radar_1);
-		RotateAnimation rotate = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		((BitmapDrawable)radar1.getDrawable()).setAntiAlias(true);
+		RotateAnimation rotate = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate);
-		rotate.setDuration(1200);
+		rotate.setDuration(1600);
+		radar1.setDrawingCacheEnabled(false);
 		radar1.startAnimation(rotate);
 
 		ImageView radar2 = (ImageView)this.findViewById(R.id.radar_2);
-		RotateAnimation rotate2 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		((BitmapDrawable)radar2.getDrawable()).setAntiAlias(true);
+		RotateAnimation rotate2 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate2);
-		rotate.setDuration(1200);
+		rotate2.setDuration(1800);
+		radar2.setDrawingCacheEnabled(true);
 		radar2.startAnimation(rotate2);
 
 		ImageView radar3 = (ImageView)this.findViewById(R.id.radar_3);
-		RotateAnimation rotate3 = new RotateAnimation(0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		((BitmapDrawable)radar3.getDrawable()).setAntiAlias(true);
+		RotateAnimation rotate3 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate3);
-		rotate3.setDuration(1200);
+		rotate3.setDuration(3400);
+		radar3.setDrawingCacheEnabled(true);
 		radar3.startAnimation(rotate3);
 
 		ImageView radar4 = (ImageView)this.findViewById(R.id.radar_4);
-		RotateAnimation rotate4 = new RotateAnimation(0, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		((BitmapDrawable)radar4.getDrawable()).setAntiAlias(true);
+		RotateAnimation rotate4 = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		this.setRotateAnimConstants(rotate4);
-		rotate4.setDuration(1200);
+		rotate4.setDuration(2600);
+		radar4.setDrawingCacheEnabled(false);
 		radar4.startAnimation(rotate4);
 
-		ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
-		RotateAnimation rotate5 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate5);
-		rotate5.setDuration(1200);
-		radar5.startAnimation(rotate5);
+//		ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
+//		RotateAnimation rotate5 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//		this.setRotateAnimConstants(rotate5);
+//		rotate5.setDuration(1200);
+//		radar5.setDrawingCacheEnabled(true);
+//		radar5.startAnimation(rotate5);
 
-		ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
-		RotateAnimation rotate6 = new RotateAnimation(360, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate6);
-		rotate6.setDuration(1200);
-		radar6.startAnimation(rotate6);
+//		ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
+//		RotateAnimation rotate6 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//		this.setRotateAnimConstants(rotate6);
+//		rotate6.setDuration(1200);
+//		radar6.setDrawingCacheEnabled(true);
+//		radar6.startAnimation(rotate6);
 	}
 
 	private void setRotateAnimConstants(RotateAnimation animation) {
@@ -275,32 +284,32 @@ public class MapplasActivity extends LanguageActivity {
 		animation.setInterpolator(new LinearInterpolator());
 	}
 
-	private void startLatLongAnimation() {
-		this.latitudeTV = (TextView)this.findViewById(R.id.lblLat);
-		this.latitudeTVHandler.post(this.latitudeTVRunnable);
-
-		this.longitudeTV = (TextView)this.findViewById(R.id.lblLon);
-		this.longitudeTVHandler.post(this.longitudeTVRunnable);
-	}
-
-	private Runnable latitudeTVRunnable = new Runnable() {
-
-		public void run() {
-			Random random = new Random();
-			latitudeTV.setText((random.nextInt(180 + 180) - 180) + "," + random.nextInt(99999));
-			latitudeTVHandler.postDelayed(latitudeTVRunnable, 100);
-		}
-	};
-
-	private Runnable longitudeTVRunnable = new Runnable() {
-
-		@Override
-		public void run() {
-			Random random = new Random();
-			longitudeTV.setText((random.nextInt(90 + 90) - 90) + "," + random.nextInt(99999));
-			longitudeTVHandler.postDelayed(longitudeTVRunnable, 100);
-		}
-	};
+//	private void startLatLongAnimation() {
+//		this.latitudeTV = (TextView)this.findViewById(R.id.lblLat);
+//		this.latitudeTVHandler.post(this.latitudeTVRunnable);
+//
+//		this.longitudeTV = (TextView)this.findViewById(R.id.lblLon);
+//		this.longitudeTVHandler.post(this.longitudeTVRunnable);
+//	}
+//
+//	private Runnable latitudeTVRunnable = new Runnable() {
+//
+//		public void run() {
+//			Random random = new Random();
+//			latitudeTV.setText((random.nextInt(180 + 180) - 180) + "," + random.nextInt(99999));
+//			latitudeTVHandler.postDelayed(latitudeTVRunnable, 100);
+//		}
+//	};
+//
+//	private Runnable longitudeTVRunnable = new Runnable() {
+//
+//		@Override
+//		public void run() {
+//			Random random = new Random();
+//			longitudeTV.setText((random.nextInt(90 + 90) - 90) + "," + random.nextInt(99999));
+//			longitudeTVHandler.postDelayed(longitudeTVRunnable, 100);
+//		}
+//	};
 
 	/**
 	 * Load localization
