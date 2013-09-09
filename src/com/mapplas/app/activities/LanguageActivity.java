@@ -13,4 +13,9 @@ public class LanguageActivity extends Activity {
 		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
 	}
 
+	@Override
+	protected void onStart() {
+		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
+		super.onStart();
+	}
 }

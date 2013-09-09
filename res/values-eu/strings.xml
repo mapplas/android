@@ -36,7 +36,7 @@
     <string name="done">Ados</string>
     <string name="allow">onartu</string>
     <string name="free">Dohan</string>
-    <string name="wifi_error_toast">Zure kokalekua prezisio gehiagorekin topatzeko aktibatu WiFi-a! Nahiz eta sare batera ez konektatuta egon bilaketa hobetuko da.</string>
+    <string name="wifi_error_toast">Zure kokalekua prezisio gehiagorekin topatzeko aktibatu WiFi-a. Bilaketa hobea izango da nahiz sare batera konektatuta ez egon	.</string>
     <string name="pull_to_refresh_wifi_error">Aktibatu WiFi-a prezisio hobea lortzeko!</string>
     <string name="location_error_toast">Ezin izan zaitugu aurkitu. Saiatu berriro aurrerago.</string>
     <string name="menu_refresh">Eguneratu</string>
@@ -66,6 +66,6 @@
     <string name="language_spanish">Castellano</string>
     <string name="language_basque">Euskera</string>
     <string name="language_change_restart_app">Barkatu baino aplikazioa berrabiaraztea beharrezkoa da hizkuntza aldatzeko</string>
-    <string name="language_change_restart_app_message">Aplikazioa berrabiaraztea beharrezkoa da hizkuntza aldaketak gertatzeko</string>
+    <string name="language_change_restart_app_message">Aplikazioa berrabiaraztea beharrezkoa da hizkuntza aldaketak eman ahal izateko</string>
 
 </resources>

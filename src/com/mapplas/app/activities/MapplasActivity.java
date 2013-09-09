@@ -34,6 +34,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
@@ -66,14 +67,6 @@ public class MapplasActivity extends LanguageActivity {
 
 	private AroundRequester aroundRequester = null;
 
-//	private TextView latitudeTV;
-//
-//	private TextView longitudeTV;
-//
-//	private Handler latitudeTVHandler = new Handler();
-//
-//	private Handler longitudeTVHandler = new Handler();
-
 
 	/** Called when the activity is first created. */
 	@Override
@@ -89,9 +82,9 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
+		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
 		
 		this.startRadarAnimation();
-//		this.startLatLongAnimation();
 
 		// Identificamos contra el servidor
 		try {
@@ -283,33 +276,6 @@ public class MapplasActivity extends LanguageActivity {
 		animation.setRepeatCount(Animation.INFINITE);
 		animation.setInterpolator(new LinearInterpolator());
 	}
-
-//	private void startLatLongAnimation() {
-//		this.latitudeTV = (TextView)this.findViewById(R.id.lblLat);
-//		this.latitudeTVHandler.post(this.latitudeTVRunnable);
-//
-//		this.longitudeTV = (TextView)this.findViewById(R.id.lblLon);
-//		this.longitudeTVHandler.post(this.longitudeTVRunnable);
-//	}
-//
-//	private Runnable latitudeTVRunnable = new Runnable() {
-//
-//		public void run() {
-//			Random random = new Random();
-//			latitudeTV.setText((random.nextInt(180 + 180) - 180) + "," + random.nextInt(99999));
-//			latitudeTVHandler.postDelayed(latitudeTVRunnable, 100);
-//		}
-//	};
-//
-//	private Runnable longitudeTVRunnable = new Runnable() {
-//
-//		@Override
-//		public void run() {
-//			Random random = new Random();
-//			longitudeTV.setText((random.nextInt(90 + 90) - 90) + "," + random.nextInt(99999));
-//			longitudeTVHandler.postDelayed(longitudeTVRunnable, 100);
-//		}
-//	};
 
 	/**
 	 * Load localization
