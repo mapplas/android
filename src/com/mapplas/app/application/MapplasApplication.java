@@ -1,12 +1,8 @@
 package com.mapplas.app.application;
 
-import java.util.Locale;
-
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-
-import com.mapplas.model.Constants;
 
 public class MapplasApplication extends Application {
 
@@ -33,17 +29,6 @@ public class MapplasApplication extends Application {
 
 	public Typeface getItalicTypeFace() {
 		return this.typefaceItalic;
-	}
-
-	// Language
-	public void setDefaultLanguage() {
-		SharedPreferences sharedPrefs = getSharedPreferences("MAPPLAS_PREF", MODE_PRIVATE);
-		if(Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
-			sharedPrefs.edit().putString("language", Constants.SPANISH).commit();
-		}
-		else {
-			sharedPrefs.edit().putString("language", Constants.ENGLISH).commit();
-		}
 	}
 
 	public String getLanguage() {

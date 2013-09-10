@@ -24,8 +24,14 @@ public class LanguageSetter {
 		else if(language.equals(Constants.SPANISH)) {
 			locale = new Locale("es");
 		}
-		else {
+		else if (language.equals(Constants.BASQUE)) {
 			locale = new Locale("eu");
+		}
+		else if (Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
+			locale = new Locale("es");
+		}
+		else {
+			locale = new Locale("en");
 		}
 
 		Locale.setDefault(locale);
