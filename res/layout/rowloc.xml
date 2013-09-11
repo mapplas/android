@@ -2,42 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bgd_rowloc"
+    android:orientation="horizontal"
     android:paddingRight="5dp" >
-     
-    <RelativeLayout
-    	android:layout_width="72dp"
-        android:layout_height="72dp">           
-
-	    <ImageView
-	        android:id="@+id/imgLogo"
-	        android:layout_width="64dp"
-	        android:layout_height="64dp"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true"
-	        android:src="@drawable/ic_template" />
 
-	    <ImageView
-	        android:id="@+id/imgRonundC"
-	        android:layout_width="66dp"
-	        android:layout_height="66dp"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true" />
-	    
+    <RelativeLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:clickable="true" >
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            style="@style/ImageLogo"
+            android:contentDescription="@string/image_content_description" />
+
+        <ImageView
+            android:id="@+id/imgRonundC"
+            style="@style/ImageRoundLogo"
+            android:contentDescription="@string/image_content_description" />
     </RelativeLayout>
-    
-		<ViewFlipper
-		    android:id="@+id/vfRowLoc"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:duplicateParentState="true" >
-		    
-		    <include  layout="@layout/rowloc_unpressed" android:id="@+id/id_rowloc_unpressed" />
-		
-		    <include  layout="@layout/rowloc_pressed" android:id="@+id/id_rowloc_pressed" />
-		    
-    
-		</ViewFlipper>
-		
+
+    <ViewFlipper
+        android:id="@+id/vfRowLoc"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:duplicateParentState="true" >
+
+        <include
+            android:id="@+id/id_rowloc_unpressed"
+            layout="@layout/rowloc_unpressed" />
+
+        <include
+            android:id="@+id/id_rowloc_pressed"
+            layout="@layout/rowloc_pressed" />
+    </ViewFlipper>
+
+    <com.mapplas.utils.visual.custom_views.RobotoTextView
+        android:id="@android:id/text1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:visibility="gone" />
+
 </LinearLayout>
-		

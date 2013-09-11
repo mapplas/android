@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout style="@style/NavigationBar" >
+
+        <com.mapplas.utils.visual.custom_views.RobotoButton
+            android:id="@+id/preferences_back_button"
+            style="@style/NavigationBarButton" />
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
+        </com.mapplas.utils.visual.custom_views.RobotoTextView>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/preferences_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
+
+</LinearLayout>

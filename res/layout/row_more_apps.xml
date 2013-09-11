@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_more_apps"
+    android:layout_width="fill_parent"
+    android:layout_height="72dp"
+    android:background="@color/White"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:clickable="true" >
+
+        <ImageView
+            android:id="@+id/logo"
+            style="@style/ImageLogo"
+            android:contentDescription="@string/image_content_description" />
+
+        <ImageView
+            android:id="@+id/imgRonundC"
+            style="@style/ImageRoundLogo"
+            android:contentDescription="@string/image_content_description" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutInfo"
+        style="@style/AppTitleDescriptionInfoLayout" >
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@+id/title"
+            style="@style/AppTitleCell" />
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@+id/description"
+            style="@style/AppDescriptionCell" />
+    </LinearLayout>
+
+</LinearLayout>

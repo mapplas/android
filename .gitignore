@@ -1,1 +1,11 @@
- 
+#generated files
+bin/
+gen/
+.DS_Store
+tmp/**
+tmp/**/*
+local.properties
+.classpath
+.settings/
+.buildpath
+*.dex
