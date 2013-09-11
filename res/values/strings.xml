@@ -19,6 +19,7 @@
     <string name="rate">rate</string>
     <string name="category">Cathegory</string>
     <string name="pin_ups">pins</string>
+    <string name="getting_configuration">Loading configuration&#8230;</string>
     <string name="pin_up">pin</string>
     <string name="un_pin_up">unpin</string>
     <string name="share">share</string>
@@ -74,5 +75,6 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Castellano</string>
     <string name="language_basque">Euskera</string>
-	<string name="language_change_restart_app_message">An application restart is needed after language change</string>
+    <string name="language_change_restart_app_message">An application restart is needed after language change</string>
+
 </resources>
