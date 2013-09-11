@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.mapplas.model.User;
 import com.mapplas.utils.network.mappers.generic.GenericMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyIntegerValueMapper;
@@ -32,7 +30,7 @@ public class JsonToUserMapper implements ReturnMapper {
 			mapper.map(json, user);
 
 		} catch (Exception e) {
-			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
+//			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
 		}
 
 		return user;

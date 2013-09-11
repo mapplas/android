@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class KeyIntegerValueMapper implements TargetMapper {
 
 	private final String key;
@@ -23,7 +21,7 @@ public class KeyIntegerValueMapper implements TargetMapper {
 			Object mappedValue = json.getInt(this.key);
 			method.invoke(target, mappedValue);
 		} catch (Exception e) {
-			Log.w(this.getClass().getSimpleName(), "Mapping Value Failed. " + e.getMessage());
+//			Log.w(this.getClass().getSimpleName(), "Mapping Value Failed. " + e.getMessage());
 		}
 	}
 }

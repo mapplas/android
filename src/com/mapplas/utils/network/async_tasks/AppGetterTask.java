@@ -9,7 +9,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import app.mapplas.com.R;
@@ -69,7 +68,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 			occupied = true;
 			semaphore.release();
 		} catch (Exception exc) {
-			Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
+//			Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
 			return null;
 		}
 
@@ -86,7 +85,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 			occupied = false;
 			semaphore.release();
 		} catch (Exception exc) {
-			Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
+//			Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
 			return null;
 		}
 

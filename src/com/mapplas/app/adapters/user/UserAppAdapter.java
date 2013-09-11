@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,7 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 				}
 				UserAppAdapter.mSemaphore.release();
 			} catch (Exception e) {
-				Log.i(this.getClass().getSimpleName(), "handleMessage: " + e);
+//				Log.i(this.getClass().getSimpleName(), "handleMessage: " + e);
 			}
 		}
 	};

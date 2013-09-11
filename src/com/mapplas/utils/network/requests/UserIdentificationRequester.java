@@ -2,8 +2,6 @@ package com.mapplas.utils.network.requests;
 
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
@@ -36,7 +34,7 @@ public class UserIdentificationRequester {
 
 				} catch (Exception e) {
 					setMockedUserToModel();
-					Log.d(this.getClass().getSimpleName(), "Login: " + e);
+//					Log.d(this.getClass().getSimpleName(), "Login: " + e);
 				}
 			}
 		};

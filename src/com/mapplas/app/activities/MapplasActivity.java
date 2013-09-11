@@ -11,7 +11,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -92,7 +91,7 @@ public class MapplasActivity extends LanguageActivity {
 			serverIdentificationThread.run();
 		} catch (Exception e) {
 			this.model.setCurrentUser(null);
-			Log.d(this.getClass().getSimpleName(), "Login: " + e);
+//			Log.d(this.getClass().getSimpleName(), "Login: " + e);
 		}
 
 		// Get user application list
@@ -188,7 +187,7 @@ public class MapplasActivity extends LanguageActivity {
 					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
 					userRepo.createOrUpdate(model.currentUser());
 				} catch (SQLException e) {
-					Log.e(MapplasActivity.this.getClass().getSimpleName(), e.toString());
+//					Log.e(MapplasActivity.this.getClass().getSimpleName(), e.toString());
 				}
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);

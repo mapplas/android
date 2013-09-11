@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -29,7 +28,7 @@ public class UserDatabase extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, User.class);
 		} catch (SQLException e) {
-			Log.e(this.getClass().getName(), "Can't create database " + database, e);
+//			Log.e(this.getClass().getName(), "Can't create database " + database, e);
 			throw new RuntimeException(e);
 		}
 	}

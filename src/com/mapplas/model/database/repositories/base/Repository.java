@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.Callable;
 
-import android.util.Log;
-
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -37,7 +35,7 @@ public class Repository extends SqlRepository {
 		try {
 			this.getDao().executeRaw("DELETE FROM " + this.getTableName());
 		} catch (SQLException e) {
-			Log.e(this.getClass().getName(), e.getMessage(), e);
+//			Log.e(this.getClass().getName(), e.getMessage(), e);
 			throw new RuntimeException();
 		}
 	}
@@ -48,7 +46,7 @@ public class Repository extends SqlRepository {
 		try {
 			result = this.getDao().create(unit);
 		} catch (IllegalStateException e) {
-			Log.d(this.getClass().getSimpleName(), e.getMessage());
+//			Log.d(this.getClass().getSimpleName(), e.getMessage());
 		}
 		return result;
 	}
@@ -59,7 +57,7 @@ public class Repository extends SqlRepository {
 		try {
 			status = this.getDao().createOrUpdate(unit);
 		} catch (IllegalStateException e) {
-			Log.d(this.getClass().getSimpleName(), e.getMessage());
+//			Log.d(this.getClass().getSimpleName(), e.getMessage());
 		}
 		return status;
 	}
@@ -94,7 +92,7 @@ public class Repository extends SqlRepository {
 		try {
 			result = this.getDao().update(unit);
 		} catch (IllegalStateException e) {
-			Log.d(this.getClass().getSimpleName(), e.getMessage());
+//			Log.d(this.getClass().getSimpleName(), e.getMessage());
 		}
 		return result;
 	}
@@ -125,10 +123,10 @@ public class Repository extends SqlRepository {
 			PreparedQuery<Unit> preparedQuery = queryBuilder.prepare();
 			unit = (Unit)(this.getDao().queryForFirst(preparedQuery));
 		} catch (SQLException e) {
-			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
+//			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 			return null;
 		} catch (IllegalStateException e) {
-			Log.d(this.getClass().getSimpleName(), e.getMessage());
+//			Log.d(this.getClass().getSimpleName(), e.getMessage());
 			return null;
 		}
 
@@ -149,7 +147,7 @@ public class Repository extends SqlRepository {
 		try {
 			this.getDao().delete(unit);
 		} catch (SQLException e) {
-			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
+//			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 			throw new RuntimeException();
 		}
 	}

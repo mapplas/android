@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -47,7 +46,7 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 		try {
 			response = UserPinBlocksConnector.request(String.valueOf(this.user.getId()));
 		} catch (Exception e) {
-			Log.d(this.getClass().getSimpleName(), "Get pin and blocks", e);
+//			Log.d(this.getClass().getSimpleName(), "Get pin and blocks", e);
 		}
 		return response;
 	}
@@ -66,7 +65,7 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 			this.user.setBlockedApps(new JsonToBlockedAppsMapper(this.context).map(jsonResult.getJSONArray("blocked")));
 			
 		} catch (Exception e) {
-			Log.d(this.getClass().getSimpleName(), "error parsing", e);
+//			Log.d(this.getClass().getSimpleName(), "error parsing", e);
 		}
 
 		this.listView.removeFooterView(this.refreshListBackgroundFooter);

@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.mapplas.model.App;
 import com.mapplas.utils.image.PixelDensityImageChooser;
@@ -63,7 +62,7 @@ public class JsonToAppMapper implements IteratingMapper {
 			this.changeLogoUrlDependingOnDensity(app);
 
 		} catch (Exception e) {
-			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
+//			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
 		}
 
 		return app;

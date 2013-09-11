@@ -3,7 +3,6 @@ package com.mapplas.model.database.repositories;
 import java.sql.SQLException;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 import com.mapplas.model.User;
@@ -22,7 +21,7 @@ public class RepositoryManager {
 			try {
 				dao = (Dao<User, Integer>)userDatabase.getUserDao();
 			} catch (SQLException e) {
-				Log.e("RepositoryManager", e.getMessage(), e);
+//				Log.e("RepositoryManager", e.getMessage(), e);
 				throw new RuntimeException();
 			}
 

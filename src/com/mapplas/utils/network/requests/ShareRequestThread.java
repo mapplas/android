@@ -1,7 +1,6 @@
 package com.mapplas.utils.network.requests;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.mapplas.utils.network.connectors.AppShareConnector;
 
@@ -27,7 +26,7 @@ public class ShareRequestThread {
 				try {
 					AppShareConnector.request(appId, userId, location);
 				} catch (Exception e) {
-					Log.i(getClass().getSimpleName(), "Thread Action Like: " + e);
+//					Log.i(getClass().getSimpleName(), "Thread Action Like: " + e);
 				}
 			}
 		};

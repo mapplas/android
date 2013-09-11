@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.mapplas.model.App;
 import com.mapplas.model.AppOrderedList;
@@ -70,7 +69,7 @@ public class JsonToAppReponseMapper implements TargetMapper {
 			}
 
 		} catch (JSONException e) {
-			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
+//			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
 
 			this.setMockedAppToList(model);
 		}

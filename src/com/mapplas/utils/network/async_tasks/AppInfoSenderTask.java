@@ -19,7 +19,6 @@ import android.app.ActivityManager.RecentTaskInfo;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
@@ -70,19 +69,18 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 		nameValuePairs.add(new BasicNameValuePair("last", lastUsedApps.toString()));
 		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(this.currentUser.getId())));
 
-		String serverResponse = "";
 		try {
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			HttpResponse rp = hc.execute(post);
 
 			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				serverResponse = EntityUtils.toString(rp.getEntity());
+				EntityUtils.toString(rp.getEntity());
 			}
 			else {
-				Log.e(this.getClass().getSimpleName(), serverResponse);
+//				Log.e(this.getClass().getSimpleName(), serverResponse);
 			}
 		} catch (IOException e) {
-			Log.e(this.getClass().getSimpleName(), e.toString());
+//			Log.e(this.getClass().getSimpleName(), e.toString());
 		}
 		return null;
 	}

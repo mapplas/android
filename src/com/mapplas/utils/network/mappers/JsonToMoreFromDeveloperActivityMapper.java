@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.mapplas.model.App;
 import com.mapplas.model.MoreFromDeveloperApp;
@@ -37,7 +36,7 @@ public class JsonToMoreFromDeveloperActivityMapper implements TargetMapper {
 			this.moreFromDeveloper(json.getJSONArray("apps"), app);
 
 		} catch (Exception e) {
-			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
+//			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
 		}
 	}
 

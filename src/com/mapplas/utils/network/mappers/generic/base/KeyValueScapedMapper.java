@@ -5,8 +5,6 @@ import java.lang.reflect.Method;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class KeyValueScapedMapper implements TargetMapper {
 
 	private final String key;
@@ -24,7 +22,7 @@ public class KeyValueScapedMapper implements TargetMapper {
 			String escapedValue = StringEscapeUtils.unescapeHtml4(json.getString(this.key));
 			method.invoke(target, escapedValue);
 		} catch (Exception e) {
-			Log.i(this.getClass().getSimpleName(), "Mapping Value Failed. " + e.getMessage());
+//			Log.i(this.getClass().getSimpleName(), "Mapping Value Failed. " + e.getMessage());
 		}
 	}
 }

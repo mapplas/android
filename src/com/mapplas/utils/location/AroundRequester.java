@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,7 +116,7 @@ public class AroundRequester implements UserLocationListener {
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 
 			} catch (Exception e) {
-				Log.i(getClass().getSimpleName(), e.toString());
+//				Log.i(getClass().getSimpleName(), e.toString());
 			}
 		}
 		else {

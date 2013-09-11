@@ -1,7 +1,5 @@
 package com.mapplas.utils.network.requests;
 
-import android.util.Log;
-
 import com.mapplas.model.App;
 import com.mapplas.utils.network.connectors.BlockRequestConnector;
 
@@ -27,7 +25,7 @@ public class BlockRequestThread {
 				try {
 					BlockRequestConnector.request(action, app.getId(), uid);
 				} catch (Exception e) {
-					Log.i(getClass().getSimpleName(), "Thread Action Like: " + e);
+//					Log.i(getClass().getSimpleName(), "Thread Action Like: " + e);
 				}
 			}
 		};

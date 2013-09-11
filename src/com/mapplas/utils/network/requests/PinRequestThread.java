@@ -1,7 +1,6 @@
 package com.mapplas.utils.network.requests;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.mapplas.model.App;
 import com.mapplas.utils.network.connectors.PinRequestConnector;
@@ -41,7 +40,7 @@ public class PinRequestThread {
 					}
 					
 				} catch (Exception e) {
-					Log.i(getClass().getSimpleName(), "Thread Action Pin: " + e);
+//					Log.i(getClass().getSimpleName(), "Thread Action Pin: " + e);
 				}
 			}
 		};

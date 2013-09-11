@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import android.util.Log;
-
 public class FileManagement {
 
 	public boolean createFile(File file) {
@@ -23,7 +21,6 @@ public class FileManagement {
 	}
 	
 	public boolean delete(String path) {
-		Log.d("quomai", "Delete function -- path of file to delete: " + path);
 		File file = new File(path);
 		return file.delete();
 	}
