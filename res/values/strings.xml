@@ -10,7 +10,6 @@
     <string name="web">web</string>
     <string name="email">Email</string>
     <string name="description">Description</string>
-    <string name="comments">Comments</string>
     <string name="location_searching">Getting your location!</string>
     <string name="location_done">Location retrived correctly</string>
     <string name="rating_rate">Rate App</string>
@@ -18,6 +17,7 @@
     <string name="cancel">Cancel</string>
     <string name="send">Send</string>
     <string name="rate">rate</string>
+    <string name="category">Cathegory</string>
     <string name="pin_ups">pins</string>
     <string name="pin_up">pin</string>
     <string name="un_pin_up">unpin</string>
@@ -35,15 +35,9 @@
     <string name="devMail">Developer Mail</string>
     <string name="devWeb">Developer Web</string>
     <string name="blocks">blocks</string>
-    <string name="category">Category</string>
-    <string name="name_not_set">Name</string>
-    <string name="email_not_set">Email</string>
-    <string name="really_logout">Do you really want to log out?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="getting_configuration">Loading configuration&#8230;</string>
     <string name="allow">allow</string>
-    <string name="dislike">dislike</string>
     <string name="done">Done</string>
     <string name="free">Free</string>
     <string name="wifi_error_toast">Improve the search! For more accurate recommendations, turn Wi-Fi on. This works even when not connected to a network.</string>

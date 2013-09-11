@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -143,7 +142,7 @@ public class UserForm extends LanguageActivity {
 	}
 
 	private void initLayoutComponents() {
-		this.refreshListBackgroundFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
+//		this.refreshListBackgroundFooter = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.profile_footer, null);
 
 		this.listView = (ListView)findViewById(R.id.lvList);
 		this.listView.addFooterView(this.refreshListBackgroundFooter);

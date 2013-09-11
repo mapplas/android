@@ -17,16 +17,18 @@ com.j256.ormlite.stmt.StatementBuilder$StatementType: com.j256.ormlite.stmt.Stat
 com.mapplas.app.SliderListView
 com.mapplas.app.SliderListView: SliderListView(android.content.Context,android.util.AttributeSet,int)
 com.mapplas.app.SliderListView: SliderListView(android.content.Context,android.util.AttributeSet)
-com.mapplas.app.activities.AboutUsActivity
-com.mapplas.app.activities.AboutUsActivity: AboutUsActivity()
 com.mapplas.app.activities.AppDetail
 com.mapplas.app.activities.AppDetail: AppDetail()
 com.mapplas.app.activities.HtmlTextActivity
 com.mapplas.app.activities.HtmlTextActivity: HtmlTextActivity()
+com.mapplas.app.activities.LanguageActivity
+com.mapplas.app.activities.LanguageActivity: LanguageActivity()
 com.mapplas.app.activities.MapplasActivity
 com.mapplas.app.activities.MapplasActivity: MapplasActivity()
 com.mapplas.app.activities.MoreFromDeveloperActivity
 com.mapplas.app.activities.MoreFromDeveloperActivity: MoreFromDeveloperActivity()
+com.mapplas.app.activities.SettingsActivity
+com.mapplas.app.activities.SettingsActivity: SettingsActivity()
 com.mapplas.app.activities.UserForm
 com.mapplas.app.activities.UserForm: UserForm()
 com.mapplas.app.activities.WebViewActivity

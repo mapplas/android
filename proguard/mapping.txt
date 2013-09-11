@@ -24,7 +24,8 @@ com.commonsware.cwac.endless.EndlessAdapter -> com.commonsware.cwac.a.a:
     boolean runInBackground -> f
     boolean cacheInBackground() -> b
     void appendCachedData() -> c
-    void onDataReady() -> d
+    void restartAppending() -> d
+    void onDataReady() -> e
     int getCount() -> getCount
     int getItemViewType(int) -> getItemViewType
     int getViewTypeCount() -> getViewTypeCount
@@ -177,7 +178,7 @@ com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper -> com.j256.ormlite.an
     com.j256.ormlite.logger.Logger logger -> a
     com.j256.ormlite.android.AndroidConnectionSource connectionSource -> b
     boolean isOpen -> c
-    void onCreate(android.database.sqlite.SQLiteDatabase,com.j256.ormlite.support.ConnectionSource) -> a
+    void onCreate$39896c6b(com.j256.ormlite.support.ConnectionSource) -> a
     com.j256.ormlite.support.ConnectionSource getConnectionSource() -> a
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
@@ -1478,11 +1479,6 @@ com.mapplas.app.Resizer -> com.mapplas.app.a:
 com.mapplas.app.SliderListView -> com.mapplas.app.SliderListView:
     com.mapplas.app.Resizer resizer -> a
     boolean open -> b
-com.mapplas.app.activities.AboutUsActivity -> com.mapplas.app.activities.AboutUsActivity:
-    void onCreate(android.os.Bundle) -> onCreate
-com.mapplas.app.activities.AboutUsActivity$1 -> com.mapplas.app.activities.a:
-    com.mapplas.app.activities.AboutUsActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
 com.mapplas.app.activities.AppDetail -> com.mapplas.app.activities.AppDetail:
     com.mapplas.model.App app -> a
     com.mapplas.model.User user -> b
@@ -1491,8 +1487,8 @@ com.mapplas.app.activities.AppDetail -> com.mapplas.app.activities.AppDetail:
     android.view.animation.RotateAnimation reverseFlipAnimation -> e
     android.util.DisplayMetrics metrics -> f
     boolean somethingChanged -> g
-    com.mapplas.app.adapters.detail.DetailMoreAppsArrayAdapter adapter -> h
-    android.widget.ListView list -> i
+    com.mapplas.app.adapters.detail.DetailMoreAppsArrayAdapter moreAppsAdapter -> h
+    android.widget.ListView moreAppsList -> i
     void onCreate(android.os.Bundle) -> onCreate
     void onPause() -> onPause
     void detailRequestFinishedOk() -> a
@@ -1501,54 +1497,52 @@ com.mapplas.app.activities.AppDetail -> com.mapplas.app.activities.AppDetail:
     com.mapplas.model.SuperModel access$1(com.mapplas.app.activities.AppDetail) -> b
     com.mapplas.model.User access$2(com.mapplas.app.activities.AppDetail) -> c
     void access$3$6b5345a1(com.mapplas.app.activities.AppDetail) -> d
-com.mapplas.app.activities.AppDetail$1 -> com.mapplas.app.activities.b:
+com.mapplas.app.activities.AppDetail$1 -> com.mapplas.app.activities.a:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$10 -> com.mapplas.app.activities.c:
+com.mapplas.app.activities.AppDetail$2 -> com.mapplas.app.activities.b:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$11 -> com.mapplas.app.activities.d:
-    com.mapplas.app.activities.AppDetail this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$2 -> com.mapplas.app.activities.e:
-    com.mapplas.app.activities.AppDetail this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$3 -> com.mapplas.app.activities.f:
+com.mapplas.app.activities.AppDetail$3 -> com.mapplas.app.activities.c:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.mapplas.app.activities.AppDetail$4 -> com.mapplas.app.activities.g:
-    com.mapplas.app.activities.AppDetail this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$5 -> com.mapplas.app.activities.h:
-    com.mapplas.app.activities.AppDetail this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$6 -> com.mapplas.app.activities.i:
+com.mapplas.app.activities.AppDetail$4 -> com.mapplas.app.activities.d:
     boolean close -> b
     com.mapplas.app.activities.AppDetail this$0 -> a
+    android.widget.ImageView val$moreLessImage -> c
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$7 -> com.mapplas.app.activities.j:
+com.mapplas.app.activities.AppDetail$5 -> com.mapplas.app.activities.e:
     com.mapplas.app.activities.AppDetail this$0 -> a
     android.widget.ImageView val$ivPinup -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$8 -> com.mapplas.app.activities.k:
+com.mapplas.app.activities.AppDetail$6 -> com.mapplas.app.activities.f:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$9 -> com.mapplas.app.activities.l:
+com.mapplas.app.activities.AppDetail$7 -> com.mapplas.app.activities.g:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-    com.mapplas.app.activities.AppDetail access$0(com.mapplas.app.activities.AppDetail$9) -> a
-com.mapplas.app.activities.AppDetail$9$1 -> com.mapplas.app.activities.m:
-    com.mapplas.app.activities.AppDetail$9 this$1 -> a
+    com.mapplas.app.activities.AppDetail access$0(com.mapplas.app.activities.AppDetail$7) -> a
+com.mapplas.app.activities.AppDetail$7$1 -> com.mapplas.app.activities.h:
+    com.mapplas.app.activities.AppDetail$7 this$1 -> a
     com.mapplas.model.App val$anonLoc -> b
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.activities.AppDetail$9$2 -> com.mapplas.app.activities.n:
-    com.mapplas.app.activities.AppDetail$9 this$1 -> a
+com.mapplas.app.activities.AppDetail$7$2 -> com.mapplas.app.activities.i:
+    com.mapplas.app.activities.AppDetail$7 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
+com.mapplas.app.activities.AppDetail$8 -> com.mapplas.app.activities.j:
+    com.mapplas.app.activities.AppDetail this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.AppDetail$9 -> com.mapplas.app.activities.k:
+    com.mapplas.app.activities.AppDetail this$0 -> a
+    void onClick(android.view.View) -> onClick
 com.mapplas.app.activities.HtmlTextActivity -> com.mapplas.app.activities.HtmlTextActivity:
     void onCreate(android.os.Bundle) -> onCreate
-com.mapplas.app.activities.HtmlTextActivity$1 -> com.mapplas.app.activities.o:
+com.mapplas.app.activities.HtmlTextActivity$1 -> com.mapplas.app.activities.l:
     com.mapplas.app.activities.HtmlTextActivity this$0 -> a
     void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.LanguageActivity -> com.mapplas.app.activities.LanguageActivity:
+    void onRestart() -> onRestart
+    void onStart() -> onStart
 com.mapplas.app.activities.MapplasActivity -> com.mapplas.app.activities.MapplasActivity:
     java.lang.String PACKAGE_NAME -> a
     com.mapplas.model.SuperModel model -> c
@@ -1559,36 +1553,18 @@ com.mapplas.app.activities.MapplasActivity -> com.mapplas.app.activities.Mapplas
     android.widget.TextView listViewHeaderStatusMessage -> g
     android.widget.ImageView listViewHeaderImage -> h
     com.mapplas.utils.location.AroundRequester aroundRequester -> i
-    android.widget.TextView latitudeTV -> j
-    android.widget.TextView longitudeTV -> k
-    android.os.Handler latitudeTVHandler -> l
-    android.os.Handler longitudeTVHandler -> m
-    java.lang.Runnable latitudeTVRunnable -> n
-    java.lang.Runnable longitudeTVRunnable -> o
     void onCreate(android.os.Bundle) -> onCreate
     void onStart() -> onStart
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void setRotateAnimConstants(android.view.animation.RotateAnimation) -> a
-    android.widget.TextView access$0(com.mapplas.app.activities.MapplasActivity) -> a
-    android.os.Handler access$1(com.mapplas.app.activities.MapplasActivity) -> b
-    java.lang.Runnable access$2(com.mapplas.app.activities.MapplasActivity) -> c
-    android.widget.TextView access$3(com.mapplas.app.activities.MapplasActivity) -> d
-    android.os.Handler access$4(com.mapplas.app.activities.MapplasActivity) -> e
-    java.lang.Runnable access$5(com.mapplas.app.activities.MapplasActivity) -> f
-    com.mapplas.model.SuperModel access$6(com.mapplas.app.activities.MapplasActivity) -> g
-    void access$7(com.mapplas.app.activities.MapplasActivity) -> h
-com.mapplas.app.activities.MapplasActivity$1 -> com.mapplas.app.activities.p:
-    com.mapplas.app.activities.MapplasActivity this$0 -> a
-    void run() -> run
-com.mapplas.app.activities.MapplasActivity$2 -> com.mapplas.app.activities.q:
-    com.mapplas.app.activities.MapplasActivity this$0 -> a
-    void run() -> run
-com.mapplas.app.activities.MapplasActivity$3 -> com.mapplas.app.activities.r:
+    com.mapplas.model.SuperModel access$0(com.mapplas.app.activities.MapplasActivity) -> a
+    void access$1(com.mapplas.app.activities.MapplasActivity) -> b
+com.mapplas.app.activities.MapplasActivity$1 -> com.mapplas.app.activities.m:
     com.mapplas.app.activities.MapplasActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.MapplasActivity$4 -> com.mapplas.app.activities.s:
+com.mapplas.app.activities.MapplasActivity$2 -> com.mapplas.app.activities.n:
     com.mapplas.app.activities.MapplasActivity this$0 -> a
     void onRefresh$674d34c6() -> a
 com.mapplas.app.activities.MoreFromDeveloperActivity -> com.mapplas.app.activities.MoreFromDeveloperActivity:
@@ -1596,12 +1572,30 @@ com.mapplas.app.activities.MoreFromDeveloperActivity -> com.mapplas.app.activiti
     java.lang.String country_code -> b
     com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter adapter -> c
     void onCreate(android.os.Bundle) -> onCreate
+    void onRestart() -> onRestart
     void onListItemClick(android.widget.ListView,android.view.View,int,long) -> onListItemClick
     void requestFinishedNok() -> a
     void requestFinishedOk() -> b
-com.mapplas.app.activities.MoreFromDeveloperActivity$1 -> com.mapplas.app.activities.t:
+com.mapplas.app.activities.MoreFromDeveloperActivity$1 -> com.mapplas.app.activities.o:
     com.mapplas.app.activities.MoreFromDeveloperActivity this$0 -> a
     void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.SettingsActivity -> com.mapplas.app.activities.SettingsActivity:
+    com.mapplas.app.adapters.settings.SettingsAdapter adapter -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onDialogEnglishLanguageClick() -> a
+    void onDialogSpanishLanguageClick() -> b
+    void onDialogBasqueLanguageClick() -> c
+    void updateLanguage(java.lang.String) -> a
+    void showAppRestartDialog() -> d
+com.mapplas.app.activities.SettingsActivity$1 -> com.mapplas.app.activities.p:
+    com.mapplas.app.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.SettingsActivity$2 -> com.mapplas.app.activities.q:
+    com.mapplas.app.activities.SettingsActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.mapplas.app.activities.SettingsActivity$3 -> com.mapplas.app.activities.r:
+    com.mapplas.app.activities.SettingsActivity this$0 -> a
+    boolean onKey(android.content.DialogInterface,int,android.view.KeyEvent) -> onKey
 com.mapplas.app.activities.UserForm -> com.mapplas.app.activities.UserForm:
     android.view.animation.RotateAnimation flipAnimation -> d
     android.view.animation.RotateAnimation reverseFlipAnimation -> e
@@ -1616,11 +1610,12 @@ com.mapplas.app.activities.UserForm -> com.mapplas.app.activities.UserForm:
     boolean somethingChanged -> c
     void onCreate(android.os.Bundle) -> onCreate
     void onPause() -> onPause
-    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
-    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void getUserFromDB() -> a
     com.mapplas.model.User access$0(com.mapplas.app.activities.UserForm) -> a
-com.mapplas.app.activities.UserForm$1 -> com.mapplas.app.activities.u:
+com.mapplas.app.activities.UserForm$1 -> com.mapplas.app.activities.s:
+    com.mapplas.app.activities.UserForm this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.UserForm$2 -> com.mapplas.app.activities.t:
     com.mapplas.app.activities.UserForm this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.app.activities.WebViewActivity -> com.mapplas.app.activities.WebViewActivity:
@@ -1631,10 +1626,10 @@ com.mapplas.app.activities.WebViewActivity -> com.mapplas.app.activities.WebView
     android.app.ProgressDialog progressDialog -> e
     void onCreate(android.os.Bundle) -> onCreate
     com.mapplas.utils.webView.TouchableScrollView access$0(com.mapplas.app.activities.WebViewActivity) -> a
-com.mapplas.app.activities.WebViewActivity$1 -> com.mapplas.app.activities.v:
+com.mapplas.app.activities.WebViewActivity$1 -> com.mapplas.app.activities.u:
     com.mapplas.app.activities.WebViewActivity this$0 -> a
     void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
-com.mapplas.app.activities.WebViewActivity$2 -> com.mapplas.app.activities.w:
+com.mapplas.app.activities.WebViewActivity$2 -> com.mapplas.app.activities.v:
     com.mapplas.app.activities.WebViewActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.app.adapters.ImageAdapter -> com.mapplas.app.a.a:
@@ -1647,30 +1642,17 @@ com.mapplas.app.adapters.ImageAdapter -> com.mapplas.app.a.a:
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     java.lang.Object getItem(int) -> getItem
     long getItemId(int) -> getItemId
-com.mapplas.app.adapters.about_us.AboutUsAdapter -> com.mapplas.app.a.a.a:
-    android.content.Context context -> a
-    android.view.LayoutInflater inflater -> b
-    android.graphics.Typeface normalTypeface -> c
-    int getCount() -> getCount
-    int getViewTypeCount() -> getViewTypeCount
-    long getItemId(int) -> getItemId
-    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    java.lang.Object getItem(int) -> getItem
-    android.content.Context access$1(com.mapplas.app.adapters.about_us.AboutUsAdapter) -> a
-com.mapplas.app.adapters.about_us.AboutUsAdapter$1 -> com.mapplas.app.a.a.b:
-    com.mapplas.app.adapters.about_us.AboutUsAdapter this$0 -> a
-    int val$position -> b
-    void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppAdapter -> com.mapplas.app.a.b.a:
+com.mapplas.app.adapters.app.AppAdapter -> com.mapplas.app.a.a.a:
     android.content.Context context -> b
     com.mapplas.model.SuperModel model -> c
     com.mapplas.utils.third_party.RefreshableListView list -> d
     java.util.ArrayList applicationList -> e
+    com.mapplas.app.activities.MapplasActivity mainActivity -> f
     boolean SLEEP -> a
     android.view.View getPendingView(android.view.ViewGroup) -> a
     void appendCachedData() -> c
     boolean cacheInBackground() -> b
-com.mapplas.app.adapters.app.AppArrayAdapter -> com.mapplas.app.a.b.b:
+com.mapplas.app.adapters.app.AppArrayAdapter -> com.mapplas.app.a.a.b:
     android.content.Context context -> a
     java.util.ArrayList items -> d
     android.view.animation.Animation animFlipInNext -> e
@@ -1697,55 +1679,71 @@ com.mapplas.app.adapters.app.AppArrayAdapter -> com.mapplas.app.a.b.b:
     com.mapplas.utils.third_party.RefreshableListView access$5(com.mapplas.app.adapters.app.AppArrayAdapter) -> e
     void access$6(com.mapplas.model.App) -> a
     android.view.animation.Animation access$7(com.mapplas.app.adapters.app.AppArrayAdapter) -> f
-com.mapplas.app.adapters.app.AppArrayAdapter$1 -> com.mapplas.app.a.b.c:
+com.mapplas.app.adapters.app.AppArrayAdapter$1 -> com.mapplas.app.a.a.c:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-com.mapplas.app.adapters.app.AppArrayAdapter$2 -> com.mapplas.app.a.b.d:
+com.mapplas.app.adapters.app.AppArrayAdapter$2 -> com.mapplas.app.a.a.d:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$3 -> com.mapplas.app.a.b.e:
+com.mapplas.app.adapters.app.AppArrayAdapter$3 -> com.mapplas.app.a.a.e:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.mapplas.app.adapters.app.AppArrayAdapter$4 -> com.mapplas.app.a.b.f:
+com.mapplas.app.adapters.app.AppArrayAdapter$4 -> com.mapplas.app.a.a.f:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     com.mapplas.utils.view_holder.AppViewHolder val$cellHolder -> c
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$5 -> com.mapplas.app.a.b.g:
+com.mapplas.app.adapters.app.AppArrayAdapter$5 -> com.mapplas.app.a.a.g:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     android.view.View val$convertView -> c
     void onClick(android.view.View) -> onClick
     com.mapplas.app.adapters.app.AppArrayAdapter access$0(com.mapplas.app.adapters.app.AppArrayAdapter$5) -> a
-com.mapplas.app.adapters.app.AppArrayAdapter$5$1 -> com.mapplas.app.a.b.h:
+com.mapplas.app.adapters.app.AppArrayAdapter$5$1 -> com.mapplas.app.a.a.h:
     com.mapplas.app.adapters.app.AppArrayAdapter$5 this$1 -> a
     android.view.View val$convertView -> b
     com.mapplas.model.App val$app -> c
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$5$2 -> com.mapplas.app.a.b.i:
+com.mapplas.app.adapters.app.AppArrayAdapter$5$2 -> com.mapplas.app.a.a.i:
     com.mapplas.app.adapters.app.AppArrayAdapter$5 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$6 -> com.mapplas.app.a.b.j:
+com.mapplas.app.adapters.app.AppArrayAdapter$6 -> com.mapplas.app.a.a.j:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$7 -> com.mapplas.app.a.b.k:
+com.mapplas.app.adapters.app.AppArrayAdapter$7 -> com.mapplas.app.a.a.k:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.detail.DetailMoreAppsArrayAdapter -> com.mapplas.app.a.c.a:
+com.mapplas.app.adapters.detail.DetailMoreAppsArrayAdapter -> com.mapplas.app.a.b.a:
     java.util.ArrayList items -> a
     android.content.Context context -> b
     int getCount() -> getCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter -> com.mapplas.app.a.d.a:
+com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter -> com.mapplas.app.a.c.a:
     java.util.ArrayList items -> a
     android.content.Context context -> b
     int getCount() -> getCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+com.mapplas.app.adapters.settings.SettingsAdapter -> com.mapplas.app.a.d.a:
+    android.content.Context context -> a
+    android.view.LayoutInflater inflater -> b
+    android.graphics.Typeface normalTypeface -> c
+    com.mapplas.utils.visual.dialogs.LanguageDialogInterface languageInterface -> d
+    int getCount() -> getCount
+    int getViewTypeCount() -> getViewTypeCount
+    long getItemId(int) -> getItemId
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    java.lang.Object getItem(int) -> getItem
+    android.content.Context access$1(com.mapplas.app.adapters.settings.SettingsAdapter) -> a
+    com.mapplas.utils.visual.dialogs.LanguageDialogInterface access$2(com.mapplas.app.adapters.settings.SettingsAdapter) -> b
+com.mapplas.app.adapters.settings.SettingsAdapter$1 -> com.mapplas.app.a.d.b:
+    com.mapplas.app.adapters.settings.SettingsAdapter this$0 -> a
+    int val$position -> b
+    void onClick(android.view.View) -> onClick
 com.mapplas.app.adapters.user.UserAppAdapter -> com.mapplas.app.a.e.a:
     int mType -> c
     java.util.ArrayList items -> d
@@ -1790,6 +1788,8 @@ com.mapplas.app.application.MapplasApplication -> com.mapplas.app.application.Ma
     void loadTypefaces() -> a
     android.graphics.Typeface getTypeFace() -> b
     android.graphics.Typeface getItalicTypeFace() -> c
+    java.lang.String getLanguage() -> d
+    void setLanguage(java.lang.String) -> a
 com.mapplas.model.App -> com.mapplas.model.App:
     java.lang.String id -> a
     java.lang.String name -> b
@@ -1826,11 +1826,10 @@ com.mapplas.model.App -> com.mapplas.model.App:
     java.lang.String getAppType() -> j
     void setAppType(java.lang.String) -> c
     java.lang.String getAddress() -> k
-    java.lang.String appDeveloperEmail() -> l
-    java.lang.String appDeveloperWeb() -> m
-    float rating() -> n
-    java.util.ArrayList moreFromDev() -> o
-    int moreFromDeveloperCount() -> p
+    java.lang.String appDeveloperWeb() -> l
+    float rating() -> m
+    java.util.ArrayList moreFromDev() -> n
+    int moreFromDeveloperCount() -> o
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
 com.mapplas.model.App$1 -> com.mapplas.model.a:
@@ -1880,6 +1879,10 @@ com.mapplas.model.Constants -> com.mapplas.model.d:
     java.lang.String MEDIUM_PIXEL_DENSITY -> h
     java.lang.String HIGH_PIXEL_DENSITY -> i
     java.lang.String EXTRA_HIGH_PIXEL_DENSITY -> j
+    java.lang.String SERVER_RESPONSE_ERROR_USER_IDENTIFICATION -> k
+    java.lang.String SETTINGS_LANGUAGE_CHANGE_BUNDLE -> l
+    java.lang.String MAPPLAS_SHARED_PREFS -> m
+    java.lang.String MAPPLAS_SHARED_PREFS_LANGUAGE_DIALOG_SHOWN -> n
 com.mapplas.model.MoreFromDeveloperApp -> com.mapplas.model.MoreFromDeveloperApp:
     java.lang.String id -> a
     java.lang.String name -> b
@@ -1909,6 +1912,7 @@ com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     java.lang.String errorText -> j
     java.util.ArrayList notificationRawList -> k
     boolean moreData -> l
+    boolean fromBasqueCountry -> m
     android.os.Parcelable$Creator CREATOR -> CREATOR
     java.lang.String currentDescriptiveGeoLoc() -> a
     void setCurrentDescriptiveGeoLoc(java.lang.String) -> a
@@ -1925,6 +1929,9 @@ com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     void setMoreData(boolean) -> a
     java.lang.String countryCode() -> h
     void setCountryCode(java.lang.String) -> d
+    boolean isFromBasqueCountry() -> i
+    void setFromBasqueCountry(boolean) -> b
+    void initializeForNewAppRequest() -> j
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
     void updateAppList(com.mapplas.model.AppOrderedList) -> a
@@ -1940,9 +1947,10 @@ com.mapplas.model.User -> com.mapplas.model.User:
     java.util.ArrayList blockedApps -> e
     android.os.Parcelable$Creator CREATOR -> CREATOR
     int getId() -> a
-    java.util.ArrayList pinnedApps() -> b
+    void setId$13462e() -> b
+    java.util.ArrayList pinnedApps() -> c
     void setPinnedApps(java.util.ArrayList) -> a
-    java.util.ArrayList blockedApps() -> c
+    java.util.ArrayList blockedApps() -> d
     void setBlockedApps(java.util.ArrayList) -> b
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
@@ -1950,13 +1958,13 @@ com.mapplas.model.User$1 -> com.mapplas.model.h:
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
     java.lang.Object[] newArray(int) -> newArray
 com.mapplas.model.UserFormLayoutComponents -> com.mapplas.model.i:
-    android.widget.LinearLayout blocksLayout -> a
-    android.widget.LinearLayout pinUpsLayout -> b
+    com.mapplas.utils.visual.custom_views.RobotoButton blocksButton -> a
+    com.mapplas.utils.visual.custom_views.RobotoButton pinUpsButton -> b
     android.widget.LinearLayout footerListRefreshLayout -> c
     android.widget.LinearLayout footerButtonsLayout -> d
     android.widget.ImageView refreshIcon -> e
-    android.widget.LinearLayout blocksLayout() -> a
-    android.widget.LinearLayout pinUpsLayout() -> b
+    com.mapplas.utils.visual.custom_views.RobotoButton blocksButton() -> a
+    com.mapplas.utils.visual.custom_views.RobotoButton pinUpsButton() -> b
     android.widget.LinearLayout footerButtonsLayout() -> c
 com.mapplas.model.database.DatabaseManager -> com.mapplas.model.a.a:
     com.mapplas.model.database.UserDatabase userDatabase -> a
@@ -1965,7 +1973,7 @@ com.mapplas.model.database.UserDatabase -> com.mapplas.model.a.b:
     java.lang.String DATABASE_NAME -> c
     int DATABASE_VERSION -> d
     com.j256.ormlite.dao.Dao userDao -> e
-    void onCreate(android.database.sqlite.SQLiteDatabase,com.j256.ormlite.support.ConnectionSource) -> a
+    void onCreate$39896c6b(com.j256.ormlite.support.ConnectionSource) -> a
     com.j256.ormlite.dao.Dao getUserDao() -> a
     void close() -> close
 com.mapplas.model.database.repositories.RepositoryManager -> com.mapplas.model.a.a.a:
@@ -2032,7 +2040,22 @@ com.mapplas.utils.image.PixelDensityImageChooser -> com.mapplas.utils.b.d:
     java.lang.String getImageUrlDependingOnDensity(java.lang.String) -> a
 com.mapplas.utils.image.SynchronousImageLoader -> com.mapplas.utils.b.e:
     android.graphics.Bitmap loadImage(com.mapplas.utils.cache.CacheFolder,java.lang.String) -> a
-com.mapplas.utils.location.AroundRequester -> com.mapplas.utils.c.a:
+com.mapplas.utils.language.LanguageDialogCreator -> com.mapplas.utils.c.a:
+    android.content.Context context -> a
+    com.mapplas.utils.visual.dialogs.LanguageDialogInterface languageInterface -> b
+    com.mapplas.utils.network.async_tasks.AppGetterTask theClass -> c
+    void createLanguageListDialog() -> a
+    com.mapplas.utils.visual.dialogs.LanguageDialogInterface access$0(com.mapplas.utils.language.LanguageDialogCreator) -> a
+    android.content.Context access$1(com.mapplas.utils.language.LanguageDialogCreator) -> b
+    void access$2(com.mapplas.utils.language.LanguageDialogCreator,com.mapplas.utils.visual.dialogs.LanguageDialogInterface) -> a
+    com.mapplas.utils.network.async_tasks.AppGetterTask access$3(com.mapplas.utils.language.LanguageDialogCreator) -> c
+com.mapplas.utils.language.LanguageDialogCreator$1 -> com.mapplas.utils.c.b:
+    com.mapplas.utils.language.LanguageDialogCreator this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.mapplas.utils.language.LanguageSetter -> com.mapplas.utils.c.c:
+    android.app.Activity activity -> a
+    void setLanguageToApp(java.lang.String) -> a
+com.mapplas.utils.location.AroundRequester -> com.mapplas.utils.d.a:
     com.mapplas.utils.location.UserLocationRequester userLocationRequester -> a
     android.content.Context context -> b
     android.widget.TextView listViewHeaderStatusMessage -> c
@@ -2041,14 +2064,15 @@ com.mapplas.utils.location.AroundRequester -> com.mapplas.utils.c.a:
     com.mapplas.utils.third_party.RefreshableListView listView -> f
     com.mapplas.app.adapters.app.AppAdapter appAdapter -> g
     java.util.ArrayList appsInstalledList -> h
+    com.mapplas.app.activities.MapplasActivity mainActivity -> i
     void start() -> a
     void locationSearchEnded(android.location.Location) -> a
     void locationSearchDidTimeout(android.location.Location) -> b
     void loadTasks$2be49bc9(android.location.Location) -> c
-com.mapplas.utils.location.UserLocationListener -> com.mapplas.utils.c.b:
+com.mapplas.utils.location.UserLocationListener -> com.mapplas.utils.d.b:
     void locationSearchEnded(android.location.Location) -> a
     void locationSearchDidTimeout(android.location.Location) -> b
-com.mapplas.utils.location.UserLocationRequester -> com.mapplas.utils.c.c:
+com.mapplas.utils.location.UserLocationRequester -> com.mapplas.utils.d.c:
     int TIMEOUT_MESSAGE_ID -> d
     long LOCATION_AGE_IN_SECONDS -> e
     android.location.LocationManager manager -> a
@@ -2066,11 +2090,11 @@ com.mapplas.utils.location.UserLocationRequester -> com.mapplas.utils.c.c:
     void stopListeningForLocationUpdates() -> c
     void resetLocationBoolean() -> b
     void restart() -> d
-com.mapplas.utils.location.UserLocationRequesterFactory -> com.mapplas.utils.c.d:
-com.mapplas.utils.network.NetworkConnectionChecker -> com.mapplas.utils.d.a:
+com.mapplas.utils.location.UserLocationRequesterFactory -> com.mapplas.utils.d.d:
+com.mapplas.utils.network.NetworkConnectionChecker -> com.mapplas.utils.e.a:
     boolean isWifiConnected(android.content.Context) -> a
     boolean isNetworkConnectionConnected(android.content.Context) -> b
-com.mapplas.utils.network.async_tasks.AppDetailTask -> com.mapplas.utils.d.a.a:
+com.mapplas.utils.network.async_tasks.AppDetailTask -> com.mapplas.utils.e.a.a:
     com.mapplas.app.activities.AppDetail appDetail -> a
     com.mapplas.model.App app -> b
     java.lang.String countryCode -> c
@@ -2078,7 +2102,7 @@ com.mapplas.utils.network.async_tasks.AppDetailTask -> com.mapplas.utils.d.a.a:
     java.lang.String doInBackground$606be067() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.AppGetterTask -> com.mapplas.utils.d.a.b:
+com.mapplas.utils.network.async_tasks.AppGetterTask -> com.mapplas.utils.e.a.b:
     android.content.Context context -> a
     com.mapplas.model.SuperModel model -> b
     com.mapplas.app.adapters.app.AppAdapter listViewAdapter -> c
@@ -2086,21 +2110,27 @@ com.mapplas.utils.network.async_tasks.AppGetterTask -> com.mapplas.utils.d.a.b:
     java.util.ArrayList appsInstalledInfo -> e
     java.util.concurrent.Semaphore semaphore -> f
     boolean occupied -> g
+    com.mapplas.app.activities.MapplasActivity mainActivity -> h
     android.location.Location doInBackground(java.lang.Object[]) -> a
+    void afterLanguageCheck() -> d
+    void onDialogEnglishLanguageClick() -> a
+    void onDialogSpanishLanguageClick() -> b
+    void onDialogBasqueLanguageClick() -> c
+    void updateLanguage(java.lang.String) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.AsyncTaskHandler -> com.mapplas.utils.d.a.c:
+com.mapplas.utils.network.async_tasks.AsyncTaskHandler -> com.mapplas.utils.e.a.c:
     void execute() -> a
     void finished() -> b
-com.mapplas.utils.network.async_tasks.AsyncTaskListener -> com.mapplas.utils.d.a.d:
-com.mapplas.utils.network.async_tasks.LoadImageTask -> com.mapplas.utils.d.a.e:
+com.mapplas.utils.network.async_tasks.AsyncTaskListener -> com.mapplas.utils.e.a.d:
+com.mapplas.utils.network.async_tasks.LoadImageTask -> com.mapplas.utils.e.a.e:
     android.content.Context context -> a
     java.lang.String path -> b
     android.widget.ImageView imageView -> c
     com.mapplas.utils.cache.ImageFileManager imageFileManager -> d
     void execute() -> a
     void finished() -> b
-com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask -> com.mapplas.utils.d.a.f:
+com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask -> com.mapplas.utils.e.a.f:
     com.mapplas.app.activities.MoreFromDeveloperActivity moreFromDevActivity -> a
     com.mapplas.model.App app -> b
     java.lang.String countryCode -> c
@@ -2108,20 +2138,20 @@ com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask -> com.mapplas.utils
     java.lang.String doInBackground$606be067() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.ReverseGeocodingTask -> com.mapplas.utils.d.a.g:
+com.mapplas.utils.network.async_tasks.ReverseGeocodingTask -> com.mapplas.utils.e.a.g:
     android.content.Context context -> a
     com.mapplas.model.SuperModel model -> b
     android.widget.TextView listViewHeaderStatusMessage -> c
     java.lang.String doInBackground(android.location.Location[]) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.TaskAsyncExecuter -> com.mapplas.utils.d.a.h:
+com.mapplas.utils.network.async_tasks.TaskAsyncExecuter -> com.mapplas.utils.e.a.h:
     com.mapplas.utils.network.async_tasks.AsyncTaskHandler task -> a
     com.mapplas.utils.network.async_tasks.AsyncTaskListener listener -> b
     void onCancelled() -> onCancelled
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.UserPinBlocksTask -> com.mapplas.utils.d.a.i:
+com.mapplas.utils.network.async_tasks.UserPinBlocksTask -> com.mapplas.utils.e.a.i:
     android.widget.ListView listView -> a
     android.content.Context context -> b
     int textViewResourceId -> c
@@ -2131,76 +2161,76 @@ com.mapplas.utils.network.async_tasks.UserPinBlocksTask -> com.mapplas.utils.d.a
     java.lang.String doInBackground$606be067() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.UserPlayStoreInteractionTask -> com.mapplas.utils.d.a.j:
+com.mapplas.utils.network.async_tasks.UserPlayStoreInteractionTask -> com.mapplas.utils.e.a.j:
     java.lang.String appId -> a
     int userId -> b
     android.location.Location location -> c
     java.lang.Void doInBackground$10299ca() -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.connectors.AppDetailConnector -> com.mapplas.utils.d.b.a:
+com.mapplas.utils.network.connectors.AppDetailConnector -> com.mapplas.utils.e.b.a:
     java.lang.String request(java.lang.String,java.lang.String) -> a
-com.mapplas.utils.network.connectors.AppGetterConnector -> com.mapplas.utils.d.b.b:
+com.mapplas.utils.network.connectors.AppGetterConnector -> com.mapplas.utils.e.b.b:
     java.lang.String request(android.location.Location,com.mapplas.model.SuperModel,boolean,android.content.Context) -> a
-com.mapplas.utils.network.connectors.AppShareConnector -> com.mapplas.utils.d.b.c:
+com.mapplas.utils.network.connectors.AppShareConnector -> com.mapplas.utils.e.b.c:
     java.lang.String request(java.lang.String,int,android.location.Location) -> a
-com.mapplas.utils.network.connectors.BlockRequestConnector -> com.mapplas.utils.d.b.d:
+com.mapplas.utils.network.connectors.BlockRequestConnector -> com.mapplas.utils.e.b.d:
     java.lang.String request(java.lang.String,java.lang.String,java.lang.String) -> a
-com.mapplas.utils.network.connectors.MoreFromDeveloperConnector -> com.mapplas.utils.d.b.e:
+com.mapplas.utils.network.connectors.MoreFromDeveloperConnector -> com.mapplas.utils.e.b.e:
     java.lang.String request(java.lang.String,java.lang.String) -> a
-com.mapplas.utils.network.connectors.PinRequestConnector -> com.mapplas.utils.d.b.f:
+com.mapplas.utils.network.connectors.PinRequestConnector -> com.mapplas.utils.e.b.f:
     java.lang.String request(java.lang.String,java.lang.String,java.lang.String,double,double,java.lang.String) -> a
-com.mapplas.utils.network.connectors.UserIdentificationConnector -> com.mapplas.utils.d.b.g:
+com.mapplas.utils.network.connectors.UserIdentificationConnector -> com.mapplas.utils.e.b.g:
     java.lang.String request(java.lang.String) -> a
-com.mapplas.utils.network.connectors.UserPinBlocksConnector -> com.mapplas.utils.d.b.h:
+com.mapplas.utils.network.connectors.UserPinBlocksConnector -> com.mapplas.utils.e.b.h:
     java.lang.String request(java.lang.String) -> a
-com.mapplas.utils.network.connectors.UserPlayStoreInteractionConnector -> com.mapplas.utils.d.b.i:
+com.mapplas.utils.network.connectors.UserPlayStoreInteractionConnector -> com.mapplas.utils.e.b.i:
     java.lang.String request(java.lang.String,int,android.location.Location) -> a
-com.mapplas.utils.network.mappers.JsonToAppDetailMapper -> com.mapplas.utils.d.c.a:
+com.mapplas.utils.network.mappers.JsonToAppDetailMapper -> com.mapplas.utils.e.c.a:
     android.content.Context context -> a
     void map(org.json.JSONObject,java.lang.Object) -> a
     void parseScreenshots(java.lang.String,com.mapplas.model.App) -> a
-com.mapplas.utils.network.mappers.JsonToAppMapper -> com.mapplas.utils.d.c.b:
+com.mapplas.utils.network.mappers.JsonToAppMapper -> com.mapplas.utils.e.c.b:
     android.content.Context context -> a
     java.util.ArrayList map(org.json.JSONArray) -> a
     com.mapplas.model.App map(org.json.JSONObject) -> a
-com.mapplas.utils.network.mappers.JsonToAppReponseMapper -> com.mapplas.utils.d.c.c:
+com.mapplas.utils.network.mappers.JsonToAppReponseMapper -> com.mapplas.utils.e.c.c:
     boolean resetPagination -> a
     android.content.Context context -> b
     void setResetPagination(boolean,android.content.Context) -> a
     void map(org.json.JSONObject,java.lang.Object) -> a
     void setMockedAppToList(com.mapplas.model.SuperModel) -> a
-com.mapplas.utils.network.mappers.JsonToBlockedAppsMapper -> com.mapplas.utils.d.c.d:
+com.mapplas.utils.network.mappers.JsonToBlockedAppsMapper -> com.mapplas.utils.e.c.d:
     android.content.Context context -> a
     java.util.ArrayList map(org.json.JSONArray) -> a
-com.mapplas.utils.network.mappers.JsonToMoreAppsMapper -> com.mapplas.utils.d.c.e:
+com.mapplas.utils.network.mappers.JsonToMoreAppsMapper -> com.mapplas.utils.e.c.e:
     android.content.Context context -> a
     com.mapplas.model.MoreFromDeveloperApp map(org.json.JSONObject) -> a
-com.mapplas.utils.network.mappers.JsonToMoreFromDeveloperActivityMapper -> com.mapplas.utils.d.c.f:
+com.mapplas.utils.network.mappers.JsonToMoreFromDeveloperActivityMapper -> com.mapplas.utils.e.c.f:
     android.content.Context context -> a
     void map(org.json.JSONObject,java.lang.Object) -> a
-com.mapplas.utils.network.mappers.JsonToMoreFromDeveloperMapper -> com.mapplas.utils.d.c.g:
+com.mapplas.utils.network.mappers.JsonToMoreFromDeveloperMapper -> com.mapplas.utils.e.c.g:
     java.util.ArrayList mapList -> a
     android.content.Context context -> b
     java.util.ArrayList map(org.json.JSONArray) -> a
-com.mapplas.utils.network.mappers.JsonToPinnedAppsMapper -> com.mapplas.utils.d.c.h:
+com.mapplas.utils.network.mappers.JsonToPinnedAppsMapper -> com.mapplas.utils.e.c.h:
     android.content.Context context -> a
     java.util.ArrayList map(org.json.JSONArray) -> a
-com.mapplas.utils.network.mappers.JsonToUserMapper -> com.mapplas.utils.d.c.i:
+com.mapplas.utils.network.mappers.JsonToUserMapper -> com.mapplas.utils.e.c.i:
     com.mapplas.model.User map(org.json.JSONObject) -> a
-com.mapplas.utils.network.mappers.generic.GenericMapper -> com.mapplas.utils.d.c.a.a:
+com.mapplas.utils.network.mappers.generic.GenericMapper -> com.mapplas.utils.e.c.a.a:
     java.util.ArrayList mappers -> a
     void map(org.json.JSONObject,java.lang.Object) -> a
-com.mapplas.utils.network.mappers.generic.base.KeyIntegerValueMapper -> com.mapplas.utils.d.c.a.a.a:
+com.mapplas.utils.network.mappers.generic.base.KeyIntegerValueMapper -> com.mapplas.utils.e.c.a.a.a:
     java.lang.String key -> a
     java.lang.reflect.Method method -> b
     void map(org.json.JSONObject,java.lang.Object) -> a
-com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper -> com.mapplas.utils.d.c.a.a.b:
+com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper -> com.mapplas.utils.e.c.a.a.b:
     java.lang.String key -> a
     java.lang.reflect.Method method -> b
     void map(org.json.JSONObject,java.lang.Object) -> a
-com.mapplas.utils.network.mappers.generic.base.TargetMapper -> com.mapplas.utils.d.c.a.a.c:
+com.mapplas.utils.network.mappers.generic.base.TargetMapper -> com.mapplas.utils.e.c.a.a.c:
     void map(org.json.JSONObject,java.lang.Object) -> a
-com.mapplas.utils.network.requests.BlockRequestThread -> com.mapplas.utils.d.d.a:
+com.mapplas.utils.network.requests.BlockRequestThread -> com.mapplas.utils.e.d.a:
     java.lang.String action -> a
     com.mapplas.model.App app -> b
     java.lang.String uid -> c
@@ -2208,10 +2238,10 @@ com.mapplas.utils.network.requests.BlockRequestThread -> com.mapplas.utils.d.d.a
     java.lang.String access$0(com.mapplas.utils.network.requests.BlockRequestThread) -> a
     com.mapplas.model.App access$1(com.mapplas.utils.network.requests.BlockRequestThread) -> b
     java.lang.String access$2(com.mapplas.utils.network.requests.BlockRequestThread) -> c
-com.mapplas.utils.network.requests.BlockRequestThread$1 -> com.mapplas.utils.d.d.b:
+com.mapplas.utils.network.requests.BlockRequestThread$1 -> com.mapplas.utils.e.d.b:
     com.mapplas.utils.network.requests.BlockRequestThread this$0 -> a
     void run() -> run
-com.mapplas.utils.network.requests.PinRequestThread -> com.mapplas.utils.d.d.c:
+com.mapplas.utils.network.requests.PinRequestThread -> com.mapplas.utils.e.d.c:
     java.lang.String action -> a
     com.mapplas.model.App app -> b
     java.lang.String uid -> c
@@ -2223,10 +2253,10 @@ com.mapplas.utils.network.requests.PinRequestThread -> com.mapplas.utils.d.d.c:
     com.mapplas.model.App access$2(com.mapplas.utils.network.requests.PinRequestThread) -> c
     java.lang.String access$3(com.mapplas.utils.network.requests.PinRequestThread) -> d
     java.lang.String access$4(com.mapplas.utils.network.requests.PinRequestThread) -> e
-com.mapplas.utils.network.requests.PinRequestThread$1 -> com.mapplas.utils.d.d.d:
+com.mapplas.utils.network.requests.PinRequestThread$1 -> com.mapplas.utils.e.d.d:
     com.mapplas.utils.network.requests.PinRequestThread this$0 -> a
     void run() -> run
-com.mapplas.utils.network.requests.ShareRequestThread -> com.mapplas.utils.d.d.e:
+com.mapplas.utils.network.requests.ShareRequestThread -> com.mapplas.utils.e.d.e:
     java.lang.String appId -> a
     int userId -> b
     android.location.Location location -> c
@@ -2234,22 +2264,23 @@ com.mapplas.utils.network.requests.ShareRequestThread -> com.mapplas.utils.d.d.e
     java.lang.String access$0(com.mapplas.utils.network.requests.ShareRequestThread) -> a
     int access$1(com.mapplas.utils.network.requests.ShareRequestThread) -> b
     android.location.Location access$2(com.mapplas.utils.network.requests.ShareRequestThread) -> c
-com.mapplas.utils.network.requests.ShareRequestThread$1 -> com.mapplas.utils.d.d.f:
+com.mapplas.utils.network.requests.ShareRequestThread$1 -> com.mapplas.utils.e.d.f:
     com.mapplas.utils.network.requests.ShareRequestThread this$0 -> a
     void run() -> run
-com.mapplas.utils.network.requests.UserIdentificationRequester -> com.mapplas.utils.d.d.g:
+com.mapplas.utils.network.requests.UserIdentificationRequester -> com.mapplas.utils.e.d.g:
     com.mapplas.model.SuperModel model -> a
     java.lang.Runnable getThread() -> a
     com.mapplas.model.SuperModel access$0(com.mapplas.utils.network.requests.UserIdentificationRequester) -> a
-com.mapplas.utils.network.requests.UserIdentificationRequester$1 -> com.mapplas.utils.d.d.h:
+    void access$1(com.mapplas.utils.network.requests.UserIdentificationRequester) -> b
+com.mapplas.utils.network.requests.UserIdentificationRequester$1 -> com.mapplas.utils.e.d.h:
     com.mapplas.utils.network.requests.UserIdentificationRequester this$0 -> a
     void run() -> run
-com.mapplas.utils.static_intents.AppChangedSingleton -> com.mapplas.utils.e.a:
+com.mapplas.utils.static_intents.AppChangedSingleton -> com.mapplas.utils.f.a:
     boolean somethingChanged -> a
     com.mapplas.model.AppOrderedList changedList -> b
-com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton -> com.mapplas.utils.e.b:
+com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton -> com.mapplas.utils.f.b:
     boolean requestBeingDone -> a
-com.mapplas.utils.static_intents.SuperModelSingleton -> com.mapplas.utils.e.c:
+com.mapplas.utils.static_intents.SuperModelSingleton -> com.mapplas.utils.f.c:
     com.mapplas.model.SuperModel model -> a
 com.mapplas.utils.third_party.RefreshableListView -> com.mapplas.utils.third_party.RefreshableListView:
     android.view.View mHeaderContainer -> a
@@ -2287,7 +2318,7 @@ com.mapplas.utils.third_party.RefreshableListView$1 -> com.mapplas.utils.third_p
     void handleMessage(android.os.Message) -> handleMessage
 com.mapplas.utils.third_party.RefreshableListView$OnRefreshListener -> com.mapplas.utils.third_party.b:
     void onRefresh$674d34c6() -> a
-com.mapplas.utils.view_holder.AppViewHolder -> com.mapplas.utils.f.a:
+com.mapplas.utils.view_holder.AppViewHolder -> com.mapplas.utils.g.a:
     android.widget.ImageView logo -> a
     android.widget.ImageView logoRoundCorner -> b
     android.widget.TextView title -> c
@@ -2311,7 +2342,11 @@ com.mapplas.utils.visual.custom_views.RobotoButton -> com.mapplas.utils.visual.c
     void init() -> a
 com.mapplas.utils.visual.custom_views.RobotoTextView -> com.mapplas.utils.visual.custom_views.RobotoTextView:
     void init() -> a
-com.mapplas.utils.visual.helpers.AppLaunchHelper -> com.mapplas.utils.visual.a.a:
+com.mapplas.utils.visual.dialogs.LanguageDialogInterface -> com.mapplas.utils.visual.a.a:
+    void onDialogEnglishLanguageClick() -> a
+    void onDialogSpanishLanguageClick() -> b
+    void onDialogBasqueLanguageClick() -> c
+com.mapplas.utils.visual.helpers.AppLaunchHelper -> com.mapplas.utils.visual.b.a:
     android.content.Context context -> a
     android.widget.Button button -> b
     com.mapplas.model.App app -> c
@@ -2322,15 +2357,15 @@ com.mapplas.utils.visual.helpers.AppLaunchHelper -> com.mapplas.utils.visual.a.a
     com.mapplas.model.App access$1(com.mapplas.utils.visual.helpers.AppLaunchHelper) -> b
     com.mapplas.model.User access$2(com.mapplas.utils.visual.helpers.AppLaunchHelper) -> c
     android.location.Location access$3(com.mapplas.utils.visual.helpers.AppLaunchHelper) -> d
-com.mapplas.utils.visual.helpers.AppLaunchHelper$1 -> com.mapplas.utils.visual.a.b:
+com.mapplas.utils.visual.helpers.AppLaunchHelper$1 -> com.mapplas.utils.visual.b.b:
     com.mapplas.utils.visual.helpers.AppLaunchHelper this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper -> com.mapplas.utils.visual.a.c:
-com.mapplas.utils.visual.helpers.PlayStoreLinkCreator -> com.mapplas.utils.visual.a.d:
+com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper -> com.mapplas.utils.visual.b.c:
+com.mapplas.utils.visual.helpers.PlayStoreLinkCreator -> com.mapplas.utils.visual.b.d:
     java.lang.String createLinkForApp(java.lang.String) -> a
-com.mapplas.utils.visual.helpers.ShareHelper -> com.mapplas.utils.visual.a.e:
+com.mapplas.utils.visual.helpers.ShareHelper -> com.mapplas.utils.visual.b.e:
     android.content.Intent getSharingIntent(android.content.Context,com.mapplas.model.App) -> a
-com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter -> com.mapplas.utils.visual.b.a:
+com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter -> com.mapplas.utils.visual.c.a:
     com.mapplas.model.UserFormLayoutComponents layoutComponents -> a
     android.widget.ListView list -> b
     android.content.Context context -> c
@@ -2342,10 +2377,10 @@ com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter -> com.mapp
     android.content.Context access$2(com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter) -> c
     com.mapplas.model.User access$3(com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter) -> d
     com.mapplas.model.AppOrderedList access$4(com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter) -> e
-com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter$1 -> com.mapplas.utils.visual.b.b:
+com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter$1 -> com.mapplas.utils.visual.c.b:
     com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter$2 -> com.mapplas.utils.visual.b.c:
+com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter$2 -> com.mapplas.utils.visual.c.c:
     com.mapplas.utils.visual.presenters.UserFormDynamicSublistsPresenter this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.utils.webView.TouchableScrollView -> com.mapplas.utils.webView.TouchableScrollView:
@@ -2373,3 +2408,121 @@ com.mapplas.utils.webView.TouchableScrollView$3 -> com.mapplas.utils.webView.c:
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+org.apache.commons.lang3.ArrayUtils -> a.a.a.a.a:
+    java.lang.Object[] EMPTY_OBJECT_ARRAY -> a
+    java.lang.Class[] EMPTY_CLASS_ARRAY -> b
+    java.lang.String[] EMPTY_STRING_ARRAY -> c
+    long[] EMPTY_LONG_ARRAY -> d
+    java.lang.Long[] EMPTY_LONG_OBJECT_ARRAY -> e
+    int[] EMPTY_INT_ARRAY -> f
+    java.lang.Integer[] EMPTY_INTEGER_OBJECT_ARRAY -> g
+    short[] EMPTY_SHORT_ARRAY -> h
+    java.lang.Short[] EMPTY_SHORT_OBJECT_ARRAY -> i
+    byte[] EMPTY_BYTE_ARRAY -> j
+    java.lang.Byte[] EMPTY_BYTE_OBJECT_ARRAY -> k
+    double[] EMPTY_DOUBLE_ARRAY -> l
+    java.lang.Double[] EMPTY_DOUBLE_OBJECT_ARRAY -> m
+    float[] EMPTY_FLOAT_ARRAY -> n
+    java.lang.Float[] EMPTY_FLOAT_OBJECT_ARRAY -> o
+    boolean[] EMPTY_BOOLEAN_ARRAY -> p
+    java.lang.Boolean[] EMPTY_BOOLEAN_OBJECT_ARRAY -> q
+    char[] EMPTY_CHAR_ARRAY -> r
+    java.lang.Character[] EMPTY_CHARACTER_OBJECT_ARRAY -> s
+    java.lang.Object[] clone(java.lang.Object[]) -> a
+    boolean isEmpty(char[]) -> a
+org.apache.commons.lang3.StringEscapeUtils -> a.a.a.a.b:
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator ESCAPE_JAVA -> a
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator ESCAPE_ECMASCRIPT -> b
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator ESCAPE_XML -> c
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator ESCAPE_HTML3 -> d
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator ESCAPE_HTML4 -> e
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator ESCAPE_CSV -> f
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator UNESCAPE_JAVA -> g
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator UNESCAPE_ECMASCRIPT -> h
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator UNESCAPE_HTML3 -> i
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator UNESCAPE_HTML4 -> j
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator UNESCAPE_XML -> k
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator UNESCAPE_CSV -> l
+    java.lang.String unescapeHtml4(java.lang.String) -> a
+org.apache.commons.lang3.StringEscapeUtils$CsvEscaper -> a.a.a.a.c:
+    java.lang.String CSV_QUOTE_STR -> a
+    char[] CSV_SEARCH_CHARS -> b
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+org.apache.commons.lang3.StringEscapeUtils$CsvUnescaper -> a.a.a.a.d:
+    java.lang.String CSV_QUOTE_STR -> a
+    char[] CSV_SEARCH_CHARS -> b
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+org.apache.commons.lang3.StringUtils -> a.a.a.a.e:
+    java.util.regex.Pattern WHITESPACE_BLOCK -> a
+    boolean sunAvailable -> b
+    java.lang.reflect.Method sunDecomposeMethod -> c
+    java.util.regex.Pattern sunPattern -> d
+    boolean java6Available -> e
+    java.lang.reflect.Method java6NormalizeMethod -> f
+    java.lang.Object java6NormalizerFormNFD -> g
+    java.util.regex.Pattern java6Pattern -> h
+    boolean isEmpty(java.lang.CharSequence) -> a
+    boolean containsAny(java.lang.CharSequence,char[]) -> a
+    boolean containsNone(java.lang.CharSequence,char[]) -> b
+    java.lang.String replace(java.lang.String,java.lang.String,java.lang.String) -> a
+org.apache.commons.lang3.text.translate.AggregateTranslator -> a.a.a.a.a.a.a:
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator[] translators -> a
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+org.apache.commons.lang3.text.translate.CharSequenceTranslator -> a.a.a.a.a.a.b:
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+    java.lang.String translate(java.lang.CharSequence) -> a
+    void translate(java.lang.CharSequence,java.io.Writer) -> a
+    org.apache.commons.lang3.text.translate.CharSequenceTranslator with(org.apache.commons.lang3.text.translate.CharSequenceTranslator[]) -> a
+    java.lang.String hex(int) -> a
+org.apache.commons.lang3.text.translate.CodePointTranslator -> a.a.a.a.a.a.c:
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+    boolean translate(int,java.io.Writer) -> a
+org.apache.commons.lang3.text.translate.EntityArrays -> a.a.a.a.a.a.d:
+    java.lang.String[][] ISO8859_1_ESCAPE -> a
+    java.lang.String[][] ISO8859_1_UNESCAPE -> b
+    java.lang.String[][] HTML40_EXTENDED_ESCAPE -> c
+    java.lang.String[][] HTML40_EXTENDED_UNESCAPE -> d
+    java.lang.String[][] BASIC_ESCAPE -> e
+    java.lang.String[][] BASIC_UNESCAPE -> f
+    java.lang.String[][] APOS_ESCAPE -> g
+    java.lang.String[][] APOS_UNESCAPE -> h
+    java.lang.String[][] JAVA_CTRL_CHARS_ESCAPE -> i
+    java.lang.String[][] JAVA_CTRL_CHARS_UNESCAPE -> j
+    java.lang.String[][] ISO8859_1_ESCAPE() -> a
+    java.lang.String[][] ISO8859_1_UNESCAPE() -> b
+    java.lang.String[][] HTML40_EXTENDED_ESCAPE() -> c
+    java.lang.String[][] HTML40_EXTENDED_UNESCAPE() -> d
+    java.lang.String[][] BASIC_ESCAPE() -> e
+    java.lang.String[][] BASIC_UNESCAPE() -> f
+    java.lang.String[][] APOS_ESCAPE() -> g
+    java.lang.String[][] APOS_UNESCAPE() -> h
+    java.lang.String[][] JAVA_CTRL_CHARS_ESCAPE() -> i
+    java.lang.String[][] JAVA_CTRL_CHARS_UNESCAPE() -> j
+    java.lang.String[][] invert(java.lang.String[][]) -> a
+org.apache.commons.lang3.text.translate.LookupTranslator -> a.a.a.a.a.a.e:
+    java.util.HashMap lookupMap -> a
+    int shortest -> b
+    int longest -> c
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+org.apache.commons.lang3.text.translate.NumericEntityUnescaper -> a.a.a.a.a.a.f:
+    java.util.EnumSet options -> a
+    boolean isSet(org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION) -> a
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION -> a.a.a.a.a.a.g:
+    org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION semiColonRequired -> a
+    org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION semiColonOptional -> b
+    org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION errorIfNoSemiColon -> c
+    org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION[] $VALUES -> d
+    org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION[] values() -> values
+    org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION valueOf(java.lang.String) -> valueOf
+org.apache.commons.lang3.text.translate.OctalUnescaper -> a.a.a.a.a.a.h:
+    int OCTAL_MAX -> a
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
+org.apache.commons.lang3.text.translate.UnicodeEscaper -> a.a.a.a.a.a.i:
+    int below -> a
+    int above -> b
+    boolean between -> c
+    org.apache.commons.lang3.text.translate.UnicodeEscaper outsideOf$d81c0a0() -> a
+    boolean translate(int,java.io.Writer) -> a
+org.apache.commons.lang3.text.translate.UnicodeUnescaper -> a.a.a.a.a.a.j:
+    int translate(java.lang.CharSequence,int,java.io.Writer) -> a
