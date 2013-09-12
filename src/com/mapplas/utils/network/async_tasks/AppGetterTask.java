@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
@@ -23,6 +25,7 @@ import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
 public class AppGetterTask extends AsyncTask<Object, Void, Location> implements LanguageDialogInterface {
@@ -34,15 +37,15 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	private AppAdapter listViewAdapter;
 
 	private RefreshableListView listView;
-	
+
 	private ArrayList<ApplicationInfo> appsInstalledInfo;
-	
+
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private static boolean occupied = false;
-		
+
 	private MapplasActivity mainActivity;
-		
+
 	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
 		super();
 		this.context = context;
@@ -57,7 +60,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	protected Location doInBackground(Object... params) {
 		// Set singleton to true
 		AppRequestBeingDoneSingleton.requestBeingDone = true;
-		
+
 		try {
 			semaphore.acquire();
 			if(occupied) {
@@ -68,7 +71,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 			occupied = true;
 			semaphore.release();
 		} catch (Exception exc) {
-//			Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
+			// Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
 			return null;
 		}
 
@@ -79,13 +82,13 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			semaphore.acquire();
 			occupied = false;
 			semaphore.release();
 		} catch (Exception exc) {
-//			Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
+			// Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
 			return null;
 		}
 
@@ -95,17 +98,25 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	@Override
 	protected void onPostExecute(Location location) {
 		super.onPostExecute(location);
-		
+
 		this.checkLanguage();
 	}
-	
+
 	private void afterLanguageCheck() {
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
 		this.listView.setVisibility(View.VISIBLE);
+		
+		// Profile button
+		RobotoButton profileNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnProfile);
+		if(profileNavBarButton.getVisibility() == View.GONE) {
+			profileNavBarButton.setVisibility(View.VISIBLE);
+			Animation myFadeInAnimation = AnimationUtils.loadAnimation(this.context, R.anim.alpha);
+			profileNavBarButton.startAnimation(myFadeInAnimation);
+		}
 
 		if(this.listViewAdapter != null) {
-			
+
 			// Get app list from telf.
 			final PackageManager pm = this.context.getPackageManager();
 			this.appsInstalledInfo = (ArrayList<ApplicationInfo>)pm.getInstalledApplications(PackageManager.GET_ACTIVITIES);
@@ -120,12 +131,13 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}
-		
+
 		// Set singleton to false
 		AppRequestBeingDoneSingleton.requestBeingDone = false;
-				
+
 		// Send app info to server
-//		new AppInfoSenderTask(this.applicationList, location, this.activityManager, this.model.currentUser()).execute();
+		// new AppInfoSenderTask(this.applicationList, location,
+		// this.activityManager, this.model.currentUser()).execute();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {
@@ -139,7 +151,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		}
 		return ret;
 	}
-	
+
 	private void checkLanguage() {
 		// First launch language dialog
 
@@ -177,7 +189,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		updateLanguage(((MapplasApplication)this.context.getApplicationContext()).getLanguage());
 		this.afterLanguageCheck();
 	}
-	
+
 	private void updateLanguage(String language) {
 		new LanguageSetter(this.mainActivity).setLanguageToApp(language);
 	}

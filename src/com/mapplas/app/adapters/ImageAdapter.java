@@ -1,3 +1,4 @@
+
 package com.mapplas.app.adapters;
 
 import java.util.ArrayList;

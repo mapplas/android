@@ -101,6 +101,9 @@ public class AppOrderedList implements Parcelable, Unit, Comparator<App> {
 		if(app1.isAuxPin() == 1 && app2.isAuxPin() == 0) {
 			return -1;
 		}
+		else if (app1.isAuxPin() == app2.isAuxPin()) {
+			return 0;
+		}
 		else {
 			return 1;
 		}

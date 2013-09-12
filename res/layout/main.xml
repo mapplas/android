@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/menu_profile_button" />
+                android:background="@drawable/menu_profile_button"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <LinearLayout

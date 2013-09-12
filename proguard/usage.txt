@@ -12,6 +12,7 @@ app.mapplas.com.R$layout
 app.mapplas.com.R$string
 app.mapplas.com.R$style
 app.mapplas.com.R$styleable
+com.commonsware.cwac.adapter.demo.AdapterWrapperDemo
 com.commonsware.cwac.adapter.demo.R
 com.commonsware.cwac.adapter.demo.R$attr
 com.commonsware.cwac.adapter.demo.R$layout
@@ -24,7 +25,7 @@ com.commonsware.cwac.endless.EndlessAdapter:
     122:123:public void setSerialized(boolean)
     126:127:public void stopAppending()
     152:153:public void setRunInBackground(boolean)
-    370:370:protected android.content.Context getContext()
+    381:381:protected android.content.Context getContext()
 com.j256.ormlite.android.AndroidCompiledStatement:
     45:45:public int getColumnCount()
     49:49:public java.lang.String getColumnName(int)
@@ -96,32 +97,12 @@ com.j256.ormlite.android.DatabaseTableConfigUtil:
     private static final int FOREIGN_COLUMN_NAME
     29:402:public DatabaseTableConfigUtil()
     67:67:public static int getWorkedC()
-com.j256.ormlite.android.apptools.OpenHelperManager:
-    private static final java.lang.String HELPER_CLASS_RESOURCE_NAME
-    51:56:public static synchronized void setOpenHelperClass(java.lang.Class)
-    64:65:public static synchronized void setHelper(com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper)
-    74:75:public static synchronized com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper getHelper(android.content.Context,java.lang.Class)
-    112:113:public static void release()
-com.j256.ormlite.android.apptools.OrmLiteBaseActivity:
-    35:45:public com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper getHelper()
-    53:53:public com.j256.ormlite.support.ConnectionSource getConnectionSource()
-com.j256.ormlite.android.apptools.OrmLiteBaseActivityGroup:
-    32:42:public com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper getHelper()
-    50:50:public com.j256.ormlite.support.ConnectionSource getConnectionSource()
-com.j256.ormlite.android.apptools.OrmLiteBaseListActivity:
-    26:36:public com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper getHelper()
-    44:44:public com.j256.ormlite.support.ConnectionSource getConnectionSource()
-com.j256.ormlite.android.apptools.OrmLiteBaseService:
-    private volatile com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper helper
-    25:35:public com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper getHelper()
-    43:43:public com.j256.ormlite.support.ConnectionSource getConnectionSource()
-    48:53:public void onCreate()
-    57:60:public void onDestroy()
-    74:75:protected com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper getHelperInternal(android.content.Context)
-    88:90:protected void releaseHelper(com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper)
-com.j256.ormlite.android.apptools.OrmLiteBaseTabActivity:
-    26:36:public com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper getHelper()
-    44:44:public com.j256.ormlite.support.ConnectionSource getConnectionSource()
+com.j256.ormlite.android.apptools.OpenHelperManager
+com.j256.ormlite.android.apptools.OrmLiteBaseActivity
+com.j256.ormlite.android.apptools.OrmLiteBaseActivityGroup
+com.j256.ormlite.android.apptools.OrmLiteBaseListActivity
+com.j256.ormlite.android.apptools.OrmLiteBaseService
+com.j256.ormlite.android.apptools.OrmLiteBaseTabActivity
 com.j256.ormlite.android.apptools.OrmLiteConfigUtil
 com.j256.ormlite.android.apptools.OrmLiteConfigUtil$1
 com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper:
@@ -133,6 +114,7 @@ com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper:
     270:274:private static java.io.InputStream openFileId(android.content.Context,int)
     279:285:private static java.io.InputStream openFile(java.io.File)
 com.j256.ormlite.dao.BaseDaoImpl:
+    private static com.j256.ormlite.dao.ReferenceObjectCache defaultObjectCache
     92:93:protected BaseDaoImpl(java.lang.Class)
     228:233:public java.lang.Object queryForFirst(com.j256.ormlite.stmt.PreparedQuery)
     238:239:public java.util.List queryForAll()
@@ -175,6 +157,7 @@ com.j256.ormlite.dao.BaseDaoImpl:
     743:760:public void setObjectCache(com.j256.ormlite.dao.ObjectCache)
     763:763:public com.j256.ormlite.dao.ObjectCache getObjectCache()
     767:770:public void clearObjectCache()
+    776:780:public static synchronized void clearAllInternalObjectCaches()
     783:783:public java.lang.Object mapSelectStarRow(com.j256.ormlite.support.DatabaseResults)
     787:787:public com.j256.ormlite.stmt.GenericRowMapper getSelectStarRowMapper()
     791:791:public com.j256.ormlite.dao.RawRowMapper getRawRowMapper()
@@ -284,6 +267,7 @@ com.j256.ormlite.dao.DaoManager:
     138:148:public static synchronized com.j256.ormlite.dao.Dao lookupDao(com.j256.ormlite.support.ConnectionSource,com.j256.ormlite.table.DatabaseTableConfig)
     190:201:public static synchronized void registerDaoWithTableConfig(com.j256.ormlite.support.ConnectionSource,com.j256.ormlite.dao.Dao)
     207:212:public static synchronized void clearCache()
+    218:226:public static synchronized void clearDaoCache()
     234:244:public static synchronized void addCachedDatabaseConfigs(java.util.Collection)
 com.j256.ormlite.dao.EagerForeignCollection:
     private static final long serialVersionUID
@@ -332,18 +316,7 @@ com.j256.ormlite.dao.ObjectCache:
     public abstract int size(java.lang.Class)
     public abstract int sizeAll()
 com.j256.ormlite.dao.RawRowMapper
-com.j256.ormlite.dao.ReferenceObjectCache:
-    29:31:public ReferenceObjectCache(boolean)
-    37:37:public static com.j256.ormlite.dao.ReferenceObjectCache makeWeakCache()
-    44:44:public static com.j256.ormlite.dao.ReferenceObjectCache makeSoftCache()
-    48:53:public synchronized void registerClass(java.lang.Class)
-    87:91:public void clear(java.lang.Class)
-    107:118:public java.lang.Object updateId(java.lang.Class,java.lang.Object,java.lang.Object)
-    122:126:public int size(java.lang.Class)
-    131:135:public int sizeAll()
-    142:146:public void cleanNullReferences(java.lang.Class)
-    152:155:public void cleanNullReferencesAll()
-    158:164:private void cleanMap(java.util.Map)
+com.j256.ormlite.dao.ReferenceObjectCache
 com.j256.ormlite.dao.RuntimeExceptionDao
 com.j256.ormlite.db.BaseDatabaseType:
     protected java.sql.Driver driver
@@ -385,6 +358,8 @@ com.j256.ormlite.field.DataPersisterManager:
     44:46:private DataPersisterManager()
     53:61:public static varargs void registerDataPersisters(com.j256.ormlite.field.DataPersister[])
     67:68:public static void clear()
+com.j256.ormlite.field.DataType:
+    45:45:public static com.j256.ormlite.field.DataType valueOf(java.lang.String)
 com.j256.ormlite.field.DatabaseField:
     public static final java.lang.String DEFAULT_STRING
     public static final int NO_MAX_FOREIGN_AUTO_REFRESH_LEVEL_SPECIFIED
@@ -417,6 +392,8 @@ com.j256.ormlite.field.FieldType:
     640:643:public java.lang.Object convertStringToJavaField(java.lang.String,int)
 com.j256.ormlite.field.ForeignCollectionField:
     public static final int MAX_EAGER_LEVEL
+com.j256.ormlite.field.SqlType:
+    13:13:public static com.j256.ormlite.field.SqlType valueOf(java.lang.String)
 com.j256.ormlite.field.types.BaseDataType:
     public abstract java.lang.Object parseDefaultString(com.j256.ormlite.field.FieldType,java.lang.String)
     public abstract java.lang.Object resultToSqlArg(com.j256.ormlite.field.FieldType,com.j256.ormlite.support.DatabaseResults,int)
@@ -483,6 +460,8 @@ com.j256.ormlite.logger.LocalLog:
     public static final java.lang.String LOCAL_LOG_FILE_PROPERTY
     public static final java.lang.String LOCAL_LOG_PROPERTIES_FILE
     138:139:void flush()
+com.j256.ormlite.logger.Log$Level:
+    28:28:public static com.j256.ormlite.logger.Log$Level[] values()
 com.j256.ormlite.logger.Logger:
     private static final java.lang.String ARG_STRING
     43:44:public void trace(java.lang.String)
@@ -498,6 +477,7 @@ com.j256.ormlite.logger.Logger:
     174:175:public void debug(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object)
     181:182:public void debug(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object)
     192:193:public void debug(java.lang.Throwable,java.lang.String,java.lang.Object[])
+    199:200:public void info(java.lang.String)
     227:228:public void info(java.lang.String,java.lang.Object[])
     234:235:public void info(java.lang.Throwable,java.lang.String)
     241:242:public void info(java.lang.Throwable,java.lang.String,java.lang.Object)
@@ -513,6 +493,7 @@ com.j256.ormlite.logger.Logger:
     318:319:public void warn(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object)
     325:326:public void warn(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object)
     332:333:public void warn(java.lang.Throwable,java.lang.String,java.lang.Object[])
+    346:347:public void error(java.lang.String,java.lang.Object)
     367:368:public void error(java.lang.String,java.lang.Object[])
     374:375:public void error(java.lang.Throwable,java.lang.String)
     381:382:public void error(java.lang.Throwable,java.lang.String,java.lang.Object)
@@ -539,6 +520,8 @@ com.j256.ormlite.logger.Logger:
     542:543:public void log(com.j256.ormlite.logger.Log$Level,java.lang.Throwable,java.lang.String,java.lang.Object[])
 com.j256.ormlite.logger.LoggerFactory:
     17:18:private LoggerFactory()
+com.j256.ormlite.logger.LoggerFactory$LogType:
+    63:63:public static com.j256.ormlite.logger.LoggerFactory$LogType valueOf(java.lang.String)
 com.j256.ormlite.misc.BaseDaoEnabled:
     34:37:public int create()
     44:47:public int refresh()
@@ -626,6 +609,8 @@ com.j256.ormlite.stmt.StatementBuilder:
     160:160:protected boolean shouldPrependTableNameToColumns()
     185:185:com.j256.ormlite.stmt.StatementBuilder$StatementType getType()
 com.j256.ormlite.stmt.StatementBuilder$StatementType:
+    191:191:public static com.j256.ormlite.stmt.StatementBuilder$StatementType[] values()
+    191:191:public static com.j256.ormlite.stmt.StatementBuilder$StatementType valueOf(java.lang.String)
     229:229:public boolean isOkForUpdate()
 com.j256.ormlite.stmt.StatementExecutor:
     private com.j256.ormlite.stmt.mapped.MappedUpdateId mappedUpdateId
@@ -802,11 +787,7 @@ com.mapplas.app.Resizer:
     public static final float DEFAULT_VELOCITY
     public static final int DEFAUT_HEIGHT
     29:47:void start()
-com.mapplas.app.SliderListView:
-    22:23:public SliderListView(android.content.Context)
-    26:28:public void SlideDown(int,float)
-    31:33:public void SlideUp(float)
-    36:36:public boolean isOpen()
+com.mapplas.app.SliderListView
 com.mapplas.app.activities.MapplasActivity:
     public static final boolean mDebug
 com.mapplas.app.adapters.ImageAdapter:
@@ -839,21 +820,8 @@ com.mapplas.model.App:
 com.mapplas.model.AppOrderedList:
     public static final java.lang.String TABLE_NAME
     36:37:public void setAppList(java.util.ArrayList)
-com.mapplas.model.Comment:
-    28:28:public int getId()
-    32:33:public void setId(int)
-    36:36:public int getIdLocalization()
-    40:41:public void setIdLocalization(int)
-    44:44:public float getRate()
-    48:49:public void setRate(float)
-    52:52:public java.lang.String getDate()
-    56:57:public void setDate(java.lang.String)
-    60:60:public java.lang.String getComment()
-    64:65:public void setComment(java.lang.String)
-    68:68:public int getIdUser()
-    72:73:public void setIdUser(int)
-    76:76:public java.lang.String getHour()
-    80:81:public void setHour(java.lang.String)
+com.mapplas.model.Comment
+com.mapplas.model.Comment$1
 com.mapplas.model.Constants:
     public static final java.lang.String SYNESTH_SERVER
     public static final int SYNESTH_SERVER_PORT
@@ -1539,6 +1507,9 @@ org.apache.commons.lang3.text.WordUtils
 org.apache.commons.lang3.text.translate.EntityArrays:
     27:27:public EntityArrays()
 org.apache.commons.lang3.text.translate.NumericEntityEscaper
+org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION:
+    35:35:public static final org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION[] values()
+    35:35:public static org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION valueOf(java.lang.String)
 org.apache.commons.lang3.text.translate.UnicodeEscaper:
     64:64:public static org.apache.commons.lang3.text.translate.UnicodeEscaper below(int)
     74:74:public static org.apache.commons.lang3.text.translate.UnicodeEscaper above(int)
