@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -77,7 +78,11 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Get phone IMEI as identifier (problems with ANDROID_ID)
 		TelephonyManager manager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
-		this.model.setCurrentIMEI(manager.getDeviceId());
+		String imei = manager.getDeviceId();
+		if(imei == null) {
+			imei = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
+		}
+		this.model.setCurrentIMEI(imei);
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
