@@ -12,6 +12,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
 import com.commonsware.cwac.endless.EndlessAdapter;
@@ -23,20 +24,22 @@ import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AppAdapter extends EndlessAdapter {
-				
+
 	private Context context;
-	
+
 	private SuperModel model;
-	
+
 	private RefreshableListView list;
-		
+
 	private ArrayList<ApplicationInfo> applicationList;
-	
+
 	private MapplasActivity mainActivity;
-	
+
 	public boolean SLEEP = false;
-		
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
+
+	private RelativeLayout progressLayout;
+
+	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout progressLayout) {
 		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
 
 		this.context = context;
@@ -44,6 +47,7 @@ public class AppAdapter extends EndlessAdapter {
 		this.list = list;
 		this.applicationList = applicationList;
 		this.mainActivity = mainActivity;
+		this.progressLayout = progressLayout;
 	}
 
 	/**
@@ -78,11 +82,13 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		if (this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
+		if(this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
 			this.SLEEP = true;
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity).execute(this.model.getLocation(), false);
+			boolean restart_pagination = false;
+			boolean comesFromRadarLayout = false;
+			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, this.progressLayout, comesFromRadarLayout).execute(this.model.getLocation(), restart_pagination);
 			// WAIT UNTIL APP GETTER TASK FINISHES
-			while(this.SLEEP) {
+			while (this.SLEEP) {
 				Thread.sleep(200);
 			}
 		}

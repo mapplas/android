@@ -22,6 +22,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -67,7 +68,6 @@ public class MapplasActivity extends LanguageActivity {
 
 	private AroundRequester aroundRequester = null;
 
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -108,13 +108,17 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
+		
+		// Load progress layout
+		RelativeLayout progressLayout = (RelativeLayout)this.findViewById(R.id.progress_layout);
+		boolean comesFromRadarLayout = true;
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this, progressLayout);
 		this.listView.setAdapter(this.listViewAdapter);
-
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, progressLayout, comesFromRadarLayout);
 
 		// Check network status
 		this.checkNetworkStatus();

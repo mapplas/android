@@ -46,7 +46,11 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 
 	private MapplasActivity mainActivity;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
+	private RelativeLayout progressLayout;
+	
+	private boolean comesFromRadarLayout;
+
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout progress_layout, boolean comesFromRadarLayout) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -54,6 +58,24 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		this.listView = listView;
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
+		this.progressLayout = progress_layout;
+		this.comesFromRadarLayout = comesFromRadarLayout;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		
+		if(!comesFromRadarLayout) {
+			this.mainActivity.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					progressLayout.setVisibility(View.VISIBLE);
+				}
+			});
+		}
+
+		super.onPreExecute();
 	}
 
 	@Override
@@ -99,6 +121,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	protected void onPostExecute(Location location) {
 		super.onPostExecute(location);
 
+		this.progressLayout.setVisibility(View.GONE);
 		this.checkLanguage();
 	}
 
@@ -106,7 +129,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
 		this.listView.setVisibility(View.VISIBLE);
-		
+
 		// Profile button
 		RobotoButton profileNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnProfile);
 		if(profileNavBarButton.getVisibility() == View.GONE) {
