@@ -186,7 +186,7 @@ public class AppDetail extends LanguageActivity {
 		rbRating.setRating(rating);
 
 		RobotoTextView ratingValue = (RobotoTextView)findViewById(R.id.rbRatingValue);
-		ratingValue.setText("(" + String.valueOf((NumberUtils.RoundToHalf(rating))) + ")");
+		ratingValue.setText(String.valueOf(NumberUtils.RoundToHalf(rating)));
 
 		// Download application logo
 		ImageView appLogo = (ImageView)findViewById(R.id.imgLogo);

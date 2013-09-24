@@ -68,10 +68,11 @@ public class UserPinBlocksTask extends AsyncTask<Void, Void, String> {
 //			Log.d(this.getClass().getSimpleName(), "error parsing", e);
 		}
 
-		this.listView.removeFooterView(this.refreshListBackgroundFooter);
-
 		UserAppAdapter appAdapter = new UserAppAdapter(this.context, this.textViewResourceId, this.user.pinnedApps(), UserAppAdapter.PINUP, this.user, true, this.appOrderedList);
 		this.listView.setAdapter(appAdapter);
+		
+		// In Android version 2.1 or 2.2 footer needs to be removed after adding adapter. ?À
+		this.listView.removeFooterView(this.refreshListBackgroundFooter);
 	}
 	
 }

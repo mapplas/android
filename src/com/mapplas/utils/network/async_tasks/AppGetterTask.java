@@ -42,11 +42,11 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 
 	private static Semaphore semaphore = new Semaphore(1);
 
-	private static boolean occupied = false;
-
 	private MapplasActivity mainActivity;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
+	private RelativeLayout progressLayout;
+	
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout progress_layout) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -54,28 +54,25 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		this.listView = listView;
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
+		this.progressLayout = progress_layout;
 	}
 
 	@Override
 	protected Location doInBackground(Object... params) {
-		// Set singleton to true
-		AppRequestBeingDoneSingleton.requestBeingDone = true;
-
+		
+		Location location = (Location)params[0];		
 		try {
 			semaphore.acquire();
-			if(occupied) {
+			if(AppRequestBeingDoneSingleton.requestBeingDone) {
 				semaphore.release();
 				return null;
 			}
 
-			occupied = true;
+			AppRequestBeingDoneSingleton.requestBeingDone = true;
 			semaphore.release();
 		} catch (Exception exc) {
-			// Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
 			return null;
 		}
-
-		Location location = (Location)params[0];
 
 		try {
 			AppGetterConnector.request(location, this.model, (Boolean)params[1], context);
@@ -85,13 +82,11 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 
 		try {
 			semaphore.acquire();
-			occupied = false;
+			AppRequestBeingDoneSingleton.requestBeingDone = false;
 			semaphore.release();
 		} catch (Exception exc) {
-			// Log.d(this.getClass().getSimpleName(), "doInBackground", exc);
 			return null;
 		}
-
 		return location;
 	}
 
@@ -99,14 +94,18 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	protected void onPostExecute(Location location) {
 		super.onPostExecute(location);
 
-		this.checkLanguage();
+		this.progressLayout.setVisibility(View.GONE);
+		
+		if(location != null) {
+			this.checkLanguage();
+		}
 	}
 
 	private void afterLanguageCheck() {
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
 		this.listView.setVisibility(View.VISIBLE);
-		
+
 		// Profile button
 		RobotoButton profileNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnProfile);
 		if(profileNavBarButton.getVisibility() == View.GONE) {
@@ -131,9 +130,6 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}
-
-		// Set singleton to false
-		AppRequestBeingDoneSingleton.requestBeingDone = false;
 
 		// Send app info to server
 		// new AppInfoSenderTask(this.applicationList, location,
