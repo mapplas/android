@@ -41,6 +41,7 @@ import com.mapplas.utils.location.UserLocationRequesterFactory;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
+import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 
@@ -87,7 +88,7 @@ public class MapplasActivity extends LanguageActivity {
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
-		
+
 		this.startRadarAnimation();
 
 		// Identificamos contra el servidor
@@ -96,7 +97,7 @@ public class MapplasActivity extends LanguageActivity {
 			serverIdentificationThread.run();
 		} catch (Exception e) {
 			this.model.setCurrentUser(null);
-//			Log.d(this.getClass().getSimpleName(), "Login: " + e);
+			// Log.d(this.getClass().getSimpleName(), "Login: " + e);
 		}
 
 		// Get user application list
@@ -108,30 +109,31 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
-		
+
 		// Load progress layout
 		RelativeLayout progressLayout = (RelativeLayout)this.findViewById(R.id.progress_layout);
-		boolean comesFromRadarLayout = true;
 
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this, progressLayout);
 		this.listView.setAdapter(this.listViewAdapter);
-		
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, progressLayout, comesFromRadarLayout);
+
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, progressLayout);
 
 		// Check network status
 		this.checkNetworkStatus();
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-//		 Location location = new Location("");
-//		 location.setLatitude(40.431);
-//		 location.setLongitude(-3.687);
-//		 this.model.setLocation(location);
-//		 new ReverseGeocodingTask(this, this.model,
-//		 this.listViewHeaderStatusMessage).execute(new Location(location));
-//		 new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this).execute(new Location(location), true);
+		// Location location = new Location("");
+		// location.setLatitude(40.431);
+		// location.setLongitude(-3.687);
+		// this.model.setLocation(location);
+		// new ReverseGeocodingTask(this, this.model,
+		// this.listViewHeaderStatusMessage).execute(new Location(location));
+		// new AppGetterTask(this, this.model, this.listViewAdapter,
+		// this.listView, this.appsInstalledList, this).execute(new
+		// Location(location), true);
 	}
 
 	@Override
@@ -196,7 +198,8 @@ public class MapplasActivity extends LanguageActivity {
 					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
 					userRepo.createOrUpdate(model.currentUser());
 				} catch (SQLException e) {
-//					Log.e(MapplasActivity.this.getClass().getSimpleName(), e.toString());
+					// Log.e(MapplasActivity.this.getClass().getSimpleName(),
+					// e.toString());
 				}
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
@@ -222,7 +225,10 @@ public class MapplasActivity extends LanguageActivity {
 
 			@Override
 			public void onRefresh(RefreshableListView listView) {
-				loadLocalization();
+				if(!AppRequestBeingDoneSingleton.requestBeingDone) {
+//					Log.d(MapplasActivity.this.getClass().getSimpleName(), "REQUEST");
+					loadLocalization();
+				}
 			}
 		});
 	}
@@ -263,19 +269,21 @@ public class MapplasActivity extends LanguageActivity {
 		radar4.setDrawingCacheEnabled(false);
 		radar4.startAnimation(rotate4);
 
-//		ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
-//		RotateAnimation rotate5 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//		this.setRotateAnimConstants(rotate5);
-//		rotate5.setDuration(1200);
-//		radar5.setDrawingCacheEnabled(true);
-//		radar5.startAnimation(rotate5);
+		// ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
+		// RotateAnimation rotate5 = new RotateAnimation(360f, 0f,
+		// Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		// this.setRotateAnimConstants(rotate5);
+		// rotate5.setDuration(1200);
+		// radar5.setDrawingCacheEnabled(true);
+		// radar5.startAnimation(rotate5);
 
-//		ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
-//		RotateAnimation rotate6 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//		this.setRotateAnimConstants(rotate6);
-//		rotate6.setDuration(1200);
-//		radar6.setDrawingCacheEnabled(true);
-//		radar6.startAnimation(rotate6);
+		// ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
+		// RotateAnimation rotate6 = new RotateAnimation(360f, 0f,
+		// Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		// this.setRotateAnimConstants(rotate6);
+		// rotate6.setDuration(1200);
+		// radar6.setDrawingCacheEnabled(true);
+		// radar6.startAnimation(rotate6);
 	}
 
 	private void setRotateAnimConstants(RotateAnimation animation) {

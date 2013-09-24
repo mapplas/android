@@ -44,9 +44,9 @@ public class AroundRequester implements UserLocationListener {
 	
 	private RelativeLayout progressLayout;
 	
-	private boolean comesFromRadarLayout;
-
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity, RelativeLayout progressLayout, boolean comesFromRadarLayout) {
+//	private boolean comesFromRadarLayout;
+//	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity, RelativeLayout progressLayout, boolean comesFromRadarLayout) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity, RelativeLayout progressLayout) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -57,7 +57,7 @@ public class AroundRequester implements UserLocationListener {
 		this.appsInstalledList = appsInstalledList;
 		this.mainActivity = mainActivity;
 		this.progressLayout = progressLayout;
-		this.comesFromRadarLayout = comesFromRadarLayout;
+//		this.comesFromRadarLayout = comesFromRadarLayout;
 	}
 
 	public void start() {
@@ -119,11 +119,8 @@ public class AroundRequester implements UserLocationListener {
 				// Restart appending adapter data. If reached end of endless adapter and loading cell is hidden, restarting appending loading app is shown again. :)
 				this.appAdapter.restartAppending();
 
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, this.progressLayout, this.comesFromRadarLayout).execute(new Location(location), reset_pagination);
+				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, this.progressLayout).execute(new Location(location), reset_pagination);
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-
-				// Set to false after first request
-				this.comesFromRadarLayout = false;
 				
 			} catch (Exception e) {
 //				Log.i(getClass().getSimpleName(), e.toString());
