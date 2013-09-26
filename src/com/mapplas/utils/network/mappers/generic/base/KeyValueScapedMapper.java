@@ -20,7 +20,7 @@ public class KeyValueScapedMapper implements TargetMapper {
 	public void map(JSONObject json, Object target) {
 		try {
 			String escapedValue = StringEscapeUtils.unescapeHtml4(json.getString(this.key));
-			method.invoke(target, escapedValue);
+			this.method.invoke(target, escapedValue);
 		} catch (Exception e) {
 //			Log.i(this.getClass().getSimpleName(), "Mapping Value Failed. " + e.getMessage());
 		}

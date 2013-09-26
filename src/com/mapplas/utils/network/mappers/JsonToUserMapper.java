@@ -30,7 +30,8 @@ public class JsonToUserMapper implements ReturnMapper {
 			mapper.map(json, user);
 
 		} catch (Exception e) {
-//			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
+			// Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: "
+			// + e.getMessage());
 		}
 
 		return user;

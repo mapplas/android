@@ -15,12 +15,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
-import com.commonsware.cwac.endless.EndlessAdapter;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
+import com.mapplas.utils.third_party.EndlessAdapter;
 import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AppAdapter extends EndlessAdapter {
