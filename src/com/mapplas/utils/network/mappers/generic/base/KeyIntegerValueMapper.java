@@ -9,7 +9,7 @@ public class KeyIntegerValueMapper implements TargetMapper {
 	private final String key;
 
 	private final Method method;
-
+	
 	public KeyIntegerValueMapper(String key, Method method) {
 		this.key = key;
 		this.method = method;
@@ -19,7 +19,7 @@ public class KeyIntegerValueMapper implements TargetMapper {
 	public void map(JSONObject json, Object target) {
 		try {
 			Object mappedValue = json.getInt(this.key);
-			method.invoke(target, mappedValue);
+			this.method.invoke(target, mappedValue);
 		} catch (Exception e) {
 //			Log.w(this.getClass().getSimpleName(), "Mapping Value Failed. " + e.getMessage());
 		}

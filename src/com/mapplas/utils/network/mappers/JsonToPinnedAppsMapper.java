@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.mapplas.model.App;
 import com.mapplas.utils.image.PixelDensityImageChooser;
@@ -48,6 +49,7 @@ public class JsonToPinnedAppsMapper implements IteratingMapper {
 				pinnedApps.add(app);
 				
 			} catch (Exception e) {
+				Toast.makeText(this.context, "" + e, Toast.LENGTH_LONG).show();
 //				Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
 			}
 		}
