@@ -34,7 +34,7 @@ public class UserIdentificationRequester {
 
 				} catch (Exception e) {
 					setMockedUserToModel();
-//					Log.d(this.getClass().getSimpleName(), "Login: " + e);
+					// Log.d(this.getClass().getSimpleName(), "Login: " + e);
 				}
 			}
 		};

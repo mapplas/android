@@ -3,6 +3,7 @@
 
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
+-dontskipnonpubliclibraryclassmembers
 -verbose
 
 # Optimization is turned off by default. Dex does not like code run
@@ -17,6 +18,15 @@
 # project.properties file.
 
 -keepattributes *Annotation*
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgent
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.support.v4.app.Fragment
+-keep public class * extends android.app.Fragment
 -keep public class com.google.vending.licensing.ILicensingService
 -keep public class com.android.vending.licensing.ILicensingService
 
@@ -56,5 +66,17 @@
 # platform version.  We know about them, and they are safe.
 -dontwarn android.support.**
 
--libraryjars libs/CWAC-AdapterWrapper.jar
--libraryjars libs/cwac-endless-master.jar
+# mappers use reflection
+-keep class com.mapplas.model.User { *; }
+-keep class com.mapplas.model.SuperModel { *; }
+-keep class com.mapplas.model.App { *; }
+-keep class com.mapplas.model.AppOrderedList { *; }
+-keep class com.mapplas.model.MoreFromDeveloperApp { *; }
+
+# OrmLite uses reflection
+-keep class com.j256.**
+-keepclassmembers class com.j256.** { *; }
+-keep enum com.j256.**
+-keepclassmembers enum com.j256.** { *; }
+-keep interface com.j256.**
+-keepclassmembers interface com.j256.** { *; }
