@@ -43,10 +43,8 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private MapplasActivity mainActivity;
-
-	private RelativeLayout progressLayout;
 	
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout progress_layout) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -54,7 +52,6 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		this.listView = listView;
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
-		this.progressLayout = progress_layout;
 	}
 
 	@Override
@@ -93,8 +90,6 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	@Override
 	protected void onPostExecute(Location location) {
 		super.onPostExecute(location);
-
-		this.progressLayout.setVisibility(View.GONE);
 		
 		if(location != null) {
 			this.checkLanguage();

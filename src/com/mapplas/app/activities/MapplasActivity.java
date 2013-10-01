@@ -22,7 +22,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -110,30 +109,25 @@ public class MapplasActivity extends LanguageActivity {
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
 
-		// Load progress layout
-		RelativeLayout progressLayout = (RelativeLayout)this.findViewById(R.id.progress_layout);
-
 		// Load around requester
 		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this, progressLayout);
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
 		this.listView.setAdapter(this.listViewAdapter);
 
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, progressLayout);
+		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
 
 		// Check network status
 		this.checkNetworkStatus();
 
-		this.loadLocalization();
+		 this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-		// Location location = new Location("");
-		// location.setLatitude(40.431);
-		// location.setLongitude(-3.687);
-		// this.model.setLocation(location);
-		// new ReverseGeocodingTask(this, this.model,
-		// this.listViewHeaderStatusMessage).execute(new Location(location));
-		// new AppGetterTask(this, this.model, this.listViewAdapter,
-		// this.listView, this.appsInstalledList, this).execute(new
-		// Location(location), true);
+//		Location location = new Location("");
+//		location.setLatitude(40.431);
+//		location.setLongitude(-3.687);
+//		
+//		this.model.setLocation(location);
+//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
+//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this).execute(new Location(location), true);
 	}
 
 	@Override
@@ -226,7 +220,8 @@ public class MapplasActivity extends LanguageActivity {
 			@Override
 			public void onRefresh(RefreshableListView listView) {
 				if(!AppRequestBeingDoneSingleton.requestBeingDone) {
-//					Log.d(MapplasActivity.this.getClass().getSimpleName(), "REQUEST");
+					// Log.d(MapplasActivity.this.getClass().getSimpleName(),
+					// "REQUEST");
 					loadLocalization();
 				}
 			}

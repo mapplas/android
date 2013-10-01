@@ -12,7 +12,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
@@ -37,9 +36,7 @@ public class AppAdapter extends EndlessAdapter {
 
 	public boolean SLEEP = false;
 
-	private RelativeLayout progressLayout;
-
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout progressLayout) {
+	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
 		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
 
 		this.context = context;
@@ -47,7 +44,6 @@ public class AppAdapter extends EndlessAdapter {
 		this.list = list;
 		this.applicationList = applicationList;
 		this.mainActivity = mainActivity;
-		this.progressLayout = progressLayout;
 	}
 
 	/**
@@ -87,7 +83,7 @@ public class AppAdapter extends EndlessAdapter {
 			this.SLEEP = true;
 			boolean restart_pagination = false;
 
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, this.progressLayout).execute(this.model.getLocation(), restart_pagination);
+			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity).execute(this.model.getLocation(), restart_pagination);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while (this.SLEEP) {
 				Thread.sleep(200);

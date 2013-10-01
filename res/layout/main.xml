@@ -47,14 +47,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/progress_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_centerInParent="true"
-        android:background="@color/progress_background"
-        android:clickable="true"
-        android:visibility="gone" >
-    </RelativeLayout>
-
 </RelativeLayout>

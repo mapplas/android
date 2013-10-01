@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -41,12 +40,10 @@ public class AroundRequester implements UserLocationListener {
 	private ArrayList<ApplicationInfo> appsInstalledList;
 	
 	private MapplasActivity mainActivity;
-	
-	private RelativeLayout progressLayout;
-	
+		
 //	private boolean comesFromRadarLayout;
 //	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity, RelativeLayout progressLayout, boolean comesFromRadarLayout) {
-	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity, RelativeLayout progressLayout) {
+	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -56,7 +53,6 @@ public class AroundRequester implements UserLocationListener {
 		this.listView = listView;
 		this.appsInstalledList = appsInstalledList;
 		this.mainActivity = mainActivity;
-		this.progressLayout = progressLayout;
 //		this.comesFromRadarLayout = comesFromRadarLayout;
 	}
 
@@ -119,7 +115,7 @@ public class AroundRequester implements UserLocationListener {
 				// Restart appending adapter data. If reached end of endless adapter and loading cell is hidden, restarting appending loading app is shown again. :)
 				this.appAdapter.restartAppending();
 
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, this.progressLayout).execute(new Location(location), reset_pagination);
+				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity).execute(new Location(location), reset_pagination);
 				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 				
 			} catch (Exception e) {
