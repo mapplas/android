@@ -1,4 +1,4 @@
-package com.mapplas.utils.location;
+package com.mapplas.utils.location.play_services;
 
 import java.util.ArrayList;
 
@@ -15,14 +15,15 @@ import app.mapplas.com.R;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.model.SuperModel;
+import com.mapplas.utils.location.UserLocationListener;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
 import com.mapplas.utils.third_party.RefreshableListView;
 
-public class AppsRequester implements UserLocationListener {
+public class AroundRequesterGooglePlayServices implements UserLocationListener {
 
-	private LocationRequester locationRequester;
+	private LocationRequesterGooglePlayServices locationRequester;
 
 	private Context context;
 
@@ -40,7 +41,7 @@ public class AppsRequester implements UserLocationListener {
 
 	private MapplasActivity mainActivity;
 
-	public AppsRequester(Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity) {
+	public AroundRequesterGooglePlayServices(Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -50,7 +51,7 @@ public class AppsRequester implements UserLocationListener {
 		this.appsInstalledList = appsInstalledList;
 		this.mainActivity = mainActivity;
 		
-		this.locationRequester = new LocationRequester(this.context, this.mainActivity, this);
+		this.locationRequester = new LocationRequesterGooglePlayServices(this.context, this.mainActivity, this);
 	}
 	
 	public void start() {

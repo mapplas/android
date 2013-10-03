@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppOrderedList;
@@ -34,7 +38,9 @@ import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.language.LanguageSetter;
-import com.mapplas.utils.location.AppsRequester;
+import com.mapplas.utils.location.location_manager.AroundRequesterLocationManager;
+import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
+import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -62,8 +68,10 @@ public class MapplasActivity extends LanguageActivity {
 
 	private ImageView listViewHeaderImage = null;
 	
-	private AppsRequester appsRequester = null;
-
+	private AroundRequesterGooglePlayServices appsRequester = null;
+	
+	private AroundRequesterLocationManager aroundRequester = null;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -107,12 +115,15 @@ public class MapplasActivity extends LanguageActivity {
 		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
 		this.listView.setAdapter(this.listViewAdapter);
 
-		this.appsRequester = new AppsRequester(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		// Load location requesters
+		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		
+		LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage,  this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
 		
 		// Check network status
 		this.checkNetworkStatus();
 
-		
 		 this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 //		Location location = new Location("");
@@ -283,10 +294,20 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	/**
-	 * Load localization
+	 * Load localization depending on Google Play Services is present on mobile or not
 	 */
 	private void loadLocalization() {
-		this.appsRequester.start();
+		
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		Log.e("LOCALIZATION", resultCode + "");
+		
+		if(resultCode == ConnectionResult.SUCCESS) {
+			this.appsRequester.start();
+		}
+		else {
+			this.aroundRequester.start();
+		}
+		
 	}
 
 	private void checkNetworkStatus() {

@@ -31,7 +31,7 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 	@Override
 	protected String doInBackground(Location... params) {
 		Geocoder geocoder = new Geocoder(this.context, Locale.getDefault());
-		String addresText = "";
+		String addresText = this.context.getString(R.string.descriptive_geoloc_error);
 
 		Location loc = params[0];
 		List<Address> addresses = null;

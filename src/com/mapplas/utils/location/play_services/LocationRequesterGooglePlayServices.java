@@ -1,4 +1,4 @@
-package com.mapplas.utils.location;
+package com.mapplas.utils.location.play_services;
 
 import android.content.Context;
 import android.content.IntentSender;
@@ -12,8 +12,9 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
+import com.mapplas.utils.location.UserLocationListener;
 
-public class LocationRequester implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback {
+public class LocationRequesterGooglePlayServices implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback {
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
@@ -31,7 +32,7 @@ public class LocationRequester implements GooglePlayServicesClient.ConnectionCal
 
 	private Handler timerHandler;
 
-	public LocationRequester(Context context, MapplasActivity mainActivity, UserLocationListener userLocatioinListener) {
+	public LocationRequesterGooglePlayServices(Context context, MapplasActivity mainActivity, UserLocationListener userLocatioinListener) {
 		this.context = context;
 		this.mainActivity = mainActivity;
 		this.userLocationListener = userLocatioinListener;
