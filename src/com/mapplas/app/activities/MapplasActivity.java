@@ -48,7 +48,7 @@ public class MapplasActivity extends LanguageActivity {
 
 	/* Debug Values */
 	public final static boolean mDebug = false;
-
+	
 	/* Properties */
 	private SuperModel model = new SuperModel();
 

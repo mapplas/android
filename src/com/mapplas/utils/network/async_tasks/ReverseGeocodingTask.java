@@ -46,18 +46,19 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 				addresses = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
 			} catch (IOException e2) {
 				e.printStackTrace();
+				return addresText;
 			}
 		}
 		if(addresses != null && addresses.size() > 0) {
 			Address address = addresses.get(0);
-			
+
 			this.model.setCountryCode(address.getCountryCode());
 
 			String firstAddressLine = "";
 			if(address.getMaxAddressLineIndex() > 0) {
 				firstAddressLine = address.getAddressLine(0);
 			}
-			
+
 			String locality = address.getLocality();
 			if(locality == null || firstAddressLine.contains(locality)) {
 				addresText = String.format("%s.", firstAddressLine);
@@ -73,7 +74,7 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 		else {
 			addresText = this.context.getString(R.string.descriptive_geoloc_error);
 		}
-		
+
 		return addresText;
 	}
 
@@ -87,4 +88,5 @@ public class ReverseGeocodingTask extends android.os.AsyncTask<Location, Void, S
 			listViewHeaderStatusMessage.setText(addresText);
 		}
 	}
+
 }
