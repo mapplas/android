@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
@@ -26,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
-import com.google.android.gms.location.LocationRequest;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppOrderedList;
@@ -36,9 +34,7 @@ import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.language.LanguageSetter;
-import com.mapplas.utils.location.AroundRequester;
-import com.mapplas.utils.location.UserLocationRequesterFactory;
-import com.mapplas.utils.location.api_update.LocationRequester;
+import com.mapplas.utils.location.AppsRequester;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -56,8 +52,6 @@ public class MapplasActivity extends LanguageActivity {
 	/* Properties */
 	private SuperModel model = new SuperModel();
 
-	private LocationManager locationManager = null;
-
 	public ArrayList<ApplicationInfo> appsInstalledList = null;
 
 	private RefreshableListView listView = null;
@@ -67,8 +61,8 @@ public class MapplasActivity extends LanguageActivity {
 	private TextView listViewHeaderStatusMessage = null;
 
 	private ImageView listViewHeaderImage = null;
-
-	private AroundRequester aroundRequester = null;
+	
+	private AppsRequester appsRequester = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -110,19 +104,16 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
-
-		// Load around requester
-		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
 		this.listView.setAdapter(this.listViewAdapter);
 
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
-
+		this.appsRequester = new AppsRequester(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		
 		// Check network status
 		this.checkNetworkStatus();
 
-		new LocationRequester(this, this).start();
-//		 this.loadLocalization();
+		
+		 this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 //		Location location = new Location("");
 //		location.setLatitude(40.431);
@@ -295,7 +286,7 @@ public class MapplasActivity extends LanguageActivity {
 	 * Load localization
 	 */
 	private void loadLocalization() {
-		this.aroundRequester.start();
+		this.appsRequester.start();
 	}
 
 	private void checkNetworkStatus() {

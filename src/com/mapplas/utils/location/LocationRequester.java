@@ -1,40 +1,54 @@
-package com.mapplas.utils.location.api_update;
+package com.mapplas.utils.location;
 
 import android.content.Context;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.model.Constants;
 
-public class LocationRequester implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
+public class LocationRequester implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback {
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+
+	private final int TIMEOUT_MESSAGE_ID = 0;
 
 	private LocationClient locationClient;
 
 	private Context context;
 
 	private MapplasActivity mainActivity;
+	
+	private UserLocationListener userLocationListener;
 
 	private Location location;
 
-	public LocationRequester(Context context, MapplasActivity mainActivity) {
+	private Handler timerHandler;
+
+	public LocationRequester(Context context, MapplasActivity mainActivity, UserLocationListener userLocatioinListener) {
 		this.context = context;
 		this.mainActivity = mainActivity;
+		this.userLocationListener = userLocatioinListener;
 
 		this.locationClient = new LocationClient(this.context, this, this);
+		this.timerHandler = new Handler(this);
 	}
 
 	public void start() {
 		this.locationClient.connect();
+
+		this.timerHandler.sendEmptyMessageDelayed(TIMEOUT_MESSAGE_ID, Constants.LOCATION_TIMEOUT_IN_MILLISECONDS);
 	}
 
 	public void stop() {
 		this.locationClient.disconnect();
+		this.timerHandler.removeMessages(TIMEOUT_MESSAGE_ID);
 	}
 
 	/*
@@ -45,6 +59,8 @@ public class LocationRequester implements GooglePlayServicesClient.ConnectionCal
 	@Override
 	public void onConnected(Bundle arg0) {
 		this.location = this.locationClient.getLastLocation();
+		
+		this.userLocationListener.locationSearchEnded(this.location);
 	}
 
 	/*
@@ -86,6 +102,17 @@ public class LocationRequester implements GooglePlayServicesClient.ConnectionCal
 			 */
 			// showErrorDialog(connectionResult.getErrorCode());
 		}
+	}
+
+	/*
+	 * Timer handler callback
+	 * 
+	 */
+	@Override
+	public boolean handleMessage(Message msg) {
+		this.locationClient.disconnect();
+		this.userLocationListener.locationSearchDidTimeout(this.location);
+		return true;
 	}
 
 }
