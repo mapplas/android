@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
+import com.google.android.gms.location.LocationRequest;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppOrderedList;
@@ -37,6 +38,7 @@ import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.AroundRequester;
 import com.mapplas.utils.location.UserLocationRequesterFactory;
+import com.mapplas.utils.location.api_update.LocationRequester;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.requests.UserIdentificationRequester;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -119,7 +121,8 @@ public class MapplasActivity extends LanguageActivity {
 		// Check network status
 		this.checkNetworkStatus();
 
-		 this.loadLocalization();
+		new LocationRequester(this, this).start();
+//		 this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 //		Location location = new Location("");
 //		location.setLatitude(40.431);
