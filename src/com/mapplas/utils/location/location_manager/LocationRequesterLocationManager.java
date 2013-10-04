@@ -1,4 +1,4 @@
-package com.mapplas.utils.location;
+package com.mapplas.utils.location.location_manager;
 
 import java.util.List;
 
@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-public class UserLocationRequester implements LocationListener, Handler.Callback {
+import com.mapplas.utils.location.UserLocationListener;
+
+public class LocationRequesterLocationManager implements LocationListener, Handler.Callback {
 
 	private final int TIMEOUT_MESSAGE_ID = 0;
 	
@@ -27,7 +29,7 @@ public class UserLocationRequester implements LocationListener, Handler.Callback
 	
 	private boolean locationSearched = false;
 
-	public UserLocationRequester(LocationManager manager, UserLocationListener listener, int locationTimeout) {
+	public LocationRequesterLocationManager(LocationManager manager, UserLocationListener listener, int locationTimeout) {
 		this.manager = manager;
 		this.listener = listener;
 		this.locationTimeout = locationTimeout;
