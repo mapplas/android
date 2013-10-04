@@ -10,11 +10,13 @@ import android.os.Message;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.location.UserLocationListener;
 
-public class LocationRequesterGooglePlayServices implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback {
+public class LocationRequesterGooglePlayServices implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback, LocationListener {
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
@@ -58,10 +60,12 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 	 * location or start periodic updates
 	 */
 	@Override
-	public void onConnected(Bundle arg0) {
-		this.location = this.locationClient.getLastLocation();
-		
-		this.userLocationListener.locationSearchEnded(this.location);
+	public void onConnected(Bundle arg0) {		
+		LocationRequest locRequest = LocationRequest.create();
+		locRequest.setExpirationDuration(Constants.LOCATION_TIMEOUT_IN_MILLISECONDS);
+		locRequest.setInterval(2000);
+		locRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		this.locationClient.requestLocationUpdates(locRequest, this);
 	}
 
 	/*
@@ -114,6 +118,14 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 		this.locationClient.disconnect();
 		this.userLocationListener.locationSearchDidTimeout(this.location);
 		return true;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+//		Log.e("fdsa",""+location);
+		this.locationClient.removeLocationUpdates(this);
+		this.location = location;
+		this.userLocationListener.locationSearchEnded(this.location);
 	}
 
 }
