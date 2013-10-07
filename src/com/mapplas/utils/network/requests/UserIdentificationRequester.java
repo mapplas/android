@@ -2,6 +2,8 @@ package com.mapplas.utils.network.requests;
 
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
@@ -11,9 +13,12 @@ import com.mapplas.utils.network.mappers.JsonToUserMapper;
 public class UserIdentificationRequester {
 
 	private SuperModel model;
+	
+	private Context context;
 
-	public UserIdentificationRequester(SuperModel model) {
+	public UserIdentificationRequester(SuperModel model, Context context) {
 		this.model = model;
+		this.context = context;
 	}
 
 	public Runnable getThread() {
@@ -22,7 +27,7 @@ public class UserIdentificationRequester {
 			@Override
 			public void run() {
 				try {
-					String response = UserIdentificationConnector.request(model.currentIMEI());
+					String response = UserIdentificationConnector.request(model.currentIMEI(), context);
 
 					if(response.equals(Constants.SERVER_RESPONSE_ERROR_USER_IDENTIFICATION)) {
 						setMockedUserToModel();
@@ -31,10 +36,9 @@ public class UserIdentificationRequester {
 						JsonToUserMapper userMapper = new JsonToUserMapper();
 						model.setCurrentUser(userMapper.map(new JSONObject(response)));
 					}
-
+					
 				} catch (Exception e) {
 					setMockedUserToModel();
-					// Log.d(this.getClass().getSimpleName(), "Login: " + e);
 				}
 			}
 		};

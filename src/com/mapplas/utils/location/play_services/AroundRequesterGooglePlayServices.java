@@ -50,10 +50,10 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 		this.listView = listView;
 		this.appsInstalledList = appsInstalledList;
 		this.mainActivity = mainActivity;
-		
+
 		this.locationRequester = new LocationRequesterGooglePlayServices(this.context, this.mainActivity, this);
 	}
-	
+
 	public void start() {
 		this.locationRequester.start();
 	}
@@ -78,7 +78,7 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 			this.loadTasks(location, true);
 		}
 	}
-	
+
 	private void showErrorToastAndQuit(int toastMessage) {
 		Toast.makeText(this.context, toastMessage, Toast.LENGTH_LONG).show();
 		((MapplasActivity)this.context).finish();
@@ -102,27 +102,22 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 		NetworkInfo mMobile = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
 		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
-		
+
 		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
 			this.showErrorToastAndQuit(R.string.connection_error);
 		}
 		else if(mWifi.isConnected() || mMobile.isConnected()) {
-			try {
-				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
-				this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
+			this.listViewHeaderStatusMessage.setText(R.string.location_searching);
+			this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
-				this.model.initializeForNewAppRequest();
-				// Restart appending adapter data. If reached end of endless
-				// adapter and loading cell is hidden, restarting appending
-				// loading app is shown again. :)
-				this.appAdapter.restartAppending();
+			this.model.initializeForNewAppRequest();
+			// Restart appending adapter data. If reached end of endless
+			// adapter and loading cell is hidden, restarting appending
+			// loading app is shown again. :)
+			this.appAdapter.restartAppending();
 
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity).execute(new Location(location), reset_pagination);
-				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-
-			} catch (Exception e) {
-				// Log.i(getClass().getSimpleName(), e.toString());
-			}
+			new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity).execute(new Location(location), reset_pagination);
+			new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 		}
 		else {
 			this.showErrorToastAndQuit(R.string.connection_error);

@@ -22,13 +22,14 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.language.LanguageDialogCreator;
 import com.mapplas.utils.language.LanguageSetter;
+import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class AppGetterTask extends AsyncTask<Object, Void, Location> implements LanguageDialogInterface {
+public class AppGetterTask extends AsyncTask<Object, Void, String> implements LanguageDialogInterface {
 
 	private Context context;
 
@@ -43,7 +44,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	private static Semaphore semaphore = new Semaphore(1);
 
 	private MapplasActivity mainActivity;
-	
+
 	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
 		super();
 		this.context = context;
@@ -55,44 +56,55 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	}
 
 	@Override
-	protected Location doInBackground(Object... params) {
-		
-		Location location = (Location)params[0];		
+	protected String doInBackground(Object... params) {
+
+		Location location = (Location)params[0];
 		try {
 			semaphore.acquire();
 			if(AppRequestBeingDoneSingleton.requestBeingDone) {
 				semaphore.release();
-				return null;
+				return Constants.APP_OBTENTION_ERROR_GENERIC;
 			}
 
 			AppRequestBeingDoneSingleton.requestBeingDone = true;
 			semaphore.release();
 		} catch (Exception exc) {
-			return null;
+			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
 
-		try {
-			AppGetterConnector.request(location, this.model, (Boolean)params[1], context);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String code = AppGetterConnector.request(location, this.model, (Boolean)params[1], context);
 
 		try {
 			semaphore.acquire();
 			AppRequestBeingDoneSingleton.requestBeingDone = false;
 			semaphore.release();
 		} catch (Exception exc) {
-			return null;
+			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
-		return location;
+		return code;
+	}
+
+	private void showNetworkConnectionToastAndQuit() {
+		this.mainActivity.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
+				networkConnChecker.getNetworkErrorToast(context, "APP").show();
+				((MapplasActivity)context).finish();
+			}
+		});
 	}
 
 	@Override
-	protected void onPostExecute(Location location) {
-		super.onPostExecute(location);
-		
-		if(location != null) {
+	protected void onPostExecute(String response) {
+		super.onPostExecute(response);
+
+		if(response.equals(Constants.APP_OBTENTION_OK)) {
 			this.checkLanguage();
+		}
+		else if(response.equals(Constants.APP_OBTENTION_ERROR_SOCKET)) {
+			showNetworkConnectionToastAndQuit();
 		}
 	}
 

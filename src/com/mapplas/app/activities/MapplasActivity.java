@@ -96,7 +96,7 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Identificamos contra el servidor
 		try {
-			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model).getThread());
+			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model, this).getThread());
 			serverIdentificationThread.run();
 		} catch (Exception e) {
 			this.model.setCurrentUser(null);
