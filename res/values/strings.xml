@@ -77,5 +77,6 @@
     <string name="language_basque">Euskera</string>
     <string name="language_change_restart_app_message">An application restart is needed after language change</string>
     <string name="connection_error">It seems there\'s no connection. Enable it and try again.</string>
-
+	<string name="connection_switch_error">Internet connection problem. Try again please.</string>
+    
 </resources>

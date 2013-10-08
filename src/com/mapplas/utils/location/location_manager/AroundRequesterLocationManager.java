@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +15,6 @@ import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.location.UserLocationListener;
-import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -37,13 +34,19 @@ public class AroundRequesterLocationManager implements UserLocationListener {
 	private RefreshableListView listView;
 
 	private AppAdapter appAdapter;
-	
+
 	private ArrayList<ApplicationInfo> appsInstalledList;
-	
+
 	private MapplasActivity mainActivity;
-		
-//	private boolean comesFromRadarLayout;
-//	public AroundRequester(UserLocationRequesterFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity, RelativeLayout progressLayout, boolean comesFromRadarLayout) {
+
+	// private boolean comesFromRadarLayout;
+	// public AroundRequester(UserLocationRequesterFactory
+	// userLocationRequesterFactory, LocationManager locationManager, Context
+	// context, TextView listViewHeaderStatusMessage, ImageView
+	// listViewHeaderImage, SuperModel model, AppAdapter appAdapter,
+	// RefreshableListView listView, ArrayList<ApplicationInfo>
+	// appsInstalledList, MapplasActivity mainActivity, RelativeLayout
+	// progressLayout, boolean comesFromRadarLayout) {
 	public AroundRequesterLocationManager(LocationRequesterLocationManagerFactory userLocationRequesterFactory, LocationManager locationManager, Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
@@ -54,7 +57,7 @@ public class AroundRequesterLocationManager implements UserLocationListener {
 		this.listView = listView;
 		this.appsInstalledList = appsInstalledList;
 		this.mainActivity = mainActivity;
-//		this.comesFromRadarLayout = comesFromRadarLayout;
+		// this.comesFromRadarLayout = comesFromRadarLayout;
 	}
 
 	public void start() {
@@ -84,11 +87,11 @@ public class AroundRequesterLocationManager implements UserLocationListener {
 	}
 
 	private void loadTasks(Location location, boolean reset_pagination) {
-		
-//		TODO: uncomment for emulator or mocked location use
-//		location.setLatitude(40.431);
-//		location.setLongitude(-3.687);
-		
+
+		// TODO: uncomment for emulator or mocked location use
+		// location.setLatitude(40.431);
+		// location.setLongitude(-3.687);
+
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
@@ -96,38 +99,18 @@ public class AroundRequesterLocationManager implements UserLocationListener {
 		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 		this.model.setLocation(location);
 
-		ConnectivityManager connManager = (ConnectivityManager)this.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		NetworkInfo mMobile = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		// App request
+		this.listViewHeaderStatusMessage.setText(R.string.location_searching);
+		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
-		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
-		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
-			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
-			this.listView.completeRefreshing();
+		this.model.initializeForNewAppRequest();
+		// Restart appending adapter data. If reached end of endless adapter
+		// and loading cell is hidden, restarting appending loading app is
+		// shown again. :)
+		this.appAdapter.restartAppending();
 
-			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
-		}
-		else if(mWifi.isConnected() || mMobile.isConnected()) {
-			try {
-				this.listViewHeaderStatusMessage.setText(R.string.location_searching);
-				this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
-				
-				this.model.initializeForNewAppRequest();
-				// Restart appending adapter data. If reached end of endless adapter and loading cell is hidden, restarting appending loading app is shown again. :)
-				this.appAdapter.restartAppending();
-
-				new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity).execute(new Location(location), reset_pagination);
-				new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-				
-			} catch (Exception e) {
-//				Log.i(getClass().getSimpleName(), e.toString());
-			}
-		}
-		else {
-			Toast.makeText(this.context, R.string.location_error_toast, Toast.LENGTH_LONG).show();
-			this.listView.completeRefreshing();
-
-			this.listViewHeaderStatusMessage.setText(R.string.location_needed);
-		}
+		int requestNumber = 0;
+		new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, requestNumber).execute(new Location(location), reset_pagination);
+		new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 	}
 }

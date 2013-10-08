@@ -12,7 +12,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,7 +41,7 @@ import com.mapplas.utils.location.location_manager.AroundRequesterLocationManage
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
-import com.mapplas.utils.network.requests.UserIdentificationRequester;
+import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -95,14 +94,11 @@ public class MapplasActivity extends LanguageActivity {
 		this.startRadarAnimation();
 
 		// Identificamos contra el servidor
-		try {
-			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model).getThread());
-			serverIdentificationThread.run();
-		} catch (Exception e) {
-			this.model.setCurrentUser(null);
-			// Log.d(this.getClass().getSimpleName(), "Login: " + e);
-		}
-
+		int requestNumber = 0;
+		new UserIdentificationTask(this.model, this, this, requestNumber).execute();
+	}
+	
+	public void continueActivityAfterUserIdentification() {
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
@@ -299,7 +295,7 @@ public class MapplasActivity extends LanguageActivity {
 	private void loadLocalization() {
 		
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-		Log.e("LOCALIZATION", resultCode + "");
+//		Log.e("LOCALIZATION", resultCode + "");
 		
 		if(resultCode == ConnectionResult.SUCCESS) {
 			this.appsRequester.start();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.widget.Toast;
 
 public class NetworkConnectionChecker {
 
@@ -28,6 +29,10 @@ public class NetworkConnectionChecker {
 		ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo mNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		return mNetwork.isConnected();
+	}
+	
+	public Toast getNetworkErrorToast(Context context, int stringToShow) {
+		return Toast.makeText(context, stringToShow, Toast.LENGTH_LONG);
 	}
 
 }

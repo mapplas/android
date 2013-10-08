@@ -75,5 +75,6 @@
     <string name="currency_euro">€</string>
     <string name="currency_dollar">$</string>
     <string name="connection_error">Ez dago interneterako konexiorik. Aktibatu eta saiatu berriro.</string>
-
+	<string name="connection_switch_error">Interneterako konexioan arazoak, saiatu berriro mesedez.</string>
+    
 </resources>
