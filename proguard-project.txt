@@ -84,3 +84,6 @@
 -keep class * extends java.util.ListResourceBundle {
     protected Object[][] getContents();
 }
+
+-dontwarn com.google.android.gms.*
+-ignorewarnings 
