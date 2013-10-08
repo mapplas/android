@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +14,6 @@ import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.location.UserLocationListener;
-import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -97,31 +94,19 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
 		this.model.setLocation(location);
 
-		ConnectivityManager connManager = (ConnectivityManager)this.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		NetworkInfo mMobile = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		// App request
+		this.listViewHeaderStatusMessage.setText(R.string.location_searching);
+		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
-		NetworkConnectionChecker networkChecker = new NetworkConnectionChecker();
+		this.model.initializeForNewAppRequest();
+		// Restart appending adapter data. If reached end of endless
+		// adapter and loading cell is hidden, restarting appending
+		// loading app is shown again. :)
+		this.appAdapter.restartAppending();
 
-		if(!networkChecker.isWifiConnected(this.context) && !networkChecker.isNetworkConnectionConnected(this.context)) {
-			this.showErrorToastAndQuit(R.string.connection_error);
-		}
-		else if(mWifi.isConnected() || mMobile.isConnected()) {
-			this.listViewHeaderStatusMessage.setText(R.string.location_searching);
-			this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
-
-			this.model.initializeForNewAppRequest();
-			// Restart appending adapter data. If reached end of endless
-			// adapter and loading cell is hidden, restarting appending
-			// loading app is shown again. :)
-			this.appAdapter.restartAppending();
-
-			new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity).execute(new Location(location), reset_pagination);
-			new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-		}
-		else {
-			this.showErrorToastAndQuit(R.string.connection_error);
-		}
+		int requestNumber = 0;
+		new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, requestNumber).execute(new Location(location), reset_pagination);
+		new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 	}
 
 }

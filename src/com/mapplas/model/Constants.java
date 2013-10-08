@@ -156,6 +156,8 @@ public class Constants {
 	
 	public static String USER_IDENTIFICATION_SOCKET_ERROR = "socket_error_user_ident";
 	
+	public static int NUMBER_OF_REQUEST_RETRIES = 100;
+	
 	// Intent bundle settings restart app language change
 	public static String SETTINGS_LANGUAGE_CHANGE_BUNDLE = "com.mapplas.activity.bundle.settings_language_change";
 
@@ -168,5 +170,7 @@ public class Constants {
 	public static String APP_OBTENTION_OK = "OK";
 
 	public static String APP_OBTENTION_ERROR_SOCKET = "ERROR_SOCKET";
+	
+	
 
 }

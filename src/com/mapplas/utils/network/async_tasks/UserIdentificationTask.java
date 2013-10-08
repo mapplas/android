@@ -14,10 +14,6 @@ import com.mapplas.utils.network.connectors.UserIdentificationConnector;
 import com.mapplas.utils.network.mappers.JsonToUserMapper;
 
 public class UserIdentificationTask extends AsyncTask<Object, Object, String> {
-	
-	private int NUMBER_OF_RETRIES_FOR_USER_IDENT_REQUEST = 20;
-	
-	private int retries = 0;
 
 	private SuperModel model;
 
@@ -25,10 +21,13 @@ public class UserIdentificationTask extends AsyncTask<Object, Object, String> {
 
 	private MapplasActivity mainActivity;
 
-	public UserIdentificationTask(SuperModel model, Context context, MapplasActivity mainActivity) {
+	private int retries;
+
+	public UserIdentificationTask(SuperModel model, Context context, MapplasActivity mainActivity, int retries) {
 		this.model = model;
 		this.context = context;
 		this.mainActivity = mainActivity;
+		this.retries = retries;
 	}
 
 	@Override
@@ -40,13 +39,13 @@ public class UserIdentificationTask extends AsyncTask<Object, Object, String> {
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
 
-		if(result.equals(Constants.USER_IDENTIFICATION_SERVER_RESPONSE_ERROR) && this.retries <= this.NUMBER_OF_RETRIES_FOR_USER_IDENT_REQUEST) {
-			this.retries++;
-			new UserIdentificationTask(this.model, this.context, this.mainActivity).execute();
+		if(result.equals(Constants.USER_IDENTIFICATION_SERVER_RESPONSE_ERROR) && this.retries <= Constants.NUMBER_OF_REQUEST_RETRIES) {
+			this.retries = this.retries + 1;
+			new UserIdentificationTask(this.model, this.context, this.mainActivity, this.retries).execute();
 		}
-		else if(result.equals(Constants.USER_IDENTIFICATION_SOCKET_ERROR) && this.retries <= this.NUMBER_OF_RETRIES_FOR_USER_IDENT_REQUEST) {
-			this.retries++;
-			new UserIdentificationTask(this.model, this.context, this.mainActivity).execute();
+		else if(result.equals(Constants.USER_IDENTIFICATION_SOCKET_ERROR) && this.retries <= Constants.NUMBER_OF_REQUEST_RETRIES) {
+			this.retries = this.retries + 1;
+			new UserIdentificationTask(this.model, this.context, this.mainActivity, this.retries).execute();
 		}
 		else {
 			JsonToUserMapper userMapper = new JsonToUserMapper();

@@ -93,8 +93,9 @@ public class MapplasActivity extends LanguageActivity {
 
 		this.startRadarAnimation();
 
-		// Identificamos contra el servidor		
-		new UserIdentificationTask(this.model, this, this).execute();
+		// Identificamos contra el servidor
+		int requestNumber = 0;
+		new UserIdentificationTask(this.model, this, this, requestNumber).execute();
 	}
 	
 	public void continueActivityAfterUserIdentification() {

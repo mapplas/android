@@ -45,7 +45,14 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 	private MapplasActivity mainActivity;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
+	private int retries;
+
+	// Params
+	private Location location;
+
+	private boolean resetPagination;
+
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -53,12 +60,15 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		this.listView = listView;
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
+		this.retries = retries;
 	}
 
 	@Override
 	protected String doInBackground(Object... params) {
 
-		Location location = (Location)params[0];
+		this.location = (Location)params[0];
+		this.resetPagination = (Boolean)params[1];
+
 		try {
 			semaphore.acquire();
 			if(AppRequestBeingDoneSingleton.requestBeingDone) {
@@ -72,7 +82,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
 
-		String code = AppGetterConnector.request(location, this.model, (Boolean)params[1], context);
+		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context);
 
 		try {
 			semaphore.acquire();
@@ -84,18 +94,6 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		return code;
 	}
 
-	private void showNetworkConnectionToastAndQuit() {
-		this.mainActivity.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
-				networkConnChecker.getNetworkErrorToast(context, R.string.connection_switch_error).show();
-				((MapplasActivity)context).finish();
-			}
-		});
-	}
-
 	@Override
 	protected void onPostExecute(String response) {
 		super.onPostExecute(response);
@@ -103,8 +101,16 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		if(response.equals(Constants.APP_OBTENTION_OK)) {
 			this.checkLanguage();
 		}
-		else if(response.equals(Constants.APP_OBTENTION_ERROR_SOCKET)) {
-			showNetworkConnectionToastAndQuit();
+		// Generic error or socket error
+		else if(this.retries <= Constants.NUMBER_OF_REQUEST_RETRIES) {
+			this.retries = this.retries + 1;
+			new AppGetterTask(this.context, this.model, this.listViewAdapter, this.listView, this.appsInstalledInfo, this.mainActivity, this.retries).execute(this.location, this.resetPagination);
+		}
+		else {
+			NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
+			networkConnChecker.getNetworkErrorToast(this.context, R.string.connection_error).show();
+			
+			this.mainActivity.finish();
 		}
 	}
 
@@ -196,4 +202,5 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 	private void updateLanguage(String language) {
 		new LanguageSetter(this.mainActivity).setLanguageToApp(language);
 	}
+
 }

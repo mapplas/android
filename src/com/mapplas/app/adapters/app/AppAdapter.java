@@ -82,8 +82,9 @@ public class AppAdapter extends EndlessAdapter {
 		if(this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
 			this.SLEEP = true;
 			boolean restart_pagination = false;
+			int requestNumber = 0;
 
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity).execute(this.model.getLocation(), restart_pagination);
+			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber).execute(this.model.getLocation(), restart_pagination);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while (this.SLEEP) {
 				Thread.sleep(200);
