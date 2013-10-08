@@ -22,11 +22,12 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppOrderedList;
@@ -36,10 +37,11 @@ import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
 import com.mapplas.utils.language.LanguageSetter;
-import com.mapplas.utils.location.AroundRequester;
-import com.mapplas.utils.location.UserLocationRequesterFactory;
+import com.mapplas.utils.location.location_manager.AroundRequesterLocationManager;
+import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
+import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
-import com.mapplas.utils.network.requests.UserIdentificationRequester;
+import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -51,11 +53,9 @@ public class MapplasActivity extends LanguageActivity {
 
 	/* Debug Values */
 	public final static boolean mDebug = false;
-
+	
 	/* Properties */
 	private SuperModel model = new SuperModel();
-
-	private LocationManager locationManager = null;
 
 	public ArrayList<ApplicationInfo> appsInstalledList = null;
 
@@ -66,9 +66,11 @@ public class MapplasActivity extends LanguageActivity {
 	private TextView listViewHeaderStatusMessage = null;
 
 	private ImageView listViewHeaderImage = null;
-
-	private AroundRequester aroundRequester = null;
-
+	
+	private AroundRequesterGooglePlayServices appsRequester = null;
+	
+	private AroundRequesterLocationManager aroundRequester = null;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -92,14 +94,11 @@ public class MapplasActivity extends LanguageActivity {
 		this.startRadarAnimation();
 
 		// Identificamos contra el servidor
-		try {
-			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model).getThread());
-			serverIdentificationThread.run();
-		} catch (Exception e) {
-			this.model.setCurrentUser(null);
-			// Log.d(this.getClass().getSimpleName(), "Login: " + e);
-		}
-
+		int requestNumber = 0;
+		new UserIdentificationTask(this.model, this, this, requestNumber).execute();
+	}
+	
+	public void continueActivityAfterUserIdentification() {
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
@@ -109,31 +108,27 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
-
-		// Load progress layout
-		RelativeLayout progressLayout = (RelativeLayout)this.findViewById(R.id.progress_layout);
-
-		// Load around requester
-		this.locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this, progressLayout);
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
 		this.listView.setAdapter(this.listViewAdapter);
 
-		this.aroundRequester = new AroundRequester(new UserLocationRequesterFactory(), this.locationManager, this, this.listViewHeaderStatusMessage, this.listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, progressLayout);
-
+		// Load location requesters
+		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		
+		LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage,  this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		
 		// Check network status
 		this.checkNetworkStatus();
 
-		this.loadLocalization();
+		 this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-		// Location location = new Location("");
-		// location.setLatitude(40.431);
-		// location.setLongitude(-3.687);
-		// this.model.setLocation(location);
-		// new ReverseGeocodingTask(this, this.model,
-		// this.listViewHeaderStatusMessage).execute(new Location(location));
-		// new AppGetterTask(this, this.model, this.listViewAdapter,
-		// this.listView, this.appsInstalledList, this).execute(new
-		// Location(location), true);
+//		Location location = new Location("");
+//		location.setLatitude(40.431);
+//		location.setLongitude(-3.687);
+//		
+//		this.model.setLocation(location);
+//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
+//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this).execute(new Location(location), true);
 	}
 
 	@Override
@@ -226,7 +221,8 @@ public class MapplasActivity extends LanguageActivity {
 			@Override
 			public void onRefresh(RefreshableListView listView) {
 				if(!AppRequestBeingDoneSingleton.requestBeingDone) {
-//					Log.d(MapplasActivity.this.getClass().getSimpleName(), "REQUEST");
+					// Log.d(MapplasActivity.this.getClass().getSimpleName(),
+					// "REQUEST");
 					loadLocalization();
 				}
 			}
@@ -294,10 +290,20 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	/**
-	 * Load localization
+	 * Load localization depending on Google Play Services is present on mobile or not
 	 */
 	private void loadLocalization() {
-		this.aroundRequester.start();
+		
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+//		Log.e("LOCALIZATION", resultCode + "");
+		
+		if(resultCode == ConnectionResult.SUCCESS) {
+			this.appsRequester.start();
+		}
+		else {
+			this.aroundRequester.start();
+		}
+		
 	}
 
 	private void checkNetworkStatus() {

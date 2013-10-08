@@ -22,13 +22,14 @@ import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.language.LanguageDialogCreator;
 import com.mapplas.utils.language.LanguageSetter;
+import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
-public class AppGetterTask extends AsyncTask<Object, Void, Location> implements LanguageDialogInterface {
+public class AppGetterTask extends AsyncTask<Object, Void, String> implements LanguageDialogInterface {
 
 	private Context context;
 
@@ -44,9 +45,14 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 
 	private MapplasActivity mainActivity;
 
-	private RelativeLayout progressLayout;
-	
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout progress_layout) {
+	private int retries;
+
+	// Params
+	private Location location;
+
+	private boolean resetPagination;
+
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -54,50 +60,57 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 		this.listView = listView;
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
-		this.progressLayout = progress_layout;
+		this.retries = retries;
 	}
 
 	@Override
-	protected Location doInBackground(Object... params) {
-		
-		Location location = (Location)params[0];		
+	protected String doInBackground(Object... params) {
+
+		this.location = (Location)params[0];
+		this.resetPagination = (Boolean)params[1];
+
 		try {
 			semaphore.acquire();
 			if(AppRequestBeingDoneSingleton.requestBeingDone) {
 				semaphore.release();
-				return null;
+				return Constants.APP_OBTENTION_ERROR_GENERIC;
 			}
 
 			AppRequestBeingDoneSingleton.requestBeingDone = true;
 			semaphore.release();
 		} catch (Exception exc) {
-			return null;
+			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
 
-		try {
-			AppGetterConnector.request(location, this.model, (Boolean)params[1], context);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context);
 
 		try {
 			semaphore.acquire();
 			AppRequestBeingDoneSingleton.requestBeingDone = false;
 			semaphore.release();
 		} catch (Exception exc) {
-			return null;
+			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
-		return location;
+		return code;
 	}
 
 	@Override
-	protected void onPostExecute(Location location) {
-		super.onPostExecute(location);
+	protected void onPostExecute(String response) {
+		super.onPostExecute(response);
 
-		this.progressLayout.setVisibility(View.GONE);
-		
-		if(location != null) {
+		if(response.equals(Constants.APP_OBTENTION_OK)) {
 			this.checkLanguage();
+		}
+		// Generic error or socket error
+		else if(this.retries <= Constants.NUMBER_OF_REQUEST_RETRIES) {
+			this.retries = this.retries + 1;
+			new AppGetterTask(this.context, this.model, this.listViewAdapter, this.listView, this.appsInstalledInfo, this.mainActivity, this.retries).execute(this.location, this.resetPagination);
+		}
+		else {
+			NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
+			networkConnChecker.getNetworkErrorToast(this.context, R.string.connection_error).show();
+			
+			this.mainActivity.finish();
 		}
 	}
 
@@ -189,4 +202,5 @@ public class AppGetterTask extends AsyncTask<Object, Void, Location> implements 
 	private void updateLanguage(String language) {
 		new LanguageSetter(this.mainActivity).setLanguageToApp(language);
 	}
+
 }
