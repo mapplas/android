@@ -31,7 +31,7 @@ public class NetworkConnectionChecker {
 		return mNetwork.isConnected();
 	}
 	
-	public Toast getNetworkErrorToast(Context context, String stringToShow) {
+	public Toast getNetworkErrorToast(Context context, int stringToShow) {
 		return Toast.makeText(context, stringToShow, Toast.LENGTH_LONG);
 	}
 

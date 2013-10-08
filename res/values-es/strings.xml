@@ -75,5 +75,6 @@
     <string name="currency_euro">€</string>
     <string name="currency_dollar">$</string>
     <string name="connection_error">No hay conexión a internet. Actívala y prueba de nuevo.</string>
-
+	<string name="connection_switch_error">Problema de conexión a internet, inténtalo de nuevo.</string>
+    
 </resources>

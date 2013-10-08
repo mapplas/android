@@ -90,7 +90,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			@Override
 			public void run() {
 				NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
-				networkConnChecker.getNetworkErrorToast(context, "APP").show();
+				networkConnChecker.getNetworkErrorToast(context, R.string.connection_switch_error).show();
 				((MapplasActivity)context).finish();
 			}
 		});

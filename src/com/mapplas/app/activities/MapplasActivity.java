@@ -12,7 +12,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -96,11 +95,10 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Identificamos contra el servidor
 		try {
-			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model, this).getThread());
+			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model, this, this).getThread());
 			serverIdentificationThread.run();
 		} catch (Exception e) {
 			this.model.setCurrentUser(null);
-			// Log.d(this.getClass().getSimpleName(), "Login: " + e);
 		}
 
 		// Get user application list
@@ -299,7 +297,7 @@ public class MapplasActivity extends LanguageActivity {
 	private void loadLocalization() {
 		
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-		Log.e("LOCALIZATION", resultCode + "");
+//		Log.e("LOCALIZATION", resultCode + "");
 		
 		if(resultCode == ConnectionResult.SUCCESS) {
 			this.appsRequester.start();

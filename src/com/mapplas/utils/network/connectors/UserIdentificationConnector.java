@@ -20,6 +20,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
+import android.content.Intent;
+import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
@@ -35,7 +37,7 @@ public class UserIdentificationConnector {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String request(String ii, Context context) {
+	public static String request(String ii, Context context, MapplasActivity mainActivity) {
 		String serverResponse = "";
 
 		HttpClient hc = new DefaultHttpClient();
@@ -61,21 +63,31 @@ public class UserIdentificationConnector {
 				serverResponse = Constants.SERVER_RESPONSE_ERROR_USER_IDENTIFICATION;
 			}
 		} catch (SocketTimeoutException se) {
-			showNetworkConnectionToastAndQuit(context);
+			showNetworkConnectionToastAndRestart(context, mainActivity);
 		} catch (SocketException se) {
-			showNetworkConnectionToastAndQuit(context);
+			showNetworkConnectionToastAndRestart(context, mainActivity);
 		} catch (UnsupportedEncodingException ee) {
-			showNetworkConnectionToastAndQuit(context);
+			showNetworkConnectionToastAndRestart(context, mainActivity);
 		} catch (IOException e) {
-			showNetworkConnectionToastAndQuit(context);
+			showNetworkConnectionToastAndRestart(context, mainActivity);
 		}
 
 		return serverResponse;
 	}
 	
-	private static void showNetworkConnectionToastAndQuit(Context context) {
+	private static void showNetworkConnectionToastAndRestart(Context context, MapplasActivity mainActivity) {
 		NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
-		networkConnChecker.getNetworkErrorToast(context, "USER REGISTERING CONNECTION ERROR").show();
-		((MapplasActivity)context).finish();
+		networkConnChecker.getNetworkErrorToast(context, R.string.connection_switch_error).show();
+		
+//		((MapplasActivity)context).finish();
+		
+//		Intent intent = mainActivity.getIntent();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        mainActivity.overridePendingTransition(0, 0);
+//        mainActivity.finish();
+//
+//        mainActivity.overridePendingTransition(0, 0);
+//        context.startActivity(intent);
+        mainActivity.onCreate(null);
 	}
 }

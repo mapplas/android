@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
+import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
@@ -15,8 +16,10 @@ public class UserIdentificationRequester {
 	private SuperModel model;
 	
 	private Context context;
+	
+	private MapplasActivity mainActivity;
 
-	public UserIdentificationRequester(SuperModel model, Context context) {
+	public UserIdentificationRequester(SuperModel model, Context context, MapplasActivity mainActivity) {
 		this.model = model;
 		this.context = context;
 	}
@@ -27,7 +30,7 @@ public class UserIdentificationRequester {
 			@Override
 			public void run() {
 				try {
-					String response = UserIdentificationConnector.request(model.currentIMEI(), context);
+					String response = UserIdentificationConnector.request(model.currentIMEI(), context, mainActivity);
 
 					if(response.equals(Constants.SERVER_RESPONSE_ERROR_USER_IDENTIFICATION)) {
 						setMockedUserToModel();

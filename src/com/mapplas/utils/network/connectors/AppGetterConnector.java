@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
-import android.util.Log;
 
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
@@ -69,10 +68,10 @@ public class AppGetterConnector {
 				mapper.setMockedAppToList(model);
 			}
 		} catch (SocketTimeoutException se) {
-			Log.e("app", "SocketTimeoutException");
+//			Log.e("app", "SocketTimeoutException");
 			return Constants.APP_OBTENTION_ERROR_SOCKET;
 		} catch (SocketException se) {
-			Log.e("app", "SocketException");
+//			Log.e("app", "SocketException");
 			return Constants.APP_OBTENTION_ERROR_SOCKET;
 		} catch (Exception e) {
 			JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
