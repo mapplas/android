@@ -20,12 +20,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
-import android.content.Intent;
-import app.mapplas.com.R;
 
-import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
-import com.mapplas.utils.network.NetworkConnectionChecker;
 
 public class UserIdentificationConnector {
 
@@ -37,9 +33,8 @@ public class UserIdentificationConnector {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String request(String ii, Context context, MapplasActivity mainActivity) {
-		String serverResponse = "";
-
+	public static String request(String ii, Context context) {
+		
 		HttpClient hc = new DefaultHttpClient();
 		HttpParams params = hc.getParams();
 		HttpConnectionParams.setConnectionTimeout(params, 8000);
@@ -57,37 +52,19 @@ public class UserIdentificationConnector {
 			HttpResponse rp = hc.execute(post);
 
 			if(rp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				serverResponse = EntityUtils.toString(rp.getEntity());
+				return EntityUtils.toString(rp.getEntity());
 			}
 			else {
-				serverResponse = Constants.SERVER_RESPONSE_ERROR_USER_IDENTIFICATION;
+				return Constants.USER_IDENTIFICATION_SERVER_RESPONSE_ERROR;
 			}
 		} catch (SocketTimeoutException se) {
-			showNetworkConnectionToastAndRestart(context, mainActivity);
+			return Constants.USER_IDENTIFICATION_SOCKET_ERROR;
 		} catch (SocketException se) {
-			showNetworkConnectionToastAndRestart(context, mainActivity);
+			return Constants.USER_IDENTIFICATION_SOCKET_ERROR;
 		} catch (UnsupportedEncodingException ee) {
-			showNetworkConnectionToastAndRestart(context, mainActivity);
+			return Constants.USER_IDENTIFICATION_SERVER_RESPONSE_ERROR;
 		} catch (IOException e) {
-			showNetworkConnectionToastAndRestart(context, mainActivity);
+			return Constants.USER_IDENTIFICATION_SERVER_RESPONSE_ERROR;
 		}
-
-		return serverResponse;
-	}
-	
-	private static void showNetworkConnectionToastAndRestart(Context context, MapplasActivity mainActivity) {
-		NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
-		networkConnChecker.getNetworkErrorToast(context, R.string.connection_switch_error).show();
-		
-//		((MapplasActivity)context).finish();
-		
-//		Intent intent = mainActivity.getIntent();
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//        mainActivity.overridePendingTransition(0, 0);
-//        mainActivity.finish();
-//
-//        mainActivity.overridePendingTransition(0, 0);
-//        context.startActivity(intent);
-        mainActivity.onCreate(null);
 	}
 }

@@ -41,7 +41,7 @@ import com.mapplas.utils.location.location_manager.AroundRequesterLocationManage
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
-import com.mapplas.utils.network.requests.UserIdentificationRequester;
+import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -93,14 +93,11 @@ public class MapplasActivity extends LanguageActivity {
 
 		this.startRadarAnimation();
 
-		// Identificamos contra el servidor
-		try {
-			Thread serverIdentificationThread = new Thread(new UserIdentificationRequester(this.model, this, this).getThread());
-			serverIdentificationThread.run();
-		} catch (Exception e) {
-			this.model.setCurrentUser(null);
-		}
-
+		// Identificamos contra el servidor		
+		new UserIdentificationTask(this.model, this, this).execute();
+	}
+	
+	public void continueActivityAfterUserIdentification() {
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 

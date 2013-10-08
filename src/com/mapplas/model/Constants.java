@@ -151,8 +151,11 @@ public class Constants {
 
 	public static String EXTRA_HIGH_PIXEL_DENSITY = "extra_high";
 
-	public static String SERVER_RESPONSE_ERROR_USER_IDENTIFICATION = "server_response_error_user_ident";
-
+	// User ident constants
+	public static String USER_IDENTIFICATION_SERVER_RESPONSE_ERROR = "server_response_error_user_ident";
+	
+	public static String USER_IDENTIFICATION_SOCKET_ERROR = "socket_error_user_ident";
+	
 	// Intent bundle settings restart app language change
 	public static String SETTINGS_LANGUAGE_CHANGE_BUNDLE = "com.mapplas.activity.bundle.settings_language_change";
 
