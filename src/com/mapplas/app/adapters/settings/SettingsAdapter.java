@@ -1,5 +1,7 @@
 package com.mapplas.app.adapters.settings;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -69,13 +71,13 @@ public class SettingsAdapter extends BaseAdapter {
 
 		switch (position) {
 			case 0:
-				String constantLanguage = ((MapplasApplication)this.context.getApplicationContext()).getLanguage();
+				String constantLanguage = Locale.getDefault().getDisplayLanguage();
 				
 				String language = this.context.getString(R.string.language_english);
-				if(constantLanguage.equals(Constants.SPANISH)) {
+				if(constantLanguage.equals("espa–ol")) {
 					language = this.context.getString(R.string.language_spanish);
 				}
-				else if(constantLanguage.equals(Constants.BASQUE)) {
+				else if(constantLanguage.equals("euskera")) {
 					language = this.context.getString(R.string.language_basque);
 				}
 				
