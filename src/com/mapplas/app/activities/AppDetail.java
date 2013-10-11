@@ -112,7 +112,7 @@ public class AppDetail extends LanguageActivity {
 	}
 
 	private void requestApplicationDetailInfo() {
-		new AppDetailTask(this, this.app, this.model.countryCode(), this).execute();
+		new AppDetailTask(this, this.app, this.model.phoneLanguageCode(), this).execute();
 	}
 
 	public void detailRequestFinishedOk() {
@@ -147,7 +147,7 @@ public class AppDetail extends LanguageActivity {
 				public void onClick(View v) {
 					Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
 					intent.putExtra(Constants.MORE_FROM_DEVELOPER_APP, app);
-					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, model.countryCode());
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, model.phoneLanguageCode());
 					startActivity(intent);
 				}
 			});
@@ -162,7 +162,7 @@ public class AppDetail extends LanguageActivity {
 
 	public void detailRequestFinishedNok() {
 		// Detail loading error. Try again.
-		new AppDetailTask(this, this.app, this.model.countryCode(), this).execute();
+		new AppDetailTask(this, this.app, this.model.phoneLanguageCode(), this).execute();
 	}
 
 	private void initializeAnimations() {

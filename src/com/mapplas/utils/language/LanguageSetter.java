@@ -30,6 +30,9 @@ public class LanguageSetter {
 		else if (Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
 			locale = new Locale("es");
 		}
+		else if(Locale.getDefault().getDisplayLanguage().equals("euskera")) {
+			locale = new Locale("eu");
+		}
 		else {
 			locale = new Locale("en");
 		}
