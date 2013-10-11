@@ -43,7 +43,7 @@ public class AppGetterConnector {
 		nameValuePairs.add(new BasicNameValuePair("lon", String.valueOf(location.getLongitude())));
 		nameValuePairs.add(new BasicNameValuePair("p", String.valueOf(location.getAccuracy())));
 		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(model.currentUser().getId())));
-		nameValuePairs.add(new BasicNameValuePair("cc", model.countryCode()));
+		nameValuePairs.add(new BasicNameValuePair("cc", model.phoneLanguageCode()));
 
 		// Sent to server if has to decode user position to show dialog language
 		SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.MAPPLAS_SHARED_PREFS, Context.MODE_PRIVATE);
