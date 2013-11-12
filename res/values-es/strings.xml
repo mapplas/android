@@ -76,5 +76,7 @@
     <string name="currency_dollar">$</string>
     <string name="connection_error">No hay conexión a internet. Actívala y prueba de nuevo.</string>
 	<string name="connection_switch_error">Problema de conexión a internet, inténtalo de nuevo.</string>
-    
+    <string name="google_positioning_alert_dialog_title">Servicios de ubicación no habilitados</string>
+    <string name="google_positioning_alert_dialog_message">Mapplas necesita acceder a tu ubicación. Activa los servicios de ubicación.</string>
+    <string name="google_positioning_alert_dialog_enable">Activar</string>
 </resources>

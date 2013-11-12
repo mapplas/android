@@ -1,11 +1,17 @@
 package com.mapplas.utils.location.play_services;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import app.mapplas.com.R;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -115,14 +121,40 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 	 */
 	@Override
 	public boolean handleMessage(Message msg) {
-		this.locationClient.disconnect();
-		this.userLocationListener.locationSearchDidTimeout(this.location);
+//		Checks is google positioning services are enabled or not. If last location is null, are disabled, else; last known location is sent as good one.
+		Location lastLocation = this.locationClient.getLastLocation();
+		if (lastLocation != null) {
+			this.userLocationListener.locationSearchEnded(lastLocation);
+		}
+		else {
+//			Show location setting dialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(this.mainActivity);
+			builder.setTitle(R.string.google_positioning_alert_dialog_title)
+				.setMessage(R.string.google_positioning_alert_dialog_message)
+				.setPositiveButton(R.string.google_positioning_alert_dialog_enable, new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mainActivity.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED);
+						locationClient.disconnect();
+					}
+				})
+				.setNegativeButton(R.string.cancel, new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						locationClient.disconnect();
+						((MapplasActivity)context).finish();
+					}
+				});
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
 		return true;
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-//		Log.e("fdsa",""+location);
 		this.locationClient.removeLocationUpdates(this);
 		this.location = location;
 		this.userLocationListener.locationSearchEnded(this.location);

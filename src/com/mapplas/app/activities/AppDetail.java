@@ -32,6 +32,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
+import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.async_tasks.AppDetailTask;
 import com.mapplas.utils.network.async_tasks.LoadImageTask;
 import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
@@ -112,7 +113,7 @@ public class AppDetail extends LanguageActivity {
 	}
 
 	private void requestApplicationDetailInfo() {
-		new AppDetailTask(this, this.app, this.model.phoneLanguageCode(), this).execute();
+		new AppDetailTask(this, this.app, this).execute();
 	}
 
 	public void detailRequestFinishedOk() {
@@ -147,7 +148,7 @@ public class AppDetail extends LanguageActivity {
 				public void onClick(View v) {
 					Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
 					intent.putExtra(Constants.MORE_FROM_DEVELOPER_APP, app);
-					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, model.phoneLanguageCode());
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, new LanguageSetter(AppDetail.this).getLanguageConstantFromPhone(AppDetail.this));
 					startActivity(intent);
 				}
 			});
@@ -162,7 +163,7 @@ public class AppDetail extends LanguageActivity {
 
 	public void detailRequestFinishedNok() {
 		// Detail loading error. Try again.
-		new AppDetailTask(this, this.app, this.model.phoneLanguageCode(), this).execute();
+		new AppDetailTask(this, this.app, this).execute();
 	}
 
 	private void initializeAnimations() {

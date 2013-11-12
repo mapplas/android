@@ -1,7 +1,6 @@
 package com.mapplas.model;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import android.location.Location;
 import android.os.Parcel;
@@ -21,8 +20,6 @@ public class SuperModel implements Parcelable {
 
 	private String currentDescriptiveGeoLoc = "";
 
-	private String phoneLanguageCode;
-
 	private AppOrderedList appList = new AppOrderedList();
 
 	private boolean operationError = false;
@@ -36,13 +33,6 @@ public class SuperModel implements Parcelable {
 	private boolean fromBasqueCountry = false;
 
 	public SuperModel() {
-		String iso3LangCode = Locale.getDefault().getISO3Language();
-		if(iso3LangCode.equals("spa") | iso3LangCode.equals("eus")) {
-			this.phoneLanguageCode = "ES";
-		}
-		else {
-			this.phoneLanguageCode = "EN";
-		}
 	}
 
 	/**
@@ -154,14 +144,6 @@ public class SuperModel implements Parcelable {
 		this.moreData = moreData;
 	}
 
-	public String phoneLanguageCode() {
-		return phoneLanguageCode;
-	}
-
-	public void setPhoneLanguageCode(String phoneLanguageCode) {
-		this.phoneLanguageCode = phoneLanguageCode;
-	}
-
 	public boolean isFromBasqueCountry() {
 		return fromBasqueCountry;
 	}
@@ -195,7 +177,6 @@ public class SuperModel implements Parcelable {
 		dest.writeSerializable(this.notificationRawList);
 		dest.writeParcelable(this.location, flags);
 		dest.writeByte((byte)(this.moreData ? 1 : 0));
-		dest.writeString(this.phoneLanguageCode);
 		dest.writeByte((byte)(this.fromBasqueCountry ? 1 : 0));
 	}
 
@@ -211,7 +192,6 @@ public class SuperModel implements Parcelable {
 		this.errorText = parcel.readString();
 		parcel.readParcelable(Location.class.getClassLoader());
 		this.moreData = parcel.readByte() == 1;
-		this.phoneLanguageCode = parcel.readString();
 		this.fromBasqueCountry = parcel.readByte() == 1;
 	}
 

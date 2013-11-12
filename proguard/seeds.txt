@@ -3671,7 +3671,6 @@ com.mapplas.model.SuperModel: com.mapplas.model.User currentUser
 com.mapplas.model.SuperModel: java.lang.String currentRadius
 com.mapplas.model.SuperModel: java.lang.String currentIMEI
 com.mapplas.model.SuperModel: java.lang.String currentDescriptiveGeoLoc
-com.mapplas.model.SuperModel: java.lang.String countryCode
 com.mapplas.model.SuperModel: com.mapplas.model.AppOrderedList appList
 com.mapplas.model.SuperModel: boolean operationError
 com.mapplas.model.SuperModel: java.lang.String errorText
@@ -3706,8 +3705,6 @@ com.mapplas.model.SuperModel: void resetLocalizations()
 com.mapplas.model.SuperModel: void resetModel()
 com.mapplas.model.SuperModel: boolean moreData()
 com.mapplas.model.SuperModel: void setMoreData(boolean)
-com.mapplas.model.SuperModel: java.lang.String countryCode()
-com.mapplas.model.SuperModel: void setCountryCode(java.lang.String)
 com.mapplas.model.SuperModel: boolean isFromBasqueCountry()
 com.mapplas.model.SuperModel: void setFromBasqueCountry(boolean)
 com.mapplas.model.SuperModel: void initializeForNewAppRequest()

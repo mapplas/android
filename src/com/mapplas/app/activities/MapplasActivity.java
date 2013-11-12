@@ -53,7 +53,7 @@ public class MapplasActivity extends LanguageActivity {
 
 	/* Debug Values */
 	public final static boolean mDebug = false;
-	
+
 	/* Properties */
 	private SuperModel model = new SuperModel();
 
@@ -66,11 +66,11 @@ public class MapplasActivity extends LanguageActivity {
 	private TextView listViewHeaderStatusMessage = null;
 
 	private ImageView listViewHeaderImage = null;
-	
+
 	private AroundRequesterGooglePlayServices appsRequester = null;
-	
+
 	private AroundRequesterLocationManager aroundRequester = null;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class MapplasActivity extends LanguageActivity {
 		int requestNumber = 0;
 		new UserIdentificationTask(this.model, this, this, requestNumber).execute();
 	}
-	
+
 	public void continueActivityAfterUserIdentification() {
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
@@ -112,23 +112,23 @@ public class MapplasActivity extends LanguageActivity {
 		this.listView.setAdapter(this.listViewAdapter);
 
 		// Load location requesters
-		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
-		
+		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
+
 		LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage,  this.model,  this.listViewAdapter, this.listView, this.appsInstalledList, this);
-		
+		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
+
 		// Check network status
 		this.checkNetworkStatus();
 
-		 this.loadLocalization();
+		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 //		Location location = new Location("");
-//		location.setLatitude(40.431);
-//		location.setLongitude(-3.687);
-//		
+//		location.setLatitude(40.492523);
+//		location.setLongitude(-3.59589);
+//
 //		this.model.setLocation(location);
 //		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this).execute(new Location(location), true);
+//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, 0).execute(new Location(location), true);
 	}
 
 	@Override
@@ -152,6 +152,9 @@ public class MapplasActivity extends LanguageActivity {
 			if(data != null && data.getExtras() != null && data.getExtras().containsKey(Constants.MAPPLAS_LOGIN_USER)) {
 				this.model.setCurrentUser((User)data.getExtras().getParcelable(Constants.MAPPLAS_LOGIN_USER));
 			}
+		}
+		else if (requestCode == Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED) {
+			this.loadLocalization();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -264,22 +267,6 @@ public class MapplasActivity extends LanguageActivity {
 		rotate4.setDuration(2600);
 		radar4.setDrawingCacheEnabled(false);
 		radar4.startAnimation(rotate4);
-
-		// ImageView radar5 = (ImageView)this.findViewById(R.id.radar_5);
-		// RotateAnimation rotate5 = new RotateAnimation(360f, 0f,
-		// Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		// this.setRotateAnimConstants(rotate5);
-		// rotate5.setDuration(1200);
-		// radar5.setDrawingCacheEnabled(true);
-		// radar5.startAnimation(rotate5);
-
-		// ImageView radar6 = (ImageView)this.findViewById(R.id.radar_6);
-		// RotateAnimation rotate6 = new RotateAnimation(360f, 0f,
-		// Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		// this.setRotateAnimConstants(rotate6);
-		// rotate6.setDuration(1200);
-		// radar6.setDrawingCacheEnabled(true);
-		// radar6.startAnimation(rotate6);
 	}
 
 	private void setRotateAnimConstants(RotateAnimation animation) {
@@ -290,20 +277,21 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	/**
-	 * Load localization depending on Google Play Services is present on mobile or not
+	 * Load localization depending on Google Play Services is present on mobile
+	 * or not
 	 */
 	private void loadLocalization() {
-		
+
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 //		Log.e("LOCALIZATION", resultCode + "");
-		
+
 		if(resultCode == ConnectionResult.SUCCESS) {
 			this.appsRequester.start();
 		}
 		else {
 			this.aroundRequester.start();
 		}
-		
+
 	}
 
 	private void checkNetworkStatus() {

@@ -17,14 +17,14 @@ import com.mapplas.model.Constants;
 
 public class AppDetailConnector {
 
-	public static String request(String app_id, String country_code) throws Exception {
+	public static String request(String app_id, String app_language) throws Exception {
 		String serverResponse = "";
 
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "app-detail/" + app_id + "/");
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-		nameValuePairs.add(new BasicNameValuePair("cc", country_code));
+		nameValuePairs.add(new BasicNameValuePair("cc", app_language));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {

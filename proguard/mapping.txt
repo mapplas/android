@@ -4885,8 +4885,8 @@ com.mapplas.app.activities.AppDetail -> com.mapplas.app.activities.AppDetail:
     void initBlockLayout(android.widget.LinearLayout) -> c
     void initRateLayout(android.widget.LinearLayout) -> d
     com.mapplas.model.App access$0(com.mapplas.app.activities.AppDetail) -> a
-    com.mapplas.model.SuperModel access$1(com.mapplas.app.activities.AppDetail) -> b
-    com.mapplas.model.User access$2(com.mapplas.app.activities.AppDetail) -> c
+    com.mapplas.model.User access$1(com.mapplas.app.activities.AppDetail) -> b
+    com.mapplas.model.SuperModel access$2(com.mapplas.app.activities.AppDetail) -> c
     void access$3(com.mapplas.app.activities.AppDetail,boolean) -> a
 com.mapplas.app.activities.AppDetail$1 -> com.mapplas.app.activities.a:
     com.mapplas.app.activities.AppDetail this$0 -> a
@@ -4966,7 +4966,7 @@ com.mapplas.app.activities.MapplasActivity$2 -> com.mapplas.app.activities.n:
     void onRefresh(com.mapplas.utils.third_party.RefreshableListView) -> a
 com.mapplas.app.activities.MoreFromDeveloperActivity -> com.mapplas.app.activities.MoreFromDeveloperActivity:
     com.mapplas.model.App app -> a
-    java.lang.String country_code -> b
+    java.lang.String app_language -> b
     com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter adapter -> c
     void onCreate(android.os.Bundle) -> onCreate
     void onRestart() -> onRestart
@@ -5341,7 +5341,6 @@ com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     java.lang.String currentRadius -> currentRadius
     java.lang.String currentIMEI -> currentIMEI
     java.lang.String currentDescriptiveGeoLoc -> currentDescriptiveGeoLoc
-    java.lang.String countryCode -> countryCode
     com.mapplas.model.AppOrderedList appList -> appList
     boolean operationError -> operationError
     java.lang.String errorText -> errorText
@@ -5374,8 +5373,6 @@ com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     void resetModel() -> resetModel
     boolean moreData() -> moreData
     void setMoreData(boolean) -> setMoreData
-    java.lang.String countryCode() -> countryCode
-    void setCountryCode(java.lang.String) -> setCountryCode
     boolean isFromBasqueCountry() -> isFromBasqueCountry
     void setFromBasqueCountry(boolean) -> setFromBasqueCountry
     void initializeForNewAppRequest() -> initializeForNewAppRequest
@@ -5521,6 +5518,7 @@ com.mapplas.utils.language.LanguageDialogCreator$1 -> com.mapplas.utils.c.b:
 com.mapplas.utils.language.LanguageSetter -> com.mapplas.utils.c.c:
     android.app.Activity activity -> a
     void setLanguageToApp(java.lang.String) -> a
+    java.lang.String getLanguageConstantFromPhone(android.content.Context) -> a
 com.mapplas.utils.location.UserLocationListener -> com.mapplas.utils.d.a:
     void locationSearchEnded(android.location.Location) -> a
     void locationSearchDidTimeout(android.location.Location) -> b
@@ -5601,8 +5599,7 @@ com.mapplas.utils.network.NetworkConnectionChecker -> com.mapplas.utils.e.a:
 com.mapplas.utils.network.async_tasks.AppDetailTask -> com.mapplas.utils.e.a.a:
     com.mapplas.app.activities.AppDetail appDetail -> a
     com.mapplas.model.App app -> b
-    java.lang.String countryCode -> c
-    android.content.Context context -> d
+    android.content.Context context -> c
     java.lang.String doInBackground(java.lang.Void[]) -> a
     void onPostExecute(java.lang.String) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
@@ -5645,7 +5642,7 @@ com.mapplas.utils.network.async_tasks.LoadImageTask -> com.mapplas.utils.e.a.e:
 com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask -> com.mapplas.utils.e.a.f:
     com.mapplas.app.activities.MoreFromDeveloperActivity moreFromDevActivity -> a
     com.mapplas.model.App app -> b
-    java.lang.String countryCode -> c
+    java.lang.String app_language -> c
     android.content.Context context -> d
     java.lang.String doInBackground(java.lang.Void[]) -> a
     void onPostExecute(java.lang.String) -> a
@@ -5698,7 +5695,7 @@ com.mapplas.utils.network.async_tasks.UserPlayStoreInteractionTask -> com.mappla
 com.mapplas.utils.network.connectors.AppDetailConnector -> com.mapplas.utils.e.b.a:
     java.lang.String request(java.lang.String,java.lang.String) -> a
 com.mapplas.utils.network.connectors.AppGetterConnector -> com.mapplas.utils.e.b.b:
-    java.lang.String request(android.location.Location,com.mapplas.model.SuperModel,boolean,android.content.Context) -> a
+    java.lang.String request(android.location.Location,com.mapplas.model.SuperModel,boolean,android.content.Context,java.lang.String) -> a
     int checkPageToRequest(boolean,com.mapplas.model.SuperModel) -> a
 com.mapplas.utils.network.connectors.AppShareConnector -> com.mapplas.utils.e.b.c:
     java.lang.String request(java.lang.String,int,android.location.Location) -> a

@@ -16,14 +16,14 @@ public class MoreFromDeveloperTask extends AsyncTask<Void, Void, String> {
 
 	private App app;
 
-	private String countryCode;
+	private String app_language;
 	
 	private Context context;
 
 	public MoreFromDeveloperTask(MoreFromDeveloperActivity moreFromDevActivity, App app, String country_code, Context context) {
 		this.moreFromDevActivity = moreFromDevActivity;
 		this.app = app;
-		this.countryCode = country_code;
+		this.app_language = country_code;
 		this.context = context;
 	}
 
@@ -31,7 +31,7 @@ public class MoreFromDeveloperTask extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... params) {
 		String server_response = "";
 		try {
-			server_response = MoreFromDeveloperConnector.request(this.app.getId(), this.countryCode);
+			server_response = MoreFromDeveloperConnector.request(this.app.getId(), this.app_language);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.moreFromDevActivity.requestFinishedNok();

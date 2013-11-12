@@ -89,8 +89,8 @@ public class AroundRequesterLocationManager implements UserLocationListener {
 	private void loadTasks(Location location, boolean reset_pagination) {
 
 		// TODO: uncomment for emulator or mocked location use
-		// location.setLatitude(40.431);
-		// location.setLongitude(-3.687);
+//		location.setLatitude(40.492523);
+//		location.setLongitude(-3.59589);
 
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);

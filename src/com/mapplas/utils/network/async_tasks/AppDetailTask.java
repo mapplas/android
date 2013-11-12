@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.model.App;
+import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.connectors.AppDetailConnector;
 import com.mapplas.utils.network.mappers.JsonToAppDetailMapper;
 
@@ -15,16 +16,13 @@ public class AppDetailTask extends AsyncTask<Void, Void, String> {
 	private AppDetail appDetail;
 
 	private App app;
-
-	private String countryCode;
 	
 	private Context context;
 
-	public AppDetailTask(AppDetail detailActivity, App app, String countryCode, Context context) {
+	public AppDetailTask(AppDetail detailActivity, App app, Context context) {
 		super();
 		this.appDetail = detailActivity;
 		this.app = app;
-		this.countryCode = countryCode;
 		this.context = context;
 	}
 
@@ -32,7 +30,8 @@ public class AppDetailTask extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... params) {
 		String server_response = "";
 		try {
-			server_response = AppDetailConnector.request(this.app.getId(), this.countryCode);
+			
+			server_response = AppDetailConnector.request(this.app.getId(), new LanguageSetter(this.appDetail).getLanguageConstantFromPhone(this.context));
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.appDetail.detailRequestFinishedNok();

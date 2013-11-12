@@ -22,7 +22,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 	
 	private App app;
 	
-	private String country_code;
+	private String app_language;
 
 	private MoreFromDeveloperArrayAdapter adapter;
 
@@ -32,7 +32,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 		this.setContentView(R.layout.more_apps_layout);
 		
 		this.extractDataFromBundle();
-		new MoreFromDeveloperTask(this, this.app, this.country_code, this).execute();
+		new MoreFromDeveloperTask(this, this.app, this.app_language, this).execute();
 
 		this.initializeLayoutComponents();
 	}
@@ -70,7 +70,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 				this.app = (App)extras.getParcelable(Constants.MORE_FROM_DEVELOPER_APP);
 			}
 			if(extras.containsKey(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE)) {
-				this.country_code = extras.getString(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE);
+				this.app_language = extras.getString(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE);
 			}
 		}
 	}
@@ -87,7 +87,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 	 *
 	 */
 	public void requestFinishedNok() {
-		new MoreFromDeveloperTask(this, this.app, this.country_code, this).execute();
+		new MoreFromDeveloperTask(this, this.app, this.app_language, this).execute();
 	}
 	
 	public void requestFinishedOk() {

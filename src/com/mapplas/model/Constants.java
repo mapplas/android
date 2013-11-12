@@ -12,11 +12,11 @@ public class Constants {
 	public static final String SYNESTH_VERSION = "1";
 
 	// Languages
-	public static final String ENGLISH = "english";
+	public static final String ENGLISH = "US";
 
-	public static final String SPANISH = "spanish";
+	public static final String SPANISH = "ES";
 
-	public static final String BASQUE = "basque";
+	public static final String BASQUE = "EU";
 
 	// Constants of the Activities
 	public static final int SYNESTH_LOGIN_ID = 10;
@@ -30,6 +30,8 @@ public class Constants {
 	public static final int SYNESTH_DETAILS_CAMERA_ID2 = 302;
 
 	public static final int SYNESTH_REGISTER_ID = 40;
+	
+	public static final int MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED = 400;
 
 	// Constant of the message values of the activities
 	public static final int SYNESTH_MAIN_STATUS_ID = 10;
