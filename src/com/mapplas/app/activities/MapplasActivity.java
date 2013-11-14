@@ -86,6 +86,9 @@ public class MapplasActivity extends LanguageActivity {
 			imei = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
 		}
 		this.model.setCurrentIMEI(imei);
+		
+		String networkCountryIso = manager.getNetworkCountryIso();
+		this.model.setDeviceCountry(networkCountryIso);
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();

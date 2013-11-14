@@ -31,6 +31,8 @@ public class SuperModel implements Parcelable {
 	private boolean moreData = true;
 	
 	private boolean fromBasqueCountry = false;
+	
+	private String deviceCountryCode = "";
 
 	public SuperModel() {
 	}
@@ -118,6 +120,14 @@ public class SuperModel implements Parcelable {
 	public Location getLocation() {
 		return this.location;
 	}
+	
+	public void setDeviceCountry(String countryCode) {
+		this.deviceCountryCode = countryCode;
+	}
+	
+	public String deviceCountry() {
+		return this.deviceCountryCode;
+	}
 
 	/**
 	 * 
@@ -178,6 +188,7 @@ public class SuperModel implements Parcelable {
 		dest.writeParcelable(this.location, flags);
 		dest.writeByte((byte)(this.moreData ? 1 : 0));
 		dest.writeByte((byte)(this.fromBasqueCountry ? 1 : 0));
+		dest.writeString(this.deviceCountryCode);
 	}
 
 	public SuperModel(Parcel parcel) {
@@ -193,6 +204,7 @@ public class SuperModel implements Parcelable {
 		parcel.readParcelable(Location.class.getClassLoader());
 		this.moreData = parcel.readByte() == 1;
 		this.fromBasqueCountry = parcel.readByte() == 1;
+		this.deviceCountryCode = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<SuperModel> CREATOR = new Parcelable.Creator<SuperModel>() {
