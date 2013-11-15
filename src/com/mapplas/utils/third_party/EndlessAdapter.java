@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 
 import com.commonsware.cwac.adapter.AdapterWrapper;
+import com.mapplas.model.Constants;
 
 /**
  * Adapter that assists another adapter in appearing endless. For example, this
@@ -232,20 +233,22 @@ abstract public class EndlessAdapter extends AdapterWrapper {
 		if(position == super.getCount() && keepOnAppending.get()) {
 			if(pendingView == null) {
 				pendingView = getPendingView(parent);
-
-				if(runInBackground) {
-					executeAsyncTask(buildTask());
-				}
-				else {
-					try {
-						keepOnAppending.set(cacheInBackground());
-					} catch (Exception e) {
-						keepOnAppending.set(onException(pendingView, e));
-					}
-				}
 			}
 
 			return (pendingView);
+		}
+		// Added else to do the request of apps when user is at the middle of the requested list. Dont wait to the end of the list.
+		else if(position == super.getCount() - (Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER / 2) && keepOnAppending.get()) {
+			if(runInBackground) {
+				executeAsyncTask(buildTask());
+			}
+			else {
+				try {
+					keepOnAppending.set(cacheInBackground());
+				} catch (Exception e) {
+					keepOnAppending.set(onException(pendingView, e));
+				}
+			}
 		}
 
 		return (super.getView(position, convertView, parent));
