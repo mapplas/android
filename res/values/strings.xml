@@ -81,4 +81,7 @@
     <string name="google_positioning_alert_dialog_title">Location services disabled</string>
     <string name="google_positioning_alert_dialog_message">Mapplas needs access to your location. Please turn on Location Services.</string>
     <string name="google_positioning_alert_dialog_enable">Enable</string>
+    <string name="comming_soon_notify_user">Notify me when available</string>
+    <string name="notify_user_dialog_title">Receive an email</string>
+    <string name="notify_user_dialog_message">Insert your email and we will notify you when mapplas is available in your country</string>
 </resources>

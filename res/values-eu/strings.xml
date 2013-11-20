@@ -79,5 +79,7 @@
     <string name="google_positioning_alert_dialog_title">Lokalizazio zerbitzua ezgaituta</string>
     <string name="google_positioning_alert_dialog_message">Mapplasek zure kokapenaren berri jakitea behar du. Aktibatu lokalizazio zerbitzua.</string>
     <string name="google_positioning_alert_dialog_enable">Aktibatu</string>
-
+	<string name="comming_soon_notify_user">Jakinarazi erabilgarri dagoenean</string>
+	<string name="notify_user_dialog_title">Erantzuna jaso</string>
+    <string name="notify_user_dialog_message">Emaiguzu zure posta helbidea eta Mapplas zure herrialdean erabilgarri dagoen momentuan abisatuko zaitugu</string>
 </resources>
