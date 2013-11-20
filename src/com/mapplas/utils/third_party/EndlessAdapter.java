@@ -231,27 +231,42 @@ abstract public class EndlessAdapter extends AdapterWrapper {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if(position == super.getCount() && keepOnAppending.get()) {
-			if(pendingView == null) {
-				pendingView = getPendingView(parent);
-			}
+            if(pendingView == null) {
+                pendingView = getPendingView(parent);
 
-			return (pendingView);
-		}
-		// Added else to do the request of apps when user is at the middle of the requested list. Dont wait to the end of the list.
+               if(runInBackground) {
+                   executeAsyncTask(buildTask());
+               }
+               else {
+                   try {
+                       keepOnAppending.set(cacheInBackground());
+                   } catch (Exception e) {
+                       keepOnAppending.set(onException(pendingView, e));
+                   }
+               }
+            }
+            
+          return pendingView;
+
+        }
 		else if(position == super.getCount() - (Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER / 2) && keepOnAppending.get()) {
-			if(runInBackground) {
-				executeAsyncTask(buildTask());
-			}
-			else {
-				try {
-					keepOnAppending.set(cacheInBackground());
-				} catch (Exception e) {
-					keepOnAppending.set(onException(pendingView, e));
-				}
-			}
-		}
+			if(pendingView == null) {
+                pendingView = getPendingView(parent);
 
-		return (super.getView(position, convertView, parent));
+               if(runInBackground) {
+                   executeAsyncTask(buildTask());
+               }
+               else {
+                   try {
+                       keepOnAppending.set(cacheInBackground());
+                   } catch (Exception e) {
+                       keepOnAppending.set(onException(pendingView, e));
+                   }
+               }
+            }
+		}
+		
+        return (super.getView(position, convertView, parent));
 	}
 
 	/**

@@ -11,12 +11,24 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:orientation="vertical" >
 
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@+id/comming_soon_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20sp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/comming_soon_pull"
+            android:textColor="@color/comming_soon_pull"
+            android:textSize="17sp" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20sp"
             android:contentDescription="@string/image_content_description"
-            android:paddingTop="40dp"
             android:src="@drawable/img_404" />
 
         <com.mapplas.utils.visual.custom_views.RobotoTextView
@@ -24,9 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
             android:gravity="center"
-            android:paddingBottom="40sp"
-            android:paddingTop="30dp"
             android:text="@string/comming_soon_title"
             android:textColor="@color/Black"
             android:textSize="17sp" />
@@ -36,23 +49,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
             android:gravity="center"
-            android:paddingBottom="30sp"
             android:text="@string/comming_soon_subtitle"
             android:textColor="@color/comming_soon_subtitle"
             android:textSize="14sp" />
 
-        <com.mapplas.utils.visual.custom_views.RobotoTextView
-            android:id="@+id/comming_soon_pull"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10sp"
-            android:gravity="center"
-            android:text="@string/comming_soon_pull"
-            android:textColor="@color/comming_soon_pull"
-            android:textSize="17sp" />
-        
         <com.mapplas.utils.visual.custom_views.RobotoButton
             android:id="@+id/comming_soon_notify_user_button"
             android:layout_width="wrap_content"
@@ -60,8 +64,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10sp"
             android:gravity="center"
-            android:text="@string/comming_soon_notify_user"
-            />
+            android:text="@string/comming_soon_notify_user" />
     </LinearLayout>
 
 </ScrollView>
