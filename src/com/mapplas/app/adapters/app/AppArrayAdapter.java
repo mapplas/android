@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
@@ -19,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import com.mapplas.model.User;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.network.async_tasks.LoadImageTask;
+import com.mapplas.utils.network.async_tasks.NotifyUserTask;
 import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
@@ -42,6 +45,7 @@ import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.view_holder.AppViewHolder;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
 import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 import com.mapplas.utils.visual.helpers.ShareHelper;
@@ -90,6 +94,36 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 		if(this.items.size() == 1 && this.items.get(0).getAppType().equals(Constants.MAPPLAS_APPLICATION_TYPE_MOCK)) {
 			View commingSoonCell = inflater.inflate(R.layout.empty_apps, null);
+			
+			RobotoButton notifyUserButton = (RobotoButton)commingSoonCell.findViewById(R.id.comming_soon_notify_user_button);
+			notifyUserButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					AlertDialog.Builder alert = new AlertDialog.Builder(context);
+					final EditText userEmail = new EditText(context);
+					alert.setTitle(R.string.notify_user_dialog_title);
+					alert.setMessage(R.string.notify_user_dialog_message);
+					alert.setView(userEmail);
+					alert.setNegativeButton(R.string.send, new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							new NotifyUserTask(user.getId(), userEmail.getText().toString(), model.getLocation().getLatitude(), model.getLocation().getLongitude()).execute();
+							dialog.cancel();
+						}
+					});
+					alert.setPositiveButton(R.string.cancel, new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					alert.show();
+				}
+			});
+			
 			return commingSoonCell;
 		}
 		else {
