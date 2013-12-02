@@ -1414,6 +1414,8 @@ com.mapplas.utils.network.connectors.BlockRequestConnector:
     19:19:public BlockRequestConnector()
 com.mapplas.utils.network.connectors.MoreFromDeveloperConnector:
     18:18:public MoreFromDeveloperConnector()
+com.mapplas.utils.network.connectors.NotifyUserConnector:
+    17:17:public NotifyUserConnector()
 com.mapplas.utils.network.connectors.PinRequestConnector:
     20:20:public PinRequestConnector()
 com.mapplas.utils.network.connectors.UserIdentificationConnector:
@@ -1443,7 +1445,7 @@ com.mapplas.utils.third_party.EndlessAdapter:
     119:120:public void setSerialized(boolean)
     123:124:public void stopAppending()
     148:149:public void setRunInBackground(boolean)
-    355:355:protected android.content.Context getContext()
+    370:370:protected android.content.Context getContext()
 com.mapplas.utils.third_party.RefreshableListView:
     private static final int REFRESH
     private static final int NORMAL

@@ -5099,40 +5099,51 @@ com.mapplas.app.adapters.app.AppArrayAdapter -> com.mapplas.app.a.a.b:
     android.view.animation.Animation access$7(com.mapplas.app.adapters.app.AppArrayAdapter) -> f
 com.mapplas.app.adapters.app.AppArrayAdapter$1 -> com.mapplas.app.a.a.c:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
+    void onClick(android.view.View) -> onClick
+    com.mapplas.app.adapters.app.AppArrayAdapter access$0(com.mapplas.app.adapters.app.AppArrayAdapter$1) -> a
+com.mapplas.app.adapters.app.AppArrayAdapter$1$1 -> com.mapplas.app.a.a.d:
+    com.mapplas.app.adapters.app.AppArrayAdapter$1 this$1 -> a
+    android.widget.EditText val$userEmail -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.mapplas.app.adapters.app.AppArrayAdapter$1$2 -> com.mapplas.app.a.a.e:
+    com.mapplas.app.adapters.app.AppArrayAdapter$1 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.mapplas.app.adapters.app.AppArrayAdapter$2 -> com.mapplas.app.a.a.f:
+    com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-com.mapplas.app.adapters.app.AppArrayAdapter$2 -> com.mapplas.app.a.a.d:
+com.mapplas.app.adapters.app.AppArrayAdapter$3 -> com.mapplas.app.a.a.g:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$3 -> com.mapplas.app.a.a.e:
+com.mapplas.app.adapters.app.AppArrayAdapter$4 -> com.mapplas.app.a.a.h:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.mapplas.app.adapters.app.AppArrayAdapter$4 -> com.mapplas.app.a.a.f:
+com.mapplas.app.adapters.app.AppArrayAdapter$5 -> com.mapplas.app.a.a.i:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     com.mapplas.utils.view_holder.AppViewHolder val$cellHolder -> c
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$5 -> com.mapplas.app.a.a.g:
+com.mapplas.app.adapters.app.AppArrayAdapter$6 -> com.mapplas.app.a.a.j:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     android.view.View val$convertView -> c
     void onClick(android.view.View) -> onClick
-    com.mapplas.app.adapters.app.AppArrayAdapter access$0(com.mapplas.app.adapters.app.AppArrayAdapter$5) -> a
-com.mapplas.app.adapters.app.AppArrayAdapter$5$1 -> com.mapplas.app.a.a.h:
-    com.mapplas.app.adapters.app.AppArrayAdapter$5 this$1 -> a
+    com.mapplas.app.adapters.app.AppArrayAdapter access$0(com.mapplas.app.adapters.app.AppArrayAdapter$6) -> a
+com.mapplas.app.adapters.app.AppArrayAdapter$6$1 -> com.mapplas.app.a.a.k:
+    com.mapplas.app.adapters.app.AppArrayAdapter$6 this$1 -> a
     android.view.View val$convertView -> b
     com.mapplas.model.App val$app -> c
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$5$2 -> com.mapplas.app.a.a.i:
-    com.mapplas.app.adapters.app.AppArrayAdapter$5 this$1 -> a
+com.mapplas.app.adapters.app.AppArrayAdapter$6$2 -> com.mapplas.app.a.a.l:
+    com.mapplas.app.adapters.app.AppArrayAdapter$6 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$6 -> com.mapplas.app.a.a.j:
+com.mapplas.app.adapters.app.AppArrayAdapter$7 -> com.mapplas.app.a.a.m:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$7 -> com.mapplas.app.a.a.k:
+com.mapplas.app.adapters.app.AppArrayAdapter$8 -> com.mapplas.app.a.a.n:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
@@ -5663,7 +5674,14 @@ com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask -> com.mapplas.utils
     void onPostExecute(java.lang.String) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.ReverseGeocodingTask -> com.mapplas.utils.e.a.g:
+com.mapplas.utils.network.async_tasks.NotifyUserTask -> com.mapplas.utils.e.a.g:
+    int userId -> a
+    java.lang.String email -> b
+    double latitude -> c
+    double longitude -> d
+    java.lang.Void doInBackground(java.lang.Void[]) -> a
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+com.mapplas.utils.network.async_tasks.ReverseGeocodingTask -> com.mapplas.utils.e.a.h:
     android.content.Context context -> a
     com.mapplas.model.SuperModel model -> b
     android.widget.TextView listViewHeaderStatusMessage -> c
@@ -5672,7 +5690,7 @@ com.mapplas.utils.network.async_tasks.ReverseGeocodingTask -> com.mapplas.utils.
     java.lang.String getAdressFromGoogleWebApi(java.lang.String,java.lang.String) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.TaskAsyncExecuter -> com.mapplas.utils.e.a.h:
+com.mapplas.utils.network.async_tasks.TaskAsyncExecuter -> com.mapplas.utils.e.a.i:
     com.mapplas.utils.network.async_tasks.AsyncTaskHandler task -> a
     com.mapplas.utils.network.async_tasks.AsyncTaskListener listener -> b
     java.lang.Void doInBackground(java.lang.Void[]) -> a
@@ -5680,7 +5698,7 @@ com.mapplas.utils.network.async_tasks.TaskAsyncExecuter -> com.mapplas.utils.e.a
     void onCancelled() -> onCancelled
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.UserIdentificationTask -> com.mapplas.utils.e.a.i:
+com.mapplas.utils.network.async_tasks.UserIdentificationTask -> com.mapplas.utils.e.a.j:
     com.mapplas.model.SuperModel model -> a
     android.content.Context context -> b
     com.mapplas.app.activities.MapplasActivity mainActivity -> c
@@ -5690,7 +5708,7 @@ com.mapplas.utils.network.async_tasks.UserIdentificationTask -> com.mapplas.util
     void setMockedUserToModel() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.UserPinBlocksTask -> com.mapplas.utils.e.a.j:
+com.mapplas.utils.network.async_tasks.UserPinBlocksTask -> com.mapplas.utils.e.a.k:
     android.widget.ListView listView -> a
     android.content.Context context -> b
     int textViewResourceId -> c
@@ -5701,7 +5719,7 @@ com.mapplas.utils.network.async_tasks.UserPinBlocksTask -> com.mapplas.utils.e.a
     void onPostExecute(java.lang.String) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mapplas.utils.network.async_tasks.UserPlayStoreInteractionTask -> com.mapplas.utils.e.a.k:
+com.mapplas.utils.network.async_tasks.UserPlayStoreInteractionTask -> com.mapplas.utils.e.a.l:
     java.lang.String appId -> a
     int userId -> b
     android.location.Location location -> c
@@ -5718,13 +5736,15 @@ com.mapplas.utils.network.connectors.BlockRequestConnector -> com.mapplas.utils.
     java.lang.String request(java.lang.String,java.lang.String,java.lang.String) -> a
 com.mapplas.utils.network.connectors.MoreFromDeveloperConnector -> com.mapplas.utils.e.b.e:
     java.lang.String request(java.lang.String,java.lang.String) -> a
-com.mapplas.utils.network.connectors.PinRequestConnector -> com.mapplas.utils.e.b.f:
+com.mapplas.utils.network.connectors.NotifyUserConnector -> com.mapplas.utils.e.b.f:
+    void request(int,java.lang.String,double,double) -> a
+com.mapplas.utils.network.connectors.PinRequestConnector -> com.mapplas.utils.e.b.g:
     java.lang.String request(java.lang.String,java.lang.String,java.lang.String,double,double,java.lang.String) -> a
-com.mapplas.utils.network.connectors.UserIdentificationConnector -> com.mapplas.utils.e.b.g:
+com.mapplas.utils.network.connectors.UserIdentificationConnector -> com.mapplas.utils.e.b.h:
     java.lang.String request(java.lang.String,android.content.Context) -> a
-com.mapplas.utils.network.connectors.UserPinBlocksConnector -> com.mapplas.utils.e.b.h:
+com.mapplas.utils.network.connectors.UserPinBlocksConnector -> com.mapplas.utils.e.b.i:
     java.lang.String request(java.lang.String) -> a
-com.mapplas.utils.network.connectors.UserPlayStoreInteractionConnector -> com.mapplas.utils.e.b.i:
+com.mapplas.utils.network.connectors.UserPlayStoreInteractionConnector -> com.mapplas.utils.e.b.j:
     java.lang.String request(java.lang.String,int,android.location.Location) -> a
 com.mapplas.utils.network.mappers.JsonToAppDetailMapper -> com.mapplas.utils.e.c.a:
     android.content.Context context -> a

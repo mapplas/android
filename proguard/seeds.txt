@@ -305,6 +305,7 @@ app.mapplas.com.R$id: int btnRate
 app.mapplas.com.R$id: int btnSettings
 app.mapplas.com.R$id: int btnShare
 app.mapplas.com.R$id: int btnStart
+app.mapplas.com.R$id: int comming_soon_notify_user_button
 app.mapplas.com.R$id: int comming_soon_pull
 app.mapplas.com.R$id: int comming_soon_subtitle
 app.mapplas.com.R$id: int comming_soon_title
@@ -427,6 +428,7 @@ app.mapplas.com.R$string: int block_title
 app.mapplas.com.R$string: int blocks
 app.mapplas.com.R$string: int cancel
 app.mapplas.com.R$string: int category
+app.mapplas.com.R$string: int comming_soon_notify_user
 app.mapplas.com.R$string: int comming_soon_pull
 app.mapplas.com.R$string: int comming_soon_subtitle
 app.mapplas.com.R$string: int comming_soon_title
@@ -484,6 +486,8 @@ app.mapplas.com.R$string: int location_searching
 app.mapplas.com.R$string: int menu_config
 app.mapplas.com.R$string: int menu_refresh
 app.mapplas.com.R$string: int no
+app.mapplas.com.R$string: int notify_user_dialog_message
+app.mapplas.com.R$string: int notify_user_dialog_title
 app.mapplas.com.R$string: int pin_up
 app.mapplas.com.R$string: int pin_ups
 app.mapplas.com.R$string: int preferences_title
