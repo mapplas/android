@@ -32,7 +32,7 @@ public class AppGetterConnector {
 		int page = checkPageToRequest(resetPagination, model);
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "apps/" + page + "/");
+		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "apps/" + page + "/");
 
 		// HttpParams params = hc.getParams();
 		// HttpConnectionParams.setConnectionTimeout(params, 10000);
