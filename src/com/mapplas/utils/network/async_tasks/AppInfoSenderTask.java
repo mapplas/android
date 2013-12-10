@@ -61,7 +61,7 @@ public class AppInfoSenderTask extends AsyncTask<Void, Void, Void> {
 		}
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "ipc_userInfo.php");
+		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "ipc_userInfo.php");
 	
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("loc", this.location.getLatitude() + "," + this.location.getLongitude()));

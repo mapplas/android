@@ -22,7 +22,7 @@ public class PinRequestConnector {
 	public static String request(String action, String app_id, String uid, double currentLongitude, double currentLatitude, String reverseGeocodedLocation) throws Exception {
 		String serverResponse = "";
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "user/pin/");
+		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "user/pin/");
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("s", action));

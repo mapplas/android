@@ -29,6 +29,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.activities.WebViewActivity;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
@@ -284,10 +285,17 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			@Override
 			public void onClick(View v) {
 
-				Intent intent = new Intent(context, AppDetail.class);
-				intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
-				SuperModelSingleton.model = model;
-				((MapplasActivity)context).startActivity(intent);
+				if (app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
+					Intent intent = new Intent(context, AppDetail.class);
+					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
+					SuperModelSingleton.model = model;
+					((MapplasActivity)context).startActivity(intent);
+				}
+				else {
+					Intent webViewIntent = new Intent(context, WebViewActivity.class);
+					webViewIntent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.getId());
+					context.startActivity(webViewIntent);
+				}
 			}
 		});
 	}
