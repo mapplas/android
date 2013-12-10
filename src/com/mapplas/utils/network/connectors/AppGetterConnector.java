@@ -32,7 +32,7 @@ public class AppGetterConnector {
 		int page = checkPageToRequest(resetPagination, model);
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.SYNESTH_SERVER + ":" + Constants.SYNESTH_SERVER_PORT + Constants.SYNESTH_SERVER_PATH + "apps/" + page + "/");
+		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "apps/" + page + "/");
 
 		// HttpParams params = hc.getParams();
 		// HttpConnectionParams.setConnectionTimeout(params, 10000);
@@ -88,7 +88,13 @@ public class AppGetterConnector {
 
 		if(!resetPagination) {
 			int loadedApps = model.appList().size();
-			page = loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER;
+			
+			if(loadedApps % Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER == 0) {
+				page = loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER;
+			}
+			else {
+				page = (loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER ) + 1;
+			}
 		}
 
 		return page;

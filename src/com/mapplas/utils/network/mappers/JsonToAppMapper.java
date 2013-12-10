@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 import com.mapplas.utils.image.PixelDensityImageChooser;
 import com.mapplas.utils.network.mappers.generic.GenericMapper;
 import com.mapplas.utils.network.mappers.generic.base.IteratingMapper;
@@ -60,6 +61,10 @@ public class JsonToAppMapper implements IteratingMapper {
 			mapper.map(json, app);
 
 			this.changeLogoUrlDependingOnDensity(app);
+			
+			if (app.getAppPrice().equals("-1")) {
+				app.setAppType(Constants.MAPPLAS_APPLICATION_TYPE_HTML5);
+			}
 
 		} catch (Exception e) {
 //			Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
