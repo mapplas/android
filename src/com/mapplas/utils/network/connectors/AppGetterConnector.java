@@ -88,7 +88,13 @@ public class AppGetterConnector {
 
 		if(!resetPagination) {
 			int loadedApps = model.appList().size();
-			page = loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER;
+			
+			if(loadedApps % Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER == 0) {
+				page = loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER;
+			}
+			else {
+				page = (loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER ) + 1;
+			}
 		}
 
 		return page;
