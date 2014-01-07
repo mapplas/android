@@ -16,6 +16,7 @@ import com.mapplas.utils.network.mappers.generic.base.IteratingMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyIntegerValueMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
+import com.mapplas.utils.utils.IconColorUtils;
 
 public class JsonToAppMapper implements IteratingMapper {
 
@@ -59,11 +60,13 @@ public class JsonToAppMapper implements IteratingMapper {
 
 			GenericMapper mapper = new GenericMapper(mappers);
 			mapper.map(json, app);
-
-			this.changeLogoUrlDependingOnDensity(app);
 			
 			if (app.getAppPrice().equals("-1")) {
 				app.setAppType(Constants.MAPPLAS_APPLICATION_TYPE_HTML5);
+				new IconColorUtils().parseColors(app);
+			}
+			else {
+				this.changeLogoUrlDependingOnDensity(app);
 			}
 
 		} catch (Exception e) {

@@ -14,13 +14,21 @@ public class App implements Parcelable {
 	// Properties
 	private String id;
 
-	private String name;
+	private String name = "";
 
-	private String shortDescription;
+	private String shortDescription = "";
 
 	private String description;
 
 	private String logo;
+	
+	private String icon_color_1 = "";
+	
+	private String icon_color_2 = "";
+	
+	private String icon_color_3 = "";
+	
+	private String icon_color_4 = "";
 
 	private String price;
 
@@ -202,6 +210,38 @@ public class App implements Parcelable {
 		this.developerName = developerName;
 	}
 	
+	public String getIcon_color_1() {
+		return icon_color_1;
+	}
+
+	public void setIcon_color_1(String icon_color_1) {
+		this.icon_color_1 = icon_color_1;
+	}
+
+	public String getIcon_color_2() {
+		return icon_color_2;
+	}
+
+	public void setIcon_color_2(String icon_color_2) {
+		this.icon_color_2 = icon_color_2;
+	}
+
+	public String getIcon_color_3() {
+		return icon_color_3;
+	}
+
+	public void setIcon_color_3(String icon_color_3) {
+		this.icon_color_3 = icon_color_3;
+	}
+
+	public String getIcon_color_4() {
+		return icon_color_4;
+	}
+
+	public void setIcon_color_4(String icon_color_4) {
+		this.icon_color_4 = icon_color_4;
+	}
+	
 	/**
 	 * Parcelable methods
 	 */
@@ -230,6 +270,10 @@ public class App implements Parcelable {
 		dest.writeTypedList(this.moreFromDev);
 		dest.writeInt(this.moreFromDeveloperCount);
 		dest.writeString(this.developerName);
+		dest.writeString(this.icon_color_1);
+		dest.writeString(this.icon_color_2);
+		dest.writeString(this.icon_color_3);
+		dest.writeString(this.icon_color_4);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -252,6 +296,10 @@ public class App implements Parcelable {
 		parcel.readTypedList(this.moreFromDev, MoreFromDeveloperApp.CREATOR);
 		this.moreFromDeveloperCount = parcel.readInt();
 		this.developerName = parcel.readString();
+		this.icon_color_1 = parcel.readString();
+		this.icon_color_2 = parcel.readString();
+		this.icon_color_3 = parcel.readString();
+		this.icon_color_4 = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
