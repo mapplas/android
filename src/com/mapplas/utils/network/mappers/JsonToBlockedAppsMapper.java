@@ -8,11 +8,13 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 import com.mapplas.utils.image.PixelDensityImageChooser;
 import com.mapplas.utils.network.mappers.generic.GenericMapper;
 import com.mapplas.utils.network.mappers.generic.base.IteratingMapper;
 import com.mapplas.utils.network.mappers.generic.base.KeyValueScapedMapper;
 import com.mapplas.utils.network.mappers.generic.base.TargetMapper;
+import com.mapplas.utils.utils.IconColorUtils;
 
 public class JsonToBlockedAppsMapper implements IteratingMapper {
 
@@ -42,8 +44,15 @@ public class JsonToBlockedAppsMapper implements IteratingMapper {
 				GenericMapper mapper = new GenericMapper(mappers);
 				mapper.map(currentObject, app);
 
-				this.changeLogoUrlDependingOnDensity(app);
-
+				if (currentObject.has("pr") && currentObject.getInt("pr") == -1) {
+					app.setAppType(Constants.MAPPLAS_APPLICATION_TYPE_HTML5);
+					new IconColorUtils().parseColors(app);
+				}
+				else {
+					this.changeLogoUrlDependingOnDensity(app);
+				}
+				
+				
 				blockedApps.add(app);
 			} catch (Exception e) {
 //				Log.e(this.getClass().getSimpleName(), "Failed mapping, reason: " + e.getMessage());
