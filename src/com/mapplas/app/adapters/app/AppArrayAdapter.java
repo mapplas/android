@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -70,7 +71,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	private static App mBlockApp = null;
 
 	private Animation fadeOutAnimation = null;
-
+	
+	private ViewFlipper currentViewFlipped = null;
+	
 	public AppArrayAdapter(Context context, int layout, int textViewResourceId, ArrayList<App> items, RefreshableListView list, SuperModel model) {
 		super(context, layout, textViewResourceId, items);
 
@@ -161,8 +164,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 				this.initializeStartButton(app, cellHolder.buttonStart);
 
-				this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
-				this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+				this.initializeLogo(app, cellHolder.logo);
+				this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position, cellHolder.viewFlipper);
 				this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
 
 				this.initializeActionLayouts(app, cellHolder, convertView);
@@ -176,8 +179,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 				this.initializeStartButton(app, cellHolder.buttonStart);
 
-				this.initializeLogo(app, cellHolder.logo, cellHolder.viewFlipper);
-				this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position);
+				this.initializeLogo(app, cellHolder.logo);
+				this.initializeRowUnpressed(app, cellHolder.rowUnpressed, position, cellHolder.viewFlipper);
 				this.initializeLogoBackgroundPinImage(app, cellHolder.logoRoundCorner);
 
 				this.initializeActionLayouts(app, cellHolder, convertView);
@@ -298,8 +301,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		}
 	}
 
-	private void initializeRowUnpressed(final App app, LinearLayout layout, int position) {
-		layout.setTag(position);
+	private void initializeRowUnpressed(final App app, LinearLayout layout, int position, ViewFlipper viewFlipper) {
+
+		layout.setTag(viewFlipper);
 		layout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -317,6 +321,46 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				}
 			}
 		});
+		
+		layout.setOnLongClickListener(new View.OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				
+				if(currentViewFlipped != null) {
+					closeFlippedView();
+				}
+				
+				currentViewFlipped = (ViewFlipper)v.getTag();
+
+				if(currentViewFlipped != null) {
+					if(currentViewFlipped.indexOfChild(currentViewFlipped.getCurrentView()) == 0) {
+						openFlippedView();
+					}
+				}
+				return true;
+			}
+		});
+		
+		this.list.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				
+				switch (event.getAction()) {
+
+					case MotionEvent.ACTION_MOVE:
+						if(currentViewFlipped != null) {
+							closeFlippedView();
+						}
+						break;
+						
+					default:
+						break;
+				}
+				return false;
+			}
+		});
 	}
 
 	private void initializeStartButton(final App app, Button buttonStart) {
@@ -332,35 +376,14 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		}
 	}
 
-	private void initializeLogo(App app, ImageView logo, ViewFlipper viewFlipper) {
-		logo.setTag(viewFlipper);
+	private void initializeLogo(App app, ImageView logo) {
 		logo.setImageResource(R.drawable.ic_template);
-
-		logo.setOnTouchListener(new View.OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				ViewFlipper vf = (ViewFlipper)v.getTag();
-
-				if(vf != null) {
-					if(vf.indexOfChild(vf.getCurrentView()) == 0) {
-						vf.setInAnimation(animFlipInNext);
-						vf.setOutAnimation(animFlipOutNext);
-						vf.showNext();
-					}
-					else {
-						vf.setInAnimation(animFlipInPrevious);
-						vf.setOutAnimation(animFlipOutPrevious);
-						vf.showPrevious();
-					}
-				}
-				return false;
-			}
-		});
 
 		// Load app logo
 		new LogoHelper(this.context).setLogoToApp(app, logo);
 	}
+	
+	
 
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
 
@@ -510,6 +533,19 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			}
 		});
+	}
+	
+	private void closeFlippedView() {
+		currentViewFlipped.setInAnimation(animFlipInPrevious);
+		currentViewFlipped.setOutAnimation(animFlipOutPrevious);
+		currentViewFlipped.showPrevious();
+		currentViewFlipped = null;
+	}
+	
+	private void openFlippedView() {
+		currentViewFlipped.setInAnimation(animFlipInNext);
+		currentViewFlipped.setOutAnimation(animFlipOutNext);
+		currentViewFlipped.showNext();
 	}
 
 }
