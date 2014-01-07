@@ -348,7 +348,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			public boolean onTouch(View v, MotionEvent event) {
 				
 				switch (event.getAction()) {
-
 					case MotionEvent.ACTION_MOVE:
 						if(currentViewFlipped != null) {
 							closeFlippedView();
@@ -401,7 +400,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) {				
 				if(app != null) {
 					String auxuid = "0";
 					if(user != null) {
@@ -454,6 +453,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					}
 
 					list.updateAdapter(context, model, new ArrayList<ApplicationInfo>());
+					currentViewFlipped = null;
 				}
 
 			}
@@ -475,6 +475,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					public void onClick(DialogInterface arg0, int arg1) {
 
 						convertView.startAnimation(fadeOutAnimation);
+						currentViewFlipped = null;
 
 						String uid = "0";
 						if(user != null) {
@@ -496,6 +497,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// do something when the Cancel button is clicked
+						currentViewFlipped = null;
 					}
 				});
 
@@ -509,6 +511,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
+				
+				currentViewFlipped = null;
+				
 				if(app != null) {
 					String strUrl = new PlayStoreLinkCreator().createLinkForApp(app.getId());
 					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
@@ -523,6 +528,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
+				
+				currentViewFlipped = null;
 
 				if(app != null) {
 					context.startActivity(Intent.createChooser(new ShareHelper().getSharingIntent(context, app), context.getString(R.string.share)));
