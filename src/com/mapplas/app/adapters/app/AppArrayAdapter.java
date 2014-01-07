@@ -29,22 +29,18 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.app.activities.MapplasActivity;
-import com.mapplas.app.activities.WebViewActivity;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
-import com.mapplas.utils.cache.CacheFolderFactory;
-import com.mapplas.utils.cache.ImageFileManager;
-import com.mapplas.utils.network.async_tasks.LoadImageTask;
 import com.mapplas.utils.network.async_tasks.NotifyUserTask;
-import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
 import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
+import com.mapplas.utils.utils.LogoHelper;
 import com.mapplas.utils.view_holder.AppViewHolder;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
@@ -235,18 +231,42 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
 		
-		// Check 1-2 lines for app name. 2-3 lines for app short description.
-		if(cellHolder.title.getMeasuredWidth() != 0 && cellHolder.title.getMeasuredWidth() < cellHolder.title.getPaint().measureText(app.getName())) {
-			cellHolder.title.setSingleLine(false);
-			cellHolder.title.setLines(2);
-			cellHolder.shortDescription.setLines(2);
+		if(app.getName() != null && app.getAppShortDescription() != null) {
+			
+			if (!app.getName().equals("") && !app.getAppShortDescription().equals("")) {
+				// Check 1-2 lines for app name. 2-3 lines for app short description.
+				if(cellHolder.title.getMeasuredWidth() != 0 && cellHolder.title.getMeasuredWidth() < cellHolder.title.getPaint().measureText(app.getName())) {
+					cellHolder.title.setSingleLine(false);
+					cellHolder.title.setLines(2);
+//					cellHolder.title.setBackgroundColor(Color.RED);
+					cellHolder.shortDescription.setLines(2);
+//					cellHolder.shortDescription.setBackgroundColor(Color.BLUE);
+				}
+				else {
+					cellHolder.title.setSingleLine(true);
+					cellHolder.title.setLines(1);
+//					cellHolder.title.setBackgroundColor(Color.RED);
+					cellHolder.shortDescription.setLines(3);
+//					cellHolder.shortDescription.setBackgroundColor(Color.BLUE);
+				}
+			}
+			else if(!app.getName().equals("") && app.getAppShortDescription().equals("")) {
+				cellHolder.title.setSingleLine(false);
+				cellHolder.title.setLines(3);
+//				cellHolder.title.setBackgroundColor(Color.YELLOW);
+				cellHolder.shortDescription.setLines(0);
+//				cellHolder.shortDescription.setBackgroundColor(Color.GRAY);
+			}
+			else if(app.getName().equals("") && !app.getAppShortDescription().equals("")) {
+				cellHolder.shortDescription.setSingleLine(false);
+				cellHolder.shortDescription.setLines(3);
+//				cellHolder.shortDescription.setBackgroundColor(Color.GREEN);
+				cellHolder.title.setLines(0);
+//				cellHolder.title.setBackgroundColor(Color.MAGENTA);
+			}
+			
 		}
-		else {
-			cellHolder.title.setSingleLine(true);
-			cellHolder.title.setLines(1);
-			cellHolder.shortDescription.setLines(3);
-		}
-
+		
 		cellHolder.shortDescription.setTypeface(normalTypeface);
 		cellHolder.shortDescription.setText(app.getAppShortDescription());
 
@@ -292,9 +312,8 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					((MapplasActivity)context).startActivity(intent);
 				}
 				else {
-					Intent webViewIntent = new Intent(context, WebViewActivity.class);
-					webViewIntent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, app.getId());
-					context.startActivity(webViewIntent);
+					final Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(app.getId()));
+					context.startActivity(intent);
 				}
 			}
 		});
@@ -340,18 +359,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		});
 
 		// Load app logo
-		ImageFileManager imageFileManager = new ImageFileManager();
-		String logoUrl = app.getAppLogo();
-
-		if(!logoUrl.equals("")) {
-			if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
-				logo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
-			}
-			else {
-				TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, logo, imageFileManager));
-				imageRequest.execute();
-			}
-		}
+		new LogoHelper(this.context).setLogoToApp(app, logo);
 	}
 
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
