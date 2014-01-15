@@ -22,6 +22,8 @@ public class GalleryFragmentPageAdapter extends FragmentPagerAdapter {
 		super(fm);
 		this.fragments = new ArrayList<Fragment>();
 	}
+	
+	
 
 	/**
 	 * Add a new fragment in the list.

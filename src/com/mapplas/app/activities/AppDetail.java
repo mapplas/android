@@ -136,9 +136,10 @@ public class AppDetail extends LanguageActivity {
 		gallery.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long position) {
 				Intent intent = new Intent(AppDetail.this, GalleryActivity.class);
 				intent.putExtra(Constants.APP_IMAGES_GALLERY, app.getAuxPhotos());
+				intent.putExtra(Constants.APP_IMAGES_GALLERY_INDEX, (int)position);
 				startActivity(intent);
 			}
 		});

@@ -1,7 +1,5 @@
 package com.mapplas.utils.gallery;
 
-import com.mapplas.utils.image.DrawableBackgroundDownloader;
-
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import app.mapplas.com.R;
+
+import com.mapplas.utils.image.DrawableBackgroundDownloader;
 
 public class GalleryItemFragment extends Fragment {
 

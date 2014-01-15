@@ -3,8 +3,8 @@ package com.mapplas.model;
 public class Constants {
 
 	// Constants
-	public static final String MAPPLAS_SERVER = "54.217.233.146";
-//	public static final String MAPPLAS_SERVER = "54.217.249.103";
+//	public static final String MAPPLAS_SERVER = "54.217.233.146";
+	public static final String MAPPLAS_SERVER = "54.217.249.103";
 
 	public static final int MAPPLAS_SERVER_PORT = 80;
 
@@ -155,6 +155,8 @@ public class Constants {
 	public static String EXTRA_HIGH_PIXEL_DENSITY = "extra_high";
 	
 	public static String APP_IMAGES_GALLERY = "com.mapplas.activity.bundle.app_details.app_images";
+	
+	public static String APP_IMAGES_GALLERY_INDEX = "com.mapplas.activity.bundle.app_details.app_images_index";
 
 	// User ident constants
 	public static String USER_IDENTIFICATION_SERVER_RESPONSE_ERROR = "server_response_error_user_ident";
