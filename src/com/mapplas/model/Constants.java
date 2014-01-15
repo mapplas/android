@@ -153,6 +153,8 @@ public class Constants {
 	public static String HIGH_PIXEL_DENSITY = "high";
 
 	public static String EXTRA_HIGH_PIXEL_DENSITY = "extra_high";
+	
+	public static String APP_IMAGES_GALLERY = "com.mapplas.activity.bundle.app_details.app_images";
 
 	// User ident constants
 	public static String USER_IDENTIFICATION_SERVER_RESPONSE_ERROR = "server_response_error_user_ident";

@@ -64,7 +64,7 @@ public class ImageAdapter extends BaseAdapter {
 			constantw = 320;
 		}
 
-		mdbd.loadDrawable(mImages.get(position), i, defaultDrawable, true, constantw);
+		mdbd.loadDrawable(mImages.get(position), i, defaultDrawable, true, constantw, true);
 
 		// i.setLayoutParams(new Gallery.LayoutParams(480, 320));
 		// i.setScaleType(ImageView.ScaleType.FIT_XY);

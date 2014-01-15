@@ -55,10 +55,10 @@ public class DrawableBackgroundDownloader {
 	}
 
 	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder) {
-		this.loadDrawable(url, imageView, placeholder, false, 0);
+		this.loadDrawable(url, imageView, placeholder, false, 0, true);
 	}
 
-	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder, boolean keepRatio, int constantw) {
+	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder, boolean keepRatio, int constantw, boolean loadToGallery) {
 		mImageViews.put(imageView, url);
 		Drawable drawable = getDrawableFromCache(url);
 
@@ -68,7 +68,7 @@ public class DrawableBackgroundDownloader {
 		}
 		else {
 			imageView.setImageDrawable(placeholder);
-			queueJob(url, imageView, placeholder, keepRatio, constantw);
+			queueJob(url, imageView, placeholder, keepRatio, constantw, loadToGallery);
 		}
 	}
 
@@ -91,7 +91,7 @@ public class DrawableBackgroundDownloader {
 		mCache.put(url, new SoftReference<Drawable>(drawable));
 	}
 
-	private void queueJob(final String url, final ImageView imageView, final Drawable placeholder, final boolean keepRatio, final int constantw) {
+	private void queueJob(final String url, final ImageView imageView, final Drawable placeholder, final boolean keepRatio, final int constantw, final boolean loadToGallery) {
 		/* Create handler in UI thread. */
 		final Handler handler = new Handler() {
 
@@ -124,7 +124,13 @@ public class DrawableBackgroundDownloader {
 								// imageView.setLayoutParams(new
 								// Gallery.LayoutParams(w, h + ((480 - h) /
 								// 2)));
-								imageView.setLayoutParams(new Gallery.LayoutParams(w, h));
+								if(loadToGallery) {
+									imageView.setLayoutParams(new Gallery.LayoutParams(w, h));
+								}
+//								else {
+//									imageView.setLayoutParams(new Gallery.LayoutParams(w, h));
+//								}
+								
 								imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
 								// imageView.setPadding(0, (480 - h) / 2, 0, 0);

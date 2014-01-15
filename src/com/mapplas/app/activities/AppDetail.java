@@ -133,10 +133,15 @@ public class AppDetail extends LanguageActivity {
 		}
 		gallery.setAdapter(imgAdapter);
 
-		if(imgAdapter.getCount() > 0) {
-			// resizer = new Resizer(gal);
-			// resizer.start(480, 500 * metrics.density);
-		}
+		gallery.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				Intent intent = new Intent(AppDetail.this, GalleryActivity.class);
+				intent.putExtra(Constants.APP_IMAGES_GALLERY, app.getAuxPhotos());
+				startActivity(intent);
+			}
+		});
 
 		// Init more apps button
 		RelativeLayout moreAppsLayout = (RelativeLayout)this.findViewById(R.id.more_from_developer_plus_layout);
