@@ -64,11 +64,7 @@ public class ImageAdapter extends BaseAdapter {
 			constantw = 320;
 		}
 
-		mdbd.loadDrawable(mImages.get(position), i, defaultDrawable, true, constantw, false, null);
-
-		// i.setLayoutParams(new Gallery.LayoutParams(480, 320));
-		// i.setScaleType(ImageView.ScaleType.FIT_XY);
-		// i.setBackgroundDrawable(gallerybgd);
+		mdbd.loadDrawable(mImages.get(position), i, true, constantw, false, null);
 
 		Drawable dw = i.getDrawable();
 
@@ -95,12 +91,8 @@ public class ImageAdapter extends BaseAdapter {
 				}
 			}
 
-			// i.setLayoutParams(new Gallery.LayoutParams(w, h + ((480 - h) /
-			// 2)));
 			i.setLayoutParams(new Gallery.LayoutParams(w, h));
 			i.setScaleType(ImageView.ScaleType.FIT_XY);
-
-			// i.setPadding(0, (480 - h) / 2, 0, 0);
 		}
 
 		return i;

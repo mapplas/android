@@ -56,26 +56,21 @@ public class DrawableBackgroundDownloader {
 		mImageViews.clear();
 	}
 
-	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder) {
-		this.loadDrawable(url, imageView, placeholder, false, 0, true, null);
-	}
-
-	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder, boolean keepRatio, int constantw, boolean loadToGallery, ProgressBar galleryProgressBar) {
+	public void loadDrawable(final String url, final ImageView imageView, boolean keepRatio, int constantw, boolean loadToGallery, ProgressBar galleryProgressBar) {
 		mImageViews.put(imageView, url);
 		Drawable drawable = getDrawableFromCache(url);
 
 		// check in UI thread, so no concurrency issues
 		if(drawable != null) {
 			imageView.setImageDrawable(drawable);
-			
-//			Stop progress bar
+
+			// Stop progress bar
 			if(galleryProgressBar != null) {
 				galleryProgressBar.setVisibility(View.GONE);
 			}
 		}
 		else {
-			imageView.setImageDrawable(placeholder);
-			queueJob(url, imageView, placeholder, keepRatio, constantw, loadToGallery, galleryProgressBar);
+			queueJob(url, imageView, keepRatio, constantw, loadToGallery, galleryProgressBar);
 		}
 	}
 
@@ -98,7 +93,7 @@ public class DrawableBackgroundDownloader {
 		mCache.put(url, new SoftReference<Drawable>(drawable));
 	}
 
-	private void queueJob(final String url, final ImageView imageView, final Drawable placeholder, final boolean keepRatio, final int constantw, final boolean loadToGallery, final ProgressBar galleryProgressBar) {
+	private void queueJob(final String url, final ImageView imageView, final boolean keepRatio, final int constantw, final boolean loadToGallery, final ProgressBar galleryProgressBar) {
 		/* Create handler in UI thread. */
 		final Handler handler = new Handler() {
 
@@ -107,13 +102,15 @@ public class DrawableBackgroundDownloader {
 				String tag = mImageViews.get(imageView);
 
 				if(tag != null && tag.equals(url)) {
-					if(imageView.isShown())
-						if(msg.obj != null) {
-							imageView.clearAnimation();
+					if(msg.obj != null) {
 
-							Drawable dw = (Drawable)msg.obj;
-							imageView.setImageDrawable((Drawable)msg.obj);
-							if(keepRatio) {
+						imageView.clearAnimation();
+						Drawable dw = (Drawable)msg.obj;
+						imageView.setImageDrawable((Drawable)msg.obj);
+
+						if(keepRatio) {
+
+							if(!loadToGallery) {
 								float ratio = (float)dw.getIntrinsicWidth() / (float)dw.getIntrinsicHeight();
 								int w = dw.getIntrinsicWidth();
 								int h = dw.getIntrinsicHeight();
@@ -127,23 +124,16 @@ public class DrawableBackgroundDownloader {
 								else {
 									w = (int)(constantw * ratio);
 								}
-								
-								if(!loadToGallery) {
-									imageView.setLayoutParams(new Gallery.LayoutParams(w, h));
-								}
-							
+
+								imageView.setLayoutParams(new Gallery.LayoutParams(w, h));
 								imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+								imageView.invalidate();
 							}
-
-							imageView.invalidate();
-
 						}
-						else {
-							imageView.setImageDrawable(placeholder);
-						}
+					}
 				}
-				
-//				Stop progress bar
+
+				// Stop progress bar
 				if(galleryProgressBar != null) {
 					galleryProgressBar.setVisibility(View.GONE);
 				}
@@ -160,11 +150,8 @@ public class DrawableBackgroundDownloader {
 				if(imageView.isShown()) {
 					Message message = Message.obtain();
 					message.obj = bmp;
-					// Log.d(null, "Item downloaded: " + url);
-
 					handler.sendMessage(message);
 				}
-
 			}
 		});
 	}
@@ -192,8 +179,8 @@ public class DrawableBackgroundDownloader {
 		connection = url.openConnection();
 		connection.setUseCaches(true);
 		connection.connect();
-		InputStream response = connection.getInputStream();
 
+		InputStream response = connection.getInputStream();
 		return response;
 	}
 

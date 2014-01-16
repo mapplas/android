@@ -65,9 +65,8 @@ public class GalleryItemFragment extends Fragment {
 		// Show the current page index in the view
 		ImageView imageView = (ImageView)rootView.findViewById(R.id.image);
 		ProgressBar progressBar = (ProgressBar)rootView.findViewById(R.id.progess_bar);
-		Drawable defaultDrawable = getActivity().getApplicationContext().getResources().getDrawable(R.drawable.ic_blank);
 		
-		this.mdbd.loadDrawable(this.image, imageView, defaultDrawable, true, 480, true, progressBar);
+		this.mdbd.loadDrawable(this.image, imageView, true, 480, true, progressBar);
 
 		// Change the background color
 		rootView.setBackgroundColor(Color.BLACK);
