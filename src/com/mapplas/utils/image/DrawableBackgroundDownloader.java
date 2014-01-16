@@ -17,8 +17,10 @@ import java.util.concurrent.Executors;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 public class DrawableBackgroundDownloader {
 
@@ -55,20 +57,25 @@ public class DrawableBackgroundDownloader {
 	}
 
 	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder) {
-		this.loadDrawable(url, imageView, placeholder, false, 0, true);
+		this.loadDrawable(url, imageView, placeholder, false, 0, true, null);
 	}
 
-	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder, boolean keepRatio, int constantw, boolean loadToGallery) {
+	public void loadDrawable(final String url, final ImageView imageView, Drawable placeholder, boolean keepRatio, int constantw, boolean loadToGallery, ProgressBar galleryProgressBar) {
 		mImageViews.put(imageView, url);
 		Drawable drawable = getDrawableFromCache(url);
 
 		// check in UI thread, so no concurrency issues
 		if(drawable != null) {
 			imageView.setImageDrawable(drawable);
+			
+//			Stop progress bar
+			if(galleryProgressBar != null) {
+				galleryProgressBar.setVisibility(View.GONE);
+			}
 		}
 		else {
 			imageView.setImageDrawable(placeholder);
-			queueJob(url, imageView, placeholder, keepRatio, constantw, loadToGallery);
+			queueJob(url, imageView, placeholder, keepRatio, constantw, loadToGallery, galleryProgressBar);
 		}
 	}
 
@@ -82,16 +89,16 @@ public class DrawableBackgroundDownloader {
 
 	private synchronized void putDrawableInCache(String url, Drawable drawable) {
 		int chacheControllerSize = mChacheController.size();
-		
+
 		if(chacheControllerSize > MAX_CACHE_SIZE) {
 			mChacheController.subList(0, MAX_CACHE_SIZE / 2).clear();
 		}
-		
+
 		mChacheController.addLast(drawable);
 		mCache.put(url, new SoftReference<Drawable>(drawable));
 	}
 
-	private void queueJob(final String url, final ImageView imageView, final Drawable placeholder, final boolean keepRatio, final int constantw, final boolean loadToGallery) {
+	private void queueJob(final String url, final ImageView imageView, final Drawable placeholder, final boolean keepRatio, final int constantw, final boolean loadToGallery, final ProgressBar galleryProgressBar) {
 		/* Create handler in UI thread. */
 		final Handler handler = new Handler() {
 
@@ -120,20 +127,12 @@ public class DrawableBackgroundDownloader {
 								else {
 									w = (int)(constantw * ratio);
 								}
-
-								// imageView.setLayoutParams(new
-								// Gallery.LayoutParams(w, h + ((480 - h) /
-								// 2)));
-								if(loadToGallery) {
+								
+								if(!loadToGallery) {
 									imageView.setLayoutParams(new Gallery.LayoutParams(w, h));
 								}
-//								else {
-//									imageView.setLayoutParams(new Gallery.LayoutParams(w, h));
-//								}
-								
+							
 								imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-
-								// imageView.setPadding(0, (480 - h) / 2, 0, 0);
 							}
 
 							imageView.invalidate();
@@ -141,10 +140,13 @@ public class DrawableBackgroundDownloader {
 						}
 						else {
 							imageView.setImageDrawable(placeholder);
-							// Log.d(null, "fail " + url);
 						}
 				}
-
+				
+//				Stop progress bar
+				if(galleryProgressBar != null) {
+					galleryProgressBar.setVisibility(View.GONE);
+				}
 			}
 		};
 

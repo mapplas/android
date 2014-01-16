@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import app.mapplas.com.R;
 
 import com.mapplas.utils.image.DrawableBackgroundDownloader;
@@ -63,9 +64,10 @@ public class GalleryItemFragment extends Fragment {
 
 		// Show the current page index in the view
 		ImageView imageView = (ImageView)rootView.findViewById(R.id.image);
+		ProgressBar progressBar = (ProgressBar)rootView.findViewById(R.id.progess_bar);
 		Drawable defaultDrawable = getActivity().getApplicationContext().getResources().getDrawable(R.drawable.ic_blank);
 		
-		this.mdbd.loadDrawable(this.image, imageView, defaultDrawable, true, 480, false);
+		this.mdbd.loadDrawable(this.image, imageView, defaultDrawable, true, 480, true, progressBar);
 
 		// Change the background color
 		rootView.setBackgroundColor(Color.BLACK);

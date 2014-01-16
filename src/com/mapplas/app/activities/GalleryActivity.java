@@ -43,7 +43,9 @@ public class GalleryActivity extends FragmentActivity {
 		GalleryFragmentPageAdapter adapter = new GalleryFragmentPageAdapter(getSupportFragmentManager());
 
 		for(String image : this.images) {
-			adapter.addFragment(GalleryItemFragment.newInstance(image));
+			String[] imageSplit = image.split("=h");
+			String newImageString = imageSplit[0] + "=h" + "620";
+			adapter.addFragment(GalleryItemFragment.newInstance(newImageString));
 		}
 		
 		this.pager.setAdapter(adapter);
