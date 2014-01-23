@@ -1,3 +1,844 @@
+android.support.v4.app.ActivityCompatHoneycomb -> android.support.v4.app.a:
+    void invalidateOptionsMenu(android.app.Activity) -> a
+android.support.v4.app.BackStackRecord -> android.support.v4.app.b:
+    android.support.v4.app.FragmentManagerImpl mManager -> a
+    android.support.v4.app.BackStackRecord$Op mHead -> b
+    android.support.v4.app.BackStackRecord$Op mTail -> c
+    int mNumOp -> d
+    int mEnterAnim -> e
+    int mExitAnim -> f
+    int mPopEnterAnim -> g
+    int mPopExitAnim -> h
+    int mTransition -> i
+    int mTransitionStyle -> j
+    boolean mAddToBackStack -> k
+    boolean mAllowAddToBackStack -> l
+    java.lang.String mName -> m
+    boolean mCommitted -> n
+    int mIndex -> o
+    int mBreadCrumbTitleRes -> p
+    java.lang.CharSequence mBreadCrumbTitleText -> q
+    int mBreadCrumbShortTitleRes -> r
+    java.lang.CharSequence mBreadCrumbShortTitleText -> s
+    void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
+    void addOp(android.support.v4.app.BackStackRecord$Op) -> a
+    android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String) -> a
+    void doAddOp(int,android.support.v4.app.Fragment,java.lang.String,int) -> a
+    android.support.v4.app.FragmentTransaction remove(android.support.v4.app.Fragment) -> a
+    android.support.v4.app.FragmentTransaction detach(android.support.v4.app.Fragment) -> b
+    android.support.v4.app.FragmentTransaction attach(android.support.v4.app.Fragment) -> c
+    void bumpBackStackNesting(int) -> a
+    int commit() -> a
+    int commitAllowingStateLoss() -> b
+    int commitInternal(boolean) -> a
+    void run() -> run
+    void popFromBackStack(boolean) -> b
+    java.lang.String getName() -> c
+android.support.v4.app.BackStackRecord$Op -> android.support.v4.app.c:
+    android.support.v4.app.BackStackRecord$Op next -> a
+    android.support.v4.app.BackStackRecord$Op prev -> b
+    int cmd -> c
+    android.support.v4.app.Fragment fragment -> d
+    int enterAnim -> e
+    int exitAnim -> f
+    int popEnterAnim -> g
+    int popExitAnim -> h
+    java.util.ArrayList removed -> i
+android.support.v4.app.BackStackState -> android.support.v4.app.BackStackState:
+    int[] mOps -> a
+    int mTransition -> b
+    int mTransitionStyle -> c
+    java.lang.String mName -> d
+    int mIndex -> e
+    int mBreadCrumbTitleRes -> f
+    java.lang.CharSequence mBreadCrumbTitleText -> g
+    int mBreadCrumbShortTitleRes -> h
+    java.lang.CharSequence mBreadCrumbShortTitleText -> i
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    android.support.v4.app.BackStackRecord instantiate(android.support.v4.app.FragmentManagerImpl) -> a
+    int describeContents() -> describeContents
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+android.support.v4.app.BackStackState$1 -> android.support.v4.app.d:
+    android.support.v4.app.BackStackState createFromParcel(android.os.Parcel) -> a
+    android.support.v4.app.BackStackState[] newArray(int) -> a
+    java.lang.Object[] newArray(int) -> newArray
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+android.support.v4.app.DialogFragment -> android.support.v4.app.DialogFragment:
+    int mStyle -> a
+    int mTheme -> b
+    boolean mCancelable -> c
+    boolean mShowsDialog -> d
+    int mBackStackId -> e
+    android.app.Dialog mDialog -> f
+    boolean mDestroyed -> g
+    boolean mRemoved -> h
+    void dismissInternal(boolean) -> a
+    int getTheme() -> a
+    void onCreate(android.os.Bundle) -> a
+    android.view.LayoutInflater getLayoutInflater(android.os.Bundle) -> b
+    android.app.Dialog onCreateDialog(android.os.Bundle) -> c
+    void onCancel(android.content.DialogInterface) -> onCancel
+    void onDismiss(android.content.DialogInterface) -> onDismiss
+    void onActivityCreated(android.os.Bundle) -> d
+    void onStart() -> b
+    void onSaveInstanceState(android.os.Bundle) -> e
+    void onStop() -> c
+    void onDestroyView() -> d
+android.support.v4.app.Fragment -> android.support.v4.app.Fragment:
+    java.util.HashMap sClassMap -> a
+    int mState -> i
+    android.view.View mAnimatingAway -> j
+    int mStateAfterAnimating -> k
+    android.os.Bundle mSavedFragmentState -> l
+    android.util.SparseArray mSavedViewState -> m
+    int mIndex -> n
+    java.lang.String mWho -> o
+    android.os.Bundle mArguments -> p
+    android.support.v4.app.Fragment mTarget -> q
+    int mTargetIndex -> r
+    int mTargetRequestCode -> s
+    boolean mAdded -> t
+    boolean mRemoving -> u
+    boolean mResumed -> v
+    boolean mFromLayout -> w
+    boolean mInLayout -> x
+    boolean mRestored -> y
+    int mBackStackNesting -> z
+    android.support.v4.app.FragmentManagerImpl mFragmentManager -> A
+    android.support.v4.app.FragmentActivity mActivity -> B
+    int mFragmentId -> C
+    int mContainerId -> D
+    java.lang.String mTag -> E
+    boolean mHidden -> F
+    boolean mDetached -> G
+    boolean mRetainInstance -> H
+    boolean mRetaining -> I
+    boolean mHasMenu -> J
+    boolean mMenuVisible -> K
+    boolean mCalled -> L
+    int mNextAnim -> M
+    android.view.ViewGroup mContainer -> N
+    android.view.View mView -> O
+    android.view.View mInnerView -> P
+    boolean mDeferStart -> Q
+    boolean mUserVisibleHint -> R
+    android.support.v4.app.LoaderManagerImpl mLoaderManager -> S
+    boolean mLoadersStarted -> T
+    boolean mCheckedForLoaderManager -> U
+    android.support.v4.app.Fragment instantiate(android.content.Context,java.lang.String) -> a
+    android.support.v4.app.Fragment instantiate(android.content.Context,java.lang.String,android.os.Bundle) -> a
+    void restoreViewState() -> e
+    void setIndex(int) -> a
+    boolean isInBackStack() -> f
+    boolean equals(java.lang.Object) -> equals
+    int hashCode() -> hashCode
+    java.lang.String toString() -> toString
+    void setArguments(android.os.Bundle) -> f
+    android.os.Bundle getArguments() -> g
+    android.support.v4.app.FragmentActivity getActivity() -> h
+    android.support.v4.app.FragmentManager getFragmentManager() -> i
+    boolean isAdded() -> j
+    boolean isHidden() -> k
+    void onHiddenChanged(boolean) -> b
+    void setRetainInstance(boolean) -> c
+    void setMenuVisibility(boolean) -> d
+    void setUserVisibleHint(boolean) -> e
+    void onActivityResult(int,int,android.content.Intent) -> a
+    android.view.LayoutInflater getLayoutInflater(android.os.Bundle) -> b
+    void onInflate(android.app.Activity,android.util.AttributeSet,android.os.Bundle) -> a
+    void onAttach(android.app.Activity) -> a
+    android.view.animation.Animation onCreateAnimation(int,boolean,int) -> a
+    void onCreate(android.os.Bundle) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onViewCreated(android.view.View,android.os.Bundle) -> a
+    android.view.View getView() -> l
+    void onActivityCreated(android.os.Bundle) -> d
+    void onStart() -> b
+    void onResume() -> m
+    void onSaveInstanceState(android.os.Bundle) -> e
+    void onConfigurationChanged(android.content.res.Configuration) -> onConfigurationChanged
+    void onPause() -> n
+    void onStop() -> c
+    void onLowMemory() -> onLowMemory
+    void onDestroyView() -> d
+    void onDestroy() -> o
+    void initState() -> p
+    void onDetach() -> q
+    void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
+    void onPrepareOptionsMenu(android.view.Menu) -> a
+    void onDestroyOptionsMenu() -> r
+    boolean onOptionsItemSelected(android.view.MenuItem) -> a
+    void onOptionsMenuClosed(android.view.Menu) -> b
+    void onCreateContextMenu(android.view.ContextMenu,android.view.View,android.view.ContextMenu$ContextMenuInfo) -> onCreateContextMenu
+    boolean onContextItemSelected(android.view.MenuItem) -> b
+    void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
+    void performStart() -> s
+    void performStop() -> t
+    void performReallyStop() -> u
+    void performDestroyView() -> v
+android.support.v4.app.Fragment$InstantiationException -> android.support.v4.app.e:
+android.support.v4.app.Fragment$SavedState -> android.support.v4.app.Fragment$SavedState:
+    android.os.Bundle mState -> a
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    int describeContents() -> describeContents
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+android.support.v4.app.Fragment$SavedState$1 -> android.support.v4.app.f:
+    android.support.v4.app.Fragment$SavedState createFromParcel(android.os.Parcel) -> a
+    android.support.v4.app.Fragment$SavedState[] newArray(int) -> a
+    java.lang.Object[] newArray(int) -> newArray
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+android.support.v4.app.FragmentActivity -> android.support.v4.app.FragmentActivity:
+    android.os.Handler mHandler -> a
+    android.support.v4.app.FragmentManagerImpl mFragments -> b
+    boolean mCreated -> c
+    boolean mResumed -> d
+    boolean mStopped -> e
+    boolean mReallyStopped -> f
+    boolean mRetaining -> g
+    boolean mOptionsMenuInvalidated -> h
+    boolean mCheckedForLoaderManager -> i
+    boolean mLoadersStarted -> j
+    android.support.v4.app.HCSparseArray mAllLoaderManagers -> k
+    android.support.v4.app.LoaderManagerImpl mLoaderManager -> l
+    void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    void onBackPressed() -> onBackPressed
+    void onConfigurationChanged(android.content.res.Configuration) -> onConfigurationChanged
+    void onCreate(android.os.Bundle) -> onCreate
+    boolean onCreatePanelMenu(int,android.view.Menu) -> onCreatePanelMenu
+    android.view.View onCreateView(java.lang.String,android.content.Context,android.util.AttributeSet) -> onCreateView
+    void onDestroy() -> onDestroy
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    void onLowMemory() -> onLowMemory
+    boolean onMenuItemSelected(int,android.view.MenuItem) -> onMenuItemSelected
+    void onPanelClosed(int,android.view.Menu) -> onPanelClosed
+    void onPause() -> onPause
+    void onResume() -> onResume
+    void onPostResume() -> onPostResume
+    boolean onPreparePanel(int,android.view.View,android.view.Menu) -> onPreparePanel
+    java.lang.Object onRetainNonConfigurationInstance() -> onRetainNonConfigurationInstance
+    void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
+    void onStart() -> onStart
+    void onStop() -> onStop
+    java.lang.Object onRetainCustomNonConfigurationInstance() -> a
+    void supportInvalidateOptionsMenu() -> b
+    void doReallyStop(boolean) -> a
+    void onReallyStop() -> c
+    void onAttachFragment(android.support.v4.app.Fragment) -> a
+    android.support.v4.app.FragmentManager getSupportFragmentManager() -> d
+    void startActivityForResult(android.content.Intent,int) -> startActivityForResult
+    void invalidateSupportFragmentIndex(int) -> a
+    android.support.v4.app.LoaderManagerImpl getLoaderManager(int,boolean,boolean) -> a
+android.support.v4.app.FragmentActivity$1 -> android.support.v4.app.g:
+    android.support.v4.app.FragmentActivity this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+android.support.v4.app.FragmentActivity$FragmentTag -> android.support.v4.app.h:
+    int[] Fragment -> a
+android.support.v4.app.FragmentActivity$NonConfigurationInstances -> android.support.v4.app.i:
+    java.lang.Object activity -> a
+    java.lang.Object custom -> b
+    java.util.HashMap children -> c
+    java.util.ArrayList fragments -> d
+    android.support.v4.app.HCSparseArray loaders -> e
+android.support.v4.app.FragmentManager -> android.support.v4.app.j:
+    android.support.v4.app.FragmentTransaction beginTransaction() -> a
+    boolean executePendingTransactions() -> b
+    android.support.v4.app.Fragment findFragmentByTag(java.lang.String) -> a
+    void popBackStack(int,int) -> a
+android.support.v4.app.FragmentManager$OnBackStackChangedListener -> android.support.v4.app.k:
+    void onBackStackChanged() -> a
+android.support.v4.app.FragmentManagerImpl -> android.support.v4.app.l:
+    boolean DEBUG -> a
+    boolean HONEYCOMB -> b
+    java.util.ArrayList mPendingActions -> c
+    java.lang.Runnable[] mTmpActions -> d
+    boolean mExecutingActions -> e
+    java.util.ArrayList mActive -> f
+    java.util.ArrayList mAdded -> g
+    java.util.ArrayList mAvailIndices -> h
+    java.util.ArrayList mBackStack -> i
+    java.util.ArrayList mCreatedMenus -> j
+    java.util.ArrayList mBackStackIndices -> k
+    java.util.ArrayList mAvailBackStackIndices -> l
+    java.util.ArrayList mBackStackChangeListeners -> m
+    int mCurState -> n
+    android.support.v4.app.FragmentActivity mActivity -> o
+    boolean mNeedMenuInvalidate -> p
+    boolean mStateSaved -> q
+    boolean mDestroyed -> r
+    java.lang.String mNoTransactionsBecause -> s
+    boolean mHavePendingDeferredStart -> t
+    android.os.Bundle mStateBundle -> u
+    android.util.SparseArray mStateArray -> v
+    java.lang.Runnable mExecCommit -> w
+    android.view.animation.Interpolator DECELERATE_QUINT -> x
+    android.view.animation.Interpolator DECELERATE_CUBIC -> y
+    android.view.animation.Interpolator ACCELERATE_QUINT -> z
+    android.view.animation.Interpolator ACCELERATE_CUBIC -> A
+    android.support.v4.app.FragmentTransaction beginTransaction() -> a
+    boolean executePendingTransactions() -> b
+    boolean popBackStackImmediate() -> c
+    void popBackStack(int,int) -> a
+    void putFragment(android.os.Bundle,java.lang.String,android.support.v4.app.Fragment) -> a
+    android.support.v4.app.Fragment getFragment(android.os.Bundle,java.lang.String) -> a
+    java.lang.String toString() -> toString
+    void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
+    android.view.animation.Animation makeOpenCloseAnimation(android.content.Context,float,float,float,float) -> a
+    android.view.animation.Animation makeFadeAnimation(android.content.Context,float,float) -> a
+    android.view.animation.Animation loadAnimation(android.support.v4.app.Fragment,int,boolean,int) -> a
+    void performPendingDeferredStart(android.support.v4.app.Fragment) -> a
+    void moveToState(android.support.v4.app.Fragment,int,int,int) -> a
+    void moveToState(android.support.v4.app.Fragment) -> b
+    void moveToState(int,boolean) -> a
+    void moveToState(int,int,int,boolean) -> a
+    void startPendingDeferredFragments() -> d
+    void makeActive(android.support.v4.app.Fragment) -> c
+    void makeInactive(android.support.v4.app.Fragment) -> d
+    void addFragment(android.support.v4.app.Fragment,boolean) -> a
+    void removeFragment(android.support.v4.app.Fragment,int,int) -> a
+    void hideFragment(android.support.v4.app.Fragment,int,int) -> b
+    void showFragment(android.support.v4.app.Fragment,int,int) -> c
+    void detachFragment(android.support.v4.app.Fragment,int,int) -> d
+    void attachFragment(android.support.v4.app.Fragment,int,int) -> e
+    android.support.v4.app.Fragment findFragmentById(int) -> a
+    android.support.v4.app.Fragment findFragmentByTag(java.lang.String) -> a
+    void checkStateLoss() -> s
+    void enqueueAction(java.lang.Runnable,boolean) -> a
+    int allocBackStackIndex(android.support.v4.app.BackStackRecord) -> a
+    void setBackStackIndex(int,android.support.v4.app.BackStackRecord) -> a
+    void freeBackStackIndex(int) -> b
+    boolean execPendingActions() -> e
+    void reportBackStackChanged() -> f
+    void addBackStackState(android.support.v4.app.BackStackRecord) -> b
+    boolean popBackStackState(android.os.Handler,java.lang.String,int,int) -> a
+    java.util.ArrayList retainNonConfig() -> g
+    void saveFragmentViewState(android.support.v4.app.Fragment) -> e
+    android.os.Bundle saveFragmentBasicState(android.support.v4.app.Fragment) -> f
+    android.os.Parcelable saveAllState() -> h
+    void restoreAllState(android.os.Parcelable,java.util.ArrayList) -> a
+    void attachActivity(android.support.v4.app.FragmentActivity) -> a
+    void noteStateNotSaved() -> i
+    void dispatchCreate() -> j
+    void dispatchActivityCreated() -> k
+    void dispatchStart() -> l
+    void dispatchResume() -> m
+    void dispatchPause() -> n
+    void dispatchStop() -> o
+    void dispatchReallyStop() -> p
+    void dispatchDestroy() -> q
+    void dispatchConfigurationChanged(android.content.res.Configuration) -> a
+    void dispatchLowMemory() -> r
+    boolean dispatchCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
+    boolean dispatchPrepareOptionsMenu(android.view.Menu) -> a
+    boolean dispatchOptionsItemSelected(android.view.MenuItem) -> a
+    boolean dispatchContextItemSelected(android.view.MenuItem) -> b
+    void dispatchOptionsMenuClosed(android.view.Menu) -> b
+    int reverseTransit(int) -> c
+    int transitToStyleIndex(int,boolean) -> b
+android.support.v4.app.FragmentManagerImpl$1 -> android.support.v4.app.m:
+    android.support.v4.app.FragmentManagerImpl this$0 -> a
+    void run() -> run
+android.support.v4.app.FragmentManagerImpl$4 -> android.support.v4.app.n:
+    int val$id -> a
+    int val$flags -> b
+    android.support.v4.app.FragmentManagerImpl this$0 -> c
+    void run() -> run
+android.support.v4.app.FragmentManagerImpl$5 -> android.support.v4.app.o:
+    android.support.v4.app.Fragment val$fragment -> a
+    android.support.v4.app.FragmentManagerImpl this$0 -> b
+    void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+android.support.v4.app.FragmentManagerState -> android.support.v4.app.FragmentManagerState:
+    android.support.v4.app.FragmentState[] mActive -> a
+    int[] mAdded -> b
+    android.support.v4.app.BackStackState[] mBackStack -> c
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    int describeContents() -> describeContents
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+android.support.v4.app.FragmentManagerState$1 -> android.support.v4.app.p:
+    android.support.v4.app.FragmentManagerState createFromParcel(android.os.Parcel) -> a
+    android.support.v4.app.FragmentManagerState[] newArray(int) -> a
+    java.lang.Object[] newArray(int) -> newArray
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+android.support.v4.app.FragmentPagerAdapter -> android.support.v4.app.q:
+    android.support.v4.app.FragmentManager mFragmentManager -> a
+    android.support.v4.app.FragmentTransaction mCurTransaction -> b
+    android.support.v4.app.Fragment mCurrentPrimaryItem -> c
+    android.support.v4.app.Fragment getItem(int) -> a
+    void startUpdate(android.view.ViewGroup) -> a
+    java.lang.Object instantiateItem(android.view.ViewGroup,int) -> a
+    void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> a
+    void setPrimaryItem(android.view.ViewGroup,int,java.lang.Object) -> b
+    void finishUpdate(android.view.ViewGroup) -> b
+    boolean isViewFromObject(android.view.View,java.lang.Object) -> a
+    android.os.Parcelable saveState() -> a
+    void restoreState(android.os.Parcelable,java.lang.ClassLoader) -> a
+    java.lang.String makeFragmentName(int,int) -> a
+android.support.v4.app.FragmentState -> android.support.v4.app.FragmentState:
+    java.lang.String mClassName -> a
+    int mIndex -> b
+    boolean mFromLayout -> c
+    int mFragmentId -> d
+    int mContainerId -> e
+    java.lang.String mTag -> f
+    boolean mRetainInstance -> g
+    boolean mDetached -> h
+    android.os.Bundle mArguments -> i
+    android.os.Bundle mSavedFragmentState -> j
+    android.support.v4.app.Fragment mInstance -> k
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    android.support.v4.app.Fragment instantiate(android.support.v4.app.FragmentActivity) -> a
+    int describeContents() -> describeContents
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+android.support.v4.app.FragmentState$1 -> android.support.v4.app.r:
+    android.support.v4.app.FragmentState createFromParcel(android.os.Parcel) -> a
+    android.support.v4.app.FragmentState[] newArray(int) -> a
+    java.lang.Object[] newArray(int) -> newArray
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+android.support.v4.app.FragmentTransaction -> android.support.v4.app.s:
+    android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String) -> a
+    android.support.v4.app.FragmentTransaction remove(android.support.v4.app.Fragment) -> a
+    android.support.v4.app.FragmentTransaction detach(android.support.v4.app.Fragment) -> b
+    android.support.v4.app.FragmentTransaction attach(android.support.v4.app.Fragment) -> c
+    int commit() -> a
+    int commitAllowingStateLoss() -> b
+android.support.v4.app.HCSparseArray -> android.support.v4.app.t:
+    java.lang.Object DELETED -> a
+    boolean mGarbage -> b
+    int[] mKeys -> c
+    java.lang.Object[] mValues -> d
+    int mSize -> e
+    java.lang.Object get(int) -> a
+    java.lang.Object get(int,java.lang.Object) -> a
+    void delete(int) -> b
+    void remove(int) -> c
+    void removeAt(int) -> d
+    void gc() -> c
+    void put(int,java.lang.Object) -> b
+    int size() -> a
+    int keyAt(int) -> e
+    java.lang.Object valueAt(int) -> f
+    void clear() -> b
+    int binarySearch(int[],int,int,int) -> a
+    int idealByteArraySize(int) -> g
+    int idealIntArraySize(int) -> h
+android.support.v4.app.ListFragment -> android.support.v4.app.ListFragment:
+    android.os.Handler mHandler -> V
+    java.lang.Runnable mRequestFocus -> W
+    android.widget.AdapterView$OnItemClickListener mOnClickListener -> X
+    android.widget.ListAdapter mAdapter -> a
+    android.widget.ListView mList -> b
+    android.view.View mEmptyView -> c
+    android.widget.TextView mStandardEmptyView -> d
+    android.view.View mProgressContainer -> e
+    android.view.View mListContainer -> f
+    java.lang.CharSequence mEmptyText -> g
+    boolean mListShown -> h
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onViewCreated(android.view.View,android.os.Bundle) -> a
+    void onDestroyView() -> d
+    void onListItemClick(android.widget.ListView,android.view.View,int,long) -> a
+    void setListAdapter(android.widget.ListAdapter) -> a
+    void setListShown(boolean,boolean) -> a
+    void ensureList() -> a
+android.support.v4.app.ListFragment$1 -> android.support.v4.app.u:
+    android.support.v4.app.ListFragment this$0 -> a
+    void run() -> run
+android.support.v4.app.ListFragment$2 -> android.support.v4.app.v:
+    android.support.v4.app.ListFragment this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+android.support.v4.app.LoaderManager -> android.support.v4.app.w:
+    boolean hasRunningLoaders() -> a
+android.support.v4.app.LoaderManager$LoaderCallbacks -> android.support.v4.app.x:
+    android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> a
+    void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> a
+    void onLoaderReset(android.support.v4.content.Loader) -> a
+android.support.v4.app.LoaderManagerImpl -> android.support.v4.app.y:
+    boolean DEBUG -> a
+    android.support.v4.app.HCSparseArray mLoaders -> b
+    android.support.v4.app.HCSparseArray mInactiveLoaders -> c
+    android.support.v4.app.FragmentActivity mActivity -> d
+    boolean mStarted -> e
+    boolean mRetaining -> f
+    void updateActivity(android.support.v4.app.FragmentActivity) -> a
+    void doStart() -> b
+    void doStop() -> c
+    void doRetain() -> d
+    void finishRetain() -> e
+    void doReportNextStart() -> f
+    void doReportStart() -> g
+    void doDestroy() -> h
+    java.lang.String toString() -> toString
+    void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
+    boolean hasRunningLoaders() -> a
+android.support.v4.app.LoaderManagerImpl$LoaderInfo -> android.support.v4.app.z:
+    int mId -> a
+    android.os.Bundle mArgs -> b
+    android.support.v4.app.LoaderManager$LoaderCallbacks mCallbacks -> c
+    android.support.v4.content.Loader mLoader -> d
+    boolean mHaveData -> e
+    boolean mDeliveredData -> f
+    java.lang.Object mData -> g
+    boolean mStarted -> h
+    boolean mRetaining -> i
+    boolean mRetainingStarted -> j
+    boolean mReportNextStart -> k
+    boolean mDestroyed -> l
+    boolean mListenerRegistered -> m
+    android.support.v4.app.LoaderManagerImpl$LoaderInfo mPendingLoader -> n
+    android.support.v4.app.LoaderManagerImpl this$0 -> o
+    void start() -> a
+    void retain() -> b
+    void finishRetain() -> c
+    void reportStart() -> d
+    void stop() -> e
+    void destroy() -> f
+    void callOnLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> a
+    java.lang.String toString() -> toString
+    void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
+android.support.v4.app.NoSaveStateFrameLayout -> android.support.v4.app.aa:
+    android.view.ViewGroup wrap(android.view.View) -> a
+    void dispatchSaveInstanceState(android.util.SparseArray) -> dispatchSaveInstanceState
+    void dispatchRestoreInstanceState(android.util.SparseArray) -> dispatchRestoreInstanceState
+android.support.v4.app.SuperNotCalledException -> android.support.v4.app.ab:
+android.support.v4.content.Loader -> android.support.v4.a.a:
+    int mId -> a
+    android.support.v4.content.Loader$OnLoadCompleteListener mListener -> b
+    boolean mStarted -> c
+    boolean mAbandoned -> d
+    boolean mReset -> e
+    boolean mContentChanged -> f
+    void registerListener(int,android.support.v4.content.Loader$OnLoadCompleteListener) -> a
+    void unregisterListener(android.support.v4.content.Loader$OnLoadCompleteListener) -> a
+    void startLoading() -> a
+    void onStartLoading() -> b
+    void stopLoading() -> c
+    void onStopLoading() -> d
+    void reset() -> e
+    void onReset() -> f
+    java.lang.String dataToString(java.lang.Object) -> a
+    java.lang.String toString() -> toString
+    void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
+android.support.v4.content.Loader$OnLoadCompleteListener -> android.support.v4.a.b:
+android.support.v4.os.ParcelableCompat -> android.support.v4.b.a:
+    android.os.Parcelable$Creator newCreator(android.support.v4.os.ParcelableCompatCreatorCallbacks) -> a
+android.support.v4.os.ParcelableCompat$CompatCreator -> android.support.v4.b.b:
+    android.support.v4.os.ParcelableCompatCreatorCallbacks mCallbacks -> a
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    java.lang.Object[] newArray(int) -> newArray
+android.support.v4.os.ParcelableCompatCreatorCallbacks -> android.support.v4.b.c:
+    java.lang.Object createFromParcel(android.os.Parcel,java.lang.ClassLoader) -> a
+    java.lang.Object[] newArray(int) -> a
+android.support.v4.os.ParcelableCompatCreatorHoneycombMR2 -> android.support.v4.b.d:
+    android.support.v4.os.ParcelableCompatCreatorCallbacks mCallbacks -> a
+android.support.v4.os.ParcelableCompatCreatorHoneycombMR2Stub -> android.support.v4.b.e:
+    android.os.Parcelable$Creator instantiate(android.support.v4.os.ParcelableCompatCreatorCallbacks) -> a
+android.support.v4.util.DebugUtils -> android.support.v4.c.a:
+    void buildShortClassTag(java.lang.Object,java.lang.StringBuilder) -> a
+android.support.v4.util.LogWriter -> android.support.v4.c.b:
+    java.lang.String mTag -> a
+    java.lang.StringBuilder mBuilder -> b
+    void close() -> close
+    void flush() -> flush
+    void write(char[],int,int) -> write
+    void flushBuilder() -> a
+android.support.v4.view.KeyEventCompat -> android.support.v4.view.a:
+    android.support.v4.view.KeyEventCompat$KeyEventVersionImpl IMPL -> a
+    boolean hasModifiers(android.view.KeyEvent,int) -> a
+    boolean hasNoModifiers(android.view.KeyEvent) -> a
+android.support.v4.view.KeyEventCompat$BaseKeyEventVersionImpl -> android.support.v4.view.b:
+    int metaStateFilterDirectionalModifiers(int,int,int,int,int) -> a
+    int normalizeMetaState(int) -> a
+    boolean metaStateHasModifiers(int,int) -> a
+    boolean metaStateHasNoModifiers(int) -> b
+android.support.v4.view.KeyEventCompat$HoneycombKeyEventVersionImpl -> android.support.v4.view.c:
+    boolean metaStateHasModifiers(int,int) -> a
+    boolean metaStateHasNoModifiers(int) -> b
+android.support.v4.view.KeyEventCompat$KeyEventVersionImpl -> android.support.v4.view.d:
+    boolean metaStateHasModifiers(int,int) -> a
+    boolean metaStateHasNoModifiers(int) -> b
+android.support.v4.view.KeyEventCompatHoneycomb -> android.support.v4.view.e:
+    boolean metaStateHasModifiers(int,int) -> a
+    boolean metaStateHasNoModifiers(int) -> a
+android.support.v4.view.MotionEventCompat -> android.support.v4.view.f:
+    android.support.v4.view.MotionEventCompat$MotionEventVersionImpl IMPL -> a
+    int getActionIndex(android.view.MotionEvent) -> a
+    int findPointerIndex(android.view.MotionEvent,int) -> a
+    int getPointerId(android.view.MotionEvent,int) -> b
+    float getX(android.view.MotionEvent,int) -> c
+    float getY(android.view.MotionEvent,int) -> d
+android.support.v4.view.MotionEventCompat$BaseMotionEventVersionImpl -> android.support.v4.view.g:
+    int findPointerIndex(android.view.MotionEvent,int) -> a
+    int getPointerId(android.view.MotionEvent,int) -> b
+    float getX(android.view.MotionEvent,int) -> c
+    float getY(android.view.MotionEvent,int) -> d
+android.support.v4.view.MotionEventCompat$EclairMotionEventVersionImpl -> android.support.v4.view.h:
+    int findPointerIndex(android.view.MotionEvent,int) -> a
+    int getPointerId(android.view.MotionEvent,int) -> b
+    float getX(android.view.MotionEvent,int) -> c
+    float getY(android.view.MotionEvent,int) -> d
+android.support.v4.view.MotionEventCompat$MotionEventVersionImpl -> android.support.v4.view.i:
+    int findPointerIndex(android.view.MotionEvent,int) -> a
+    int getPointerId(android.view.MotionEvent,int) -> b
+    float getX(android.view.MotionEvent,int) -> c
+    float getY(android.view.MotionEvent,int) -> d
+android.support.v4.view.MotionEventCompatEclair -> android.support.v4.view.j:
+    int findPointerIndex(android.view.MotionEvent,int) -> a
+    int getPointerId(android.view.MotionEvent,int) -> b
+    float getX(android.view.MotionEvent,int) -> c
+    float getY(android.view.MotionEvent,int) -> d
+android.support.v4.view.PagerAdapter -> android.support.v4.view.k:
+    android.database.DataSetObservable mObservable -> a
+    int getCount() -> b
+    void startUpdate(android.view.ViewGroup) -> a
+    java.lang.Object instantiateItem(android.view.ViewGroup,int) -> a
+    void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> a
+    void setPrimaryItem(android.view.ViewGroup,int,java.lang.Object) -> b
+    void finishUpdate(android.view.ViewGroup) -> b
+    void startUpdate(android.view.View) -> a
+    java.lang.Object instantiateItem(android.view.View,int) -> a
+    void destroyItem(android.view.View,int,java.lang.Object) -> a
+    void setPrimaryItem(android.view.View,int,java.lang.Object) -> b
+    void finishUpdate(android.view.View) -> b
+    boolean isViewFromObject(android.view.View,java.lang.Object) -> a
+    android.os.Parcelable saveState() -> a
+    void restoreState(android.os.Parcelable,java.lang.ClassLoader) -> a
+    int getItemPosition(java.lang.Object) -> a
+    void registerDataSetObserver(android.database.DataSetObserver) -> a
+    void unregisterDataSetObserver(android.database.DataSetObserver) -> b
+    java.lang.CharSequence getPageTitle(int) -> b
+android.support.v4.view.VelocityTrackerCompat -> android.support.v4.view.l:
+    android.support.v4.view.VelocityTrackerCompat$VelocityTrackerVersionImpl IMPL -> a
+    float getXVelocity(android.view.VelocityTracker,int) -> a
+    float getYVelocity(android.view.VelocityTracker,int) -> b
+android.support.v4.view.VelocityTrackerCompat$BaseVelocityTrackerVersionImpl -> android.support.v4.view.m:
+    float getXVelocity(android.view.VelocityTracker,int) -> a
+    float getYVelocity(android.view.VelocityTracker,int) -> b
+android.support.v4.view.VelocityTrackerCompat$HoneycombVelocityTrackerVersionImpl -> android.support.v4.view.n:
+    float getXVelocity(android.view.VelocityTracker,int) -> a
+    float getYVelocity(android.view.VelocityTracker,int) -> b
+android.support.v4.view.VelocityTrackerCompat$VelocityTrackerVersionImpl -> android.support.v4.view.o:
+    float getXVelocity(android.view.VelocityTracker,int) -> a
+    float getYVelocity(android.view.VelocityTracker,int) -> b
+android.support.v4.view.VelocityTrackerCompatHoneycomb -> android.support.v4.view.p:
+    float getXVelocity(android.view.VelocityTracker,int) -> a
+    float getYVelocity(android.view.VelocityTracker,int) -> b
+android.support.v4.view.ViewCompat -> android.support.v4.view.q:
+    android.support.v4.view.ViewCompat$ViewCompatImpl IMPL -> a
+    boolean canScrollHorizontally(android.view.View,int) -> a
+    int getOverScrollMode(android.view.View) -> a
+android.support.v4.view.ViewCompat$BaseViewCompatImpl -> android.support.v4.view.r:
+    boolean canScrollHorizontally(android.view.View,int) -> a
+    int getOverScrollMode(android.view.View) -> a
+android.support.v4.view.ViewCompat$GBViewCompatImpl -> android.support.v4.view.s:
+    int getOverScrollMode(android.view.View) -> a
+android.support.v4.view.ViewCompat$ICSViewCompatImpl -> android.support.v4.view.t:
+    boolean canScrollHorizontally(android.view.View,int) -> a
+android.support.v4.view.ViewCompat$ViewCompatImpl -> android.support.v4.view.u:
+    boolean canScrollHorizontally(android.view.View,int) -> a
+    int getOverScrollMode(android.view.View) -> a
+android.support.v4.view.ViewCompatGingerbread -> android.support.v4.view.v:
+    int getOverScrollMode(android.view.View) -> a
+android.support.v4.view.ViewCompatICS -> android.support.v4.view.w:
+    boolean canScrollHorizontally(android.view.View,int) -> a
+android.support.v4.view.ViewConfigurationCompat -> android.support.v4.view.x:
+    android.support.v4.view.ViewConfigurationCompat$ViewConfigurationVersionImpl IMPL -> a
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompat$BaseViewConfigurationVersionImpl -> android.support.v4.view.y:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompat$FroyoViewConfigurationVersionImpl -> android.support.v4.view.z:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompat$ViewConfigurationVersionImpl -> android.support.v4.view.aa:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewConfigurationCompatFroyo -> android.support.v4.view.ab:
+    int getScaledPagingTouchSlop(android.view.ViewConfiguration) -> a
+android.support.v4.view.ViewPager -> android.support.v4.view.ViewPager:
+    int[] LAYOUT_ATTRS -> a
+    java.util.Comparator COMPARATOR -> b
+    android.view.animation.Interpolator sInterpolator -> c
+    java.util.ArrayList mItems -> d
+    android.support.v4.view.PagerAdapter mAdapter -> e
+    int mCurItem -> f
+    int mRestoredCurItem -> g
+    android.os.Parcelable mRestoredAdapterState -> h
+    java.lang.ClassLoader mRestoredClassLoader -> i
+    android.widget.Scroller mScroller -> j
+    android.support.v4.view.ViewPager$PagerObserver mObserver -> k
+    int mPageMargin -> l
+    android.graphics.drawable.Drawable mMarginDrawable -> m
+    int mTopPageBounds -> n
+    int mBottomPageBounds -> o
+    int mChildWidthMeasureSpec -> p
+    int mChildHeightMeasureSpec -> q
+    boolean mInLayout -> r
+    boolean mScrollingCacheEnabled -> s
+    boolean mPopulatePending -> t
+    boolean mScrolling -> u
+    int mOffscreenPageLimit -> v
+    boolean mIsBeingDragged -> w
+    boolean mIsUnableToDrag -> x
+    int mTouchSlop -> y
+    float mInitialMotionX -> z
+    float mLastMotionX -> A
+    float mLastMotionY -> B
+    int mActivePointerId -> C
+    android.view.VelocityTracker mVelocityTracker -> D
+    int mMinimumVelocity -> E
+    int mMaximumVelocity -> F
+    int mFlingDistance -> G
+    boolean mFakeDragging -> H
+    long mFakeDragBeginTime -> I
+    android.support.v4.widget.EdgeEffectCompat mLeftEdge -> J
+    android.support.v4.widget.EdgeEffectCompat mRightEdge -> K
+    boolean mFirstLayout -> L
+    boolean mCalledSuper -> M
+    int mDecorChildCount -> N
+    android.support.v4.view.ViewPager$OnPageChangeListener mOnPageChangeListener -> O
+    android.support.v4.view.ViewPager$OnPageChangeListener mInternalPageChangeListener -> P
+    android.support.v4.view.ViewPager$OnAdapterChangeListener mAdapterChangeListener -> Q
+    int mScrollState -> R
+    void initViewPager() -> a
+    void setScrollState(int) -> setScrollState
+    void setAdapter(android.support.v4.view.PagerAdapter) -> setAdapter
+    void removeNonDecorViews() -> j
+    android.support.v4.view.PagerAdapter getAdapter() -> getAdapter
+    void setOnAdapterChangeListener(android.support.v4.view.ViewPager$OnAdapterChangeListener) -> setOnAdapterChangeListener
+    void setCurrentItem(int) -> setCurrentItem
+    void setCurrentItem(int,boolean) -> a
+    int getCurrentItem() -> getCurrentItem
+    void setCurrentItemInternal(int,boolean,boolean) -> a
+    void setCurrentItemInternal(int,boolean,boolean,int) -> a
+    void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> setOnPageChangeListener
+    int getOffscreenPageLimit() -> getOffscreenPageLimit
+    void setOffscreenPageLimit(int) -> setOffscreenPageLimit
+    void setPageMargin(int) -> setPageMargin
+    int getPageMargin() -> getPageMargin
+    void setPageMarginDrawable(android.graphics.drawable.Drawable) -> setPageMarginDrawable
+    void setPageMarginDrawable(int) -> setPageMarginDrawable
+    boolean verifyDrawable(android.graphics.drawable.Drawable) -> verifyDrawable
+    void drawableStateChanged() -> drawableStateChanged
+    float distanceInfluenceForSnapDuration(float) -> a
+    void smoothScrollTo(int,int,int) -> a
+    void addNewItem(int,int) -> a
+    void dataSetChanged() -> b
+    void populate() -> c
+    android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
+    void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
+    void addView(android.view.View,int,android.view.ViewGroup$LayoutParams) -> addView
+    android.support.v4.view.ViewPager$ItemInfo infoForChild(android.view.View) -> a
+    android.support.v4.view.ViewPager$ItemInfo infoForAnyChild(android.view.View) -> b
+    void onAttachedToWindow() -> onAttachedToWindow
+    void onMeasure(int,int) -> onMeasure
+    void onSizeChanged(int,int,int,int) -> onSizeChanged
+    void recomputeScrollPosition(int,int,int,int) -> a
+    void onLayout(boolean,int,int,int,int) -> onLayout
+    void computeScroll() -> computeScroll
+    void pageScrolled(int) -> b
+    void onPageScrolled(int,float,int) -> a
+    void completeScroll() -> k
+    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    int determineTargetPage(int,float,int,int) -> a
+    void draw(android.graphics.Canvas) -> draw
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean beginFakeDrag() -> d
+    void endFakeDrag() -> e
+    void fakeDragBy(float) -> b
+    boolean isFakeDragging() -> f
+    void onSecondaryPointerUp(android.view.MotionEvent) -> a
+    void endDrag() -> l
+    void setScrollingCacheEnabled(boolean) -> setScrollingCacheEnabled
+    boolean canScroll(android.view.View,boolean,int,int,int) -> a
+    boolean dispatchKeyEvent(android.view.KeyEvent) -> dispatchKeyEvent
+    boolean executeKeyEvent(android.view.KeyEvent) -> a
+    boolean arrowScroll(int) -> a
+    boolean pageLeft() -> g
+    boolean pageRight() -> h
+    void addFocusables(java.util.ArrayList,int,int) -> addFocusables
+    void addTouchables(java.util.ArrayList) -> addTouchables
+    boolean onRequestFocusInDescendants(int,android.graphics.Rect) -> onRequestFocusInDescendants
+    boolean dispatchPopulateAccessibilityEvent(android.view.accessibility.AccessibilityEvent) -> dispatchPopulateAccessibilityEvent
+    android.view.ViewGroup$LayoutParams generateDefaultLayoutParams() -> generateDefaultLayoutParams
+    android.view.ViewGroup$LayoutParams generateLayoutParams(android.view.ViewGroup$LayoutParams) -> generateLayoutParams
+    boolean checkLayoutParams(android.view.ViewGroup$LayoutParams) -> checkLayoutParams
+    android.view.ViewGroup$LayoutParams generateLayoutParams(android.util.AttributeSet) -> generateLayoutParams
+    int[] access$100() -> i
+android.support.v4.view.ViewPager$1 -> android.support.v4.view.ac:
+    int compare(android.support.v4.view.ViewPager$ItemInfo,android.support.v4.view.ViewPager$ItemInfo) -> a
+    int compare(java.lang.Object,java.lang.Object) -> compare
+android.support.v4.view.ViewPager$2 -> android.support.v4.view.ad:
+    float getInterpolation(float) -> getInterpolation
+android.support.v4.view.ViewPager$Decor -> android.support.v4.view.ae:
+android.support.v4.view.ViewPager$ItemInfo -> android.support.v4.view.af:
+    java.lang.Object object -> a
+    int position -> b
+    boolean scrolling -> c
+android.support.v4.view.ViewPager$LayoutParams -> android.support.v4.view.ag:
+    boolean isDecor -> a
+    int gravity -> b
+android.support.v4.view.ViewPager$OnAdapterChangeListener -> android.support.v4.view.ah:
+    void onAdapterChanged(android.support.v4.view.PagerAdapter,android.support.v4.view.PagerAdapter) -> a
+android.support.v4.view.ViewPager$OnPageChangeListener -> android.support.v4.view.ai:
+    void onPageScrolled(int,float,int) -> a
+    void onPageSelected(int) -> a
+    void onPageScrollStateChanged(int) -> b
+android.support.v4.view.ViewPager$PagerObserver -> android.support.v4.view.aj:
+    android.support.v4.view.ViewPager this$0 -> a
+    void onChanged() -> onChanged
+    void onInvalidated() -> onInvalidated
+android.support.v4.view.ViewPager$SavedState -> android.support.v4.view.ViewPager$SavedState:
+    int position -> a
+    android.os.Parcelable adapterState -> b
+    java.lang.ClassLoader loader -> c
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+    java.lang.String toString() -> toString
+android.support.v4.view.ViewPager$SavedState$1 -> android.support.v4.view.ak:
+    android.support.v4.view.ViewPager$SavedState createFromParcel(android.os.Parcel,java.lang.ClassLoader) -> b
+    android.support.v4.view.ViewPager$SavedState[] newArray(int) -> b
+    java.lang.Object[] newArray(int) -> a
+    java.lang.Object createFromParcel(android.os.Parcel,java.lang.ClassLoader) -> a
+android.support.v4.widget.EdgeEffectCompat -> android.support.v4.d.a:
+    java.lang.Object mEdgeEffect -> a
+    android.support.v4.widget.EdgeEffectCompat$EdgeEffectImpl IMPL -> b
+    void setSize(int,int) -> a
+    boolean isFinished() -> a
+    void finish() -> b
+    boolean onPull(float) -> a
+    boolean onRelease() -> c
+    boolean draw(android.graphics.Canvas) -> a
+android.support.v4.widget.EdgeEffectCompat$BaseEdgeEffectImpl -> android.support.v4.d.b:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
+    void setSize(java.lang.Object,int,int) -> a
+    boolean isFinished(java.lang.Object) -> a
+    void finish(java.lang.Object) -> b
+    boolean onPull(java.lang.Object,float) -> a
+    boolean onRelease(java.lang.Object) -> c
+    boolean draw(java.lang.Object,android.graphics.Canvas) -> a
+android.support.v4.widget.EdgeEffectCompat$EdgeEffectIcsImpl -> android.support.v4.d.c:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
+    void setSize(java.lang.Object,int,int) -> a
+    boolean isFinished(java.lang.Object) -> a
+    void finish(java.lang.Object) -> b
+    boolean onPull(java.lang.Object,float) -> a
+    boolean onRelease(java.lang.Object) -> c
+    boolean draw(java.lang.Object,android.graphics.Canvas) -> a
+android.support.v4.widget.EdgeEffectCompat$EdgeEffectImpl -> android.support.v4.d.d:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
+    void setSize(java.lang.Object,int,int) -> a
+    boolean isFinished(java.lang.Object) -> a
+    void finish(java.lang.Object) -> b
+    boolean onPull(java.lang.Object,float) -> a
+    boolean onRelease(java.lang.Object) -> c
+    boolean draw(java.lang.Object,android.graphics.Canvas) -> a
+android.support.v4.widget.EdgeEffectCompatIcs -> android.support.v4.d.e:
+    java.lang.Object newEdgeEffect(android.content.Context) -> a
+    void setSize(java.lang.Object,int,int) -> a
+    boolean isFinished(java.lang.Object) -> a
+    void finish(java.lang.Object) -> b
+    boolean onPull(java.lang.Object,float) -> a
+    boolean onRelease(java.lang.Object) -> c
+    boolean draw(java.lang.Object,android.graphics.Canvas) -> a
 com.commonsware.cwac.adapter.AdapterWrapper -> com.commonsware.cwac.adapter.a:
     android.widget.ListAdapter wrapped -> a
     java.lang.Object getItem(int) -> getItem
@@ -42,6 +883,22 @@ com.google.android.gms.R$string -> com.google.android.gms.b:
     int common_google_play_services_update_title -> common_google_play_services_update_title
     int common_signin_button_text -> common_signin_button_text
     int common_signin_button_text_long -> common_signin_button_text_long
+com.google.android.gms.R$styleable -> com.google.android.gms.c:
+    int[] MapAttrs -> MapAttrs
+    int MapAttrs_cameraBearing -> MapAttrs_cameraBearing
+    int MapAttrs_cameraTargetLat -> MapAttrs_cameraTargetLat
+    int MapAttrs_cameraTargetLng -> MapAttrs_cameraTargetLng
+    int MapAttrs_cameraTilt -> MapAttrs_cameraTilt
+    int MapAttrs_cameraZoom -> MapAttrs_cameraZoom
+    int MapAttrs_mapType -> MapAttrs_mapType
+    int MapAttrs_uiCompass -> MapAttrs_uiCompass
+    int MapAttrs_uiRotateGestures -> MapAttrs_uiRotateGestures
+    int MapAttrs_uiScrollGestures -> MapAttrs_uiScrollGestures
+    int MapAttrs_uiTiltGestures -> MapAttrs_uiTiltGestures
+    int MapAttrs_uiZoomControls -> MapAttrs_uiZoomControls
+    int MapAttrs_uiZoomGestures -> MapAttrs_uiZoomGestures
+    int MapAttrs_useViewLifecycle -> MapAttrs_useViewLifecycle
+    int MapAttrs_zOrderOnTop -> MapAttrs_zOrderOnTop
 com.google.android.gms.common.ConnectionResult -> com.google.android.gms.common.a:
     com.google.android.gms.common.ConnectionResult B -> a
     android.app.PendingIntent mPendingIntent -> b
@@ -56,7 +913,9 @@ com.google.android.gms.common.GooglePlayServicesClient$ConnectionCallbacks -> co
     void onDisconnected() -> a
 com.google.android.gms.common.GooglePlayServicesClient$OnConnectionFailedListener -> com.google.android.gms.common.d:
     void onConnectionFailed(com.google.android.gms.common.ConnectionResult) -> a
-com.google.android.gms.common.GooglePlayServicesUtil -> com.google.android.gms.common.e:
+com.google.android.gms.common.GooglePlayServicesNotAvailableException -> com.google.android.gms.common.e:
+    int errorCode -> a
+com.google.android.gms.common.GooglePlayServicesUtil -> com.google.android.gms.common.f:
     byte[][] C -> a
     byte[][] D -> b
     byte[][] E -> c
@@ -71,6 +930,16 @@ com.google.android.gms.common.GooglePlayServicesUtil -> com.google.android.gms.c
     java.lang.Object N -> l
     int isGooglePlayServicesAvailable(android.content.Context) -> a
     byte[] a(android.content.pm.PackageInfo,byte[][]) -> a
+    android.content.Intent a(android.content.Context,int,int) -> a
+    boolean b(int) -> a
+    int c(int) -> b
+    boolean g() -> a
+    boolean c(android.content.Context) -> c
+    java.lang.String b(android.content.Context,int,int) -> b
+    java.lang.String a(android.content.Context,int) -> a
+    boolean a(android.content.res.Resources) -> a
+    boolean b(android.content.res.Resources) -> b
+    android.content.Context getRemoteContext(android.content.Context) -> b
     byte[][] a(byte[][][]) -> a
     byte[] c(java.lang.String) -> a
 com.google.android.gms.common.data.Freezable -> com.google.android.gms.common.data.a:
@@ -263,14 +1132,88 @@ com.google.android.gms.common.internal.safeparcel.b -> com.google.android.gms.co
     void a(android.os.Parcel,android.os.Parcelable,int) -> a
     void a(android.os.Parcel,int,android.os.Parcel,boolean) -> a
     void c(android.os.Parcel,int,java.util.List,boolean) -> c
-com.google.android.gms.dynamic.b -> com.google.android.gms.a.a:
-com.google.android.gms.dynamic.b$a -> com.google.android.gms.a.b:
+com.google.android.gms.dynamic.LifecycleDelegate -> com.google.android.gms.a.a:
+    void onInflate(android.app.Activity,android.os.Bundle,android.os.Bundle) -> a
+    void onCreate(android.os.Bundle) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onResume() -> a
+    void onPause() -> b
+    void onDestroyView() -> c
+    void onDestroy() -> d
+    void onLowMemory() -> e
+    void onSaveInstanceState(android.os.Bundle) -> b
+com.google.android.gms.dynamic.a -> com.google.android.gms.a.b:
+    com.google.android.gms.dynamic.LifecycleDelegate cP -> a
+    android.os.Bundle cQ -> b
+    java.util.LinkedList cR -> c
+    com.google.android.gms.dynamic.d cS -> d
+    com.google.android.gms.dynamic.LifecycleDelegate at() -> a
+    void y(int) -> a
+    void a(android.os.Bundle,com.google.android.gms.dynamic.a$a) -> a
+    void a(com.google.android.gms.dynamic.d) -> a
+    void onInflate(android.app.Activity,android.os.Bundle,android.os.Bundle) -> a
+    void onCreate(android.os.Bundle) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void a(android.widget.FrameLayout) -> a
+    void onResume() -> b
+    void onPause() -> c
+    void onDestroyView() -> d
+    void onDestroy() -> e
+    void onSaveInstanceState(android.os.Bundle) -> b
+    void onLowMemory() -> f
+    com.google.android.gms.dynamic.LifecycleDelegate a(com.google.android.gms.dynamic.a,com.google.android.gms.dynamic.LifecycleDelegate) -> a
+    java.util.LinkedList a(com.google.android.gms.dynamic.a) -> a
+    com.google.android.gms.dynamic.LifecycleDelegate b(com.google.android.gms.dynamic.a) -> b
+    android.os.Bundle a(com.google.android.gms.dynamic.a,android.os.Bundle) -> a
+com.google.android.gms.dynamic.a$1 -> com.google.android.gms.a.c:
+    com.google.android.gms.dynamic.a cT -> a
+    void a(com.google.android.gms.dynamic.LifecycleDelegate) -> a
+com.google.android.gms.dynamic.a$2 -> com.google.android.gms.a.d:
+    android.app.Activity cU -> a
+    android.os.Bundle cV -> b
+    android.os.Bundle cW -> c
+    com.google.android.gms.dynamic.a cT -> d
+    int getState() -> a
+    void b(com.google.android.gms.dynamic.LifecycleDelegate) -> a
+com.google.android.gms.dynamic.a$3 -> com.google.android.gms.a.e:
+    android.os.Bundle cW -> a
+    com.google.android.gms.dynamic.a cT -> b
+    int getState() -> a
+    void b(com.google.android.gms.dynamic.LifecycleDelegate) -> a
+com.google.android.gms.dynamic.a$4 -> com.google.android.gms.a.f:
+    android.widget.FrameLayout cX -> a
+    android.view.LayoutInflater cY -> b
+    android.view.ViewGroup cZ -> c
+    android.os.Bundle cW -> d
+    com.google.android.gms.dynamic.a cT -> e
+    int getState() -> a
+    void b(com.google.android.gms.dynamic.LifecycleDelegate) -> a
+com.google.android.gms.dynamic.a$5 -> com.google.android.gms.a.g:
+    android.content.Context da -> a
+    int db -> b
+    com.google.android.gms.dynamic.a cT -> c
+    void onClick(android.view.View) -> onClick
+com.google.android.gms.dynamic.a$6 -> com.google.android.gms.a.h:
+    com.google.android.gms.dynamic.a cT -> a
+    int getState() -> a
+    void b(com.google.android.gms.dynamic.LifecycleDelegate) -> a
+com.google.android.gms.dynamic.a$a -> com.google.android.gms.a.i:
+    int getState() -> a
+    void b(com.google.android.gms.dynamic.LifecycleDelegate) -> a
+com.google.android.gms.dynamic.b -> com.google.android.gms.a.j:
+com.google.android.gms.dynamic.b$a -> com.google.android.gms.a.k:
     com.google.android.gms.dynamic.b l(android.os.IBinder) -> a
     android.os.IBinder asBinder() -> asBinder
     boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
-com.google.android.gms.dynamic.b$a$a -> com.google.android.gms.a.c:
+com.google.android.gms.dynamic.b$a$a -> com.google.android.gms.a.l:
     android.os.IBinder a -> a
     android.os.IBinder asBinder() -> asBinder
+com.google.android.gms.dynamic.c -> com.google.android.gms.a.m:
+    java.lang.Object dc -> a
+    com.google.android.gms.dynamic.b f(java.lang.Object) -> a
+    java.lang.Object a(com.google.android.gms.dynamic.b) -> a
+com.google.android.gms.dynamic.d -> com.google.android.gms.a.n:
+    void a(com.google.android.gms.dynamic.LifecycleDelegate) -> a
 com.google.android.gms.games.Game -> com.google.android.gms.games.Game:
     java.lang.String getApplicationId() -> b
     java.lang.String getDisplayName() -> c
@@ -852,7 +1795,8 @@ com.google.android.gms.internal.ar -> com.google.android.gms.internal.o:
     void a(java.lang.StringBuilder,java.util.HashMap) -> a
 com.google.android.gms.internal.as -> com.google.android.gms.internal.p:
     boolean an() -> a
-    boolean as() -> b
+    boolean ap() -> b
+    boolean as() -> c
     boolean x(int) -> a
 com.google.android.gms.internal.av -> com.google.android.gms.internal.av:
     boolean c(java.lang.Integer) -> b
@@ -1757,17 +2701,24 @@ com.google.android.gms.internal.l$a$a -> com.google.android.gms.internal.bq:
     com.google.android.gms.internal.l$a bU -> a
     void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
     void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
-com.google.android.gms.internal.o -> com.google.android.gms.internal.br:
+com.google.android.gms.internal.m -> com.google.android.gms.internal.br:
+    android.net.Uri bV -> a
+    android.net.Uri bW -> b
+    android.content.Intent i(java.lang.String) -> a
+    android.net.Uri j(java.lang.String) -> d
+    android.content.Intent k(java.lang.String) -> b
+    android.content.Intent l(java.lang.String) -> c
+com.google.android.gms.internal.o -> com.google.android.gms.internal.bs:
     void b(int,android.os.IBinder,android.os.Bundle) -> a
-com.google.android.gms.internal.o$a -> com.google.android.gms.internal.bs:
+com.google.android.gms.internal.o$a -> com.google.android.gms.internal.bt:
     com.google.android.gms.internal.o g(android.os.IBinder) -> a
     android.os.IBinder asBinder() -> asBinder
     boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
-com.google.android.gms.internal.o$a$a -> com.google.android.gms.internal.bt:
+com.google.android.gms.internal.o$a$a -> com.google.android.gms.internal.bu:
     android.os.IBinder a -> a
     android.os.IBinder asBinder() -> asBinder
     void b(int,android.os.IBinder,android.os.Bundle) -> a
-com.google.android.gms.internal.p -> com.google.android.gms.internal.bu:
+com.google.android.gms.internal.p -> com.google.android.gms.internal.bw:
     void a(com.google.android.gms.internal.o,int,java.lang.String,java.lang.String,java.lang.String[],java.lang.String,android.os.Bundle) -> a
     void a(com.google.android.gms.internal.o,int,java.lang.String,android.os.Bundle) -> a
     void a(com.google.android.gms.internal.o,int,java.lang.String) -> a
@@ -1781,10 +2732,10 @@ com.google.android.gms.internal.p -> com.google.android.gms.internal.bu:
     void f(com.google.android.gms.internal.o,int,java.lang.String,android.os.Bundle) -> f
     void g(com.google.android.gms.internal.o,int,java.lang.String,android.os.Bundle) -> g
     void h(com.google.android.gms.internal.o,int,java.lang.String,android.os.Bundle) -> h
-com.google.android.gms.internal.p$a -> com.google.android.gms.internal.bw:
+com.google.android.gms.internal.p$a -> com.google.android.gms.internal.by:
     com.google.android.gms.internal.p h(android.os.IBinder) -> a
     boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
-com.google.android.gms.internal.p$a$a -> com.google.android.gms.internal.by:
+com.google.android.gms.internal.p$a$a -> com.google.android.gms.internal.ca:
     android.os.IBinder a -> a
     android.os.IBinder asBinder() -> asBinder
     void a(com.google.android.gms.internal.o,int,java.lang.String,java.lang.String,java.lang.String[],java.lang.String,android.os.Bundle) -> a
@@ -1800,24 +2751,24 @@ com.google.android.gms.internal.p$a$a -> com.google.android.gms.internal.by:
     void f(com.google.android.gms.internal.o,int,java.lang.String,android.os.Bundle) -> f
     void g(com.google.android.gms.internal.o,int,java.lang.String,android.os.Bundle) -> g
     void h(com.google.android.gms.internal.o,int,java.lang.String,android.os.Bundle) -> h
-com.google.android.gms.internal.r -> com.google.android.gms.internal.ca:
+com.google.android.gms.internal.r -> com.google.android.gms.internal.cb:
     boolean a(java.lang.Object,java.lang.Object) -> a
     int hashCode(java.lang.Object[]) -> a
     com.google.android.gms.internal.r$a c(java.lang.Object) -> a
-com.google.android.gms.internal.r$1 -> com.google.android.gms.internal.cb:
-com.google.android.gms.internal.r$a -> com.google.android.gms.internal.cd:
+com.google.android.gms.internal.r$1 -> com.google.android.gms.internal.cd:
+com.google.android.gms.internal.r$a -> com.google.android.gms.internal.ce:
     java.util.List bY -> a
     java.lang.Object bZ -> b
     com.google.android.gms.internal.r$a a(java.lang.String,java.lang.Object) -> a
     java.lang.String toString() -> toString
-com.google.android.gms.internal.s -> com.google.android.gms.internal.ce:
+com.google.android.gms.internal.s -> com.google.android.gms.internal.cf:
     java.lang.Object d(java.lang.Object) -> a
     java.lang.Object b(java.lang.Object,java.lang.Object) -> a
     void a(boolean) -> a
     void a(boolean,java.lang.Object) -> a
     void b(boolean,java.lang.Object) -> b
     void a(boolean,java.lang.String,java.lang.Object[]) -> a
-com.google.android.gms.internal.w -> com.google.android.gms.internal.cf:
+com.google.android.gms.internal.w -> com.google.android.gms.internal.cg:
     java.util.LinkedHashMap cb -> a
     int size -> b
     int cc -> c
@@ -1855,7 +2806,7 @@ com.google.android.gms.internal.x -> com.google.android.gms.internal.x:
     int hashCode() -> hashCode
     boolean equals(java.lang.Object) -> equals
     java.lang.String toString() -> toString
-com.google.android.gms.internal.y -> com.google.android.gms.internal.cg:
+com.google.android.gms.internal.y -> com.google.android.gms.internal.ch:
     com.google.android.gms.internal.x e(android.os.Parcel) -> a
     com.google.android.gms.internal.x[] n(int) -> a
     void a(com.google.android.gms.internal.x,android.os.Parcel,int) -> a
@@ -1952,6 +2903,9 @@ com.google.android.gms.location.a$a$a -> com.google.android.gms.location.h:
     android.os.IBinder a -> a
     android.os.IBinder asBinder() -> asBinder
     void onLocationChanged(android.location.Location) -> a
+com.google.android.gms.maps.CameraUpdateFactory -> com.google.android.gms.maps.a:
+    com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate fW -> a
+    void a(com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate) -> a
 com.google.android.gms.maps.GoogleMapOptions -> com.google.android.gms.maps.GoogleMapOptions:
     com.google.android.gms.maps.GoogleMapOptionsCreator CREATOR -> a
     int ab -> b
@@ -1976,25 +2930,462 @@ com.google.android.gms.maps.GoogleMapOptions -> com.google.android.gms.maps.Goog
     byte be() -> g
     byte bf() -> h
     byte bg() -> i
+    com.google.android.gms.maps.GoogleMapOptions zOrderOnTop(boolean) -> a
+    com.google.android.gms.maps.GoogleMapOptions useViewLifecycleInFragment(boolean) -> b
+    com.google.android.gms.maps.GoogleMapOptions mapType(int) -> a
+    com.google.android.gms.maps.GoogleMapOptions camera(com.google.android.gms.maps.model.CameraPosition) -> a
+    com.google.android.gms.maps.GoogleMapOptions zoomControlsEnabled(boolean) -> c
+    com.google.android.gms.maps.GoogleMapOptions compassEnabled(boolean) -> d
+    com.google.android.gms.maps.GoogleMapOptions scrollGesturesEnabled(boolean) -> e
+    com.google.android.gms.maps.GoogleMapOptions zoomGesturesEnabled(boolean) -> f
+    com.google.android.gms.maps.GoogleMapOptions tiltGesturesEnabled(boolean) -> g
+    com.google.android.gms.maps.GoogleMapOptions rotateGesturesEnabled(boolean) -> h
     int getMapType() -> j
     com.google.android.gms.maps.model.CameraPosition getCamera() -> k
-com.google.android.gms.maps.GoogleMapOptionsCreator -> com.google.android.gms.maps.a:
+    com.google.android.gms.maps.GoogleMapOptions createFromAttributes(android.content.Context,android.util.AttributeSet) -> a
+com.google.android.gms.maps.GoogleMapOptionsCreator -> com.google.android.gms.maps.b:
     com.google.android.gms.maps.GoogleMapOptions createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.GoogleMapOptions[] newArray(int) -> a
     void a(com.google.android.gms.maps.GoogleMapOptions,android.os.Parcel,int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-com.google.android.gms.maps.a -> com.google.android.gms.maps.b:
+com.google.android.gms.maps.MapsInitializer -> com.google.android.gms.maps.c:
+    void initialize(android.content.Context) -> a
+com.google.android.gms.maps.SupportMapFragment -> com.google.android.gms.maps.SupportMapFragment:
+    com.google.android.gms.maps.SupportMapFragment$b gK -> a
+    void onAttach(android.app.Activity) -> a
+    void onInflate(android.app.Activity,android.util.AttributeSet,android.os.Bundle) -> a
+    void onCreate(android.os.Bundle) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onResume() -> m
+    void onPause() -> n
+    void onDestroyView() -> d
+    void onDestroy() -> o
+    void onLowMemory() -> onLowMemory
+    void onActivityCreated(android.os.Bundle) -> d
+    void onSaveInstanceState(android.os.Bundle) -> e
+    void setArguments(android.os.Bundle) -> f
+com.google.android.gms.maps.SupportMapFragment$a -> com.google.android.gms.maps.d:
+    android.support.v4.app.Fragment gL -> a
+    com.google.android.gms.maps.internal.IMapFragmentDelegate gB -> b
+    void onInflate(android.app.Activity,android.os.Bundle,android.os.Bundle) -> a
+    void onCreate(android.os.Bundle) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onResume() -> a
+    void onPause() -> b
+    void onDestroyView() -> c
+    void onDestroy() -> d
+    void onLowMemory() -> e
+    void onSaveInstanceState(android.os.Bundle) -> b
+com.google.android.gms.maps.SupportMapFragment$b -> com.google.android.gms.maps.e:
+    android.support.v4.app.Fragment gL -> b
+    com.google.android.gms.dynamic.d gC -> a
+    android.app.Activity bm -> c
+    void a(com.google.android.gms.dynamic.d) -> a
+    void bi() -> g
+    void setActivity(android.app.Activity) -> a
+    void a(com.google.android.gms.maps.SupportMapFragment$b,android.app.Activity) -> a
+com.google.android.gms.maps.a -> com.google.android.gms.maps.f:
     void a(com.google.android.gms.maps.GoogleMapOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.internal.a -> com.google.android.gms.maps.a.a:
+com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate -> com.google.android.gms.maps.a.a:
+    com.google.android.gms.dynamic.b zoomIn() -> a
+    com.google.android.gms.dynamic.b zoomOut() -> b
+    com.google.android.gms.dynamic.b scrollBy(float,float) -> a
+    com.google.android.gms.dynamic.b zoomTo(float) -> a
+    com.google.android.gms.dynamic.b zoomBy(float) -> b
+    com.google.android.gms.dynamic.b zoomByWithFocus(float,int,int) -> a
+    com.google.android.gms.dynamic.b newCameraPosition(com.google.android.gms.maps.model.CameraPosition) -> a
+    com.google.android.gms.dynamic.b newLatLng(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.dynamic.b newLatLngZoom(com.google.android.gms.maps.model.LatLng,float) -> a
+    com.google.android.gms.dynamic.b newLatLngBounds(com.google.android.gms.maps.model.LatLngBounds,int) -> a
+    com.google.android.gms.dynamic.b newLatLngBoundsWithSize(com.google.android.gms.maps.model.LatLngBounds,int,int,int) -> a
+com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate$a -> com.google.android.gms.maps.a.b:
+    com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate t(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate$a$a -> com.google.android.gms.maps.a.c:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    com.google.android.gms.dynamic.b zoomIn() -> a
+    com.google.android.gms.dynamic.b zoomOut() -> b
+    com.google.android.gms.dynamic.b scrollBy(float,float) -> a
+    com.google.android.gms.dynamic.b zoomTo(float) -> a
+    com.google.android.gms.dynamic.b zoomBy(float) -> b
+    com.google.android.gms.dynamic.b zoomByWithFocus(float,int,int) -> a
+    com.google.android.gms.dynamic.b newCameraPosition(com.google.android.gms.maps.model.CameraPosition) -> a
+    com.google.android.gms.dynamic.b newLatLng(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.dynamic.b newLatLngZoom(com.google.android.gms.maps.model.LatLng,float) -> a
+    com.google.android.gms.dynamic.b newLatLngBounds(com.google.android.gms.maps.model.LatLngBounds,int) -> a
+    com.google.android.gms.dynamic.b newLatLngBoundsWithSize(com.google.android.gms.maps.model.LatLngBounds,int,int,int) -> a
+com.google.android.gms.maps.internal.IGoogleMapDelegate -> com.google.android.gms.maps.a.d:
+    com.google.android.gms.maps.model.CameraPosition getCameraPosition() -> a
+    float getMaxZoomLevel() -> b
+    float getMinZoomLevel() -> c
+    void moveCamera(com.google.android.gms.dynamic.b) -> a
+    void animateCamera(com.google.android.gms.dynamic.b) -> b
+    void animateCameraWithCallback(com.google.android.gms.dynamic.b,com.google.android.gms.maps.internal.b) -> a
+    void animateCameraWithDurationAndCallback(com.google.android.gms.dynamic.b,int,com.google.android.gms.maps.internal.b) -> a
+    void stopAnimation() -> d
+    com.google.android.gms.maps.model.internal.IPolylineDelegate addPolyline(com.google.android.gms.maps.model.PolylineOptions) -> a
+    com.google.android.gms.maps.model.internal.e addPolygon(com.google.android.gms.maps.model.PolygonOptions) -> a
+    com.google.android.gms.maps.model.internal.d addMarker(com.google.android.gms.maps.model.MarkerOptions) -> a
+    com.google.android.gms.maps.model.internal.c addGroundOverlay(com.google.android.gms.maps.model.GroundOverlayOptions) -> a
+    com.google.android.gms.maps.model.internal.f addTileOverlay(com.google.android.gms.maps.model.TileOverlayOptions) -> a
+    void clear() -> e
+    int getMapType() -> f
+    void setMapType(int) -> a
+    boolean isTrafficEnabled() -> g
+    void setTrafficEnabled(boolean) -> a
+    boolean isIndoorEnabled() -> h
+    boolean setIndoorEnabled(boolean) -> b
+    boolean isMyLocationEnabled() -> i
+    void setMyLocationEnabled(boolean) -> c
+    android.location.Location getMyLocation() -> j
+    void setLocationSource(com.google.android.gms.maps.internal.ILocationSourceDelegate) -> a
+    com.google.android.gms.maps.internal.IUiSettingsDelegate getUiSettings() -> k
+    com.google.android.gms.maps.internal.IProjectionDelegate getProjection() -> l
+    void setOnCameraChangeListener(com.google.android.gms.maps.internal.e) -> a
+    void setOnMapClickListener(com.google.android.gms.maps.internal.h) -> a
+    void setOnMapLongClickListener(com.google.android.gms.maps.internal.i) -> a
+    void setOnMarkerClickListener(com.google.android.gms.maps.internal.j) -> a
+    void setOnMarkerDragListener(com.google.android.gms.maps.internal.k) -> a
+    void setOnInfoWindowClickListener(com.google.android.gms.maps.internal.f) -> a
+    void setInfoWindowAdapter(com.google.android.gms.maps.internal.d) -> a
+    com.google.android.gms.dynamic.b getTestingHelper() -> m
+    com.google.android.gms.maps.model.internal.b addCircle(com.google.android.gms.maps.model.CircleOptions) -> a
+    void setOnMyLocationChangeListener(com.google.android.gms.maps.internal.m) -> a
+    void setOnMyLocationButtonClickListener(com.google.android.gms.maps.internal.l) -> a
+    void snapshot(com.google.android.gms.maps.internal.n,com.google.android.gms.dynamic.b) -> a
+    void setPadding(int,int,int,int) -> a
+com.google.android.gms.maps.internal.IGoogleMapDelegate$a -> com.google.android.gms.maps.a.e:
+    com.google.android.gms.maps.internal.IGoogleMapDelegate w(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.IGoogleMapDelegate$a$a -> com.google.android.gms.maps.a.f:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    com.google.android.gms.maps.model.CameraPosition getCameraPosition() -> a
+    float getMaxZoomLevel() -> b
+    float getMinZoomLevel() -> c
+    void moveCamera(com.google.android.gms.dynamic.b) -> a
+    void animateCamera(com.google.android.gms.dynamic.b) -> b
+    void animateCameraWithCallback(com.google.android.gms.dynamic.b,com.google.android.gms.maps.internal.b) -> a
+    void animateCameraWithDurationAndCallback(com.google.android.gms.dynamic.b,int,com.google.android.gms.maps.internal.b) -> a
+    void stopAnimation() -> d
+    com.google.android.gms.maps.model.internal.IPolylineDelegate addPolyline(com.google.android.gms.maps.model.PolylineOptions) -> a
+    com.google.android.gms.maps.model.internal.e addPolygon(com.google.android.gms.maps.model.PolygonOptions) -> a
+    com.google.android.gms.maps.model.internal.d addMarker(com.google.android.gms.maps.model.MarkerOptions) -> a
+    com.google.android.gms.maps.model.internal.c addGroundOverlay(com.google.android.gms.maps.model.GroundOverlayOptions) -> a
+    com.google.android.gms.maps.model.internal.f addTileOverlay(com.google.android.gms.maps.model.TileOverlayOptions) -> a
+    void clear() -> e
+    int getMapType() -> f
+    void setMapType(int) -> a
+    boolean isTrafficEnabled() -> g
+    void setTrafficEnabled(boolean) -> a
+    boolean isIndoorEnabled() -> h
+    boolean setIndoorEnabled(boolean) -> b
+    boolean isMyLocationEnabled() -> i
+    void setMyLocationEnabled(boolean) -> c
+    android.location.Location getMyLocation() -> j
+    void setLocationSource(com.google.android.gms.maps.internal.ILocationSourceDelegate) -> a
+    com.google.android.gms.maps.internal.IUiSettingsDelegate getUiSettings() -> k
+    com.google.android.gms.maps.internal.IProjectionDelegate getProjection() -> l
+    void setOnCameraChangeListener(com.google.android.gms.maps.internal.e) -> a
+    void setOnMapClickListener(com.google.android.gms.maps.internal.h) -> a
+    void setOnMapLongClickListener(com.google.android.gms.maps.internal.i) -> a
+    void setOnMarkerClickListener(com.google.android.gms.maps.internal.j) -> a
+    void setOnMarkerDragListener(com.google.android.gms.maps.internal.k) -> a
+    void setOnInfoWindowClickListener(com.google.android.gms.maps.internal.f) -> a
+    void setInfoWindowAdapter(com.google.android.gms.maps.internal.d) -> a
+    com.google.android.gms.dynamic.b getTestingHelper() -> m
+    com.google.android.gms.maps.model.internal.b addCircle(com.google.android.gms.maps.model.CircleOptions) -> a
+    void setOnMyLocationChangeListener(com.google.android.gms.maps.internal.m) -> a
+    void setOnMyLocationButtonClickListener(com.google.android.gms.maps.internal.l) -> a
+    void snapshot(com.google.android.gms.maps.internal.n,com.google.android.gms.dynamic.b) -> a
+    void setPadding(int,int,int,int) -> a
+com.google.android.gms.maps.internal.ILocationSourceDelegate -> com.google.android.gms.maps.a.g:
+    void activate(com.google.android.gms.maps.internal.g) -> a
+    void deactivate() -> a
+com.google.android.gms.maps.internal.ILocationSourceDelegate$a -> com.google.android.gms.maps.a.h:
+    com.google.android.gms.maps.internal.ILocationSourceDelegate y(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.ILocationSourceDelegate$a$a -> com.google.android.gms.maps.a.i:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void activate(com.google.android.gms.maps.internal.g) -> a
+    void deactivate() -> a
+com.google.android.gms.maps.internal.IMapFragmentDelegate -> com.google.android.gms.maps.a.j:
+    com.google.android.gms.maps.internal.IGoogleMapDelegate getMap() -> a
+    void onInflate(com.google.android.gms.dynamic.b,com.google.android.gms.maps.GoogleMapOptions,android.os.Bundle) -> a
+    void onCreate(android.os.Bundle) -> a
+    com.google.android.gms.dynamic.b onCreateView(com.google.android.gms.dynamic.b,com.google.android.gms.dynamic.b,android.os.Bundle) -> a
+    void onResume() -> b
+    void onPause() -> c
+    void onDestroyView() -> d
+    void onDestroy() -> e
+    void onLowMemory() -> f
+    void onSaveInstanceState(android.os.Bundle) -> b
+    boolean isReady() -> g
+com.google.android.gms.maps.internal.IMapFragmentDelegate$a -> com.google.android.gms.maps.a.k:
+    com.google.android.gms.maps.internal.IMapFragmentDelegate z(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.IMapFragmentDelegate$a$a -> com.google.android.gms.maps.a.l:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    com.google.android.gms.maps.internal.IGoogleMapDelegate getMap() -> a
+    void onInflate(com.google.android.gms.dynamic.b,com.google.android.gms.maps.GoogleMapOptions,android.os.Bundle) -> a
+    void onCreate(android.os.Bundle) -> a
+    com.google.android.gms.dynamic.b onCreateView(com.google.android.gms.dynamic.b,com.google.android.gms.dynamic.b,android.os.Bundle) -> a
+    void onResume() -> b
+    void onPause() -> c
+    void onDestroyView() -> d
+    void onDestroy() -> e
+    void onLowMemory() -> f
+    void onSaveInstanceState(android.os.Bundle) -> b
+    boolean isReady() -> g
+com.google.android.gms.maps.internal.IMapViewDelegate -> com.google.android.gms.maps.a.m:
+    com.google.android.gms.maps.internal.IGoogleMapDelegate getMap() -> a
+    void onCreate(android.os.Bundle) -> a
+    void onResume() -> b
+    void onPause() -> c
+    void onDestroy() -> d
+    void onLowMemory() -> e
+    void onSaveInstanceState(android.os.Bundle) -> b
+    com.google.android.gms.dynamic.b getView() -> f
+com.google.android.gms.maps.internal.IMapViewDelegate$a -> com.google.android.gms.maps.a.n:
+    com.google.android.gms.maps.internal.IMapViewDelegate A(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.IMapViewDelegate$a$a -> com.google.android.gms.maps.a.o:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    com.google.android.gms.maps.internal.IGoogleMapDelegate getMap() -> a
+    void onCreate(android.os.Bundle) -> a
+    void onResume() -> b
+    void onPause() -> c
+    void onDestroy() -> d
+    void onLowMemory() -> e
+    void onSaveInstanceState(android.os.Bundle) -> b
+    com.google.android.gms.dynamic.b getView() -> f
+com.google.android.gms.maps.internal.IProjectionDelegate -> com.google.android.gms.maps.a.p:
+    com.google.android.gms.maps.model.LatLng fromScreenLocation(com.google.android.gms.dynamic.b) -> a
+    com.google.android.gms.dynamic.b toScreenLocation(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.VisibleRegion getVisibleRegion() -> a
+com.google.android.gms.maps.internal.IProjectionDelegate$a -> com.google.android.gms.maps.a.q:
+    com.google.android.gms.maps.internal.IProjectionDelegate K(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.IProjectionDelegate$a$a -> com.google.android.gms.maps.a.r:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    com.google.android.gms.maps.model.LatLng fromScreenLocation(com.google.android.gms.dynamic.b) -> a
+    com.google.android.gms.dynamic.b toScreenLocation(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.VisibleRegion getVisibleRegion() -> a
+com.google.android.gms.maps.internal.IUiSettingsDelegate -> com.google.android.gms.maps.a.s:
+    void setZoomControlsEnabled(boolean) -> a
+    void setCompassEnabled(boolean) -> b
+    void setMyLocationButtonEnabled(boolean) -> c
+    void setScrollGesturesEnabled(boolean) -> d
+    void setZoomGesturesEnabled(boolean) -> e
+    void setTiltGesturesEnabled(boolean) -> f
+    void setRotateGesturesEnabled(boolean) -> g
+    void setAllGesturesEnabled(boolean) -> h
+    boolean isZoomControlsEnabled() -> a
+    boolean isCompassEnabled() -> b
+    boolean isMyLocationButtonEnabled() -> c
+    boolean isScrollGesturesEnabled() -> d
+    boolean isZoomGesturesEnabled() -> e
+    boolean isTiltGesturesEnabled() -> f
+    boolean isRotateGesturesEnabled() -> g
+com.google.android.gms.maps.internal.IUiSettingsDelegate$a -> com.google.android.gms.maps.a.t:
+    com.google.android.gms.maps.internal.IUiSettingsDelegate M(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.IUiSettingsDelegate$a$a -> com.google.android.gms.maps.a.u:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void setZoomControlsEnabled(boolean) -> a
+    void setCompassEnabled(boolean) -> b
+    void setMyLocationButtonEnabled(boolean) -> c
+    void setScrollGesturesEnabled(boolean) -> d
+    void setZoomGesturesEnabled(boolean) -> e
+    void setTiltGesturesEnabled(boolean) -> f
+    void setRotateGesturesEnabled(boolean) -> g
+    void setAllGesturesEnabled(boolean) -> h
+    boolean isZoomControlsEnabled() -> a
+    boolean isCompassEnabled() -> b
+    boolean isMyLocationButtonEnabled() -> c
+    boolean isScrollGesturesEnabled() -> d
+    boolean isZoomGesturesEnabled() -> e
+    boolean isTiltGesturesEnabled() -> f
+    boolean isRotateGesturesEnabled() -> g
+com.google.android.gms.maps.internal.a -> com.google.android.gms.maps.a.v:
     java.lang.Boolean a(byte) -> a
     byte b(java.lang.Boolean) -> a
-com.google.android.gms.maps.internal.q -> com.google.android.gms.maps.a.b:
+com.google.android.gms.maps.internal.b -> com.google.android.gms.maps.a.w:
+    void onFinish() -> a
+    void onCancel() -> b
+com.google.android.gms.maps.internal.b$a -> com.google.android.gms.maps.a.x:
+    com.google.android.gms.maps.internal.b u(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.b$a$a -> com.google.android.gms.maps.a.y:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void onFinish() -> a
+    void onCancel() -> b
+com.google.android.gms.maps.internal.c -> com.google.android.gms.maps.a.z:
+    void c(com.google.android.gms.dynamic.b) -> a
+    com.google.android.gms.maps.internal.IMapFragmentDelegate d(com.google.android.gms.dynamic.b) -> b
+    com.google.android.gms.maps.internal.IMapViewDelegate a(com.google.android.gms.dynamic.b,com.google.android.gms.maps.GoogleMapOptions) -> a
+    com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate bk() -> a
+    com.google.android.gms.maps.model.internal.a bl() -> b
+    void a(com.google.android.gms.dynamic.b,int) -> a
+com.google.android.gms.maps.internal.c$a -> com.google.android.gms.maps.a.aa:
+    com.google.android.gms.maps.internal.c v(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.c$a$a -> com.google.android.gms.maps.a.ab:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void c(com.google.android.gms.dynamic.b) -> a
+    com.google.android.gms.maps.internal.IMapFragmentDelegate d(com.google.android.gms.dynamic.b) -> b
+    com.google.android.gms.maps.internal.IMapViewDelegate a(com.google.android.gms.dynamic.b,com.google.android.gms.maps.GoogleMapOptions) -> a
+    com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate bk() -> a
+    com.google.android.gms.maps.model.internal.a bl() -> b
+    void a(com.google.android.gms.dynamic.b,int) -> a
+com.google.android.gms.maps.internal.d -> com.google.android.gms.maps.a.ac:
+    com.google.android.gms.dynamic.b f(com.google.android.gms.maps.model.internal.d) -> a
+    com.google.android.gms.dynamic.b g(com.google.android.gms.maps.model.internal.d) -> b
+com.google.android.gms.maps.internal.d$a -> com.google.android.gms.maps.a.ad:
+    com.google.android.gms.maps.internal.d x(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.d$a$a -> com.google.android.gms.maps.a.ae:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    com.google.android.gms.dynamic.b f(com.google.android.gms.maps.model.internal.d) -> a
+    com.google.android.gms.dynamic.b g(com.google.android.gms.maps.model.internal.d) -> b
+com.google.android.gms.maps.internal.e -> com.google.android.gms.maps.a.af:
+    void onCameraChange(com.google.android.gms.maps.model.CameraPosition) -> a
+com.google.android.gms.maps.internal.e$a -> com.google.android.gms.maps.a.ag:
+    com.google.android.gms.maps.internal.e B(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.e$a$a -> com.google.android.gms.maps.a.ah:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void onCameraChange(com.google.android.gms.maps.model.CameraPosition) -> a
+com.google.android.gms.maps.internal.f -> com.google.android.gms.maps.a.ai:
+    void e(com.google.android.gms.maps.model.internal.d) -> a
+com.google.android.gms.maps.internal.f$a -> com.google.android.gms.maps.a.aj:
+    com.google.android.gms.maps.internal.f C(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.f$a$a -> com.google.android.gms.maps.a.ak:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void e(com.google.android.gms.maps.model.internal.d) -> a
+com.google.android.gms.maps.internal.g -> com.google.android.gms.maps.a.al:
+    void e(com.google.android.gms.dynamic.b) -> a
+com.google.android.gms.maps.internal.g$a -> com.google.android.gms.maps.a.am:
+    com.google.android.gms.maps.internal.g D(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.g$a$a -> com.google.android.gms.maps.a.an:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void e(com.google.android.gms.dynamic.b) -> a
+com.google.android.gms.maps.internal.h -> com.google.android.gms.maps.a.ao:
+    void onMapClick(com.google.android.gms.maps.model.LatLng) -> a
+com.google.android.gms.maps.internal.h$a -> com.google.android.gms.maps.a.ap:
+    com.google.android.gms.maps.internal.h E(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.h$a$a -> com.google.android.gms.maps.a.aq:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void onMapClick(com.google.android.gms.maps.model.LatLng) -> a
+com.google.android.gms.maps.internal.i -> com.google.android.gms.maps.a.ar:
+    void onMapLongClick(com.google.android.gms.maps.model.LatLng) -> a
+com.google.android.gms.maps.internal.i$a -> com.google.android.gms.maps.a.as:
+    com.google.android.gms.maps.internal.i F(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.i$a$a -> com.google.android.gms.maps.a.at:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void onMapLongClick(com.google.android.gms.maps.model.LatLng) -> a
+com.google.android.gms.maps.internal.j -> com.google.android.gms.maps.a.au:
+    boolean a(com.google.android.gms.maps.model.internal.d) -> a
+com.google.android.gms.maps.internal.j$a -> com.google.android.gms.maps.a.av:
+    com.google.android.gms.maps.internal.j G(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.j$a$a -> com.google.android.gms.maps.a.aw:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean a(com.google.android.gms.maps.model.internal.d) -> a
+com.google.android.gms.maps.internal.k -> com.google.android.gms.maps.a.ax:
+    void b(com.google.android.gms.maps.model.internal.d) -> a
+    void d(com.google.android.gms.maps.model.internal.d) -> b
+    void c(com.google.android.gms.maps.model.internal.d) -> c
+com.google.android.gms.maps.internal.k$a -> com.google.android.gms.maps.a.ay:
+    com.google.android.gms.maps.internal.k H(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.k$a$a -> com.google.android.gms.maps.a.az:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void b(com.google.android.gms.maps.model.internal.d) -> a
+    void d(com.google.android.gms.maps.model.internal.d) -> b
+    void c(com.google.android.gms.maps.model.internal.d) -> c
+com.google.android.gms.maps.internal.l -> com.google.android.gms.maps.a.ba:
+    boolean onMyLocationButtonClick() -> a
+com.google.android.gms.maps.internal.l$a -> com.google.android.gms.maps.a.bb:
+    com.google.android.gms.maps.internal.l I(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.l$a$a -> com.google.android.gms.maps.a.bc:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onMyLocationButtonClick() -> a
+com.google.android.gms.maps.internal.m -> com.google.android.gms.maps.a.bd:
+    void b(com.google.android.gms.dynamic.b) -> a
+com.google.android.gms.maps.internal.m$a -> com.google.android.gms.maps.a.be:
+    com.google.android.gms.maps.internal.m J(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.m$a$a -> com.google.android.gms.maps.a.bf:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void b(com.google.android.gms.dynamic.b) -> a
+com.google.android.gms.maps.internal.n -> com.google.android.gms.maps.a.bg:
+    void onSnapshotReady(android.graphics.Bitmap) -> a
+com.google.android.gms.maps.internal.n$a -> com.google.android.gms.maps.a.bh:
+    com.google.android.gms.maps.internal.n L(android.os.IBinder) -> a
+    android.os.IBinder asBinder() -> asBinder
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.internal.n$a$a -> com.google.android.gms.maps.a.bi:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void onSnapshotReady(android.graphics.Bitmap) -> a
+com.google.android.gms.maps.internal.o -> com.google.android.gms.maps.a.bj:
+    void a(android.os.Bundle,java.lang.String,android.os.Parcelable) -> a
+com.google.android.gms.maps.internal.p -> com.google.android.gms.maps.a.bk:
+    android.content.Context gN -> a
+    com.google.android.gms.maps.internal.c gO -> b
+    com.google.android.gms.maps.internal.c i(android.content.Context) -> a
+    void j(android.content.Context) -> c
+    void k(android.content.Context) -> b
+    void l(android.content.Context) -> d
+    java.lang.Class bm() -> a
+    android.content.Context getRemoteContext(android.content.Context) -> e
+    java.lang.Object a(java.lang.ClassLoader,java.lang.String) -> a
+    java.lang.Object c(java.lang.Class) -> a
+com.google.android.gms.maps.internal.q -> com.google.android.gms.maps.a.bl:
     boolean gP -> a
     boolean bn() -> a
 com.google.android.gms.maps.model.BitmapDescriptor -> com.google.android.gms.maps.model.a:
     com.google.android.gms.dynamic.b fV -> a
     com.google.android.gms.dynamic.b aW() -> a
+com.google.android.gms.maps.model.BitmapDescriptorFactory -> com.google.android.gms.maps.model.b:
+    com.google.android.gms.maps.model.internal.a gQ -> a
+    void a(com.google.android.gms.maps.model.internal.a) -> a
 com.google.android.gms.maps.model.CameraPosition -> com.google.android.gms.maps.model.CameraPosition:
     com.google.android.gms.maps.model.CameraPositionCreator CREATOR -> a
     int ab -> f
@@ -2006,9 +3397,21 @@ com.google.android.gms.maps.model.CameraPosition -> com.google.android.gms.maps.
     int describeContents() -> describeContents
     int hashCode() -> hashCode
     int i() -> a
+    com.google.android.gms.maps.model.CameraPosition$Builder builder() -> b
     boolean equals(java.lang.Object) -> equals
     java.lang.String toString() -> toString
-com.google.android.gms.maps.model.CameraPositionCreator -> com.google.android.gms.maps.model.b:
+    com.google.android.gms.maps.model.CameraPosition createFromAttributes(android.content.Context,android.util.AttributeSet) -> a
+com.google.android.gms.maps.model.CameraPosition$Builder -> com.google.android.gms.maps.model.c:
+    com.google.android.gms.maps.model.LatLng gR -> a
+    float gS -> b
+    float gT -> c
+    float gU -> d
+    com.google.android.gms.maps.model.CameraPosition$Builder target(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.CameraPosition$Builder zoom(float) -> a
+    com.google.android.gms.maps.model.CameraPosition$Builder tilt(float) -> b
+    com.google.android.gms.maps.model.CameraPosition$Builder bearing(float) -> c
+    com.google.android.gms.maps.model.CameraPosition build() -> a
+com.google.android.gms.maps.model.CameraPositionCreator -> com.google.android.gms.maps.model.d:
     com.google.android.gms.maps.model.CameraPosition createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.CameraPosition[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.CameraPosition,android.os.Parcel,int) -> a
@@ -2034,7 +3437,7 @@ com.google.android.gms.maps.model.CircleOptions -> com.google.android.gms.maps.m
     int getFillColor() -> f
     float getZIndex() -> g
     boolean isVisible() -> h
-com.google.android.gms.maps.model.CircleOptionsCreator -> com.google.android.gms.maps.model.c:
+com.google.android.gms.maps.model.CircleOptionsCreator -> com.google.android.gms.maps.model.e:
     com.google.android.gms.maps.model.CircleOptions createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.CircleOptions[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.CircleOptions,android.os.Parcel,int) -> a
@@ -2068,7 +3471,7 @@ com.google.android.gms.maps.model.GroundOverlayOptions -> com.google.android.gms
     float getAnchorU() -> j
     float getAnchorV() -> k
     boolean isVisible() -> l
-com.google.android.gms.maps.model.GroundOverlayOptionsCreator -> com.google.android.gms.maps.model.d:
+com.google.android.gms.maps.model.GroundOverlayOptionsCreator -> com.google.android.gms.maps.model.f:
     com.google.android.gms.maps.model.GroundOverlayOptions createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.GroundOverlayOptions[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.GroundOverlayOptions,android.os.Parcel,int) -> a
@@ -2096,13 +3499,13 @@ com.google.android.gms.maps.model.LatLngBounds -> com.google.android.gms.maps.mo
     int hashCode() -> hashCode
     boolean equals(java.lang.Object) -> equals
     java.lang.String toString() -> toString
-com.google.android.gms.maps.model.LatLngBoundsCreator -> com.google.android.gms.maps.model.e:
+com.google.android.gms.maps.model.LatLngBoundsCreator -> com.google.android.gms.maps.model.g:
     com.google.android.gms.maps.model.LatLngBounds createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.LatLngBounds[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.LatLngBounds,android.os.Parcel,int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-com.google.android.gms.maps.model.LatLngCreator -> com.google.android.gms.maps.model.f:
+com.google.android.gms.maps.model.LatLngCreator -> com.google.android.gms.maps.model.h:
     com.google.android.gms.maps.model.LatLng createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.LatLng[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.LatLng,android.os.Parcel,int) -> a
@@ -2138,7 +3541,7 @@ com.google.android.gms.maps.model.MarkerOptions -> com.google.android.gms.maps.m
     float getRotation() -> k
     float getInfoWindowAnchorU() -> l
     float getInfoWindowAnchorV() -> m
-com.google.android.gms.maps.model.MarkerOptionsCreator -> com.google.android.gms.maps.model.g:
+com.google.android.gms.maps.model.MarkerOptionsCreator -> com.google.android.gms.maps.model.i:
     com.google.android.gms.maps.model.MarkerOptions createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.MarkerOptions[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.MarkerOptions,android.os.Parcel,int) -> a
@@ -2166,7 +3569,7 @@ com.google.android.gms.maps.model.PolygonOptions -> com.google.android.gms.maps.
     float getZIndex() -> g
     boolean isVisible() -> h
     boolean isGeodesic() -> i
-com.google.android.gms.maps.model.PolygonOptionsCreator -> com.google.android.gms.maps.model.h:
+com.google.android.gms.maps.model.PolygonOptionsCreator -> com.google.android.gms.maps.model.j:
     com.google.android.gms.maps.model.PolygonOptions createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.PolygonOptions[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.PolygonOptions,android.os.Parcel,int) -> a
@@ -2190,12 +3593,13 @@ com.google.android.gms.maps.model.PolylineOptions -> com.google.android.gms.maps
     float getZIndex() -> e
     boolean isVisible() -> f
     boolean isGeodesic() -> g
-com.google.android.gms.maps.model.PolylineOptionsCreator -> com.google.android.gms.maps.model.i:
+com.google.android.gms.maps.model.PolylineOptionsCreator -> com.google.android.gms.maps.model.k:
     com.google.android.gms.maps.model.PolylineOptions createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.PolylineOptions[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.PolylineOptions,android.os.Parcel,int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+com.google.android.gms.maps.model.RuntimeRemoteException -> com.google.android.gms.maps.model.l:
 com.google.android.gms.maps.model.Tile -> com.google.android.gms.maps.model.Tile:
     com.google.android.gms.maps.model.TileCreator CREATOR -> a
     int ab -> e
@@ -2205,7 +3609,7 @@ com.google.android.gms.maps.model.Tile -> com.google.android.gms.maps.model.Tile
     int i() -> a
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
     int describeContents() -> describeContents
-com.google.android.gms.maps.model.TileCreator -> com.google.android.gms.maps.model.j:
+com.google.android.gms.maps.model.TileCreator -> com.google.android.gms.maps.model.m:
     com.google.android.gms.maps.model.Tile createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.Tile[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.Tile,android.os.Parcel,int) -> a
@@ -2225,16 +3629,16 @@ com.google.android.gms.maps.model.TileOverlayOptions -> com.google.android.gms.m
     float getZIndex() -> c
     boolean isVisible() -> d
     com.google.android.gms.maps.model.internal.g a(com.google.android.gms.maps.model.TileOverlayOptions) -> a
-com.google.android.gms.maps.model.TileOverlayOptions$1 -> com.google.android.gms.maps.model.k:
+com.google.android.gms.maps.model.TileOverlayOptions$1 -> com.google.android.gms.maps.model.n:
     com.google.android.gms.maps.model.internal.g hI -> c
     com.google.android.gms.maps.model.TileOverlayOptions hJ -> a
-com.google.android.gms.maps.model.TileOverlayOptionsCreator -> com.google.android.gms.maps.model.l:
+com.google.android.gms.maps.model.TileOverlayOptionsCreator -> com.google.android.gms.maps.model.o:
     com.google.android.gms.maps.model.TileOverlayOptions createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.TileOverlayOptions[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.TileOverlayOptions,android.os.Parcel,int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-com.google.android.gms.maps.model.TileProvider -> com.google.android.gms.maps.model.m:
+com.google.android.gms.maps.model.TileProvider -> com.google.android.gms.maps.model.p:
     com.google.android.gms.maps.model.Tile NO_TILE -> b
 com.google.android.gms.maps.model.VisibleRegion -> com.google.android.gms.maps.model.VisibleRegion:
     com.google.android.gms.maps.model.VisibleRegionCreator CREATOR -> a
@@ -2250,43 +3654,320 @@ com.google.android.gms.maps.model.VisibleRegion -> com.google.android.gms.maps.m
     int i() -> a
     boolean equals(java.lang.Object) -> equals
     java.lang.String toString() -> toString
-com.google.android.gms.maps.model.VisibleRegionCreator -> com.google.android.gms.maps.model.n:
+com.google.android.gms.maps.model.VisibleRegionCreator -> com.google.android.gms.maps.model.q:
     com.google.android.gms.maps.model.VisibleRegion createFromParcel(android.os.Parcel) -> a
     com.google.android.gms.maps.model.VisibleRegion[] newArray(int) -> a
     void a(com.google.android.gms.maps.model.VisibleRegion,android.os.Parcel,int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-com.google.android.gms.maps.model.a -> com.google.android.gms.maps.model.o:
+com.google.android.gms.maps.model.a -> com.google.android.gms.maps.model.r:
     void a(com.google.android.gms.maps.model.CameraPosition,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.b -> com.google.android.gms.maps.model.p:
+com.google.android.gms.maps.model.b -> com.google.android.gms.maps.model.s:
     void a(com.google.android.gms.maps.model.CircleOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.c -> com.google.android.gms.maps.model.q:
+com.google.android.gms.maps.model.c -> com.google.android.gms.maps.model.t:
     void a(com.google.android.gms.maps.model.GroundOverlayOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.d -> com.google.android.gms.maps.model.r:
+com.google.android.gms.maps.model.d -> com.google.android.gms.maps.model.u:
     void a(com.google.android.gms.maps.model.LatLngBounds,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.e -> com.google.android.gms.maps.model.s:
+com.google.android.gms.maps.model.e -> com.google.android.gms.maps.model.v:
     void a(com.google.android.gms.maps.model.LatLng,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.f -> com.google.android.gms.maps.model.t:
+com.google.android.gms.maps.model.f -> com.google.android.gms.maps.model.w:
     void a(com.google.android.gms.maps.model.MarkerOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.g -> com.google.android.gms.maps.model.u:
+com.google.android.gms.maps.model.g -> com.google.android.gms.maps.model.x:
     void a(com.google.android.gms.maps.model.PolygonOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.h -> com.google.android.gms.maps.model.v:
+com.google.android.gms.maps.model.h -> com.google.android.gms.maps.model.y:
     void a(com.google.android.gms.maps.model.PolylineOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.i -> com.google.android.gms.maps.model.w:
+com.google.android.gms.maps.model.i -> com.google.android.gms.maps.model.z:
     void a(com.google.android.gms.maps.model.Tile,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.internal.g -> com.google.android.gms.maps.model.a.a:
+com.google.android.gms.maps.model.internal.IPolylineDelegate -> com.google.android.gms.maps.model.a.a:
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPoints(java.util.List) -> a
+    java.util.List getPoints() -> c
+    void setWidth(float) -> a
+    float getWidth() -> d
+    void setColor(int) -> a
+    int getColor() -> e
+    void setZIndex(float) -> b
+    float getZIndex() -> f
+    void setVisible(boolean) -> a
+    boolean isVisible() -> g
+    void setGeodesic(boolean) -> b
+    boolean isGeodesic() -> h
+    boolean equalsRemote(com.google.android.gms.maps.model.internal.IPolylineDelegate) -> a
+    int hashCodeRemote() -> i
+com.google.android.gms.maps.model.internal.IPolylineDelegate$a -> com.google.android.gms.maps.model.a.b:
+    com.google.android.gms.maps.model.internal.IPolylineDelegate S(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.model.internal.IPolylineDelegate$a$a -> com.google.android.gms.maps.model.a.c:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPoints(java.util.List) -> a
+    java.util.List getPoints() -> c
+    void setWidth(float) -> a
+    float getWidth() -> d
+    void setColor(int) -> a
+    int getColor() -> e
+    void setZIndex(float) -> b
+    float getZIndex() -> f
+    void setVisible(boolean) -> a
+    boolean isVisible() -> g
+    void setGeodesic(boolean) -> b
+    boolean isGeodesic() -> h
+    boolean equalsRemote(com.google.android.gms.maps.model.internal.IPolylineDelegate) -> a
+    int hashCodeRemote() -> i
+com.google.android.gms.maps.model.internal.a -> com.google.android.gms.maps.model.a.d:
+    com.google.android.gms.dynamic.b S(int) -> a
+    com.google.android.gms.dynamic.b B(java.lang.String) -> a
+    com.google.android.gms.dynamic.b C(java.lang.String) -> b
+    com.google.android.gms.dynamic.b bt() -> a
+    com.google.android.gms.dynamic.b c(float) -> a
+    com.google.android.gms.dynamic.b a(android.graphics.Bitmap) -> a
+    com.google.android.gms.dynamic.b D(java.lang.String) -> c
+com.google.android.gms.maps.model.internal.a$a -> com.google.android.gms.maps.model.a.e:
+    com.google.android.gms.maps.model.internal.a N(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.model.internal.a$a$a -> com.google.android.gms.maps.model.a.f:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    com.google.android.gms.dynamic.b S(int) -> a
+    com.google.android.gms.dynamic.b B(java.lang.String) -> a
+    com.google.android.gms.dynamic.b C(java.lang.String) -> b
+    com.google.android.gms.dynamic.b bt() -> a
+    com.google.android.gms.dynamic.b c(float) -> a
+    com.google.android.gms.dynamic.b a(android.graphics.Bitmap) -> a
+    com.google.android.gms.dynamic.b D(java.lang.String) -> c
+com.google.android.gms.maps.model.internal.b -> com.google.android.gms.maps.model.a.g:
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setCenter(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.LatLng getCenter() -> c
+    void setRadius(double) -> a
+    double getRadius() -> d
+    void setStrokeWidth(float) -> a
+    float getStrokeWidth() -> e
+    void setStrokeColor(int) -> a
+    int getStrokeColor() -> f
+    void setFillColor(int) -> b
+    int getFillColor() -> g
+    void setZIndex(float) -> b
+    float getZIndex() -> h
+    void setVisible(boolean) -> a
+    boolean isVisible() -> i
+    boolean a(com.google.android.gms.maps.model.internal.b) -> a
+    int hashCodeRemote() -> j
+com.google.android.gms.maps.model.internal.b$a -> com.google.android.gms.maps.model.a.h:
+    com.google.android.gms.maps.model.internal.b O(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.model.internal.b$a$a -> com.google.android.gms.maps.model.a.i:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setCenter(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.LatLng getCenter() -> c
+    void setRadius(double) -> a
+    double getRadius() -> d
+    void setStrokeWidth(float) -> a
+    float getStrokeWidth() -> e
+    void setStrokeColor(int) -> a
+    int getStrokeColor() -> f
+    void setFillColor(int) -> b
+    int getFillColor() -> g
+    void setZIndex(float) -> b
+    float getZIndex() -> h
+    void setVisible(boolean) -> a
+    boolean isVisible() -> i
+    boolean a(com.google.android.gms.maps.model.internal.b) -> a
+    int hashCodeRemote() -> j
+com.google.android.gms.maps.model.internal.c -> com.google.android.gms.maps.model.a.j:
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPosition(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.LatLng getPosition() -> c
+    void setDimensions(float) -> a
+    void a(float,float) -> a
+    float getWidth() -> d
+    float getHeight() -> e
+    void setPositionFromBounds(com.google.android.gms.maps.model.LatLngBounds) -> a
+    com.google.android.gms.maps.model.LatLngBounds getBounds() -> f
+    void setBearing(float) -> b
+    float getBearing() -> g
+    void setZIndex(float) -> c
+    float getZIndex() -> h
+    void setVisible(boolean) -> a
+    boolean isVisible() -> i
+    void setTransparency(float) -> d
+    float getTransparency() -> j
+    boolean a(com.google.android.gms.maps.model.internal.c) -> a
+    int hashCodeRemote() -> k
+com.google.android.gms.maps.model.internal.c$a -> com.google.android.gms.maps.model.a.k:
+    com.google.android.gms.maps.model.internal.c P(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.model.internal.c$a$a -> com.google.android.gms.maps.model.a.l:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPosition(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.LatLng getPosition() -> c
+    void setDimensions(float) -> a
+    void a(float,float) -> a
+    float getWidth() -> d
+    float getHeight() -> e
+    void setPositionFromBounds(com.google.android.gms.maps.model.LatLngBounds) -> a
+    com.google.android.gms.maps.model.LatLngBounds getBounds() -> f
+    void setBearing(float) -> b
+    float getBearing() -> g
+    void setZIndex(float) -> c
+    float getZIndex() -> h
+    void setVisible(boolean) -> a
+    boolean isVisible() -> i
+    void setTransparency(float) -> d
+    float getTransparency() -> j
+    boolean a(com.google.android.gms.maps.model.internal.c) -> a
+    int hashCodeRemote() -> k
+com.google.android.gms.maps.model.internal.d -> com.google.android.gms.maps.model.a.m:
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPosition(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.LatLng getPosition() -> c
+    void setTitle(java.lang.String) -> a
+    java.lang.String getTitle() -> d
+    void setSnippet(java.lang.String) -> b
+    java.lang.String getSnippet() -> e
+    void setDraggable(boolean) -> a
+    boolean isDraggable() -> f
+    void showInfoWindow() -> g
+    void hideInfoWindow() -> h
+    boolean isInfoWindowShown() -> i
+    void setVisible(boolean) -> b
+    boolean isVisible() -> j
+    boolean h(com.google.android.gms.maps.model.internal.d) -> a
+    int hashCodeRemote() -> k
+    void f(com.google.android.gms.dynamic.b) -> a
+    void setAnchor(float,float) -> a
+    void setFlat(boolean) -> c
+    boolean isFlat() -> l
+    void setRotation(float) -> a
+    float getRotation() -> m
+    void setInfoWindowAnchor(float,float) -> b
+com.google.android.gms.maps.model.internal.d$a -> com.google.android.gms.maps.model.a.n:
+    com.google.android.gms.maps.model.internal.d Q(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.model.internal.d$a$a -> com.google.android.gms.maps.model.a.o:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPosition(com.google.android.gms.maps.model.LatLng) -> a
+    com.google.android.gms.maps.model.LatLng getPosition() -> c
+    void setTitle(java.lang.String) -> a
+    java.lang.String getTitle() -> d
+    void setSnippet(java.lang.String) -> b
+    java.lang.String getSnippet() -> e
+    void setDraggable(boolean) -> a
+    boolean isDraggable() -> f
+    void showInfoWindow() -> g
+    void hideInfoWindow() -> h
+    boolean isInfoWindowShown() -> i
+    void setVisible(boolean) -> b
+    boolean isVisible() -> j
+    boolean h(com.google.android.gms.maps.model.internal.d) -> a
+    int hashCodeRemote() -> k
+    void f(com.google.android.gms.dynamic.b) -> a
+    void setAnchor(float,float) -> a
+    void setFlat(boolean) -> c
+    boolean isFlat() -> l
+    void setRotation(float) -> a
+    float getRotation() -> m
+    void setInfoWindowAnchor(float,float) -> b
+com.google.android.gms.maps.model.internal.e -> com.google.android.gms.maps.model.a.p:
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPoints(java.util.List) -> a
+    java.util.List getPoints() -> c
+    void setHoles(java.util.List) -> b
+    java.util.List getHoles() -> d
+    void setStrokeWidth(float) -> a
+    float getStrokeWidth() -> e
+    void setStrokeColor(int) -> a
+    int getStrokeColor() -> f
+    void setFillColor(int) -> b
+    int getFillColor() -> g
+    void setZIndex(float) -> b
+    float getZIndex() -> h
+    void setVisible(boolean) -> a
+    boolean isVisible() -> i
+    void setGeodesic(boolean) -> b
+    boolean isGeodesic() -> j
+    boolean a(com.google.android.gms.maps.model.internal.e) -> a
+    int hashCodeRemote() -> k
+com.google.android.gms.maps.model.internal.e$a -> com.google.android.gms.maps.model.a.q:
+    com.google.android.gms.maps.model.internal.e R(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.model.internal.e$a$a -> com.google.android.gms.maps.model.a.r:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void remove() -> a
+    java.lang.String getId() -> b
+    void setPoints(java.util.List) -> a
+    java.util.List getPoints() -> c
+    void setHoles(java.util.List) -> b
+    java.util.List getHoles() -> d
+    void setStrokeWidth(float) -> a
+    float getStrokeWidth() -> e
+    void setStrokeColor(int) -> a
+    int getStrokeColor() -> f
+    void setFillColor(int) -> b
+    int getFillColor() -> g
+    void setZIndex(float) -> b
+    float getZIndex() -> h
+    void setVisible(boolean) -> a
+    boolean isVisible() -> i
+    void setGeodesic(boolean) -> b
+    boolean isGeodesic() -> j
+    boolean a(com.google.android.gms.maps.model.internal.e) -> a
+    int hashCodeRemote() -> k
+com.google.android.gms.maps.model.internal.f -> com.google.android.gms.maps.model.a.s:
+    void remove() -> a
+    void clearTileCache() -> b
+    java.lang.String getId() -> c
+    void setZIndex(float) -> a
+    float getZIndex() -> d
+    void setVisible(boolean) -> a
+    boolean isVisible() -> e
+    boolean a(com.google.android.gms.maps.model.internal.f) -> a
+    int hashCodeRemote() -> f
+com.google.android.gms.maps.model.internal.f$a -> com.google.android.gms.maps.model.a.t:
+    com.google.android.gms.maps.model.internal.f T(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.google.android.gms.maps.model.internal.f$a$a -> com.google.android.gms.maps.model.a.u:
+    android.os.IBinder a -> a
+    android.os.IBinder asBinder() -> asBinder
+    void remove() -> a
+    void clearTileCache() -> b
+    java.lang.String getId() -> c
+    void setZIndex(float) -> a
+    float getZIndex() -> d
+    void setVisible(boolean) -> a
+    boolean isVisible() -> e
+    boolean a(com.google.android.gms.maps.model.internal.f) -> a
+    int hashCodeRemote() -> f
+com.google.android.gms.maps.model.internal.g -> com.google.android.gms.maps.model.a.v:
     com.google.android.gms.maps.model.Tile getTile(int,int,int) -> a
-com.google.android.gms.maps.model.internal.g$a -> com.google.android.gms.maps.model.a.b:
+com.google.android.gms.maps.model.internal.g$a -> com.google.android.gms.maps.model.a.w:
     com.google.android.gms.maps.model.internal.g U(android.os.IBinder) -> a
     android.os.IBinder asBinder() -> asBinder
     boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
-com.google.android.gms.maps.model.internal.g$a$a -> com.google.android.gms.maps.model.a.c:
+com.google.android.gms.maps.model.internal.g$a$a -> com.google.android.gms.maps.model.a.x:
     android.os.IBinder a -> a
     android.os.IBinder asBinder() -> asBinder
     com.google.android.gms.maps.model.Tile getTile(int,int,int) -> a
-com.google.android.gms.maps.model.j -> com.google.android.gms.maps.model.x:
+com.google.android.gms.maps.model.j -> com.google.android.gms.maps.model.aa:
     void a(com.google.android.gms.maps.model.TileOverlayOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.model.k -> com.google.android.gms.maps.model.y:
+com.google.android.gms.maps.model.k -> com.google.android.gms.maps.model.ab:
     void a(com.google.android.gms.maps.model.VisibleRegion,android.os.Parcel,int) -> a
 com.google.android.gms.plus.a -> com.google.android.gms.plus.a:
     com.google.android.gms.plus.b CREATOR -> a
@@ -4893,45 +6574,54 @@ com.mapplas.app.activities.AppDetail -> com.mapplas.app.activities.AppDetail:
     void access$3(com.mapplas.app.activities.AppDetail,boolean) -> a
 com.mapplas.app.activities.AppDetail$1 -> com.mapplas.app.activities.a:
     com.mapplas.app.activities.AppDetail this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$2 -> com.mapplas.app.activities.b:
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+com.mapplas.app.activities.AppDetail$10 -> com.mapplas.app.activities.b:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$3 -> com.mapplas.app.activities.c:
+com.mapplas.app.activities.AppDetail$2 -> com.mapplas.app.activities.c:
+    com.mapplas.app.activities.AppDetail this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.AppDetail$3 -> com.mapplas.app.activities.d:
+    com.mapplas.app.activities.AppDetail this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.AppDetail$4 -> com.mapplas.app.activities.e:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.mapplas.app.activities.AppDetail$4 -> com.mapplas.app.activities.d:
+com.mapplas.app.activities.AppDetail$5 -> com.mapplas.app.activities.f:
     boolean close -> b
     com.mapplas.app.activities.AppDetail this$0 -> a
     android.widget.ImageView val$moreLessImage -> c
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$5 -> com.mapplas.app.activities.e:
+com.mapplas.app.activities.AppDetail$6 -> com.mapplas.app.activities.g:
     com.mapplas.app.activities.AppDetail this$0 -> a
     android.widget.ImageView val$ivPinup -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$6 -> com.mapplas.app.activities.f:
+com.mapplas.app.activities.AppDetail$7 -> com.mapplas.app.activities.h:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$7 -> com.mapplas.app.activities.g:
+com.mapplas.app.activities.AppDetail$8 -> com.mapplas.app.activities.i:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-    com.mapplas.app.activities.AppDetail access$0(com.mapplas.app.activities.AppDetail$7) -> a
-com.mapplas.app.activities.AppDetail$7$1 -> com.mapplas.app.activities.h:
-    com.mapplas.app.activities.AppDetail$7 this$1 -> a
+    com.mapplas.app.activities.AppDetail access$0(com.mapplas.app.activities.AppDetail$8) -> a
+com.mapplas.app.activities.AppDetail$8$1 -> com.mapplas.app.activities.j:
+    com.mapplas.app.activities.AppDetail$8 this$1 -> a
     com.mapplas.model.App val$anonLoc -> b
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.activities.AppDetail$7$2 -> com.mapplas.app.activities.i:
-    com.mapplas.app.activities.AppDetail$7 this$1 -> a
+com.mapplas.app.activities.AppDetail$8$2 -> com.mapplas.app.activities.k:
+    com.mapplas.app.activities.AppDetail$8 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.activities.AppDetail$8 -> com.mapplas.app.activities.j:
+com.mapplas.app.activities.AppDetail$9 -> com.mapplas.app.activities.l:
     com.mapplas.app.activities.AppDetail this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.AppDetail$9 -> com.mapplas.app.activities.k:
-    com.mapplas.app.activities.AppDetail this$0 -> a
-    void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.GalleryActivity -> com.mapplas.app.activities.GalleryActivity:
+    java.util.ArrayList images -> n
+    int clickedImageIndex -> o
+    android.support.v4.view.ViewPager pager -> m
+    void onCreate(android.os.Bundle) -> onCreate
+    void extractDataFromBundle() -> e
 com.mapplas.app.activities.HtmlTextActivity -> com.mapplas.app.activities.HtmlTextActivity:
     void onCreate(android.os.Bundle) -> onCreate
-com.mapplas.app.activities.HtmlTextActivity$1 -> com.mapplas.app.activities.l:
+com.mapplas.app.activities.HtmlTextActivity$1 -> com.mapplas.app.activities.m:
     com.mapplas.app.activities.HtmlTextActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.app.activities.LanguageActivity -> com.mapplas.app.activities.LanguageActivity:
@@ -4961,10 +6651,10 @@ com.mapplas.app.activities.MapplasActivity -> com.mapplas.app.activities.Mapplas
     void checkNetworkStatus() -> d
     com.mapplas.model.SuperModel access$0(com.mapplas.app.activities.MapplasActivity) -> a
     void access$1(com.mapplas.app.activities.MapplasActivity) -> b
-com.mapplas.app.activities.MapplasActivity$1 -> com.mapplas.app.activities.m:
+com.mapplas.app.activities.MapplasActivity$1 -> com.mapplas.app.activities.n:
     com.mapplas.app.activities.MapplasActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.MapplasActivity$2 -> com.mapplas.app.activities.n:
+com.mapplas.app.activities.MapplasActivity$2 -> com.mapplas.app.activities.o:
     com.mapplas.app.activities.MapplasActivity this$0 -> a
     void onRefresh(com.mapplas.utils.third_party.RefreshableListView) -> a
 com.mapplas.app.activities.MoreFromDeveloperActivity -> com.mapplas.app.activities.MoreFromDeveloperActivity:
@@ -4978,7 +6668,7 @@ com.mapplas.app.activities.MoreFromDeveloperActivity -> com.mapplas.app.activiti
     void onListItemClick(android.widget.ListView,android.view.View,int,long) -> onListItemClick
     void requestFinishedNok() -> a
     void requestFinishedOk() -> b
-com.mapplas.app.activities.MoreFromDeveloperActivity$1 -> com.mapplas.app.activities.o:
+com.mapplas.app.activities.MoreFromDeveloperActivity$1 -> com.mapplas.app.activities.p:
     com.mapplas.app.activities.MoreFromDeveloperActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.app.activities.SettingsActivity -> com.mapplas.app.activities.SettingsActivity:
@@ -4990,13 +6680,13 @@ com.mapplas.app.activities.SettingsActivity -> com.mapplas.app.activities.Settin
     void onDialogBasqueLanguageClick() -> c
     void updateLanguage(java.lang.String) -> a
     void showAppRestartDialog() -> e
-com.mapplas.app.activities.SettingsActivity$1 -> com.mapplas.app.activities.p:
+com.mapplas.app.activities.SettingsActivity$1 -> com.mapplas.app.activities.q:
     com.mapplas.app.activities.SettingsActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.SettingsActivity$2 -> com.mapplas.app.activities.q:
+com.mapplas.app.activities.SettingsActivity$2 -> com.mapplas.app.activities.r:
     com.mapplas.app.activities.SettingsActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.activities.SettingsActivity$3 -> com.mapplas.app.activities.r:
+com.mapplas.app.activities.SettingsActivity$3 -> com.mapplas.app.activities.s:
     com.mapplas.app.activities.SettingsActivity this$0 -> a
     boolean onKey(android.content.DialogInterface,int,android.view.KeyEvent) -> onKey
 com.mapplas.app.activities.UserForm -> com.mapplas.app.activities.UserForm:
@@ -5020,29 +6710,11 @@ com.mapplas.app.activities.UserForm -> com.mapplas.app.activities.UserForm:
     void initializeBackButton() -> e
     void initializeSettingsButton() -> f
     com.mapplas.model.User access$0(com.mapplas.app.activities.UserForm) -> a
-com.mapplas.app.activities.UserForm$1 -> com.mapplas.app.activities.s:
+com.mapplas.app.activities.UserForm$1 -> com.mapplas.app.activities.t:
     com.mapplas.app.activities.UserForm this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.UserForm$2 -> com.mapplas.app.activities.t:
+com.mapplas.app.activities.UserForm$2 -> com.mapplas.app.activities.u:
     com.mapplas.app.activities.UserForm this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.WebViewActivity -> com.mapplas.app.activities.WebViewActivity:
-    java.lang.String url -> a
-    android.widget.RelativeLayout navBar -> b
-    com.mapplas.utils.webView.TouchableScrollView scroll -> c
-    android.webkit.WebView webView -> d
-    android.app.ProgressDialog progressDialog -> e
-    void onCreate(android.os.Bundle) -> onCreate
-    void setWebViewClientToWebView() -> a
-    void extractDataFromBundle() -> b
-    void initializeBackButton() -> c
-    void initializeComponents() -> d
-    com.mapplas.utils.webView.TouchableScrollView access$0(com.mapplas.app.activities.WebViewActivity) -> a
-com.mapplas.app.activities.WebViewActivity$1 -> com.mapplas.app.activities.u:
-    com.mapplas.app.activities.WebViewActivity this$0 -> a
-    void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
-com.mapplas.app.activities.WebViewActivity$2 -> com.mapplas.app.activities.v:
-    com.mapplas.app.activities.WebViewActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.app.adapters.ImageAdapter -> com.mapplas.app.a.a:
     android.content.Context context -> c
@@ -5077,26 +6749,29 @@ com.mapplas.app.adapters.app.AppArrayAdapter -> com.mapplas.app.a.a.b:
     com.mapplas.model.User user -> c
     com.mapplas.model.App mBlockApp -> j
     android.view.animation.Animation fadeOutAnimation -> k
+    android.widget.ViewFlipper currentViewFlipped -> l
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void initializeAnimations() -> b
     void initializeCellHolder(com.mapplas.model.App,com.mapplas.utils.view_holder.AppViewHolder) -> a
     void initializeActionLayouts(com.mapplas.model.App,com.mapplas.utils.view_holder.AppViewHolder,android.view.View) -> a
-    void initializeRowUnpressed(com.mapplas.model.App,android.widget.LinearLayout,int) -> a
+    void initializeRowUnpressed(com.mapplas.model.App,android.widget.LinearLayout,int,android.widget.ViewFlipper) -> a
     void initializeStartButton(com.mapplas.model.App,android.widget.Button) -> a
     void initializeLogoBackgroundPinImage(com.mapplas.model.App,android.widget.ImageView) -> a
-    void initializeLogo(com.mapplas.model.App,android.widget.ImageView,android.widget.ViewFlipper) -> a
+    void initializeLogo(com.mapplas.model.App,android.widget.ImageView) -> b
     void initializePinUpLayout(com.mapplas.model.App,com.mapplas.utils.view_holder.AppViewHolder) -> b
     void initializeBlockLayout(com.mapplas.model.App,com.mapplas.utils.view_holder.AppViewHolder,android.view.View) -> b
     void initializeRateLayout(com.mapplas.model.App,com.mapplas.utils.view_holder.AppViewHolder) -> c
     void initializeShareLayout(com.mapplas.model.App,com.mapplas.utils.view_holder.AppViewHolder) -> d
+    void closeFlippedView() -> c
+    void openFlippedView() -> d
     com.mapplas.model.App access$0() -> a
-    android.view.animation.Animation access$1(com.mapplas.app.adapters.app.AppArrayAdapter) -> a
-    android.view.animation.Animation access$2(com.mapplas.app.adapters.app.AppArrayAdapter) -> b
-    android.view.animation.Animation access$3(com.mapplas.app.adapters.app.AppArrayAdapter) -> c
-    android.view.animation.Animation access$4(com.mapplas.app.adapters.app.AppArrayAdapter) -> d
-    com.mapplas.utils.third_party.RefreshableListView access$5(com.mapplas.app.adapters.app.AppArrayAdapter) -> e
+    android.widget.ViewFlipper access$1(com.mapplas.app.adapters.app.AppArrayAdapter) -> a
+    void access$2(com.mapplas.app.adapters.app.AppArrayAdapter) -> b
+    void access$3(com.mapplas.app.adapters.app.AppArrayAdapter,android.widget.ViewFlipper) -> a
+    void access$4(com.mapplas.app.adapters.app.AppArrayAdapter) -> c
+    com.mapplas.utils.third_party.RefreshableListView access$5(com.mapplas.app.adapters.app.AppArrayAdapter) -> d
     void access$6(com.mapplas.model.App) -> a
-    android.view.animation.Animation access$7(com.mapplas.app.adapters.app.AppArrayAdapter) -> f
+    android.view.animation.Animation access$7(com.mapplas.app.adapters.app.AppArrayAdapter) -> e
 com.mapplas.app.adapters.app.AppArrayAdapter$1 -> com.mapplas.app.a.a.c:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     void onClick(android.view.View) -> onClick
@@ -5119,31 +6794,34 @@ com.mapplas.app.adapters.app.AppArrayAdapter$3 -> com.mapplas.app.a.a.g:
     void onClick(android.view.View) -> onClick
 com.mapplas.app.adapters.app.AppArrayAdapter$4 -> com.mapplas.app.a.a.h:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
-    boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
+    boolean onLongClick(android.view.View) -> onLongClick
 com.mapplas.app.adapters.app.AppArrayAdapter$5 -> com.mapplas.app.a.a.i:
+    com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
+    boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
+com.mapplas.app.adapters.app.AppArrayAdapter$6 -> com.mapplas.app.a.a.j:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     com.mapplas.utils.view_holder.AppViewHolder val$cellHolder -> c
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$6 -> com.mapplas.app.a.a.j:
+com.mapplas.app.adapters.app.AppArrayAdapter$7 -> com.mapplas.app.a.a.k:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     android.view.View val$convertView -> c
     void onClick(android.view.View) -> onClick
-    com.mapplas.app.adapters.app.AppArrayAdapter access$0(com.mapplas.app.adapters.app.AppArrayAdapter$6) -> a
-com.mapplas.app.adapters.app.AppArrayAdapter$6$1 -> com.mapplas.app.a.a.k:
-    com.mapplas.app.adapters.app.AppArrayAdapter$6 this$1 -> a
+    com.mapplas.app.adapters.app.AppArrayAdapter access$0(com.mapplas.app.adapters.app.AppArrayAdapter$7) -> a
+com.mapplas.app.adapters.app.AppArrayAdapter$7$1 -> com.mapplas.app.a.a.l:
+    com.mapplas.app.adapters.app.AppArrayAdapter$7 this$1 -> a
     android.view.View val$convertView -> b
     com.mapplas.model.App val$app -> c
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$6$2 -> com.mapplas.app.a.a.l:
-    com.mapplas.app.adapters.app.AppArrayAdapter$6 this$1 -> a
+com.mapplas.app.adapters.app.AppArrayAdapter$7$2 -> com.mapplas.app.a.a.m:
+    com.mapplas.app.adapters.app.AppArrayAdapter$7 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$7 -> com.mapplas.app.a.a.m:
+com.mapplas.app.adapters.app.AppArrayAdapter$8 -> com.mapplas.app.a.a.n:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.adapters.app.AppArrayAdapter$8 -> com.mapplas.app.a.a.n:
+com.mapplas.app.adapters.app.AppArrayAdapter$9 -> com.mapplas.app.a.a.o:
     com.mapplas.app.adapters.app.AppArrayAdapter this$0 -> a
     com.mapplas.model.App val$app -> b
     void onClick(android.view.View) -> onClick
@@ -5229,6 +6907,10 @@ com.mapplas.model.App -> com.mapplas.model.App:
     java.lang.String shortDescription -> shortDescription
     java.lang.String description -> description
     java.lang.String logo -> logo
+    java.lang.String icon_color_1 -> icon_color_1
+    java.lang.String icon_color_2 -> icon_color_2
+    java.lang.String icon_color_3 -> icon_color_3
+    java.lang.String icon_color_4 -> icon_color_4
     java.lang.String price -> price
     float rating -> rating
     int auxPin -> auxPin
@@ -5276,6 +6958,14 @@ com.mapplas.model.App -> com.mapplas.model.App:
     void setMoreFromDeveloperCount(int) -> setMoreFromDeveloperCount
     java.lang.String developerName() -> developerName
     void setDeveloperName(java.lang.String) -> setDeveloperName
+    java.lang.String getIcon_color_1() -> getIcon_color_1
+    void setIcon_color_1(java.lang.String) -> setIcon_color_1
+    java.lang.String getIcon_color_2() -> getIcon_color_2
+    void setIcon_color_2(java.lang.String) -> setIcon_color_2
+    java.lang.String getIcon_color_3() -> getIcon_color_3
+    void setIcon_color_3(java.lang.String) -> setIcon_color_3
+    java.lang.String getIcon_color_4() -> getIcon_color_4
+    void setIcon_color_4(java.lang.String) -> setIcon_color_4
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
 com.mapplas.model.App$1 -> com.mapplas.model.a:
@@ -5318,15 +7008,17 @@ com.mapplas.model.Constants -> com.mapplas.model.c:
     java.lang.String MEDIUM_PIXEL_DENSITY -> h
     java.lang.String HIGH_PIXEL_DENSITY -> i
     java.lang.String EXTRA_HIGH_PIXEL_DENSITY -> j
-    java.lang.String USER_IDENTIFICATION_SERVER_RESPONSE_ERROR -> k
-    java.lang.String USER_IDENTIFICATION_SOCKET_ERROR -> l
-    int NUMBER_OF_REQUEST_RETRIES -> m
-    java.lang.String SETTINGS_LANGUAGE_CHANGE_BUNDLE -> n
-    java.lang.String MAPPLAS_SHARED_PREFS -> o
-    java.lang.String MAPPLAS_SHARED_PREFS_LANGUAGE_DIALOG_SHOWN -> p
-    java.lang.String APP_OBTENTION_ERROR_GENERIC -> q
-    java.lang.String APP_OBTENTION_OK -> r
-    java.lang.String APP_OBTENTION_ERROR_SOCKET -> s
+    java.lang.String APP_IMAGES_GALLERY -> k
+    java.lang.String APP_IMAGES_GALLERY_INDEX -> l
+    java.lang.String USER_IDENTIFICATION_SERVER_RESPONSE_ERROR -> m
+    java.lang.String USER_IDENTIFICATION_SOCKET_ERROR -> n
+    int NUMBER_OF_REQUEST_RETRIES -> o
+    java.lang.String SETTINGS_LANGUAGE_CHANGE_BUNDLE -> p
+    java.lang.String MAPPLAS_SHARED_PREFS -> q
+    java.lang.String MAPPLAS_SHARED_PREFS_LANGUAGE_DIALOG_SHOWN -> r
+    java.lang.String APP_OBTENTION_ERROR_GENERIC -> s
+    java.lang.String APP_OBTENTION_OK -> t
+    java.lang.String APP_OBTENTION_ERROR_SOCKET -> u
 com.mapplas.model.MoreFromDeveloperApp -> com.mapplas.model.MoreFromDeveloperApp:
     java.lang.String id -> id
     java.lang.String name -> name
@@ -5483,6 +7175,17 @@ com.mapplas.utils.cache.ImageFileManager -> com.mapplas.utils.a.g:
     boolean save(android.graphics.Bitmap,com.mapplas.utils.cache.CacheFolder,java.lang.String) -> a
     android.graphics.Bitmap load(com.mapplas.utils.cache.CacheFolder,java.lang.String) -> a
     boolean exists(com.mapplas.utils.cache.CacheFolder,java.lang.String) -> b
+com.mapplas.utils.gallery.GalleryFragmentPageAdapter -> com.mapplas.utils.gallery.a:
+    java.util.List fragments -> a
+    void addFragment(android.support.v4.app.Fragment) -> a
+    android.support.v4.app.Fragment getItem(int) -> a
+    int getCount() -> b
+com.mapplas.utils.gallery.GalleryItemFragment -> com.mapplas.utils.gallery.GalleryItemFragment:
+    java.lang.String image -> a
+    com.mapplas.utils.image.DrawableBackgroundDownloader mdbd -> b
+    com.mapplas.utils.gallery.GalleryItemFragment newInstance(java.lang.String) -> a
+    void onCreate(android.os.Bundle) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
 com.mapplas.utils.image.DrawableBackgroundDownloader -> com.mapplas.utils.b.a:
     java.util.Map mCache -> c
     java.util.LinkedList mChacheController -> d
@@ -5490,10 +7193,10 @@ com.mapplas.utils.image.DrawableBackgroundDownloader -> com.mapplas.utils.b.a:
     java.util.Map mImageViews -> f
     int MAX_CACHE_SIZE -> a
     int THREAD_POOL_SIZE -> b
-    void loadDrawable(java.lang.String,android.widget.ImageView,android.graphics.drawable.Drawable,boolean,int) -> a
+    void loadDrawable(java.lang.String,android.widget.ImageView,boolean,int,boolean,android.widget.ProgressBar) -> a
     android.graphics.drawable.Drawable getDrawableFromCache(java.lang.String) -> a
     void putDrawableInCache(java.lang.String,android.graphics.drawable.Drawable) -> a
-    void queueJob(java.lang.String,android.widget.ImageView,android.graphics.drawable.Drawable,boolean,int) -> b
+    void queueJob(java.lang.String,android.widget.ImageView,boolean,int,boolean,android.widget.ProgressBar) -> b
     android.graphics.drawable.Drawable downloadDrawable(java.lang.String) -> b
     java.io.InputStream getInputStream(java.lang.String) -> c
     java.util.Map access$0(com.mapplas.utils.image.DrawableBackgroundDownloader) -> a
@@ -5503,8 +7206,9 @@ com.mapplas.utils.image.DrawableBackgroundDownloader$1 -> com.mapplas.utils.b.b:
     android.widget.ImageView val$imageView -> b
     java.lang.String val$url -> c
     boolean val$keepRatio -> d
-    int val$constantw -> e
-    android.graphics.drawable.Drawable val$placeholder -> f
+    boolean val$loadToGallery -> e
+    int val$constantw -> f
+    android.widget.ProgressBar val$galleryProgressBar -> g
     void handleMessage(android.os.Message) -> handleMessage
 com.mapplas.utils.image.DrawableBackgroundDownloader$2 -> com.mapplas.utils.b.c:
     com.mapplas.utils.image.DrawableBackgroundDownloader this$0 -> a
@@ -5909,7 +7613,17 @@ com.mapplas.utils.third_party.RefreshableListView$1 -> com.mapplas.utils.third_p
     void handleMessage(android.os.Message) -> handleMessage
 com.mapplas.utils.third_party.RefreshableListView$OnRefreshListener -> com.mapplas.utils.third_party.d:
     void onRefresh(com.mapplas.utils.third_party.RefreshableListView) -> a
-com.mapplas.utils.utils.NumberUtils -> com.mapplas.utils.g.a:
+com.mapplas.utils.utils.IconColorUtils -> com.mapplas.utils.g.a:
+    void parseColors(com.mapplas.model.App) -> a
+com.mapplas.utils.utils.LogoHelper -> com.mapplas.utils.g.b:
+    android.content.Context context -> a
+    void setLogoToApp(com.mapplas.model.App,android.widget.ImageView) -> a
+    void checkNumberOfColoursAndDraw(com.mapplas.model.App,android.graphics.Canvas) -> a
+    void draw2ColouredCanvas(com.mapplas.model.App,android.graphics.Canvas) -> b
+    void draw3ColouredCanvas(com.mapplas.model.App,android.graphics.Canvas) -> c
+    void draw4ColouredCanvas(com.mapplas.model.App,android.graphics.Canvas) -> d
+    boolean existsColor(java.lang.String) -> a
+com.mapplas.utils.utils.NumberUtils -> com.mapplas.utils.g.c:
     float RoundToHalf(float) -> a
 com.mapplas.utils.view_holder.AppViewHolder -> com.mapplas.utils.h.a:
     android.widget.ImageView logo -> a
@@ -5987,10 +7701,9 @@ com.mapplas.utils.webView.TouchableScrollView -> com.mapplas.utils.webView.Touch
     android.view.animation.Animation fadeInAnimation -> d
     void setNavBar(android.widget.RelativeLayout) -> setNavBar
     void setProgressDialog(android.app.ProgressDialog) -> setProgressDialog
-    void stopDialogAndStartAnimation() -> a
     void onScrollChanged(int,int,int,int) -> onScrollChanged
-    void setTimerToNavigationBar() -> b
-    void initAnimations() -> c
+    void setTimerToNavigationBar() -> a
+    void initAnimations() -> b
     android.widget.RelativeLayout access$0(com.mapplas.utils.webView.TouchableScrollView) -> a
     android.view.animation.Animation access$1(com.mapplas.utils.webView.TouchableScrollView) -> b
 com.mapplas.utils.webView.TouchableScrollView$1 -> com.mapplas.utils.webView.a:
@@ -6006,6 +7719,382 @@ com.mapplas.utils.webView.TouchableScrollView$3 -> com.mapplas.utils.webView.c:
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+com.viewpagerindicator.CirclePageIndicator -> com.viewpagerindicator.CirclePageIndicator:
+    float mRadius -> a
+    android.graphics.Paint mPaintPageFill -> b
+    android.graphics.Paint mPaintStroke -> c
+    android.graphics.Paint mPaintFill -> d
+    android.support.v4.view.ViewPager mViewPager -> e
+    android.support.v4.view.ViewPager$OnPageChangeListener mListener -> f
+    int mCurrentPage -> g
+    int mSnapPage -> h
+    float mPageOffset -> i
+    int mScrollState -> j
+    int mOrientation -> k
+    boolean mCentered -> l
+    boolean mSnap -> m
+    int mTouchSlop -> n
+    float mLastMotionX -> o
+    int mActivePointerId -> p
+    boolean mIsDragging -> q
+    void setCentered(boolean) -> setCentered
+    void setPageColor(int) -> setPageColor
+    int getPageColor() -> getPageColor
+    void setFillColor(int) -> setFillColor
+    int getFillColor() -> getFillColor
+    void setOrientation(int) -> setOrientation
+    int getOrientation() -> getOrientation
+    void setStrokeColor(int) -> setStrokeColor
+    int getStrokeColor() -> getStrokeColor
+    void setStrokeWidth(float) -> setStrokeWidth
+    float getStrokeWidth() -> getStrokeWidth
+    void setRadius(float) -> setRadius
+    float getRadius() -> getRadius
+    void setSnap(boolean) -> setSnap
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    void setViewPager(android.support.v4.view.ViewPager) -> setViewPager
+    void setCurrentItem(int) -> setCurrentItem
+    void onPageScrollStateChanged(int) -> b
+    void onPageScrolled(int,float,int) -> a
+    void onPageSelected(int) -> a
+    void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> setOnPageChangeListener
+    void onMeasure(int,int) -> onMeasure
+    int measureLong(int) -> c
+    int measureShort(int) -> d
+    void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
+    android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
+com.viewpagerindicator.CirclePageIndicator$SavedState -> com.viewpagerindicator.CirclePageIndicator$SavedState:
+    int currentPage -> a
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+com.viewpagerindicator.CirclePageIndicator$SavedState$1 -> com.viewpagerindicator.a:
+    com.viewpagerindicator.CirclePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
+    com.viewpagerindicator.CirclePageIndicator$SavedState[] newArray(int) -> a
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    java.lang.Object[] newArray(int) -> newArray
+com.viewpagerindicator.LinePageIndicator -> com.viewpagerindicator.LinePageIndicator:
+    android.graphics.Paint mPaintUnselected -> a
+    android.graphics.Paint mPaintSelected -> b
+    android.support.v4.view.ViewPager mViewPager -> c
+    android.support.v4.view.ViewPager$OnPageChangeListener mListener -> d
+    int mCurrentPage -> e
+    boolean mCentered -> f
+    float mLineWidth -> g
+    float mGapWidth -> h
+    int mTouchSlop -> i
+    float mLastMotionX -> j
+    int mActivePointerId -> k
+    boolean mIsDragging -> l
+    void setCentered(boolean) -> setCentered
+    void setUnselectedColor(int) -> setUnselectedColor
+    int getUnselectedColor() -> getUnselectedColor
+    void setSelectedColor(int) -> setSelectedColor
+    int getSelectedColor() -> getSelectedColor
+    void setLineWidth(float) -> setLineWidth
+    float getLineWidth() -> getLineWidth
+    void setStrokeWidth(float) -> setStrokeWidth
+    float getStrokeWidth() -> getStrokeWidth
+    void setGapWidth(float) -> setGapWidth
+    float getGapWidth() -> getGapWidth
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    void setViewPager(android.support.v4.view.ViewPager) -> setViewPager
+    void setCurrentItem(int) -> setCurrentItem
+    void onPageScrollStateChanged(int) -> b
+    void onPageScrolled(int,float,int) -> a
+    void onPageSelected(int) -> a
+    void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> setOnPageChangeListener
+    void onMeasure(int,int) -> onMeasure
+    int measureWidth(int) -> c
+    int measureHeight(int) -> d
+    void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
+    android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
+com.viewpagerindicator.LinePageIndicator$SavedState -> com.viewpagerindicator.LinePageIndicator$SavedState:
+    int currentPage -> a
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+com.viewpagerindicator.LinePageIndicator$SavedState$1 -> com.viewpagerindicator.b:
+    com.viewpagerindicator.LinePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
+    com.viewpagerindicator.LinePageIndicator$SavedState[] newArray(int) -> a
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    java.lang.Object[] newArray(int) -> newArray
+com.viewpagerindicator.PageIndicator -> com.viewpagerindicator.c:
+com.viewpagerindicator.R -> com.viewpagerindicator.d:
+com.viewpagerindicator.R$attr -> com.viewpagerindicator.e:
+    int centered -> centered
+    int clipPadding -> clipPadding
+    int fadeDelay -> fadeDelay
+    int fadeLength -> fadeLength
+    int fades -> fades
+    int fillColor -> fillColor
+    int footerColor -> footerColor
+    int footerIndicatorHeight -> footerIndicatorHeight
+    int footerIndicatorStyle -> footerIndicatorStyle
+    int footerIndicatorUnderlinePadding -> footerIndicatorUnderlinePadding
+    int footerLineHeight -> footerLineHeight
+    int footerPadding -> footerPadding
+    int gapWidth -> gapWidth
+    int linePosition -> linePosition
+    int lineWidth -> lineWidth
+    int pageColor -> pageColor
+    int radius -> radius
+    int selectedBold -> selectedBold
+    int selectedColor -> selectedColor
+    int snap -> snap
+    int strokeColor -> strokeColor
+    int strokeWidth -> strokeWidth
+    int titlePadding -> titlePadding
+    int topPadding -> topPadding
+    int unselectedColor -> unselectedColor
+    int vpiCirclePageIndicatorStyle -> vpiCirclePageIndicatorStyle
+    int vpiIconPageIndicatorStyle -> vpiIconPageIndicatorStyle
+    int vpiLinePageIndicatorStyle -> vpiLinePageIndicatorStyle
+    int vpiTabPageIndicatorStyle -> vpiTabPageIndicatorStyle
+    int vpiTitlePageIndicatorStyle -> vpiTitlePageIndicatorStyle
+    int vpiUnderlinePageIndicatorStyle -> vpiUnderlinePageIndicatorStyle
+com.viewpagerindicator.R$bool -> com.viewpagerindicator.f:
+    int default_circle_indicator_centered -> default_circle_indicator_centered
+    int default_circle_indicator_snap -> default_circle_indicator_snap
+    int default_line_indicator_centered -> default_line_indicator_centered
+    int default_title_indicator_selected_bold -> default_title_indicator_selected_bold
+    int default_underline_indicator_fades -> default_underline_indicator_fades
+com.viewpagerindicator.R$color -> com.viewpagerindicator.g:
+    int default_circle_indicator_fill_color -> default_circle_indicator_fill_color
+    int default_circle_indicator_page_color -> default_circle_indicator_page_color
+    int default_circle_indicator_stroke_color -> default_circle_indicator_stroke_color
+    int default_line_indicator_selected_color -> default_line_indicator_selected_color
+    int default_line_indicator_unselected_color -> default_line_indicator_unselected_color
+    int default_title_indicator_footer_color -> default_title_indicator_footer_color
+    int default_title_indicator_selected_color -> default_title_indicator_selected_color
+    int default_title_indicator_text_color -> default_title_indicator_text_color
+    int default_underline_indicator_selected_color -> default_underline_indicator_selected_color
+    int vpi__background_holo_dark -> vpi__background_holo_dark
+    int vpi__background_holo_light -> vpi__background_holo_light
+    int vpi__bright_foreground_disabled_holo_dark -> vpi__bright_foreground_disabled_holo_dark
+    int vpi__bright_foreground_disabled_holo_light -> vpi__bright_foreground_disabled_holo_light
+    int vpi__bright_foreground_holo_dark -> vpi__bright_foreground_holo_dark
+    int vpi__bright_foreground_holo_light -> vpi__bright_foreground_holo_light
+    int vpi__bright_foreground_inverse_holo_dark -> vpi__bright_foreground_inverse_holo_dark
+    int vpi__bright_foreground_inverse_holo_light -> vpi__bright_foreground_inverse_holo_light
+    int vpi__dark_theme -> vpi__dark_theme
+    int vpi__light_theme -> vpi__light_theme
+com.viewpagerindicator.R$dimen -> com.viewpagerindicator.h:
+    int default_circle_indicator_radius -> default_circle_indicator_radius
+    int default_circle_indicator_stroke_width -> default_circle_indicator_stroke_width
+    int default_line_indicator_gap_width -> default_line_indicator_gap_width
+    int default_line_indicator_line_width -> default_line_indicator_line_width
+    int default_line_indicator_stroke_width -> default_line_indicator_stroke_width
+    int default_title_indicator_clip_padding -> default_title_indicator_clip_padding
+    int default_title_indicator_footer_indicator_height -> default_title_indicator_footer_indicator_height
+    int default_title_indicator_footer_indicator_underline_padding -> default_title_indicator_footer_indicator_underline_padding
+    int default_title_indicator_footer_line_height -> default_title_indicator_footer_line_height
+    int default_title_indicator_footer_padding -> default_title_indicator_footer_padding
+    int default_title_indicator_text_size -> default_title_indicator_text_size
+    int default_title_indicator_title_padding -> default_title_indicator_title_padding
+    int default_title_indicator_top_padding -> default_title_indicator_top_padding
+com.viewpagerindicator.R$integer -> com.viewpagerindicator.i:
+    int default_circle_indicator_orientation -> default_circle_indicator_orientation
+    int default_title_indicator_footer_indicator_style -> default_title_indicator_footer_indicator_style
+    int default_title_indicator_line_position -> default_title_indicator_line_position
+    int default_underline_indicator_fade_delay -> default_underline_indicator_fade_delay
+    int default_underline_indicator_fade_length -> default_underline_indicator_fade_length
+com.viewpagerindicator.R$styleable -> com.viewpagerindicator.j:
+    int[] CirclePageIndicator -> CirclePageIndicator
+    int CirclePageIndicator_android_background -> CirclePageIndicator_android_background
+    int CirclePageIndicator_android_orientation -> CirclePageIndicator_android_orientation
+    int CirclePageIndicator_centered -> CirclePageIndicator_centered
+    int CirclePageIndicator_fillColor -> CirclePageIndicator_fillColor
+    int CirclePageIndicator_pageColor -> CirclePageIndicator_pageColor
+    int CirclePageIndicator_radius -> CirclePageIndicator_radius
+    int CirclePageIndicator_snap -> CirclePageIndicator_snap
+    int CirclePageIndicator_strokeColor -> CirclePageIndicator_strokeColor
+    int CirclePageIndicator_strokeWidth -> CirclePageIndicator_strokeWidth
+    int[] LinePageIndicator -> LinePageIndicator
+    int LinePageIndicator_android_background -> LinePageIndicator_android_background
+    int LinePageIndicator_centered -> LinePageIndicator_centered
+    int LinePageIndicator_gapWidth -> LinePageIndicator_gapWidth
+    int LinePageIndicator_lineWidth -> LinePageIndicator_lineWidth
+    int LinePageIndicator_selectedColor -> LinePageIndicator_selectedColor
+    int LinePageIndicator_strokeWidth -> LinePageIndicator_strokeWidth
+    int LinePageIndicator_unselectedColor -> LinePageIndicator_unselectedColor
+    int[] TitlePageIndicator -> TitlePageIndicator
+    int TitlePageIndicator_android_background -> TitlePageIndicator_android_background
+    int TitlePageIndicator_android_textColor -> TitlePageIndicator_android_textColor
+    int TitlePageIndicator_android_textSize -> TitlePageIndicator_android_textSize
+    int TitlePageIndicator_clipPadding -> TitlePageIndicator_clipPadding
+    int TitlePageIndicator_footerColor -> TitlePageIndicator_footerColor
+    int TitlePageIndicator_footerIndicatorHeight -> TitlePageIndicator_footerIndicatorHeight
+    int TitlePageIndicator_footerIndicatorStyle -> TitlePageIndicator_footerIndicatorStyle
+    int TitlePageIndicator_footerIndicatorUnderlinePadding -> TitlePageIndicator_footerIndicatorUnderlinePadding
+    int TitlePageIndicator_footerLineHeight -> TitlePageIndicator_footerLineHeight
+    int TitlePageIndicator_footerPadding -> TitlePageIndicator_footerPadding
+    int TitlePageIndicator_linePosition -> TitlePageIndicator_linePosition
+    int TitlePageIndicator_selectedBold -> TitlePageIndicator_selectedBold
+    int TitlePageIndicator_selectedColor -> TitlePageIndicator_selectedColor
+    int TitlePageIndicator_titlePadding -> TitlePageIndicator_titlePadding
+    int TitlePageIndicator_topPadding -> TitlePageIndicator_topPadding
+    int[] UnderlinePageIndicator -> UnderlinePageIndicator
+    int UnderlinePageIndicator_android_background -> UnderlinePageIndicator_android_background
+    int UnderlinePageIndicator_fadeDelay -> UnderlinePageIndicator_fadeDelay
+    int UnderlinePageIndicator_fadeLength -> UnderlinePageIndicator_fadeLength
+    int UnderlinePageIndicator_fades -> UnderlinePageIndicator_fades
+    int UnderlinePageIndicator_selectedColor -> UnderlinePageIndicator_selectedColor
+    int[] ViewPagerIndicator -> ViewPagerIndicator
+    int ViewPagerIndicator_vpiCirclePageIndicatorStyle -> ViewPagerIndicator_vpiCirclePageIndicatorStyle
+    int ViewPagerIndicator_vpiIconPageIndicatorStyle -> ViewPagerIndicator_vpiIconPageIndicatorStyle
+    int ViewPagerIndicator_vpiLinePageIndicatorStyle -> ViewPagerIndicator_vpiLinePageIndicatorStyle
+    int ViewPagerIndicator_vpiTabPageIndicatorStyle -> ViewPagerIndicator_vpiTabPageIndicatorStyle
+    int ViewPagerIndicator_vpiTitlePageIndicatorStyle -> ViewPagerIndicator_vpiTitlePageIndicatorStyle
+    int ViewPagerIndicator_vpiUnderlinePageIndicatorStyle -> ViewPagerIndicator_vpiUnderlinePageIndicatorStyle
+com.viewpagerindicator.TitlePageIndicator -> com.viewpagerindicator.TitlePageIndicator:
+    android.support.v4.view.ViewPager mViewPager -> a
+    android.support.v4.view.ViewPager$OnPageChangeListener mListener -> b
+    int mCurrentPage -> c
+    float mPageOffset -> d
+    int mScrollState -> e
+    android.graphics.Paint mPaintText -> f
+    boolean mBoldText -> g
+    int mColorText -> h
+    int mColorSelected -> i
+    android.graphics.Path mPath -> j
+    android.graphics.Rect mBounds -> k
+    android.graphics.Paint mPaintFooterLine -> l
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle mFooterIndicatorStyle -> m
+    com.viewpagerindicator.TitlePageIndicator$LinePosition mLinePosition -> n
+    android.graphics.Paint mPaintFooterIndicator -> o
+    float mFooterIndicatorHeight -> p
+    float mFooterIndicatorUnderlinePadding -> q
+    float mFooterPadding -> r
+    float mTitlePadding -> s
+    float mTopPadding -> t
+    float mClipPadding -> u
+    float mFooterLineHeight -> v
+    int mTouchSlop -> w
+    float mLastMotionX -> x
+    int mActivePointerId -> y
+    boolean mIsDragging -> z
+    com.viewpagerindicator.TitlePageIndicator$OnCenterItemClickListener mCenterItemClickListener -> A
+    int[] $SWITCH_TABLE$com$viewpagerindicator$TitlePageIndicator$IndicatorStyle -> B
+    int getFooterColor() -> getFooterColor
+    void setFooterColor(int) -> setFooterColor
+    float getFooterLineHeight() -> getFooterLineHeight
+    void setFooterLineHeight(float) -> setFooterLineHeight
+    float getFooterIndicatorHeight() -> getFooterIndicatorHeight
+    void setFooterIndicatorHeight(float) -> setFooterIndicatorHeight
+    float getFooterIndicatorPadding() -> getFooterIndicatorPadding
+    void setFooterIndicatorPadding(float) -> setFooterIndicatorPadding
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle getFooterIndicatorStyle() -> getFooterIndicatorStyle
+    void setFooterIndicatorStyle(com.viewpagerindicator.TitlePageIndicator$IndicatorStyle) -> setFooterIndicatorStyle
+    com.viewpagerindicator.TitlePageIndicator$LinePosition getLinePosition() -> getLinePosition
+    void setLinePosition(com.viewpagerindicator.TitlePageIndicator$LinePosition) -> setLinePosition
+    int getSelectedColor() -> getSelectedColor
+    void setSelectedColor(int) -> setSelectedColor
+    void setSelectedBold(boolean) -> setSelectedBold
+    int getTextColor() -> getTextColor
+    void setTextColor(int) -> setTextColor
+    float getTextSize() -> getTextSize
+    void setTextSize(float) -> setTextSize
+    float getTitlePadding() -> getTitlePadding
+    void setTitlePadding(float) -> setTitlePadding
+    float getTopPadding() -> getTopPadding
+    void setTopPadding(float) -> setTopPadding
+    float getClipPadding() -> getClipPadding
+    void setClipPadding(float) -> setClipPadding
+    void setTypeface(android.graphics.Typeface) -> setTypeface
+    android.graphics.Typeface getTypeface() -> getTypeface
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    void clipViewOnTheRight(android.graphics.Rect,float,int) -> a
+    void clipViewOnTheLeft(android.graphics.Rect,float,int) -> b
+    java.util.ArrayList calculateAllBounds(android.graphics.Paint) -> a
+    android.graphics.Rect calcBounds(int,android.graphics.Paint) -> a
+    void setViewPager(android.support.v4.view.ViewPager) -> setViewPager
+    void setOnCenterItemClickListener(com.viewpagerindicator.TitlePageIndicator$OnCenterItemClickListener) -> setOnCenterItemClickListener
+    void setCurrentItem(int) -> setCurrentItem
+    void onPageScrollStateChanged(int) -> b
+    void onPageScrolled(int,float,int) -> a
+    void onPageSelected(int) -> a
+    void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> setOnPageChangeListener
+    void onMeasure(int,int) -> onMeasure
+    void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
+    android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
+    java.lang.CharSequence getTitle(int) -> c
+    int[] $SWITCH_TABLE$com$viewpagerindicator$TitlePageIndicator$IndicatorStyle() -> a
+com.viewpagerindicator.TitlePageIndicator$IndicatorStyle -> com.viewpagerindicator.k:
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle None -> a
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle Triangle -> b
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle Underline -> c
+    int value -> d
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle[] ENUM$VALUES -> e
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle[] values() -> values
+    com.viewpagerindicator.TitlePageIndicator$IndicatorStyle valueOf(java.lang.String) -> valueOf
+com.viewpagerindicator.TitlePageIndicator$LinePosition -> com.viewpagerindicator.l:
+    com.viewpagerindicator.TitlePageIndicator$LinePosition Bottom -> a
+    com.viewpagerindicator.TitlePageIndicator$LinePosition Top -> b
+    int value -> c
+    com.viewpagerindicator.TitlePageIndicator$LinePosition[] ENUM$VALUES -> d
+    com.viewpagerindicator.TitlePageIndicator$LinePosition[] values() -> values
+    com.viewpagerindicator.TitlePageIndicator$LinePosition valueOf(java.lang.String) -> valueOf
+com.viewpagerindicator.TitlePageIndicator$OnCenterItemClickListener -> com.viewpagerindicator.m:
+    void onCenterItemClick(int) -> a
+com.viewpagerindicator.TitlePageIndicator$SavedState -> com.viewpagerindicator.TitlePageIndicator$SavedState:
+    int currentPage -> a
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+com.viewpagerindicator.TitlePageIndicator$SavedState$1 -> com.viewpagerindicator.n:
+    com.viewpagerindicator.TitlePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
+    com.viewpagerindicator.TitlePageIndicator$SavedState[] newArray(int) -> a
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    java.lang.Object[] newArray(int) -> newArray
+com.viewpagerindicator.UnderlinePageIndicator -> com.viewpagerindicator.UnderlinePageIndicator:
+    android.graphics.Paint mPaint -> a
+    boolean mFades -> b
+    int mFadeDelay -> c
+    int mFadeLength -> d
+    int mFadeBy -> e
+    android.support.v4.view.ViewPager mViewPager -> f
+    android.support.v4.view.ViewPager$OnPageChangeListener mListener -> g
+    int mScrollState -> h
+    int mCurrentPage -> i
+    float mPositionOffset -> j
+    int mTouchSlop -> k
+    float mLastMotionX -> l
+    int mActivePointerId -> m
+    boolean mIsDragging -> n
+    java.lang.Runnable mFadeRunnable -> o
+    boolean getFades() -> getFades
+    void setFades(boolean) -> setFades
+    int getFadeDelay() -> getFadeDelay
+    void setFadeDelay(int) -> setFadeDelay
+    int getFadeLength() -> getFadeLength
+    void setFadeLength(int) -> setFadeLength
+    int getSelectedColor() -> getSelectedColor
+    void setSelectedColor(int) -> setSelectedColor
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    void setViewPager(android.support.v4.view.ViewPager) -> setViewPager
+    void setCurrentItem(int) -> setCurrentItem
+    void onPageScrollStateChanged(int) -> b
+    void onPageScrolled(int,float,int) -> a
+    void onPageSelected(int) -> a
+    void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> setOnPageChangeListener
+    void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
+    android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
+    boolean access$0(com.viewpagerindicator.UnderlinePageIndicator) -> a
+    java.lang.Runnable access$3(com.viewpagerindicator.UnderlinePageIndicator) -> b
+com.viewpagerindicator.UnderlinePageIndicator$2 -> com.viewpagerindicator.o:
+    com.viewpagerindicator.UnderlinePageIndicator this$0 -> a
+    void run() -> run
+com.viewpagerindicator.UnderlinePageIndicator$SavedState -> com.viewpagerindicator.UnderlinePageIndicator$SavedState:
+    int currentPage -> a
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    void writeToParcel(android.os.Parcel,int) -> writeToParcel
+com.viewpagerindicator.UnderlinePageIndicator$SavedState$1 -> com.viewpagerindicator.p:
+    com.viewpagerindicator.UnderlinePageIndicator$SavedState createFromParcel(android.os.Parcel) -> a
+    com.viewpagerindicator.UnderlinePageIndicator$SavedState[] newArray(int) -> a
+    java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    java.lang.Object[] newArray(int) -> newArray
 org.apache.commons.lang3.ArrayUtils -> a.a.a.a.a:
     java.lang.Object[] EMPTY_OBJECT_ARRAY -> a
     java.lang.Class[] EMPTY_CLASS_ARRAY -> b
