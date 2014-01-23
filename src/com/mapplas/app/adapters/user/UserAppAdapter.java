@@ -26,12 +26,9 @@ import com.mapplas.model.App;
 import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
-import com.mapplas.utils.cache.CacheFolderFactory;
-import com.mapplas.utils.cache.ImageFileManager;
-import com.mapplas.utils.network.async_tasks.LoadImageTask;
-import com.mapplas.utils.network.async_tasks.TaskAsyncExecuter;
 import com.mapplas.utils.network.requests.BlockRequestThread;
 import com.mapplas.utils.network.requests.PinRequestThread;
+import com.mapplas.utils.utils.LogoHelper;
 
 public class UserAppAdapter extends ArrayAdapter<App> {
 
@@ -184,21 +181,8 @@ public class UserAppAdapter extends ArrayAdapter<App> {
 				final LinearLayout actionLayout = (LinearLayout)view.findViewById(R.id.unpin_unblock_action_layout);
 				final ImageView ivLogo = (ImageView)view.findViewById(R.id.imgLogo);
 
-				// Set app logo
-				ImageFileManager imageFileManager = new ImageFileManager();
-				String logoUrl = app.getAppLogo();
-				if(!logoUrl.equals("")) {
-					if(imageFileManager.exists(new CacheFolderFactory(this.context).create(), logoUrl)) {
-						ivLogo.setImageBitmap(imageFileManager.load(new CacheFolderFactory(this.context).create(), logoUrl));
-					}
-					else {
-						TaskAsyncExecuter imageRequest = new TaskAsyncExecuter(new LoadImageTask(this.context, logoUrl, ivLogo, imageFileManager));
-						imageRequest.execute();
-					}
-				}
-				else {
-					ivLogo.setImageResource(R.drawable.ic_template);
-				}
+				// Load app logo
+				new LogoHelper(this.context).setLogoToApp(app, ivLogo);
 
 				lblTitle.setTypeface(((MapplasApplication)getContext().getApplicationContext()).getTypeFace());
 				lblTitle.setText(app.getName());

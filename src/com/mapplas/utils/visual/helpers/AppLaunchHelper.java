@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.Toast;
 import app.mapplas.com.R;
 
-import com.mapplas.app.activities.WebViewActivity;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
@@ -101,9 +100,8 @@ public class AppLaunchHelper {
 								new UserPlayStoreInteractionTask(app.getId(), user.getId(), location).execute();
 							}
 							else {
-								Intent webViewIntent = new Intent(context, WebViewActivity.class);
-								webViewIntent.putExtra(Constants.APP_DEV_URL_INTENT_DATA, anonLoc.getId());
-								context.startActivity(webViewIntent);
+								final Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(app.getId()));
+								context.startActivity(intent);
 							}
 						}
 					}
