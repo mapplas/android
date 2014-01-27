@@ -33,9 +33,9 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <!-- Radar -->
+            <!-- Splash -->
 
-            <include layout="@layout/radar" />
+            <include layout="@layout/splash" />
 
             <com.mapplas.utils.third_party.RefreshableListView
                 android:id="@+id/lvLista"

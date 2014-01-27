@@ -15,6 +15,18 @@
     <uses-permission android:name="android.permission.READ_OWNER_DATA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- permission so the Android application can register and receive messages. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- so the application can keep the processor from sleeping when a message is received. Optional—use only if the app wants to keep the device from sleeping. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- to prevent other Android applications from registering and receiving the Android application's messages. The permission name must exactly match this pattern—otherwise the Android application will not receive the messages. -->
+    <permission
+        android:name="app.mapplas.com.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="app.mapplas.com.permission.C2D_MESSAGE" />
 
     <application
         android:name="com.mapplas.app.application.MapplasApplication"
@@ -81,6 +93,19 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+
+        <!-- C2DM message receiver -->
+        <receiver
+            android:name="com.mapplas.utils.gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="app.mapplas.com" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.mapplas.utils.gcm.GcmIntentService" />
     </application>
 
 </manifest>

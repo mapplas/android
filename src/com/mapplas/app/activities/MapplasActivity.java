@@ -1,13 +1,18 @@
 package com.mapplas.app.activities;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -16,9 +21,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +38,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.gcm.GcmRegistrationManager;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.location_manager.AroundRequesterLocationManager;
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
@@ -71,6 +74,8 @@ public class MapplasActivity extends LanguageActivity {
 
 	private AroundRequesterLocationManager aroundRequester = null;
 
+	private GcmRegistrationManager gcmManager;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,22 +91,34 @@ public class MapplasActivity extends LanguageActivity {
 			imei = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
 		}
 		this.model.setCurrentIMEI(imei);
-		
+
 		String networkCountryIso = manager.getNetworkCountryIso();
 		this.model.setDeviceCountry(networkCountryIso);
+		
+		this.gcmManager = new GcmRegistrationManager(this, this);
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
 
-		this.startRadarAnimation();
+		this.startScreenAnimation();
 
 		// Identificamos contra el servidor
 		int requestNumber = 0;
 		new UserIdentificationTask(this.model, this, this, requestNumber).execute();
 	}
 
+	// Play Services APK check here too. NEEDED.
+	@Override
+	protected void onResume() {
+		super.onResume();
+		this.gcmManager.checkPlayServices();
+	}
+
 	public void continueActivityAfterUserIdentification() {
+		// Register for notifications
+		this.gcmManager.registerForC2dmNotifications(this.model.currentUser());
+
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
@@ -125,13 +142,16 @@ public class MapplasActivity extends LanguageActivity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-//		Location location = new Location("");
-//		location.setLatitude(40.492523);
-//		location.setLongitude(-3.59589);
-//
-//		this.model.setLocation(location);
-//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, 0).execute(new Location(location), true);
+		// Location location = new Location("");
+		// location.setLatitude(40.492523);
+		// location.setLongitude(-3.59589);
+		//
+		// this.model.setLocation(location);
+		// new ReverseGeocodingTask(this, this.model,
+		// this.listViewHeaderStatusMessage).execute(new Location(location));
+		// new AppGetterTask(this, this.model, this.listViewAdapter,
+		// this.listView, this.appsInstalledList, this, 0).execute(new
+		// Location(location), true);
 	}
 
 	@Override
@@ -156,7 +176,7 @@ public class MapplasActivity extends LanguageActivity {
 				this.model.setCurrentUser((User)data.getExtras().getParcelable(Constants.MAPPLAS_LOGIN_USER));
 			}
 		}
-		else if (requestCode == Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED) {
+		else if(requestCode == Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED) {
 			this.loadLocalization();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
@@ -235,48 +255,32 @@ public class MapplasActivity extends LanguageActivity {
 		});
 	}
 
-	/**
-	 * Radar animation
-	 */
-	private void startRadarAnimation() {
-		ImageView radar1 = (ImageView)this.findViewById(R.id.radar_1);
-		((BitmapDrawable)radar1.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate);
-		rotate.setDuration(1600);
-		radar1.setDrawingCacheEnabled(false);
-		radar1.startAnimation(rotate);
+	private void startScreenAnimation() {
+		// 124 are number of lines in text file
+		Random random = new Random();
+		int randomNum = random.nextInt(124);
 
-		ImageView radar2 = (ImageView)this.findViewById(R.id.radar_2);
-		((BitmapDrawable)radar2.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate2 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate2);
-		rotate2.setDuration(1800);
-		radar2.setDrawingCacheEnabled(true);
-		radar2.startAnimation(rotate2);
+		Resources res = getResources();
+		InputStream inputStream = res.openRawResource(R.raw.citas);
+		InputStreamReader inputreader = new InputStreamReader(inputStream);
+		BufferedReader buffreader = new BufferedReader(inputreader);
 
-		ImageView radar3 = (ImageView)this.findViewById(R.id.radar_3);
-		((BitmapDrawable)radar3.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate3 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate3);
-		rotate3.setDuration(3400);
-		radar3.setDrawingCacheEnabled(true);
-		radar3.startAnimation(rotate3);
+		TextView text = (TextView)this.findViewById(R.id.tv_citas);
+		String line;
+		int i = 0;
 
-		ImageView radar4 = (ImageView)this.findViewById(R.id.radar_4);
-		((BitmapDrawable)radar4.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate4 = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate4);
-		rotate4.setDuration(2600);
-		radar4.setDrawingCacheEnabled(false);
-		radar4.startAnimation(rotate4);
-	}
-
-	private void setRotateAnimConstants(RotateAnimation animation) {
-		animation.setRepeatMode(Animation.RESTART);
-		animation.setFillAfter(false);
-		animation.setRepeatCount(Animation.INFINITE);
-		animation.setInterpolator(new LinearInterpolator());
+		try {
+			while ((line = buffreader.readLine()) != null) {
+				if(i != randomNum) {
+					i++;
+				}
+				else {
+					text.setText(line);
+					break;
+				}
+			}
+		} catch (IOException e) {
+		}
 	}
 
 	/**
@@ -286,7 +290,7 @@ public class MapplasActivity extends LanguageActivity {
 	private void loadLocalization() {
 
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-//		Log.e("LOCALIZATION", resultCode + "");
+		// Log.e("LOCALIZATION", resultCode + "");
 
 		if(resultCode == ConnectionResult.SUCCESS) {
 			this.appsRequester.start();

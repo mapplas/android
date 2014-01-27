@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radar_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgd_launch"
+    android:visibility="visible" >
+
+    <com.mapplas.utils.visual.custom_views.RobotoTextView
+        android:id="@+id/tv_citas"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        style="@style/RadarText"
+        android:text="Cuando los hombres buscan la diversidad, viajan." />
+
+</RelativeLayout>
