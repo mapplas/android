@@ -49,6 +49,8 @@ import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
+import com.mapplas.utils.visual.custom_views.RobotoTextView;
+import com.todddavies.components.progressbar.ProgressWheel;
 
 public class MapplasActivity extends LanguageActivity {
 
@@ -256,6 +258,9 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	private void startScreenAnimation() {
+		ProgressWheel progressWheel = (ProgressWheel)this.findViewById(R.id.pw_spinner);
+		progressWheel.spin();
+		
 		// 124 are number of lines in text file
 		Random random = new Random();
 		int randomNum = random.nextInt(124);
@@ -265,7 +270,7 @@ public class MapplasActivity extends LanguageActivity {
 		InputStreamReader inputreader = new InputStreamReader(inputStream);
 		BufferedReader buffreader = new BufferedReader(inputreader);
 
-		TextView text = (TextView)this.findViewById(R.id.tv_citas);
+		RobotoTextView text = (RobotoTextView)this.findViewById(R.id.tv_citas);
 		String line;
 		int i = 0;
 
