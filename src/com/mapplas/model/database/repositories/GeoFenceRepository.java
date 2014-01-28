@@ -25,6 +25,9 @@ public class GeoFenceRepository extends Repository {
 		List<GeoFence> fence = null;
 
 		try {
+
+			int total = (int)this.getDao().countOf(this.getDao().queryBuilder().setCountOf(true).prepare());
+
 			queryBuilder.where().eq("id", id);
 			PreparedQuery<GeoFence> preparedQuery = queryBuilder.prepare();
 			fence = this.getDao().query(preparedQuery);
@@ -39,7 +42,7 @@ public class GeoFenceRepository extends Repository {
 
 		return null;
 	}
-	
+
 	public void delete(String id) {
 		Unit unit = this.get(id);
 		GeoFence fence = (GeoFence)unit;
