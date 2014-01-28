@@ -147,10 +147,8 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}
-
-		// Send app info to server
-		// new AppInfoSenderTask(this.applicationList, location,
-		// this.activityManager, this.model.currentUser()).execute();
+		
+		this.mainActivity.requestGeoFences();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {

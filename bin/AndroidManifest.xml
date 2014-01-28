@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- so the application can keep the processor from sleeping when a message is received. Optional—use only if the app wants to keep the device from sleeping. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!-- to prevent other Android applications from registering and receiving the Android application's messages. The permission name must exactly match this pattern—otherwise the Android application will not receive the messages. -->
     <permission

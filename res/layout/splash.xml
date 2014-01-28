@@ -6,35 +6,29 @@
     android:background="@drawable/bgd_launch"
     android:visibility="visible" >
 
-    <LinearLayout
+    <com.mapplas.utils.visual.custom_views.RobotoTextView
+        android:id="@+id/tv_citas"
+        style="@style/RadarText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp" />
+
+    <com.todddavies.components.progressbar.ProgressWheel
+        xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pw_spinner"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
-
-        <com.mapplas.utils.visual.custom_views.RobotoTextView
-            android:id="@+id/tv_citas"
-            style="@style/RadarText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp" />
-
-        <com.todddavies.components.progressbar.ProgressWheel
-            xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/pw_spinner"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="10dp"
-            ProgressWheel:barColor="@color/White"
-            ProgressWheel:barLength="60dp"
-            ProgressWheel:barWidth="5dp"
-            ProgressWheel:rimColor="#330097D6"
-            ProgressWheel:rimWidth="2dp" />
-    </LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        ProgressWheel:barColor="@color/White"
+        ProgressWheel:barLength="60dp"
+        ProgressWheel:barWidth="5dp"
+        ProgressWheel:rimColor="#330097D6"
+        ProgressWheel:rimWidth="2dp" />
 
 </RelativeLayout>

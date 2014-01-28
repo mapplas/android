@@ -99,7 +99,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 
 	List<Geofence> mGeofenceList;
 
-	private static final long SECONDS_PER_HOUR = 60;
+	private static final long SECONDS_PER_HOUR = 60 * 60;
 
 	private static final long MILLISECONDS_PER_SECOND = 1000;
 
@@ -109,7 +109,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
-	private LocationClient locationClient;
+	private LocationClient geoFencesLocationClient;
 
 	private PendingIntent pendingIntent;
 
@@ -199,8 +199,6 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		// new AppGetterTask(this, this.model, this.listViewAdapter,
 		// this.listView, this.appsInstalledList, this, 0).execute(new
 		// Location(location), true);
-		
-		this.addGeoFences();
 	}
 
 	@Override
@@ -393,26 +391,6 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 	 * GEOFENCES
 	 * 
 	 ******************************/
-	
-	private void addGeoFences() {
-		this.mGeofenceList = new ArrayList<Geofence>();
-
-		GeoFenceRepository repo = RepositoryManager.geofences(this);
-
-		this.geofence1 = new GeoFence("1", 42.3453453, -1.4353453, 45343, GEOFENCE_EXPIRATION_TIME, Geofence.GEOFENCE_TRANSITION_ENTER);
-		this.geofence2 = new GeoFence("2", 43.26728, -1.975968, 543, GEOFENCE_EXPIRATION_TIME, Geofence.GEOFENCE_TRANSITION_ENTER);
-
-		try {
-			repo.createOrUpdateBatch(this.geofence1);
-			repo.createOrUpdateBatch(this.geofence2);
-			repo.createOrUpdateFlush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		this.mGeofenceList.add(this.geofence1.toGeofence());
-		this.mGeofenceList.add(this.geofence2.toGeofence());
-	}
 
 	private PendingIntent getTransitionPendingIntent() {
 		// Create an explicit Intent
@@ -428,9 +406,28 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 	 * Start a request for geofence monitoring by calling
 	 * LocationClient.connect().
 	 */
-	public void addGeofences() {
+	public void requestGeoFences() {
+		this.mGeofenceList = new ArrayList<Geofence>();
+
+		GeoFenceRepository repo = RepositoryManager.geofences(this);
+
+		this.geofence1 = new GeoFence("1", 43.293169, -1.984446, 1000, GEOFENCE_EXPIRATION_TIME, Geofence.GEOFENCE_TRANSITION_ENTER);
+		this.geofence2 = new GeoFence("2", 43.293169, -1.984446, 1000, GEOFENCE_EXPIRATION_TIME, Geofence.GEOFENCE_TRANSITION_EXIT);
+
+		try {
+			repo.createOrUpdateBatch(this.geofence1);
+			repo.createOrUpdateBatch(this.geofence2);
+			repo.createOrUpdateFlush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		this.mGeofenceList.add(this.geofence1.toGeofence());
+		this.mGeofenceList.add(this.geofence2.toGeofence());
+		Toast.makeText(this, "CREATED 1 AND 2", Toast.LENGTH_SHORT).show();
+		
 		// Start a request to add geofences
-		requestType = REQUEST_TYPE.ADD;
+		this.requestType = REQUEST_TYPE.ADD;
 
 		/*
 		 * Test for Google Play services after setting the request type. If
@@ -445,14 +442,14 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		 * implements ConnectionCallbacks and OnConnectionFailedListener, pass
 		 * the current activity object as the listener for both parameters
 		 */
-		locationClient = new LocationClient(this, this, this);
+		geoFencesLocationClient = new LocationClient(this, this, this);
 
 		// If a request is not already underway
 		if(!requestInProgress) {
 			// Indicate that a request is underway
 			requestInProgress = true;
 			// Request a connection from the client to Location Services
-			locationClient.connect();
+			geoFencesLocationClient.connect();
 		}
 		else {
 			/*
@@ -483,13 +480,13 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		 * implements ConnectionCallbacks and OnConnectionFailedListener, pass
 		 * the current activity object as the listener for both parameters
 		 */
-		locationClient = new LocationClient(this, this, this);
+		geoFencesLocationClient = new LocationClient(this, this, this);
 		// If a request is not already underway
 		if(!requestInProgress) {
 			// Indicate that a request is underway
 			requestInProgress = true;
 			// Request a connection from the client to Location Services
-			locationClient.connect();
+			geoFencesLocationClient.connect();
 		}
 		else {
 			/*
@@ -509,6 +506,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 	public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
 		// If adding the geofences was successful
 		if(LocationStatusCodes.SUCCESS == statusCode) {
+			Toast.makeText(this, "ADDED " + geofenceRequestIds, Toast.LENGTH_SHORT).show();
 			/*
 			 * Handle successful addition of geofences here. You can send out a
 			 * broadcast intent or update the UI. geofences into the Intent's
@@ -524,7 +522,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		}
 		// Turn off the in progress flag and disconnect the client
 		requestInProgress = false;
-		locationClient.disconnect();
+		geoFencesLocationClient.disconnect();
 	}
 
 	@Override
@@ -574,10 +572,10 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 				// Get the PendingIntent for the request
 				pendingIntent = getTransitionPendingIntent();
 				// Send a request to add the current geofences
-				locationClient.addGeofences(mGeofenceList, pendingIntent, this);
+				geoFencesLocationClient.addGeofences(mGeofenceList, pendingIntent, this);
 
 			case REMOVE_INTENT:
-				locationClient.removeGeofences(pendingIntent, this);
+				geoFencesLocationClient.removeGeofences(pendingIntent, this);
 				break;
 		}
 	}
@@ -591,7 +589,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		// Turn off the request flag
 		requestInProgress = false;
 		// Destroy the current location client
-		locationClient = null;
+		geoFencesLocationClient = null;
 	}
 
 	@Override
@@ -616,7 +614,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		 * indicate that a request is no longer in progress
 		 */
 		requestInProgress = false;
-		locationClient.disconnect();
+		geoFencesLocationClient.disconnect();
 	}
 
 	@Override
@@ -639,7 +637,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		// Indicate that a request is no longer in progress
 		requestInProgress = false;
 		// Disconnect the location client
-		locationClient.disconnect();
+		geoFencesLocationClient.disconnect();
 	}
 
 }

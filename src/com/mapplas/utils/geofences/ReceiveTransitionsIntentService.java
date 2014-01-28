@@ -1,8 +1,11 @@
 package com.mapplas.utils.geofences;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationClient;
@@ -32,6 +35,11 @@ public class ReceiveTransitionsIntentService extends IntentService {
 			int errorCode = LocationClient.getErrorCode(intent);
 			// Log the error
 			Log.e("ReceiveTransitionsIntentService", "Location Services error: " + Integer.toString(errorCode));
+			
+			Vibrator v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+			// Vibrate for 500 milliseconds
+			v.vibrate(500);
+			Toast.makeText(this, "INSIDE", Toast.LENGTH_LONG).show();
 			/*
 			 * You can also send the error code to an Activity or Fragment with
 			 * a broadcast Intent
@@ -42,6 +50,8 @@ public class ReceiveTransitionsIntentService extends IntentService {
 			 */
 		}
 		else {
+			
+			Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show();
 			// Get the type of transition (entry or exit)
 			int transitionType = LocationClient.getGeofenceTransition(intent);
 			// Test that a valid transition was reported
