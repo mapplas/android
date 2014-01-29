@@ -59,6 +59,7 @@ import com.mapplas.utils.location.location_manager.AroundRequesterLocationManage
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.network.async_tasks.GeofenceRequesterTask;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
@@ -93,19 +94,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 
 	private GcmRegistrationManager gcmManager;
 
-	private GeoFence geofence1;
-
-	private GeoFence geofence2;
-
 	List<Geofence> mGeofenceList;
-
-	private static final long SECONDS_PER_HOUR = 60 * 60;
-
-	private static final long MILLISECONDS_PER_SECOND = 1000;
-
-	private static final long GEOFENCE_EXPIRATION_IN_HOURS = 48;
-
-	private static final long GEOFENCE_EXPIRATION_TIME = GEOFENCE_EXPIRATION_IN_HOURS * SECONDS_PER_HOUR * MILLISECONDS_PER_SECOND;
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
@@ -385,7 +374,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 	/******************************
 	 * 
 	 * GEOFENCES
@@ -395,6 +384,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 	private PendingIntent getTransitionPendingIntent() {
 		// Create an explicit Intent
 		Intent intent = new Intent(this, ReceiveTransitionsIntentService.class);
+		intent.putExtra(Constants.RECEIVE_TRANSITION_INTENT_EXTRA_USER_ID, this.model.currentUser().getId());
 
 		/*
 		 * Return the PendingIntent
@@ -407,56 +397,65 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 	 * LocationClient.connect().
 	 */
 	public void requestGeoFences() {
+		new GeofenceRequesterTask(this).execute();
+	}
+
+	public void geofenceRequestWentOk(ArrayList<GeoFence> geoFenceArray) {
+
 		this.mGeofenceList = new ArrayList<Geofence>();
 
 		GeoFenceRepository repo = RepositoryManager.geofences(this);
 
-		this.geofence1 = new GeoFence("1", 43.293169, -1.984446, 1000, GEOFENCE_EXPIRATION_TIME, Geofence.GEOFENCE_TRANSITION_ENTER);
-		this.geofence2 = new GeoFence("2", 43.293169, -1.984446, 1000, GEOFENCE_EXPIRATION_TIME, Geofence.GEOFENCE_TRANSITION_EXIT);
-
 		try {
-			repo.createOrUpdateBatch(this.geofence1);
-			repo.createOrUpdateBatch(this.geofence2);
+			for(GeoFence geoFence : geoFenceArray) {
+
+				this.mGeofenceList.add(geoFence.toGeofence());
+				repo.createOrUpdateBatch(geoFence);
+
+			}
 			repo.createOrUpdateFlush();
+
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		this.mGeofenceList.add(this.geofence1.toGeofence());
-		this.mGeofenceList.add(this.geofence2.toGeofence());
-		Toast.makeText(this, "CREATED 1 AND 2", Toast.LENGTH_SHORT).show();
-		
-		// Start a request to add geofences
-		this.requestType = REQUEST_TYPE.ADD;
+		Toast.makeText(this, "CREATED " + this.mGeofenceList.size() + " TOASTS", Toast.LENGTH_SHORT).show();
 
-		/*
-		 * Test for Google Play services after setting the request type. If
-		 * Google Play services isn't present, the proper request can be
-		 * restarted.
-		 */
-		if(!servicesConnected()) {
-			return;
-		}
-		/*
-		 * Create a new location client object. Since the current activity class
-		 * implements ConnectionCallbacks and OnConnectionFailedListener, pass
-		 * the current activity object as the listener for both parameters
-		 */
-		geoFencesLocationClient = new LocationClient(this, this, this);
+		if(this.mGeofenceList.size() > 0) {
+			// Start a request to add geofences
+			this.requestType = REQUEST_TYPE.ADD;
 
-		// If a request is not already underway
-		if(!requestInProgress) {
-			// Indicate that a request is underway
-			requestInProgress = true;
-			// Request a connection from the client to Location Services
-			geoFencesLocationClient.connect();
-		}
-		else {
 			/*
-			 * A request is already underway. You can handle this situation by
-			 * disconnecting the client, re-setting the flag, and then re-trying
-			 * the request.
+			 * Test for Google Play services after setting the request type. If
+			 * Google Play services isn't present, the proper request can be
+			 * restarted.
 			 */
+			if(!servicesConnected()) {
+				return;
+			}
+			/*
+			 * Create a new location client object. Since the current activity
+			 * class implements ConnectionCallbacks and
+			 * OnConnectionFailedListener, pass the current activity object as
+			 * the listener for both parameters
+			 */
+			geoFencesLocationClient = new LocationClient(this, this, this);
+
+			// If a request is not already underway
+			if(!requestInProgress) {
+				// Indicate that a request is underway
+				requestInProgress = true;
+				// Request a connection from the client to Location Services
+				geoFencesLocationClient.connect();
+			}
+			else {
+				/*
+				 * A request is already underway. You can handle this situation
+				 * by disconnecting the client, re-setting the flag, and then
+				 * re-trying the request.
+				 */
+			}
 		}
 	}
 

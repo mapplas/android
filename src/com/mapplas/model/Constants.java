@@ -178,6 +178,6 @@ public class Constants {
 
 	public static String APP_OBTENTION_ERROR_SOCKET = "ERROR_SOCKET";
 	
-	
+	public static String RECEIVE_TRANSITION_INTENT_EXTRA_USER_ID = "TRANSITION_INTENT_EXTRA_USER_ID";
 
 }

@@ -17,8 +17,6 @@ public class GcmIdSendingTask extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected Void doInBackground(Void... params) {
-//		String server_response = "";
-
 		try {
 //			server_response = GcmIdSendConnector.request(this.user_id, this.gcm_id);
 			GcmIdSendConnector.request(this.user_id, this.gcm_id);
