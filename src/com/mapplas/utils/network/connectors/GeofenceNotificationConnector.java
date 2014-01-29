@@ -17,7 +17,7 @@ import com.mapplas.model.Constants;
 
 public class GeofenceNotificationConnector {
 
-	public static String request(int uid, int geofence_id) throws Exception {
+	public static String request(int uid, int geofence_id, String app_language) throws Exception {
 		String serverResponse = "";
 
 		HttpClient hc = new DefaultHttpClient();
@@ -26,6 +26,7 @@ public class GeofenceNotificationConnector {
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(uid)));
 		nameValuePairs.add(new BasicNameValuePair("gid", String.valueOf(geofence_id)));
+		nameValuePairs.add(new BasicNameValuePair("cc", app_language));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {

@@ -154,7 +154,7 @@ public class AppDetail extends LanguageActivity {
 				public void onClick(View v) {
 					Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
 					intent.putExtra(Constants.MORE_FROM_DEVELOPER_APP, app);
-					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, new LanguageSetter(AppDetail.this).getLanguageConstantFromPhone(AppDetail.this));
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, new LanguageSetter(AppDetail.this).getLanguageConstantFromPhone());
 					startActivity(intent);
 				}
 			});

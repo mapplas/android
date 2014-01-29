@@ -15,10 +15,9 @@ import org.apache.http.util.EntityUtils;
 
 import com.mapplas.model.Constants;
 
-
 public class GcmIdSendConnector {
-	
-	public static String request(int user_id, String gcm_id) throws Exception {
+
+	public static String request(int user_id, String gcm_id, String app_language) throws Exception {
 		String serverResponse = "";
 
 		HttpClient hc = new DefaultHttpClient();
@@ -27,6 +26,7 @@ public class GcmIdSendConnector {
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(user_id)));
 		nameValuePairs.add(new BasicNameValuePair("gcmid", gcm_id));
+		nameValuePairs.add(new BasicNameValuePair("cc", app_language));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {

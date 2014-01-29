@@ -17,6 +17,7 @@ import android.content.IntentSender.SendIntentException;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -59,10 +60,13 @@ import com.mapplas.utils.location.location_manager.AroundRequesterLocationManage
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.GeofenceRequesterTask;
+import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
@@ -154,6 +158,7 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 	public void continueActivityAfterUserIdentification() {
 		// Register for notifications
 		this.gcmManager.registerForC2dmNotifications(this.model.currentUser());
+		SuperModelSingleton.model = this.model;
 
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
@@ -176,18 +181,18 @@ public class MapplasActivity extends FragmentActivity implements ConnectionCallb
 		// Check network status
 		this.checkNetworkStatus();
 
-		this.loadLocalization();
+//		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-		// Location location = new Location("");
-		// location.setLatitude(40.492523);
-		// location.setLongitude(-3.59589);
-		//
-		// this.model.setLocation(location);
-		// new ReverseGeocodingTask(this, this.model,
-		// this.listViewHeaderStatusMessage).execute(new Location(location));
-		// new AppGetterTask(this, this.model, this.listViewAdapter,
-		// this.listView, this.appsInstalledList, this, 0).execute(new
-		// Location(location), true);
+		 Location location = new Location("");
+		 location.setLatitude(37.601);
+		 location.setLongitude(122.45);
+		
+		 this.model.setLocation(location);
+		 new ReverseGeocodingTask(this, this.model,
+		 this.listViewHeaderStatusMessage).execute(new Location(location));
+		 new AppGetterTask(this, this.model, this.listViewAdapter,
+		 this.listView, this.appsInstalledList, this, 0).execute(new
+		 Location(location), true);
 	}
 
 	@Override

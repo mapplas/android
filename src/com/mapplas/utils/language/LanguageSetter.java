@@ -2,7 +2,6 @@ package com.mapplas.utils.language;
 
 import java.util.Locale;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 
@@ -11,10 +10,10 @@ import com.mapplas.model.Constants;
 
 public class LanguageSetter {
 
-	private Activity activity;
+	private Context context;
 
-	public LanguageSetter(Activity activity) {
-		this.activity = activity;
+	public LanguageSetter(Context context) {
+		this.context = context;
 	}
 
 	public void setLanguageToApp(String language) {
@@ -42,12 +41,12 @@ public class LanguageSetter {
 		Locale.setDefault(locale);
 		Configuration config = new Configuration();
 		config.locale = locale;
-		this.activity.getBaseContext().getResources().updateConfiguration(config, this.activity.getBaseContext().getResources().getDisplayMetrics());
+		this.context.getResources().updateConfiguration(config, this.context.getResources().getDisplayMetrics());
 	}
 
-	public String getLanguageConstantFromPhone(Context context) {
+	public String getLanguageConstantFromPhone() {
 		
-		String constantLanguage = ((MapplasApplication)context.getApplicationContext()).getResources().getConfiguration().locale.getDisplayName();
+		String constantLanguage = ((MapplasApplication)this.context.getApplicationContext()).getResources().getConfiguration().locale.getDisplayName();
 		
 		if(constantLanguage.equals("espa–ol")) {
 			return Constants.SPANISH;

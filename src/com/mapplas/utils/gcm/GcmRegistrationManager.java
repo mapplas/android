@@ -218,7 +218,7 @@ public class GcmRegistrationManager {
 	 * message using the 'from' address in the message.
 	 */
 	private void sendRegistrationIdToBackend() {
-		new GcmIdSendingTask(this.user.getId(), regid).execute();
+		new GcmIdSendingTask(this.user.getId(), regid, this.context).execute();
 	}
 
 }

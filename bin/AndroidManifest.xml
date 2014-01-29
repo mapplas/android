@@ -50,7 +50,12 @@
             android:label="App Detail"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName="com.mapplas.app.activities.MapplasActivity" >
+            <meta-data 
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mapplas.app.activities.MapplasActivity"
+                />
         </activity>
         <activity
             android:name="com.mapplas.app.activities.UserForm"

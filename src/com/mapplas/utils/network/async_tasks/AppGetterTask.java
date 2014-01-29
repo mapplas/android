@@ -82,7 +82,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
 
-		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.mainActivity).getLanguageConstantFromPhone(this.context));
+		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
 
 		try {
 			semaphore.acquire();

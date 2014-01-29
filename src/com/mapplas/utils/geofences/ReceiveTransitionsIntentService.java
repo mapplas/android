@@ -64,7 +64,7 @@ public class ReceiveTransitionsIntentService extends IntentService {
 					triggerIds[i] = triggerList.get(i).getRequestId();
 				}
 								
-				new GeofenceNotificationRequesterTask(user_id, Integer.parseInt(triggerIds[0])).execute();
+				new GeofenceNotificationRequesterTask(user_id, Integer.parseInt(triggerIds[0]), this).execute();
 			}
 			else {
 				Log.e("ReceiveTransitionsIntentService", "Geofence transition error: " + Integer.toString(transitionType));

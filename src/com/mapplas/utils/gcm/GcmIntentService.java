@@ -1,8 +1,12 @@
 package com.mapplas.utils.gcm;
 
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +14,15 @@ import android.support.v4.app.NotificationCompat;
 import app.mapplas.com.R;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.mapplas.app.activities.MapplasActivity;
+import com.mapplas.app.activities.AppDetail;
+import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 
 public class GcmIntentService extends IntentService {
 
 	public static final int NOTIFICATION_ID = 1;
 	
 	private NotificationManager mNotificationManager;
-
-	NotificationCompat.Builder builder;
 
 	public GcmIntentService() {
 		super("GcmIntentService");
@@ -55,6 +59,7 @@ public class GcmIntentService extends IntentService {
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
+	@SuppressLint("NewApi")
 	private void sendNotification(Bundle bundle) {
 		
 		String title = "";
@@ -64,9 +69,19 @@ public class GcmIntentService extends IntentService {
 			message = bundle.getString("m");
 		}
 		
+		App app = new App();
+		if(bundle.containsKey("aid") && bundle.containsKey("at") && bundle.containsKey("ad") && bundle.containsKey("al") && bundle.containsKey("as")) {
+			app.setId(bundle.getString("aid"));
+			app.setName(bundle.getString("at"));
+			app.setAppDescription(bundle.getString("ad"));
+			app.setAppLogo(bundle.getString("al"));
+			app.setAppPrice(bundle.getString("ap"));
+			app.setAuxPin(Integer.parseInt(bundle.getString("aip")));
+			
+			this.parseScreenshots(bundle.getString("as"), app);
+		}
+		
 		mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, MapplasActivity.class), 0);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_action_rate)
 			.setContentTitle(title)
@@ -75,11 +90,32 @@ public class GcmIntentService extends IntentService {
 			.setAutoCancel(true)
 			.setTicker("Text in notification bar")
 			.setSound(null)
-			.setWhen(System.currentTimeMillis())
-			.setContentIntent(null);
+			.setWhen(System.currentTimeMillis());
 
-		mBuilder.setContentIntent(contentIntent);
+		
+		Intent resultIntent = new Intent(this, AppDetail.class);
+		
+		resultIntent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
+		
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		stackBuilder.addParentStack(AppDetail.class);
+		stackBuilder.addNextIntent(resultIntent);
+		
+		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+		mBuilder.setContentIntent(resultPendingIntent);
+			
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+	}
+	
+	private void parseScreenshots(String screenshots, App app) {
+		String[] screenshotList = screenshots.split(",");
+		ArrayList<String> photos = new ArrayList<String>();
+
+		for(int i = 0; i < screenshotList.length; i++) {
+			photos.add(screenshotList[i]);
+		}
+
+		app.setAuxPhotos(photos);
 	}
 
 }
