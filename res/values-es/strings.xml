@@ -36,7 +36,7 @@
     <string name="allow">desbloquear</string>
     <string name="done">OK</string>
     <string name="free">Gratis</string>
-    <string name="wifi_error_toast">Obten una busqueda más precisa! Activa la conexión Wi-Fi. Funcionará incluso sin que te conectes a una red.</string>
+    <string name="wifi_error_toast">¡Con Wi-Fi sabe mejor!</string>
     <string name="pull_to_refresh_wifi_error">Activa el Wi-Fi para una mejor precisión!</string>
     <string name="location_error_toast">No ha sido posible posicionarte. Inténtalo de nuevo mas tarde.</string>
     <string name="menu_refresh">Actualizar</string>

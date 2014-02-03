@@ -3,7 +3,8 @@ package com.mapplas.model;
 public class Constants {
 
 	// Constants
-	public static final String MAPPLAS_SERVER = "54.217.233.146";
+//	public static final String MAPPLAS_SERVER = "54.217.233.146";
+	public static final String MAPPLAS_SERVER = "54.217.249.103";
 
 	public static final int MAPPLAS_SERVER_PORT = 80;
 
@@ -177,6 +178,6 @@ public class Constants {
 
 	public static String APP_OBTENTION_ERROR_SOCKET = "ERROR_SOCKET";
 	
-	
+	public static String RECEIVE_TRANSITION_INTENT_EXTRA_USER_ID = "TRANSITION_INTENT_EXTRA_USER_ID";
 
 }

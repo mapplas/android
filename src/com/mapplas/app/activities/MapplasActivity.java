@@ -1,13 +1,19 @@
 package com.mapplas.app.activities;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -16,9 +22,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,6 +31,7 @@ import app.mapplas.com.R;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.Geofence;
 import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.AppOrderedList;
@@ -36,6 +40,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.gcm.GcmRegistrationManager;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.location_manager.AroundRequesterLocationManager;
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
@@ -44,9 +49,12 @@ import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
+import com.mapplas.utils.visual.custom_views.RobotoTextView;
 
+//public class MapplasActivity extends FragmentActivity implements ConnectionCallbacks, OnConnectionFailedListener, OnAddGeofencesResultListener, OnRemoveGeofencesResultListener { // languageactivity
 public class MapplasActivity extends LanguageActivity {
 
 	public static String PACKAGE_NAME = "";
@@ -71,6 +79,24 @@ public class MapplasActivity extends LanguageActivity {
 
 	private AroundRequesterLocationManager aroundRequester = null;
 
+	private GcmRegistrationManager gcmManager;
+
+	List<Geofence> mGeofenceList;
+
+//	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+//
+//	private LocationClient geoFencesLocationClient;
+//
+//	private PendingIntent pendingIntent;
+//
+//	public enum REQUEST_TYPE {
+//		ADD, REMOVE_INTENT
+//	};
+//
+//	private REQUEST_TYPE requestType;
+//
+//	private boolean requestInProgress;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,22 +112,37 @@ public class MapplasActivity extends LanguageActivity {
 			imei = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
 		}
 		this.model.setCurrentIMEI(imei);
-		
+
 		String networkCountryIso = manager.getNetworkCountryIso();
 		this.model.setDeviceCountry(networkCountryIso);
+
+		this.gcmManager = new GcmRegistrationManager(this, this);
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
 
-		this.startRadarAnimation();
+		this.startScreenAnimation();
 
 		// Identificamos contra el servidor
 		int requestNumber = 0;
 		new UserIdentificationTask(this.model, this, this, requestNumber).execute();
+
+//		this.requestInProgress = false;
+	}
+
+	// Play Services APK check here too. NEEDED.
+	@Override
+	protected void onResume() {
+		super.onResume();
+		this.gcmManager.checkPlayServices();
 	}
 
 	public void continueActivityAfterUserIdentification() {
+		// Register for notifications
+		this.gcmManager.registerForC2dmNotifications(this.model.currentUser());
+		SuperModelSingleton.model = this.model;
+
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
@@ -125,13 +166,16 @@ public class MapplasActivity extends LanguageActivity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-//		Location location = new Location("");
-//		location.setLatitude(40.492523);
-//		location.setLongitude(-3.59589);
-//
-//		this.model.setLocation(location);
-//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, 0).execute(new Location(location), true);
+//		 Location location = new Location("");
+//		 location.setLatitude(37.601);
+//		 location.setLongitude(122.45);
+//		
+//		 this.model.setLocation(location);
+//		 new ReverseGeocodingTask(this, this.model,
+//		 this.listViewHeaderStatusMessage).execute(new Location(location));
+//		 new AppGetterTask(this, this.model, this.listViewAdapter,
+//		 this.listView, this.appsInstalledList, this, 0).execute(new
+//		 Location(location), true);
 	}
 
 	@Override
@@ -156,7 +200,7 @@ public class MapplasActivity extends LanguageActivity {
 				this.model.setCurrentUser((User)data.getExtras().getParcelable(Constants.MAPPLAS_LOGIN_USER));
 			}
 		}
-		else if (requestCode == Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED) {
+		else if(requestCode == Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED) {
 			this.loadLocalization();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
@@ -235,48 +279,32 @@ public class MapplasActivity extends LanguageActivity {
 		});
 	}
 
-	/**
-	 * Radar animation
-	 */
-	private void startRadarAnimation() {
-		ImageView radar1 = (ImageView)this.findViewById(R.id.radar_1);
-		((BitmapDrawable)radar1.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate);
-		rotate.setDuration(1600);
-		radar1.setDrawingCacheEnabled(false);
-		radar1.startAnimation(rotate);
+	private void startScreenAnimation() {
+		// 124 are number of lines in text file
+		Random random = new Random();
+		int randomNum = random.nextInt(124);
 
-		ImageView radar2 = (ImageView)this.findViewById(R.id.radar_2);
-		((BitmapDrawable)radar2.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate2 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate2);
-		rotate2.setDuration(1800);
-		radar2.setDrawingCacheEnabled(true);
-		radar2.startAnimation(rotate2);
+		Resources res = getResources();
+		InputStream inputStream = res.openRawResource(R.raw.citas);
+		InputStreamReader inputreader = new InputStreamReader(inputStream);
+		BufferedReader buffreader = new BufferedReader(inputreader);
 
-		ImageView radar3 = (ImageView)this.findViewById(R.id.radar_3);
-		((BitmapDrawable)radar3.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate3 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate3);
-		rotate3.setDuration(3400);
-		radar3.setDrawingCacheEnabled(true);
-		radar3.startAnimation(rotate3);
+		RobotoTextView text = (RobotoTextView)this.findViewById(R.id.tv_citas);
+		String line;
+		int i = 0;
 
-		ImageView radar4 = (ImageView)this.findViewById(R.id.radar_4);
-		((BitmapDrawable)radar4.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate4 = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate4);
-		rotate4.setDuration(2600);
-		radar4.setDrawingCacheEnabled(false);
-		radar4.startAnimation(rotate4);
-	}
-
-	private void setRotateAnimConstants(RotateAnimation animation) {
-		animation.setRepeatMode(Animation.RESTART);
-		animation.setFillAfter(false);
-		animation.setRepeatCount(Animation.INFINITE);
-		animation.setInterpolator(new LinearInterpolator());
+		try {
+			while ((line = buffreader.readLine()) != null) {
+				if(i != randomNum) {
+					i++;
+				}
+				else {
+					text.setText(line);
+					break;
+				}
+			}
+		} catch (IOException e) {
+		}
 	}
 
 	/**
@@ -285,10 +313,7 @@ public class MapplasActivity extends LanguageActivity {
 	 */
 	private void loadLocalization() {
 
-		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-//		Log.e("LOCALIZATION", resultCode + "");
-
-		if(resultCode == ConnectionResult.SUCCESS) {
+		if(this.servicesConnected()) {
 			this.appsRequester.start();
 		}
 		else {
@@ -297,11 +322,306 @@ public class MapplasActivity extends LanguageActivity {
 
 	}
 
+	private boolean servicesConnected() {
+		// Check that Google Play services is available
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+
+		// If Google Play services is available
+		if(ConnectionResult.SUCCESS == resultCode) {
+			return true;
+		}
+		// Google Play services was not available for some reason
+		else {
+			// // Get the error code
+			// int errorCode = connectionResult.getErrorCode();
+			// // Get the error dialog from Google Play services
+			// Dialog errorDialog =
+			// GooglePlayServicesUtil.getErrorDialog(errorCode, this,
+			// CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			//
+			// // If Google Play services can provide an error dialog
+			// if(errorDialog != null) {
+			// // Create a new DialogFragment for the error dialog
+			// ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+			// // Set the dialog in the DialogFragment
+			// errorFragment.setDialog(errorDialog);
+			// // Show the error dialog in the DialogFragment
+			// errorFragment.show(getSupportFragmentManager(),
+			// "Geofence Detection");
+			return false;
+			// }
+		}
+	}
+
 	private void checkNetworkStatus() {
 		NetworkConnectionChecker networkConnectionChecker = new NetworkConnectionChecker();
 		if((networkConnectionChecker.isWifiConnected(this) || networkConnectionChecker.isNetworkConnectionConnected(this)) && !networkConnectionChecker.isWifiEnabled(this)) {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
+
+	/******************************
+	 * 
+	 * GEOFENCES
+	 * 
+	 ******************************/
+
+//	private PendingIntent getTransitionPendingIntent() {
+//		// Create an explicit Intent
+//		Intent intent = new Intent(this, ReceiveTransitionsIntentService.class);
+//		intent.putExtra(Constants.RECEIVE_TRANSITION_INTENT_EXTRA_USER_ID, this.model.currentUser().getId());
+//
+//		/*
+//		 * Return the PendingIntent
+//		 */
+//		return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//	}
+//
+//	/**
+//	 * Start a request for geofence monitoring by calling
+//	 * LocationClient.connect().
+//	 */
+//	public void requestGeoFences() {
+//		new GeofenceRequesterTask(this).execute();
+//	}
+//
+//	public void geofenceRequestWentOk(ArrayList<GeoFence> geoFenceArray) {
+//
+//		this.mGeofenceList = new ArrayList<Geofence>();
+//
+//		GeoFenceRepository repo = RepositoryManager.geofences(this);
+//
+//		try {
+//			for(GeoFence geoFence : geoFenceArray) {
+//
+//				this.mGeofenceList.add(geoFence.toGeofence());
+//				repo.createOrUpdateBatch(geoFence);
+//
+//			}
+//			repo.createOrUpdateFlush();
+//
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		Toast.makeText(this, "CREATED " + this.mGeofenceList.size() + " TOASTS", Toast.LENGTH_SHORT).show();
+//
+//		if(this.mGeofenceList.size() > 0) {
+//			// Start a request to add geofences
+//			this.requestType = REQUEST_TYPE.ADD;
+//
+//			/*
+//			 * Test for Google Play services after setting the request type. If
+//			 * Google Play services isn't present, the proper request can be
+//			 * restarted.
+//			 */
+//			if(!servicesConnected()) {
+//				return;
+//			}
+//			/*
+//			 * Create a new location client object. Since the current activity
+//			 * class implements ConnectionCallbacks and
+//			 * OnConnectionFailedListener, pass the current activity object as
+//			 * the listener for both parameters
+//			 */
+//			geoFencesLocationClient = new LocationClient(this, this, this);
+//
+//			// If a request is not already underway
+//			if(!requestInProgress) {
+//				// Indicate that a request is underway
+//				requestInProgress = true;
+//				// Request a connection from the client to Location Services
+//				geoFencesLocationClient.connect();
+//			}
+//			else {
+//				/*
+//				 * A request is already underway. You can handle this situation
+//				 * by disconnecting the client, re-setting the flag, and then
+//				 * re-trying the request.
+//				 */
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Start a request to remove geofences by calling LocationClient.connect()
+//	 */
+//	public void removeGeofences(PendingIntent requestIntent) {
+//		// Record the type of removal request
+//		requestType = REQUEST_TYPE.REMOVE_INTENT;
+//		/*
+//		 * Test for Google Play services after setting the request type. If
+//		 * Google Play services isn't present, the request can be restarted.
+//		 */
+//		if(!servicesConnected()) {
+//			return;
+//		}
+//		// Store the PendingIntent
+//		pendingIntent = requestIntent;
+//		/*
+//		 * Create a new location client object. Since the current activity class
+//		 * implements ConnectionCallbacks and OnConnectionFailedListener, pass
+//		 * the current activity object as the listener for both parameters
+//		 */
+//		geoFencesLocationClient = new LocationClient(this, this, this);
+//		// If a request is not already underway
+//		if(!requestInProgress) {
+//			// Indicate that a request is underway
+//			requestInProgress = true;
+//			// Request a connection from the client to Location Services
+//			geoFencesLocationClient.connect();
+//		}
+//		else {
+//			/*
+//			 * A request is already underway. You can handle this situation by
+//			 * disconnecting the client, re-setting the flag, and then re-trying
+//			 * the request.
+//			 */
+//		}
+//	}
+//
+//	/*
+//	 * Provide the implementation of
+//	 * OnAddGeofencesResultListener.onAddGeofencesResult. Handle the result of
+//	 * adding the geofences
+//	 */
+//	@Override
+//	public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
+//		// If adding the geofences was successful
+//		if(LocationStatusCodes.SUCCESS == statusCode) {
+//			Toast.makeText(this, "ADDED " + geofenceRequestIds, Toast.LENGTH_SHORT).show();
+//			/*
+//			 * Handle successful addition of geofences here. You can send out a
+//			 * broadcast intent or update the UI. geofences into the Intent's
+//			 * extended data.
+//			 */
+//		}
+//		else {
+//			// If adding the geofences failed
+//			/*
+//			 * Report errors here. You can log the error using Log.e() or update
+//			 * the UI.
+//			 */
+//		}
+//		// Turn off the in progress flag and disconnect the client
+//		requestInProgress = false;
+//		geoFencesLocationClient.disconnect();
+//	}
+//
+//	@Override
+//	public void onConnectionFailed(ConnectionResult connectionResult) {
+//		// Turn off the request flag
+//		requestInProgress = false;
+//		/*
+//		 * If the error has a resolution, start a Google Play services activity
+//		 * to resolve it.
+//		 */
+//		if(connectionResult.hasResolution()) {
+//			try {
+//				connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+//			} catch (SendIntentException e) {
+//				// Log the error
+//				e.printStackTrace();
+//			}
+//			// If no resolution is available, display an error dialog
+//		}
+//		else {
+//			// Get the error code
+//			int errorCode = connectionResult.getErrorCode();
+//			// Get the error dialog from Google Play services
+//			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+//			// If Google Play services can provide an error dialog
+//			if(errorDialog != null) {
+//				// Create a new DialogFragment for the error dialog
+//				// ErrorDialogFragment errorFragment = new
+//				// ErrorDialogFragment();
+//				// // Set the dialog in the DialogFragment
+//				// errorFragment.setDialog(errorDialog);
+//				// // Show the error dialog in the DialogFragment
+//				// errorFragment.show(getSupportFragmentManager(),
+//				// "Geofence Detection");
+//			}
+//		}
+//	}
+//
+//	/*
+//	 * Provide the implementation of ConnectionCallbacks.onConnected() Once the
+//	 * connection is available, send a request to add the Geofences
+//	 */
+//	@Override
+//	public void onConnected(Bundle arg0) {
+//		switch (requestType) {
+//			case ADD:
+//				// Get the PendingIntent for the request
+//				pendingIntent = getTransitionPendingIntent();
+//				// Send a request to add the current geofences
+//				geoFencesLocationClient.addGeofences(mGeofenceList, pendingIntent, this);
+//
+//			case REMOVE_INTENT:
+//				geoFencesLocationClient.removeGeofences(pendingIntent, this);
+//				break;
+//		}
+//	}
+//
+//	/*
+//	 * Implement ConnectionCallbacks.onDisconnected() Called by Location
+//	 * Services once the location client is disconnected.
+//	 */
+//	@Override
+//	public void onDisconnected() {
+//		// Turn off the request flag
+//		requestInProgress = false;
+//		// Destroy the current location client
+//		geoFencesLocationClient = null;
+//	}
+//
+//	@Override
+//	public void onRemoveGeofencesByPendingIntentResult(int statusCode, PendingIntent arg1) {
+//		// If removing the geofences was successful
+//		if(statusCode == LocationStatusCodes.SUCCESS) {
+//			/*
+//			 * Handle successful removal of geofences here. You can send out a
+//			 * broadcast intent or update the UI. geofences into the Intent's
+//			 * extended data.
+//			 */
+//		}
+//		else {
+//			// If adding the geocodes failed
+//			/*
+//			 * Report errors here. You can log the error using Log.e() or update
+//			 * the UI.
+//			 */
+//		}
+//		/*
+//		 * Disconnect the location client regardless of the request status, and
+//		 * indicate that a request is no longer in progress
+//		 */
+//		requestInProgress = false;
+//		geoFencesLocationClient.disconnect();
+//	}
+//
+//	@Override
+//	public void onRemoveGeofencesByRequestIdsResult(int statusCode, String[] arg1) {
+//		// If removing the geocodes was successful
+//		if(LocationStatusCodes.SUCCESS == statusCode) {
+//			/*
+//			 * Handle successful removal of geofences here. You can send out a
+//			 * broadcast intent or update the UI. geofences into the Intent's
+//			 * extended data.
+//			 */
+//		}
+//		else {
+//			// If removing the geofences failed
+//			/*
+//			 * Report errors here. You can log the error using Log.e() or update
+//			 * the UI.
+//			 */
+//		}
+//		// Indicate that a request is no longer in progress
+//		requestInProgress = false;
+//		// Disconnect the location client
+//		geoFencesLocationClient.disconnect();
+//	}
 
 }

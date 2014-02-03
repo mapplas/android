@@ -81,8 +81,8 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		} catch (Exception exc) {
 			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
-		
-		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.mainActivity).getLanguageConstantFromPhone(this.context));
+
+		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
 
 		try {
 			semaphore.acquire();
@@ -109,17 +109,21 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		else {
 			NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
 			networkConnChecker.getNetworkErrorToast(this.context, R.string.connection_error).show();
-			
+
 			this.mainActivity.finish();
 		}
 	}
 
 	private void afterLanguageCheck() {
+		RelativeLayout navigationBar = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.navigation_bar);
+		navigationBar.setVisibility(View.VISIBLE);
+
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
+		
 		this.listView.setVisibility(View.VISIBLE);
 
-		// Profile button
+		// Profile button animation
 		RobotoButton profileNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnProfile);
 		if(profileNavBarButton.getVisibility() == View.GONE) {
 			profileNavBarButton.setVisibility(View.VISIBLE);
@@ -143,10 +147,8 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}
-
-		// Send app info to server
-		// new AppInfoSenderTask(this.applicationList, location,
-		// this.activityManager, this.model.currentUser()).execute();
+		
+//		this.mainActivity.requestGeoFences();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {
