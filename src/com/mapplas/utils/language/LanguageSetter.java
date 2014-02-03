@@ -48,7 +48,7 @@ public class LanguageSetter {
 		
 		String constantLanguage = ((MapplasApplication)this.context.getApplicationContext()).getResources().getConfiguration().locale.getDisplayName();
 		
-		if(constantLanguage.equals("espa–ol")) {
+		if(constantLanguage.contains("espa–ol")) {
 			return Constants.SPANISH;
 		}
 		else if(constantLanguage.equals("euskera") | constantLanguage.equals("Basque")) {
