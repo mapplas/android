@@ -49,7 +49,7 @@ public class GcmIntentService extends IntentService {
 //				sendNotification("Deleted messages on server: " + extras.toString());
 			}
 			else if(GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-				sendNotification(extras);
+				showNotification(extras);
 			}
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -60,7 +60,7 @@ public class GcmIntentService extends IntentService {
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
 	@SuppressLint("NewApi")
-	private void sendNotification(Bundle bundle) {
+	private void showNotification(Bundle bundle) {
 		
 		String title = "";
 		String message = "";

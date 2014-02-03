@@ -148,7 +148,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			this.listView.completeRefreshing();
 		}
 		
-		this.mainActivity.requestGeoFences();
+//		this.mainActivity.requestGeoFences();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {
