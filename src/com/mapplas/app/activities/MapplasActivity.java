@@ -53,7 +53,6 @@ import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
-import com.todddavies.components.progressbar.ProgressWheel;
 
 //public class MapplasActivity extends FragmentActivity implements ConnectionCallbacks, OnConnectionFailedListener, OnAddGeofencesResultListener, OnRemoveGeofencesResultListener { // languageactivity
 public class MapplasActivity extends LanguageActivity {
@@ -281,9 +280,6 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	private void startScreenAnimation() {
-		ProgressWheel progressWheel = (ProgressWheel)this.findViewById(R.id.pw_spinner);
-		progressWheel.spin();
-
 		// 124 are number of lines in text file
 		Random random = new Random();
 		int randomNum = random.nextInt(124);
