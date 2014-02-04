@@ -6,33 +6,40 @@
     android:background="@drawable/bgd_launch"
     android:visibility="visible" >
 
-    <com.mapplas.utils.visual.custom_views.RobotoTextView
-        android:id="@+id/tv_citas"
-        style="@style/RadarText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp" />
-
-    <com.mapplas.utils.visual.custom_views.RobotoTextView
-        android:id="@+id/tv_citas_author"
-        style="@style/RadarSecondText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_citas"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp" />
-
     <ProgressBar
         android:id="@+id/pw_spinner"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp" />
+        android:indeterminateDrawable="@drawable/progress_indeterminate_horizontal"
+        android:indeterminateOnly="true"
+        android:progressDrawable="@drawable/progress_horizontal_holo_dark" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="110dp"
+        android:orientation="vertical" >
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@+id/tv_citas"
+            style="@style/RadarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp" />
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@+id/tv_citas_author"
+            style="@style/RadarSecondText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="30dp" />
+    </LinearLayout>
 
 </RelativeLayout>

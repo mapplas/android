@@ -31,11 +31,11 @@ public class SplashScreenTextSelector {
 		String language_constant = new LanguageSetter(this.context).getLanguageConstantFromPhone();
 		String line = "";
 		if(language_constant.equals(Constants.SPANISH) || language_constant.equals(Constants.BASQUE)) {
-			InputStream rawFile = this.context.getResources().openRawResource(R.raw.citas);
+			InputStream rawFile = this.context.getResources().openRawResource(R.raw.cites_es);
 			line = this.randomInFile(rawFile);
 		}
 		else {
-			InputStream rawFile = this.context.getResources().openRawResource(R.raw.citas_en);
+			InputStream rawFile = this.context.getResources().openRawResource(R.raw.cites_en);
 			line = this.randomInFile(rawFile);
 		}
 
