@@ -3,6 +3,7 @@ package com.mapplas.app.adapters.app;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -44,6 +45,7 @@ import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.utils.LogoHelper;
 import com.mapplas.utils.view_holder.AppViewHolder;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
+import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
 import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
 import com.mapplas.utils.visual.helpers.ShareHelper;
@@ -71,9 +73,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 	private static App mBlockApp = null;
 
 	private Animation fadeOutAnimation = null;
-	
+
 	private ViewFlipper currentViewFlipped = null;
-	
+
 	public AppArrayAdapter(Context context, int layout, int textViewResourceId, ArrayList<App> items, RefreshableListView list, SuperModel model) {
 		super(context, layout, textViewResourceId, items);
 
@@ -94,10 +96,10 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 		if(this.items.size() == 1 && this.items.get(0).getAppType().equals(Constants.MAPPLAS_APPLICATION_TYPE_MOCK)) {
 			View commingSoonCell = inflater.inflate(R.layout.empty_apps, null);
-			
+
 			RobotoButton notifyUserButton = (RobotoButton)commingSoonCell.findViewById(R.id.comming_soon_notify_user_button);
 			notifyUserButton.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -106,7 +108,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					alert.setMessage(R.string.notify_user_dialog_message);
 					alert.setView(userEmail);
 					alert.setNegativeButton(R.string.send, new OnClickListener() {
-						
+
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							new NotifyUserTask(user.getId(), userEmail.getText().toString(), model.getLocation().getLatitude(), model.getLocation().getLongitude()).execute();
@@ -114,7 +116,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						}
 					});
 					alert.setPositiveButton(R.string.cancel, new OnClickListener() {
-						
+
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.cancel();
@@ -123,7 +125,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 					alert.show();
 				}
 			});
-			
+
 			return commingSoonCell;
 		}
 		else {
@@ -174,7 +176,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 			else {
 				cellHolder = (AppViewHolder)convertView.getTag();
-				
+
 				this.initializeCellHolder(app, cellHolder);
 
 				this.initializeStartButton(app, cellHolder.buttonStart);
@@ -233,43 +235,44 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		Typeface normalTypeface = ((MapplasApplication)this.context.getApplicationContext()).getTypeFace();
 		cellHolder.title.setTypeface(normalTypeface);
 		cellHolder.title.setText(app.getName());
-		
+
 		if(app.getName() != null && app.getAppShortDescription() != null) {
-			
-			if (!app.getName().equals("") && !app.getAppShortDescription().equals("")) {
-				// Check 1-2 lines for app name. 2-3 lines for app short description.
+
+			if(!app.getName().equals("") && !app.getAppShortDescription().equals("")) {
+				// Check 1-2 lines for app name. 2-3 lines for app short
+				// description.
 				if(cellHolder.title.getMeasuredWidth() != 0 && cellHolder.title.getMeasuredWidth() < cellHolder.title.getPaint().measureText(app.getName())) {
 					cellHolder.title.setSingleLine(false);
 					cellHolder.title.setLines(2);
-//					cellHolder.title.setBackgroundColor(Color.RED);
+					// cellHolder.title.setBackgroundColor(Color.RED);
 					cellHolder.shortDescription.setLines(2);
-//					cellHolder.shortDescription.setBackgroundColor(Color.BLUE);
+					// cellHolder.shortDescription.setBackgroundColor(Color.BLUE);
 				}
 				else {
 					cellHolder.title.setSingleLine(true);
 					cellHolder.title.setLines(1);
-//					cellHolder.title.setBackgroundColor(Color.RED);
+					// cellHolder.title.setBackgroundColor(Color.RED);
 					cellHolder.shortDescription.setLines(3);
-//					cellHolder.shortDescription.setBackgroundColor(Color.BLUE);
+					// cellHolder.shortDescription.setBackgroundColor(Color.BLUE);
 				}
 			}
 			else if(!app.getName().equals("") && app.getAppShortDescription().equals("")) {
 				cellHolder.title.setSingleLine(false);
 				cellHolder.title.setLines(3);
-//				cellHolder.title.setBackgroundColor(Color.YELLOW);
+				// cellHolder.title.setBackgroundColor(Color.YELLOW);
 				cellHolder.shortDescription.setLines(0);
-//				cellHolder.shortDescription.setBackgroundColor(Color.GRAY);
+				// cellHolder.shortDescription.setBackgroundColor(Color.GRAY);
 			}
 			else if(app.getName().equals("") && !app.getAppShortDescription().equals("")) {
 				cellHolder.shortDescription.setSingleLine(false);
 				cellHolder.shortDescription.setLines(3);
-//				cellHolder.shortDescription.setBackgroundColor(Color.GREEN);
+				// cellHolder.shortDescription.setBackgroundColor(Color.GREEN);
 				cellHolder.title.setLines(0);
-//				cellHolder.title.setBackgroundColor(Color.MAGENTA);
+				// cellHolder.title.setBackgroundColor(Color.MAGENTA);
 			}
-			
+
 		}
-		
+
 		cellHolder.shortDescription.setTypeface(normalTypeface);
 		cellHolder.shortDescription.setText(app.getAppShortDescription());
 
@@ -309,7 +312,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			@Override
 			public void onClick(View v) {
 
-				if (app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
+				if(app.getAppType().equalsIgnoreCase(Constants.MAPPLAS_APPLICATION_TYPE_ANDROID_APPLICATION)) {
 					Intent intent = new Intent(context, AppDetail.class);
 					intent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
 					SuperModelSingleton.model = model;
@@ -321,16 +324,16 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				}
 			}
 		});
-		
+
 		layout.setOnLongClickListener(new View.OnLongClickListener() {
 
 			@Override
 			public boolean onLongClick(View v) {
-				
+
 				if(currentViewFlipped != null) {
 					closeFlippedView();
 				}
-				
+
 				currentViewFlipped = (ViewFlipper)v.getTag();
 
 				if(currentViewFlipped != null) {
@@ -341,19 +344,19 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				return true;
 			}
 		});
-		
+
 		this.list.setOnTouchListener(new OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				
+
 				switch (event.getAction()) {
 					case MotionEvent.ACTION_MOVE:
 						if(currentViewFlipped != null) {
 							closeFlippedView();
 						}
 						break;
-						
+
 					default:
 						break;
 				}
@@ -381,8 +384,6 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		// Load app logo
 		new LogoHelper(this.context).setLogoToApp(app, logo);
 	}
-	
-	
 
 	private void initializePinUpLayout(final App app, final AppViewHolder cellHolder) {
 
@@ -400,7 +401,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 		cellHolder.pinUpLayout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View v) {				
+			public void onClick(View v) {
 				if(app != null) {
 					String auxuid = "0";
 					if(user != null) {
@@ -467,13 +468,21 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			public void onClick(View v) {
 				mBlockApp = app;
 
-				AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
-				myAlertDialog.setTitle(R.string.block_title);
-				myAlertDialog.setMessage(R.string.block_text);
-				myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
+				final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
+				dialog.setContentView(R.layout.dialog);
+				dialog.show();
 
-					public void onClick(DialogInterface arg0, int arg1) {
+				RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+				title.setText(R.string.block_title);
+				RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
+				message.setText(R.string.block_text);
 
+				RobotoButton positiveButton = (RobotoButton)dialog.findViewById(R.id.dialog_positive_button);
+				positiveButton.setText(R.string.block_accept);
+				positiveButton.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
 						convertView.startAnimation(fadeOutAnimation);
 						currentViewFlipped = null;
 
@@ -490,18 +499,22 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 						if(mBlockApp.isAuxPin() == 1) {
 							Thread unpinRequestThread = new Thread(new PinRequestThread(Constants.MAPPLAS_ACTIVITY_PIN_REQUEST_UNPIN, app, uid, model.getLocation(), model.currentDescriptiveGeoLoc()).getThread());
 							unpinRequestThread.start();
+
 						}
+						dialog.dismiss();
 					}
 				});
-				myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {
 
-					public void onClick(DialogInterface arg0, int arg1) {
-						// do something when the Cancel button is clicked
+				RobotoButton negativeButton = (RobotoButton)dialog.findViewById(R.id.dialog_negative_button);
+				negativeButton.setText(R.string.block_cancel);
+				negativeButton.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
 						currentViewFlipped = null;
+						dialog.dismiss();
 					}
 				});
-
-				myAlertDialog.show();
 			}
 		});
 	}
@@ -511,9 +524,9 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
-				
+
 				currentViewFlipped = null;
-				
+
 				if(app != null) {
 					String strUrl = new PlayStoreLinkCreator().createLinkForApp(app.getId());
 					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUrl));
@@ -528,7 +541,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 			@Override
 			public void onClick(View v) {
-				
+
 				currentViewFlipped = null;
 
 				if(app != null) {
@@ -541,14 +554,14 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 			}
 		});
 	}
-	
+
 	private void closeFlippedView() {
 		currentViewFlipped.setInAnimation(animFlipInPrevious);
 		currentViewFlipped.setOutAnimation(animFlipOutPrevious);
 		currentViewFlipped.showPrevious();
 		currentViewFlipped = null;
 	}
-	
+
 	private void openFlippedView() {
 		currentViewFlipped.setInAnimation(animFlipInNext);
 		currentViewFlipped.setOutAnimation(animFlipOutNext);
