@@ -469,7 +469,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 				mBlockApp = app;
 
 				final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
-				dialog.setContentView(R.layout.dialog);
+				dialog.setContentView(R.layout.dialog_two_buttons);
 				dialog.show();
 
 				RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
