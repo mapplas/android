@@ -105,22 +105,9 @@ public class GcmIntentService extends IntentService {
 			textForNotificationBar = textForNotificationBar_en;
 		}
 		
-		
-//		App app = new App();
-//		if(bundle.containsKey("aid") && bundle.containsKey("at") && bundle.containsKey("ad") && bundle.containsKey("al") && bundle.containsKey("as")) {
-//			app.setId(bundle.getString("aid"));
-//			app.setName(bundle.getString("at"));
-//			app.setAppDescription(bundle.getString("ad"));
-//			app.setAppLogo(bundle.getString("al"));
-//			app.setAppPrice(bundle.getString("ap"));
-//			app.setAuxPin(Integer.parseInt(bundle.getString("aip")));
-//			
-//			this.parseScreenshots(bundle.getString("as"), app);
-//		}
-		
 		mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_action_rate)
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_notification)
 			.setContentTitle(title)
 			.setStyle(new NotificationCompat.BigTextStyle().bigText(message))
 			.setContentText(message)
@@ -129,34 +116,11 @@ public class GcmIntentService extends IntentService {
 			.setSound(null)
 			.setWhen(System.currentTimeMillis());
 
-		
 		Intent notificationIntent = new Intent(this, MapplasActivity.class);
 	    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 	    PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 		mBuilder.setContentIntent(intent);
 		
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-
-//		Intent resultIntent = new Intent(this, AppDetail.class);
-//		
-//		resultIntent.putExtra(Constants.MAPPLAS_DETAIL_APP, app);
-//		
-//		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//		stackBuilder.addParentStack(AppDetail.class);
-//		stackBuilder.addNextIntent(resultIntent);
-//		
-//		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-//		mBuilder.setContentIntent(resultPendingIntent);	
 	}
-	// private void parseScreenshots(String screenshots, App app) {
-	// String[] screenshotList = screenshots.split(",");
-	// ArrayList<String> photos = new ArrayList<String>();
-	//
-	// for(int i = 0; i < screenshotList.length; i++) {
-	// photos.add(screenshotList[i]);
-	// }
-	//
-	// app.setAuxPhotos(photos);
-	// }
-
 }

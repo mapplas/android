@@ -485,6 +485,7 @@ public class AppDetail extends LanguageActivity {
 
 						final Dialog dialog = new Dialog(AppDetail.this, android.R.style.Theme_Translucent_NoTitleBar);
 						dialog.setContentView(R.layout.dialog_two_buttons);
+						dialog.setCanceledOnTouchOutside(true);
 						dialog.show();
 
 						RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);

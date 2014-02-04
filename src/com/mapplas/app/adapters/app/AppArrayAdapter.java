@@ -2,11 +2,8 @@ package com.mapplas.app.adapters.app;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
@@ -102,27 +99,39 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 				@Override
 				public void onClick(View v) {
-					AlertDialog.Builder alert = new AlertDialog.Builder(context);
-					final EditText userEmail = new EditText(context);
-					alert.setTitle(R.string.notify_user_dialog_title);
-					alert.setMessage(R.string.notify_user_dialog_message);
-					alert.setView(userEmail);
-					alert.setNegativeButton(R.string.send, new OnClickListener() {
+					
+					final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
+					dialog.setContentView(R.layout.dialog_two_buttons_edittext);
+					dialog.setCanceledOnTouchOutside(true);
+					dialog.show();
 
+					RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+					title.setText(R.string.notify_user_dialog_title);
+					RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
+					message.setText(R.string.notify_user_dialog_message);
+					
+					final EditText userEmail = (EditText)dialog.findViewById(R.id.dialog_edittext);
+					
+					RobotoButton positiveButton = (RobotoButton)dialog.findViewById(R.id.dialog_positive_button);
+					positiveButton.setText(R.string.cancel);
+					positiveButton.setOnClickListener(new View.OnClickListener() {
+						
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
+						public void onClick(View v) {
+							dialog.dismiss();
+						}
+					});
+					
+					RobotoButton negativeButton = (RobotoButton)dialog.findViewById(R.id.dialog_negative_button);
+					negativeButton.setText(R.string.send);
+					negativeButton.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
 							new NotifyUserTask(user.getId(), userEmail.getText().toString(), model.getLocation().getLatitude(), model.getLocation().getLongitude()).execute();
-							dialog.cancel();
+							dialog.dismiss();
 						}
 					});
-					alert.setPositiveButton(R.string.cancel, new OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.cancel();
-						}
-					});
-					alert.show();
 				}
 			});
 
@@ -470,6 +479,7 @@ public class AppArrayAdapter extends ArrayAdapter<App> {
 
 				final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
 				dialog.setContentView(R.layout.dialog_two_buttons);
+				dialog.setCanceledOnTouchOutside(true);
 				dialog.show();
 
 				RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);

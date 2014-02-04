@@ -16,19 +16,17 @@
         android:indeterminateOnly="true"
         android:progressDrawable="@drawable/progress_horizontal_holo_dark" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="110dp"
         android:orientation="vertical" >
 
         <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/tv_citas"
             style="@style/RadarText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp" />
@@ -36,10 +34,10 @@
         <com.mapplas.utils.visual.custom_views.RobotoTextView
             android:id="@+id/tv_citas_author"
             style="@style/RadarSecondText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="30dp" />
-    </LinearLayout>
+            android:layout_below="@+id/tv_citas"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="25dp"
+            android:gravity="right" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -1,8 +1,7 @@
 package com.mapplas.app.activities;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -17,6 +16,8 @@ import com.mapplas.app.adapters.settings.SettingsAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.language.LanguageSetter;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
+import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
 
 public class SettingsActivity extends LanguageActivity implements LanguageDialogInterface {
@@ -76,22 +77,29 @@ public class SettingsActivity extends LanguageActivity implements LanguageDialog
 	}
 
 	private void showAppRestartDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.language_change_restart_app_message);
-		builder.setPositiveButton(R.string.accept, new OnClickListener() {
-
+		final Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		dialog.setContentView(R.layout.message_dialog);
+		dialog.show();
+		
+//		RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+//		title.setText(R.string.block_title);
+		RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
+		message.setText(R.string.language_change_restart_app_message);
+		
+		RobotoButton positiveButton = (RobotoButton)dialog.findViewById(R.id.dialog_positive_button);
+		positiveButton.setText(R.string.accept);
+		positiveButton.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(View v) {
 				dialog.dismiss();
 				Intent intent = new Intent(SettingsActivity.this, MapplasActivity.class);
 				intent.putExtra(Constants.SETTINGS_LANGUAGE_CHANGE_BUNDLE, true);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
-				finish();
+				finish();	
 			}
 		});
-
-		AlertDialog dialog = builder.create();
 		
 		dialog.setOnKeyListener(new OnKeyListener() {
 			
@@ -100,7 +108,5 @@ public class SettingsActivity extends LanguageActivity implements LanguageDialog
 				return true;
 			}
 		});
-		
-		dialog.show();
 	}
 }
