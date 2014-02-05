@@ -33,6 +33,7 @@ public class JsonToMoreAppsMapper implements ReturnMapper {
 			mappers.add(new KeyValueScapedMapper("t", MoreFromDeveloperApp.class.getMethod("setName", String.class)));
 			mappers.add(new KeyValueScapedMapper("l", MoreFromDeveloperApp.class.getMethod("setLogo", String.class)));
 			mappers.add(new KeyValueScapedMapper("d", MoreFromDeveloperApp.class.getMethod("setShortDescription", String.class)));
+			mappers.add(new KeyValueScapedMapper("p", MoreFromDeveloperApp.class.getMethod("setPrice", String.class)));
 
 			GenericMapper mapper = new GenericMapper(mappers);
 			mapper.map(json, app);
