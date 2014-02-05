@@ -282,35 +282,6 @@
                         android:contentDescription="@string/image_content_description"
                         android:src="@drawable/ic_plus" />
                 </RelativeLayout>
-
-                <!--
-                <RelativeLayout
-                    android:id="@+id/developer_email_layout"
-                    style="@style/DeveloperContactLayout" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        style="@style/DeveloperContactCellText"
-                        android:text="@string/devMail" />
-
-                    <ImageView
-                        style="@style/DeveloperContactCellImage"
-                        android:contentDescription="@string/image_content_description" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/developer_web_layout"
-                    style="@style/DeveloperContactLayout" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        style="@style/DeveloperContactCellText"
-                        android:text="@string/devWeb" />
-
-                    <ImageView
-                        style="@style/DeveloperContactCellImage"
-                        android:contentDescription="@string/image_content_description" />
-                </RelativeLayout>
-                -->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

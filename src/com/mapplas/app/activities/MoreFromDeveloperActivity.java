@@ -1,9 +1,7 @@
 package com.mapplas.app.activities;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +12,10 @@ import com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.App;
 import com.mapplas.model.Constants;
+import com.mapplas.utils.MoreFromDeveloperHelper;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.async_tasks.MoreFromDeveloperTask;
-import com.mapplas.utils.visual.helpers.PlayStoreLinkCreator;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 
 public class MoreFromDeveloperActivity extends ListActivity {
 	
@@ -77,9 +76,7 @@ public class MoreFromDeveloperActivity extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(this.app.moreFromDev().get(position).id());
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreLink));
-		MoreFromDeveloperActivity.this.startActivity(browserIntent);
+		new MoreFromDeveloperHelper().launchAppDetailFromMoreFromDeveloperApp(this.app.moreFromDev().get(position), this, SuperModelSingleton.model);
 	}
 	
 	/**
