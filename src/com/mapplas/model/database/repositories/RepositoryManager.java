@@ -13,6 +13,7 @@ public class RepositoryManager {
 
 	private static UserRepository users = null;
 
+//	private static GeoFenceRepository geofences = null;
 
 	static public UserRepository users(Context context) {
 		if(RepositoryManager.users == null) {
@@ -21,7 +22,7 @@ public class RepositoryManager {
 			try {
 				dao = (Dao<User, Integer>)userDatabase.getUserDao();
 			} catch (SQLException e) {
-//				Log.e("RepositoryManager", e.getMessage(), e);
+				// Log.e("RepositoryManager", e.getMessage(), e);
 				throw new RuntimeException();
 			}
 
@@ -30,8 +31,25 @@ public class RepositoryManager {
 		return RepositoryManager.users;
 	}
 
+//	static public GeoFenceRepository geofences(Context context) {
+//		if(RepositoryManager.geofences == null) {
+//			Dao<GeoFence, Integer> dao = null;
+//			GeoFenceDatabase geofenceDatabase = DatabaseManager.geoFence(context);
+//			try {
+//				dao = (Dao<GeoFence, Integer>)geofenceDatabase.getGeoFenceDao();
+//			} catch (SQLException e) {
+//				throw new RuntimeException();
+//			}
+//
+//			RepositoryManager.geofences = new GeoFenceRepository(dao, GeoFence.TABLE_NAME);
+//		}
+//
+//		return RepositoryManager.geofences;
+//	}
+
 	static public void close() {
 		RepositoryManager.users = null;
+//		RepositoryManager.geofences = null;
 
 		System.gc();
 

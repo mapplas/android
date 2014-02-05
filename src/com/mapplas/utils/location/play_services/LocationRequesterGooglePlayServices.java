@@ -1,9 +1,7 @@
 package com.mapplas.utils.location.play_services;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
@@ -11,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.view.View;
 import app.mapplas.com.R;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,6 +20,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.location.UserLocationListener;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
+import com.mapplas.utils.visual.custom_views.RobotoTextView;
 
 public class LocationRequesterGooglePlayServices implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback, LocationListener {
 
@@ -33,7 +34,7 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 	private Context context;
 
 	private MapplasActivity mainActivity;
-	
+
 	private UserLocationListener userLocationListener;
 
 	private Location location;
@@ -66,7 +67,7 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 	 * location or start periodic updates
 	 */
 	@Override
-	public void onConnected(Bundle arg0) {		
+	public void onConnected(Bundle arg0) {
 		LocationRequest locRequest = LocationRequest.create();
 		locRequest.setExpirationDuration(Constants.LOCATION_TIMEOUT_IN_MILLISECONDS);
 		locRequest.setInterval(2000);
@@ -117,38 +118,49 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 
 	/*
 	 * Timer handler callback
-	 * 
 	 */
 	@Override
 	public boolean handleMessage(Message msg) {
-//		Checks is google positioning services are enabled or not. If last location is null, are disabled, else; last known location is sent as good one.
+		// Checks is google positioning services are enabled or not. If last
+		// location is null, are disabled, else; last known location is sent as
+		// good one.
 		Location lastLocation = this.locationClient.getLastLocation();
-		if (lastLocation != null) {
+		if(lastLocation != null) {
 			this.userLocationListener.locationSearchEnded(lastLocation);
 		}
 		else {
-//			Show location setting dialog
-			AlertDialog.Builder builder = new AlertDialog.Builder(this.mainActivity);
-			builder.setTitle(R.string.google_positioning_alert_dialog_title)
-				.setMessage(R.string.google_positioning_alert_dialog_message)
-				.setPositiveButton(R.string.google_positioning_alert_dialog_enable, new OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						mainActivity.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED);
-						locationClient.disconnect();
-					}
-				})
-				.setNegativeButton(R.string.cancel, new OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						locationClient.disconnect();
-						((MapplasActivity)context).finish();
-					}
-				});
-			AlertDialog dialog = builder.create();
+			// Show location setting dialog
+			final Dialog dialog = new Dialog(this.context, android.R.style.Theme_Translucent_NoTitleBar);
+			dialog.setContentView(R.layout.dialog_two_buttons);
+			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();
+
+			RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+			title.setText(R.string.google_positioning_alert_dialog_title);
+			RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
+			message.setText(R.string.google_positioning_alert_dialog_message);
+
+			RobotoButton positiveButton = (RobotoButton)dialog.findViewById(R.id.dialog_positive_button);
+			positiveButton.setText(R.string.google_positioning_alert_dialog_enable);
+			positiveButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					mainActivity.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED);
+					locationClient.disconnect();
+				}
+			});
+
+			RobotoButton negativeButton = (RobotoButton)dialog.findViewById(R.id.dialog_negative_button);
+			negativeButton.setText(R.string.cancel);
+			negativeButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					locationClient.disconnect();
+					((MapplasActivity)context).finish();
+				}
+			});
 		}
 		return true;
 	}

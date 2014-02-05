@@ -41,7 +41,7 @@
     <string name="allow">allow</string>
     <string name="done">Done</string>
     <string name="free">Free</string>
-    <string name="wifi_error_toast">Improve the search! For more accurate recommendations, turn Wi-Fi on. This works even when not connected to a network.</string>
+    <string name="wifi_error_toast">With Wi-Fi tastes better!</string>
     <string name="pull_to_refresh_wifi_error">Turn Wi-Fi on to improve your recommendations!</string>
     <string name="location_error_toast">Your location cannot be found. Please try again later.</string>
     <string name="menu_refresh">Refresh</string>
@@ -75,6 +75,7 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Castellano</string>
     <string name="language_basque">Euskera</string>
+    <string name="language_change_restart_app_title">Change language</string>
     <string name="language_change_restart_app_message">An application restart is needed after language change</string>
     <string name="connection_error">It seems there\'s no connection. Enable it and try again.</string>
 	<string name="connection_switch_error">Internet connection problem. Try again please.</string>
@@ -84,4 +85,6 @@
     <string name="comming_soon_notify_user">Keep me posted</string>
     <string name="notify_user_dialog_title">Let me know</string>
     <string name="notify_user_dialog_message">Insert your email and we will let you know when mapplas becomes available in your location.</string>
+    <string name="web_app">mWeb</string>
+    <string name="open">Open</string>
 </resources>

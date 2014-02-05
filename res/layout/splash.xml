@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radar_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgd_launch"
+    android:visibility="visible" >
+
+    <ProgressBar
+        android:id="@+id/pw_spinner"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:indeterminateDrawable="@drawable/progress_indeterminate_horizontal"
+        android:indeterminateOnly="true"
+        android:progressDrawable="@drawable/progress_horizontal_holo_dark" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="110dp"
+        android:orientation="vertical" >
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@+id/tv_citas"
+            style="@style/RadarText"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp" />
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@+id/tv_citas_author"
+            style="@style/RadarSecondText"
+            android:layout_below="@+id/tv_citas"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="60dp"
+            android:gravity="right" />
+    </RelativeLayout>
+
+</RelativeLayout>

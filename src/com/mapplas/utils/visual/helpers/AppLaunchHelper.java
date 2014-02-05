@@ -44,25 +44,21 @@ public class AppLaunchHelper {
 				
 				// LAUNCH APP
 				if(this.app.getInternalApplicationInfo() != null) {
-					this.button.setBackgroundResource(R.drawable.badge_launch);
-					this.button.setText("");
+					this.button.setText(R.string.open);
 				}
 				else {
 					// INSTALL APP
 					if(app.getAppPrice().equals("Free") || app.getAppPrice().equals("Gratis")) {
-						this.button.setBackgroundResource(R.drawable.badge_free);
 						this.button.setText(R.string.free);
 					}
 					else {
-						this.button.setBackgroundResource(R.drawable.badge_price);
 						this.button.setText(app.getAppPrice());
 					}
 				}
 			}
 			else {
 				// HTML5 TYPE APP
-				this.button.setBackgroundResource(R.drawable.badge_html5);
-				this.button.setText("");
+				this.button.setText(R.string.web_app);
 			}
 
 			this.button.setTag(this.app);

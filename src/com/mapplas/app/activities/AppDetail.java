@@ -1,7 +1,6 @@
 package com.mapplas.app.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -30,6 +29,7 @@ import com.mapplas.model.App;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
+import com.mapplas.utils.MoreFromDeveloperHelper;
 import com.mapplas.utils.cache.CacheFolderFactory;
 import com.mapplas.utils.cache.ImageFileManager;
 import com.mapplas.utils.language.LanguageSetter;
@@ -42,6 +42,7 @@ import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.utils.NumberUtils;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
 import com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper;
@@ -154,7 +155,7 @@ public class AppDetail extends LanguageActivity {
 				public void onClick(View v) {
 					Intent intent = new Intent(AppDetail.this, MoreFromDeveloperActivity.class);
 					intent.putExtra(Constants.MORE_FROM_DEVELOPER_APP, app);
-					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, new LanguageSetter(AppDetail.this).getLanguageConstantFromPhone(AppDetail.this));
+					intent.putExtra(Constants.MORE_FROM_DEVELOPER_COUNTRY_CODE, new LanguageSetter(AppDetail.this).getLanguageConstantFromPhone());
 					startActivity(intent);
 				}
 			});
@@ -242,9 +243,7 @@ public class AppDetail extends LanguageActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				String playStoreLink = new PlayStoreLinkCreator().createLinkForApp(app.moreFromDev().get(position).id());
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreLink));
-				AppDetail.this.startActivity(browserIntent);
+				new MoreFromDeveloperHelper().launchAppDetailFromMoreFromDeveloperApp(app.moreFromDev().get(position), AppDetail.this, model);
 			}
 		});
 
@@ -253,10 +252,6 @@ public class AppDetail extends LanguageActivity {
 	private void manageDeveloperLayout(Typeface normalTypeFace) {
 
 		if(this.app.moreFromDev().size() > 0) {
-			// if(!this.app.appDeveloperEmail().equals("") ||
-			// !this.app.appDeveloperWeb().equals("") ||
-			// this.app.moreFromDev().size() > 0) {
-
 			// Developer layout
 			LinearLayout developerLayout = (LinearLayout)findViewById(R.id.lytDeveloper);
 			developerLayout.setVisibility(View.VISIBLE);
@@ -264,52 +259,6 @@ public class AppDetail extends LanguageActivity {
 			// Developer text view
 			TextView developerTextView = (TextView)findViewById(R.id.lblDeveloper);
 			developerTextView.setTypeface(normalTypeFace);
-
-			// // Developer email
-			// RelativeLayout emailLayout =
-			// (RelativeLayout)this.findViewById(R.id.developer_email_layout);
-			// if(!this.app.appDeveloperEmail().equals("")) {
-			// emailLayout.setOnClickListener(new OnClickListener() {
-			//
-			// @Override
-			// public void onClick(View v) {
-			// v.setBackgroundResource(R.color.pinned_app_cell_background_color);
-			// Intent i = new Intent(Intent.ACTION_SEND);
-			// i.setType("text/html"); // use from live device
-			// i.putExtra(Intent.EXTRA_EMAIL, new String[] {
-			// app.appDeveloperEmail() });
-			// i.putExtra(Intent.EXTRA_SUBJECT,
-			// getString(R.string.app_developer_email_contact_subject));
-			// startActivity(Intent.createChooser(i,
-			// "Select email application."));
-			// }
-			// });
-			// }
-			// else {
-			// emailLayout.setVisibility(View.GONE);
-			// }
-			//
-			// // Developer web
-			// RelativeLayout webLayout =
-			// (RelativeLayout)this.findViewById(R.id.developer_web_layout);
-			// if(!this.app.appDeveloperWeb().equals("")) {
-			// webLayout.setOnClickListener(new OnClickListener() {
-			//
-			// @Override
-			// public void onClick(View v) {
-			// v.setBackgroundResource(R.color.pinned_app_cell_background_color);
-			// Intent intent = new Intent(AppDetail.this,
-			// WebViewActivity.class);
-			// intent.putExtra(Constants.APP_DEV_URL_INTENT_DATA,
-			// app.appDeveloperWeb());
-			// AppDetail.this.startActivity(intent);
-			// }
-			// });
-			// }
-			// else {
-			// webLayout.setVisibility(View.GONE);
-			// }
-
 		}
 	}
 
@@ -482,14 +431,25 @@ public class AppDetail extends LanguageActivity {
 				final App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
 					if(anonLoc != null) {
-						AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(AppDetail.this);
-						myAlertDialog.setTitle(R.string.block_title);
-						myAlertDialog.setMessage(R.string.block_text);
-						myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface arg0, int arg1) {
+						final Dialog dialog = new Dialog(AppDetail.this, android.R.style.Theme_Translucent_NoTitleBar);
+						dialog.setContentView(R.layout.dialog_two_buttons);
+						dialog.setCanceledOnTouchOutside(true);
+						dialog.show();
+
+						RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+						title.setText(R.string.block_title);
+						RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
+						message.setText(R.string.block_text);
+
+						RobotoButton positiveButton = (RobotoButton)dialog.findViewById(R.id.dialog_positive_button);
+						positiveButton.setText(R.string.block_accept);
+						positiveButton.setOnClickListener(new View.OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+
 								// Block and unpin app
-
 								String uid = String.valueOf(user.getId());
 								Thread likeRequestThread = new Thread(new BlockRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
 								likeRequestThread.start();
@@ -517,14 +477,16 @@ public class AppDetail extends LanguageActivity {
 								AppDetail.this.finish();
 							}
 						});
-						myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface arg0, int arg1) {
-								// do something when the Cancel button is
-								// clicked
+						RobotoButton negativeButton = (RobotoButton)dialog.findViewById(R.id.dialog_negative_button);
+						negativeButton.setText(R.string.block_cancel);
+						negativeButton.setOnClickListener(new View.OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								dialog.dismiss();
 							}
 						});
-						myAlertDialog.show();
 					}
 				}
 			}

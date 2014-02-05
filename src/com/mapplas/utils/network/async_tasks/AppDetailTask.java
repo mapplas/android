@@ -31,7 +31,7 @@ public class AppDetailTask extends AsyncTask<Void, Void, String> {
 		String server_response = "";
 		try {
 			
-			server_response = AppDetailConnector.request(this.app.getId(), new LanguageSetter(this.appDetail).getLanguageConstantFromPhone(this.context));
+			server_response = AppDetailConnector.request(this.app.getId(), new LanguageSetter(this.context).getLanguageConstantFromPhone());
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.appDetail.detailRequestFinishedNok();

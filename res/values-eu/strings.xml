@@ -36,7 +36,7 @@
     <string name="done">Ados</string>
     <string name="allow">onartu</string>
     <string name="free">Dohan</string>
-    <string name="wifi_error_toast">Zure kokalekua prezisio gehiagorekin topatzeko aktibatu WiFi-a. Bilaketa hobea izango da nahiz sare batera konektatuta ez egon	.</string>
+    <string name="wifi_error_toast">WiFi-arekin zaporea hobea da!</string>
     <string name="pull_to_refresh_wifi_error">Aktibatu WiFi-a prezisio hobea lortzeko!</string>
     <string name="location_error_toast">Ezin izan zaitugu aurkitu. Saiatu berriro aurrerago.</string>
     <string name="menu_refresh">Eguneratu</string>
@@ -65,6 +65,7 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Castellano</string>
     <string name="language_basque">Euskera</string>
+    <string name="language_change_restart_app_title">Hizkuntza aldatu</string>
     <string name="language_change_restart_app_message">Aplikazioa berrabiaraztea beharrezkoa da hizkuntza aldaketak eman ahal izateko</string>
     <string name="pin_ups">pins</string>
     <string name="pin_up">pin</string>
@@ -78,8 +79,9 @@
     <string name="connection_switch_error">Interneterako konexioan arazoak, saiatu berriro mesedez.</string>
     <string name="google_positioning_alert_dialog_title">Lokalizazio zerbitzua ezgaituta</string>
     <string name="google_positioning_alert_dialog_message">Mapplasek zure kokapenaren berri jakitea behar du. Aktibatu lokalizazio zerbitzua.</string>
-    <string name="google_positioning_alert_dialog_enable">Aktibatu</string> 
-	<string name="comming_soon_notify_user">Jakinarazi erabilgarri dagoenean</string>
-	<string name="notify_user_dialog_title">Abisa nazazu</string>
+    <string name="google_positioning_alert_dialog_enable">Aktibatu</string>
+    <string name="comming_soon_notify_user">Jakinarazi erabilgarri dagoenean</string>
+    <string name="notify_user_dialog_title">Abisa nazazu</string>
     <string name="notify_user_dialog_message">Bidaliguzu zure posta helbidea eta Mapplas zure kokalekuan erabilgarri dagoenean abisatuko zaitugu.</string>
+    <string name="open">Ireki</string>
 </resources>

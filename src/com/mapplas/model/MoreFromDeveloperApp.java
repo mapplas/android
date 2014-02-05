@@ -12,6 +12,8 @@ public class MoreFromDeveloperApp implements Parcelable {
 	private String logo;
 	
 	private String shortDescription;
+	
+	private String price;
 
 	public MoreFromDeveloperApp() {
 	}
@@ -47,6 +49,14 @@ public class MoreFromDeveloperApp implements Parcelable {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
+	
+	public String price() {
+		return this.price;
+	}
+	
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
 	@Override
 	public int describeContents() {
@@ -59,6 +69,7 @@ public class MoreFromDeveloperApp implements Parcelable {
 		dest.writeString(this.name);
 		dest.writeString(this.logo);
 		dest.writeString(this.shortDescription);
+		dest.writeString(this.price);
 	}
 
 	public MoreFromDeveloperApp(Parcel parcel) {
@@ -66,6 +77,7 @@ public class MoreFromDeveloperApp implements Parcelable {
 		this.name = parcel.readString();
 		this.logo = parcel.readString();
 		this.shortDescription = parcel.readString();
+		this.price = parcel.readString();
 	}
 
 	public static final Parcelable.Creator<MoreFromDeveloperApp> CREATOR = new Parcelable.Creator<MoreFromDeveloperApp>() {

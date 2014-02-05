@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -16,9 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +32,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
 import com.mapplas.model.database.repositories.RepositoryManager;
 import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.utils.gcm.GcmRegistrationManager;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.location_manager.AroundRequesterLocationManager;
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
@@ -44,17 +41,18 @@ import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
+import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
+import com.mapplas.utils.visual.SplashScreenTextSelector;
+import com.mapplas.utils.visual.custom_views.RobotoTextView;
 
 public class MapplasActivity extends LanguageActivity {
 
 	public static String PACKAGE_NAME = "";
 
-	/* Debug Values */
 	public final static boolean mDebug = false;
 
-	/* Properties */
 	private SuperModel model = new SuperModel();
 
 	public ArrayList<ApplicationInfo> appsInstalledList = null;
@@ -71,6 +69,8 @@ public class MapplasActivity extends LanguageActivity {
 
 	private AroundRequesterLocationManager aroundRequester = null;
 
+	private GcmRegistrationManager gcmManager;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,22 +86,35 @@ public class MapplasActivity extends LanguageActivity {
 			imei = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
 		}
 		this.model.setCurrentIMEI(imei);
-		
+
 		String networkCountryIso = manager.getNetworkCountryIso();
 		this.model.setDeviceCountry(networkCountryIso);
+
+		this.gcmManager = new GcmRegistrationManager(this, this);
 
 		// Load typefaces from MapplasApplication
 		((MapplasApplication)this.getApplicationContext()).loadTypefaces();
 		new LanguageSetter(this).setLanguageToApp(((MapplasApplication)this.getApplicationContext()).getLanguage());
 
-		this.startRadarAnimation();
+		this.startScreenAnimation();
 
 		// Identificamos contra el servidor
 		int requestNumber = 0;
 		new UserIdentificationTask(this.model, this, this, requestNumber).execute();
 	}
 
+	// Play Services APK check here too. NEEDED.
+	@Override
+	protected void onResume() {
+		super.onResume();
+		this.gcmManager.checkPlayServices();
+	}
+
 	public void continueActivityAfterUserIdentification() {
+		// Register for notifications
+		this.gcmManager.registerForC2dmNotifications(this.model.currentUser());
+		SuperModelSingleton.model = this.model;
+
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
@@ -125,13 +138,16 @@ public class MapplasActivity extends LanguageActivity {
 
 		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-//		Location location = new Location("");
-//		location.setLatitude(40.492523);
-//		location.setLongitude(-3.59589);
-//
-//		this.model.setLocation(location);
-//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
-//		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, 0).execute(new Location(location), true);
+		// Location location = new Location("");
+		// location.setLatitude(37.601);
+		// location.setLongitude(122.45);
+		//
+		// this.model.setLocation(location);
+		// new ReverseGeocodingTask(this, this.model,
+		// this.listViewHeaderStatusMessage).execute(new Location(location));
+		// new AppGetterTask(this, this.model, this.listViewAdapter,
+		// this.listView, this.appsInstalledList, this, 0).execute(new
+		// Location(location), true);
 	}
 
 	@Override
@@ -156,7 +172,7 @@ public class MapplasActivity extends LanguageActivity {
 				this.model.setCurrentUser((User)data.getExtras().getParcelable(Constants.MAPPLAS_LOGIN_USER));
 			}
 		}
-		else if (requestCode == Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED) {
+		else if(requestCode == Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED) {
 			this.loadLocalization();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
@@ -199,8 +215,6 @@ public class MapplasActivity extends LanguageActivity {
 					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
 					userRepo.createOrUpdate(model.currentUser());
 				} catch (SQLException e) {
-					// Log.e(MapplasActivity.this.getClass().getSimpleName(),
-					// e.toString());
 				}
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
@@ -227,56 +241,18 @@ public class MapplasActivity extends LanguageActivity {
 			@Override
 			public void onRefresh(RefreshableListView listView) {
 				if(!AppRequestBeingDoneSingleton.requestBeingDone) {
-					// Log.d(MapplasActivity.this.getClass().getSimpleName(),
-					// "REQUEST");
 					loadLocalization();
 				}
 			}
 		});
 	}
 
-	/**
-	 * Radar animation
-	 */
-	private void startRadarAnimation() {
-		ImageView radar1 = (ImageView)this.findViewById(R.id.radar_1);
-		((BitmapDrawable)radar1.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate);
-		rotate.setDuration(1600);
-		radar1.setDrawingCacheEnabled(false);
-		radar1.startAnimation(rotate);
+	private void startScreenAnimation() {
+		RobotoTextView mainTextView = (RobotoTextView)this.findViewById(R.id.tv_citas);
+		RobotoTextView authorTextView = (RobotoTextView)this.findViewById(R.id.tv_citas_author);
 
-		ImageView radar2 = (ImageView)this.findViewById(R.id.radar_2);
-		((BitmapDrawable)radar2.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate2 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate2);
-		rotate2.setDuration(1800);
-		radar2.setDrawingCacheEnabled(true);
-		radar2.startAnimation(rotate2);
-
-		ImageView radar3 = (ImageView)this.findViewById(R.id.radar_3);
-		((BitmapDrawable)radar3.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate3 = new RotateAnimation(360f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate3);
-		rotate3.setDuration(3400);
-		radar3.setDrawingCacheEnabled(true);
-		radar3.startAnimation(rotate3);
-
-		ImageView radar4 = (ImageView)this.findViewById(R.id.radar_4);
-		((BitmapDrawable)radar4.getDrawable()).setAntiAlias(true);
-		RotateAnimation rotate4 = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		this.setRotateAnimConstants(rotate4);
-		rotate4.setDuration(2600);
-		radar4.setDrawingCacheEnabled(false);
-		radar4.startAnimation(rotate4);
-	}
-
-	private void setRotateAnimConstants(RotateAnimation animation) {
-		animation.setRepeatMode(Animation.RESTART);
-		animation.setFillAfter(false);
-		animation.setRepeatCount(Animation.INFINITE);
-		animation.setInterpolator(new LinearInterpolator());
+		SplashScreenTextSelector splashTextSelector = new SplashScreenTextSelector(mainTextView, authorTextView, this);
+		splashTextSelector.setRandomText();
 	}
 
 	/**
@@ -285,10 +261,7 @@ public class MapplasActivity extends LanguageActivity {
 	 */
 	private void loadLocalization() {
 
-		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-//		Log.e("LOCALIZATION", resultCode + "");
-
-		if(resultCode == ConnectionResult.SUCCESS) {
+		if(this.servicesConnected()) {
 			this.appsRequester.start();
 		}
 		else {
@@ -297,11 +270,41 @@ public class MapplasActivity extends LanguageActivity {
 
 	}
 
+	private boolean servicesConnected() {
+		// Check that Google Play services is available
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+
+		// If Google Play services is available
+		if(ConnectionResult.SUCCESS == resultCode) {
+			return true;
+		}
+		// Google Play services was not available for some reason
+		else {
+			// // Get the error code
+			// int errorCode = connectionResult.getErrorCode();
+			// // Get the error dialog from Google Play services
+			// Dialog errorDialog =
+			// GooglePlayServicesUtil.getErrorDialog(errorCode, this,
+			// CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			//
+			// // If Google Play services can provide an error dialog
+			// if(errorDialog != null) {
+			// // Create a new DialogFragment for the error dialog
+			// ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+			// // Set the dialog in the DialogFragment
+			// errorFragment.setDialog(errorDialog);
+			// // Show the error dialog in the DialogFragment
+			// errorFragment.show(getSupportFragmentManager(),
+			// "Geofence Detection");
+			return false;
+			// }
+		}
+	}
+
 	private void checkNetworkStatus() {
 		NetworkConnectionChecker networkConnectionChecker = new NetworkConnectionChecker();
 		if((networkConnectionChecker.isWifiConnected(this) || networkConnectionChecker.isNetworkConnectionConnected(this)) && !networkConnectionChecker.isWifiEnabled(this)) {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
-
 }

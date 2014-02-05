@@ -93,34 +93,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:textSize="12dp"
-                            android:maxLines="1" />
+                            android:maxLines="1"
+                            android:textSize="12dp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        android:id="@+id/lblPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginRight="10dp" >
 
                     <com.mapplas.utils.visual.custom_views.RobotoButton
                         android:id="@+id/btnStart"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/ic_badge_price"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:textColor="#ffffff"
-                        android:textSize="14sp" />
+                        style="@style/AppLaunchCell" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -296,35 +282,6 @@
                         android:contentDescription="@string/image_content_description"
                         android:src="@drawable/ic_plus" />
                 </RelativeLayout>
-
-                <!--
-                <RelativeLayout
-                    android:id="@+id/developer_email_layout"
-                    style="@style/DeveloperContactLayout" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        style="@style/DeveloperContactCellText"
-                        android:text="@string/devMail" />
-
-                    <ImageView
-                        style="@style/DeveloperContactCellImage"
-                        android:contentDescription="@string/image_content_description" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/developer_web_layout"
-                    style="@style/DeveloperContactLayout" >
-
-                    <com.mapplas.utils.visual.custom_views.RobotoTextView
-                        style="@style/DeveloperContactCellText"
-                        android:text="@string/devWeb" />
-
-                    <ImageView
-                        style="@style/DeveloperContactCellImage"
-                        android:contentDescription="@string/image_content_description" />
-                </RelativeLayout>
-                -->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
