@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.mapplas.com"
-    android:versionCode="13"
-    android:versionName="1.0.16" >
+    android:versionCode="14"
+    android:versionName="2.0" >
 
     <uses-sdk android:minSdkVersion="8" />
 
@@ -20,7 +20,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- so the application can keep the processor from sleeping when a message is received. Optional—use only if the app wants to keep the device from sleeping. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- to prevent other Android applications from registering and receiving the Android application's messages. The permission name must exactly match this pattern—otherwise the Android application will not receive the messages. -->
     <permission

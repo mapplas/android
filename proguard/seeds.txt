@@ -9,9 +9,32 @@ android.support.v4.app.FragmentManagerState
 android.support.v4.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
 android.support.v4.app.FragmentState
 android.support.v4.app.FragmentState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentTabHost: void setOnTabChangedListener(android.widget.TabHost$OnTabChangeListener)
+android.support.v4.app.FragmentTabHost$SavedState
+android.support.v4.app.FragmentTabHost$SavedState: android.os.Parcelable$Creator CREATOR
 android.support.v4.app.ListFragment
+android.support.v4.content.FileProvider
 android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status[] values()
 android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status valueOf(java.lang.String)
+android.support.v4.content.WakefulBroadcastReceiver
+android.support.v4.content.WakefulBroadcastReceiver: WakefulBroadcastReceiver()
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColor(int)
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColorResource(int)
+android.support.v4.view.PagerTabStrip: int getTabIndicatorColor()
+android.support.v4.view.PagerTabStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundDrawable(android.graphics.drawable.Drawable)
+android.support.v4.view.PagerTabStrip: void setBackgroundColor(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundResource(int)
+android.support.v4.view.PagerTabStrip: void setDrawFullUnderline(boolean)
+android.support.v4.view.PagerTabStrip: boolean getDrawFullUnderline()
+android.support.v4.view.PagerTabStrip: int getMinHeight()
+android.support.v4.view.PagerTitleStrip: void setSingleLineAllCaps(android.widget.TextView)
+android.support.v4.view.PagerTitleStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTitleStrip: int getTextSpacing()
+android.support.v4.view.PagerTitleStrip: void setNonPrimaryAlpha(float)
+android.support.v4.view.PagerTitleStrip: void setTextColor(int)
+android.support.v4.view.PagerTitleStrip: void setGravity(int)
+android.support.v4.view.PagerTitleStrip: int getMinHeight()
 android.support.v4.view.ViewPager
 android.support.v4.view.ViewPager: ViewPager(android.content.Context)
 android.support.v4.view.ViewPager: ViewPager(android.content.Context,android.util.AttributeSet)
@@ -19,9 +42,11 @@ android.support.v4.view.ViewPager: void setScrollState(int)
 android.support.v4.view.ViewPager: void setAdapter(android.support.v4.view.PagerAdapter)
 android.support.v4.view.ViewPager: android.support.v4.view.PagerAdapter getAdapter()
 android.support.v4.view.ViewPager: void setOnAdapterChangeListener(android.support.v4.view.ViewPager$OnAdapterChangeListener)
+android.support.v4.view.ViewPager: int getClientWidth()
 android.support.v4.view.ViewPager: void setCurrentItem(int)
 android.support.v4.view.ViewPager: int getCurrentItem()
 android.support.v4.view.ViewPager: void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener)
+android.support.v4.view.ViewPager: void setChildrenDrawingOrderEnabledCompat(boolean)
 android.support.v4.view.ViewPager: int getOffscreenPageLimit()
 android.support.v4.view.ViewPager: void setOffscreenPageLimit(int)
 android.support.v4.view.ViewPager: void setPageMargin(int)
@@ -31,6 +56,22 @@ android.support.v4.view.ViewPager: void setPageMarginDrawable(int)
 android.support.v4.view.ViewPager: void setScrollingCacheEnabled(boolean)
 android.support.v4.view.ViewPager$SavedState
 android.support.v4.view.ViewPager$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.DrawerLayout: void setScrimColor(int)
+android.support.v4.widget.DrawerLayout: void setDrawerListener(android.support.v4.widget.DrawerLayout$DrawerListener)
+android.support.v4.widget.DrawerLayout: void setDrawerLockMode(int)
+android.support.v4.widget.DrawerLayout$SavedState
+android.support.v4.widget.DrawerLayout$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.SlidingPaneLayout: void setParallaxDistance(int)
+android.support.v4.widget.SlidingPaneLayout: int getParallaxDistance()
+android.support.v4.widget.SlidingPaneLayout: void setSliderFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: int getSliderFadeColor()
+android.support.v4.widget.SlidingPaneLayout: void setCoveredFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: int getCoveredFadeColor()
+android.support.v4.widget.SlidingPaneLayout: void setPanelSlideListener(android.support.v4.widget.SlidingPaneLayout$PanelSlideListener)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawable(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResource(int)
+android.support.v4.widget.SlidingPaneLayout$SavedState
+android.support.v4.widget.SlidingPaneLayout$SavedState: android.os.Parcelable$Creator CREATOR
 app.mapplas.com.R$anim: int alpha
 app.mapplas.com.R$anim: int flipinnext
 app.mapplas.com.R$anim: int flipinprevious
@@ -297,13 +338,11 @@ app.mapplas.com.R$drawable: int action_share_button
 app.mapplas.com.R$drawable: int action_un_pinup_button
 app.mapplas.com.R$drawable: int action_unblock_button
 app.mapplas.com.R$drawable: int anim_location
-app.mapplas.com.R$drawable: int badge_free
-app.mapplas.com.R$drawable: int badge_html5
-app.mapplas.com.R$drawable: int badge_launch
-app.mapplas.com.R$drawable: int badge_price
 app.mapplas.com.R$drawable: int bgd_filter_edit_text
+app.mapplas.com.R$drawable: int bgd_launch
 app.mapplas.com.R$drawable: int bgd_ptr
 app.mapplas.com.R$drawable: int bkg_nav_bar
+app.mapplas.com.R$drawable: int border
 app.mapplas.com.R$drawable: int btn_segmented_left
 app.mapplas.com.R$drawable: int btn_segmented_left_pressed
 app.mapplas.com.R$drawable: int btn_segmented_right
@@ -333,6 +372,8 @@ app.mapplas.com.R$drawable: int common_signin_btn_text_normal_light
 app.mapplas.com.R$drawable: int common_signin_btn_text_pressed_dark
 app.mapplas.com.R$drawable: int common_signin_btn_text_pressed_light
 app.mapplas.com.R$drawable: int developer_contact_layout
+app.mapplas.com.R$drawable: int dialog_border
+app.mapplas.com.R$drawable: int dialog_button_selector
 app.mapplas.com.R$drawable: int filter_edit_text
 app.mapplas.com.R$drawable: int filter_edit_text_layer
 app.mapplas.com.R$drawable: int ic_action_block
@@ -347,20 +388,6 @@ app.mapplas.com.R$drawable: int ic_action_unblock
 app.mapplas.com.R$drawable: int ic_action_unblock_pressed
 app.mapplas.com.R$drawable: int ic_action_unpinup
 app.mapplas.com.R$drawable: int ic_action_unpinup_pressed
-app.mapplas.com.R$drawable: int ic_animation_radar_1
-app.mapplas.com.R$drawable: int ic_animation_radar_2
-app.mapplas.com.R$drawable: int ic_animation_radar_3
-app.mapplas.com.R$drawable: int ic_animation_radar_4
-app.mapplas.com.R$drawable: int ic_animation_radar_5
-app.mapplas.com.R$drawable: int ic_animation_radar_6
-app.mapplas.com.R$drawable: int ic_badge_free
-app.mapplas.com.R$drawable: int ic_badge_free_pressed
-app.mapplas.com.R$drawable: int ic_badge_html5
-app.mapplas.com.R$drawable: int ic_badge_html5_pressed
-app.mapplas.com.R$drawable: int ic_badge_launch
-app.mapplas.com.R$drawable: int ic_badge_launch_pressed
-app.mapplas.com.R$drawable: int ic_badge_price
-app.mapplas.com.R$drawable: int ic_badge_price_pressed
 app.mapplas.com.R$drawable: int ic_blank
 app.mapplas.com.R$drawable: int ic_go
 app.mapplas.com.R$drawable: int ic_less
@@ -375,6 +402,7 @@ app.mapplas.com.R$drawable: int ic_menu_refresh
 app.mapplas.com.R$drawable: int ic_menu_settings
 app.mapplas.com.R$drawable: int ic_menu_settings_pressed
 app.mapplas.com.R$drawable: int ic_more
+app.mapplas.com.R$drawable: int ic_notification
 app.mapplas.com.R$drawable: int ic_plus
 app.mapplas.com.R$drawable: int ic_plusone_medium_off_client
 app.mapplas.com.R$drawable: int ic_plusone_small_off_client
@@ -389,6 +417,19 @@ app.mapplas.com.R$drawable: int img_404
 app.mapplas.com.R$drawable: int menu_back_button_left
 app.mapplas.com.R$drawable: int menu_profile_button
 app.mapplas.com.R$drawable: int menu_settings_button
+app.mapplas.com.R$drawable: int progress_bg_holo_dark
+app.mapplas.com.R$drawable: int progress_horizontal_holo_dark
+app.mapplas.com.R$drawable: int progress_indeterminate_horizontal
+app.mapplas.com.R$drawable: int progress_primary_holo_dark
+app.mapplas.com.R$drawable: int progress_secondary_holo_dark
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo1
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo2
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo3
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo4
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo5
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo6
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo7
+app.mapplas.com.R$drawable: int progressbar_indeterminate_holo8
 app.mapplas.com.R$drawable: int pull_to_refresh_header_background
 app.mapplas.com.R$drawable: int rating_bar_res_big
 app.mapplas.com.R$drawable: int refreshable_listview_arrow
@@ -419,6 +460,13 @@ app.mapplas.com.R$id: int comming_soon_pull
 app.mapplas.com.R$id: int comming_soon_subtitle
 app.mapplas.com.R$id: int comming_soon_title
 app.mapplas.com.R$id: int description
+app.mapplas.com.R$id: int dialog_edittext
+app.mapplas.com.R$id: int dialog_layout
+app.mapplas.com.R$id: int dialog_list
+app.mapplas.com.R$id: int dialog_message
+app.mapplas.com.R$id: int dialog_negative_button
+app.mapplas.com.R$id: int dialog_positive_button
+app.mapplas.com.R$id: int dialog_title
 app.mapplas.com.R$id: int galleryPhotos
 app.mapplas.com.R$id: int hybrid
 app.mapplas.com.R$id: int id_rowloc_pressed
@@ -435,12 +483,9 @@ app.mapplas.com.R$id: int lblAction
 app.mapplas.com.R$id: int lblAllow
 app.mapplas.com.R$id: int lblBlock
 app.mapplas.com.R$id: int lblDeveloper
-app.mapplas.com.R$id: int lblLat
 app.mapplas.com.R$id: int lblLocation
-app.mapplas.com.R$id: int lblLon
 app.mapplas.com.R$id: int lblMoreInfo
 app.mapplas.com.R$id: int lblPinUp
-app.mapplas.com.R$id: int lblPrice
 app.mapplas.com.R$id: int lblRate
 app.mapplas.com.R$id: int lblShare
 app.mapplas.com.R$id: int lblShortDescription
@@ -470,6 +515,7 @@ app.mapplas.com.R$id: int menu_refresh
 app.mapplas.com.R$id: int moreAppsBtn
 app.mapplas.com.R$id: int more_from_developer_plus_layout
 app.mapplas.com.R$id: int nav_bar_back_button
+app.mapplas.com.R$id: int navigation_bar
 app.mapplas.com.R$id: int none
 app.mapplas.com.R$id: int normal
 app.mapplas.com.R$id: int page_indicator
@@ -478,10 +524,7 @@ app.mapplas.com.R$id: int pinned_btn
 app.mapplas.com.R$id: int preferences_back_button
 app.mapplas.com.R$id: int preferences_list
 app.mapplas.com.R$id: int progess_bar
-app.mapplas.com.R$id: int radar_1
-app.mapplas.com.R$id: int radar_2
-app.mapplas.com.R$id: int radar_3
-app.mapplas.com.R$id: int radar_4
+app.mapplas.com.R$id: int pw_spinner
 app.mapplas.com.R$id: int radar_layout
 app.mapplas.com.R$id: int rbRating
 app.mapplas.com.R$id: int rbRatingValue
@@ -493,6 +536,8 @@ app.mapplas.com.R$id: int throbber
 app.mapplas.com.R$id: int title
 app.mapplas.com.R$id: int top
 app.mapplas.com.R$id: int triangle
+app.mapplas.com.R$id: int tv_citas
+app.mapplas.com.R$id: int tv_citas_author
 app.mapplas.com.R$id: int underline
 app.mapplas.com.R$id: int unpin_unblock_action_layout
 app.mapplas.com.R$id: int user_form_empty_list
@@ -509,18 +554,22 @@ app.mapplas.com.R$integer: int default_underline_indicator_fade_length
 app.mapplas.com.R$layout: int app
 app.mapplas.com.R$layout: int config_menu
 app.mapplas.com.R$layout: int developer_contact_views_separator
+app.mapplas.com.R$layout: int dialog_listview
+app.mapplas.com.R$layout: int dialog_listview_item
+app.mapplas.com.R$layout: int dialog_two_buttons
+app.mapplas.com.R$layout: int dialog_two_buttons_edittext
 app.mapplas.com.R$layout: int empty_apps
 app.mapplas.com.R$layout: int image_gallery
 app.mapplas.com.R$layout: int image_gallery_item
 app.mapplas.com.R$layout: int loading_row
 app.mapplas.com.R$layout: int main
+app.mapplas.com.R$layout: int message_dialog
 app.mapplas.com.R$layout: int more_apps_layout
 app.mapplas.com.R$layout: int preferences
 app.mapplas.com.R$layout: int preferences_cell_layout
 app.mapplas.com.R$layout: int profile_empty_list_header
 app.mapplas.com.R$layout: int profile_footer
 app.mapplas.com.R$layout: int ptr_header
-app.mapplas.com.R$layout: int radar
 app.mapplas.com.R$layout: int refresh_menu
 app.mapplas.com.R$layout: int row_blocks
 app.mapplas.com.R$layout: int row_more_apps
@@ -529,9 +578,12 @@ app.mapplas.com.R$layout: int rowloc
 app.mapplas.com.R$layout: int rowloc_pressed
 app.mapplas.com.R$layout: int rowloc_unpressed
 app.mapplas.com.R$layout: int separator
+app.mapplas.com.R$layout: int splash
 app.mapplas.com.R$layout: int text_layout
 app.mapplas.com.R$layout: int user
 app.mapplas.com.R$layout: int webview_layout
+app.mapplas.com.R$raw: int cites_en
+app.mapplas.com.R$raw: int cites_es
 app.mapplas.com.R$string: int accept
 app.mapplas.com.R$string: int allow
 app.mapplas.com.R$string: int app_detail
@@ -599,6 +651,7 @@ app.mapplas.com.R$string: int language_basque
 app.mapplas.com.R$string: int language_change_alert_title
 app.mapplas.com.R$string: int language_change_list_item
 app.mapplas.com.R$string: int language_change_restart_app_message
+app.mapplas.com.R$string: int language_change_restart_app_title
 app.mapplas.com.R$string: int language_english
 app.mapplas.com.R$string: int language_spanish
 app.mapplas.com.R$string: int location_done
@@ -611,6 +664,7 @@ app.mapplas.com.R$string: int menu_refresh
 app.mapplas.com.R$string: int no
 app.mapplas.com.R$string: int notify_user_dialog_message
 app.mapplas.com.R$string: int notify_user_dialog_title
+app.mapplas.com.R$string: int open
 app.mapplas.com.R$string: int pin_up
 app.mapplas.com.R$string: int pin_ups
 app.mapplas.com.R$string: int preferences_title
@@ -638,6 +692,7 @@ app.mapplas.com.R$string: int unknown_error
 app.mapplas.com.R$string: int user_screen_segmented_control_blocks
 app.mapplas.com.R$string: int user_screen_segmented_control_pins
 app.mapplas.com.R$string: int web
+app.mapplas.com.R$string: int web_app
 app.mapplas.com.R$string: int wifi_error_toast
 app.mapplas.com.R$string: int yes
 app.mapplas.com.R$style: int ActionButtonImage
@@ -659,6 +714,7 @@ app.mapplas.com.R$style: int NavigationBarText
 app.mapplas.com.R$style: int PinnedAppDescriptionCell
 app.mapplas.com.R$style: int PinnedAppTitleCell
 app.mapplas.com.R$style: int RadarImage
+app.mapplas.com.R$style: int RadarSecondText
 app.mapplas.com.R$style: int RadarText
 app.mapplas.com.R$style: int SegmentedControlText
 app.mapplas.com.R$style: int TextAppearance_TabPageIndicator
@@ -3840,11 +3896,14 @@ com.mapplas.model.AppOrderedList: void sort()
 com.mapplas.model.AppOrderedList: int compare(com.mapplas.model.App,com.mapplas.model.App)
 com.mapplas.model.AppOrderedList: void update(java.util.ArrayList)
 com.mapplas.model.AppOrderedList: int compare(java.lang.Object,java.lang.Object)
+com.mapplas.model.GeoFence
+com.mapplas.model.GeoFence: android.os.Parcelable$Creator CREATOR
 com.mapplas.model.MoreFromDeveloperApp
 com.mapplas.model.MoreFromDeveloperApp: java.lang.String id
 com.mapplas.model.MoreFromDeveloperApp: java.lang.String name
 com.mapplas.model.MoreFromDeveloperApp: java.lang.String logo
 com.mapplas.model.MoreFromDeveloperApp: java.lang.String shortDescription
+com.mapplas.model.MoreFromDeveloperApp: java.lang.String price
 com.mapplas.model.MoreFromDeveloperApp: android.os.Parcelable$Creator CREATOR
 com.mapplas.model.MoreFromDeveloperApp: void <clinit>()
 com.mapplas.model.MoreFromDeveloperApp: MoreFromDeveloperApp()
@@ -3856,6 +3915,8 @@ com.mapplas.model.MoreFromDeveloperApp: java.lang.String logo()
 com.mapplas.model.MoreFromDeveloperApp: void setLogo(java.lang.String)
 com.mapplas.model.MoreFromDeveloperApp: java.lang.String shortDescription()
 com.mapplas.model.MoreFromDeveloperApp: void setShortDescription(java.lang.String)
+com.mapplas.model.MoreFromDeveloperApp: java.lang.String price()
+com.mapplas.model.MoreFromDeveloperApp: void setPrice(java.lang.String)
 com.mapplas.model.MoreFromDeveloperApp: int describeContents()
 com.mapplas.model.MoreFromDeveloperApp: void writeToParcel(android.os.Parcel,int)
 com.mapplas.model.MoreFromDeveloperApp: MoreFromDeveloperApp(android.os.Parcel)
@@ -3934,6 +3995,12 @@ com.mapplas.model.User: int describeContents()
 com.mapplas.model.User: void writeToParcel(android.os.Parcel,int)
 com.mapplas.model.User: User(android.os.Parcel)
 com.mapplas.utils.gallery.GalleryItemFragment
+com.mapplas.utils.gcm.GcmBroadcastReceiver
+com.mapplas.utils.gcm.GcmBroadcastReceiver: GcmBroadcastReceiver()
+com.mapplas.utils.gcm.GcmIntentService
+com.mapplas.utils.gcm.GcmIntentService: GcmIntentService()
+com.mapplas.utils.geofences.ReceiveTransitionsIntentService
+com.mapplas.utils.geofences.ReceiveTransitionsIntentService: ReceiveTransitionsIntentService()
 com.mapplas.utils.third_party.RefreshableListView
 com.mapplas.utils.third_party.RefreshableListView: RefreshableListView(android.content.Context)
 com.mapplas.utils.third_party.RefreshableListView: RefreshableListView(android.content.Context,android.util.AttributeSet)
