@@ -44,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
+        android:layout_marginRight="15dp"
+        android:inputType="textEmailAddress" />
 
     <View
         android:layout_width="fill_parent"
@@ -57,7 +58,7 @@
         android:orientation="horizontal" >
 
         <com.mapplas.utils.visual.custom_views.RobotoButton
-           android:id="@+id/dialog_positive_button"
+            android:id="@+id/dialog_positive_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"

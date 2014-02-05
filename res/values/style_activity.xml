@@ -62,6 +62,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">12dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/app_title_color_cell</item>
         <item name="android:textSize">16sp</item>
@@ -85,6 +86,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">12dp</item>
         <item name="android:lines">3</item>
         <item name="android:textColor">@color/app_description_color_cell</item>
         <item name="android:textSize">12sp</item>
