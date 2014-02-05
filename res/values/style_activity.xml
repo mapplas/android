@@ -104,13 +104,15 @@
     </style>
 
     <style name="AppLaunchCell">
-        <item name="android:layout_width">64dp</item>
-        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">24dp</item>
         <item name="android:layout_gravity">center_vertical|center_horizontal</item>
-        <item name="android:background">@drawable/ic_badge_price</item>
+        <item name="android:background">@drawable/border</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:textColor">@color/White</item>
+        <item name="android:textColor">@color/main_screen_title_color</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
     </style>
 
     <style name="ActionButtonsLayout">
@@ -172,11 +174,10 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/White</item>
     </style>
-    
-     <style name="RadarSecondText">
-        <item name="android:layout_width">wrap_content</item>
+
+    <style name="RadarSecondText">
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">left</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/White</item>

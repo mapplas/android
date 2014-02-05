@@ -2,45 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingRight="5dp" >
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:clickable="true" >
-
-        <ImageView
-            android:id="@+id/imgLogo"
-            style="@style/ImageLogo"
-            android:contentDescription="@string/image_content_description" />
-
-        <ImageView
-            android:id="@+id/imgRonundC"
-            style="@style/ImageRoundLogo"
-            android:contentDescription="@string/image_content_description" />
-    </RelativeLayout>
-
-    <ViewFlipper
-        android:id="@+id/vfRowLoc"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:duplicateParentState="true" >
-
-        <include
-            android:id="@+id/id_rowloc_unpressed"
-            layout="@layout/rowloc_unpressed" />
-
-        <include
-            android:id="@+id/id_rowloc_pressed"
-            layout="@layout/rowloc_pressed" />
-    </ViewFlipper>
-
-    <com.mapplas.utils.visual.custom_views.RobotoTextView
-        android:id="@android:id/text1"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:visibility="gone" />
+        android:orientation="horizontal"
+        android:paddingRight="5dp" >
+
+        <RelativeLayout
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                style="@style/ImageLogo"
+                android:contentDescription="@string/image_content_description" />
+
+            <ImageView
+                android:id="@+id/imgRonundC"
+                style="@style/ImageRoundLogo"
+                android:contentDescription="@string/image_content_description" />
+        </RelativeLayout>
+
+        <ViewFlipper
+            android:id="@+id/vfRowLoc"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:duplicateParentState="true" >
+
+            <include
+                android:id="@+id/id_rowloc_unpressed"
+                layout="@layout/rowloc_unpressed" />
+
+            <include
+                android:id="@+id/id_rowloc_pressed"
+                layout="@layout/rowloc_pressed" />
+        </ViewFlipper>
+
+        <com.mapplas.utils.visual.custom_views.RobotoTextView
+            android:id="@android:id/text1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#CCC" />
 
 </LinearLayout>

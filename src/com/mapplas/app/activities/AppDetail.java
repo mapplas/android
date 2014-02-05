@@ -1,7 +1,6 @@
 package com.mapplas.app.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -42,6 +41,7 @@ import com.mapplas.utils.network.requests.ShareRequestThread;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.utils.NumberUtils;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.helpers.AppLaunchHelper;
 import com.mapplas.utils.visual.helpers.ListViewInsideScrollHeigthHelper;
@@ -482,14 +482,25 @@ public class AppDetail extends LanguageActivity {
 				final App anonLoc = (App)(v.getTag());
 				if(anonLoc != null) {
 					if(anonLoc != null) {
-						AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(AppDetail.this);
-						myAlertDialog.setTitle(R.string.block_title);
-						myAlertDialog.setMessage(R.string.block_text);
-						myAlertDialog.setPositiveButton(R.string.block_accept, new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface arg0, int arg1) {
+						final Dialog dialog = new Dialog(AppDetail.this, android.R.style.Theme_Translucent_NoTitleBar);
+						dialog.setContentView(R.layout.dialog_two_buttons);
+						dialog.setCanceledOnTouchOutside(true);
+						dialog.show();
+
+						RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+						title.setText(R.string.block_title);
+						RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
+						message.setText(R.string.block_text);
+
+						RobotoButton positiveButton = (RobotoButton)dialog.findViewById(R.id.dialog_positive_button);
+						positiveButton.setText(R.string.block_accept);
+						positiveButton.setOnClickListener(new View.OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+
 								// Block and unpin app
-
 								String uid = String.valueOf(user.getId());
 								Thread likeRequestThread = new Thread(new BlockRequestThread(Constants.MAPPLAS_ACTIVITY_LIKE_REQUEST_BLOCK, anonLoc, uid).getThread());
 								likeRequestThread.start();
@@ -517,14 +528,16 @@ public class AppDetail extends LanguageActivity {
 								AppDetail.this.finish();
 							}
 						});
-						myAlertDialog.setNegativeButton(R.string.block_cancel, new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface arg0, int arg1) {
-								// do something when the Cancel button is
-								// clicked
+						RobotoButton negativeButton = (RobotoButton)dialog.findViewById(R.id.dialog_negative_button);
+						negativeButton.setText(R.string.block_cancel);
+						negativeButton.setOnClickListener(new View.OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								dialog.dismiss();
 							}
 						});
-						myAlertDialog.show();
 					}
 				}
 			}

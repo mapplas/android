@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:layout_margin="20dp"
+    android:background="@drawable/dialog_border"
+    android:orientation="vertical" >
+
+    <com.mapplas.utils.visual.custom_views.RobotoTextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/main_screen_title_color"
+        android:textSize="20sp"
+        android:textStyle="bold" >
+    </com.mapplas.utils.visual.custom_views.RobotoTextView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="@color/main_screen_title_color" />
+
+    <com.mapplas.utils.visual.custom_views.RobotoTextView
+        android:id="@+id/dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/Black"
+        android:textSize="16sp" >
+    </com.mapplas.utils.visual.custom_views.RobotoTextView>
+
+    <EditText
+        android:id="@+id/dialog_edittext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/LightGrey" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <com.mapplas.utils.visual.custom_views.RobotoButton
+           android:id="@+id/dialog_positive_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_button_selector"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp" />
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:background="@color/LightGrey" />
+
+        <com.mapplas.utils.visual.custom_views.RobotoButton
+            android:id="@+id/dialog_negative_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_button_selector"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp" />
+    </LinearLayout>
+
+</LinearLayout>

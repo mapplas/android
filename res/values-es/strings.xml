@@ -65,6 +65,7 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Castellano</string>
     <string name="language_basque">Euskera</string>
+    <string name="language_change_restart_app_title">Cambiar idioma</string>
     <string name="language_change_restart_app_message">Es necesario reiniciar la aplicación después del cambio de idioma</string>
     <string name="pin_ups">pins</string>
     <string name="pin_up">pin</string>
@@ -82,4 +83,5 @@
     <string name="comming_soon_notify_user">Avísame cuando este disponible</string>
     <string name="notify_user_dialog_title">Avísame</string>
     <string name="notify_user_dialog_message">Envíanos tu email y te avisaremos cuando Mapplas esté disponible en tu ubicación.</string>
+    <string name="open">Abrir</string>
 </resources>
