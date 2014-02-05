@@ -36,7 +36,7 @@
             style="@style/RadarSecondText"
             android:layout_below="@+id/tv_citas"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="60dp"
             android:gravity="right" />
     </RelativeLayout>
 

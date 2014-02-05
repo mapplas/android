@@ -81,8 +81,8 @@ public class SettingsActivity extends LanguageActivity implements LanguageDialog
 		dialog.setContentView(R.layout.message_dialog);
 		dialog.show();
 		
-//		RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
-//		title.setText(R.string.block_title);
+		RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+		title.setText(R.string.language_change_restart_app_title);
 		RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
 		message.setText(R.string.language_change_restart_app_message);
 		
