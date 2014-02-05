@@ -47,6 +47,7 @@
                 android:background="@color/main_list_header_background"
                 android:divider="@null"
                 android:dividerHeight="0dp"
+                android:fadingEdgeLength="0dp"
                 android:visibility="invisible" >
             </com.mapplas.utils.third_party.RefreshableListView>
         </LinearLayout>
