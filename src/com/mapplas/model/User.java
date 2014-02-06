@@ -27,7 +27,7 @@ public class User implements Parcelable {
 
 	public static final String KEY_BLOKEDAPPS = "blockedApps";
 
-	public static final String[] COLUMNS = { KEY_ID, KEY_IMEI, KEY_BLOKEDAPPS, KEY_BLOKEDAPPS };
+	public static final String[] COLUMNS = { KEY_ID, KEY_IMEI, KEY_PINNEDAPPS, KEY_BLOKEDAPPS };
 
 	public User() {
 	}
