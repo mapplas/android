@@ -1,6 +1,5 @@
 package com.mapplas.app.activities;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -30,8 +29,7 @@ import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
-import com.mapplas.model.database.repositories.RepositoryManager;
-import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.model.database.MySQLiteHelper;
 import com.mapplas.utils.gcm.GcmRegistrationManager;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.location_manager.AroundRequesterLocationManager;
@@ -211,11 +209,8 @@ public class MapplasActivity extends LanguageActivity {
 				intent.putExtra(Constants.MAPPLAS_LOGIN_APP_LIST, model.appList());
 
 				// Save current user into DB
-				try {
-					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
-					userRepo.createOrUpdate(model.currentUser());
-				} catch (SQLException e) {
-				}
+				MySQLiteHelper db = new MySQLiteHelper(MapplasActivity.this);
+				db.insertOrUpdateUser(model.currentUser());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
 			}
