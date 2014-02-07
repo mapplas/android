@@ -1,56 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutMain"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/no_apps_screen_background"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-    <LinearLayout
-        android:id="@+id/lytContent"
+    <RelativeLayout
+        android:id="@+id/layoutMain"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@color/no_apps_screen_background"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/navigation_bar"
-            style="@style/NavigationBar"
-            android:visibility="gone" >
-
-            <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
-            </com.mapplas.utils.visual.custom_views.RobotoTextView>
-
-            <com.mapplas.utils.visual.custom_views.RobotoButton
-                android:id="@+id/btnProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/menu_profile_button"
-                android:visibility="gone" />
-        </RelativeLayout>
-
         <LinearLayout
-            android:id="@+id/lytMainContainer"
+            android:id="@+id/lytContent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
             android:orientation="vertical" >
 
-            <!-- Splash -->
+            <RelativeLayout
+                android:id="@+id/navigation_bar"
+                style="@style/NavigationBar"
+                android:visibility="gone" >
 
-            <include layout="@layout/splash" />
+                <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
+                </com.mapplas.utils.visual.custom_views.RobotoTextView>
 
-            <com.mapplas.utils.third_party.RefreshableListView
-                android:id="@+id/lvLista"
+                <com.mapplas.utils.visual.custom_views.RobotoButton
+                    android:id="@+id/btnProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/menu_profile_button"
+                    android:visibility="gone" />
+
+                <com.mapplas.utils.visual.custom_views.RobotoButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/btnProfile"
+                    android:background="@drawable/ic_action_search"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lytMainContainer"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/main_list_header_background"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:fadingEdgeLength="0dp"
-                android:visibility="invisible" >
-            </com.mapplas.utils.third_party.RefreshableListView>
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
-</RelativeLayout>
+                <!-- Splash -->
+
+                <include layout="@layout/splash" />
+
+                <com.mapplas.utils.third_party.RefreshableListView
+                    android:id="@+id/lvLista"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/main_list_header_background"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:fadingEdgeLength="0dp"
+                    android:visibility="invisible" >
+                </com.mapplas.utils.third_party.RefreshableListView>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#7F444444"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:id="@+id/lytContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/navigation_bar"
+                style="@style/NavigationBar"
+                android:visibility="visible" >
+
+                <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
+                </com.mapplas.utils.visual.custom_views.RobotoTextView>
+
+                <Button
+                    android:id="@+id/searchLayoutBtnBack"
+                    style="@style/NavigationBarButton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lytMainContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <com.mapplas.utils.third_party.RefreshableListView
+                    android:id="@+id/lvLista"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/main_list_header_background"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:fadingEdgeLength="0dp" >
+                </com.mapplas.utils.third_party.RefreshableListView>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

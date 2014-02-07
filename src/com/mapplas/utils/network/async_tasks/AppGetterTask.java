@@ -125,10 +125,15 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 		// Profile button animation
 		RobotoButton profileNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnProfile);
+		RobotoButton searchNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnSearch);
 		if(profileNavBarButton.getVisibility() == View.GONE) {
-			profileNavBarButton.setVisibility(View.VISIBLE);
 			Animation myFadeInAnimation = AnimationUtils.loadAnimation(this.context, R.anim.alpha);
+
+			profileNavBarButton.setVisibility(View.VISIBLE);
 			profileNavBarButton.startAnimation(myFadeInAnimation);
+			
+			searchNavBarButton.setVisibility(View.VISIBLE);
+			searchNavBarButton.startAnimation(myFadeInAnimation);
 		}
 
 		if(this.listViewAdapter != null) {

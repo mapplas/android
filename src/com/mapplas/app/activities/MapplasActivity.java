@@ -137,8 +137,8 @@ public class MapplasActivity extends LanguageActivity {
 		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 		// Location location = new Location("");
-		// location.setLatitude(37.601);
-		// location.setLongitude(122.45);
+		// location.setLatitude(41.353673);
+		// location.setLongitude(2.128786);
 		//
 		// this.model.setLocation(location);
 		// new ReverseGeocodingTask(this, this.model,
@@ -213,6 +213,26 @@ public class MapplasActivity extends LanguageActivity {
 				db.insertOrUpdateUser(model.currentUser());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
+			}
+		});
+
+		// Search button
+		Button searchButton = (Button)findViewById(R.id.btnSearch);
+		searchButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				findViewById(R.id.layoutSearch).setVisibility(View.VISIBLE);
+			}
+		});
+
+		// Search layout back button
+		Button searchLayoutBack = (Button)findViewById(R.id.searchLayoutBtnBack);
+		searchLayoutBack.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				findViewById(R.id.layoutSearch).setVisibility(View.GONE);
 			}
 		});
 	}
