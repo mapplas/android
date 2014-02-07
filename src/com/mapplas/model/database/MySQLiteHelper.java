@@ -1,5 +1,7 @@
 package com.mapplas.model.database;
 
+import java.util.Iterator;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +13,8 @@ import com.mapplas.model.SearchValue;
 import com.mapplas.model.User;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
+	
+	private Context context;
 
 	// Database Version
 	private static final int DATABASE_VERSION = 1;
@@ -20,43 +24,23 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// SQL statement to create user table
 		String CREATE_USER_TABLE = "CREATE TABLE " + User.TABLE_USERS + " ( " + "id INTEGER PRIMARY KEY, " + "imei TEXT, " + "pinnedApps TEXT, " + "blockedApps TEXT" + " )";
-		String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + "id INTEGER PRIMARY KEY, " + "name1 TEXT, " + "name2 TEXT, " + " )";
+		String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + "id INTEGER PRIMARY KEY, " + "name1 TEXT, " + "name2 TEX " + " )";
 
-		// create books table
 		db.execSQL(CREATE_USER_TABLE);
 		db.execSQL(CREATE_SEARCH_VALUES_TABLE);
 
-		SearchValue s1 = new SearchValue();
-		s1.setId(1);
-		s1.setName1("Nueva York");
-		s1.setName2("New York");
-		this.insertSearchValue(s1);
-
-		SearchValue s2 = new SearchValue();
-		s2.setId(1);
-		s2.setName1("Donostia");
-		s2.setName2("San Sebasti‡n");
-		this.insertSearchValue(s2);
-
-		SearchValue s3 = new SearchValue();
-		s3.setId(1);
-		s3.setName1("Madrid");
-		s3.setName2("");
-		this.insertSearchValue(s3);
+		new DbPopulator(this.context, db).populate();
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// Drop older user table if existed
-		db.execSQL("DROP TABLE IF EXISTS user");
-
-		// create fresh users table
 		this.onCreate(db);
 	}
 
@@ -127,5 +111,36 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.insert(SearchValue.TABLE_SEARCHVALUES, null, values);
 
 		db.close();
+	}
+
+	public String[] getSearchValues() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, SearchValue.COLUMNS, null, null, null, null, null);
+
+		if(cursor.getCount() > 0) {
+			String[] str = new String[cursor.getCount() * 2];
+			int i = 0;
+
+			while (cursor.moveToNext()) {
+				str[i] = cursor.getString(cursor.getColumnIndex(SearchValue.KEY_NAME1));
+				i++;
+				if(cursor.getString(cursor.getColumnIndex(SearchValue.KEY_NAME2)) != null) {
+					str[i] = cursor.getString(cursor.getColumnIndex(SearchValue.KEY_NAME2));
+					i++;
+				}				
+			}
+			
+			String[] strWithoutNulls = new String[i];
+			int j = 0;
+			while(j < i) {
+				strWithoutNulls[j] = str[j];
+				j++;
+			}
+			
+			return strWithoutNulls;
+		}
+		else {
+			return new String[] {};
+		}
 	}
 }

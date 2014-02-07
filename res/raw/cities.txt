@@ -1,0 +1,52 @@
+73|Vitoria|Gasteiz
+74|Albacete
+75|Alicante|Alacant
+76|Almería
+77|Ávila
+78|Badajoz
+79|Palma de Mallorca
+80|Barcelona
+81|Burgos
+82|Cáceres
+83|Cádiz
+84|Castellón de la Plana|Castelló de la Plana
+85|CiudadReal
+86|Córdoba
+87|La Coruña|A Coruña
+88|Cuenca
+89|Gerona|Girona
+90|Granada
+91|Guadalajara
+92|San Sebastián|Donostia
+93|Huelva
+94|Huesca
+95|Jaén
+96|León
+97|Lérida|Lleida
+98|Logroño
+99|Lugo
+100|Madrid
+101|Málaga
+102|Murcia
+103|Pamplona|Iruña
+104|Orense|Ourense
+105|Oviedo
+106|Palencia
+107|Las Palmasde GranCanaria
+108|Pontevedra
+109|Salamanca
+110|Santa Cruz de Tenerife
+111|Santander
+112|Segovia
+113|Sevilla
+114|Soria
+115|Tarragona
+116|Teruel
+117|Toledo
+118|Valencia|Valéncia
+119|Valladolid
+120|Bilbao|Bilbo
+121|Zamora
+122|Zaragoza
+123|Ceuta
+124|Melilla

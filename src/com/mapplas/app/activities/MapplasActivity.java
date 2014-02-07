@@ -121,7 +121,7 @@ public class MapplasActivity extends LanguageActivity {
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.setClickListenersToButtons(normalTypeFace);
-		
+
 		this.initializeAutocompleteSearchView();
 
 		// Load list
@@ -326,7 +326,7 @@ public class MapplasActivity extends LanguageActivity {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 	private void initializeAutocompleteSearchView() {
 		SearchManager searchManager = new SearchManager((AutoCompleteTextView)findViewById(R.id.autocompleteSearchView), this);
 		searchManager.initializeSearcher();
