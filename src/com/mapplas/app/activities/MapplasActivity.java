@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import com.mapplas.utils.location.location_manager.LocationRequesterLocationMana
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -119,6 +121,8 @@ public class MapplasActivity extends LanguageActivity {
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.setClickListenersToButtons(normalTypeFace);
+		
+		this.initializeAutocompleteSearchView();
 
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
@@ -321,5 +325,10 @@ public class MapplasActivity extends LanguageActivity {
 		if((networkConnectionChecker.isWifiConnected(this) || networkConnectionChecker.isNetworkConnectionConnected(this)) && !networkConnectionChecker.isWifiEnabled(this)) {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
+	}
+	
+	private void initializeAutocompleteSearchView() {
+		SearchManager searchManager = new SearchManager((AutoCompleteTextView)findViewById(R.id.autocompleteSearchView), this);
+		searchManager.initializeSearcher();
 	}
 }

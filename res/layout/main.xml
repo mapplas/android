@@ -77,13 +77,12 @@
         android:visibility="gone" >
 
         <LinearLayout
-            android:id="@+id/lytContent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:background="@color/no_apps_screen_background"
             android:orientation="vertical" >
 
             <RelativeLayout
-                android:id="@+id/navigation_bar"
                 style="@style/NavigationBar"
                 android:visibility="visible" >
 
@@ -98,21 +97,23 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/lytMainContainer"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:orientation="horizontal" >
 
-                <com.mapplas.utils.third_party.RefreshableListView
-                    android:id="@+id/lvLista"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/image_content_description"
+                    android:src="@drawable/ic_action_search" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocompleteSearchView"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@color/main_list_header_background"
-                    android:divider="@null"
-                    android:dividerHeight="0dp"
-                    android:fadingEdgeLength="0dp" >
-                </com.mapplas.utils.third_party.RefreshableListView>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
