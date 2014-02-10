@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -197,6 +198,17 @@ public class MapplasActivity extends LanguageActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		this.loadLocalization();
 		return true;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	
+		if(keyCode == KeyEvent.KEYCODE_BACK && layoutSearch.getVisibility() == View.VISIBLE) {
+			layoutSearch.setVisibility(View.GONE);
+			return true;
+		}
+		
+		return super.onKeyDown(keyCode, event);
 	}
 
 	/**
