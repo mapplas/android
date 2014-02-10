@@ -18,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -72,6 +73,8 @@ public class MapplasActivity extends LanguageActivity {
 
 	private GcmRegistrationManager gcmManager;
 
+	private RelativeLayout layoutSearch;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -118,6 +121,8 @@ public class MapplasActivity extends LanguageActivity {
 
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
+
+		this.layoutSearch = (RelativeLayout)findViewById(R.id.layoutSearch);
 
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
@@ -227,7 +232,7 @@ public class MapplasActivity extends LanguageActivity {
 
 			@Override
 			public void onClick(View v) {
-				findViewById(R.id.layoutSearch).setVisibility(View.VISIBLE);
+				layoutSearch.setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -237,7 +242,7 @@ public class MapplasActivity extends LanguageActivity {
 
 			@Override
 			public void onClick(View v) {
-				findViewById(R.id.layoutSearch).setVisibility(View.GONE);
+				layoutSearch.setVisibility(View.GONE);
 			}
 		});
 	}
@@ -329,13 +334,13 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	private void initializeAutocompleteSearchView() {
-		SearchManager searchManager = new SearchManager((AutoCompleteTextView)findViewById(R.id.autocompleteSearchView), this, this);
+		SearchManager searchManager = new SearchManager((AutoCompleteTextView)findViewById(R.id.autocompleteSearchView), layoutSearch, this, this);
 		searchManager.initializeSearcher();
 	}
-	
-	public void requestAppsForEntity(int entity_id) {
+
+	public void requestAppsForEntity(int entity_id, String city) {
+		this.listViewHeaderStatusMessage.setText(city);
 		int requestNumber = 0;
 		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID).execute(null, true, entity_id);
-//		new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 	}
 }

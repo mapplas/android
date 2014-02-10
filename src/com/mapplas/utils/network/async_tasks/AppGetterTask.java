@@ -25,6 +25,7 @@ import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.network.connectors.AppGetterConnectorFromEntity;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
@@ -91,6 +92,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 		String code;
 		if(this.request_type == Constants.APP_REQUEST_TYPE_LOCATION) {
+			SearchManager.APP_REQUEST_ENTITY_BEING_DONE = -1;
 			code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
 		}
 		else {

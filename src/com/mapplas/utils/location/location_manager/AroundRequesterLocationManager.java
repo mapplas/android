@@ -18,6 +18,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.utils.location.UserLocationListener;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AroundRequesterLocationManager implements UserLocationListener {
@@ -90,8 +91,10 @@ public class AroundRequesterLocationManager implements UserLocationListener {
 	private void loadTasks(Location location, boolean reset_pagination) {
 
 		// TODO: uncomment for emulator or mocked location use
-//		location.setLatitude(40.492523);
-//		location.setLongitude(-3.59589);
+		// location.setLatitude(40.492523);
+		// location.setLongitude(-3.59589);
+
+		SearchManager.APP_REQUEST_TYPE_BEING_DONE = Constants.APP_REQUEST_TYPE_LOCATION;
 
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);

@@ -17,6 +17,7 @@ import com.mapplas.model.SuperModel;
 import com.mapplas.utils.location.UserLocationListener;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.third_party.RefreshableListView;
 
 public class AroundRequesterGooglePlayServices implements UserLocationListener {
@@ -85,8 +86,10 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 	private void loadTasks(Location location, boolean reset_pagination) {
 
 		// TODO: uncomment for emulator or mocked location use
-//		location.setLatitude(41.353673);
-//		location.setLongitude(2.128786);
+		// location.setLatitude(41.353673);
+		// location.setLongitude(2.128786);
+
+		SearchManager.APP_REQUEST_TYPE_BEING_DONE = Constants.APP_REQUEST_TYPE_LOCATION;
 
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
