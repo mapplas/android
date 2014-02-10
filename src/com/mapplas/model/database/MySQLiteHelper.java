@@ -1,7 +1,5 @@
 package com.mapplas.model.database;
 
-import java.util.Iterator;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,7 +11,7 @@ import com.mapplas.model.SearchValue;
 import com.mapplas.model.User;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
-	
+
 	private Context context;
 
 	// Database Version
@@ -127,20 +125,32 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				if(cursor.getString(cursor.getColumnIndex(SearchValue.KEY_NAME2)) != null) {
 					str[i] = cursor.getString(cursor.getColumnIndex(SearchValue.KEY_NAME2));
 					i++;
-				}				
+				}
 			}
-			
+
 			String[] strWithoutNulls = new String[i];
 			int j = 0;
-			while(j < i) {
+			while (j < i) {
 				strWithoutNulls[j] = str[j];
 				j++;
 			}
-			
+
 			return strWithoutNulls;
 		}
 		else {
 			return new String[] {};
 		}
+	}
+
+	public int getIdFromName(String searchValueName) {
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_ID }, SearchValue.KEY_NAME1 + " = ? OR " + SearchValue.KEY_NAME2 + " = ?", new String[] { searchValueName, searchValueName }, null, null, null, null);
+
+		if(cursor != null)
+			cursor.moveToFirst();
+		
+		db.close();
+		return cursor.getInt(0);
 	}
 }

@@ -12,6 +12,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.app.AppAdapter;
+import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.location.UserLocationListener;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
@@ -105,7 +106,7 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 		this.appAdapter.restartAppending();
 
 		int requestNumber = 0;
-		new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, requestNumber).execute(new Location(location), reset_pagination);
+		new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, requestNumber, Constants.APP_REQUEST_TYPE_LOCATION).execute(new Location(location), reset_pagination, -1);
 		new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 	}
 

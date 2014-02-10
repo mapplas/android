@@ -24,6 +24,7 @@ import com.mapplas.utils.language.LanguageDialogCreator;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
+import com.mapplas.utils.network.connectors.AppGetterConnectorFromEntity;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
@@ -46,13 +47,17 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 	private MapplasActivity mainActivity;
 
 	private int retries;
+	
+	private int request_type;
 
 	// Params
 	private Location location;
 
 	private boolean resetPagination;
+	
+	private int entity_id;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries) {
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries, int request_type) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -61,6 +66,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
 		this.retries = retries;
+		this.request_type = request_type;
 	}
 
 	@Override
@@ -68,6 +74,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 		this.location = (Location)params[0];
 		this.resetPagination = (Boolean)params[1];
+		this.entity_id = (Integer)params[2];
 
 		try {
 			semaphore.acquire();
@@ -82,7 +89,13 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
 
-		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
+		String code;
+		if(this.request_type == Constants.APP_REQUEST_TYPE_LOCATION) {
+			code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
+		}
+		else {
+			code = AppGetterConnectorFromEntity.request(this.entity_id, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
+		}
 
 		try {
 			semaphore.acquire();
@@ -104,7 +117,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		// Generic error or socket error
 		else if(this.retries <= Constants.NUMBER_OF_REQUEST_RETRIES) {
 			this.retries = this.retries + 1;
-			new AppGetterTask(this.context, this.model, this.listViewAdapter, this.listView, this.appsInstalledInfo, this.mainActivity, this.retries).execute(this.location, this.resetPagination);
+			new AppGetterTask(this.context, this.model, this.listViewAdapter, this.listView, this.appsInstalledInfo, this.mainActivity, this.retries, this.request_type).execute(this.location, this.resetPagination, this.entity_id);
 		}
 		else {
 			NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();

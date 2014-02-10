@@ -16,6 +16,7 @@ import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.App;
+import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
@@ -84,7 +85,7 @@ public class AppAdapter extends EndlessAdapter {
 			boolean restart_pagination = false;
 			int requestNumber = 0;
 
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber).execute(this.model.getLocation(), restart_pagination);
+			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber, Constants.APP_REQUEST_TYPE_LOCATION).execute(this.model.getLocation(), restart_pagination, -1);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while (this.SLEEP) {
 				Thread.sleep(200);

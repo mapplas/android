@@ -37,6 +37,7 @@ import com.mapplas.utils.location.location_manager.AroundRequesterLocationManage
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -328,7 +329,13 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	private void initializeAutocompleteSearchView() {
-		SearchManager searchManager = new SearchManager((AutoCompleteTextView)findViewById(R.id.autocompleteSearchView), this);
+		SearchManager searchManager = new SearchManager((AutoCompleteTextView)findViewById(R.id.autocompleteSearchView), this, this);
 		searchManager.initializeSearcher();
+	}
+	
+	public void requestAppsForEntity(int entity_id) {
+		int requestNumber = 0;
+		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID).execute(null, true, entity_id);
+//		new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 	}
 }
