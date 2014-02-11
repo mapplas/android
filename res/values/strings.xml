@@ -87,4 +87,5 @@
     <string name="notify_user_dialog_message">Insert your email and we will let you know when mapplas becomes available in your location.</string>
     <string name="web_app">mWeb</string>
     <string name="open">Open</string>
+    <string name="autocomplete_search_hint">Where do you want to go?</string>
 </resources>

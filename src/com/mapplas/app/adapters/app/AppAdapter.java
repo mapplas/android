@@ -12,12 +12,15 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.EndlessAdapter;
 import com.mapplas.utils.third_party.RefreshableListView;
@@ -33,10 +36,14 @@ public class AppAdapter extends EndlessAdapter {
 	private ArrayList<ApplicationInfo> applicationList;
 
 	private MapplasActivity mainActivity;
+	
+	private RelativeLayout searchLayout;
+	
+	private ProgressBar searchLayoutSpinner;
 
 	public boolean SLEEP = false;
 
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
+	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout searchLayout, ProgressBar searchLayoutSpinner) {
 		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
 
 		this.context = context;
@@ -44,6 +51,8 @@ public class AppAdapter extends EndlessAdapter {
 		this.list = list;
 		this.applicationList = applicationList;
 		this.mainActivity = mainActivity;
+		this.searchLayout = searchLayout;
+		this.searchLayoutSpinner = searchLayoutSpinner;
 	}
 
 	/**
@@ -84,7 +93,7 @@ public class AppAdapter extends EndlessAdapter {
 			boolean restart_pagination = false;
 			int requestNumber = 0;
 
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber).execute(this.model.getLocation(), restart_pagination);
+			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber, SearchManager.APP_REQUEST_TYPE_BEING_DONE, this.searchLayout, this.searchLayoutSpinner).execute(this.model.getLocation(), restart_pagination, SearchManager.APP_REQUEST_ENTITY_BEING_DONE);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while (this.SLEEP) {
 				Thread.sleep(200);

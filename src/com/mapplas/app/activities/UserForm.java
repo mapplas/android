@@ -18,8 +18,7 @@ import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.User;
 import com.mapplas.model.UserFormLayoutComponents;
-import com.mapplas.model.database.repositories.RepositoryManager;
-import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.model.database.MySQLiteHelper;
 import com.mapplas.utils.network.async_tasks.UserPinBlocksTask;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
@@ -94,8 +93,8 @@ public class UserForm extends LanguageActivity {
 	 * 
 	 */
 	private void getUserFromDB() {
-		UserRepository userRepo = RepositoryManager.users(this);
-		this.user = (User)userRepo.findFromId(this.userId);
+		MySQLiteHelper db = new MySQLiteHelper(this);
+		this.user = db.getUser(this.userId);
 	}
 
 	private void getDataFromBundle() {

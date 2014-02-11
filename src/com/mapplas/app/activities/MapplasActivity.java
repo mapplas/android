@@ -1,6 +1,5 @@
 package com.mapplas.app.activities;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -11,13 +10,19 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -30,15 +35,16 @@ import com.mapplas.model.AppOrderedList;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.model.User;
-import com.mapplas.model.database.repositories.RepositoryManager;
-import com.mapplas.model.database.repositories.UserRepository;
+import com.mapplas.model.database.MySQLiteHelper;
 import com.mapplas.utils.gcm.GcmRegistrationManager;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.location.location_manager.AroundRequesterLocationManager;
 import com.mapplas.utils.location.location_manager.LocationRequesterLocationManagerFactory;
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
+import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.static_intents.SuperModelSingleton;
@@ -46,6 +52,7 @@ import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 import com.mapplas.utils.visual.SplashScreenTextSelector;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
+import com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView;
 
 public class MapplasActivity extends LanguageActivity {
 
@@ -70,6 +77,12 @@ public class MapplasActivity extends LanguageActivity {
 	private AroundRequesterLocationManager aroundRequester = null;
 
 	private GcmRegistrationManager gcmManager;
+
+	private RelativeLayout layoutSearch;
+	
+	private CustomAutoCompleteView autoComplete;
+	
+	private ProgressBar searchLayoutSpinner;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -122,16 +135,23 @@ public class MapplasActivity extends LanguageActivity {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.setClickListenersToButtons(normalTypeFace);
 
+		// Init search layout
+		this.layoutSearch = (RelativeLayout)findViewById(R.id.layoutSearch);
+		this.searchLayoutSpinner = (ProgressBar)findViewById(R.id.search_layout_spinner);
+		this.autoComplete = (CustomAutoCompleteView)findViewById(R.id.autocompleteSearchView);
+		
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
 		this.listView.setAdapter(this.listViewAdapter);
 
+		this.initializeAutocompleteSearchView();
+
 		// Load location requesters
-		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
 
 		LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -139,8 +159,8 @@ public class MapplasActivity extends LanguageActivity {
 		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 		// Location location = new Location("");
-		// location.setLatitude(37.601);
-		// location.setLongitude(122.45);
+		// location.setLatitude(41.353673);
+		// location.setLongitude(2.128786);
 		//
 		// this.model.setLocation(location);
 		// new ReverseGeocodingTask(this, this.model,
@@ -191,6 +211,17 @@ public class MapplasActivity extends LanguageActivity {
 		return true;
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if(keyCode == KeyEvent.KEYCODE_BACK && layoutSearch.getVisibility() == View.VISIBLE) {
+			layoutSearch.setVisibility(View.GONE);
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
+
 	/**
 	 * 
 	 * Private methods
@@ -211,13 +242,35 @@ public class MapplasActivity extends LanguageActivity {
 				intent.putExtra(Constants.MAPPLAS_LOGIN_APP_LIST, model.appList());
 
 				// Save current user into DB
-				try {
-					UserRepository userRepo = RepositoryManager.users(MapplasActivity.this);
-					userRepo.createOrUpdate(model.currentUser());
-				} catch (SQLException e) {
-				}
+				MySQLiteHelper db = new MySQLiteHelper(MapplasActivity.this);
+				db.insertOrUpdateUser(model.currentUser());
 
 				MapplasActivity.this.startActivityForResult(intent, Constants.SYNESTH_USER_ID);
+			}
+		});
+
+		// Search button
+		Button searchButton = (Button)findViewById(R.id.btnSearch);
+		searchButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				layoutSearch.setVisibility(View.VISIBLE);
+				autoComplete.setVisibility(View.VISIBLE);
+				searchLayoutSpinner.setVisibility(View.GONE);
+				
+				// Intercept back layout touch events
+				layoutSearch.setOnTouchListener(new OnTouchListener() {
+					
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						return true;
+					}
+				});
+				
+				autoComplete.requestFocus();
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(autoComplete, InputMethodManager.SHOW_IMPLICIT);
 			}
 		});
 	}
@@ -306,5 +359,16 @@ public class MapplasActivity extends LanguageActivity {
 		if((networkConnectionChecker.isWifiConnected(this) || networkConnectionChecker.isNetworkConnectionConnected(this)) && !networkConnectionChecker.isWifiEnabled(this)) {
 			Toast.makeText(this, R.string.wifi_error_toast, Toast.LENGTH_LONG).show();
 		}
+	}
+
+	private void initializeAutocompleteSearchView() {
+		SearchManager searchManager = new SearchManager(this.autoComplete, this, this, this.listView, this.searchLayoutSpinner);
+		searchManager.initializeSearcher();
+	}
+
+	public void requestAppsForEntity(int entity_id, String city) {
+		this.listViewHeaderStatusMessage.setText(city);
+		int requestNumber = 0;
+		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID, this.layoutSearch, this.searchLayoutSpinner).execute(null, true, entity_id);
 	}
 }

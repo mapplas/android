@@ -4,30 +4,21 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.android.gms.location.Geofence;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "geoFences")
-public class GeoFence implements Parcelable, Unit {
+public class GeoFence implements Parcelable {
 
 	public static final String TABLE_NAME = "geoFences";
 
-	@DatabaseField(id = true)
 	private int id;
 
-	@DatabaseField
 	private double latitude;
 
-	@DatabaseField
 	private double longitude;
 
-	@DatabaseField()
 	private float radius;
 
-	@DatabaseField()
 	private long expiration;
 
-	@DatabaseField()
 	private int transition;
 	
 

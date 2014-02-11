@@ -3,8 +3,8 @@ package com.mapplas.model;
 public class Constants {
 
 	// Constants
-	public static final String MAPPLAS_SERVER = "54.217.233.146";
-//	public static final String MAPPLAS_SERVER = "54.217.249.103";
+	// public static final String MAPPLAS_SERVER = "54.217.233.146";
+	public static final String MAPPLAS_SERVER = "54.217.249.103";
 
 	public static final int MAPPLAS_SERVER_PORT = 80;
 
@@ -31,7 +31,7 @@ public class Constants {
 	public static final int SYNESTH_DETAILS_CAMERA_ID2 = 302;
 
 	public static final int SYNESTH_REGISTER_ID = 40;
-	
+
 	public static final int MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED = 400;
 
 	// Constant of the message values of the activities
@@ -153,18 +153,18 @@ public class Constants {
 	public static String HIGH_PIXEL_DENSITY = "high";
 
 	public static String EXTRA_HIGH_PIXEL_DENSITY = "extra_high";
-	
+
 	public static String APP_IMAGES_GALLERY = "com.mapplas.activity.bundle.app_details.app_images";
-	
+
 	public static String APP_IMAGES_GALLERY_INDEX = "com.mapplas.activity.bundle.app_details.app_images_index";
 
 	// User ident constants
 	public static String USER_IDENTIFICATION_SERVER_RESPONSE_ERROR = "server_response_error_user_ident";
-	
+
 	public static String USER_IDENTIFICATION_SOCKET_ERROR = "socket_error_user_ident";
-	
+
 	public static int NUMBER_OF_REQUEST_RETRIES = 100;
-	
+
 	// Intent bundle settings restart app language change
 	public static String SETTINGS_LANGUAGE_CHANGE_BUNDLE = "com.mapplas.activity.bundle.settings_language_change";
 
@@ -177,7 +177,11 @@ public class Constants {
 	public static String APP_OBTENTION_OK = "OK";
 
 	public static String APP_OBTENTION_ERROR_SOCKET = "ERROR_SOCKET";
-	
+
 	public static String RECEIVE_TRANSITION_INTENT_EXTRA_USER_ID = "TRANSITION_INTENT_EXTRA_USER_ID";
+
+	public static int APP_REQUEST_TYPE_LOCATION = 0;
+
+	public static int APP_REQUEST_TYPE_ENTITY_ID = 1;
 
 }

@@ -158,4 +158,5 @@
     <color name="developer_contact_layout_pressed">#EAEAEA</color>
     <color name="separator_dark">#E4E4E4</color>
 	<color name="progress_background">#00FFFFFF</color>
+	<color name="drop_down_background">#FFFFFF</color>
 </resources>

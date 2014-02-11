@@ -17,36 +17,27 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.location.Location;
 
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.mappers.JsonToAppReponseMapper;
 import com.mapplas.utils.utils.PaginationHelper;
 
-public class AppGetterConnector {
+public class AppGetterConnectorFromEntity {
 
-	public static String request(Location location, SuperModel model, boolean resetPagination, Context context, String app_language) {
+	public static String request(int entity_id, SuperModel model, boolean resetPagination, Context context, String app_language) {
 		String serverResponse = "";
 
 		int page = new PaginationHelper().checkPageToRequest(resetPagination, model);
 
 		HttpClient hc = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "apps/" + page + "/");
+		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "apps-entity/" + page + "/");
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(location.getLatitude())));
-		nameValuePairs.add(new BasicNameValuePair("lon", String.valueOf(location.getLongitude())));
-		nameValuePairs.add(new BasicNameValuePair("p", String.valueOf(location.getAccuracy())));
+		nameValuePairs.add(new BasicNameValuePair("eid", String.valueOf(entity_id)));
 		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(model.currentUser().getId())));
 		nameValuePairs.add(new BasicNameValuePair("cc", app_language));
 		nameValuePairs.add(new BasicNameValuePair("dcc", model.deviceCountry()));
-
-		// Sent to server if has to decode user position to show dialog language
-		SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.MAPPLAS_SHARED_PREFS, Context.MODE_PRIVATE);
-		boolean firstboot = sharedPrefs.getBoolean(Constants.MAPPLAS_SHARED_PREFS_LANGUAGE_DIALOG_SHOWN, true);
-		nameValuePairs.add(new BasicNameValuePair("fb", String.valueOf(firstboot)));
 
 		try {
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -79,4 +70,5 @@ public class AppGetterConnector {
 
 		return Constants.APP_OBTENTION_OK;
 	}
+
 }

@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
@@ -24,6 +26,8 @@ import com.mapplas.utils.language.LanguageDialogCreator;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.connectors.AppGetterConnector;
+import com.mapplas.utils.network.connectors.AppGetterConnectorFromEntity;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
@@ -47,12 +51,20 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 	private int retries;
 
+	private int request_type;
+
 	// Params
 	private Location location;
 
 	private boolean resetPagination;
 
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries) {
+	private int entity_id;
+
+	private RelativeLayout searchLayout;
+
+	private ProgressBar searchLayoutSpinner;
+
+	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries, int request_type, RelativeLayout searchLayout, ProgressBar searchLayoutSpinner) {
 		super();
 		this.context = context;
 		this.model = model;
@@ -61,6 +73,9 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
 		this.retries = retries;
+		this.request_type = request_type;
+		this.searchLayout = searchLayout;
+		this.searchLayoutSpinner = searchLayoutSpinner;
 	}
 
 	@Override
@@ -68,6 +83,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 		this.location = (Location)params[0];
 		this.resetPagination = (Boolean)params[1];
+		this.entity_id = (Integer)params[2];
 
 		try {
 			semaphore.acquire();
@@ -82,7 +98,14 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			return Constants.APP_OBTENTION_ERROR_GENERIC;
 		}
 
-		String code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
+		String code;
+		if(this.request_type == Constants.APP_REQUEST_TYPE_LOCATION) {
+			SearchManager.APP_REQUEST_ENTITY_BEING_DONE = -1;
+			code = AppGetterConnector.request(this.location, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
+		}
+		else {
+			code = AppGetterConnectorFromEntity.request(this.entity_id, this.model, this.resetPagination, this.context, new LanguageSetter(this.context).getLanguageConstantFromPhone());
+		}
 
 		try {
 			semaphore.acquire();
@@ -104,7 +127,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		// Generic error or socket error
 		else if(this.retries <= Constants.NUMBER_OF_REQUEST_RETRIES) {
 			this.retries = this.retries + 1;
-			new AppGetterTask(this.context, this.model, this.listViewAdapter, this.listView, this.appsInstalledInfo, this.mainActivity, this.retries).execute(this.location, this.resetPagination);
+			new AppGetterTask(this.context, this.model, this.listViewAdapter, this.listView, this.appsInstalledInfo, this.mainActivity, this.retries, this.request_type, this.searchLayout, this.searchLayoutSpinner).execute(this.location, this.resetPagination, this.entity_id);
 		}
 		else {
 			NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
@@ -120,15 +143,30 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
 		radarLayout.setVisibility(View.GONE);
-		
+
+		if(this.searchLayout != null) {
+			this.searchLayout.setVisibility(View.GONE);
+			this.searchLayoutSpinner.setVisibility(View.GONE);
+			
+			if(this.mainActivity.getCurrentFocus() != null) {
+				InputMethodManager inputManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+				inputManager.hideSoftInputFromWindow(this.mainActivity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		}
+
 		this.listView.setVisibility(View.VISIBLE);
 
 		// Profile button animation
 		RobotoButton profileNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnProfile);
+		RobotoButton searchNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnSearch);
 		if(profileNavBarButton.getVisibility() == View.GONE) {
-			profileNavBarButton.setVisibility(View.VISIBLE);
 			Animation myFadeInAnimation = AnimationUtils.loadAnimation(this.context, R.anim.alpha);
+
+			profileNavBarButton.setVisibility(View.VISIBLE);
 			profileNavBarButton.startAnimation(myFadeInAnimation);
+
+			searchNavBarButton.setVisibility(View.VISIBLE);
+			searchNavBarButton.startAnimation(myFadeInAnimation);
 		}
 
 		if(this.listViewAdapter != null) {
@@ -147,8 +185,8 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.listView.completeRefreshing();
 		}
-		
-//		this.mainActivity.requestGeoFences();
+
+		// this.mainActivity.requestGeoFences();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {
