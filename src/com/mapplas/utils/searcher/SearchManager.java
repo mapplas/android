@@ -13,7 +13,6 @@ import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.app.adapters.search.SearchCityAdapter;
 import com.mapplas.model.Constants;
 import com.mapplas.model.database.MySQLiteHelper;
-import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteTextChangedListener;
 import com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView;
 
@@ -55,6 +54,7 @@ public class SearchManager {
 		
 		this.autoCompleteTextView.addTextChangedListener(new CustomAutoCompleteTextChangedListener(this, this.context));
 		this.autoCompleteTextView.setDropDownBackgroundResource(R.color.drop_down_background);
+		this.autoCompleteTextView.setHint(R.string.autocomplete_search_hint);
 		
 		this.autoCompleteTextView.setOnItemClickListener(new OnItemClickListener() {
 

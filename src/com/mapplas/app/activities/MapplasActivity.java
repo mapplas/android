@@ -14,7 +14,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -248,6 +250,16 @@ public class MapplasActivity extends LanguageActivity {
 			@Override
 			public void onClick(View v) {
 				layoutSearch.setVisibility(View.VISIBLE);
+				
+				// Intercept back layout touch events
+//				layoutSearch.setOnTouchListener(new OnTouchListener() {
+//					
+//					@Override
+//					public boolean onTouch(View v, MotionEvent event) {
+//						return true;
+//					}
+//				});
+				
 				autoComplete.requestFocus();
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.showSoftInput(autoComplete, InputMethodManager.SHOW_IMPLICIT);
