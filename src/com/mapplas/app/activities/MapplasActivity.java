@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +49,7 @@ import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 import com.mapplas.utils.visual.SplashScreenTextSelector;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
+import com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView;
 
 public class MapplasActivity extends LanguageActivity {
 
@@ -75,6 +76,8 @@ public class MapplasActivity extends LanguageActivity {
 	private GcmRegistrationManager gcmManager;
 
 	private RelativeLayout layoutSearch;
+	
+	private CustomAutoCompleteView autoComplete;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -129,12 +132,12 @@ public class MapplasActivity extends LanguageActivity {
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.setClickListenersToButtons(normalTypeFace);
 
-		this.initializeAutocompleteSearchView();
-
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
 		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
 		this.listView.setAdapter(this.listViewAdapter);
+
+		this.initializeAutocompleteSearchView();
 
 		// Load location requesters
 		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
@@ -199,15 +202,15 @@ public class MapplasActivity extends LanguageActivity {
 		this.loadLocalization();
 		return true;
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	
+
 		if(keyCode == KeyEvent.KEYCODE_BACK && layoutSearch.getVisibility() == View.VISIBLE) {
 			layoutSearch.setVisibility(View.GONE);
 			return true;
 		}
-		
+
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -245,16 +248,9 @@ public class MapplasActivity extends LanguageActivity {
 			@Override
 			public void onClick(View v) {
 				layoutSearch.setVisibility(View.VISIBLE);
-			}
-		});
-
-		// Search layout back button
-		Button searchLayoutBack = (Button)findViewById(R.id.searchLayoutBtnBack);
-		searchLayoutBack.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				layoutSearch.setVisibility(View.GONE);
+				autoComplete.requestFocus();
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(autoComplete, InputMethodManager.SHOW_IMPLICIT);
 			}
 		});
 	}
@@ -346,7 +342,8 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	private void initializeAutocompleteSearchView() {
-		SearchManager searchManager = new SearchManager((AutoCompleteTextView)findViewById(R.id.autocompleteSearchView), layoutSearch, this, this);
+		this.autoComplete = (CustomAutoCompleteView)findViewById(R.id.autocompleteSearchView);
+		SearchManager searchManager = new SearchManager(autoComplete, this.layoutSearch, this, this, this.listView);
 		searchManager.initializeSearcher();
 	}
 

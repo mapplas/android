@@ -149,8 +149,42 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		if(cursor != null)
 			cursor.moveToFirst();
-		
+
 		db.close();
 		return cursor.getInt(0);
+	}
+
+	public String[] read(String searchValueName) {
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1 }, SearchValue.KEY_NAME1 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, null, null);
+		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2 }, SearchValue.KEY_NAME2 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, null, null);
+		
+		int recCount = cursor.getCount();
+		int recCount2 = cursor2.getCount();
+
+		String[] result = new String[recCount+recCount2];
+		int x = 0;
+
+		if(cursor.moveToFirst()) {
+			do {
+				result[x] = cursor.getString(0);
+				x++;
+			} while (cursor.moveToNext());
+		}
+		
+		int y = x;
+		if(cursor2.moveToFirst()) {
+			do {
+				result[y] = cursor2.getString(0);
+			} while (cursor2.moveToNext());
+		}
+
+		cursor.close();
+		cursor2.close();
+		db.close();
+
+		return result;
+
 	}
 }

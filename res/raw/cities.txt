@@ -32,7 +32,7 @@
 104|Orense|Ourense
 105|Oviedo
 106|Palencia
-107|Las Palmasde GranCanaria
+107|Las Palmas de Gran Canaria
 108|Pontevedra
 109|Salamanca
 110|Santa Cruz de Tenerife
