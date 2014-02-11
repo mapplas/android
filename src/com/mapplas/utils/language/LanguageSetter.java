@@ -28,10 +28,13 @@ public class LanguageSetter {
 		else if(language.equals(Constants.BASQUE)) {
 			locale = new Locale("eu");
 		}
-		else if(Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
+		else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("espa–ol")) {
 			locale = new Locale("es");
 		}
-		else if(Locale.getDefault().getDisplayLanguage().equals("euskera")) {
+		else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("euskera")) {
+			locale = new Locale("eu");
+		}
+		else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("euskara")) {
 			locale = new Locale("eu");
 		}
 		else {

@@ -75,7 +75,7 @@ public class SettingsAdapter extends BaseAdapter {
 				if(constantLanguage.equals("espa–ol")) {
 					language = this.context.getString(R.string.language_spanish);
 				}
-				else if(constantLanguage.equals("euskera") | constantLanguage.equals("Basque")) {
+				else if(constantLanguage.equalsIgnoreCase("euskera") | constantLanguage.equalsIgnoreCase("basque") | constantLanguage.equalsIgnoreCase("euskara")) {
 					language = this.context.getString(R.string.language_basque);
 				}
 				
