@@ -18,7 +18,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -51,8 +50,11 @@ import com.mapplas.utils.static_intents.SuperModelSingleton;
 import com.mapplas.utils.third_party.RefreshableListView;
 import com.mapplas.utils.third_party.RefreshableListView.OnRefreshListener;
 import com.mapplas.utils.visual.SplashScreenTextSelector;
+import com.mapplas.utils.visual.animation.NavigationBarButtonAnimation;
+import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
 import com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView;
+import com.mapplas.utils.visual.helpers.AppGetterTaskViewsContainer;
 
 public class MapplasActivity extends LanguageActivity {
 
@@ -79,10 +81,16 @@ public class MapplasActivity extends LanguageActivity {
 	private GcmRegistrationManager gcmManager;
 
 	private RelativeLayout layoutSearch;
-	
+
 	private CustomAutoCompleteView autoComplete;
-	
+
 	private ProgressBar searchLayoutSpinner;
+
+	private RobotoButton userProfileButton;
+
+	private RobotoButton searchButton;
+
+	private AppGetterTaskViewsContainer appGetterTaskViewsContainer;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -131,27 +139,27 @@ public class MapplasActivity extends LanguageActivity {
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
+		this.initializeLayoutComponents();
+		this.initializeAppGetterTaskContainer();
+
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.setClickListenersToButtons(normalTypeFace);
 
-		// Init search layout
-		this.layoutSearch = (RelativeLayout)findViewById(R.id.layoutSearch);
-		this.searchLayoutSpinner = (ProgressBar)findViewById(R.id.search_layout_spinner);
-		this.autoComplete = (CustomAutoCompleteView)findViewById(R.id.autocompleteSearchView);
-		
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
+		this.appGetterTaskViewsContainer.listView = this.listView;
+		this.listViewAdapter = new AppAdapter(this, this.model, this.appsInstalledList, this, this.appGetterTaskViewsContainer);
 		this.listView.setAdapter(this.listViewAdapter);
+		this.appGetterTaskViewsContainer.listViewAdapter = this.listViewAdapter;
 
 		this.initializeAutocompleteSearchView();
 
 		// Load location requesters
-		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
+		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.appsInstalledList, this, this.appGetterTaskViewsContainer);
 
 		LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
+		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.appsInstalledList, this, this.appGetterTaskViewsContainer);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -216,6 +224,8 @@ public class MapplasActivity extends LanguageActivity {
 
 		if(keyCode == KeyEvent.KEYCODE_BACK && layoutSearch.getVisibility() == View.VISIBLE) {
 			layoutSearch.setVisibility(View.GONE);
+			new NavigationBarButtonAnimation(userProfileButton, searchButton).startFadeInAnimation(this);
+			
 			return true;
 		}
 
@@ -227,11 +237,24 @@ public class MapplasActivity extends LanguageActivity {
 	 * Private methods
 	 * 
 	 */
+	private void initializeLayoutComponents() {
+		this.layoutSearch = (RelativeLayout)findViewById(R.id.layoutSearch);
+		this.searchLayoutSpinner = (ProgressBar)findViewById(R.id.search_layout_spinner);
+		this.autoComplete = (CustomAutoCompleteView)findViewById(R.id.autocompleteSearchView);
+
+		this.userProfileButton = (RobotoButton)findViewById(R.id.btnProfile);
+		this.searchButton = (RobotoButton)findViewById(R.id.btnSearch);
+	}
+
+	private void initializeAppGetterTaskContainer() {
+		RelativeLayout navigationBar = (RelativeLayout)findViewById(R.id.navigation_bar);
+		RelativeLayout radarLayout = (RelativeLayout)findViewById(R.id.radar_layout);
+		this.appGetterTaskViewsContainer = new AppGetterTaskViewsContainer(this.layoutSearch, this.searchLayoutSpinner, this.userProfileButton, this.searchButton, navigationBar, radarLayout);
+	}
 
 	private void setClickListenersToButtons(Typeface normalTypeFace) {
 		// User profile button
-		Button userProfileButton = (Button)findViewById(R.id.btnProfile);
-		userProfileButton.setOnClickListener(new View.OnClickListener() {
+		this.userProfileButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -250,8 +273,7 @@ public class MapplasActivity extends LanguageActivity {
 		});
 
 		// Search button
-		Button searchButton = (Button)findViewById(R.id.btnSearch);
-		searchButton.setOnClickListener(new View.OnClickListener() {
+		this.searchButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -259,15 +281,17 @@ public class MapplasActivity extends LanguageActivity {
 				autoComplete.setVisibility(View.VISIBLE);
 				searchLayoutSpinner.setVisibility(View.GONE);
 				
+				new NavigationBarButtonAnimation(userProfileButton, searchButton).startFadeOutAnimation(MapplasActivity.this);
+
 				// Intercept back layout touch events
 				layoutSearch.setOnTouchListener(new OnTouchListener() {
-					
+
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
 						return true;
 					}
 				});
-				
+
 				autoComplete.requestFocus();
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.showSoftInput(autoComplete, InputMethodManager.SHOW_IMPLICIT);
@@ -369,6 +393,6 @@ public class MapplasActivity extends LanguageActivity {
 	public void requestAppsForEntity(int entity_id, String city) {
 		this.listViewHeaderStatusMessage.setText(city);
 		int requestNumber = 0;
-		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID, this.layoutSearch, this.searchLayoutSpinner).execute(null, true, entity_id);
+		new AppGetterTask(this, this.model, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID, this.appGetterTaskViewsContainer).execute(null, true, entity_id);
 	}
 }

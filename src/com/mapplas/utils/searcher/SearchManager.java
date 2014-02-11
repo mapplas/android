@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
@@ -29,11 +29,11 @@ public class SearchManager {
 	private MapplasActivity activity;
 
 	private ListView listView;
-	
+
 	private ProgressBar spinner;
-		
+
 	public SearchCityAdapter myAdapter;
-	
+
 	public MySQLiteHelper db;
 
 	public SearchManager(CustomAutoCompleteView textView, Context context, MapplasActivity activity, ListView listView, ProgressBar spinner) {
@@ -48,14 +48,14 @@ public class SearchManager {
 
 		this.db = new MySQLiteHelper(this.context);
 		final String[] searchValues = db.getSearchValues();
-		
+
 		this.myAdapter = new SearchCityAdapter(this.context, R.layout.prueba, searchValues);
 		this.autoCompleteTextView.setAdapter(this.myAdapter);
-		
+
 		this.autoCompleteTextView.addTextChangedListener(new CustomAutoCompleteTextChangedListener(this, this.context));
 		this.autoCompleteTextView.setDropDownBackgroundResource(R.color.drop_down_background);
 		this.autoCompleteTextView.setHint(R.string.autocomplete_search_hint);
-		
+
 		this.autoCompleteTextView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -69,7 +69,7 @@ public class SearchManager {
 				autoCompleteTextView.setVisibility(View.GONE);
 				autoCompleteTextView.setText("");
 				spinner.setVisibility(View.VISIBLE);
-				
+
 				InputMethodManager in = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
 				in.hideSoftInputFromWindow(autoCompleteTextView.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 			}
