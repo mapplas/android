@@ -164,18 +164,15 @@ public class MapplasActivity extends LanguageActivity {
 		// Check network status
 		this.checkNetworkStatus();
 
-		this.loadLocalization();
+		// this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-		// Location location = new Location("");
-		// location.setLatitude(41.353673);
-		// location.setLongitude(2.128786);
-		//
-		// this.model.setLocation(location);
-		// new ReverseGeocodingTask(this, this.model,
-		// this.listViewHeaderStatusMessage).execute(new Location(location));
-		// new AppGetterTask(this, this.model, this.listViewAdapter,
-		// this.listView, this.appsInstalledList, this, 0).execute(new
-		// Location(location), true);
+//		Location location = new Location("");
+//		location.setLatitude(41.353673);
+//		location.setLongitude(2.128786);
+//
+//		this.model.setLocation(location);
+//		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
+//		new AppGetterTask(this, this.model, this.appsInstalledList, this, 0, Constants.APP_REQUEST_TYPE_LOCATION, this.appGetterTaskViewsContainer).execute(location, true, -1);
 	}
 
 	@Override
@@ -225,7 +222,7 @@ public class MapplasActivity extends LanguageActivity {
 		if(keyCode == KeyEvent.KEYCODE_BACK && layoutSearch.getVisibility() == View.VISIBLE) {
 			layoutSearch.setVisibility(View.GONE);
 			new NavigationBarButtonAnimation(userProfileButton, searchButton).startFadeInAnimation(this);
-			
+
 			return true;
 		}
 
@@ -280,7 +277,7 @@ public class MapplasActivity extends LanguageActivity {
 				layoutSearch.setVisibility(View.VISIBLE);
 				autoComplete.setVisibility(View.VISIBLE);
 				searchLayoutSpinner.setVisibility(View.GONE);
-				
+
 				new NavigationBarButtonAnimation(userProfileButton, searchButton).startFadeOutAnimation(MapplasActivity.this);
 
 				// Intercept back layout touch events
@@ -393,6 +390,8 @@ public class MapplasActivity extends LanguageActivity {
 	public void requestAppsForEntity(int entity_id, String city) {
 		this.listViewHeaderStatusMessage.setText(city);
 		int requestNumber = 0;
+		this.model.initializeForNewAppRequest();
+
 		new AppGetterTask(this, this.model, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID, this.appGetterTaskViewsContainer).execute(null, true, entity_id);
 	}
 }

@@ -32,7 +32,7 @@ public class AppAdapter extends EndlessAdapter {
 	private ArrayList<ApplicationInfo> applicationList;
 
 	private MapplasActivity mainActivity;
-	
+
 	private AppGetterTaskViewsContainer appGetterTaskViewsContainer;
 
 	public boolean SLEEP = false;
@@ -79,14 +79,13 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		
+
 		if(this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
 			this.SLEEP = true;
 			boolean restart_pagination = false;
 			int requestNumber = 0;
 
 			new AppGetterTask(this.context, this.model, this.applicationList, this.mainActivity, requestNumber, SearchManager.APP_REQUEST_TYPE_BEING_DONE, appGetterTaskViewsContainer).execute(this.model.getLocation(), restart_pagination, SearchManager.APP_REQUEST_ENTITY_BEING_DONE);
-//			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber, SearchManager.APP_REQUEST_TYPE_BEING_DONE, this.searchLayout, this.searchLayoutSpinner).execute(this.model.getLocation(), restart_pagination, SearchManager.APP_REQUEST_ENTITY_BEING_DONE);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while (this.SLEEP) {
 				Thread.sleep(200);

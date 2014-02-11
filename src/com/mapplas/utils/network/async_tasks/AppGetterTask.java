@@ -69,6 +69,11 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		this.location = (Location)params[0];
 		this.resetPagination = (Boolean)params[1];
 		this.entity_id = (Integer)params[2];
+		
+		// Restart appending adapter data. If reached end of endless adapter
+		// and loading cell is hidden, restarting appending loading app is
+		// shown again. :)
+		this.container.listViewAdapter.restartAppending();
 
 		try {
 			semaphore.acquire();

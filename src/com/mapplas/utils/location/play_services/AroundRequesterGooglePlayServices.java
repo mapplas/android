@@ -82,8 +82,8 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 	private void loadTasks(Location location, boolean reset_pagination) {
 
 		// TODO: uncomment for emulator or mocked location use
-		// location.setLatitude(41.353673);
-		// location.setLongitude(2.128786);
+//		location.setLatitude(41.353673);
+//		location.setLongitude(2.128786);
 
 		SearchManager.APP_REQUEST_TYPE_BEING_DONE = Constants.APP_REQUEST_TYPE_LOCATION;
 
@@ -99,10 +99,6 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 		this.listViewHeaderImage.setBackgroundResource(R.drawable.ic_map);
 
 		this.model.initializeForNewAppRequest();
-		// Restart appending adapter data. If reached end of endless
-		// adapter and loading cell is hidden, restarting appending
-		// loading app is shown again. :)
-		this.container.listViewAdapter.restartAppending();
 
 		int requestNumber = 0;
 		new AppGetterTask(this.context, this.model, this.appsInstalledList, this.mainActivity, requestNumber, Constants.APP_REQUEST_TYPE_LOCATION, this.container).execute(new Location(location), reset_pagination, -1);
