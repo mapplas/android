@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +81,8 @@ public class MapplasActivity extends LanguageActivity {
 	private RelativeLayout layoutSearch;
 	
 	private CustomAutoCompleteView autoComplete;
+	
+	private ProgressBar searchLayoutSpinner;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -128,24 +131,27 @@ public class MapplasActivity extends LanguageActivity {
 		// Get user application list
 		this.appsInstalledList = new ArrayList<ApplicationInfo>();
 
-		this.layoutSearch = (RelativeLayout)findViewById(R.id.layoutSearch);
-
 		// Load layout components
 		Typeface normalTypeFace = ((MapplasApplication)this.getApplicationContext()).getTypeFace();
 		this.setClickListenersToButtons(normalTypeFace);
 
+		// Init search layout
+		this.layoutSearch = (RelativeLayout)findViewById(R.id.layoutSearch);
+		this.searchLayoutSpinner = (ProgressBar)findViewById(R.id.search_layout_spinner);
+		this.autoComplete = (CustomAutoCompleteView)findViewById(R.id.autocompleteSearchView);
+		
 		// Load list
 		this.loadApplicationsListView(normalTypeFace);
-		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this);
+		this.listViewAdapter = new AppAdapter(this, this.listView, this.model, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
 		this.listView.setAdapter(this.listViewAdapter);
 
 		this.initializeAutocompleteSearchView();
 
 		// Load location requesters
-		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		this.appsRequester = new AroundRequesterGooglePlayServices(this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
 
 		LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this);
+		this.aroundRequester = new AroundRequesterLocationManager(new LocationRequesterLocationManagerFactory(), locationManager, this, listViewHeaderStatusMessage, listViewHeaderImage, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, this.layoutSearch, this.searchLayoutSpinner);
 
 		// Check network status
 		this.checkNetworkStatus();
@@ -250,15 +256,17 @@ public class MapplasActivity extends LanguageActivity {
 			@Override
 			public void onClick(View v) {
 				layoutSearch.setVisibility(View.VISIBLE);
+				autoComplete.setVisibility(View.VISIBLE);
+				searchLayoutSpinner.setVisibility(View.GONE);
 				
 				// Intercept back layout touch events
-//				layoutSearch.setOnTouchListener(new OnTouchListener() {
-//					
-//					@Override
-//					public boolean onTouch(View v, MotionEvent event) {
-//						return true;
-//					}
-//				});
+				layoutSearch.setOnTouchListener(new OnTouchListener() {
+					
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						return true;
+					}
+				});
 				
 				autoComplete.requestFocus();
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -354,14 +362,13 @@ public class MapplasActivity extends LanguageActivity {
 	}
 
 	private void initializeAutocompleteSearchView() {
-		this.autoComplete = (CustomAutoCompleteView)findViewById(R.id.autocompleteSearchView);
-		SearchManager searchManager = new SearchManager(autoComplete, this.layoutSearch, this, this, this.listView);
+		SearchManager searchManager = new SearchManager(this.autoComplete, this, this, this.listView, this.searchLayoutSpinner);
 		searchManager.initializeSearcher();
 	}
 
 	public void requestAppsForEntity(int entity_id, String city) {
 		this.listViewHeaderStatusMessage.setText(city);
 		int requestNumber = 0;
-		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID).execute(null, true, entity_id);
+		new AppGetterTask(this, this.model, this.listViewAdapter, this.listView, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID, this.layoutSearch, this.searchLayoutSpinner).execute(null, true, entity_id);
 	}
 }

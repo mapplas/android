@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.mapplas.com.R;
@@ -40,7 +42,11 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 
 	private MapplasActivity mainActivity;
 
-	public AroundRequesterGooglePlayServices(Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity) {
+	private RelativeLayout searchLayout;
+	
+	private ProgressBar searchLayoutSpinner;
+
+	public AroundRequesterGooglePlayServices(Context context, TextView listViewHeaderStatusMessage, ImageView listViewHeaderImage, SuperModel model, AppAdapter appAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> appsInstalledList, MapplasActivity mainActivity, RelativeLayout searchLayout, ProgressBar searchLayoutSpinner) {
 		this.context = context;
 		this.listViewHeaderStatusMessage = listViewHeaderStatusMessage;
 		this.listViewHeaderImage = listViewHeaderImage;
@@ -49,6 +55,8 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 		this.listView = listView;
 		this.appsInstalledList = appsInstalledList;
 		this.mainActivity = mainActivity;
+		this.searchLayout = searchLayout;
+		this.searchLayoutSpinner = searchLayoutSpinner;
 
 		this.locationRequester = new LocationRequesterGooglePlayServices(this.context, this.mainActivity, this);
 	}
@@ -109,7 +117,7 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 		this.appAdapter.restartAppending();
 
 		int requestNumber = 0;
-		new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, requestNumber, Constants.APP_REQUEST_TYPE_LOCATION).execute(new Location(location), reset_pagination, -1);
+		new AppGetterTask(this.context, this.model, this.appAdapter, this.listView, this.appsInstalledList, this.mainActivity, requestNumber, Constants.APP_REQUEST_TYPE_LOCATION, this.searchLayout, this.searchLayoutSpinner).execute(new Location(location), reset_pagination, -1);
 		new ReverseGeocodingTask(this.context, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 	}
 

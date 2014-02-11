@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
@@ -24,24 +24,24 @@ public class SearchManager {
 
 	public CustomAutoCompleteView autoCompleteTextView;
 
-	private RelativeLayout searchLayout;
-
 	private Context context;
 
 	private MapplasActivity activity;
 
 	private ListView listView;
+	
+	private ProgressBar spinner;
 		
 	public SearchCityAdapter myAdapter;
 	
 	public MySQLiteHelper db;
 
-	public SearchManager(CustomAutoCompleteView textView, RelativeLayout searchLayout, Context context, MapplasActivity activity, ListView listView) {
+	public SearchManager(CustomAutoCompleteView textView, Context context, MapplasActivity activity, ListView listView, ProgressBar spinner) {
 		this.autoCompleteTextView = textView;
-		this.searchLayout = searchLayout;
 		this.context = context;
 		this.activity = activity;
 		this.listView = listView;
+		this.spinner = spinner;
 	}
 
 	public void initializeSearcher() {
@@ -66,8 +66,10 @@ public class SearchManager {
 				SearchManager.APP_REQUEST_ENTITY_BEING_DONE = id;
 
 				listView.setSelection(0);
-				searchLayout.setVisibility(View.GONE);
+				autoCompleteTextView.setVisibility(View.GONE);
 				autoCompleteTextView.setText("");
+				spinner.setVisibility(View.VISIBLE);
+				
 				InputMethodManager in = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
 				in.hideSoftInputFromWindow(autoCompleteTextView.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 			}
