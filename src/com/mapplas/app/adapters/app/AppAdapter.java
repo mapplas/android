@@ -12,8 +12,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
@@ -23,7 +21,7 @@ import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.EndlessAdapter;
-import com.mapplas.utils.third_party.RefreshableListView;
+import com.mapplas.utils.visual.helpers.AppGetterTaskViewsContainer;
 
 public class AppAdapter extends EndlessAdapter {
 
@@ -31,28 +29,22 @@ public class AppAdapter extends EndlessAdapter {
 
 	private SuperModel model;
 
-	private RefreshableListView list;
-
 	private ArrayList<ApplicationInfo> applicationList;
 
 	private MapplasActivity mainActivity;
-	
-	private RelativeLayout searchLayout;
-	
-	private ProgressBar searchLayoutSpinner;
+
+	private AppGetterTaskViewsContainer appGetterTaskViewsContainer;
 
 	public boolean SLEEP = false;
 
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, RelativeLayout searchLayout, ProgressBar searchLayoutSpinner) {
-		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
+	public AppAdapter(Context context, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, AppGetterTaskViewsContainer appGetterTaskViewsContainer) {
+		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), appGetterTaskViewsContainer.listView, model));
 
 		this.context = context;
 		this.model = model;
-		this.list = list;
 		this.applicationList = applicationList;
 		this.mainActivity = mainActivity;
-		this.searchLayout = searchLayout;
-		this.searchLayoutSpinner = searchLayoutSpinner;
+		this.appGetterTaskViewsContainer = appGetterTaskViewsContainer;
 	}
 
 	/**
@@ -87,13 +79,13 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		
+
 		if(this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
 			this.SLEEP = true;
 			boolean restart_pagination = false;
 			int requestNumber = 0;
 
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber, SearchManager.APP_REQUEST_TYPE_BEING_DONE, this.searchLayout, this.searchLayoutSpinner).execute(this.model.getLocation(), restart_pagination, SearchManager.APP_REQUEST_ENTITY_BEING_DONE);
+			new AppGetterTask(this.context, this.model, this.applicationList, this.mainActivity, requestNumber, SearchManager.APP_REQUEST_TYPE_BEING_DONE, appGetterTaskViewsContainer).execute(this.model.getLocation(), restart_pagination, SearchManager.APP_REQUEST_ENTITY_BEING_DONE);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while (this.SLEEP) {
 				Thread.sleep(200);

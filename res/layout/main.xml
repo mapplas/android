@@ -21,6 +21,14 @@
                 style="@style/NavigationBar"
                 android:visibility="gone" >
 
+                <com.mapplas.utils.visual.custom_views.RobotoButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/menu_search_button"
+                    android:visibility="gone" />
+
                 <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
                 </com.mapplas.utils.visual.custom_views.RobotoTextView>
 
@@ -30,15 +38,6 @@
                     android:layout_height="fill_parent"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/menu_profile_button"
-                    android:visibility="gone" />
-
-                <com.mapplas.utils.visual.custom_views.RobotoButton
-                    android:id="@+id/btnSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/btnProfile"
-                    android:background="@drawable/ic_action_search"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -73,43 +72,32 @@
         android:layout_height="fill_parent"
         android:background="@drawable/prueba_bgd_transparente"
         android:orientation="vertical"
-        android:padding="20dp"
         android:visibility="gone" >
 
-        <LinearLayout
+        <com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView
+            android:id="@+id/autocompleteSearchView"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:layout_height="42dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/autocomplete_textview_border"
+            android:completionThreshold="1"
+            android:drawableLeft="@drawable/ic_search_box"
+            android:drawablePadding="15dp"
+            android:paddingLeft="15dp"
+            android:singleLine="true" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:visibility="visible" >
-
-                <com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView
-                    android:id="@+id/autocompleteSearchView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
-                    android:singleLine="true"
-                    android:background="@drawable/autocomplete_textview_border"
-                    android:completionThreshold="1"
-                    android:drawableLeft="@drawable/ic_action_search" />
-
-                <ProgressBar
-                    android:id="@+id/search_layout_spinner"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:indeterminateDrawable="@drawable/progress_indeterminate_horizontal"
-                    android:indeterminateOnly="true"
-                    android:progressDrawable="@drawable/progress_horizontal_holo_dark"
-                    android:visibility="gone" />
-            </RelativeLayout>
-        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/search_layout_spinner"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:indeterminateDrawable="@drawable/progress_indeterminate_horizontal"
+            android:indeterminateOnly="true"
+            android:progressDrawable="@drawable/progress_horizontal_holo_dark"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </FrameLayout>

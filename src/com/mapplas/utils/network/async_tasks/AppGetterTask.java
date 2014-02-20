@@ -10,15 +10,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import app.mapplas.com.R;
 
 import com.mapplas.app.activities.MapplasActivity;
-import com.mapplas.app.adapters.app.AppAdapter;
 import com.mapplas.app.application.MapplasApplication;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
@@ -29,19 +24,14 @@ import com.mapplas.utils.network.connectors.AppGetterConnector;
 import com.mapplas.utils.network.connectors.AppGetterConnectorFromEntity;
 import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
-import com.mapplas.utils.third_party.RefreshableListView;
-import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.dialogs.LanguageDialogInterface;
+import com.mapplas.utils.visual.helpers.AppGetterTaskViewsContainer;
 
 public class AppGetterTask extends AsyncTask<Object, Void, String> implements LanguageDialogInterface {
 
 	private Context context;
 
 	private SuperModel model;
-
-	private AppAdapter listViewAdapter;
-
-	private RefreshableListView listView;
 
 	private ArrayList<ApplicationInfo> appsInstalledInfo;
 
@@ -53,6 +43,8 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 	private int request_type;
 
+	private AppGetterTaskViewsContainer container;
+
 	// Params
 	private Location location;
 
@@ -60,22 +52,15 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 
 	private int entity_id;
 
-	private RelativeLayout searchLayout;
-
-	private ProgressBar searchLayoutSpinner;
-
-	public AppGetterTask(Context context, SuperModel model, AppAdapter listViewAdapter, RefreshableListView listView, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries, int request_type, RelativeLayout searchLayout, ProgressBar searchLayoutSpinner) {
+	public AppGetterTask(Context context, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, int retries, int request_type, AppGetterTaskViewsContainer container) {
 		super();
 		this.context = context;
 		this.model = model;
-		this.listViewAdapter = listViewAdapter;
-		this.listView = listView;
 		this.appsInstalledInfo = applicationList;
 		this.mainActivity = mainActivity;
 		this.retries = retries;
 		this.request_type = request_type;
-		this.searchLayout = searchLayout;
-		this.searchLayoutSpinner = searchLayoutSpinner;
+		this.container = container;
 	}
 
 	@Override
@@ -84,6 +69,11 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		this.location = (Location)params[0];
 		this.resetPagination = (Boolean)params[1];
 		this.entity_id = (Integer)params[2];
+		
+		// Restart appending adapter data. If reached end of endless adapter
+		// and loading cell is hidden, restarting appending loading app is
+		// shown again. :)
+		this.container.listViewAdapter.restartAppending();
 
 		try {
 			semaphore.acquire();
@@ -127,7 +117,7 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 		// Generic error or socket error
 		else if(this.retries <= Constants.NUMBER_OF_REQUEST_RETRIES) {
 			this.retries = this.retries + 1;
-			new AppGetterTask(this.context, this.model, this.listViewAdapter, this.listView, this.appsInstalledInfo, this.mainActivity, this.retries, this.request_type, this.searchLayout, this.searchLayoutSpinner).execute(this.location, this.resetPagination, this.entity_id);
+			new AppGetterTask(this.context, this.model, this.appsInstalledInfo, this.mainActivity, this.retries, this.request_type, this.container).execute(this.location, this.resetPagination, this.entity_id);
 		}
 		else {
 			NetworkConnectionChecker networkConnChecker = new NetworkConnectionChecker();
@@ -138,38 +128,21 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 	}
 
 	private void afterLanguageCheck() {
-		RelativeLayout navigationBar = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.navigation_bar);
-		navigationBar.setVisibility(View.VISIBLE);
 
-		RelativeLayout radarLayout = (RelativeLayout)((MapplasActivity)this.context).findViewById(R.id.radar_layout);
-		radarLayout.setVisibility(View.GONE);
+		if(this.container.searchLayout != null) {
+			this.container.hideSearchLayout();
 
-		if(this.searchLayout != null) {
-			this.searchLayout.setVisibility(View.GONE);
-			this.searchLayoutSpinner.setVisibility(View.GONE);
-			
 			if(this.mainActivity.getCurrentFocus() != null) {
 				InputMethodManager inputManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
 				inputManager.hideSoftInputFromWindow(this.mainActivity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 			}
 		}
 
-		this.listView.setVisibility(View.VISIBLE);
+		this.container.listView.setVisibility(View.VISIBLE);
 
-		// Profile button animation
-		RobotoButton profileNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnProfile);
-		RobotoButton searchNavBarButton = (RobotoButton)((MapplasActivity)this.context).findViewById(R.id.btnSearch);
-		if(profileNavBarButton.getVisibility() == View.GONE) {
-			Animation myFadeInAnimation = AnimationUtils.loadAnimation(this.context, R.anim.alpha);
+		this.container.manageSearchAndProfileButtonAnimations(this.mainActivity);
 
-			profileNavBarButton.setVisibility(View.VISIBLE);
-			profileNavBarButton.startAnimation(myFadeInAnimation);
-
-			searchNavBarButton.setVisibility(View.VISIBLE);
-			searchNavBarButton.startAnimation(myFadeInAnimation);
-		}
-
-		if(this.listViewAdapter != null) {
+		if(this.container.listViewAdapter != null) {
 
 			// Get app list from telf.
 			final PackageManager pm = this.context.getPackageManager();
@@ -181,12 +154,10 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 					this.model.appList().get(i).setInternalApplicationInfo(ai);
 				}
 			}
-			this.listViewAdapter.SLEEP = false;
-			this.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
-			this.listView.completeRefreshing();
+			this.container.listViewAdapter.SLEEP = false;
+			this.container.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
+			this.container.listView.completeRefreshing();
 		}
-
-		// this.mainActivity.requestGeoFences();
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {
