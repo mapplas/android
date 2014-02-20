@@ -112,11 +112,15 @@
 
         <!-- INTENT SERVICES -->
         <service android:name="com.mapplas.utils.gcm.GcmIntentService" />
+        <!--
+        INTENT SERVICES
+        
         <service
             android:name="com.mapplas.utils.geofences.ReceiveTransitionsIntentService"
             android:exported="false"
             android:label="@string/app_name" >
-        </service>
+        </service>
+        -->
     </application>
 
 </manifest>

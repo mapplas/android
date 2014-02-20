@@ -23,7 +23,6 @@ public class JsonToUserMapper implements ReturnMapper {
 			ArrayList<TargetMapper> mappers = new ArrayList<TargetMapper>();
 
 			mappers.add(new KeyIntegerValueMapper("user", User.class.getMethod("setId", int.class)));
-			mappers.add(new KeyValueScapedMapper("tel", User.class.getMethod("setTelf", String.class)));
 			mappers.add(new KeyValueScapedMapper("imei", User.class.getMethod("setImei", String.class)));
 
 			GenericMapper mapper = new GenericMapper(mappers);

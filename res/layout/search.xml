@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#CCCC"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <LinearLayout
+            android:id="@+id/lytContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/navigation_bar"
+                style="@style/NavigationBar"
+                android:visibility="visible" >
+
+                <com.mapplas.utils.visual.custom_views.RobotoTextView style="@style/NavigationBarMapplasTitle" >
+                </com.mapplas.utils.visual.custom_views.RobotoTextView>
+
+                <Button
+                    android:id="@+id/btnBack"
+                    style="@style/NavigationBarButton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lytMainContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <com.mapplas.utils.third_party.RefreshableListView
+                    android:id="@+id/lvLista"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/main_list_header_background"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:fadingEdgeLength="0dp" >
+                </com.mapplas.utils.third_party.RefreshableListView>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

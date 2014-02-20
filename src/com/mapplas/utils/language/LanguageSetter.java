@@ -28,10 +28,13 @@ public class LanguageSetter {
 		else if(language.equals(Constants.BASQUE)) {
 			locale = new Locale("eu");
 		}
-		else if(Locale.getDefault().getDisplayLanguage().equals("espa–ol")) {
+		else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("espa–ol")) {
 			locale = new Locale("es");
 		}
-		else if(Locale.getDefault().getDisplayLanguage().equals("euskera")) {
+		else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("euskera")) {
+			locale = new Locale("eu");
+		}
+		else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("euskara")) {
 			locale = new Locale("eu");
 		}
 		else {
@@ -48,10 +51,10 @@ public class LanguageSetter {
 		
 		String constantLanguage = ((MapplasApplication)this.context.getApplicationContext()).getResources().getConfiguration().locale.getDisplayName();
 		
-		if(constantLanguage.contains("espa–ol")) {
+		if(constantLanguage.equalsIgnoreCase("espa–ol")) {
 			return Constants.SPANISH;
 		}
-		else if(constantLanguage.equals("euskera") | constantLanguage.equals("Basque")) {
+		else if(constantLanguage.equalsIgnoreCase("euskera") | constantLanguage.equalsIgnoreCase("euskara") | constantLanguage.equalsIgnoreCase("basque")) {
 			return Constants.BASQUE;
 		}
 		else {

@@ -84,4 +84,5 @@
     <string name="notify_user_dialog_title">Avísame</string>
     <string name="notify_user_dialog_message">Envíanos tu email y te avisaremos cuando Mapplas esté disponible en tu ubicación.</string>
     <string name="open">Abrir</string>
+    <string name="autocomplete_search_hint">¿Dónde quieres ir?</string>
 </resources>

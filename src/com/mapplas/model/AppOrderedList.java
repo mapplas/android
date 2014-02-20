@@ -12,7 +12,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "orderedList")
-public class AppOrderedList implements Parcelable, Unit, Comparator<App> {
+public class AppOrderedList implements Parcelable, Comparator<App> {
 
 	public static final String TABLE_NAME = "orderedList";
 

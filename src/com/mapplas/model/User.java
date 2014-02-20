@@ -5,29 +5,29 @@ import java.util.ArrayList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.j256.ormlite.field.DataType;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+public class User implements Parcelable {
 
-@DatabaseTable(tableName = "users")
-public class User implements Parcelable, Unit {
-
-	public static final String TABLE_NAME = "users";
-
-	@DatabaseField(id = true)
 	private int id = 0;
 
-	@DatabaseField
-	private String tel = "";
-
-	@DatabaseField
 	private String imei = "";
 
-	@DatabaseField(dataType = DataType.SERIALIZABLE)
 	private ArrayList<App> pinnedApps = new ArrayList<App>();
 
-	@DatabaseField(dataType = DataType.SERIALIZABLE)
 	private ArrayList<App> blockedApps = new ArrayList<App>();
+
+	// Users table name
+	public static final String TABLE_USERS = "user";
+
+	// Books Table Columns names
+	public static final String KEY_ID = "id";
+
+	public static final String KEY_IMEI = "imei";
+
+	public static final String KEY_PINNEDAPPS = "pinnedApps";
+
+	public static final String KEY_BLOKEDAPPS = "blockedApps";
+
+	public static final String[] COLUMNS = { KEY_ID, KEY_IMEI, KEY_PINNEDAPPS, KEY_BLOKEDAPPS };
 
 	public User() {
 	}
@@ -38,14 +38,6 @@ public class User implements Parcelable, Unit {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getTelf() {
-		return this.tel;
-	}
-
-	public void setTelf(String telf) {
-		this.tel = telf;
 	}
 
 	public String getImei() {
@@ -83,7 +75,6 @@ public class User implements Parcelable, Unit {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(this.id);
-		dest.writeString(this.tel);
 		dest.writeString(this.imei);
 		dest.writeTypedList(this.pinnedApps);
 		dest.writeTypedList(this.blockedApps);
@@ -91,7 +82,6 @@ public class User implements Parcelable, Unit {
 
 	public User(Parcel parcel) {
 		this.id = parcel.readInt();
-		this.tel = parcel.readString();
 		this.imei = parcel.readString();
 		parcel.readTypedList(this.pinnedApps, App.CREATOR);
 		parcel.readTypedList(this.blockedApps, App.CREATOR);

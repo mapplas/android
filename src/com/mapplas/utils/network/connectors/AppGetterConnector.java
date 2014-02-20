@@ -23,20 +23,17 @@ import android.location.Location;
 import com.mapplas.model.Constants;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.mappers.JsonToAppReponseMapper;
+import com.mapplas.utils.utils.PaginationHelper;
 
 public class AppGetterConnector {
 
 	public static String request(Location location, SuperModel model, boolean resetPagination, Context context, String app_language) {
 		String serverResponse = "";
 
-		int page = checkPageToRequest(resetPagination, model);
+		int page = new PaginationHelper().checkPageToRequest(resetPagination, model);
 
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "apps/" + page + "/");
-
-		// HttpParams params = hc.getParams();
-		// HttpConnectionParams.setConnectionTimeout(params, 10000);
-		// HttpConnectionParams.setSoTimeout(params, 10000);
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(location.getLatitude())));
@@ -69,10 +66,10 @@ public class AppGetterConnector {
 				mapper.setMockedAppToList(model);
 			}
 		} catch (SocketTimeoutException se) {
-//			Log.e("app", "SocketTimeoutException");
+			// Log.e("app", "SocketTimeoutException");
 			return Constants.APP_OBTENTION_ERROR_SOCKET;
 		} catch (SocketException se) {
-//			Log.e("app", "SocketException");
+			// Log.e("app", "SocketException");
 			return Constants.APP_OBTENTION_ERROR_SOCKET;
 		} catch (Exception e) {
 			JsonToAppReponseMapper mapper = new JsonToAppReponseMapper();
@@ -81,22 +78,5 @@ public class AppGetterConnector {
 		}
 
 		return Constants.APP_OBTENTION_OK;
-	}
-
-	private static int checkPageToRequest(boolean resetPagination, SuperModel model) {
-		int page = 0;
-
-		if(!resetPagination) {
-			int loadedApps = model.appList().size();
-			
-			if(loadedApps % Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER == 0) {
-				page = loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER;
-			}
-			else {
-				page = (loadedApps / Constants.MAPPLAS_APPLICATION_APPS_PAGINATION_NUMBER ) + 1;
-			}
-		}
-
-		return page;
 	}
 }

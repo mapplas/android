@@ -84,4 +84,5 @@
     <string name="notify_user_dialog_title">Abisa nazazu</string>
     <string name="notify_user_dialog_message">Bidaliguzu zure posta helbidea eta Mapplas zure kokalekuan erabilgarri dagoenean abisatuko zaitugu.</string>
     <string name="open">Ireki</string>
+    <string name="autocomplete_search_hint">Nora nahi duzu joan?</string>
 </resources>

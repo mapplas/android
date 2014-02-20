@@ -18,9 +18,10 @@ import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.App;
 import com.mapplas.model.SuperModel;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
+import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppRequestBeingDoneSingleton;
 import com.mapplas.utils.third_party.EndlessAdapter;
-import com.mapplas.utils.third_party.RefreshableListView;
+import com.mapplas.utils.visual.helpers.AppGetterTaskViewsContainer;
 
 public class AppAdapter extends EndlessAdapter {
 
@@ -28,22 +29,22 @@ public class AppAdapter extends EndlessAdapter {
 
 	private SuperModel model;
 
-	private RefreshableListView list;
-
 	private ArrayList<ApplicationInfo> applicationList;
 
 	private MapplasActivity mainActivity;
 
+	private AppGetterTaskViewsContainer appGetterTaskViewsContainer;
+
 	public boolean SLEEP = false;
 
-	public AppAdapter(Context context, RefreshableListView list, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity) {
-		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), list, model));
+	public AppAdapter(Context context, SuperModel model, ArrayList<ApplicationInfo> applicationList, MapplasActivity mainActivity, AppGetterTaskViewsContainer appGetterTaskViewsContainer) {
+		super(new AppArrayAdapter(context, R.layout.rowloc, android.R.id.text1, model.appList().getAppList(), appGetterTaskViewsContainer.listView, model));
 
 		this.context = context;
 		this.model = model;
-		this.list = list;
 		this.applicationList = applicationList;
 		this.mainActivity = mainActivity;
+		this.appGetterTaskViewsContainer = appGetterTaskViewsContainer;
 	}
 
 	/**
@@ -78,13 +79,13 @@ public class AppAdapter extends EndlessAdapter {
 
 	@Override
 	protected boolean cacheInBackground() throws Exception {
-		
+
 		if(this.model.moreData() && !AppRequestBeingDoneSingleton.requestBeingDone) {
 			this.SLEEP = true;
 			boolean restart_pagination = false;
 			int requestNumber = 0;
 
-			new AppGetterTask(this.context, this.model, this, this.list, this.applicationList, this.mainActivity, requestNumber).execute(this.model.getLocation(), restart_pagination);
+			new AppGetterTask(this.context, this.model, this.applicationList, this.mainActivity, requestNumber, SearchManager.APP_REQUEST_TYPE_BEING_DONE, appGetterTaskViewsContainer).execute(this.model.getLocation(), restart_pagination, SearchManager.APP_REQUEST_ENTITY_BEING_DONE);
 			// WAIT UNTIL APP GETTER TASK FINISHES
 			while (this.SLEEP) {
 				Thread.sleep(200);
