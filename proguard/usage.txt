@@ -2430,9 +2430,9 @@ com.mapplas.app.activities.MapplasActivity:
 com.mapplas.app.adapters.ImageAdapter:
     int mGalleryItemBackground
 com.mapplas.app.adapters.app.AppAdapter:
-    99:101:public void clear()
-    105:107:public void add(com.mapplas.model.App)
-    111:113:public void remove(com.mapplas.model.App)
+    100:102:public void clear()
+    106:108:public void add(com.mapplas.model.App)
+    112:114:public void remove(com.mapplas.model.App)
 com.mapplas.app.adapters.user.UserAppAdapter:
     public static final int BLOCK
     public static final int FAVOURITE
@@ -2499,44 +2499,42 @@ com.mapplas.model.Constants:
     3:3:public Constants()
 com.mapplas.model.GeoFence:
     public static final java.lang.String TABLE_NAME
-    55:62:public GeoFence(int,double,double,float,long,int)
-    65:65:public int getId()
-    69:70:public void setId(int)
-    73:73:public double getLatitude()
-    77:78:public void setLatitude(java.lang.String)
-    81:81:public double getLongitude()
-    85:86:public void setLongitude(java.lang.String)
-    89:89:public float getRadius()
-    93:94:public void setRadius(float)
-    97:97:public long getExpirationDuration()
-    101:102:public void setExpirationDuration(int)
-    105:105:public int getTransitionType()
-    109:110:public void setTransitionType(int)
-    118:118:public com.google.android.gms.location.Geofence toGeofence()
+    46:53:public GeoFence(int,double,double,float,long,int)
+    56:56:public int getId()
+    60:61:public void setId(int)
+    64:64:public double getLatitude()
+    68:69:public void setLatitude(java.lang.String)
+    72:72:public double getLongitude()
+    76:77:public void setLongitude(java.lang.String)
+    80:80:public float getRadius()
+    84:85:public void setRadius(float)
+    88:88:public long getExpirationDuration()
+    92:93:public void setExpirationDuration(int)
+    96:96:public int getTransitionType()
+    100:101:public void setTransitionType(int)
+    109:109:public com.google.android.gms.location.Geofence toGeofence()
+com.mapplas.model.SearchValue:
+    private int id
+    private java.lang.String name1
+    private java.lang.String name2
+    public static final java.lang.String TABLE_SEARCHVALUES
+    public static final java.lang.String KEY_ID
+    public static final java.lang.String KEY_NAME1
+    public static final java.lang.String KEY_NAME2
+    23:24:public SearchValue()
+    27:28:public void setId(int)
+    31:31:public int getId()
+    35:36:public void setName1(java.lang.String)
+    39:39:public java.lang.String getName1()
+    43:44:public void setName2(java.lang.String)
+    47:47:public java.lang.String getName2()
 com.mapplas.model.UserFormLayoutComponents:
     37:37:public android.widget.LinearLayout footerListRefreshLayout()
     45:45:public android.widget.ImageView refreshIcon()
-com.mapplas.model.database.DatabaseManager:
-    5:5:public DatabaseManager()
-    28:40:public static void close()
-com.mapplas.model.database.repositories.GeoFenceRepository
-com.mapplas.model.database.repositories.RepositoryManager:
-    12:12:public RepositoryManager()
-    51:57:public static void close()
-com.mapplas.model.database.repositories.base.Repository:
-    36:41:public void empty()
-    45:51:public int create(com.mapplas.model.Unit)
-    66:70:public void createOrUpdateBatch(com.mapplas.model.Unit)
-    74:87:public void createOrUpdateFlush()
-    91:97:public int update(com.mapplas.model.Unit)
-    101:101:protected java.lang.String getTableName()
-    112:133:protected com.mapplas.model.Unit findFromKey(java.util.HashMap)
-    148:153:public void delete(com.mapplas.model.Unit)
-    22:22:static synthetic java.util.ArrayList access$0(com.mapplas.model.database.repositories.base.Repository)
-com.mapplas.model.database.repositories.base.Repository$1
-com.mapplas.model.database.repositories.base.SqlRepository:
-    protected abstract com.j256.ormlite.dao.Dao getDao()
-    protected abstract com.mapplas.model.Unit findFromKey(java.util.HashMap)
+com.mapplas.model.database.MySQLiteHelper:
+    private static final int DATABASE_VERSION
+    private static final java.lang.String DATABASE_NAME
+    102:112:public void insertSearchValue(com.mapplas.model.SearchValue)
 com.mapplas.utils.cache.CacheFolder:
     18:18:public java.lang.String getFileWithPathString(java.lang.String)
 com.mapplas.utils.cache.CustomImagePathGenerator
@@ -2561,7 +2559,7 @@ com.mapplas.utils.image.DrawableBackgroundDownloader:
     50:57:public void Reset()
 com.mapplas.utils.image.ImageRepository
 com.mapplas.utils.location.location_manager.AroundRequesterLocationManager:
-    69:70:public void stop()
+    58:59:public void stop()
 com.mapplas.utils.location.play_services.LocationRequesterGooglePlayServices:
     private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST
 com.mapplas.utils.network.NetworkConnectionChecker:
@@ -2572,7 +2570,9 @@ com.mapplas.utils.network.async_tasks.TaskAsyncExecuter:
 com.mapplas.utils.network.connectors.AppDetailConnector:
     18:18:public AppDetailConnector()
 com.mapplas.utils.network.connectors.AppGetterConnector:
-    27:27:public AppGetterConnector()
+    28:28:public AppGetterConnector()
+com.mapplas.utils.network.connectors.AppGetterConnectorFromEntity:
+    26:26:public AppGetterConnectorFromEntity()
 com.mapplas.utils.network.connectors.AppShareConnector:
     20:20:public AppShareConnector()
 com.mapplas.utils.network.connectors.BlockRequestConnector:
@@ -2634,6 +2634,8 @@ com.mapplas.utils.utils.NumberUtils:
 com.mapplas.utils.view_holder.AppViewHolder:
     public android.widget.TextView pinUps
     public android.widget.Button buttonNavigation
+com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView:
+    29:31:public void init()
 com.mapplas.utils.webView.TouchableScrollView:
     45:47:public void stopDialogAndStartAnimation()
 com.viewpagerindicator.CirclePageIndicator:

@@ -72,7 +72,8 @@ android.support.v4.widget.SlidingPaneLayout: void setShadowDrawable(android.grap
 android.support.v4.widget.SlidingPaneLayout: void setShadowResource(int)
 android.support.v4.widget.SlidingPaneLayout$SavedState
 android.support.v4.widget.SlidingPaneLayout$SavedState: android.os.Parcelable$Creator CREATOR
-app.mapplas.com.R$anim: int alpha
+app.mapplas.com.R$anim: int fade_in
+app.mapplas.com.R$anim: int fade_out
 app.mapplas.com.R$anim: int flipinnext
 app.mapplas.com.R$anim: int flipinprevious
 app.mapplas.com.R$anim: int flipoutnext
@@ -296,6 +297,7 @@ app.mapplas.com.R$color: int default_title_indicator_selected_color
 app.mapplas.com.R$color: int default_title_indicator_text_color
 app.mapplas.com.R$color: int default_underline_indicator_selected_color
 app.mapplas.com.R$color: int developer_contact_layout_pressed
+app.mapplas.com.R$color: int drop_down_background
 app.mapplas.com.R$color: int lat_lon_color
 app.mapplas.com.R$color: int main_list_background
 app.mapplas.com.R$color: int main_list_header_background
@@ -338,6 +340,7 @@ app.mapplas.com.R$drawable: int action_share_button
 app.mapplas.com.R$drawable: int action_un_pinup_button
 app.mapplas.com.R$drawable: int action_unblock_button
 app.mapplas.com.R$drawable: int anim_location
+app.mapplas.com.R$drawable: int autocomplete_textview_border
 app.mapplas.com.R$drawable: int bgd_filter_edit_text
 app.mapplas.com.R$drawable: int bgd_launch
 app.mapplas.com.R$drawable: int bgd_ptr
@@ -382,6 +385,8 @@ app.mapplas.com.R$drawable: int ic_action_pinup
 app.mapplas.com.R$drawable: int ic_action_pinup_pressed
 app.mapplas.com.R$drawable: int ic_action_rate
 app.mapplas.com.R$drawable: int ic_action_rate_pressed
+app.mapplas.com.R$drawable: int ic_action_search
+app.mapplas.com.R$drawable: int ic_action_search_pressed
 app.mapplas.com.R$drawable: int ic_action_share
 app.mapplas.com.R$drawable: int ic_action_share_pressed
 app.mapplas.com.R$drawable: int ic_action_unblock
@@ -412,10 +417,12 @@ app.mapplas.com.R$drawable: int ic_rating_empty
 app.mapplas.com.R$drawable: int ic_rating_full
 app.mapplas.com.R$drawable: int ic_refresh
 app.mapplas.com.R$drawable: int ic_refresh_photo
+app.mapplas.com.R$drawable: int ic_search_box
 app.mapplas.com.R$drawable: int ic_template
 app.mapplas.com.R$drawable: int img_404
 app.mapplas.com.R$drawable: int menu_back_button_left
 app.mapplas.com.R$drawable: int menu_profile_button
+app.mapplas.com.R$drawable: int menu_search_button
 app.mapplas.com.R$drawable: int menu_settings_button
 app.mapplas.com.R$drawable: int progress_bg_holo_dark
 app.mapplas.com.R$drawable: int progress_horizontal_holo_dark
@@ -430,6 +437,7 @@ app.mapplas.com.R$drawable: int progressbar_indeterminate_holo5
 app.mapplas.com.R$drawable: int progressbar_indeterminate_holo6
 app.mapplas.com.R$drawable: int progressbar_indeterminate_holo7
 app.mapplas.com.R$drawable: int progressbar_indeterminate_holo8
+app.mapplas.com.R$drawable: int prueba_bgd_transparente
 app.mapplas.com.R$drawable: int pull_to_refresh_header_background
 app.mapplas.com.R$drawable: int rating_bar_res_big
 app.mapplas.com.R$drawable: int refreshable_listview_arrow
@@ -444,6 +452,8 @@ app.mapplas.com.R$drawable: int vpi__tab_unselected_holo
 app.mapplas.com.R$drawable: int vpi__tab_unselected_pressed_holo
 app.mapplas.com.R$id: int all_header
 app.mapplas.com.R$id: int app_detail_app_title_rating_layout
+app.mapplas.com.R$id: int autoCompleteItem
+app.mapplas.com.R$id: int autocompleteSearchView
 app.mapplas.com.R$id: int blocked_btn
 app.mapplas.com.R$id: int bottom
 app.mapplas.com.R$id: int btnAction
@@ -452,6 +462,7 @@ app.mapplas.com.R$id: int btnBlock
 app.mapplas.com.R$id: int btnPinUp
 app.mapplas.com.R$id: int btnProfile
 app.mapplas.com.R$id: int btnRate
+app.mapplas.com.R$id: int btnSearch
 app.mapplas.com.R$id: int btnSettings
 app.mapplas.com.R$id: int btnShare
 app.mapplas.com.R$id: int btnStart
@@ -479,6 +490,7 @@ app.mapplas.com.R$id: int imgRonundC
 app.mapplas.com.R$id: int ivImage
 app.mapplas.com.R$id: int layoutInfo
 app.mapplas.com.R$id: int layoutMain
+app.mapplas.com.R$id: int layoutSearch
 app.mapplas.com.R$id: int lblAction
 app.mapplas.com.R$id: int lblAllow
 app.mapplas.com.R$id: int lblBlock
@@ -531,6 +543,7 @@ app.mapplas.com.R$id: int rbRatingValue
 app.mapplas.com.R$id: int row_more_apps
 app.mapplas.com.R$id: int satellite
 app.mapplas.com.R$id: int scrollView1
+app.mapplas.com.R$id: int search_layout_spinner
 app.mapplas.com.R$id: int terrain
 app.mapplas.com.R$id: int throbber
 app.mapplas.com.R$id: int title
@@ -558,6 +571,7 @@ app.mapplas.com.R$layout: int dialog_listview
 app.mapplas.com.R$layout: int dialog_listview_item
 app.mapplas.com.R$layout: int dialog_two_buttons
 app.mapplas.com.R$layout: int dialog_two_buttons_edittext
+app.mapplas.com.R$layout: int drop_down_style
 app.mapplas.com.R$layout: int empty_apps
 app.mapplas.com.R$layout: int image_gallery
 app.mapplas.com.R$layout: int image_gallery_item
@@ -565,10 +579,12 @@ app.mapplas.com.R$layout: int loading_row
 app.mapplas.com.R$layout: int main
 app.mapplas.com.R$layout: int message_dialog
 app.mapplas.com.R$layout: int more_apps_layout
+app.mapplas.com.R$layout: int myview
 app.mapplas.com.R$layout: int preferences
 app.mapplas.com.R$layout: int preferences_cell_layout
 app.mapplas.com.R$layout: int profile_empty_list_header
 app.mapplas.com.R$layout: int profile_footer
+app.mapplas.com.R$layout: int prueba
 app.mapplas.com.R$layout: int ptr_header
 app.mapplas.com.R$layout: int refresh_menu
 app.mapplas.com.R$layout: int row_blocks
@@ -577,6 +593,7 @@ app.mapplas.com.R$layout: int row_pinup
 app.mapplas.com.R$layout: int rowloc
 app.mapplas.com.R$layout: int rowloc_pressed
 app.mapplas.com.R$layout: int rowloc_unpressed
+app.mapplas.com.R$layout: int search
 app.mapplas.com.R$layout: int separator
 app.mapplas.com.R$layout: int splash
 app.mapplas.com.R$layout: int text_layout
@@ -584,6 +601,7 @@ app.mapplas.com.R$layout: int user
 app.mapplas.com.R$layout: int webview_layout
 app.mapplas.com.R$raw: int cites_en
 app.mapplas.com.R$raw: int cites_es
+app.mapplas.com.R$raw: int cities
 app.mapplas.com.R$string: int accept
 app.mapplas.com.R$string: int allow
 app.mapplas.com.R$string: int app_detail
@@ -595,6 +613,7 @@ app.mapplas.com.R$string: int auth_client_needs_update_title
 app.mapplas.com.R$string: int auth_client_play_services_err_notification_msg
 app.mapplas.com.R$string: int auth_client_requested_by_msg
 app.mapplas.com.R$string: int auth_client_using_bad_version_title
+app.mapplas.com.R$string: int autocomplete_search_hint
 app.mapplas.com.R$string: int block
 app.mapplas.com.R$string: int block_accept
 app.mapplas.com.R$string: int block_cancel
@@ -3972,19 +3991,21 @@ com.mapplas.model.SuperModel: void writeToParcel(android.os.Parcel,int)
 com.mapplas.model.SuperModel: SuperModel(android.os.Parcel)
 com.mapplas.model.SuperModel: void updateAppList(com.mapplas.model.AppOrderedList)
 com.mapplas.model.User
-com.mapplas.model.User: java.lang.String TABLE_NAME
 com.mapplas.model.User: int id
-com.mapplas.model.User: java.lang.String tel
 com.mapplas.model.User: java.lang.String imei
 com.mapplas.model.User: java.util.ArrayList pinnedApps
 com.mapplas.model.User: java.util.ArrayList blockedApps
+com.mapplas.model.User: java.lang.String TABLE_USERS
+com.mapplas.model.User: java.lang.String KEY_ID
+com.mapplas.model.User: java.lang.String KEY_IMEI
+com.mapplas.model.User: java.lang.String KEY_PINNEDAPPS
+com.mapplas.model.User: java.lang.String KEY_BLOKEDAPPS
+com.mapplas.model.User: java.lang.String[] COLUMNS
 com.mapplas.model.User: android.os.Parcelable$Creator CREATOR
 com.mapplas.model.User: void <clinit>()
 com.mapplas.model.User: User()
 com.mapplas.model.User: int getId()
 com.mapplas.model.User: void setId(int)
-com.mapplas.model.User: java.lang.String getTelf()
-com.mapplas.model.User: void setTelf(java.lang.String)
 com.mapplas.model.User: java.lang.String getImei()
 com.mapplas.model.User: void setImei(java.lang.String)
 com.mapplas.model.User: java.util.ArrayList pinnedApps()
@@ -4000,7 +4021,6 @@ com.mapplas.utils.gcm.GcmBroadcastReceiver: GcmBroadcastReceiver()
 com.mapplas.utils.gcm.GcmIntentService
 com.mapplas.utils.gcm.GcmIntentService: GcmIntentService()
 com.mapplas.utils.geofences.ReceiveTransitionsIntentService
-com.mapplas.utils.geofences.ReceiveTransitionsIntentService: ReceiveTransitionsIntentService()
 com.mapplas.utils.third_party.RefreshableListView
 com.mapplas.utils.third_party.RefreshableListView: RefreshableListView(android.content.Context)
 com.mapplas.utils.third_party.RefreshableListView: RefreshableListView(android.content.Context,android.util.AttributeSet)
@@ -4018,6 +4038,10 @@ com.mapplas.utils.visual.custom_views.RobotoTextView
 com.mapplas.utils.visual.custom_views.RobotoTextView: RobotoTextView(android.content.Context,android.util.AttributeSet,int)
 com.mapplas.utils.visual.custom_views.RobotoTextView: RobotoTextView(android.content.Context,android.util.AttributeSet)
 com.mapplas.utils.visual.custom_views.RobotoTextView: RobotoTextView(android.content.Context)
+com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView
+com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView: CustomAutoCompleteView(android.content.Context)
+com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView: CustomAutoCompleteView(android.content.Context,android.util.AttributeSet)
+com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView: CustomAutoCompleteView(android.content.Context,android.util.AttributeSet,int)
 com.mapplas.utils.webView.TouchableScrollView
 com.mapplas.utils.webView.TouchableScrollView: TouchableScrollView(android.content.Context,android.util.AttributeSet,int)
 com.mapplas.utils.webView.TouchableScrollView: TouchableScrollView(android.content.Context,android.util.AttributeSet)
