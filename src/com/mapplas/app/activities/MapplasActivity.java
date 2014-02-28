@@ -2,6 +2,7 @@ package com.mapplas.app.activities;
 
 import java.util.ArrayList;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -18,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -42,6 +44,7 @@ import com.mapplas.utils.location.location_manager.LocationRequesterLocationMana
 import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayServices;
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
+import com.mapplas.utils.network.async_tasks.NotifyUserTask;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -167,8 +170,8 @@ public class MapplasActivity extends LanguageActivity {
 		 this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 //		Location location = new Location("");
-//		location.setLatitude(41.353673);
-//		location.setLongitude(2.128786);
+//		location.setLatitude(-34.6052);
+//		location.setLongitude(-58.377);
 //
 //		this.model.setLocation(location);
 //		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
@@ -393,5 +396,41 @@ public class MapplasActivity extends LanguageActivity {
 		this.model.initializeForNewAppRequest();
 
 		new AppGetterTask(this, this.model, this.appsInstalledList, this, requestNumber, Constants.APP_REQUEST_TYPE_ENTITY_ID, this.appGetterTaskViewsContainer).execute(null, true, entity_id);
+	}
+
+	public void showMockedAppsDialog() {
+
+		final Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		dialog.setContentView(R.layout.dialog_two_buttons_edittext);
+		dialog.setCanceledOnTouchOutside(true);
+		dialog.show();
+
+		RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
+		title.setText(R.string.no_apps_dialog_title);
+		RobotoTextView message = (RobotoTextView)dialog.findViewById(R.id.dialog_message);
+		message.setText(R.string.no_apps_dialog_message);
+
+		final EditText userEmail = (EditText)dialog.findViewById(R.id.dialog_edittext);
+
+		RobotoButton positiveButton = (RobotoButton)dialog.findViewById(R.id.dialog_positive_button);
+		positiveButton.setText(R.string.cancel);
+		positiveButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+
+		RobotoButton negativeButton = (RobotoButton)dialog.findViewById(R.id.dialog_negative_button);
+		negativeButton.setText(R.string.send);
+		negativeButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new NotifyUserTask(model.currentUser().getId(), userEmail.getText().toString(), model.getLocation().getLatitude(), model.getLocation().getLongitude()).execute();
+				dialog.dismiss();
+			}
+		});
 	}
 }
