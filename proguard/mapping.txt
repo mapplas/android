@@ -7521,16 +7521,17 @@ com.mapplas.app.activities.MapplasActivity -> com.mapplas.app.activities.Mapplas
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
-    void initializeLayoutComponents() -> b
-    void initializeAppGetterTaskContainer() -> c
+    void initializeLayoutComponents() -> c
+    void initializeAppGetterTaskContainer() -> d
     void setClickListenersToButtons(android.graphics.Typeface) -> a
     void loadApplicationsListView(android.graphics.Typeface) -> b
-    void startScreenAnimation() -> d
-    void loadLocalization() -> e
-    boolean servicesConnected() -> f
-    void checkNetworkStatus() -> g
-    void initializeAutocompleteSearchView() -> h
+    void startScreenAnimation() -> e
+    void loadLocalization() -> f
+    boolean servicesConnected() -> g
+    void checkNetworkStatus() -> h
+    void initializeAutocompleteSearchView() -> i
     void requestAppsForEntity(int,java.lang.String) -> a
+    void showMockedAppsDialog() -> b
     com.mapplas.model.SuperModel access$0(com.mapplas.app.activities.MapplasActivity) -> a
     android.widget.RelativeLayout access$1(com.mapplas.app.activities.MapplasActivity) -> b
     com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView access$2(com.mapplas.app.activities.MapplasActivity) -> c
@@ -7550,6 +7551,15 @@ com.mapplas.app.activities.MapplasActivity$2$1 -> com.mapplas.app.activities.p:
 com.mapplas.app.activities.MapplasActivity$3 -> com.mapplas.app.activities.q:
     com.mapplas.app.activities.MapplasActivity this$0 -> a
     void onRefresh(com.mapplas.utils.third_party.RefreshableListView) -> a
+com.mapplas.app.activities.MapplasActivity$4 -> com.mapplas.app.activities.r:
+    com.mapplas.app.activities.MapplasActivity this$0 -> a
+    android.app.Dialog val$dialog -> b
+    void onClick(android.view.View) -> onClick
+com.mapplas.app.activities.MapplasActivity$5 -> com.mapplas.app.activities.s:
+    com.mapplas.app.activities.MapplasActivity this$0 -> a
+    android.widget.EditText val$userEmail -> b
+    android.app.Dialog val$dialog -> c
+    void onClick(android.view.View) -> onClick
 com.mapplas.app.activities.MoreFromDeveloperActivity -> com.mapplas.app.activities.MoreFromDeveloperActivity:
     com.mapplas.model.App app -> a
     java.lang.String app_language -> b
@@ -7561,7 +7571,7 @@ com.mapplas.app.activities.MoreFromDeveloperActivity -> com.mapplas.app.activiti
     void onListItemClick(android.widget.ListView,android.view.View,int,long) -> onListItemClick
     void requestFinishedNok() -> a
     void requestFinishedOk() -> b
-com.mapplas.app.activities.MoreFromDeveloperActivity$1 -> com.mapplas.app.activities.r:
+com.mapplas.app.activities.MoreFromDeveloperActivity$1 -> com.mapplas.app.activities.t:
     com.mapplas.app.activities.MoreFromDeveloperActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.app.activities.SettingsActivity -> com.mapplas.app.activities.SettingsActivity:
@@ -7573,14 +7583,14 @@ com.mapplas.app.activities.SettingsActivity -> com.mapplas.app.activities.Settin
     void onDialogBasqueLanguageClick() -> c
     void updateLanguage(java.lang.String) -> a
     void showAppRestartDialog() -> e
-com.mapplas.app.activities.SettingsActivity$1 -> com.mapplas.app.activities.s:
+com.mapplas.app.activities.SettingsActivity$1 -> com.mapplas.app.activities.u:
     com.mapplas.app.activities.SettingsActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.SettingsActivity$2 -> com.mapplas.app.activities.t:
+com.mapplas.app.activities.SettingsActivity$2 -> com.mapplas.app.activities.v:
     com.mapplas.app.activities.SettingsActivity this$0 -> a
     android.app.Dialog val$dialog -> b
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.SettingsActivity$3 -> com.mapplas.app.activities.u:
+com.mapplas.app.activities.SettingsActivity$3 -> com.mapplas.app.activities.w:
     com.mapplas.app.activities.SettingsActivity this$0 -> a
     boolean onKey(android.content.DialogInterface,int,android.view.KeyEvent) -> onKey
 com.mapplas.app.activities.UserForm -> com.mapplas.app.activities.UserForm:
@@ -7604,10 +7614,10 @@ com.mapplas.app.activities.UserForm -> com.mapplas.app.activities.UserForm:
     void initializeBackButton() -> e
     void initializeSettingsButton() -> f
     com.mapplas.model.User access$0(com.mapplas.app.activities.UserForm) -> a
-com.mapplas.app.activities.UserForm$1 -> com.mapplas.app.activities.v:
+com.mapplas.app.activities.UserForm$1 -> com.mapplas.app.activities.x:
     com.mapplas.app.activities.UserForm this$0 -> a
     void onClick(android.view.View) -> onClick
-com.mapplas.app.activities.UserForm$2 -> com.mapplas.app.activities.w:
+com.mapplas.app.activities.UserForm$2 -> com.mapplas.app.activities.y:
     com.mapplas.app.activities.UserForm this$0 -> a
     void onClick(android.view.View) -> onClick
 com.mapplas.app.adapters.ImageAdapter -> com.mapplas.app.a.a:
@@ -7979,6 +7989,7 @@ com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     boolean moreData -> moreData
     boolean fromBasqueCountry -> fromBasqueCountry
     java.lang.String deviceCountryCode -> deviceCountryCode
+    boolean mockedApps -> mockedApps
     android.os.Parcelable$Creator CREATOR -> CREATOR
     java.lang.String currentRadius() -> currentRadius
     void setCurrentRadius(java.lang.String) -> setCurrentRadius
@@ -8009,6 +8020,8 @@ com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     void setMoreData(boolean) -> setMoreData
     boolean isFromBasqueCountry() -> isFromBasqueCountry
     void setFromBasqueCountry(boolean) -> setFromBasqueCountry
+    void setMockedApps(boolean) -> setMockedApps
+    boolean mockedApps() -> mockedApps
     void initializeForNewAppRequest() -> initializeForNewAppRequest
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel

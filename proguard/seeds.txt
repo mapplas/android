@@ -681,6 +681,8 @@ app.mapplas.com.R$string: int location_searching
 app.mapplas.com.R$string: int menu_config
 app.mapplas.com.R$string: int menu_refresh
 app.mapplas.com.R$string: int no
+app.mapplas.com.R$string: int no_apps_dialog_message
+app.mapplas.com.R$string: int no_apps_dialog_title
 app.mapplas.com.R$string: int notify_user_dialog_message
 app.mapplas.com.R$string: int notify_user_dialog_title
 app.mapplas.com.R$string: int open
@@ -3953,6 +3955,7 @@ com.mapplas.model.SuperModel: java.util.ArrayList notificationRawList
 com.mapplas.model.SuperModel: boolean moreData
 com.mapplas.model.SuperModel: boolean fromBasqueCountry
 com.mapplas.model.SuperModel: java.lang.String deviceCountryCode
+com.mapplas.model.SuperModel: boolean mockedApps
 com.mapplas.model.SuperModel: android.os.Parcelable$Creator CREATOR
 com.mapplas.model.SuperModel: void <clinit>()
 com.mapplas.model.SuperModel: SuperModel()
@@ -3985,6 +3988,8 @@ com.mapplas.model.SuperModel: boolean moreData()
 com.mapplas.model.SuperModel: void setMoreData(boolean)
 com.mapplas.model.SuperModel: boolean isFromBasqueCountry()
 com.mapplas.model.SuperModel: void setFromBasqueCountry(boolean)
+com.mapplas.model.SuperModel: void setMockedApps(boolean)
+com.mapplas.model.SuperModel: boolean mockedApps()
 com.mapplas.model.SuperModel: void initializeForNewAppRequest()
 com.mapplas.model.SuperModel: int describeContents()
 com.mapplas.model.SuperModel: void writeToParcel(android.os.Parcel,int)
