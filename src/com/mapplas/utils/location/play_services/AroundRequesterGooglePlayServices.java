@@ -82,9 +82,24 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 	private void loadTasks(Location location, boolean reset_pagination) {
 
 		// TODO: uncomment for emulator or mocked location use
-//		location.setLatitude(41.353673);
-//		location.setLongitude(2.128786);
+//		NY
+//		location.setLatitude(40.7154);
+//		location.setLongitude(-74.0046);
+//		London
+//		location.setLatitude(51.5053);
+//		location.setLongitude(-0.1431);
+//		Rome
+//		location.setLatitude(41.8890);
+//		location.setLongitude(12.4867);
+//		Miami
+//		location.setLatitude(25.7828);
+//		location.setLongitude(-80.2099);
+//		San Francisco
+//		location.setLatitude(37.756007);
+//		location.setLongitude(-122.454499);
 
+		
+		
 		SearchManager.APP_REQUEST_TYPE_BEING_DONE = Constants.APP_REQUEST_TYPE_LOCATION;
 
 		this.listViewHeaderStatusMessage.setText(R.string.location_done);

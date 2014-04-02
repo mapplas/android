@@ -85,4 +85,6 @@
     <string name="notify_user_dialog_message">Bidaliguzu zure posta helbidea eta Mapplas zure kokalekuan erabilgarri dagoenean abisatuko zaitugu.</string>
     <string name="open">Ireki</string>
     <string name="autocomplete_search_hint">Nora nahi duzu joan?</string>
+    <string name="no_apps_dialog_title">Aiba!</string>
+    <string name="no_apps_dialog_message">Bidaliguzu zure posta helbidea eta Mapplas zure kokalekuan erabilgarri dagoenean abisatuko zaitugu. Bitartean disfrutatu aplikazio zoragarri hauetaz!</string>
 </resources>

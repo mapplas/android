@@ -158,6 +158,10 @@ public class AppGetterTask extends AsyncTask<Object, Void, String> implements La
 			this.container.listView.updateAdapter(this.context, this.model, this.appsInstalledInfo);
 			this.container.listView.completeRefreshing();
 		}
+		
+		if(this.model.mockedApps()) {
+			this.mainActivity.showMockedAppsDialog();
+		}
 	}
 
 	private ApplicationInfo findApplicationInfo(String id) {

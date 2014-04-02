@@ -40,6 +40,8 @@ public class JsonToAppReponseMapper implements TargetMapper {
 				model.setMoreData(false);
 			}
 			
+			model.setMockedApps(json.has("m"));
+			
 			int from_basque_country = 0;
 			if(json.has("eu")) {
 				from_basque_country = json.getInt("eu");

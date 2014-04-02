@@ -33,6 +33,8 @@ public class SuperModel implements Parcelable {
 	private boolean fromBasqueCountry = false;
 	
 	private String deviceCountryCode = "";
+	
+	private boolean mockedApps;
 
 	public SuperModel() {
 	}
@@ -160,6 +162,14 @@ public class SuperModel implements Parcelable {
 
 	public void setFromBasqueCountry(boolean fromBasqueCountry) {
 		this.fromBasqueCountry = fromBasqueCountry;
+	}
+	
+	public void setMockedApps(boolean mockedApps) {
+		this.mockedApps = mockedApps;
+	}
+	
+	public boolean mockedApps() {
+		return this.mockedApps;
 	}
 	
 	public void initializeForNewAppRequest() {
