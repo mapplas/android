@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -46,7 +45,6 @@ import com.mapplas.utils.location.play_services.AroundRequesterGooglePlayService
 import com.mapplas.utils.network.NetworkConnectionChecker;
 import com.mapplas.utils.network.async_tasks.AppGetterTask;
 import com.mapplas.utils.network.async_tasks.NotifyUserTask;
-import com.mapplas.utils.network.async_tasks.ReverseGeocodingTask;
 import com.mapplas.utils.network.async_tasks.UserIdentificationTask;
 import com.mapplas.utils.searcher.SearchManager;
 import com.mapplas.utils.static_intents.AppChangedSingleton;
@@ -171,7 +169,7 @@ public class MapplasActivity extends LanguageActivity {
 
 		 this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
-		Location location = new Location("");
+//		Location location = new Location("");
 //		location.setLatitude(37.386730);
 //		location.setLongitude(-122.067972);
 //		

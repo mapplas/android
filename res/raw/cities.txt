@@ -50,3 +50,5 @@
 122|Zaragoza
 123|Ceuta
 124|Melilla
+28455|New York
+30385|San Francisco

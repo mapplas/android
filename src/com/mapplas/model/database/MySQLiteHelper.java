@@ -15,7 +15,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private Context context;
 
 	// Database Version
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	// Database Name
 	private static final String DATABASE_NAME = "MapplasDB";
@@ -39,7 +39,26 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		this.onCreate(db);
+		Log.d("UPGRADE", "onUpgrade");
+		if (oldVersion == 1 && newVersion == 2) {
+			Log.d("UPGRADE", "onUpgrade oldVersion == 1 && newVersion == 2");
+			// Remove data from TABLE_SEARCHVALUES
+			String REMOVE_SEARCH_VALUES_DATA = "DELETE FROM " + SearchValue.TABLE_SEARCHVALUES;
+			db.execSQL(REMOVE_SEARCH_VALUES_DATA);
+			
+			new DbPopulator(this.context, db).populate();
+		}
+		
+		else {
+			// Remove DB tables
+			String DROP_SEARCH_VALUES_TABLE = "DROP TABLE " + SearchValue.TABLE_SEARCHVALUES;
+			db.execSQL(DROP_SEARCH_VALUES_TABLE);
+			String DROP_SEARCH_USERS_TABLE = "DROP TABLE " + User.TABLE_USERS;
+			db.execSQL(DROP_SEARCH_USERS_TABLE);
+
+			// Create DB
+			this.onCreate(db);
+		}
 	}
 
 	/**
@@ -157,8 +176,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public String[] read(String searchValueName) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1 }, SearchValue.KEY_NAME1 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, null, null);
-		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2 }, SearchValue.KEY_NAME2 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, null, null);
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1 }, SearchValue.KEY_NAME1 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, SearchValue.KEY_NAME1, null);
+		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2 }, SearchValue.KEY_NAME2 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, SearchValue.KEY_NAME2, null);
 		
 		int recCount = cursor.getCount();
 		int recCount2 = cursor2.getCount();
