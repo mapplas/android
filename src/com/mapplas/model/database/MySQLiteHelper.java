@@ -1,5 +1,7 @@
 package com.mapplas.model.database;
 
+import java.util.Arrays;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,7 +17,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private Context context;
 
 	// Database Version
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	// Database Name
 	private static final String DATABASE_NAME = "MapplasDB";
@@ -29,7 +31,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// SQL statement to create user table
 		String CREATE_USER_TABLE = "CREATE TABLE " + User.TABLE_USERS + " ( " + "id INTEGER PRIMARY KEY, " + "imei TEXT, " + "pinnedApps TEXT, " + "blockedApps TEXT" + " )";
-		String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + "id INTEGER PRIMARY KEY, " + "name1 TEXT, " + "name2 TEX " + " )";
+		String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + "id INTEGER PRIMARY KEY, " + "name1 TEXT, " + "name1_clean TEXT, " + "name2 TEXT, " + "name2_clean TEXT" + " )";
 
 		db.execSQL(CREATE_USER_TABLE);
 		db.execSQL(CREATE_SEARCH_VALUES_TABLE);
@@ -45,6 +47,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			// Remove data from TABLE_SEARCHVALUES
 			String REMOVE_SEARCH_VALUES_DATA = "DELETE FROM " + SearchValue.TABLE_SEARCHVALUES;
 			db.execSQL(REMOVE_SEARCH_VALUES_DATA);
+			
+			new DbPopulator(this.context, db).populate();
+		}
+		
+		else if (oldVersion == 2 && newVersion == 3) {
+			Log.d("UPGRADE", "onUpgrade oldVersion == 2 && newVersion == 3");
+			// Remove data from TABLE_SEARCHVALUES
+			String REMOVE_SEARCH_VALUES_DATA = "DROP TABLE " + SearchValue.TABLE_SEARCHVALUES;
+			db.execSQL(REMOVE_SEARCH_VALUES_DATA);
+			
+			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + "id INTEGER PRIMARY KEY, " + "name1 TEXT, " + "name1_clean TEXT, " + "name2 TEXT, " + "name2_clean TEXT" + " )";
+			db.execSQL(CREATE_SEARCH_VALUES_TABLE);
 			
 			new DbPopulator(this.context, db).populate();
 		}
@@ -117,23 +131,24 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	 * 
 	 */
 
-	public void insertSearchValue(SearchValue value) {
-		SQLiteDatabase db = this.getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-		values.put(SearchValue.KEY_ID, value.getId());
-		values.put(SearchValue.KEY_NAME1, value.getName1());
-		values.put(SearchValue.KEY_NAME2, value.getName2());
-
-		db.insert(SearchValue.TABLE_SEARCHVALUES, null, values);
-
-		db.close();
-	}
+//	public void insertSearchValue(SearchValue value) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		ContentValues values = new ContentValues();
+//		values.put(SearchValue.KEY_ID, value.getId());
+//		values.put(SearchValue.KEY_NAME1, value.getName1());
+//		values.put(SearchValue.KEY_NAME2, value.getName2());
+//
+//		db.insert(SearchValue.TABLE_SEARCHVALUES, null, values);
+//
+//		db.close();
+//	}
 
 	public String[] getSearchValues() {
+		
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, SearchValue.COLUMNS, null, null, null, null, null);
-
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[]{SearchValue.KEY_NAME1, SearchValue.KEY_NAME2}, null, null, null, null, null);
+		
 		if(cursor.getCount() > 0) {
 			String[] str = new String[cursor.getCount() * 2];
 			int i = 0;
@@ -175,14 +190,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public String[] read(String searchValueName) {
 		SQLiteDatabase db = this.getReadableDatabase();
-
-		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1 }, SearchValue.KEY_NAME1 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, SearchValue.KEY_NAME1, null);
-		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2 }, SearchValue.KEY_NAME2 + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, SearchValue.KEY_NAME2, null);
 		
-		int recCount = cursor.getCount();
-		int recCount2 = cursor2.getCount();
+		searchValueName = searchValueName.replace("à", "a").replace("á", "a").replace("ä", "a").replace("â", "a");
+		searchValueName = searchValueName.replace("è", "e").replace("é", "e").replace("ë", "e").replace("ê", "e");
+		searchValueName = searchValueName.replace("ì", "i").replace("í", "i").replace("ï", "i").replace("î", "i");
+		searchValueName = searchValueName.replace("ò", "o").replace("ó", "o").replace("ö", "o").replace("ô", "o");
+		searchValueName = searchValueName.replace("ù", "u").replace("ú", "u").replace("ü", "u").replace("û", "u");
+		searchValueName = searchValueName.replace("ñ", "n");
 
-		String[] result = new String[recCount+recCount2];
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1}, SearchValue.KEY_NAME1_CLEAN + " LIKE ? ", new String[] { "%"+ searchValueName + "%" }, null, null, SearchValue.KEY_NAME1, null);
+		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2 }, SearchValue.KEY_NAME2_CLEAN + " LIKE ?", new String[] { "%"+ searchValueName + "%" }, null, null, SearchValue.KEY_NAME2, null);
+		
+		String[] result = new String[cursor.getCount() + cursor2.getCount()];
 		int x = 0;
 
 		if(cursor.moveToFirst()) {
@@ -192,17 +211,20 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			} while (cursor.moveToNext());
 		}
 		
-		int y = x;
-		if(cursor2.moveToFirst()) {
-			do {
-				result[y] = cursor2.getString(0);
-			} while (cursor2.moveToNext());
-		}
+       int y = x;
+       if(cursor2.moveToFirst()) {
+	       do {
+	    	   result[y] = cursor2.getString(0);
+	    	   y++;
+	       } while (cursor2.moveToNext());
+       }
 
 		cursor.close();
 		cursor2.close();
 		db.close();
-
+		
+		Arrays.sort(result);
+		
 		return result;
 
 	}
