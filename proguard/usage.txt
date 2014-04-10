@@ -2534,7 +2534,7 @@ com.mapplas.model.UserFormLayoutComponents:
 com.mapplas.model.database.MySQLiteHelper:
     private static final int DATABASE_VERSION
     private static final java.lang.String DATABASE_NAME
-    102:112:public void insertSearchValue(com.mapplas.model.SearchValue)
+    121:131:public void insertSearchValue(com.mapplas.model.SearchValue)
 com.mapplas.utils.cache.CacheFolder:
     18:18:public java.lang.String getFileWithPathString(java.lang.String)
 com.mapplas.utils.cache.CustomImagePathGenerator
