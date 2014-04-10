@@ -42,11 +42,13 @@ public class DbPopulator {
 				ContentValues values = new ContentValues();
 				values.put(SearchValue.KEY_ID, splittedLine[0]);
 				values.put(SearchValue.KEY_NAME1, splittedLine[1]);
+				values.put(SearchValue.KEY_NAME1_CLEAN, splittedLine[2]);
 
-				if(splittedLine.length == 3) {
-					values.put(SearchValue.KEY_NAME2, splittedLine[2]);
+				if(splittedLine.length == 5) {					
+					values.put(SearchValue.KEY_NAME2, splittedLine[3]);
+					values.put(SearchValue.KEY_NAME2_CLEAN, splittedLine[4]);
 				}
-
+				
 				db.insert(SearchValue.TABLE_SEARCHVALUES, null, values);
 			}
 		} catch (IOException e) {
