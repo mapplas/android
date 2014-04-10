@@ -5,8 +5,12 @@ public class SearchValue {
 	private int id;
 
 	private String name1;
+	
+	private String name1_clean;
 
 	private String name2;
+	
+	private String name2_clean;
 
 	// SearchValues table name
 	public static final String TABLE_SEARCHVALUES = "search_values";
@@ -17,8 +21,12 @@ public class SearchValue {
 	public static final String KEY_NAME1 = "name1";
 
 	public static final String KEY_NAME2 = "name2";
+	
+	public static final String KEY_NAME1_CLEAN = "name1_clean";
+	
+	public static final String KEY_NAME2_CLEAN = "name2_clean";
 
-	public static final String[] COLUMNS = { KEY_ID, KEY_NAME1, KEY_NAME2 };
+	public static final String[] COLUMNS = { KEY_ID, KEY_NAME1, KEY_NAME1_CLEAN, KEY_NAME2, KEY_NAME2_CLEAN };
 
 	public SearchValue() {
 	}
@@ -45,6 +53,22 @@ public class SearchValue {
 
 	public String getName2() {
 		return this.name2;
+	}
+	
+	public void setName1Clean(String name1_clean) {
+		this.name1_clean = name1_clean;
+	}
+
+	public String getName1Clean() {
+		return this.name1_clean;
+	}
+	
+	public void setName2Clean(String name2_clean) {
+		this.name2_clean = name2_clean;
+	}
+
+	public String getName2Clean() {
+		return this.name2_clean;
 	}
 
 }
