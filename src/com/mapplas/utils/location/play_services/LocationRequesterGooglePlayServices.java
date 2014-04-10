@@ -15,7 +15,6 @@ import app.mapplas.com.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.mapplas.app.activities.MapplasActivity;
 import com.mapplas.model.Constants;
@@ -23,7 +22,7 @@ import com.mapplas.utils.location.UserLocationListener;
 import com.mapplas.utils.visual.custom_views.RobotoButton;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
 
-public class LocationRequesterGooglePlayServices implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback, LocationListener {
+public class LocationRequesterGooglePlayServices implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, Handler.Callback, com.google.android.gms.location.LocationListener {
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
