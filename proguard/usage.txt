@@ -13,11 +13,13 @@ android.support.v4.app.ActionBarDrawerToggle$1
 android.support.v4.app.ActionBarDrawerToggle$ActionBarDrawerToggleImpl
 android.support.v4.app.ActionBarDrawerToggle$ActionBarDrawerToggleImplBase
 android.support.v4.app.ActionBarDrawerToggle$ActionBarDrawerToggleImplHC
+android.support.v4.app.ActionBarDrawerToggle$ActionBarDrawerToggleImplJellybeanMR2
 android.support.v4.app.ActionBarDrawerToggle$Delegate
 android.support.v4.app.ActionBarDrawerToggle$DelegateProvider
 android.support.v4.app.ActionBarDrawerToggle$SlideDrawable
 android.support.v4.app.ActionBarDrawerToggleHoneycomb
 android.support.v4.app.ActionBarDrawerToggleHoneycomb$SetIndicatorInfo
+android.support.v4.app.ActionBarDrawerToggleJellybeanMR2
 android.support.v4.app.ActivityCompat
 android.support.v4.app.ActivityCompatHoneycomb:
     27:27:ActivityCompatHoneycomb()
@@ -148,8 +150,9 @@ android.support.v4.app.FragmentManager:
     public abstract android.support.v4.app.Fragment getFragment(android.os.Bundle,java.lang.String)
     public abstract java.util.List getFragments()
     public abstract android.support.v4.app.Fragment$SavedState saveFragmentInstanceState(android.support.v4.app.Fragment)
+    public abstract boolean isDestroyed()
     public abstract void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[])
-    345:346:public static void enableDebugLogging(boolean)
+    351:352:public static void enableDebugLogging(boolean)
 android.support.v4.app.FragmentManager$BackStackEntry
 android.support.v4.app.FragmentManagerImpl:
     static final java.lang.String TAG
@@ -164,17 +167,18 @@ android.support.v4.app.FragmentManagerImpl:
     public static final int ANIM_STYLE_CLOSE_EXIT
     public static final int ANIM_STYLE_FADE_ENTER
     public static final int ANIM_STYLE_FADE_EXIT
-    477:482:public void popBackStack()
-    493:498:public void popBackStack(java.lang.String,int)
-    502:504:public boolean popBackStackImmediate(java.lang.String,int)
-    521:526:public boolean popBackStackImmediate(int,int)
-    531:531:public int getBackStackEntryCount()
-    536:536:public android.support.v4.app.FragmentManager$BackStackEntry getBackStackEntryAt(int)
-    541:545:public void addOnBackStackChangedListener(android.support.v4.app.FragmentManager$OnBackStackChangedListener)
-    549:552:public void removeOnBackStackChangedListener(android.support.v4.app.FragmentManager$OnBackStackChangedListener)
-    583:583:public java.util.List getFragments()
-    588:596:public android.support.v4.app.Fragment$SavedState saveFragmentInstanceState(android.support.v4.app.Fragment)
-    1330:1338:public android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
+    483:488:public void popBackStack()
+    499:504:public void popBackStack(java.lang.String,int)
+    508:510:public boolean popBackStackImmediate(java.lang.String,int)
+    527:532:public boolean popBackStackImmediate(int,int)
+    537:537:public int getBackStackEntryCount()
+    542:542:public android.support.v4.app.FragmentManager$BackStackEntry getBackStackEntryAt(int)
+    547:551:public void addOnBackStackChangedListener(android.support.v4.app.FragmentManager$OnBackStackChangedListener)
+    555:558:public void removeOnBackStackChangedListener(android.support.v4.app.FragmentManager$OnBackStackChangedListener)
+    589:589:public java.util.List getFragments()
+    594:602:public android.support.v4.app.Fragment$SavedState saveFragmentInstanceState(android.support.v4.app.Fragment)
+    607:607:public boolean isDestroyed()
+    1341:1349:public android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
 android.support.v4.app.FragmentManagerImpl$2
 android.support.v4.app.FragmentManagerImpl$3
 android.support.v4.app.FragmentPagerAdapter:
@@ -265,47 +269,49 @@ android.support.v4.app.NotificationCompat:
     public static final int PRIORITY_MIN
     public static final int PRIORITY_HIGH
     public static final int PRIORITY_MAX
-    34:819:public NotificationCompat()
+    34:836:public NotificationCompat()
 android.support.v4.app.NotificationCompat$Action:
-    824:828:public NotificationCompat$Action(int,java.lang.CharSequence,android.app.PendingIntent)
+    841:845:public NotificationCompat$Action(int,java.lang.CharSequence,android.app.PendingIntent)
 android.support.v4.app.NotificationCompat$BigPictureStyle:
-    659:661:public NotificationCompat$BigPictureStyle(android.support.v4.app.NotificationCompat$Builder)
-    668:669:public android.support.v4.app.NotificationCompat$BigPictureStyle setBigContentTitle(java.lang.CharSequence)
-    676:678:public android.support.v4.app.NotificationCompat$BigPictureStyle setSummaryText(java.lang.CharSequence)
-    685:686:public android.support.v4.app.NotificationCompat$BigPictureStyle bigPicture(android.graphics.Bitmap)
-    693:695:public android.support.v4.app.NotificationCompat$BigPictureStyle bigLargeIcon(android.graphics.Bitmap)
+    676:678:public NotificationCompat$BigPictureStyle(android.support.v4.app.NotificationCompat$Builder)
+    685:686:public android.support.v4.app.NotificationCompat$BigPictureStyle setBigContentTitle(java.lang.CharSequence)
+    693:695:public android.support.v4.app.NotificationCompat$BigPictureStyle setSummaryText(java.lang.CharSequence)
+    702:703:public android.support.v4.app.NotificationCompat$BigPictureStyle bigPicture(android.graphics.Bitmap)
+    710:712:public android.support.v4.app.NotificationCompat$BigPictureStyle bigLargeIcon(android.graphics.Bitmap)
 android.support.v4.app.NotificationCompat$BigTextStyle:
-    726:728:public NotificationCompat$BigTextStyle(android.support.v4.app.NotificationCompat$Builder)
-    735:736:public android.support.v4.app.NotificationCompat$BigTextStyle setBigContentTitle(java.lang.CharSequence)
-    743:745:public android.support.v4.app.NotificationCompat$BigTextStyle setSummaryText(java.lang.CharSequence)
+    743:745:public NotificationCompat$BigTextStyle(android.support.v4.app.NotificationCompat$Builder)
+    752:753:public android.support.v4.app.NotificationCompat$BigTextStyle setBigContentTitle(java.lang.CharSequence)
+    760:762:public android.support.v4.app.NotificationCompat$BigTextStyle setSummaryText(java.lang.CharSequence)
 android.support.v4.app.NotificationCompat$Builder:
-    247:248:public android.support.v4.app.NotificationCompat$Builder setUsesChronometer(boolean)
-    274:276:public android.support.v4.app.NotificationCompat$Builder setSmallIcon(int,int)
-    305:306:public android.support.v4.app.NotificationCompat$Builder setSubText(java.lang.CharSequence)
-    315:316:public android.support.v4.app.NotificationCompat$Builder setNumber(int)
-    323:324:public android.support.v4.app.NotificationCompat$Builder setContentInfo(java.lang.CharSequence)
-    332:335:public android.support.v4.app.NotificationCompat$Builder setProgress(int,int,boolean)
-    342:343:public android.support.v4.app.NotificationCompat$Builder setContent(android.widget.RemoteViews)
-    367:368:public android.support.v4.app.NotificationCompat$Builder setDeleteIntent(android.app.PendingIntent)
-    385:387:public android.support.v4.app.NotificationCompat$Builder setFullScreenIntent(android.app.PendingIntent,boolean)
-    405:407:public android.support.v4.app.NotificationCompat$Builder setTicker(java.lang.CharSequence,android.widget.RemoteViews)
-    414:415:public android.support.v4.app.NotificationCompat$Builder setLargeIcon(android.graphics.Bitmap)
-    434:436:public android.support.v4.app.NotificationCompat$Builder setSound(android.net.Uri,int)
-    446:447:public android.support.v4.app.NotificationCompat$Builder setVibrate(long[])
-    456:462:public android.support.v4.app.NotificationCompat$Builder setLights(int,int,int)
-    477:478:public android.support.v4.app.NotificationCompat$Builder setOngoing(boolean)
-    486:487:public android.support.v4.app.NotificationCompat$Builder setOnlyAlertOnce(boolean)
-    512:516:public android.support.v4.app.NotificationCompat$Builder setDefaults(int)
-    539:540:public android.support.v4.app.NotificationCompat$Builder setPriority(int)
-    560:561:public android.support.v4.app.NotificationCompat$Builder addAction(int,java.lang.CharSequence,android.app.PendingIntent)
-    587:587:public android.app.Notification getNotification()
+    264:265:public android.support.v4.app.NotificationCompat$Builder setUsesChronometer(boolean)
+    291:293:public android.support.v4.app.NotificationCompat$Builder setSmallIcon(int,int)
+    322:323:public android.support.v4.app.NotificationCompat$Builder setSubText(java.lang.CharSequence)
+    332:333:public android.support.v4.app.NotificationCompat$Builder setNumber(int)
+    340:341:public android.support.v4.app.NotificationCompat$Builder setContentInfo(java.lang.CharSequence)
+    349:352:public android.support.v4.app.NotificationCompat$Builder setProgress(int,int,boolean)
+    359:360:public android.support.v4.app.NotificationCompat$Builder setContent(android.widget.RemoteViews)
+    384:385:public android.support.v4.app.NotificationCompat$Builder setDeleteIntent(android.app.PendingIntent)
+    402:404:public android.support.v4.app.NotificationCompat$Builder setFullScreenIntent(android.app.PendingIntent,boolean)
+    422:424:public android.support.v4.app.NotificationCompat$Builder setTicker(java.lang.CharSequence,android.widget.RemoteViews)
+    431:432:public android.support.v4.app.NotificationCompat$Builder setLargeIcon(android.graphics.Bitmap)
+    451:453:public android.support.v4.app.NotificationCompat$Builder setSound(android.net.Uri,int)
+    463:464:public android.support.v4.app.NotificationCompat$Builder setVibrate(long[])
+    473:479:public android.support.v4.app.NotificationCompat$Builder setLights(int,int,int)
+    494:495:public android.support.v4.app.NotificationCompat$Builder setOngoing(boolean)
+    503:504:public android.support.v4.app.NotificationCompat$Builder setOnlyAlertOnce(boolean)
+    529:533:public android.support.v4.app.NotificationCompat$Builder setDefaults(int)
+    556:557:public android.support.v4.app.NotificationCompat$Builder setPriority(int)
+    577:578:public android.support.v4.app.NotificationCompat$Builder addAction(int,java.lang.CharSequence,android.app.PendingIntent)
+    604:604:public android.app.Notification getNotification()
 android.support.v4.app.NotificationCompat$InboxStyle:
-    788:790:public NotificationCompat$InboxStyle(android.support.v4.app.NotificationCompat$Builder)
-    797:798:public android.support.v4.app.NotificationCompat$InboxStyle setBigContentTitle(java.lang.CharSequence)
-    805:807:public android.support.v4.app.NotificationCompat$InboxStyle setSummaryText(java.lang.CharSequence)
-    814:815:public android.support.v4.app.NotificationCompat$InboxStyle addLine(java.lang.CharSequence)
+    805:807:public NotificationCompat$InboxStyle(android.support.v4.app.NotificationCompat$Builder)
+    814:815:public android.support.v4.app.NotificationCompat$InboxStyle setBigContentTitle(java.lang.CharSequence)
+    822:824:public android.support.v4.app.NotificationCompat$InboxStyle setSummaryText(java.lang.CharSequence)
+    831:832:public android.support.v4.app.NotificationCompat$InboxStyle addLine(java.lang.CharSequence)
 android.support.v4.app.NotificationCompat$Style:
-    623:627:public android.app.Notification build()
+    640:644:public android.app.Notification build()
+android.support.v4.app.NotificationCompatGingerbread:
+    23:23:NotificationCompatGingerbread()
 android.support.v4.app.NotificationCompatHoneycomb:
     25:25:NotificationCompatHoneycomb()
 android.support.v4.app.NotificationCompatIceCreamSandwich:
@@ -453,6 +459,9 @@ android.support.v4.print.PrintHelper$PrintHelperStubImpl
 android.support.v4.print.PrintHelper$PrintHelperVersionImpl
 android.support.v4.print.PrintHelperKitkat
 android.support.v4.print.PrintHelperKitkat$1
+android.support.v4.print.PrintHelperKitkat$2
+android.support.v4.print.PrintHelperKitkat$2$1
+android.support.v4.print.PrintHelperKitkat$2$1$1
 android.support.v4.text.BidiFormatter
 android.support.v4.text.BidiFormatter$1
 android.support.v4.text.BidiFormatter$Builder
@@ -983,6 +992,7 @@ android.support.v4.widget.AutoScrollHelper
 android.support.v4.widget.AutoScrollHelper$1
 android.support.v4.widget.AutoScrollHelper$ClampedScroller
 android.support.v4.widget.AutoScrollHelper$ScrollAnimationRunnable
+android.support.v4.widget.BakedBezierInterpolator
 android.support.v4.widget.ContentLoadingProgressBar
 android.support.v4.widget.ContentLoadingProgressBar$1
 android.support.v4.widget.ContentLoadingProgressBar$2
@@ -1007,29 +1017,34 @@ android.support.v4.widget.DrawerLayout:
     private static final boolean ALLOW_EDGE_LOCK
     private static final boolean CHILDREN_DISALLOW_INTERCEPT
     private static final float TOUCH_SLOP_SENSITIVITY
-    217:218:public DrawerLayout(android.content.Context)
-    221:222:public DrawerLayout(android.content.Context,android.util.AttributeSet)
-    225:249:public DrawerLayout(android.content.Context,android.util.AttributeSet,int)
-    265:275:public void setDrawerShadow(android.graphics.drawable.Drawable,int)
-    285:286:public void setDrawerShadow(int,int)
-    394:400:public void setDrawerLockMode(int,android.view.View)
-    410:417:public int getDrawerLockMode(int)
-    540:549:void moveDrawerToOffset(android.view.View,float)
-    1044:1050:public void openDrawer(int)
-    1084:1090:public void closeDrawer(int)
-    1103:1106:public boolean isDrawerOpen(android.view.View)
-    1119:1123:public boolean isDrawerOpen(int)
-    1150:1154:public boolean isDrawerVisible(int)
-    1209:1220:void cancelChildViewTouch()
+    private java.lang.CharSequence mTitleLeft
+    private java.lang.CharSequence mTitleRight
+    222:223:public DrawerLayout(android.content.Context)
+    226:227:public DrawerLayout(android.content.Context,android.util.AttributeSet)
+    230:254:public DrawerLayout(android.content.Context,android.util.AttributeSet,int)
+    270:280:public void setDrawerShadow(android.graphics.drawable.Drawable,int)
+    290:291:public void setDrawerShadow(int,int)
+    399:405:public void setDrawerLockMode(int,android.view.View)
+    415:422:public int getDrawerLockMode(int)
+    453:460:public void setDrawerTitle(int,java.lang.CharSequence)
+    471:478:public java.lang.CharSequence getDrawerTitle(int)
+    593:602:void moveDrawerToOffset(android.view.View,float)
+    1097:1103:public void openDrawer(int)
+    1137:1143:public void closeDrawer(int)
+    1156:1159:public boolean isDrawerOpen(android.view.View)
+    1172:1176:public boolean isDrawerOpen(int)
+    1203:1207:public boolean isDrawerVisible(int)
+    1262:1273:void cancelChildViewTouch()
+    73:73:static synthetic android.view.View access$200(android.support.v4.widget.DrawerLayout)
 android.support.v4.widget.DrawerLayout$AccessibilityDelegate
 android.support.v4.widget.DrawerLayout$LayoutParams:
-    1509:1511:public DrawerLayout$LayoutParams(int,int,int)
+    1562:1564:public DrawerLayout$LayoutParams(int,int,int)
 android.support.v4.widget.DrawerLayout$SimpleDrawerListener
 android.support.v4.widget.DrawerLayout$ViewDragCallback:
-    1333:1335:public DrawerLayout$ViewDragCallback(android.support.v4.widget.DrawerLayout,int)
-    1338:1339:public void setDragger(android.support.v4.widget.ViewDragHelper)
-    1418:1440:private void peekDrawer()
-    1323:1323:static synthetic void access$000(android.support.v4.widget.DrawerLayout$ViewDragCallback)
+    1386:1388:public DrawerLayout$ViewDragCallback(android.support.v4.widget.DrawerLayout,int)
+    1391:1392:public void setDragger(android.support.v4.widget.ViewDragHelper)
+    1471:1493:private void peekDrawer()
+    1376:1376:static synthetic void access$000(android.support.v4.widget.DrawerLayout$ViewDragCallback)
 android.support.v4.widget.DrawerLayout$ViewDragCallback$1
 android.support.v4.widget.EdgeEffectCompat:
     204:204:public boolean onAbsorb(int)
@@ -1137,11 +1152,11 @@ android.support.v4.widget.SlidingPaneLayout:
     328:331:void dispatchOnPanelSlide(android.view.View)
     334:338:void dispatchOnPanelOpened(android.view.View)
     341:345:void dispatchOnPanelClosed(android.view.View)
-    848:849:public void smoothSlideOpen()
-    866:867:public void smoothSlideClosed()
-    895:895:public boolean canSlide()
-    909:922:private void onPanelDragged(int)
-    1103:1122:protected boolean canScroll(android.view.View,boolean,int,int,int)
+    850:851:public void smoothSlideOpen()
+    868:869:public void smoothSlideClosed()
+    897:897:public boolean canSlide()
+    911:930:private void onPanelDragged(int)
+    1111:1130:protected boolean canScroll(android.view.View,boolean,int,int,int)
     88:88:static synthetic boolean access$100(android.support.v4.widget.SlidingPaneLayout)
     88:88:static synthetic android.support.v4.widget.ViewDragHelper access$200(android.support.v4.widget.SlidingPaneLayout)
     88:88:static synthetic float access$300(android.support.v4.widget.SlidingPaneLayout)
@@ -1152,13 +1167,23 @@ android.support.v4.widget.SlidingPaneLayout:
 android.support.v4.widget.SlidingPaneLayout$AccessibilityDelegate
 android.support.v4.widget.SlidingPaneLayout$DragHelperCallback
 android.support.v4.widget.SlidingPaneLayout$LayoutParams:
-    1277:1278:public SlidingPaneLayout$LayoutParams(int,int)
-    1289:1291:public SlidingPaneLayout$LayoutParams(android.support.v4.widget.SlidingPaneLayout$LayoutParams)
+    1285:1286:public SlidingPaneLayout$LayoutParams(int,int)
+    1297:1299:public SlidingPaneLayout$LayoutParams(android.support.v4.widget.SlidingPaneLayout$LayoutParams)
 android.support.v4.widget.SlidingPaneLayout$PanelSlideListener:
     public abstract void onPanelSlide(android.view.View,float)
     public abstract void onPanelOpened(android.view.View)
     public abstract void onPanelClosed(android.view.View)
 android.support.v4.widget.SlidingPaneLayout$SimplePanelSlideListener
+android.support.v4.widget.SwipeProgressBar
+android.support.v4.widget.SwipeRefreshLayout
+android.support.v4.widget.SwipeRefreshLayout$1
+android.support.v4.widget.SwipeRefreshLayout$2
+android.support.v4.widget.SwipeRefreshLayout$3
+android.support.v4.widget.SwipeRefreshLayout$4
+android.support.v4.widget.SwipeRefreshLayout$5
+android.support.v4.widget.SwipeRefreshLayout$6
+android.support.v4.widget.SwipeRefreshLayout$BaseAnimationListener
+android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener
 android.support.v4.widget.ViewDragHelper:
     private static final java.lang.String TAG
     public static final int INVALID_POINTER
@@ -2513,28 +2538,13 @@ com.mapplas.model.GeoFence:
     96:96:public int getTransitionType()
     100:101:public void setTransitionType(int)
     109:109:public com.google.android.gms.location.Geofence toGeofence()
-com.mapplas.model.SearchValue:
-    private int id
-    private java.lang.String name1
-    private java.lang.String name2
-    public static final java.lang.String TABLE_SEARCHVALUES
-    public static final java.lang.String KEY_ID
-    public static final java.lang.String KEY_NAME1
-    public static final java.lang.String KEY_NAME2
-    23:24:public SearchValue()
-    27:28:public void setId(int)
-    31:31:public int getId()
-    35:36:public void setName1(java.lang.String)
-    39:39:public java.lang.String getName1()
-    43:44:public void setName2(java.lang.String)
-    47:47:public java.lang.String getName2()
+com.mapplas.model.SearchValue
 com.mapplas.model.UserFormLayoutComponents:
     37:37:public android.widget.LinearLayout footerListRefreshLayout()
     45:45:public android.widget.ImageView refreshIcon()
 com.mapplas.model.database.MySQLiteHelper:
     private static final int DATABASE_VERSION
     private static final java.lang.String DATABASE_NAME
-    121:131:public void insertSearchValue(com.mapplas.model.SearchValue)
 com.mapplas.utils.cache.CacheFolder:
     18:18:public java.lang.String getFileWithPathString(java.lang.String)
 com.mapplas.utils.cache.CustomImagePathGenerator

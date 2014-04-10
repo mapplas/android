@@ -614,30 +614,34 @@ android.support.v4.app.NotificationCompat$NotificationCompatImpl -> android.supp
     android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
 android.support.v4.app.NotificationCompat$NotificationCompatImplBase -> android.support.v4.app.an:
     android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
-android.support.v4.app.NotificationCompat$NotificationCompatImplHoneycomb -> android.support.v4.app.ao:
+android.support.v4.app.NotificationCompat$NotificationCompatImplGingerbread -> android.support.v4.app.ao:
     android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
-android.support.v4.app.NotificationCompat$NotificationCompatImplIceCreamSandwich -> android.support.v4.app.ap:
+android.support.v4.app.NotificationCompat$NotificationCompatImplHoneycomb -> android.support.v4.app.ap:
     android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
-android.support.v4.app.NotificationCompat$NotificationCompatImplJellybean -> android.support.v4.app.aq:
+android.support.v4.app.NotificationCompat$NotificationCompatImplIceCreamSandwich -> android.support.v4.app.aq:
     android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
-android.support.v4.app.NotificationCompat$Style -> android.support.v4.app.ar:
+android.support.v4.app.NotificationCompat$NotificationCompatImplJellybean -> android.support.v4.app.ar:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$Style -> android.support.v4.app.as:
     android.support.v4.app.NotificationCompat$Builder mBuilder -> d
     java.lang.CharSequence mBigContentTitle -> e
     java.lang.CharSequence mSummaryText -> f
     boolean mSummaryTextSet -> g
     void setBuilder(android.support.v4.app.NotificationCompat$Builder) -> a
-android.support.v4.app.NotificationCompatHoneycomb -> android.support.v4.app.as:
+android.support.v4.app.NotificationCompatGingerbread -> android.support.v4.app.at:
+    android.app.Notification add(android.app.Notification,android.content.Context,java.lang.CharSequence,java.lang.CharSequence,android.app.PendingIntent,android.app.PendingIntent) -> a
+android.support.v4.app.NotificationCompatHoneycomb -> android.support.v4.app.au:
     android.app.Notification add(android.content.Context,android.app.Notification,java.lang.CharSequence,java.lang.CharSequence,java.lang.CharSequence,android.widget.RemoteViews,int,android.app.PendingIntent,android.app.PendingIntent,android.graphics.Bitmap) -> a
-android.support.v4.app.NotificationCompatIceCreamSandwich -> android.support.v4.app.at:
+android.support.v4.app.NotificationCompatIceCreamSandwich -> android.support.v4.app.av:
     android.app.Notification add(android.content.Context,android.app.Notification,java.lang.CharSequence,java.lang.CharSequence,java.lang.CharSequence,android.widget.RemoteViews,int,android.app.PendingIntent,android.app.PendingIntent,android.graphics.Bitmap,int,int,boolean) -> a
-android.support.v4.app.NotificationCompatJellybean -> android.support.v4.app.au:
+android.support.v4.app.NotificationCompatJellybean -> android.support.v4.app.aw:
     android.app.Notification$Builder b -> a
     void addAction(int,java.lang.CharSequence,android.app.PendingIntent) -> a
     void addBigTextStyle(java.lang.CharSequence,boolean,java.lang.CharSequence,java.lang.CharSequence) -> a
     void addBigPictureStyle(java.lang.CharSequence,boolean,java.lang.CharSequence,android.graphics.Bitmap,android.graphics.Bitmap,boolean) -> a
     void addInboxStyle(java.lang.CharSequence,boolean,java.lang.CharSequence,java.util.ArrayList) -> a
     android.app.Notification build() -> a
-android.support.v4.app.SuperNotCalledException -> android.support.v4.app.av:
+android.support.v4.app.SuperNotCalledException -> android.support.v4.app.ax:
 android.support.v4.content.FileProvider -> android.support.v4.content.FileProvider:
     java.lang.String[] COLUMNS -> a
     java.io.File DEVICE_ROOT -> b
@@ -7973,8 +7977,6 @@ com.mapplas.model.MoreFromDeveloperApp$1 -> com.mapplas.model.e:
     com.mapplas.model.MoreFromDeveloperApp[] newArray(int) -> a
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
     java.lang.Object[] newArray(int) -> newArray
-com.mapplas.model.SearchValue -> com.mapplas.model.f:
-    java.lang.String[] COLUMNS -> a
 com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     java.lang.String currentLocation -> currentLocation
     android.location.Location location -> location
@@ -8026,7 +8028,7 @@ com.mapplas.model.SuperModel -> com.mapplas.model.SuperModel:
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
     void updateAppList(com.mapplas.model.AppOrderedList) -> updateAppList
-com.mapplas.model.SuperModel$1 -> com.mapplas.model.g:
+com.mapplas.model.SuperModel$1 -> com.mapplas.model.f:
     com.mapplas.model.SuperModel createFromParcel(android.os.Parcel) -> a
     com.mapplas.model.SuperModel[] newArray(int) -> a
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
@@ -8053,12 +8055,12 @@ com.mapplas.model.User -> com.mapplas.model.User:
     void setBlockedApps(java.util.ArrayList) -> setBlockedApps
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.mapplas.model.User$1 -> com.mapplas.model.h:
+com.mapplas.model.User$1 -> com.mapplas.model.g:
     com.mapplas.model.User createFromParcel(android.os.Parcel) -> a
     com.mapplas.model.User[] newArray(int) -> a
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
     java.lang.Object[] newArray(int) -> newArray
-com.mapplas.model.UserFormLayoutComponents -> com.mapplas.model.i:
+com.mapplas.model.UserFormLayoutComponents -> com.mapplas.model.h:
     com.mapplas.utils.visual.custom_views.RobotoButton blocksButton -> a
     com.mapplas.utils.visual.custom_views.RobotoButton pinUpsButton -> b
     android.widget.LinearLayout footerListRefreshLayout -> c
