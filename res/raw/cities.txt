@@ -1,55 +1,55 @@
-98|Spain|Logroño|Logrono
-103|Spain|Pamplona|Pamplona|Iruña|Iruna
-104|Spain|Orense|Orense|Ourense|Ourense
-106|Spain|Palencia|Palencia
-109|Spain|Salamanca|Salamanca
-120|Spain|Bilbao|Bilbao|Bilbo|Bilbo
-81|Spain|Burgos|Burgos
-89|Spain|Gerona|Gerona|Girona|Girona
-96|Spain|León|Leon
-73|Spain|Vitoria|Vitoria|Gasteiz|Gasteiz
-79|Spain|Palma de Mallorca|Palma de Mallorca
-87|Spain|La Coruña|La Coruna|A Coruña|A Coruna
-76|Spain|Almería|Almeria
-77|Spain|Ávila|Avila
-78|Spain|Badajoz|Badajoz
-80|Spain|Barcelona|Barcelona
-82|Spain|Cáceres|Caceres
-83|Spain|Cádiz|Cadiz
-85|Spain|Ciudad Real|Ciudad Real
-123|Spain|Ceuta|Ceuta
-91|Spain|Guadalajara|Guadalajara
-74|Spain|Albacete|Albacete
-111|Spain|Santander|Santander
-112|Spain|Segovia|Segovia
-90|Spain|Granada|Granada
-93|Spain|Huelva|Huelva
-75|Spain|Alicante|Alicante|Alacant|Alacant
-86|Spain|Córdoba|Cordoba
-101|Spain|Málaga|Malaga
-102|Spain|Murcia|Murcia
-84|Spain|Castellón de la Plana|Castellon de la Plana|Castelló de la Plana|Castello de la Plana
-107|Spain|Las Palmas de Gran Canaria|Las Palmas de Gran Canaria
-110|Spain|Santa Cruz de Tenerife|Santa Cruz de Tenerife
-105|Spain|Oviedo|Oviedo
-108|Spain|Pontevedra|Pontevedra
-121|Spain|Zamora|Zamora
-88|Spain|Cuenca|Cuenca
-92|Spain|San Sebastián|San Sebastian|Donostia|Donostia
-94|Spain|Huesca|Huesca
-95|Spain|Jaén|Jaen
-97|Spain|Lérida|Lerida|Lleida|Lleida
-99|Spain|Lugo|Lugo
-100|Spain|Madrid|Madrid
-113|Spain|Sevilla|Sevilla
-114|Spain|Soria|Soria
-115|Spain|Tarragona|Tarragona
-116|Spain|Teruel|Teruel
-117|Spain|Toledo|Toledo
-118|Spain|Valencia|Valencia|València|Valencia
-119|Spain|Valladolid|Valladolid
-122|Spain|Zaragoza|Zaragoza
-124|Spain|Melilla|Melilla
+98|España|Logroño|Logrono
+103|España|Pamplona|Pamplona|Iruña|Iruna
+104|España|Orense|Orense|Ourense|Ourense
+106|España|Palencia|Palencia
+109|España|Salamanca|Salamanca
+120|España|Bilbao|Bilbao|Bilbo|Bilbo
+81|España|Burgos|Burgos
+89|España|Gerona|Gerona|Girona|Girona
+96|España|León|Leon
+73|España|Vitoria|Vitoria|Gasteiz|Gasteiz
+79|España|Palma de Mallorca|Palma de Mallorca
+87|España|La Coruña|La Coruna|A Coruña|A Coruna
+76|España|Almería|Almeria
+77|España|Ávila|Avila
+78|España|Badajoz|Badajoz
+80|España|Barcelona|Barcelona
+82|España|Cáceres|Caceres
+83|España|Cádiz|Cadiz
+85|España|Ciudad Real|Ciudad Real
+123|España|Ceuta|Ceuta
+91|España|Guadalajara|Guadalajara
+74|España|Albacete|Albacete
+111|España|Santander|Santander
+112|España|Segovia|Segovia
+90|España|Granada|Granada
+93|España|Huelva|Huelva
+75|España|Alicante|Alicante|Alacant|Alacant
+86|España|Córdoba|Cordoba
+101|España|Málaga|Malaga
+102|España|Murcia|Murcia
+84|España|Castellón de la Plana|Castellon de la Plana|Castelló de la Plana|Castello de la Plana
+107|España|Las Palmas de Gran Canaria|Las Palmas de Gran Canaria
+110|España|Santa Cruz de Tenerife|Santa Cruz de Tenerife
+105|España|Oviedo|Oviedo
+108|España|Pontevedra|Pontevedra
+121|España|Zamora|Zamora
+88|España|Cuenca|Cuenca
+92|España|San Sebastián|San Sebastian|Donostia|Donostia
+94|España|Huesca|Huesca
+95|España|Jaén|Jaen
+97|España|Lérida|Lerida|Lleida|Lleida
+99|España|Lugo|Lugo
+100|España|Madrid|Madrid
+113|España|Sevilla|Sevilla
+114|España|Soria|Soria
+115|España|Tarragona|Tarragona
+116|España|Teruel|Teruel
+117|España|Toledo|Toledo
+118|España|Valencia|Valencia|València|Valencia
+119|España|Valladolid|Valladolid
+122|España|Zaragoza|Zaragoza
+124|España|Melilla|Melilla
 160254|China|Foshan|Foshan
 160253|China|Fuling|Fuling
 160268|China|Daliang|Daliang

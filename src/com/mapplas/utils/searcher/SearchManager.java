@@ -1,5 +1,7 @@
 package com.mapplas.utils.searcher;
 
+import java.util.Arrays;
+
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -32,7 +34,7 @@ public class SearchManager {
 
 	private ProgressBar spinner;
 
-	public SearchCityAdapter myAdapter;
+	public SearchCityAdapter myAdapter = null;
 
 	public MySQLiteHelper db;
 
@@ -47,9 +49,11 @@ public class SearchManager {
 	public void initializeSearcher() {
 
 		this.db = new MySQLiteHelper(this.context);
-		final String[] searchValues = db.getSearchValues();
+		// Set empty searchvalues array of strings
+		String[] searchValues = {};
+		Arrays.fill(searchValues, "");
 
-		this.myAdapter = new SearchCityAdapter(this.context, R.layout.prueba, searchValues);
+		this.myAdapter = new SearchCityAdapter(this.context, R.layout.prueba, searchValues, null);
 		this.autoCompleteTextView.setAdapter(this.myAdapter);
 
 		this.autoCompleteTextView.addTextChangedListener(new CustomAutoCompleteTextChangedListener(this, this.context));

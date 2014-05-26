@@ -218,21 +218,23 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		searchValueName = searchValueName.replace("ù", "u").replace("ú", "u").replace("ü", "u").replace("û", "u");
 		searchValueName = searchValueName.replace("ñ", "n");
 
-		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1, SearchValue.KEY_ID }, SearchValue.KEY_NAME1_CLEAN + " LIKE ? ", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_NAME1, null);
-		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2, SearchValue.KEY_ID }, SearchValue.KEY_NAME2_CLEAN + " LIKE ?", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_NAME2, null);
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1, SearchValue.KEY_ID, SearchValue.KEY_COUNTRY }, SearchValue.KEY_NAME1_CLEAN + " LIKE ? ", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_NAME1, null);
+		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2, SearchValue.KEY_ID, SearchValue.KEY_COUNTRY }, SearchValue.KEY_NAME2_CLEAN + " LIKE ?", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_NAME2, null);
 		
 		HashMap<Integer, ArrayList<List>> dict = new HashMap<Integer, ArrayList<List>>();
 
 		int i = 0;
 		if(cursor.moveToFirst()) {
 			do {
-				ArrayList<String> name = new ArrayList<String>();
+				ArrayList<String> name_country = new ArrayList<String>();
 				ArrayList<Integer> id = new ArrayList<Integer>();
 				ArrayList<List> name_id_list = new ArrayList<List>();
 				
-				name.add(cursor.getString(0));
+				name_country.add(cursor.getString(0));
+				name_country.add(cursor.getString(2));
 				id.add(Integer.parseInt(cursor.getString(1)));
-				name_id_list.add(name);
+				
+				name_id_list.add(name_country);
 				name_id_list.add(id);
 				dict.put(i, name_id_list);
 				i++;
@@ -241,13 +243,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		if(cursor2.moveToFirst()) {
 			do {
-				ArrayList<String> name = new ArrayList<String>();
+				ArrayList<String> name_country = new ArrayList<String>();
 				ArrayList<Integer> id = new ArrayList<Integer>();
 				ArrayList<List> name_id_list = new ArrayList<List>();
 				
-				name.add(cursor2.getString(0));
+				name_country.add(cursor2.getString(0));
+				name_country.add(cursor2.getString(2));
 				id.add(Integer.parseInt(cursor2.getString(1)));
-				name_id_list.add(name);
+				
+				name_id_list.add(name_country);
 				name_id_list.add(id);
 				dict.put(i, name_id_list);
 				i++;
