@@ -172,10 +172,7 @@ public class MapplasActivity extends LanguageActivity {
 //		Location location = new Location("");
 //		location.setLatitude(37.386730);
 //		location.setLongitude(-122.067972);
-//		
-//		location.setLatitude(37.756007);
-//		location.setLongitude(-122.454499);
-//
+
 //		this.model.setLocation(location);
 //		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 //		new AppGetterTask(this, this.model, this.appsInstalledList, this, 0, Constants.APP_REQUEST_TYPE_LOCATION, this.appGetterTaskViewsContainer).execute(location, true, -1);
