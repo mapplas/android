@@ -1,54 +1,4231 @@
-73|Vitoria|Vitoria|Gasteiz|Gasteiz
-74|Albacete|Albacete
-75|Alicante|Alicante|Alacant|Alacant
-76|Almería|Almeria
-77|Ávila|Avila
-78|Badajoz|Badajoz
-79|Palma de Mallorca|Palma de Mallorca
-80|Barcelona|Barcelona
-81|Burgos|Burgos
-82|Cáceres|Caceres
-83|Cádiz|Cadiz
-84|Castellón de la Plana|Castellon de la Plana|Castelló de la Plana|Castello de la Plana
-85|Ciudad Real|Ciudad Real
-86|Córdoba|Cordoba
-87|La Coruña|La Coruna|A Coruña|A Coruna
-88|Cuenca|Cuenca
-89|Gerona|Gerona|Girona|Girona
-90|Granada|Granada
-91|Guadalajara|Guadalajara
-92|San Sebastián|San Sebastian|Donostia|Donostia
-93|Huelva|Huelva
-94|Huesca|Huesca
-95|Jaén|Jaen
-96|León|Leon
-97|Lérida|Lerida|Lleida|Lleida
-98|Logroño|Logrono
-99|Lugo|Lugo
-100|Madrid|Madrid
-101|Málaga|Malaga
-102|Murcia|Murcia
-103|Pamplona|Pamplona|Iruña|Iruna
-104|Orense|Orense|Ourense|Ourense
-105|Oviedo|Oviedo
-106|Palencia|Palencia
-107|Las Palmas de Gran Canaria|Las Palmas de Gran Canaria
-108|Pontevedra|Pontevedra
-109|Salamanca|Salamanca
-110|Santa Cruz de Tenerife|Santa Cruz de Tenerife
-111|Santander|Santander
-112|Segovia|Segovia
-113|Sevilla|Sevilla
-114|Soria|Soria
-115|Tarragona|Tarragona
-116|Teruel|Teruel
-117|Toledo|Toledo
-118|Valencia|Valencia|Valéncia|Valencia
-119|Valladolid|Valladolid
-120|Bilbao|Bilbao|Bilbo|Bilbo
-121|Zamora|Zamora
-122|Zaragoza|Zaragoza
-123|Ceuta|Ceuta
-124|Melilla|Melilla
-28455|New York|New York
-30385|San Francisco|San Francisco
+98|Spain|Logroño|Logrono
+103|Spain|Pamplona|Pamplona|Iruña|Iruna
+104|Spain|Orense|Orense|Ourense|Ourense
+106|Spain|Palencia|Palencia
+109|Spain|Salamanca|Salamanca
+120|Spain|Bilbao|Bilbao|Bilbo|Bilbo
+81|Spain|Burgos|Burgos
+89|Spain|Gerona|Gerona|Girona|Girona
+96|Spain|León|Leon
+73|Spain|Vitoria|Vitoria|Gasteiz|Gasteiz
+79|Spain|Palma de Mallorca|Palma de Mallorca
+87|Spain|La Coruña|La Coruna|A Coruña|A Coruna
+76|Spain|Almería|Almeria
+77|Spain|Ávila|Avila
+78|Spain|Badajoz|Badajoz
+80|Spain|Barcelona|Barcelona
+82|Spain|Cáceres|Caceres
+83|Spain|Cádiz|Cadiz
+85|Spain|Ciudad Real|Ciudad Real
+123|Spain|Ceuta|Ceuta
+91|Spain|Guadalajara|Guadalajara
+74|Spain|Albacete|Albacete
+111|Spain|Santander|Santander
+112|Spain|Segovia|Segovia
+90|Spain|Granada|Granada
+93|Spain|Huelva|Huelva
+75|Spain|Alicante|Alicante|Alacant|Alacant
+86|Spain|Córdoba|Cordoba
+101|Spain|Málaga|Malaga
+102|Spain|Murcia|Murcia
+84|Spain|Castellón de la Plana|Castellon de la Plana|Castelló de la Plana|Castello de la Plana
+107|Spain|Las Palmas de Gran Canaria|Las Palmas de Gran Canaria
+110|Spain|Santa Cruz de Tenerife|Santa Cruz de Tenerife
+105|Spain|Oviedo|Oviedo
+108|Spain|Pontevedra|Pontevedra
+121|Spain|Zamora|Zamora
+88|Spain|Cuenca|Cuenca
+92|Spain|San Sebastián|San Sebastian|Donostia|Donostia
+94|Spain|Huesca|Huesca
+95|Spain|Jaén|Jaen
+97|Spain|Lérida|Lerida|Lleida|Lleida
+99|Spain|Lugo|Lugo
+100|Spain|Madrid|Madrid
+113|Spain|Sevilla|Sevilla
+114|Spain|Soria|Soria
+115|Spain|Tarragona|Tarragona
+116|Spain|Teruel|Teruel
+117|Spain|Toledo|Toledo
+118|Spain|Valencia|Valencia|València|Valencia
+119|Spain|Valladolid|Valladolid
+122|Spain|Zaragoza|Zaragoza
+124|Spain|Melilla|Melilla
+160254|China|Foshan|Foshan
+160253|China|Fuling|Fuling
+160268|China|Daliang|Daliang
+160252|China|Fuyang|Fuyang
+160250|China|Gaomi|Gaomi
+160249|China|Gaoping|Gaoping
+160266|China|Dawukou|Dawukou
+160248|China|Gaozhou|Gaozhou
+160247|China|Gejiu|Gejiu
+160263|China|Deyang|Deyang
+160246|China|Guangshui|Guangshui
+160245|China|Guangzhou|Guangzhou
+160244|China|Guilin|Guilin
+160243|China|Guiyang|Guiyang
+160242|China|Guli|Guli
+160241|China|Haikou|Haikou
+160236|China|Hangu|Hangu
+160235|China|Hangzhou|Hangzhou
+160234|China|Hanzhong|Hanzhong
+160233|China|Hebi|Hebi
+160232|China|Hefei|Hefei
+160229|China|Hepo|Hepo
+160227|China|Heze|Heze
+160225|China|Huaihua|Huaihua
+160224|China|Huainan|Huainan
+160217|China|Xinhui|Xinhui
+160214|China|Humen|Humen
+159575|Bulgaria|Burgas|Burgas
+160220|China|Huangshi|Huangshi
+160218|China|Huangzhou|Huangzhou
+159574|Bulgaria|Pleven|Pleven
+160215|China|Huizhou|Huizhou
+159572|Bulgaria|Ruse|Ruse
+159571|Bulgaria|Sofia|Sofia
+159573|Bulgaria|Plovdiv|Plovdiv
+159570|Bulgaria|Stara Zagora|Stara Zagora
+159569|Bulgaria|Varna|Varna
+159565|Belgium|Brugge|Brugge
+159568|Burkina Faso|Bobo-Dioulasso|Bobo-Dioulasso
+159564|Belgium|Brussels|Brussels
+159566|Belgium|Antwerpen|Antwerpen
+159563|Belgium|Charleroi|Charleroi
+159562|Belgium|Gent|Gent
+159560|Belgium|Namur|Namur
+159559|Bangladesh|Saidpur|Saidpur
+159558|Bangladesh|Bogra|Bogra
+160323|China|Shunyi|Shunyi
+159553|Bangladesh|Khulna|Khulna
+159552|Bangladesh|Cox’s Bāzār|Cox’s Bazar
+159551|Bangladesh|Chittagong|Chittagong
+159550|Bangladesh|Dinājpur|Dinajpur
+159555|Bangladesh|Jessore|Jessore
+159549|Bangladesh|Farīdpur|Faridpur
+159548|Bangladesh|Pār Naogaon|Par Naogaon
+159545|Bangladesh|Sherpur|Sherpur
+159544|Bangladesh|Kushtia|Kushtia
+160322|China|Siping|Siping
+159543|Bangladesh|Rangpur|Rangpur
+159542|Bangladesh|Comilla|Comilla
+160313|China|Xuanhua|Xuanhua
+159541|Bangladesh|Mymensingh|Mymensingh
+159540|Bangladesh|Nāgarpur|Nagarpur
+160262|China|Dezhou|Dezhou
+159539|Bangladesh|Nārāyanganj|Narayanganj
+159538|Bangladesh|Rājshāhi|Rajshahi
+159537|Bangladesh|Shāhzādpur|Shahzadpur
+160261|China|Dingzhou|Dingzhou
+159536|Bangladesh|Narsingdi|Narsingdi
+159535|Bangladesh|Sirājganj|Sirajganj
+159534|Bangladesh|Sātkhira|Satkhira
+159533|Bangladesh|Jamālpur|Jamalpur
+159532|Bangladesh|Sylhet|Sylhet
+159531|Bangladesh|Nawābganj|Nawabganj
+159529|Bosnia and Herzegovina|Banja Luka|Banja Luka
+159528|Bosnia and Herzegovina|Mostar|Mostar
+160240|China|Haikou|Haikou
+159524|Azerbaijan|Baku|Baku
+159523|Azerbaijan|Ganja|Ganja
+159521|Australia|City of Parramatta|City of Parramatta
+159520|Australia|Logan City|Logan City
+159519|Australia|North Shore|North Shore
+159508|Australia|Sydney|Sydney
+159507|Australia|Townsville|Townsville
+159500|Austria|Vienna|Vienna
+159497|Argentina|Córdoba|Cordoba
+159496|Argentina|La Rioja|La Rioja
+159488|Argentina|San Juan|San Juan
+159495|Argentina|Mendoza|Mendoza
+159490|Argentina|Salta|Salta
+159487|Argentina|San Luis|San Luis
+159485|Argentina|San Nicolás de los Arroyos|San Nicolas de los Arroyos
+159483|Argentina|San Salvador de Jujuy|San Salvador de Jujuy
+159530|Bangladesh|Tungi|Tungi
+159482|Argentina|Santa Fe de la Vera Cruz|Santa Fe de la Vera Cruz
+159479|Argentina|Buenos Aires|Buenos Aires
+160231|China|Hengshui|Hengshui
+159527|Bosnia and Herzegovina|Sarajevo|Sarajevo
+159526|Bosnia and Herzegovina|Tuzla|Tuzla
+160230|China|Hengyang|Hengyang
+159478|Argentina|Concordia|Concordia
+159525|Bosnia and Herzegovina|Zenica|Zenica
+159475|Argentina|La Plata|La Plata
+159473|Argentina|Morón|Moron
+159468|Argentina|Villa Lugano|Villa Lugano
+160226|China|Huaibei|Huaibei
+159489|Argentina|San Fernando del Valle de Catamarca|San Fernando del Valle de Catamarca
+159486|Argentina|San Miguel de Tucumán|San Miguel de Tucuman
+159516|Australia|Cairns|Cairns
+159515|Australia|Canberra|Canberra
+159513|Australia|Geelong|Geelong
+159512|Australia|Geelong West|Geelong West
+159480|Argentina|Santiago del Estero|Santiago del Estero
+159477|Argentina|Corrientes|Corrientes
+159476|Argentina|Formosa|Formosa
+159472|Argentina|Posadas|Posadas
+159471|Argentina|Quilmes|Quilmes
+159511|Australia|Gold Coast|Gold Coast
+159510|Australia|Melbourne|Melbourne
+159470|Argentina|Resistencia|Resistencia
+159469|Argentina|Tandil|Tandil
+159506|Australia|Adelaide|Adelaide
+159505|Australia|Perth|Perth
+163724|Zimbabwe|Gweru|Gweru
+163723|Zimbabwe|Harare|Harare
+163722|Zimbabwe|Mutare|Mutare
+163713|South Africa|Cape Town|Cape Town
+163690|South Africa|Middelburg|Middelburg
+163688|South Africa|Mpumalanga|Mpumalanga
+163687|South Africa|Nelspruit|Nelspruit
+163686|South Africa|Newcastle|Newcastle
+163685|South Africa|Nigel|Nigel
+163684|South Africa|Orkney|Orkney
+163682|South Africa|Pietermaritzburg|Pietermaritzburg
+163681|South Africa|Polokwane|Polokwane
+163663|South Africa|Westonaria|Westonaria
+163662|South Africa|Roodepoort|Roodepoort
+163661|Yemen|Aden|Aden
+163660|Yemen|Al Ḩudaydah|Al Hudaydah
+163654|Vietnam|Thành phố Bạc Liêu|Thanh pho Bac Lieu
+163653|Vietnam|Biên Hòa|Bien Hoa
+163652|Vietnam|Buôn Ma Thuột|Buon Ma Thuot
+163650|Vietnam|Cẩm Phả Mines|Cam Pha Mines
+163643|Vietnam|Hà Nội|Ha Noi
+163642|Vietnam|Thành Phố Hòa Bình|Thanh Pho Hoa Binh
+163641|Vietnam|Hạ Long|Ha Long
+163640|Vietnam|Huế|Hue
+163639|Vietnam|Lagi|Lagi
+163623|Vietnam|Yên Vinh|Yen Vinh
+163621|Venezuela|Acarigua|Acarigua
+163620|Venezuela|Barcelona|Barcelona
+163649|Vietnam|Cam Ranh|Cam Ranh
+163619|Venezuela|Barquisimeto|Barquisimeto
+163617|Venezuela|Cabimas|Cabimas
+163616|Venezuela|Caracas|Caracas
+163615|Venezuela|Carúpano|Carupano
+163648|Vietnam|Cần Duộc|Can Duoc
+163613|Venezuela|Charallave|Charallave
+163612|Venezuela|Ciudad Bolívar|Ciudad Bolivar
+163611|Venezuela|Ciudad Guayana|Ciudad Guayana
+163609|Venezuela|Cúa|Cua
+163607|Venezuela|Ejido|Ejido
+163605|Venezuela|El Tigre|El Tigre
+163602|Venezuela|Guarenas|Guarenas
+163601|Venezuela|Guatire|Guatire
+163600|Venezuela|Maracaibo|Maracaibo
+163563|United States of America|Metropolitan Government of Nashville-Davidson (balance)|Metropolitan Government of Nashville-Davidson (balance)
+163552|United States of America|Salt Lake City|Salt Lake City
+163551|United States of America|Provo|Provo
+163550|United States of America|Salem|Salem
+163543|United States of America|Midland|Midland
+163542|United States of America|Lubbock|Lubbock
+163541|United States of America|El Paso|El Paso
+163540|United States of America|Amarillo|Amarillo
+163539|United States of America|Sunrise Manor|Sunrise Manor
+163562|United States of America|Anchorage|Anchorage
+163538|United States of America|Spring Valley|Spring Valley
+163560|United States of America|Vancouver|Vancouver
+163536|United States of America|Paradise|Paradise
+163646|Vietnam|Ðà Lạt|Ða Lat
+163558|United States of America|Spokane|Spokane
+163535|United States of America|North Las Vegas|North Las Vegas
+163554|United States of America|West Valley City|West Valley City
+163534|United States of America|Las Vegas|Las Vegas
+163553|United States of America|West Jordan|West Jordan
+163533|United States of America|Henderson|Henderson
+163645|Vietnam|Turan|Turan
+163644|Vietnam|Haiphong|Haiphong
+163546|United States of America|Billings|Billings
+163532|United States of America|Enterprise|Enterprise
+163523|United States of America|Aurora|Aurora
+163520|United States of America|Visalia|Visalia
+163519|United States of America|Victorville|Victorville
+163522|United States of America|Arvada|Arvada
+163512|United States of America|Sunnyvale|Sunnyvale
+163638|Vietnam|Long Xuyên|Long Xuyen
+163513|United States of America|Temecula|Temecula
+163511|United States of America|Stockton|Stockton
+163545|United States of America|Boise|Boise
+163506|United States of America|Santa Clara|Santa Clara
+163544|United States of America|Fort Collins|Fort Collins
+163504|United States of America|San Jose|San Jose
+163503|United States of America|San Francisco|San Francisco
+163537|United States of America|Reno|Reno
+163501|United States of America|San Bernardino|San Bernardino
+163497|United States of America|Riverside|Riverside
+163495|United States of America|Rancho Cucamonga|Rancho Cucamonga
+163488|United States of America|Ontario|Ontario
+163483|United States of America|Murrieta|Murrieta
+163637|Vietnam|Mỹ Tho|My Tho
+163481|United States of America|Modesto|Modesto
+163480|United States of America|Los Angeles|Los Angeles
+163469|United States of America|Fresno|Fresno
+163482|United States of America|Moreno Valley|Moreno Valley
+163467|United States of America|Fontana|Fontana
+163636|Vietnam|Thành Phố Nam Định|Thanh Pho Nam Đinh
+163464|United States of America|Elk Grove|Elk Grove
+163143|Turkey|Zonguldak|Zonguldak
+163134|Turkey|Antalya|Antalya
+163111|Turkey|Mercin|Mercin
+163106|Turkey|Siverek|Siverek
+163105|Turkey|Tarsus|Tarsus
+163604|Venezuela|Guacara|Guacara
+163092|Turkmenistan|Türkmenabat|Turkmenabat
+163603|Venezuela|Guanare|Guanare
+163090|Turkmenistan|Daşoguz|Dasoguz
+163089|Turkmenistan|Ashgabat|Ashgabat
+163086|Thailand|Ban Rangsit|Ban Rangsit
+163085|Thailand|Chon Buri|Chon Buri
+163078|Thailand|Mueang Nonthaburi|Mueang Nonthaburi
+163077|Thailand|Pak Kret|Pak Kret
+163076|Thailand|Phitsanulok|Phitsanulok
+163074|Thailand|Rayong|Rayong
+163599|Venezuela|Cagua|Cagua
+163073|Thailand|Samut Prakan|Samut Prakan
+163065|Togo|Kara|Kara
+163064|Togo|Lomé|Lome
+163066|Thailand|Surat Thani|Surat Thani
+163063|Togo|Sokodé|Sokode
+163598|Venezuela|Calabozo|Calabozo
+163061|Chad|N'Djamena|N'Djamena
+163059|Swaziland|Manzini|Manzini
+163048|El Salvador|Apopa|Apopa
+163047|El Salvador|Mejicanos|Mejicanos
+163046|El Salvador|Santa Tecla|Santa Tecla
+163045|El Salvador|San Miquel|San Miquel
+163043|El Salvador|Santa Ana|Santa Ana
+163037|Somalia|Jamaame|Jamaame
+163035|Somalia|Mogadishu|Mogadishu
+163354|United States of America|Killeen|Killeen
+163026|Sierra Leone|Freetown|Freetown
+163023|Slovakia|Košice|Kosice
+163022|Slovenia|Ljubljana|Ljubljana
+163019|Sweden|Kista|Kista
+163341|United States of America|Austin|Austin
+163018|Sweden|Malmö|Malmo
+163338|United States of America|New South Memphis|New South Memphis
+163017|Sweden|Stockholm|Stockholm
+163016|Sweden|Uppsala|Uppsala
+163000|Sudan|Omdurman|Omdurman
+162998|Saudi Arabia|Unaizah|Unaizah
+162997|Saudi Arabia|Abhā|Abha
+163002|Sudan|Rabak|Rabak
+163001|Sudan|Sinnar|Sinnar
+162988|Saudi Arabia|Riyadh|Riyadh
+162986|Saudi Arabia|Buraydah|Buraydah
+162985|Saudi Arabia|Hayil|Hayil
+162989|Saudi Arabia|‘Ar‘ar|‘Ar‘ar
+162982|Saudi Arabia|Khamīs Mushayt|Khamis Mushayt
+162960|Russia|Artëm|Artem
+162928|Russia|Novokuznetsk|Novokuznetsk
+162927|Russia|Novosibirsk|Novosibirsk
+162926|Russia|Noyabr'sk|Noyabr'sk
+162918|Russia|Yekaterinburg|Yekaterinburg
+162917|Russia|Al’met’yevsk|Al’met’yevsk
+162916|Russia|Arkhangel’sk|Arkhangel’sk
+162915|Russia|Armavir|Armavir
+162913|Russia|Astrakhan’|Astrakhan’
+162911|Russia|Balashikha|Balashikha
+162887|Russia|Izhevsk|Izhevsk
+162886|Russia|Izmaylovo|Izmaylovo
+162884|Russia|Korolëv|Korolev
+162878|Russia|Khimki|Khimki
+162858|Russia|Maykop|Maykop
+162857|Russia|Moscow|Moscow
+162854|Russia|Mytishchi|Mytishchi
+162847|Russia|Nizhniy Novgorod|Nizhniy Novgorod
+162846|Russia|Nizhniy Tagil|Nizhniy Tagil
+162845|Russia|Noginsk|Noginsk
+162880|Russia|Kazan|Kazan
+162819|Russia|Pskov|Pskov
+162817|Russia|Pushkino|Pushkino
+162805|Russia|Serpukhov|Serpukhov
+162785|Russia|Tëplyy Stan|Teplyy Stan
+162765|Russia|Yelets|Yelets
+162762|Russia|Zheleznodorozhnyy|Zheleznodorozhnyy
+162701|Puerto Rico|Ponce|Ponce
+162694|Poland|Bytom|Bytom
+162693|Poland|Chorzów|Chorzow
+162691|Poland|Dąbrowa Górnicza|Dabrowa Gornicza
+162690|Poland|Elblag|Elblag
+162650|Pakistan|Abbottābād|Abbottabad
+162649|Pakistan|Ahmadpur East|Ahmadpur East
+162876|Senegal|Tiébo|Tiebo
+162870|Russia|Kovrov|Kovrov
+162648|Pakistan|Bahāwalnagar|Bahawalnagar
+162869|Russia|Presnenskiy|Presnenskiy
+162647|Pakistan|Bahāwalpur|Bahawalpur
+162643|Pakistan|Chiniot|Chiniot
+162642|Pakistan|Chishtiān Mandi|Chishtian Mandi
+162616|Pakistan|Lārkāna|Larkana
+162615|Pakistan|Malir Cantonment|Malir Cantonment
+162867|Russia|Kursk|Kursk
+162866|Russia|Kuz’minki|Kuz’minki
+162503|Peru|Callao|Callao
+162497|Peru|Lima|Lima
+162496|Peru|Puno|Puno
+162485|Peru|Trujillo|Trujillo
+162484|Peru|Tumbes|Tumbes
+162335|Mozambique|Matola|Matola
+162334|Mozambique|Maxixe|Maxixe
+162686|Poland|Gorzów Wielkopolski|Gorzow Wielkopolski
+162333|Mozambique|Cidade de Nacala|Cidade de Nacala
+162685|Poland|Kalisz|Kalisz
+162320|Malaysia|Alor Setar|Alor Setar
+162307|Malaysia|Melaka|Melaka
+162286|Mexico|Celaya|Celaya
+162285|Mexico|Chihuahua|Chihuahua
+162174|Mexico|Tapachula|Tapachula
+160184|China|Lanzhou|Lanzhou
+160166|China|Liuyang|Liuyang
+160163|China|Kangding|Kangding
+160118|China|Shantou|Shantou
+160108|China|Shilong|Shilong
+162112|Moldova|Tiraspol|Tiraspol
+161946|North Korea|Haeju|Haeju
+161941|North Korea|Pyongyang|Pyongyang
+161885|Japan|Chiba|Chiba
+161882|Japan|Ichihara|Ichihara
+159464|Angola|Lobito|Lobito
+161763|Japan|Nagoya-shi|Nagoya-shi
+161758|Japan|Niihama|Niihama
+161715|Japan|Toyama-shi|Toyama-shi
+161484|India|Barddhamān|Barddhaman
+162684|Poland|Katowice|Katowice
+162305|Malaysia|Ipoh|Ipoh
+162403|Nigeria|Gashua|Gashua
+162402|Nigeria|Gbongan|Gbongan
+162681|Poland|Legnica|Legnica
+162401|Nigeria|Gombe|Gombe
+162865|Russia|Tsaritsyno|Tsaritsyno
+160353|China|Jagdaqi|Jagdaqi
+160348|China|Jining|Jining
+162398|Nigeria|Ibadan|Ibadan
+162303|Malaysia|Kulim|Kulim
+162381|Nigeria|Jimeta|Jimeta
+162375|Nigeria|Lafia|Lafia
+161481|India|Bārsi|Barsi
+162374|Nigeria|Lafiagi|Lafiagi
+162297|Malaysia|Shah Alam|Shah Alam
+162287|Mexico|Apodaca|Apodaca
+161480|India|Basti|Basti
+161479|India|Batāla|Batala
+161478|India|Beāwar|Beawar
+161477|India|Begusarai|Begusarai
+162283|Mexico|Ciudad Delicias|Ciudad Delicias
+161474|India|Bārāsat|Barasat
+161473|India|Bellary|Bellary
+161472|India|Bettiah|Bettiah
+162373|Nigeria|Lagos|Lagos
+161470|India|Bhadreswar|Bhadreswar
+161469|India|Bhāgalpur|Bhagalpur
+161467|India|Bharūch|Bharuch
+161466|India|Bhatinda|Bhatinda
+161464|India|Bhāvnagar|Bhavnagar
+161463|India|Bhayandar|Bhayandar
+161462|India|Bhilai|Bhilai
+161461|India|Bhīlwāra|Bhilwara
+161460|India|Bhīmavaram|Bhimavaram
+161459|India|Bhind|Bhind
+161458|India|Bhiwandi|Bhiwandi
+161457|India|Bhiwāni|Bhiwani
+161456|India|Bhopal|Bhopal
+161455|India|Bhubaneshwar|Bhubaneshwar
+161454|India|Bhuj|Bhuj
+161453|India|Bhusāwal|Bhusawal
+161452|India|Bīdar|Bidar
+161451|India|Bihār Sharīf|Bihar Sharif
+161450|India|Bijapur|Bijapur
+161449|India|Bīkāner|Bikaner
+162282|Mexico|Ciudad Guzmán|Ciudad Guzman
+162281|Mexico|Ciudad Juárez|Ciudad Juarez
+161447|India|Bokāro|Bokaro
+162371|Nigeria|Makurdi|Makurdi
+161446|India|Mumbai|Mumbai
+161444|India|Botād|Botad
+161442|India|Budaun|Budaun
+161441|India|Bulandshahr|Bulandshahr
+161440|India|Burhānpur|Burhanpur
+163282|United States of America|Atlanta|Atlanta
+160447|Cuba|Manzanillo|Manzanillo
+159474|Argentina|Mar del Plata|Mar del Plata
+160436|Colombia|Barranquilla|Barranquilla
+160404|Colombia|Sogamoso|Sogamoso
+160403|Colombia|Soledad|Soledad
+160397|China|Wenshan City|Wenshan City
+160396|China|Ordos|Ordos
+160402|Colombia|Tuluá|Tulua
+160395|China|Zhu Cheng City|Zhu Cheng City
+160401|Colombia|Tunja|Tunja
+160400|Colombia|Valledupar|Valledupar
+160399|Colombia|Villavicencio|Villavicencio
+160394|China|Fenghuang|Fenghuang
+160398|China|Liupanshui|Liupanshui
+160393|China|Jiashan|Jiashan
+160392|China|Changshu City|Changshu City
+160391|China|Acheng|Acheng
+160390|China|Anda|Anda
+160387|China|Baicheng|Baicheng
+160386|China|Baoshan|Baoshan
+160385|China|Baotou|Baotou
+160389|China|Anshan|Anshan
+160384|China|Bei’an|Bei’an
+160378|China|Chifeng|Chifeng
+160388|China|Baishan|Baishan
+160377|China|Dandong|Dandong
+160383|China|Beipiao|Beipiao
+160376|China|Daqing|Daqing
+160374|China|Dehui|Dehui
+160373|China|Dongxing|Dongxing
+160372|China|Dongling|Dongling
+160371|China|Dunhua|Dunhua
+160370|China|Fengcheng|Fengcheng
+160369|China|Fushun|Fushun
+160368|China|Fuxin|Fuxin
+160366|China|Gongzhuling|Gongzhuling
+160367|China|Fuyu|Fuyu
+160365|China|Haicheng|Haicheng
+160364|China|Hailar|Hailar
+160363|China|Hailun|Hailun
+160360|China|Heihe|Heihe
+160358|China|Hohhot|Hohhot
+160357|China|Honggang|Honggang
+160355|China|Hulan|Hulan
+160354|China|Hulan Ergi|Hulan Ergi
+160352|China|Jalai Nur|Jalai Nur
+160351|China|Jiamusi|Jiamusi
+160350|China|Jiaohe|Jiaohe
+160349|China|Jilin|Jilin
+160346|China|Jinzhou|Jinzhou
+160345|China|Jishu|Jishu
+160342|China|Jixi|Jixi
+160341|China|Kaiyuan|Kaiyuan
+160340|China|Liaoyang|Liaoyang
+160343|China|Jiutai|Jiutai
+160338|China|Longfeng|Longfeng
+160359|China|Fendou|Fendou
+160337|China|Longjiang|Longjiang
+160356|China|Huadian|Huadian
+160336|China|Longjing|Longjing
+160334|China|Lianhe|Lianhe
+160382|China|Benxi|Benxi
+160332|China|Nehe|Nehe
+160381|China|Changchun|Changchun
+160330|China|Qianguo|Qianguo
+160380|China|Chaoyang|Chaoyang
+160379|China|Chengde|Chengde
+160329|China|Qiqihar|Qiqihar
+160328|China|Taihe|Taihe
+160327|China|Fendou|Fendou
+160375|China|Datong|Datong
+160326|China|Shenyang|Shenyang
+160325|China|Shuangcheng|Shuangcheng
+160321|China|Suihua|Suihua
+160320|China|Sujiatun|Sujiatun
+160319|China|Guangming|Guangming
+160362|China|Harbin|Harbin
+160318|China|Tieli|Tieli
+160335|China|Mudanjiang|Mudanjiang
+160317|China|Tieling|Tieling
+160316|China|Tongliao|Tongliao
+160315|China|Ulanhot|Ulanhot
+160314|China|Xilin Hot|Xilin Hot
+160310|China|Yichun|Yichun
+160308|China|Yushu|Yushu
+160307|China|Zalantun|Zalantun
+160324|China|Shuangyashan|Shuangyashan
+160306|China|Zhangjiakou|Zhangjiakou
+160305|China|Zhaodong|Zhaodong
+160304|China|Yueyang|Yueyang
+160303|China|Lianghu|Lianghu
+160301|China|Suzhou|Suzhou
+160300|China|Jiangyou|Jiangyou
+160299|China|Anbu|Anbu
+160298|China|Anqing|Anqing
+160297|China|Anqiu|Anqiu
+160296|China|Anshun|Anshun
+160295|China|Shangyu|Shangyu
+160435|Colombia|Bello|Bello
+160287|China|Boshan|Boshan
+160286|China|Bozhou|Bozhou
+160434|Colombia|Bogotá|Bogota
+160285|China|Buhe|Buhe
+160283|China|Changsha|Changsha
+160281|China|Changzhou|Changzhou
+160280|China|Chaohu|Chaohu
+160278|China|Chenghua|Chenghua
+160276|China|Chengjiang|Chengjiang
+160274|China|Chizhou|Chizhou
+160282|China|Changzhi|Changzhi
+160273|China|Chongqing|Chongqing
+160272|China|Yangchun|Yangchun
+160279|China|Chaozhou|Chaozhou
+160271|China|Chuzhou|Chuzhou
+160265|China|Dazhou|Dazhou
+160264|China|Dayan|Dayan
+160260|China|Dongguan|Dongguan
+160270|China|Dali|Dali
+160257|China|Dongying|Dongying
+160256|China|Encheng|Encheng
+160255|China|Ezhou|Ezhou
+162369|Nigeria|Modakeke|Modakeke
+161438|India|Bilimora|Bilimora
+161437|India|Chandannagar|Chandannagar
+161436|India|Chandausi|Chandausi
+161435|India|Chandigarh|Chandigarh
+161434|India|Chandrapur|Chandrapur
+161433|India|Chās|Chas
+161432|India|Chhatarpur|Chhatarpur
+161430|India|Chikmagalūr|Chikmagalur
+161428|India|Chittaurgarh|Chittaurgarh
+161427|India|Chūru|Churu
+162368|Nigeria|Mubi|Mubi
+161426|India|Cochin|Cochin
+162363|Nigeria|Offa|Offa
+162360|Nigeria|Ondo|Ondo
+162359|Nigeria|Onitsha|Onitsha
+160237|China|Handan|Handan
+161425|India|Coimbatore|Coimbatore
+160222|China|Huanggang|Huanggang
+161424|India|Cuddalore|Cuddalore
+162357|Nigeria|Owo|Owo
+161423|India|Cuddapah|Cuddapah
+161422|India|Cuttack|Cuttack
+161421|India|Damoh|Damoh
+162356|Nigeria|Oyo|Oyo
+161420|India|Dānāpur|Danapur
+161419|India|Darbhanga|Darbhanga
+162355|Nigeria|Pindiga|Pindiga
+162353|Nigeria|Sapele|Sapele
+162279|Mexico|Colima|Colima
+161418|India|Dārjiling|Darjiling
+161417|India|Dehradun|Dehradun
+161414|India|Deoria|Deoria
+162352|Nigeria|Shagamu|Shagamu
+161304|India|Kolār|Kolar
+162669|Poland|Włocławek|Włocławek
+161303|India|Kolhāpur|Kolhapur
+161302|India|Korba|Korba
+161301|India|Kota|Kota
+161299|India|Krishnanagar|Krishnanagar
+161297|India|Kulti|Kulti
+161296|India|Kumbakonam|Kumbakonam
+161295|India|Lakhīmpur|Lakhimpur
+162668|Poland|Wrocław|Wrocław
+161294|India|Lalitpur|Lalitpur
+161293|India|Latur|Latur
+161292|India|Loni|Loni
+161291|India|Lucknow|Lucknow
+161290|India|Ludhiāna|Ludhiana
+161288|India|Madanapalle|Madanapalle
+161286|India|Chennai|Chennai
+161284|India|Mahbūbnagar|Mahbubnagar
+161283|India|Mālegaon|Malegaon
+161282|India|Māler Kotla|Maler Kotla
+161281|India|Mandsaur|Mandsaur
+161280|India|Māndu|Mandu
+161279|India|Mandya|Mandya
+161278|India|Mangalore|Mangalore
+161277|India|Marmagao|Marmagao
+162667|Poland|Zabrze|Zabrze
+162666|Poland|Zielona Góra|Zielona Gora
+162664|Poland|Białystok|Białystok
+161275|India|Mau|Mau
+161274|India|Medinīpur|Medinipur
+161272|India|Miriālgūda|Mirialguda
+161270|India|Moga|Moga
+161269|India|Morādābād|Moradabad
+162863|Russia|Lyubertsy|Lyubertsy
+161268|India|Morbi|Morbi
+161267|India|Morena|Morena
+162862|Russia|Lyublino|Lyublino
+161266|India|Motīhāri|Motihari
+161265|India|Munger|Munger
+161264|India|Murwāra|Murwara
+161263|India|Muzaffarnagar|Muzaffarnagar
+161262|India|Muzaffarpur|Muzaffarpur
+161261|India|Mysore|Mysore
+161260|India|Nadiād|Nadiad
+161259|India|Nagda|Nagda
+161258|India|Nāgercoil|Nagercoil
+161257|India|Nāgpur|Nagpur
+161256|India|Naihāti|Naihati
+161255|India|Nalgonda|Nalgonda
+161254|India|Nānded|Nanded
+162663|Poland|Bielany|Bielany
+161253|India|Nandurbār|Nandurbar
+162662|Poland|Kielce|Kielce
+162660|Poland|Mokotów|Mokotow
+161252|India|Nandyāl|Nandyal
+161251|India|Nāngloi Jāt|Nangloi Jat
+161250|India|Nāsik|Nasik
+161249|India|Navadwīp|Navadwip
+162659|Poland|Olsztyn|Olsztyn
+161248|India|Nellore|Nellore
+162658|Poland|Radom|Radom
+161246|India|Nizāmābād|Nizamabad
+161244|India|Orai|Orai
+161243|India|Pālanpur|Palanpur
+162656|Poland|Śródmieście|Srodmiescie
+161242|India|Palakkad|Palakkad
+161241|India|Pāli|Pali
+161239|India|Palwal|Palwal
+161238|India|Pānihāti|Panihati
+159457|Albania|Tirana|Tirana
+159456|Albania|Elbasan|Elbasan
+161236|India|Panvel|Panvel
+162655|Poland|Targówek|Targowek
+161235|India|Parbhani|Parbhani
+159455|Afghanistan|Baghlān|Baghlan
+161234|India|Pātan|Patan
+162652|Poland|Wola|Wola
+159454|Afghanistan|Balkh|Balkh
+159453|Afghanistan|Gardēz|Gardez
+159452|Afghanistan|Ghazni|Ghazni
+159449|Afghanistan|Kabul|Kabul
+159448|Afghanistan|Kandahār|Kandahar
+159447|Afghanistan|Kunduz|Kunduz
+159444|United Arab Emirates|Ajman|Ajman
+161233|India|Pathankot|Pathankot
+161232|India|Patiāla|Patiala
+161231|India|Patna|Patna
+161230|India|Phagwāra|Phagwara
+161229|India|Pīlībhīt|Pilibhit
+161228|India|Pimpri|Pimpri
+162651|Pakistan|Bahāwalnagar|Bahawalnagar
+161227|India|Puducherry|Puducherry
+162646|Pakistan|Bhimbar|Bhimbar
+162645|Pakistan|Būrewāla|Burewala
+161222|India|Pudukkottai|Pudukkottai
+162860|Russia|Makhachkala|Makhachkala
+162859|Russia|Mar’ino|Mar’ino
+161221|India|Punāsa|Punasa
+162644|Pakistan|Chakwāl|Chakwal
+161220|India|Pune|Pune
+162641|Pakistan|Dadu|Dadu
+161218|India|Purnia|Purnia
+162853|Russia|Naberezhnyye Chelny|Naberezhnyye Chelny
+161217|India|Puruliya|Puruliya
+162640|Pakistan|Daska|Daska
+161216|India|Kollam|Kollam
+162852|Russia|Nal’chik|Nal’chik
+161214|India|Rāichūr|Raichur
+161213|India|Rāiganj|Raiganj
+161212|India|Raigarh|Raigarh
+161211|India|Raigarh Fort|Raigarh Fort
+161210|India|Raipur|Raipur
+161209|India|Rājahmundry|Rajahmundry
+161208|India|Rajapalaiyam|Rajapalaiyam
+161207|India|Rājkot|Rajkot
+161206|India|Rāj Nāndgaon|Raj Nandgaon
+161205|India|Rāmpur|Rampur
+161204|India|Ranchi|Ranchi
+162639|Pakistan|Dera Ghazi Khan|Dera Ghazi Khan
+161203|India|Rānīganj|Raniganj
+161201|India|Rewa|Rewa
+161200|India|Rewāri|Rewari
+161199|India|Rishra|Rishra
+161198|India|Robertsonpet|Robertsonpet
+161197|India|Rohtak|Rohtak
+161196|India|Roorkee|Roorkee
+162851|Russia|Nazran’|Nazran’
+162848|Russia|Nizhnekamsk|Nizhnekamsk
+161194|India|Sahāranpur|Saharanpur
+161193|India|Saharsa|Saharsa
+161192|India|Salem|Salem
+162843|Russia|Novocheboksarsk|Novocheboksarsk
+161190|India|Sambhal|Sambhal
+161189|India|Sāngli|Sangli
+161188|India|Sātāra|Satara
+161187|India|Satna|Satna
+162638|Pakistan|Dera Ismāīl Khān|Dera Ismail Khan
+161184|India|Seonī|Seoni
+161182|India|Shāntipur|Shantipur
+161181|India|Shiliguri|Shiliguri
+162637|Pakistan|Faisalābād|Faisalabad
+161180|India|Shillong|Shillong
+162636|Pakistan|Gojra|Gojra
+161178|India|Shivpurī|Shivpuri
+161177|India|Solāpur|Solapur
+161176|India|Shrīrāmpur|Shrirampur
+161175|India|Shyamnagar|Shyamnagar
+161174|India|Sīkar|Sikar
+162273|Mexico|General Escobedo|General Escobedo
+161173|India|Silchar|Silchar
+162841|Russia|Novokuybyshevsk|Novokuybyshevsk
+162272|Mexico|Gómez Palacio|Gomez Palacio
+161171|India|Sirsa|Sirsa
+162271|Mexico|Guadalajara|Guadalajara
+161170|India|Sītāpur|Sitapur
+161169|India|Siwān|Siwan
+162267|Mexico|Nogales|Nogales
+161167|India|Srīkākulam|Srikakulam
+161166|India|Srinagar|Srinagar
+161164|India|Sultānpur|Sultanpur
+161163|India|Sūrat|Surat
+162258|Mexico|Monclova|Monclova
+161162|India|Surendranagar|Surendranagar
+161161|India|Suriāpet|Suriapet
+161160|India|Tādepallegūdem|Tadepallegudem
+161159|India|Teni|Teni
+161158|India|Thāne|Thane
+162837|Russia|Novyye Cherëmushki|Novyye Cheremushki
+161157|India|Thānesar|Thanesar
+161156|India|Thanjāvūr|Thanjavur
+162257|Mexico|Monterrey|Monterrey
+161155|India|Tiruchirappalli|Tiruchirappalli
+161152|India|Tiruppur|Tiruppur
+161151|India|Tiruvannāmalai|Tiruvannamalai
+161150|India|Tiruvottiyūr|Tiruvottiyur
+162256|Mexico|Morelia|Morelia
+161149|India|Titāgarh|Titagarh
+161148|India|Tonk|Tonk
+161147|India|Trichūr|Trichur
+161146|India|Thiruvananthapuram|Thiruvananthapuram
+162254|Mexico|Puerto Vallarta|Puerto Vallarta
+161145|India|Tumkūr|Tumkur
+163463|United States of America|El Monte|El Monte
+163458|United States of America|Corona|Corona
+163448|United States of America|Tempe Junction|Tempe Junction
+163447|United States of America|Tempe|Tempe
+163446|United States of America|Surprise|Surprise
+163445|United States of America|Scottsdale|Scottsdale
+163444|United States of America|Phoenix|Phoenix
+163443|United States of America|Peoria|Peoria
+163442|United States of America|Mesa|Mesa
+163441|United States of America|Glendale|Glendale
+163440|United States of America|Gilbert|Gilbert
+163439|United States of America|Chandler|Chandler
+163635|Vietnam|Nha Trang|Nha Trang
+163426|United States of America|Yonkers|Yonkers
+163634|Vietnam|Phan Thiết|Phan Thiet
+163421|United States of America|Manhattan|Manhattan
+163418|United States of America|Buffalo|Buffalo
+163633|Vietnam|Pleiku|Pleiku
+163411|United States of America|Elizabeth|Elizabeth
+163410|United States of America|Edison|Edison
+163408|United States of America|Omaha|Omaha
+163406|United States of America|Fargo|Fargo
+163395|United States of America|Worcester|Worcester
+163394|United States of America|Springfield|Springfield
+163392|United States of America|Lowell|Lowell
+163415|United States of America|Amherst|Amherst
+163391|United States of America|Cambridge|Cambridge
+163370|United States of America|Norfolk|Norfolk
+163368|United States of America|Hampton|Hampton
+163367|United States of America|East Hampton|East Hampton
+163366|United States of America|Chesapeake|Chesapeake
+163361|United States of America|San Antonio|San Antonio
+163356|United States of America|McAllen|McAllen
+163351|United States of America|Grand Prairie|Grand Prairie
+163342|United States of America|Beaumont|Beaumont
+163384|United States of America|Naperville|Naperville
+163383|United States of America|Joliet|Joliet
+163304|United States of America|Baltimore|Baltimore
+163382|United States of America|Elgin|Elgin
+163381|United States of America|Chicago|Chicago
+163302|United States of America|New Orleans|New Orleans
+163286|United States of America|Evansville|Evansville
+163285|United States of America|Springfield|Springfield
+163283|United States of America|Columbus|Columbus
+163631|Vietnam|Sa Pá|Sa Pa
+163280|United States of America|Tampa|Tampa
+163279|United States of America|Tallahassee|Tallahassee
+163278|United States of America|Saint Petersburg|Saint Petersburg
+163276|United States of America|Pembroke Pines|Pembroke Pines
+163380|United States of America|Aurora|Aurora
+163379|United States of America|Des Moines|Des Moines
+163274|United States of America|Orlando|Orlando
+163273|United States of America|Miramar|Miramar
+163373|United States of America|Hartford|Hartford
+163270|United States of America|Jacksonville|Jacksonville
+163630|Vietnam|Sóc Trăng|Soc Trang
+163365|United States of America|Arlington|Arlington
+163267|United States of America|Fort Lauderdale|Fort Lauderdale
+163364|United States of America|Alexandria|Alexandria
+163363|United States of America|Wichita Falls|Wichita Falls
+163266|United States of America|Hollywood|Hollywood
+163355|United States of America|Laredo|Laredo
+163265|United States of America|Coral Springs|Coral Springs
+163190|Tanzania|Zanzibar|Zanzibar
+163188|Taiwan|Taoyuan City|Taoyuan City
+163629|Vietnam|Thái Nguyên|Thai Nguyen
+163186|Taiwan|Hsinchu|Hsinchu
+163187|Taiwan|Keelung|Keelung
+163184|Taiwan|Kaohsiung|Kaohsiung
+163628|Vietnam|Thanh Hóa|Thanh Hoa
+163183|Taiwan|Nantou|Nantou
+163182|Taiwan|Banqiao|Banqiao
+163181|Taiwan|Taichung|Taichung
+163180|Taiwan|Tainan|Tainan
+163627|Vietnam|Thành phố Hồ Chí Minh|Thanh pho Ho Chi Minh
+163626|Vietnam|Vinh|Vinh
+163178|Taiwan|Douliu|Douliu
+163625|Vietnam|Vĩnh Long|Vinh Long
+163175|Turkey|Sultanbeyli|Sultanbeyli
+163174|Turkey|Sultangazi|Sultangazi
+163172|Turkey|Çankaya|Cankaya
+163171|Turkey|Büyükçekmece|Buyukcekmece
+163156|Turkey|İstanbul|Istanbul
+163155|Turkey|İzmit|Izmit
+163154|Turkey|Maltepe|Maltepe
+163153|Turkey|Ordu|Ordu
+163152|Turkey|Samsun|Samsun
+163151|Turkey|Şişli|Sisli
+163150|Turkey|Tekirdağ|Tekirdag
+161144|India|Udaipur|Udaipur
+161143|India|Udgīr|Udgir
+161141|India|Ujjain|Ujjain
+162635|Pakistan|Gujrānwāla|Gujranwala
+161139|India|Unnāo|Unnao
+161138|India|Uppal Kalan|Uppal Kalan
+161137|India|Vadodara|Vadodara
+161136|India|Vārānasi|Varanasi
+161135|India|Vāsco Da Gāma|Vasco Da Gama
+162634|Pakistan|Gujrāt|Gujrat
+161131|India|Vidisha|Vidisha
+161130|India|Vijayawāda|Vijayawada
+162836|Russia|Novyye Kuz’minki|Novyye Kuz’minki
+162633|Pakistan|Hāfizābād|Hafizabad
+161129|India|Virār|Virar
+162628|Pakistan|Jhang Sadr|Jhang Sadr
+161126|India|Warangal|Warangal
+161125|India|Wardha|Wardha
+161124|India|Yamunānagar|Yamunanagar
+161123|India|Yavatmāl|Yavatmal
+161122|India|Yelahanka|Yelahanka
+161121|Israel|West Jerusalem|West Jerusalem
+161120|Israel|Petah Tikva|Petah Tikva
+162835|Russia|Obninsk|Obninsk
+162627|Pakistan|Jhelum|Jhelum
+161117|Israel|Bat Yam|Bat Yam
+161115|Israel|Bené Beraq|Bene Beraq
+161113|Israel|H̱olon|Holon
+161112|Israel|Netanya|Netanya
+162626|Pakistan|Kamālia|Kamalia
+162625|Pakistan|Kamoke|Kamoke
+161111|Israel|Ramat Gan|Ramat Gan
+161110|Israel|Rishon LeẔiyyon|Rishon LeZiyyon
+162623|Pakistan|Kasūr|Kasur
+161052|Indonesia|Kresek|Kresek
+161047|Indonesia|Lubuklinggau|Lubuklinggau
+161046|Indonesia|Lumajang|Lumajang
+162804|Russia|Severnyy|Severnyy
+162800|Russia|Shchukino|Shchukino
+161045|Indonesia|Madiun|Madiun
+161043|Indonesia|Malang|Malang
+161041|Indonesia|Martapura|Martapura
+161039|Indonesia|Metro|Metro
+161038|Indonesia|Mojokerto|Mojokerto
+161034|Indonesia|Palopo|Palopo
+161030|Indonesia|Pangkalpinang|Pangkalpinang
+161023|Indonesia|Payakumbuh|Payakumbuh
+161022|Indonesia|Pekalongan|Pekalongan
+161021|Indonesia|Pekanbaru|Pekanbaru
+161020|Indonesia|Pemalang|Pemalang
+162797|Russia|Solikamsk|Solikamsk
+162796|Russia|Solntsevo|Solntsevo
+161017|Indonesia|Pontianak|Pontianak
+162793|Russia|Sterlitamak|Sterlitamak
+161015|Indonesia|Purwakarta|Purwakarta
+161010|Indonesia|Salatiga|Salatiga
+161009|Indonesia|Samarinda|Samarinda
+161008|Indonesia|Sawangan|Sawangan
+161007|Indonesia|Semarang|Semarang
+161004|Indonesia|Sidoarjo|Sidoarjo
+162253|Mexico|Santiago de Querétaro|Santiago de Queretaro
+162251|Mexico|Salamanca|Salamanca
+161002|Indonesia|Singkawang|Singkawang
+162792|Russia|Strogino|Strogino
+160997|Indonesia|Sumedang Utara|Sumedang Utara
+160996|Indonesia|Surabaya|Surabaya
+162250|Mexico|Saltillo|Saltillo
+160995|Indonesia|Surakarta|Surakarta
+160993|Indonesia|Bandarlampung|Bandarlampung
+162248|Mexico|San Luis Potosí|San Luis Potosi
+160991|Indonesia|Tasikmalaya|Tasikmalaya
+160990|Indonesia|Tegal|Tegal
+160984|Indonesia|Banda Aceh|Banda Aceh
+162789|Russia|Taganskiy|Taganskiy
+160982|Indonesia|Binjai|Binjai
+162787|Russia|Tambov|Tambov
+162786|Russia|Tekstil’shchiki|Tekstil’shchiki
+160979|Indonesia|Padangsidempuan|Padangsidempuan
+160978|Indonesia|Pematangsiantar|Pematangsiantar
+160972|Indonesia|Tebingtinggi|Tebingtinggi
+160971|Hungary|Budapest III. kerület|Budapest III. kerulet
+160970|Hungary|Budapest XIII. kerület|Budapest XIII. kerulet
+160969|Hungary|Budapest XIV. kerület|Budapest XIV. kerulet
+160968|Hungary|Budapest XI. kerület|Budapest XI. kerulet
+160967|Hungary|Budapest|Budapest
+162784|Russia|Tol’yatti|Tol’yatti
+160966|Hungary|Győr|Gyor
+160965|Hungary|Kecskemét|Kecskemet
+161943|North Korea|Kaesŏng|Kaesong
+162783|Russia|Troparëvo|Troparevo
+160964|Hungary|Pécs|Pecs
+162780|Russia|Ufa|Ufa
+160963|Hungary|Székesfehérvár|Szekesfehervar
+161942|North Korea|Namp’o|Namp’o
+160962|Hungary|Debrecen|Debrecen
+160961|Hungary|Miskolc|Miskolc
+162779|Russia|Ukhta|Ukhta
+162772|Russia|Vologda|Vologda
+160960|Hungary|Nyíregyháza|Nyiregyhaza
+160959|Hungary|Szeged|Szeged
+160958|Haiti|Cap-Haïtien|Cap-Haitien
+160957|Haiti|Carrefour|Carrefour
+160956|Haiti|Les Cayes|Les Cayes
+162771|Russia|Volzhskiy|Volzhskiy
+162770|Russia|Voronezh|Voronezh
+162769|Russia|Veshnyaki|Veshnyaki
+160955|Haiti|Croix des Bouquets|Croix des Bouquets
+162768|Russia|Vykhino-Zhulebino|Vykhino-Zhulebino
+162767|Russia|Yaroslavl'|Yaroslavl'
+160953|Haiti|Jacmel|Jacmel
+160952|Haiti|Léogâne|Leogane
+160951|Haiti|Pétionville|Petionville
+160950|Haiti|Petit Goâve|Petit Goave
+160948|Croatia|Zagreb - Centar|Zagreb - Centar
+160947|Croatia|Rijeka|Rijeka
+162760|Russia|Zlatoust|Zlatoust
+162759|Russia|Zyablikovo|Zyablikovo
+160946|Croatia|Split|Split
+160945|Croatia|Zagreb|Zagreb
+160944|Honduras|Choloma|Choloma
+160943|Honduras|El Progreso|El Progreso
+160941|Honduras|San Pedro Sula|San Pedro Sula
+160940|Honduras|Tegucigalpa|Tegucigalpa
+163335|United States of America|Memphis|Memphis
+160937|Guyana|Georgetown|Georgetown
+160935|Guatemala|Guatemala City|Guatemala City
+160934|Guatemala|Escuintla|Escuintla
+160933|Guatemala|Mixco|Mixco
+160932|Guatemala|Petapa|Petapa
+160931|Guatemala|Quetzaltenango|Quetzaltenango
+160930|Guatemala|San Juan Sacatepéquez|San Juan Sacatepequez
+160929|Guatemala|Villa Canales|Villa Canales
+160928|Guatemala|Villa Nueva|Villa Nueva
+160927|Greece|Thessaloníki|Thessaloniki
+160926|Greece|Athens|Athens
+160925|Greece|Irákleion|Irakleion
+160923|Greece|Lárisa|Larisa
+160920|Greece|Piraeus|Piraeus
+160919|Equatorial Guinea|Bata|Bata
+160918|Equatorial Guinea|Malabo|Malabo
+160917|Guinea|Camayenne|Camayenne
+160915|Guinea|Kankan|Kankan
+160914|Guinea|Kindia|Kindia
+160913|Guinea|Nzérékoré|Nzerekore
+160912|Ghana|Accra|Accra
+162756|Serbia|Subotica|Subotica
+160911|Ghana|Achiaman|Achiaman
+160910|Ghana|Cape Coast|Cape Coast
+160908|Ghana|Medina Estates|Medina Estates
+160906|Ghana|Sekondi-Takoradi|Sekondi-Takoradi
+160905|Ghana|Takoradi|Takoradi
+160903|Ghana|Tema|Tema
+162754|Serbia|Čačak|Cacak
+160902|Ghana|Teshi Old Town|Teshi Old Town
+160901|Georgia|Batumi|Batumi
+162753|Serbia|Kragujevac|Kragujevac
+160900|Georgia|K'ut'aisi|K'ut'aisi
+160899|Georgia|Tbilisi|Tbilisi
+160897|United Kingdom|Becontree|Becontree
+160895|United Kingdom|Aberdeen|Aberdeen
+160892|United Kingdom|Bexley|Bexley
+160891|United Kingdom|Birmingham|Birmingham
+160888|United Kingdom|Bolton|Bolton
+160887|United Kingdom|Bournemouth|Bournemouth
+160886|United Kingdom|Bradford|Bradford
+160885|United Kingdom|Brighton|Brighton
+160884|United Kingdom|Bristol|Bristol
+160882|United Kingdom|Cardiff|Cardiff
+160880|United Kingdom|Cheltenham|Cheltenham
+160878|United Kingdom|Coventry|Coventry
+160876|United Kingdom|Dagenham|Dagenham
+160874|United Kingdom|Dudley|Dudley
+160873|United Kingdom|Dundee|Dundee
+160871|United Kingdom|Edinburgh|Edinburgh
+163334|United States of America|Knoxville|Knoxville
+160867|United Kingdom|Gloucester|Gloucester
+160866|United Kingdom|Huddersfield|Huddersfield
+160294|China|Baiyin|Baiyin
+160864|United Kingdom|Islington|Islington
+160863|United Kingdom|Hull|Hull
+160862|United Kingdom|Leeds|Leeds
+160859|United Kingdom|London|London
+160858|United Kingdom|City of London|City of London
+160856|United Kingdom|Manchester|Manchester
+160293|China|Baoding|Baoding
+160853|United Kingdom|Newcastle upon Tyne|Newcastle upon Tyne
+160292|China|Beibei|Beibei
+160290|China|Beijing|Beijing
+160852|United Kingdom|Newport|Newport
+160851|United Kingdom|Northampton|Northampton
+160848|United Kingdom|Oldham|Oldham
+160847|United Kingdom|Oxford|Oxford
+160846|United Kingdom|Peterborough|Peterborough
+160845|United Kingdom|Plymouth|Plymouth
+160844|United Kingdom|Poole|Poole
+160843|United Kingdom|Portsmouth|Portsmouth
+160841|United Kingdom|Reading|Reading
+160840|United Kingdom|Rotherham|Rotherham
+160837|United Kingdom|Slough|Slough
+160836|United Kingdom|Southampton|Southampton
+162245|Mexico|Santa Catarina|Santa Catarina
+160835|United Kingdom|Southend-on-Sea|Southend-on-Sea
+159807|Brazil|Boa Vista|Boa Vista
+159804|Brazil|Rio Branco|Rio Branco
+162243|Mexico|Tepic|Tepic
+159802|Brazil|Guaíba|Guaiba
+159801|Brazil|Alagoinhas|Alagoinhas
+159798|Brazil|Angra dos Reis|Angra dos Reis
+160289|China|Bengbu|Bengbu
+163330|United States of America|Columbia|Columbia
+159796|Brazil|Aracaju|Aracaju
+160431|Colombia|Buga|Buga
+159795|Brazil|Araçatuba|Aracatuba
+159794|Brazil|Araraquara|Araraquara
+159793|Brazil|Araras|Araras
+159791|Brazil|Araucária|Araucaria
+161413|India|Dewas|Dewas
+162277|Mexico|Victoria de Durango|Victoria de Durango
+161412|India|Dhanbād|Dhanbad
+161410|India|Dhaulpur|Dhaulpur
+161409|India|Dhule|Dhule
+162351|Nigeria|Saki|Saki
+162350|Nigeria|Sokoto|Sokoto
+161408|India|Dibrugarh|Dibrugarh
+162349|Nigeria|Suleja|Suleja
+162348|Nigeria|Ugep|Ugep
+161407|India|Dimāpur|Dimapur
+161405|India|Dombivli|Dombivli
+161404|India|Dam Dam|Dam Dam
+161403|India|Durg|Durg
+161402|India|Durgāpur|Durgapur
+161401|India|Elūru|Eluru
+161400|India|Erode|Erode
+161399|India|Etāwah|Etawah
+161398|India|Faizābād|Faizabad
+161397|India|Farīdābād|Faridabad
+161396|India|Farrukhābād|Farrukhabad
+161395|India|Fatehpur|Fatehpur
+161394|India|Fīrozābād|Firozabad
+161393|India|Fīrozpur|Firozpur
+161390|India|Ghandinagar|Ghandinagar
+161389|India|Gangānagar|Ganganagar
+161388|India|Gangāpur|Gangapur
+161387|India|Gangāwati|Gangawati
+162347|Nigeria|Umuahia|Umuahia
+161386|India|Guwāhāti|Guwahati
+162346|Nigeria|Uromi|Uromi
+161385|India|Gaya|Gaya
+162344|Nigeria|Zaria|Zaria
+162343|Niger|Maradi|Maradi
+162342|Niger|Niamey|Niamey
+161383|India|Ghāzīpur|Ghazipur
+161382|India|Godhra|Godhra
+161381|India|Gonda|Gonda
+161380|India|Gondal|Gondal
+161378|India|Gorakhpur|Gorakhpur
+162341|Niger|Zinder|Zinder
+162340|Namibia|Windhoek|Windhoek
+161375|India|Gudivāda|Gudivada
+161374|India|Gulbarga|Gulbarga
+161373|India|Guna|Guna
+161372|India|Guntakal|Guntakal
+161371|India|Guntūr|Guntur
+162680|Poland|Łódź|Łodz
+161369|India|Gwalior|Gwalior
+161368|India|Hābra|Habra
+161367|India|Hājīpur|Hajipur
+161366|India|Haldwani|Haldwani
+161365|India|Hālīsahar|Halisahar
+161364|India|Hanumāngarh|Hanumangarh
+161363|India|Hāora|Haora
+161362|India|Hāpur|Hapur
+161361|India|Hardoī|Hardoi
+161360|India|Haridwar|Haridwar
+161359|India|Hassan|Hassan
+161358|India|Hāthras|Hathras
+161357|India|Hazārībāg|Hazaribag
+161355|India|Hisār|Hisar
+161354|India|Hoshangābād|Hoshangabad
+161353|India|Hoshiārpur|Hoshiarpur
+162679|Poland|Opole|Opole
+161352|India|Hospet|Hospet
+161351|India|Hosūr|Hosur
+161350|India|Hubli|Hubli
+161349|India|Hugli|Hugli
+161348|India|Hyderabad|Hyderabad
+161347|India|Ichalkaranji|Ichalkaranji
+161346|India|Imphal|Imphal
+162677|Poland|Poznań|Poznan
+161345|India|Indore|Indore
+161344|India|Ingrāj Bāzār|Ingraj Bazar
+162676|Poland|Ruda Śląska|Ruda Slaska
+162675|Poland|Rybnik|Rybnik
+162338|Mozambique|Chimoio|Chimoio
+161342|India|Jabalpur|Jabalpur
+162331|Mozambique|Pemba|Pemba
+161341|India|Jagādhri|Jagadhri
+162673|Poland|Szczecin|Szczecin
+162672|Poland|Toruń|Torun
+161339|India|Jālgaon|Jalgaon
+161338|India|Jālna|Jalna
+162671|Poland|Tychy|Tychy
+161337|India|Jalpāiguri|Jalpaiguri
+161336|India|Jamālpur|Jamalpur
+161333|India|Jamshedpur|Jamshedpur
+161332|India|Jāmuria|Jamuria
+161331|India|Jaunpur|Jaunpur
+161329|India|Jhānsi|Jhansi
+159463|Angola|Lubango|Lubango
+159461|Armenia|Gyumri|Gyumri
+161328|India|Jhunjhunūn|Jhunjhunun
+161327|India|Jīnd|Jind
+161326|India|Jodhpur|Jodhpur
+161325|India|Jalandhar|Jalandhar
+161324|India|Jūnāgadh|Junagadh
+161323|India|Kānchrāpāra|Kanchrapara
+161322|India|Kaithal|Kaithal
+162479|Oman|Bawshar|Bawshar
+161320|India|Kalyān|Kalyan
+161319|India|Kāmārhāti|Kamarhati
+161318|India|Kānchipuram|Kanchipuram
+161317|India|Kānpur|Kanpur
+162478|Oman|‘Ibrī|‘Ibri
+161316|India|Karīmnagar|Karimnagar
+161315|India|Karnāl|Karnal
+161314|India|Karol Bāgh|Karol Bagh
+161313|India|Kashipur|Kashipur
+161312|India|Katihar|Katihar
+162475|Oman|Al Sohar|Al Sohar
+159460|Armenia|Vanadzor|Vanadzor
+161310|India|Khandwa|Khandwa
+161309|India|Khanna|Khanna
+162670|Poland|Wałbrzych|Wałbrzych
+161308|India|Kharagpur|Kharagpur
+161307|India|Khardah|Khardah
+161306|India|Khurja|Khurja
+161305|India|Kishangarh|Kishangarh
+159459|Armenia|Yerevan|Yerevan
+159458|Albania|Durrës|Durres
+159790|Brazil|Atibaia|Atibaia
+159789|Brazil|Barbacena|Barbacena
+159787|Brazil|Barreiras|Barreiras
+160223|China|Daxing|Daxing
+159782|Brazil|Belo Horizonte|Belo Horizonte
+159780|Brazil|Birigui|Birigui
+160834|United Kingdom|Stockport|Stockport
+160832|United Kingdom|Sunderland|Sunderland
+163327|United States of America|Tulsa|Tulsa
+163325|United States of America|Norman|Norman
+163321|United States of America|Winston-Salem|Winston-Salem
+163319|United States of America|West Raleigh|West Raleigh
+163318|United States of America|Raleigh|Raleigh
+163315|United States of America|Fayetteville|Fayetteville
+163313|United States of America|Charlotte|Charlotte
+163312|United States of America|Cary|Cary
+163311|United States of America|Jackson|Jackson
+163309|United States of America|St. Louis|St. Louis
+163307|United States of America|Independence|Independence
+163306|United States of America|East Independence|East Independence
+163305|United States of America|Columbia|Columbia
+160221|China|Dasha|Dasha
+159561|Belgium|Liège|Liege
+163499|United States of America|Sacramento|Sacramento
+162241|Mexico|Tlaquepaque|Tlaquepaque
+162240|Mexico|Tonalá|Tonala
+162239|Mexico|Torreón|Torreon
+163597|Venezuela|Maracay|Maracay
+162238|Mexico|Uruapan del Progreso|Uruapan del Progreso
+163596|Venezuela|Mariara|Mariara
+163595|Venezuela|Mérida|Merida
+163594|Venezuela|Mucumpiz|Mucumpiz
+163593|Venezuela|Ocumare del Tuy|Ocumare del Tuy
+163592|Venezuela|Palo Negro|Palo Negro
+160820|Gabon|Libreville|Libreville
+160819|Gabon|Port-Gentil|Port-Gentil
+160818|France|Cergy-Pontoise|Cergy-Pontoise
+160816|France|Aix-en-Provence|Aix-en-Provence
+160815|France|Amiens|Amiens
+160812|France|Besançon|Besancon
+160811|France|Bordeaux|Bordeaux
+160809|France|Brest|Brest
+163587|Venezuela|San Cristóbal|San Cristobal
+160808|France|Caen|Caen
+160806|France|Dijon|Dijon
+160804|France|Le Havre|Le Havre
+163586|Venezuela|Santa Teresa|Santa Teresa
+162237|Mexico|Zacatecas|Zacatecas
+162236|Mexico|Zamora de Hidalgo|Zamora de Hidalgo
+162235|Mexico|Zapopan|Zapopan
+163585|Venezuela|Turmero|Turmero
+163584|Venezuela|Valencia|Valencia
+163583|Venezuela|Alto Barinas|Alto Barinas
+162234|Mexico|Huixquilucan|Huixquilucan
+162232|Mexico|Miguel Hidalgo|Miguel Hidalgo
+162231|Mexico|Venustiano Carranza|Venustiano Carranza
+162228|Mexico|Ciudad López Mateos|Ciudad Lopez Mateos
+162227|Mexico|Azcapotzalco|Azcapotzalco
+162224|Mexico|Chalco de Díaz Covarrubias|Chalco de Diaz Covarrubias
+162222|Mexico|Chilpancingo de los Bravos|Chilpancingo de los Bravos
+163582|Venezuela|Anaco|Anaco
+163580|Uzbekistan|Angren|Angren
+163498|United States of America|Roseville|Roseville
+159557|Bangladesh|Tāngāil|Tangail
+162622|Pakistan|Khānpur|Khanpur
+159779|Brazil|Blumenau|Blumenau
+159778|Brazil|Botucatu|Botucatu
+159777|Brazil|Bragança Paulista|Braganca Paulista
+159776|Brazil|Brasília|Brasilia
+159775|Brazil|Cabo Frio|Cabo Frio
+162621|Pakistan|Khushāb|Khushab
+162619|Pakistan|Kot Addu|Kot Addu
+162216|Mexico|Ciudad Valles|Ciudad Valles
+160801|France|Limoges|Limoges
+159772|Brazil|Camaçari|Camacari
+159771|Brazil|Campinas|Campinas
+159769|Brazil|Campos|Campos
+159768|Brazil|Canoas|Canoas
+160800|France|Lyon|Lyon
+160798|France|Metz|Metz
+160797|France|Montpellier|Montpellier
+160796|France|Mulhouse|Mulhouse
+160794|France|Nantes|Nantes
+160793|France|Nice|Nice
+162618|Pakistan|Kotli|Kotli
+162614|Pakistan|Mandi Bahāuddīn|Mandi Bahauddin
+162611|Pakistan|Mirpur Khas|Mirpur Khas
+162610|Pakistan|Multān|Multan
+160792|France|Nîmes|Nimes
+159766|Brazil|Cascavel|Cascavel
+159765|Brazil|Catanduva|Catanduva
+159764|Brazil|Caxias do Sul|Caxias do Sul
+159762|Brazil|Colatina|Colatina
+159761|Brazil|Colombo|Colombo
+159760|Brazil|Conselheiro Lafaiete|Conselheiro Lafaiete
+159759|Brazil|Contagem|Contagem
+159757|Brazil|Cotia|Cotia
+159756|Brazil|Criciúma|Criciuma
+159755|Brazil|Cubatão|Cubatao
+159754|Brazil|Cuiabá|Cuiaba
+159753|Brazil|Curitiba|Curitiba
+159750|Brazil|Dourados|Dourados
+159749|Brazil|Duque de Caxias|Duque de Caxias
+159748|Brazil|Embu|Embu
+159747|Brazil|Esmeraldas|Esmeraldas
+159744|Brazil|Florianópolis|Florianopolis
+160789|France|Perpignan|Perpignan
+160788|France|Reims|Reims
+159743|Brazil|Foz do Iguaçu|Foz do Iguacu
+159742|Brazil|Franca|Franca
+159741|Brazil|Francisco Morato|Francisco Morato
+160787|France|Rennes|Rennes
+159740|Brazil|Franco da Rocha|Franco da Rocha
+159738|Brazil|Governador Valadares|Governador Valadares
+159737|Brazil|Gravataí|Gravatai
+159735|Brazil|Guarapuava|Guarapuava
+160786|France|Rouen|Rouen
+160785|France|Saint-Étienne|Saint-Etienne
+159734|Brazil|Guaratinguetá|Guaratingueta
+159731|Brazil|Hortolândia|Hortolandia
+159729|Brazil|Ilhéus|Ilheus
+161940|North Korea|Sariwŏn|Sariwon
+160784|France|Strasbourg|Strasbourg
+160783|France|Toulouse|Toulouse
+160782|France|Tours|Tours
+160780|Finland|Espoo|Espoo
+160779|Finland|Helsinki|Helsinki
+159725|Brazil|Itabuna|Itabuna
+160777|Finland|Tampere|Tampere
+160776|Finland|Turku|Turku
+160775|Finland|Vantaa|Vantaa
+159724|Brazil|Itaguaí|Itaguai
+161939|North Korea|Songnim|Songnim
+160771|Ethiopia|Debre Zeyit|Debre Zeyit
+160770|Ethiopia|Desē|Dese
+160769|Ethiopia|Dire Dawa|Dire Dawa
+159723|Brazil|Itajaí|Itajai
+159721|Brazil|Itapetininga|Itapetininga
+159720|Brazil|Itapevi|Itapevi
+159719|Brazil|Itaquaquecetuba|Itaquaquecetuba
+159718|Brazil|Itu|Itu
+159717|Brazil|Jacareí|Jacarei
+159715|Brazil|Jaraguá do Sul|Jaragua do Sul
+159714|Brazil|Jaú|Jau
+159713|Brazil|Jequié|Jequie
+159712|Brazil|Joinville|Joinville
+161936|Cambodia|Sihanoukville|Sihanoukville
+161932|Kyrgyzstan|Osh|Osh
+162609|Pakistan|Murīdke|Muridke
+160768|Ethiopia|Gonder|Gonder
+160767|Ethiopia|Jīma|Jima
+160765|Ethiopia|Nazrēt|Nazret
+161930|Kenya|Kisumu|Kisumu
+161929|Kenya|Mombasa|Mombasa
+159710|Brazil|Jundiaí|Jundiai
+159709|Brazil|Lages|Lages
+161928|Kenya|Nairobi|Nairobi
+159708|Brazil|Limeira|Limeira
+159707|Brazil|Linhares|Linhares
+159705|Brazil|Luziânia|Luziania
+159704|Brazil|Macaé|Macae
+159703|Brazil|Marília|Marilia
+159702|Brazil|Maringá|Maringa
+159701|Brazil|Mauá|Maua
+159700|Brazil|Mogi das Cruzes|Mogi das Cruzes
+159699|Brazil|Mogi Guaçu|Mogi Guacu
+159698|Brazil|Montes Claros|Montes Claros
+159696|Brazil|Niterói|Niteroi
+159695|Brazil|Nossa Senhora do Socorro|Nossa Senhora do Socorro
+159694|Brazil|Nova Friburgo|Nova Friburgo
+159691|Brazil|Osasco|Osasco
+159690|Brazil|Palhoça|Palhoca
+159688|Brazil|Passo Fundo|Passo Fundo
+159687|Brazil|Patos de Minas|Patos de Minas
+159685|Brazil|Petrópolis|Petropolis
+159684|Brazil|Pindamonhangaba|Pindamonhangaba
+159683|Brazil|Piracicaba|Piracicaba
+161927|Kenya|Nakuru|Nakuru
+159682|Brazil|Poá|Poa
+159681|Brazil|Poços de Caldas|Pocos de Caldas
+159680|Brazil|Ponta Grossa|Ponta Grossa
+159679|Brazil|Pouso Alegre|Pouso Alegre
+159678|Brazil|Praia Grande|Praia Grande
+161926|Japan|Sendai|Sendai
+162215|Mexico|Ciudad Victoria|Ciudad Victoria
+159677|Brazil|Presidente Prudente|Presidente Prudente
+159675|Brazil|Resende|Resende
+159674|Brazil|Ribeirão das Neves|Ribeirao das Neves
+159672|Brazil|Ribeirão Preto|Ribeirao Preto
+159671|Brazil|Rio Claro|Rio Claro
+159670|Brazil|Rio de Janeiro|Rio de Janeiro
+159667|Brazil|Rondonópolis|Rondonopolis
+162208|Mexico|Cuernavaca|Cuernavaca
+159666|Brazil|Salvador|Salvador
+159664|Brazil|Santa Cruz do Sul|Santa Cruz do Sul
+159663|Brazil|Santa Luzia|Santa Luzia
+159662|Brazil|Santa Maria|Santa Maria
+159661|Brazil|Santo André|Santo Andre
+159660|Brazil|Santos|Santos
+159659|Brazil|São Bernardo do Campo|Sao Bernardo do Campo
+159658|Brazil|São Caetano do Sul|Sao Caetano do Sul
+159657|Brazil|São Carlos|Sao Carlos
+159656|Brazil|São João de Meriti|Sao Joao de Meriti
+159655|Brazil|São José|Sao Jose
+159654|Brazil|São José do Rio Preto|Sao Jose do Rio Preto
+159653|Brazil|São José dos Campos|Sao Jose dos Campos
+159652|Brazil|São José dos Pinhais|Sao Jose dos Pinhais
+159651|Brazil|São Leopoldo|Sao Leopoldo
+159650|Brazil|São Paulo|Sao Paulo
+159649|Brazil|São Vicente|Sao Vicente
+162206|Mexico|Iguala de la Independencia|Iguala de la Independencia
+162205|Mexico|Iztacalco|Iztacalco
+162204|Mexico|Iztapalapa|Iztapalapa
+162203|Mexico|Ixtapaluca|Ixtapaluca
+162199|Mexico|Las Margaritas|Las Margaritas
+159646|Brazil|Sete Lagoas|Sete Lagoas
+161108|Israel|Yafo|Yafo
+161100|Indonesia|Kupang|Kupang
+163337|United States of America|Nashville|Nashville
+161099|Indonesia|Teluknaga|Teluknaga
+161098|Indonesia|Cikupa|Cikupa
+161091|Indonesia|Bandung|Bandung
+161086|Indonesia|Baturaja|Baturaja
+162832|Russia|Oktyabr’skiy|Oktyabr’skiy
+162831|Russia|Orekhovo-Borisovo Severnoye|Orekhovo-Borisovo Severnoye
+162827|Russia|Orsk|Orsk
+162824|Russia|Perovo|Perovo
+162823|Russia|Pervoural’sk|Pervoural’sk
+162822|Russia|Petrozavodsk|Petrozavodsk
+161085|Indonesia|Bekasi|Bekasi
+161084|Indonesia|Bengkulu|Bengkulu
+162821|Russia|Ryazanskiy|Ryazanskiy
+161082|Indonesia|Blitar|Blitar
+161081|Indonesia|Bogor|Bogor
+163336|United States of America|Murfreesboro|Murfreesboro
+162815|Russia|Ramenki|Ramenki
+162814|Russia|Rostov-na-Donu|Rostov-na-Donu
+161072|Indonesia|Cimahi|Cimahi
+161071|Indonesia|Ciputat|Ciputat
+162813|Russia|Ryazan’|Ryazan’
+162812|Russia|Rybinsk|Rybinsk
+162811|Russia|Salavat|Salavat
+161067|Indonesia|Denpasar|Denpasar
+161066|Indonesia|Depok|Depok
+161065|Indonesia|Depok|Depok
+161064|Indonesia|Dumai|Dumai
+161063|Indonesia|Gorontalo|Gorontalo
+161062|Indonesia|Grogol|Grogol
+161060|Indonesia|Jakarta|Jakarta
+161059|Indonesia|Jambi City|Jambi City
+161057|Indonesia|Jombang|Jombang
+162810|Russia|Samara|Samara
+161056|Indonesia|Kediri|Kediri
+161055|Indonesia|Kedungwuni|Kedungwuni
+162807|Russia|Saratov|Saratov
+161053|Indonesia|Klaten|Klaten
+159645|Brazil|Sorocaba|Sorocaba
+159644|Brazil|Sumaré|Sumare
+159643|Brazil|Suzano|Suzano
+159641|Brazil|Taubaté|Taubate
+159639|Brazil|Porto Seguro|Porto Seguro
+159637|Brazil|Uberaba|Uberaba
+159636|Brazil|Uberlândia|Uberlandia
+159635|Brazil|Uruguaiana|Uruguaiana
+159634|Brazil|Varginha|Varginha
+159633|Brazil|Várzea Grande|Varzea Grande
+159632|Brazil|Várzea Paulista|Varzea Paulista
+159630|Brazil|Vila Velha|Vila Velha
+162608|Pakistan|Muzaffargarh|Muzaffargarh
+159629|Brazil|Vitória|Vitoria
+159628|Brazil|Vitória da Conquista|Vitoria da Conquista
+159627|Brazil|Volta Redonda|Volta Redonda
+159625|Brazil|Araguaína|Araguaina
+159624|Brazil|Arapiraca|Arapiraca
+159623|Brazil|Belém|Belem
+159620|Brazil|Caruaru|Caruaru
+159619|Brazil|Castanhal|Castanhal
+159618|Brazil|Caucaia|Caucaia
+159617|Brazil|Caxias|Caxias
+159616|Brazil|Fortaleza|Fortaleza
+159614|Brazil|Imperatriz|Imperatriz
+159613|Brazil|Jaboatão|Jaboatao
+159612|Brazil|João Pessoa|Joao Pessoa
+159610|Brazil|Macapá|Macapa
+159608|Brazil|Marabá|Maraba
+162198|Mexico|Los Reyes|Los Reyes
+162196|Mexico|Martínez de La Torre|Martinez de La Torre
+162194|Mexico|Mérida|Merida
+162193|Mexico|Metepec|Metepec
+162191|Mexico|Minatitlán|Minatitlan
+160700|España|Algeciras|Algeciras
+162598|Pakistan|Shahkot|Shahkot
+160691|España|Dos Hermanas|Dos Hermanas
+162597|Pakistan|Sheikhupura|Sheikhupura
+160686|España|Jerez de la Frontera|Jerez de la Frontera
+160683|España|Marbella|Marbella
+160677|España|Telde|Telde
+160676|España|Torrevieja|Torrevieja
+162595|Pakistan|Siālkot|Sialkot
+160674|Eritrea|Asmara|Asmara
+160672|Egypt|Idfu|Idfu
+160671|Egypt|Abū Kabīr|Abu Kabir
+160669|Egypt|Al Fayyūm|Al Fayyum
+160668|Egypt|Al Ḩawāmidīyah|Al Hawamidiyah
+160665|Egypt|Al Jīzah|Al Jizah
+160664|Egypt|Al Maḩallah al Kubrá|Al Mahallah al Kubra
+160662|Egypt|Al Minyā|Al Minya
+160660|Egypt|Luxor|Luxor
+160658|Egypt|Aswān|Aswan
+160657|Egypt|Asyūţ|Asyut
+160656|Egypt|Zagazig|Zagazig
+160655|Egypt|Banhā|Banha
+160654|Egypt|Banī Suwayf|Bani Suwayf
+160653|Egypt|Bilbays|Bilbays
+160652|Egypt|Bilqās|Bilqas
+160651|Egypt|Port Said|Port Said
+160650|Egypt|Damanhūr|Damanhur
+160649|Egypt|Dikirnis|Dikirnis
+160645|Egypt|Jirjā|Jirja
+160644|Egypt|Kafr ad Dawwār|Kafr ad Dawwar
+160642|Egypt|Mallawī|Mallawi
+160641|Egypt|Qalyūb|Qalyub
+160640|Egypt|Qinā|Qina
+160639|Egypt|Sūhāj|Suhaj
+160637|Egypt|Tanda|Tanda
+160635|Estonia|Tartu|Tartu
+160634|Ecuador|Ambato|Ambato
+160633|Ecuador|Cuenca|Cuenca
+163296|United States of America|Lexington-Fayette|Lexington-Fayette
+160632|Ecuador|Eloy Alfaro|Eloy Alfaro
+160630|Ecuador|Ibarra|Ibarra
+160629|Ecuador|Loja|Loja
+160628|Ecuador|Machala|Machala
+160627|Ecuador|Manta|Manta
+160626|Ecuador|Portoviejo|Portoviejo
+160625|Ecuador|Quevedo|Quevedo
+163295|United States of America|Lexington|Lexington
+162594|Pakistan|Sukkur|Sukkur
+160624|Ecuador|Quito|Quito
+162593|Pakistan|Tando Ādam|Tando Adam
+159579|Benin|Parakou|Parakou
+159578|Benin|Porto-Novo|Porto-Novo
+159577|Burundi|Bujumbura|Bujumbura
+163294|United States of America|Ironville|Ironville
+160623|Ecuador|Riobamba|Riobamba
+160621|Algeria|Aïn Beïda|Ain Beida
+160618|Algeria|Annaba|Annaba
+160617|Algeria|Bab Ezzouar|Bab Ezzouar
+161900|Japan|Aomori Shi|Aomori Shi
+163292|United States of America|Topeka|Topeka
+161899|Japan|Asahikawa|Asahikawa
+161898|Japan|Ebetsu|Ebetsu
+163290|United States of America|Meads|Meads
+159576|Bahrain|Manama|Manama
+163289|United States of America|Olathe|Olathe
+163288|United States of America|Kansas City|Kansas City
+160615|Algeria|Batna|Batna
+160613|Algeria|Bejaïa|Bejaia
+163260|United States of America|Little Rock|Little Rock
+160612|Algeria|Bordj el Kiffan|Bordj el Kiffan
+161892|Japan|Obihiro|Obihiro
+160611|Algeria|Constantine|Constantine
+160430|Colombia|Cali|Cali
+161890|Japan|Sapporo|Sapporo
+163257|United States of America|Huntsville|Huntsville
+160610|Algeria|Ech Chettia|Ech Chettia
+163256|United States of America|Birmingham|Birmingham
+160609|Algeria|El Achir|El Achir
+163254|Uganda|Kampala|Kampala
+160608|Algeria|El Eulma|El Eulma
+160607|Algeria|Guelma|Guelma
+160605|Algeria|Médéa|Medea
+163253|Uganda|Lira|Lira
+163251|Ukraine|Berdyans’k|Berdyans’k
+160602|Algeria|Ouargla|Ouargla
+160600|Algeria|Saïda|Saida
+160598|Algeria|Skikda|Skikda
+163249|Ukraine|Chernihiv|Chernihiv
+163248|Ukraine|Chernivtsi|Chernivtsi
+161887|Japan|Abiko|Abiko
+160597|Algeria|Tlemcen|Tlemcen
+163247|Ukraine|Dniprodzerzhyns’k|Dniprodzerzhyns’k
+160596|Algeria|Boumerdas|Boumerdas
+160595|Dominican Republic|Bella Vista|Bella Vista
+161884|Japan|Fukushima-shi|Fukushima-shi
+163246|Ukraine|Dnipropetrovsk|Dnipropetrovsk
+160594|Dominican Republic|San Cristóbal|San Cristobal
+160593|Dominican Republic|Concepción de La Vega|Concepcion de La Vega
+163245|Ukraine|Bila Tserkva|Bila Tserkva
+161883|Japan|Hitachi|Hitachi
+160592|Dominican Republic|La Romana|La Romana
+160588|Dominican Republic|San Pedro de Macorís|San Pedro de Macoris
+163238|Ukraine|Kherson|Kherson
+162171|Mexico|Cuautitlán Izcalli|Cuautitlan Izcalli
+160587|Dominican Republic|Santiago de los Caballeros|Santiago de los Caballeros
+160584|Denmark|Århus|Arhus
+162169|Mexico|Tlahuac|Tlahuac
+162168|Mexico|Tlalnepantla|Tlalnepantla
+161879|Japan|Katsuta|Katsuta
+161878|Japan|Kōriyama|Koriyama
+161877|Japan|Mito-shi|Mito-shi
+162167|Mexico|Tlalpan|Tlalpan
+160107|China|Shiqi|Shiqi
+160428|Colombia|Cartago|Cartago
+161876|Japan|Morioka-shi|Morioka-shi
+160106|China|Shiqiao|Shiqiao
+160105|China|Shiyan|Shiyan
+160104|China|Shiyan|Shiyan
+160101|China|Suining|Suining
+160100|China|Suizhou|Suizhou
+162166|Mexico|Toluca de Lerdo|Toluca de Lerdo
+160099|China|Suzhou|Suzhou
+161873|Japan|Sendai-shi|Sendai-shi
+160098|China|Tai’an|Tai’an
+160096|China|Taiyuan|Taiyuan
+160095|China|Taizhou|Taizhou
+160093|China|Tangshan|Tangshan
+160092|China|Tengzhou|Tengzhou
+160089|China|Tongzhou|Tongzhou
+160087|China|Wanxian|Wanxian
+162164|Mexico|Tuxpan de Rodríguez Cano|Tuxpan de Rodriguez Cano
+160427|Colombia|Cúcuta|Cucuta
+162472|New Zealand|Auckland|Auckland
+162471|New Zealand|Christchurch|Christchurch
+162470|New Zealand|Dunedin|Dunedin
+162468|New Zealand|Lower Hutt|Lower Hutt
+162467|New Zealand|Manukau City|Manukau City
+162591|Pakistan|Vihāri|Vihari
+160084|China|Weinan|Weinan
+160082|China|Wenzhou|Wenzhou
+162590|Pakistan|Wazīrābād|Wazirabad
+160081|China|Wuda|Wuda
+160080|China|Wuhai|Wuhai
+160426|Colombia|Dos Quebradas|Dos Quebradas
+160079|China|Wuhan|Wuhan
+160078|China|Wuhu|Wuhu
+162589|Pakistan|Khairpur|Khairpur
+160076|China|Dongyang|Dongyang
+160425|Colombia|Envigado|Envigado
+163236|Ukraine|Kirovohrad|Kirovohrad
+160424|Colombia|Florencia|Florencia
+162588|Philippines|Pasig City|Pasig City
+160075|China|Wuxi|Wuxi
+160073|China|Wuzhou|Wuzhou
+160070|China|Xiangyang|Xiangyang
+160069|China|Xiangtan|Xiangtan
+160067|China|Xianning|Xianning
+160066|China|Xiantao|Xiantao
+160065|China|Xianyang|Xianyang
+160064|China|Xiaogan|Xiaogan
+162466|New Zealand|North Shore|North Shore
+160063|China|Xiazhen|Xiazhen
+162465|New Zealand|Wellington|Wellington
+160062|China|Xichang|Xichang
+160061|China|Sanshui|Sanshui
+160060|China|Xindi|Xindi
+162580|Philippines|Baliuag|Baliuag
+162578|Philippines|Binangonan|Binangonan
+162577|Philippines|Budta|Budta
+162574|Philippines|Cadiz|Cadiz
+162464|Nepal|Bharatpur|Bharatpur
+162463|Nepal|Birātnagar|Biratnagar
+162462|Nepal|Bīrganj|Birganj
+162461|Nepal|Dharān Bāzār|Dharan Bazar
+162460|Nepal|Kathmandu|Kathmandu
+160059|China|Ankang|Ankang
+162459|Nepal|Pātan|Patan
+162458|Nepal|Pokhara|Pokhara
+162457|Norway|Bergen|Bergen
+160057|China|Xining|Xining
+160056|China|Xinji|Xinji
+160054|China|Xintai|Xintai
+163589|Venezuela|Puerto La Cruz|Puerto La Cruz
+160830|United Kingdom|Sutton Coldfield|Sutton Coldfield
+160827|United Kingdom|Walsall|Walsall
+160826|United Kingdom|Watford|Watford
+160825|United Kingdom|West Bromwich|West Bromwich
+160824|United Kingdom|Woking|Woking
+160823|United Kingdom|Wolverhampton|Wolverhampton
+160821|United Kingdom|York|York
+162454|Norway|Trondheim|Trondheim
+160422|Colombia|Girardot|Girardot
+160053|China|Xinxiang|Xinxiang
+160051|China|Xinzhou|Xinzhou
+160420|Colombia|Ibagué|Ibague
+160050|China|Xiulin|Xiulin
+162163|Mexico|Tuxtla Gutiérrez|Tuxtla Gutierrez
+160049|China|Xiuying|Xiuying
+162162|Mexico|Veracruz|Veracruz
+160419|Colombia|Itagüí|Itagui
+162453|Netherlands|Almere Stad|Almere Stad
+162452|Netherlands|Amersfoort|Amersfoort
+162451|Netherlands|Amsterdam|Amsterdam
+160418|Colombia|Magangué|Magangue
+160048|China|Xuanzhou|Xuanzhou
+162450|Netherlands|Apeldoorn|Apeldoorn
+160044|China|Yancheng|Yancheng
+160043|China|Yangquan|Yangquan
+160039|China|Yibin|Yibin
+160038|China|Yichang|Yichang
+160037|China|Yichun|Yichun
+160036|China|Qingzhou|Qingzhou
+162449|Netherlands|Arnhem|Arnhem
+160035|China|Yinchuan|Yinchuan
+162448|Netherlands|Breda|Breda
+162447|Netherlands|Dordrecht|Dordrecht
+162446|Netherlands|Eindhoven|Eindhoven
+162445|Netherlands|Enschede|Enschede
+162444|Netherlands|Groningen|Groningen
+162443|Netherlands|Haarlem|Haarlem
+163235|Ukraine|Kremenchuk|Kremenchuk
+162442|Netherlands|Hoofddorp|Hoofddorp
+160034|China|Chengzhong|Chengzhong
+160033|China|Zhongxiang|Zhongxiang
+162505|Peru|Arequipa|Arequipa
+160573|Germany|Bochum-Hordel|Bochum-Hordel
+160572|Germany|Berlin Mitte|Berlin Mitte
+160571|Germany|Aachen|Aachen
+160570|Germany|Marzahn|Marzahn
+162504|Peru|Ayacucho|Ayacucho
+160569|Germany|Prenzlauer Berg|Prenzlauer Berg
+160568|Germany|Augsburg|Augsburg
+160567|Dominican Republic|San Francisco de Macorís|San Francisco de Macoris
+162502|Peru|Chincha Alta|Chincha Alta
+160565|Germany|Berlin|Berlin
+160564|Germany|Bielefeld|Bielefeld
+160563|Germany|Bochum|Bochum
+160562|Germany|Bonn|Bonn
+160560|Germany|Braunschweig|Braunschweig
+160559|Germany|Bremen|Bremen
+160557|Germany|Charlottenburg|Charlottenburg
+160556|Germany|Chemnitz|Chemnitz
+160555|Germany|Darmstadt|Darmstadt
+160554|Germany|Dortmund|Dortmund
+160553|Germany|Dresden|Dresden
+160552|Germany|Duisburg|Duisburg
+160551|Germany|Düsseldorf|Dusseldorf
+160550|Germany|Erfurt|Erfurt
+160549|Germany|Erlangen|Erlangen
+160548|Germany|Essen|Essen
+163230|Ukraine|Luts’k|Luts’k
+160546|Germany|Freiburg|Freiburg
+160545|Germany|Friedrichshain|Friedrichshain
+160544|Germany|Friedrichshain|Friedrichshain
+163229|Ukraine|L'viv|L'viv
+160543|Germany|Fürth|Furth
+160541|Germany|Gera|Gera
+160540|Germany|Göttingen|Gottingen
+160539|Germany|Hagen|Hagen
+160538|Germany|Halle (Saale)|Halle (Saale)
+160537|Germany|Hamburg|Hamburg
+160536|Germany|Altona|Altona
+160535|Germany|Eimsbüttel|Eimsbuttel
+160534|Germany|Hamburg-Mitte|Hamburg-Mitte
+163228|Ukraine|Makiyivka|Makiyivka
+160533|Germany|Marienthal|Marienthal
+160532|Germany|Wandsbek|Wandsbek
+160531|Germany|Hamm|Hamm
+160530|Germany|Hannover|Hannover
+160031|China|Yuanlin|Yuanlin
+160030|China|Yuci|Yuci
+163226|Ukraine|Kramators’k|Kramators’k
+160029|China|Yulin|Yulin
+160027|China|Yunfu|Yunfu
+160026|China|Yushan|Yushan
+160025|China|Yuyao|Yuyao
+163225|Ukraine|Melitopol’|Melitopol’
+161716|Japan|Tottori|Tottori
+160529|Germany|Harburg|Harburg
+160024|China|Zaoyang|Zaoyang
+162152|Mauritius|Port Louis|Port Louis
+160023|China|Zaozhuang|Zaozhuang
+162151|Mauritius|Vacoas|Vacoas
+160021|China|Zibo|Zibo
+163224|Ukraine|Mykolayiv|Mykolayiv
+160020|China|Zhangzhou|Zhangzhou
+160018|China|Zhaoqing|Zhaoqing
+160017|China|Zhaotong|Zhaotong
+160016|China|Xinghua|Xinghua
+163223|Ukraine|Nikopol’|Nikopol’
+160015|China|Zhengzhou|Zhengzhou
+160527|Germany|Heilbronn|Heilbronn
+160014|China|Zhenjiang|Zhenjiang
+160013|China|Zhenzhou|Zhenzhou
+160525|Germany|Hildesheim|Hildesheim
+160012|China|Zhicheng|Zhicheng
+160011|China|Yuxi|Yuxi
+160010|China|Zhoucun|Zhoucun
+160009|China|Zhoukou|Zhoukou
+160008|China|Zhucheng|Zhucheng
+160524|Germany|Ingolstadt|Ingolstadt
+160007|China|Zhuji|Zhuji
+160005|China|Zhumadian|Zhumadian
+160003|China|Zigong|Zigong
+160002|China|Zoucheng|Zoucheng
+162150|Mauritania|Nouakchott|Nouakchott
+160523|Germany|Jena|Jena
+160522|Germany|Karlsruhe|Karlsruhe
+160521|Germany|Kassel|Kassel
+160520|Germany|Kiel|Kiel
+159556|Bangladesh|Pābna|Pabna
+160001|China|Zunyi|Zunyi
+160000|China|Zhaoyuan|Zhaoyuan
+159995|China|Korla|Korla
+159994|China|Shihezi|Shihezi
+159993|China|Turpan|Turpan
+163720|Zambia|Kabwe|Kabwe
+159992|China|Urunchi|Urunchi
+159990|China|Jiayuguan|Jiayuguan
+159988|China|Lhasa|Lhasa
+159985|Cameroon|Bamenda|Bamenda
+159984|Cameroon|Bertoua|Bertoua
+159981|Cameroon|Garoua|Garoua
+159979|Cameroon|Kumba|Kumba
+159978|Cameroon|Loum|Loum
+159977|Cameroon|Maroua|Maroua
+160519|Germany|Koblenz|Koblenz
+159976|Cameroon|Mbouda|Mbouda
+159975|Cameroon|Mokolo|Mokolo
+159974|Cameroon|Ngaoundéré|Ngaoundere
+159973|Cameroon|Nkongsamba|Nkongsamba
+159971|Chile|Lo Prado|Lo Prado
+159970|Chile|La Pintana|La Pintana
+159951|Chile|Calama|Calama
+159504|Austria|Graz|Graz
+159950|Chile|Chillán|Chillan
+159949|Chile|Concepción|Concepcion
+159947|Chile|Curicó|Curico
+159944|Chile|Los Ángeles|Los Angeles
+159943|Chile|Osorno|Osorno
+159942|Chile|Puente Alto|Puente Alto
+159940|Chile|Copiapó|Copiapo
+159938|Chile|Quilpué|Quilpue
+159937|Chile|Rancagua|Rancagua
+159936|Chile|San Bernardo|San Bernardo
+159934|Chile|Talca|Talca
+159932|Chile|Temuco|Temuco
+159931|Chile|Valdivia|Valdivia
+159930|Chile|Valparaíso|Valparaiso
+162149|Macao|Macau|Macau
+160518|Germany|Köln|Koln
+159929|Chile|Viña del Mar|Vina del Mar
+160516|Germany|Kreuzberg|Kreuzberg
+159928|Ivory Coast|Abengourou|Abengourou
+160515|Germany|Kreuzberg|Kreuzberg
+159927|Ivory Coast|Abidjan|Abidjan
+159926|Ivory Coast|Abobo|Abobo
+159925|Ivory Coast|Anyama|Anyama
+162751|Serbia|Zemun|Zemun
+159924|Ivory Coast|Bouaké|Bouake
+163718|Zambia|Livingstone|Livingstone
+159923|Ivory Coast|Daloa|Daloa
+159922|Ivory Coast|Divo|Divo
+159921|Ivory Coast|Gagnoa|Gagnoa
+159920|Ivory Coast|Korhogo|Korhogo
+159919|Ivory Coast|Yamoussoukro|Yamoussoukro
+160514|Germany|Leipzig|Leipzig
+159918|Switzerland|Basel|Basel
+159917|Switzerland|Bern|Bern
+159916|Switzerland|Genève|Geneve
+159915|Switzerland|Lausanne|Lausanne
+161872|Japan|Tsukuba|Tsukuba
+159913|Republic of the Congo|Brazzaville|Brazzaville
+159912|Republic of the Congo|Dolisie|Dolisie
+159909|Central African Republic|Bimbo|Bimbo
+159908|Democratic Republic of the Congo|Masina|Masina
+159907|Democratic Republic of the Congo|Bandundu|Bandundu
+159906|Democratic Republic of the Congo|Gemena|Gemena
+160513|Germany|Leverkusen|Leverkusen
+160512|Germany|Lübeck|Lubeck
+159905|Democratic Republic of the Congo|Kikwit|Kikwit
+159903|Democratic Republic of the Congo|Matadi|Matadi
+159902|Democratic Republic of the Congo|Mbandaka|Mbandaka
+159900|Democratic Republic of the Congo|Kolwezi|Kolwezi
+160511|Germany|Ludwigshafen am Rhein|Ludwigshafen am Rhein
+159899|Democratic Republic of the Congo|Likasi|Likasi
+159898|Democratic Republic of the Congo|Lubumbashi|Lubumbashi
+159897|Democratic Republic of the Congo|Bukavu|Bukavu
+159895|Democratic Republic of the Congo|Gandajika|Gandajika
+159893|Democratic Republic of the Congo|Ilebo|Ilebo
+159892|Democratic Republic of the Congo|Isiro|Isiro
+159891|Democratic Republic of the Congo|Kalemie|Kalemie
+159890|Democratic Republic of the Congo|Kananga|Kananga
+159889|Democratic Republic of the Congo|Kindu|Kindu
+161871|Japan|Yamagata-shi|Yamagata-shi
+160510|Germany|Magdeburg|Magdeburg
+159888|Democratic Republic of the Congo|Kisangani|Kisangani
+161868|Japan|Toda|Toda
+160509|Germany|Mainz|Mainz
+160508|Germany|Mannheim|Mannheim
+159886|Democratic Republic of the Congo|Mwene-Ditu|Mwene-Ditu
+160507|Germany|Moers|Moers
+159885|Ivory Coast|Man|Man
+161866|Japan|Sayama|Sayama
+159884|Democratic Republic of the Congo|Uvira|Uvira
+159880|Canada|Lévis|Levis
+162607|Pakistan|Nawābshāh|Nawabshah
+163727|Zimbabwe|Chitungwiza|Chitungwiza
+163726|Zimbabwe|Epworth|Epworth
+162190|Mexico|Naucalpan de Juárez|Naucalpan de Juarez
+162189|Mexico|Nicolás Romero|Nicolas Romero
+162188|Mexico|Nuevo Laredo|Nuevo Laredo
+162606|Pakistan|Okāra|Okara
+162186|Mexico|Orizaba|Orizaba
+162185|Mexico|Pachuca de Soto|Pachuca de Soto
+160745|España|Alcalá de Henares|Alcala de Henares
+160742|España|Badalona|Badalona
+162183|Mexico|Poza Rica de Hidalgo|Poza Rica de Hidalgo
+161925|Japan|Toshima-ku|Toshima-ku
+161921|Japan|Ōta-ku|Ota-ku
+162181|Mexico|Reynosa|Reynosa
+162605|Pakistan|Pākpattan|Pakpattan
+161919|Japan|Minato-ku|Minato-ku
+161918|Japan|Meguro-ku|Meguro-ku
+161917|Japan|Kita-ku|Kita-ku
+161916|Japan|Katsushika-ku|Katsushika-ku
+161915|Japan|Itabashi-ku|Itabashi-ku
+162603|Pakistan|Quetta|Quetta
+161914|Japan|Chūō-ku|Chuo-ku
+161913|Japan|Bunkyō-ku|Bunkyo-ku
+161912|Japan|Arakawa-ku|Arakawa-ku
+161911|Japan|Adachi-ku|Adachi-ku
+161909|Japan|Saitama|Saitama
+161908|Japan|Shibuya-ku|Shibuya-ku
+161907|Japan|Shinjuku|Shinjuku
+161904|Japan|Hitachi-Naka|Hitachi-Naka
+159467|Angola|Benguela|Benguela
+162602|Pakistan|Rāwalpindi|Rawalpindi
+163303|United States of America|Shreveport|Shreveport
+160725|España|Gijón|Gijon
+162175|Mexico|Tantoyuca|Tantoyuca
+163721|Zambia|Chingola|Chingola
+162173|Mexico|Tehuacán|Tehuacan
+160718|España|Parla|Parla
+161903|Japan|Neyagawa|Neyagawa
+160704|España|Vigo|Vigo
+161901|Japan|Edogawa-ku|Edogawa-ku
+159604|Brazil|Olinda|Olinda
+159603|Brazil|Parnaíba|Parnaiba
+159601|Brazil|Paulista|Paulista
+159599|Brazil|Recife|Recife
+159596|Brazil|São Luís|Sao Luis
+159595|Brazil|Sobral|Sobral
+159593|Brazil|Timon|Timon
+159592|Brazil|Vitória de Santo Antão|Vitoria de Santo Antao
+159591|Bolivia|Cochabamba|Cochabamba
+159590|Bolivia|La Paz|La Paz
+162600|Pakistan|Sahiwal|Sahiwal
+159589|Bolivia|Oruro|Oruro
+159588|Bolivia|Potosí|Potosi
+159587|Bolivia|Santa Cruz de la Sierra|Santa Cruz de la Sierra
+159586|Bolivia|Sucre|Sucre
+159585|Bolivia|Tarija|Tarija
+162599|Pakistan|Sargodha|Sargodha
+159583|Benin|Bohicon|Bohicon
+159582|Benin|Cotonou|Cotonou
+159581|Benin|Djougou|Djougou
+159580|Benin|Kandi|Kandi
+161865|Japan|Okinawa|Okinawa
+161864|Japan|Ageo|Ageo
+160506|Germany|Mönchengladbach|Monchengladbach
+160505|Germany|Mülheim (Ruhr)|Mulheim (Ruhr)
+160504|Germany|München|Munchen
+160503|Germany|Münster|Munster
+160502|Germany|Nürnberg|Nurnberg
+160501|Germany|Neuß|Neuß
+160500|Germany|Neue Neustadt|Neue Neustadt
+159879|Canada|Québec|Quebec
+161863|Japan|Amagasaki|Amagasaki
+159466|Angola|Huambo|Huambo
+159465|Angola|Cuito|Cuito
+160498|Germany|Offenbach|Offenbach
+160497|Germany|Oldenburg|Oldenburg
+160496|Germany|Osnabrück|Osnabruck
+160495|Germany|Paderborn|Paderborn
+160494|Germany|Berlin Pankow|Berlin Pankow
+160493|Germany|Pforzheim|Pforzheim
+160492|Germany|Potsdam|Potsdam
+159877|Canada|Winnipeg|Winnipeg
+159876|Democratic Republic of the Congo|Tshikapa|Tshikapa
+160491|Germany|Prenzlauer Berg|Prenzlauer Berg
+159875|Canada|Windsor|Windsor
+159874|Canada|Victoria|Victoria
+161861|Japan|Ashikaga|Ashikaga
+160490|Germany|Recklinghausen|Recklinghausen
+159873|Canada|Vaughan|Vaughan
+159872|Canada|Vancouver|Vancouver
+161860|Japan|Beppu|Beppu
+160489|Germany|Regensburg|Regensburg
+160488|Germany|Berlin Reinickendorf|Berlin Reinickendorf
+162501|Peru|Cusco|Cusco
+159869|Canada|Surrey|Surrey
+160487|Germany|Remscheid|Remscheid
+160486|Germany|Reutlingen|Reutlingen
+160485|Germany|Rostock|Rostock
+160484|Germany|Saarbrücken|Saarbrucken
+160483|Germany|Schöneberg|Schoneberg
+160482|Germany|Siegen|Siegen
+160480|Germany|Stuttgart|Stuttgart
+161858|Japan|Chikushino-shi|Chikushino-shi
+160479|Germany|Trier|Trier
+159868|Canada|St. Catharines|St. Catharines
+159867|Canada|Sherbrooke|Sherbrooke
+159866|Canada|Saskatoon|Saskatoon
+161857|Japan|Chōfu|Chofu
+161856|Japan|Daitō|Daito
+161855|Japan|Fuchū|Fuchu
+160478|Germany|Ulm|Ulm
+160477|Germany|Wiesbaden|Wiesbaden
+160476|Germany|Witten|Witten
+160475|Germany|Wolfsburg|Wolfsburg
+160474|Germany|Wuppertal|Wuppertal
+160473|Germany|Würzburg|Wurzburg
+160472|Czech Republic|Brno|Brno
+160471|Czech Republic|Olomouc|Olomouc
+160470|Czech Republic|Ostrava|Ostrava
+160469|Czech Republic|Plzeň|Plzen
+160465|Cape Verde|Praia|Praia
+161854|Japan|Fuji|Fuji
+160461|Cuba|Centro Habana|Centro Habana
+160460|Cuba|Habana del Este|Habana del Este
+160459|Cuba|Alamar|Alamar
+161853|Japan|Fujieda|Fujieda
+160458|Cuba|Arroyo Naranjo|Arroyo Naranjo
+160457|Cuba|Bayamo|Bayamo
+159865|Canada|Saguenay|Saguenay
+159864|Canada|Richmond Hill|Richmond Hill
+159862|Canada|Regina|Regina
+159860|Canada|Oshawa|Oshawa
+159856|Canada|Mississauga|Mississauga
+161851|Japan|Fujisawa|Fujisawa
+160454|Cuba|Ciego de Ávila|Ciego de Avila
+160453|Cuba|Cienfuegos|Cienfuegos
+160452|Cuba|Guanabacoa|Guanabacoa
+160451|Cuba|Guantánamo|Guantanamo
+160449|Cuba|Havana|Havana
+163717|Zambia|Luanshya|Luanshya
+159855|Canada|Markham|Markham
+159854|Canada|London|London
+162749|Romania|Arad|Arad
+159853|Canada|Laval|Laval
+160448|Cuba|Las Tunas|Las Tunas
+159852|Canada|Kitchener|Kitchener
+159850|Canada|Kelowna|Kelowna
+159849|Canada|Hamilton|Hamilton
+160446|Cuba|Matanzas|Matanzas
+159848|Canada|Guelph|Guelph
+159847|Canada|Greater Sudbury|Greater Sudbury
+160443|Cuba|Sancti Spíritus|Sancti Spiritus
+159844|Canada|Edmonton|Edmonton
+159841|Canada|Coquitlam|Coquitlam
+159840|Canada|Cambridge|Cambridge
+163716|Zambia|Lusaka|Lusaka
+159839|Canada|Calgary|Calgary
+159836|Canada|Brampton|Brampton
+159834|Canada|Abbotsford|Abbotsford
+161850|Japan|Fukaya|Fukaya
+159833|Belarus|Malinovka|Malinovka
+159832|Belarus|Babruysk|Babruysk
+159831|Belarus|Baranavichy|Baranavichy
+161847|Japan|Sakura|Sakura
+159830|Belarus|Horad Barysaw|Horad Barysaw
+159829|Belarus|Brest|Brest
+163579|Uzbekistan|Chirchiq|Chirchiq
+161845|Japan|Funabashi|Funabashi
+159827|Belarus|Hrodna|Hrodna
+163578|Uzbekistan|Fergana|Fergana
+161844|Japan|Gifu-shi|Gifu-shi
+159826|Belarus|Mahilyow|Mahilyow
+159825|Belarus|Maladzyechna|Maladzyechna
+159824|Belarus|Mazyr|Mazyr
+161843|Japan|Hachiōji|Hachioji
+163577|Uzbekistan|Jizzax|Jizzax
+159823|Belarus|Minsk|Minsk
+162747|Romania|Baia Mare|Baia Mare
+159822|Belarus|Navapolatsk|Navapolatsk
+159821|Belarus|Novoye Medvezhino|Novoye Medvezhino
+159820|Belarus|Orsha|Orsha
+162746|Romania|Botoşani|Botosani
+159819|Belarus|Pinsk|Pinsk
+161842|Japan|Hadano|Hadano
+159818|Belarus|Salihorsk|Salihorsk
+161840|Japan|Handa|Handa
+159817|Belarus|Vitebsk|Vitebsk
+160441|Cuba|Santa Clara|Santa Clara
+159816|Botswana|Gaborone|Gaborone
+159814|Brazil|Sinop|Sinop
+159813|Brazil|Simões Filho|Simoes Filho
+160437|Colombia|Barrancabermeja|Barrancabermeja
+159812|Brazil|Pinhais|Pinhais
+159811|Brazil|Lauro de Freitas|Lauro de Freitas
+159809|Brazil|Aparecida de Goiânia|Aparecida de Goiania
+161837|Japan|Hino|Hino
+163711|South Africa|Centurion|Centurion
+161830|Japan|Ichinomiya|Ichinomiya
+161829|Japan|Iida|Iida
+161827|Japan|Inazawa|Inazawa
+161826|Japan|Isehara|Isehara
+161825|Japan|Isesaki|Isesaki
+161817|Japan|Kakogawa|Kakogawa
+161816|Japan|Kamakura|Kamakura
+163575|Uzbekistan|Namangan|Namangan
+163574|Uzbekistan|Navoiy|Navoiy
+161806|Japan|Kawanishi|Kawanishi
+161804|Japan|Kiryū|Kiryu
+163712|South Africa|Worcester|Worcester
+163710|South Africa|Midrand|Midrand
+162743|Romania|Bucharest|Bucharest
+161803|Japan|Kisarazu|Kisarazu
+162498|Peru|Juliaca|Juliaca
+162742|Romania|Buzău|Buzau
+162741|Romania|Cluj-Napoca|Cluj-Napoca
+161802|Japan|Kishiwada|Kishiwada
+161799|Japan|Kōchi-shi|Kochi-shi
+161792|Japan|Kōnan|Konan
+161790|Japan|Kumagaya|Kumagaya
+161789|Japan|Kumamoto-shi|Kumamoto-shi
+162495|Peru|Surco|Surco
+162493|Peru|Cajamarca|Cajamarca
+162732|Romania|Piteşti|Pitesti
+162731|Romania|Ploieşti|Ploiesti
+162729|Romania|Satu Mare|Satu Mare
+163437|United States of America|Milwaukee|Milwaukee
+162728|Romania|Sibiu|Sibiu
+162726|Romania|Timişoara|Timisoara
+162724|Reunion|Saint-Denis|Saint-Denis
+163435|United States of America|Green Bay|Green Bay
+163433|United States of America|Providence|Providence
+162721|Paraguay|Asunción|Asuncion
+162719|Paraguay|Fernando de la Mora|Fernando de la Mora
+161786|Japan|Kurume|Kurume
+161785|Japan|Kusatsu|Kusatsu
+161784|Japan|Kuwana|Kuwana
+161783|Japan|Kyoto|Kyoto
+163708|South Africa|Bethal|Bethal
+163707|South Africa|Bhisho|Bhisho
+161782|Japan|Machida|Machida
+161781|Japan|Maebashi-shi|Maebashi-shi
+161780|Japan|Matsubara|Matsubara
+162490|Peru|Huánuco|Huanuco
+162486|Peru|Sullana|Sullana
+162714|Portugal|Porto|Porto
+162712|Portugal|Lisbon|Lisbon
+163706|South Africa|Bloemfontein|Bloemfontein
+162325|Malaysia|Kampung Baru Subang|Kampung Baru Subang
+162321|Malaysia|Kota Bharu|Kota Bharu
+160213|China|Huzhou|Huzhou
+160212|China|Guangyuan|Guangyuan
+160211|China|Ji’an|Ji’an
+160203|China|Jieshou|Jieshou
+162709|Palestinian Territory|East Jerusalem|East Jerusalem
+162147|Myanmar|Nay Pyi Taw|Nay Pyi Taw
+160202|China|Jinan|Jinan
+160200|China|Jinchang|Jinchang
+162707|Palestinian Territory|Nablus|Nablus
+160199|China|Jingdezhen|Jingdezhen
+160198|China|Jingling|Jingling
+163055|Syria|Deir ez-Zor|Deir ez-Zor
+161777|Japan|Matsumoto|Matsumoto
+161776|Japan|Matsuzaka|Matsuzaka
+162317|Malaysia|Sungai Petani|Sungai Petani
+162706|Palestinian Territory|Gaza|Gaza
+163052|Syria|Aleppo|Aleppo
+161775|Japan|Minami-rinkan|Minami-rinkan
+161774|Japan|Mino|Mino
+161769|Japan|Moriguchi|Moriguchi
+161768|Japan|Musashino|Musashino
+161767|Japan|Nagano-shi|Nagano-shi
+161766|Japan|Nagaoka|Nagaoka
+160197|China|Jingmen|Jingmen
+160196|China|Jingzhou|Jingzhou
+160158|China|Macheng|Macheng
+162043|Lithuania|Kaunas|Kaunas
+162041|Lithuania|Panevėžys|Panevezys
+162441|Netherlands|Leiden|Leiden
+162440|Netherlands|Maastricht|Maastricht
+162573|Philippines|Cagayan de Oro|Cagayan de Oro
+162439|Netherlands|Nijmegen|Nijmegen
+162570|Philippines|Cavite|Cavite
+162569|Philippines|Cebu City|Cebu City
+162161|Mexico|Gustavo A. Madero|Gustavo A. Madero
+162160|Mexico|Villahermosa|Villahermosa
+162159|Mexico|Alvaro Obregón|Alvaro Obregon
+162157|Mexico|Xochimilco|Xochimilco
+162156|Mexico|Gustavo A. Madero|Gustavo A. Madero
+162438|Netherlands|Rotterdam|Rotterdam
+162563|Philippines|General Santos|General Santos
+162562|Philippines|Guyong|Guyong
+162561|Philippines|Hagonoy|Hagonoy
+162560|Philippines|Iligan City|Iligan City
+162559|Philippines|Iloilo|Iloilo
+162548|Philippines|Mabalacat|Mabalacat
+162547|Philippines|Makati City|Makati City
+162545|Philippines|Mandaluyong City|Mandaluyong City
+162544|Philippines|Mandaue City|Mandaue City
+163177|Turkey|Karabağlar|Karabaglar
+163234|Ukraine|Kryvyy Rih|Kryvyy Rih
+162542|Philippines|Mansilingan|Mansilingan
+162541|Philippines|Mantampay|Mantampay
+162538|Philippines|Mati|Mati
+163170|Turkey|Beylikdüzü|Beylikduzu
+163167|Turkey|Adapazarı|Adapazarı
+163166|Turkey|Bağcılar|Bagcılar
+163164|Turkey|Bursa|Bursa
+163163|Turkey|Çorlu|Corlu
+160032|China|Wuwei|Wuwei
+162752|Serbia|Niš|Nis
+162536|Philippines|Rodriguez|Rodriguez
+160582|Denmark|Odense|Odense
+162535|Philippines|Muricay|Muricay
+162533|Philippines|Olongapo|Olongapo
+162530|Philippines|Pulong Santa Cruz|Pulong Santa Cruz
+162529|Philippines|Quezon City|Quezon City
+162528|Philippines|Roxas City|Roxas City
+162527|Philippines|San Fernando|San Fernando
+162526|Philippines|San Jose|San Jose
+162525|Philippines|San Jose del Monte|San Jose del Monte
+162524|Philippines|San Mateo|San Mateo
+162523|Philippines|San Pablo|San Pablo
+162522|Philippines|San Pedro|San Pedro
+162521|Philippines|Santa Cruz|Santa Cruz
+162520|Philippines|Santa Rosa|Santa Rosa
+162519|Philippines|Santiago|Santiago
+162518|Philippines|Santol|Santol
+162516|Philippines|Taguig|Taguig
+162515|Philippines|Tagum|Tagum
+162514|Philippines|Talisay|Talisay
+162513|Philippines|Tanza|Tanza
+162512|Philippines|Tarlac City|Tarlac City
+162511|Philippines|Taytay|Taytay
+162510|Philippines|Toledo|Toledo
+160580|Germany|Hamburg-Nord|Hamburg-Nord
+160579|Germany|Berlin Schöneberg|Berlin Schoneberg
+160577|Germany|Berlin Wilmersdorf|Berlin Wilmersdorf
+160576|Germany|Berlin Steglitz Zehlendorf|Berlin Steglitz Zehlendorf
+162509|Philippines|Tuguegarao City|Tuguegarao City
+162508|Philippines|Urdaneta|Urdaneta
+160575|Germany|Bergedorf|Bergedorf
+160574|Germany|Halle Neustadt|Halle Neustadt
+162040|Lithuania|Šiauliai|Siauliai
+162039|Lithuania|Vilnius|Vilnius
+163050|Syria|Homs|Homs
+162613|Pakistan|Mardān|Mardan
+162312|Malaysia|George Town|George Town
+162311|Malaysia|Tasek Glugor|Tasek Glugor
+163034|Senegal|Dakar|Dakar
+163703|South Africa|Brakpan|Brakpan
+163032|Senegal|Kaolack|Kaolack
+163031|Senegal|Pikine|Pikine
+163029|Senegal|Touba|Touba
+162704|Palestinian Territory|Khān Yūnis|Khan Yunis
+163027|Sierra Leone|Bo|Bo
+163025|Sierra Leone|Kenema|Kenema
+162702|Puerto Rico|San Juan|San Juan
+163431|United States of America|Erie|Erie
+163024|Slovakia|Bratislava|Bratislava
+163015|Sweden|Västerås|Vasteras
+163430|United States of America|Allentown|Allentown
+163221|Ukraine|Oleksandriya|Oleksandriya
+163425|United States of America|Syracuse|Syracuse
+163422|United States of America|New York City|New York City
+160194|China|Jining|Jining
+161712|Japan|Toyonaka|Toyonaka
+161711|Japan|Toyota|Toyota
+161710|Japan|Tsu-shi|Tsu-shi
+162036|Sri Lanka|Colombo|Colombo
+163570|Uzbekistan|Urganch|Urganch
+163141|Turkey|Adana|Adana
+161706|Japan|Urayasu|Urayasu
+161705|Japan|Utsunomiya-shi|Utsunomiya-shi
+163567|Uzbekistan|Samarqand|Samarqand
+161701|Japan|Yokkaichi|Yokkaichi
+161697|Japan|Yono|Yono
+161756|Japan|Nishio|Nishio
+161654|Italy|Turin|Turin
+161653|Italy|Trento|Trento
+161652|Italy|Trieste|Trieste
+161649|Italy|Verona|Verona
+161646|Italy|Catania|Catania
+161644|Italy|Palermo|Palermo
+161752|Japan|Odawara|Odawara
+163679|South Africa|Potchefstroom|Potchefstroom
+162980|Saudi Arabia|Najrān|Najran
+162968|Russia|Chertanovo Yuzhnoye|Chertanovo Yuzhnoye
+161751|Japan|Ōgaki|Ogaki
+162963|Russia|Khabarovsk Vtoroy|Khabarovsk Vtoroy
+161748|Japan|Okazaki|Okazaki
+161747|Japan|Ōme|Ome
+161746|Japan|Ōmuta|Omuta
+161743|Japan|Ōtsu-shi|Otsu-shi
+161742|Japan|Oyama|Oyama
+161741|Japan|Saga-shi|Saga-shi
+162030|Sri Lanka|Negombo|Negombo
+159503|Austria|Innsbruck|Innsbruck
+160191|China|Jiujiang|Jiujiang
+161740|Japan|Sagamihara|Sagamihara
+161739|Japan|Sakai|Sakai
+160189|China|Kaiyuan|Kaiyuan
+161738|Japan|Sakata|Sakata
+160187|China|Laiwu|Laiwu
+160186|China|Laiyang|Laiyang
+160185|China|Langfang|Langfang
+160182|China|Lecheng|Lecheng
+161736|Japan|Seto|Seto
+161734|Japan|Shinagawa-ku|Shinagawa-ku
+162956|Russia|Khabarovsk|Khabarovsk
+162955|Russia|Komsomol’sk-na-Amure|Komsomol’sk-na-Amure
+161730|Japan|Suzuka|Suzuka
+161729|Japan|Tachikawa|Tachikawa
+161728|Japan|Tajimi|Tajimi
+161726|Japan|Takaoka|Takaoka
+162145|Myanmar|Hinthada|Hinthada
+162144|Myanmar|Lashio|Lashio
+162952|Russia|Ussuriysk|Ussuriysk
+160181|China|Leiyang|Leiyang
+162951|Russia|Ust’-Ilimsk|Ust’-Ilimsk
+162949|Russia|Yakutsk|Yakutsk
+162948|Russia|Seversk|Seversk
+162947|Russia|Ozërsk|Ozersk
+162945|Russia|Achinsk|Achinsk
+162944|Russia|Barnaul|Barnaul
+162943|Russia|Biysk|Biysk
+162942|Russia|Chelyabinsk|Chelyabinsk
+162940|Russia|Kansk|Kansk
+162939|Russia|Kemerovo|Kemerovo
+162938|Russia|Kiselëvsk|Kiselevsk
+160180|China|Lengshuijiang|Lengshuijiang
+160179|China|Leshan|Leshan
+160177|China|Lianran|Lianran
+162935|Russia|Kyzyl|Kyzyl
+162934|Russia|Leninsk-Kuznetskiy|Leninsk-Kuznetskiy
+160176|China|Liaocheng|Liaocheng
+160175|China|Licheng|Licheng
+162933|Russia|Mezhdurechensk|Mezhdurechensk
+160174|China|Linfen|Linfen
+160172|China|Linqing|Linqing
+160171|China|Linshui|Linshui
+160170|China|Linxi|Linxi
+160169|China|Linxia Chengguanzhen|Linxia Chengguanzhen
+160168|China|Linyi|Linyi
+161724|Japan|Takasaki|Takasaki
+162930|Russia|Nizhnevartovsk|Nizhnevartovsk
+161723|Japan|Takatsuki|Takatsuki
+161722|Japan|Nishi-Tokyo-shi|Nishi-Tokyo-shi
+161720|Japan|Tokushima-shi|Tokushima-shi
+163132|Turkey|Balıkesir|Balıkesir
+163131|Turkey|Batman|Batman
+163129|Turkey|Diyarbakır|Diyarbakır
+163126|Turkey|Erzurum|Erzurum
+159502|Austria|Linz|Linz
+162029|Sri Lanka|Pita Kotte|Pita Kotte
+162026|Lebanon|Beirut|Beirut
+162023|Lebanon|Tyre|Tyre
+163122|Turkey|Isparta|Isparta
+163121|Turkey|İzmir|Izmir
+163120|Turkey|Kahramanmaraş|Kahramanmaras
+162695|Poland|Bydgoszcz|Bydgoszcz
+162688|Poland|Gdynia|Gdynia
+163119|Turkey|Karaman|Karaman
+160153|China|Mianyang|Mianyang
+161643|Italy|Reggio Calabria|Reggio Calabria
+160152|China|Mingshui|Mingshui
+160151|China|Nanchang|Nanchang
+163115|Turkey|Konya|Konya
+163114|Turkey|Kütahya|Kutahya
+160149|China|Nanjing|Nanjing
+163112|Turkey|Manisa|Manisa
+161640|Iran|Īrānshahr|Iranshahr
+163669|South Africa|Uitenhage|Uitenhage
+161638|Iran|Zābol|Zabol
+161636|Iran|Khomeynī Shahr|Khomeyni Shahr
+161635|Iran|Najafābād|Najafabad
+161634|Iran|Shāhreẕā|Shahreza
+161630|Iran|Arāk|Arak
+161628|Iran|Bābol|Babol
+161625|Iran|Bāneh|Baneh
+161624|Iran|Bīrjand|Birjand
+161623|Iran|Bojnūrd|Bojnurd
+162437|Netherlands|The Hague|The Hague
+163104|Turkey|Turgutlu|Turgutlu
+163103|Turkey|Şanlıurfa|Sanlıurfa
+161622|Iran|Borūjerd|Borujerd
+161621|Iran|Būkān|Bukan
+161619|Iran|Shāhrūd|Shahrud
+161617|Iran|Gorgān|Gorgan
+161616|Iran|Hamadān|Hamadan
+161615|Iran|Īlām|Ilam
+161614|Iran|Karaj|Karaj
+161613|Iran|Kāshān|Kashan
+161612|Iran|Kermān|Kerman
+161611|Iran|Kermānshāh|Kermanshah
+161610|Iran|Khorramābād|Khorramabad
+161608|Iran|Khvoy|Khvoy
+161607|Iran|Kūhdasht|Kuhdasht
+161604|Iran|Marand|Marand
+161603|Iran|Mashhad|Mashhad
+161599|Iran|Neyshābūr|Neyshabur
+161598|Iran|Orūmīyeh|Orumiyeh
+161596|Iran|Qazvin|Qazvin
+161595|Iran|Qom|Qom
+161594|Iran|Qūchān|Quchan
+161592|Iran|Rasht|Rasht
+161591|Iran|Sabzevar|Sabzevar
+161589|Iran|Saqqez|Saqqez
+161588|Iran|Sari|Sari
+161587|Iran|Sāveh|Saveh
+161586|Iran|Semnān|Semnan
+161585|Iran|Shahr-e Kord|Shahr-e Kord
+161584|Iran|Shīrāz|Shiraz
+161583|Iran|Sīrjān|Sirjan
+161582|Iran|Tabrīz|Tabriz
+161581|Iran|Tehrān|Tehran
+161576|Iran|Kahrīz|Kahriz
+161575|Iran|Āzādshahr|Azadshahr
+161574|Iraq|Al Başrat al Qadīmah|Al Basrat al Qadimah
+162129|Myanmar|Taungoo|Taungoo
+161571|Iraq|Al ‘Amārah|Al ‘Amarah
+163102|Turkey|Uşak|Usak
+160148|China|Nanning|Nanning
+163101|Turkey|Van|Van
+160147|China|Luoyang|Luoyang
+160146|China|Nanping|Nanping
+160139|China|Pingliang|Pingliang
+161567|Iraq|Al Ḩillah|Al Hillah
+161566|Iraq|Al Kūt|Al Kut
+161564|Iraq|Mosul|Mosul
+162127|Mali|Bamako|Bamako
+161563|Iraq|Al Mawşil al Jadīdah|Al Mawsil al Jadidah
+160414|Colombia|Medellín|Medellin
+163565|Uzbekistan|Nukus|Nukus
+161562|Iraq|An Najaf al Ashraf|An Najaf al Ashraf
+161561|Iraq|An Nāşirīyah|An Nasiriyah
+163098|Tunisia|Bizerte|Bizerte
+161560|Iraq|Ar Ramādī|Ar Ramadi
+163096|Tunisia|Gabès|Gabes
+161558|Iraq|As Sulaymānīyah|As Sulaymaniyah
+161557|Iraq|Az Zubayr|Az Zubayr
+161555|Iraq|Ba‘qūbah|Ba‘qubah
+161554|Iraq|Erbil|Erbil
+163530|United States of America|Westminster|Westminster
+161553|Iraq|Karbala|Karbala
+161552|Iraq|Kirkuk|Kirkuk
+161551|Iraq|Sāmarrā’|Samarra’
+161550|Iraq|Sīnah|Sinah
+161548|India|Ramagundam|Ramagundam
+163529|United States of America|Thornton|Thornton
+161546|India|Serilingampalle|Serilingampalle
+161545|India|Quthbullapur|Quthbullapur
+161542|India|Lal Bahadur Nagar|Lal Bahadur Nagar
+161541|India|Jaigaon|Jaigaon
+160135|China|Puqi|Puqi
+161540|India|Singrauli|Singrauli
+161538|India|Airoli|Airoli
+163095|Tunisia|Sfax|Sfax
+161537|India|Mohali|Mohali
+162500|Peru|Huancayo|Huancayo
+162750|Romania|Baia Mare|Baia Mare
+161859|Japan|Chigasaki|Chigasaki
+161536|India|Greater Noida|Greater Noida
+161535|India|Shivaji Nagar|Shivaji Nagar
+163094|Tunisia|Sousse|Sousse
+161534|India|Navi Mumbai|Navi Mumbai
+161533|India|Soyībug|Soyibug
+161530|India|Abohar|Abohar
+161529|India|Achalpur|Achalpur
+161528|India|Ādilābād|Adilabad
+161527|India|Ādoni|Adoni
+161526|India|Agartala|Agartala
+160134|China|Putian|Putian
+161522|India|Aizawl|Aizawl
+161520|India|Akola|Akola
+160133|China|Puyang|Puyang
+160412|Colombia|Neiva|Neiva
+163088|Tajikistan|Khŭjand|Khujand
+161519|India|Alandur|Alandur
+161518|India|Alīgarh|Aligarh
+163087|Tajikistan|Dushanbe|Dushanbe
+161516|India|Alleppey|Alleppey
+163084|Thailand|Hat Yai|Hat Yai
+160132|China|Puyang|Puyang
+160131|China|Qingyuan|Qingyuan
+163083|Thailand|Khlong Luang|Khlong Luang
+160129|China|Huai'an|Huai'an
+163082|Thailand|Khon Kaen|Khon Kaen
+163081|Thailand|Bangkok|Bangkok
+163080|Thailand|Nakhon Pathom|Nakhon Pathom
+160126|China|Quanzhou|Quanzhou
+160125|China|Qujing|Qujing
+163075|Thailand|Phra Pradaeng|Phra Pradaeng
+160411|Colombia|Palmira|Palmira
+162481|Oman|As Sīb al Jadīdah|As Sib al Jadidah
+163219|Ukraine|Poltava|Poltava
+160331|China|Panshan|Panshan
+160288|China|Binzhou|Binzhou
+160284|China|Cangzhou|Cangzhou
+160277|China|Chengdu|Chengdu
+159547|Bangladesh|Bhairab Bāzār|Bhairab Bazar
+159522|Azerbaijan|Sumqayıt|Sumqayıt
+159517|Australia|Brisbane|Brisbane
+161696|Japan|Zama|Zama
+161695|Japan|Atsugi|Atsugi
+161693|Jordan|‘Ajlūn|‘Ajlun
+161684|Italy|Ancona|Ancona
+161683|Italy|Bari|Bari
+162033|Sri Lanka|Kandy|Kandy
+160192|China|Qianzhou|Qianzhou
+161681|Italy|Bologna|Bologna
+161680|Italy|Brescia|Brescia
+161679|Italy|Ferrara|Ferrara
+161678|Italy|Firenze|Firenze
+161677|Italy|Foggia|Foggia
+161676|Italy|Forlì|Forli
+163566|Uzbekistan|Tirmiz|Tirmiz
+161673|Italy|Livorno|Livorno
+161762|Japan|Naha-shi|Naha-shi
+162032|Sri Lanka|Sri Jayewardenepura Kotte|Sri Jayewardenepura Kotte
+161671|Italy|Milano|Milano
+161670|Italy|Modena|Modena
+161668|Italy|Napoli|Napoli
+161665|Italy|Parma|Parma
+161664|Italy|Perugia|Perugia
+161662|Italy|Prato|Prato
+161661|Italy|Ravenna|Ravenna
+161761|Japan|Nara-shi|Nara-shi
+161659|Italy|Rimini|Rimini
+162031|Sri Lanka|Moratuwa|Moratuwa
+161757|Japan|Nishinomiya|Nishinomiya
+163725|Zimbabwe|Bulawayo|Bulawayo
+163715|Zambia|Mufulira|Mufulira
+163709|South Africa|Benoni|Benoni
+163581|Uzbekistan|Andijon|Andijon
+163576|Uzbekistan|Marg‘ilon|Marg‘ilon
+163573|Uzbekistan|Olmaliq|Olmaliq
+163572|Uzbekistan|Qo‘qon|Qo‘qon
+163569|Uzbekistan|Buxoro|Buxoro
+163568|Uzbekistan|Qarshi|Qarshi
+163531|United States of America|Albuquerque|Albuquerque
+163528|United States of America|Pueblo|Pueblo
+163527|United States of America|Lakewood|Lakewood
+163526|United States of America|Denver|Denver
+163524|United States of America|Centennial|Centennial
+163510|United States of America|Van Nuys|Van Nuys
+163479|United States of America|Long Beach|Long Beach
+163478|United States of America|Lancaster|Lancaster
+163477|United States of America|Irvine|Irvine
+163476|United States of America|Inglewood|Inglewood
+163462|United States of America|East Los Angeles|East Los Angeles
+163461|United States of America|Downey|Downey
+163460|United States of America|Daly City|Daly City
+163459|United States of America|Costa Mesa|Costa Mesa
+163457|United States of America|Concord|Concord
+163456|United States of America|Chula Vista|Chula Vista
+163452|United States of America|Bakersfield|Bakersfield
+163449|United States of America|Tucson|Tucson
+163432|United States of America|Pittsburgh|Pittsburgh
+163429|United States of America|Toledo|Toledo
+163428|United States of America|Cleveland|Cleveland
+163414|United States of America|Paterson|Paterson
+163413|United States of America|Newark|Newark
+163402|United States of America|Warren|Warren
+163389|United States of America|South Bend|South Bend
+163386|United States of America|Peoria|Peoria
+163377|United States of America|Waterbury|Waterbury
+163376|United States of America|Stamford|Stamford
+163375|United States of America|North Stamford|North Stamford
+163374|United States of America|New Haven|New Haven
+163372|United States of America|Virginia Beach|Virginia Beach
+163371|United States of America|Richmond|Richmond
+163360|United States of America|Plano|Plano
+163358|United States of America|Mesquite|Mesquite
+163357|United States of America|McKinney|McKinney
+163353|United States of America|Irving|Irving
+163333|United States of America|East Chattanooga|East Chattanooga
+163218|Ukraine|Rivne|Rivne
+163217|Ukraine|Sevastopol|Sevastopol
+160123|China|Jieyang|Jieyang
+163216|Ukraine|Simferopol’|Simferopol’
+160122|China|Sanming|Sanming
+160120|China|Shahecheng|Shahecheng
+163215|Ukraine|Sloviansk|Sloviansk
+163214|Ukraine|Sumy|Sumy
+160116|China|Shaoguan|Shaoguan
+160115|China|Shaowu|Shaowu
+160114|China|Shaoxing|Shaoxing
+160113|China|Shaping|Shaping
+160112|China|Shashi|Shashi
+160109|China|Tongchuan|Tongchuan
+163213|Ukraine|Syeverodonets’k|Syeverodonets’k
+163211|Ukraine|Uzhhorod|Uzhhorod
+162125|Mali|Sikasso|Sikasso
+163210|Ukraine|Vinnytsya|Vinnytsya
+162124|Myanmar|Pyay|Pyay
+162123|Macedonia|Kumanovo|Kumanovo
+162121|Madagascar|Antananarivo|Antananarivo
+163209|Ukraine|Yenakiyeve|Yenakiyeve
+163208|Ukraine|Yevpatoriya|Yevpatoriya
+163207|Ukraine|Zaporizhzhya|Zaporizhzhya
+162120|Madagascar|Fianarantsoa|Fianarantsoa
+161496|India|Bahraich|Bahraich
+161995|South Korea|Kwangmyŏng|Kwangmyong
+161492|India|Bālurghāt|Balurghat
+161994|South Korea|Hwado|Hwado
+161993|South Korea|Hanam|Hanam
+161991|South Korea|Tonghae|Tonghae
+162430|Nicaragua|Chinandega|Chinandega
+163401|United States of America|Lansing|Lansing
+163400|United States of America|Grand Rapids|Grand Rapids
+163399|United States of America|Sterling Heights|Sterling Heights
+163397|United States of America|Detroit|Detroit
+162897|Russia|Dimitrovgrad|Dimitrovgrad
+162895|Russia|Elektrostal’|Elektrostal’
+162428|Nicaragua|Managua|Managua
+162426|Nicaragua|Matagalpa|Matagalpa
+163385|United States of America|North Peoria|North Peoria
+160167|China|Puning|Puning
+161989|South Korea|Andong|Andong
+161988|South Korea|Ansan|Ansan
+161986|South Korea|Changwon|Changwon
+161489|India|Bangaon|Bangaon
+161979|South Korea|Chuncheon|Chuncheon
+162143|Myanmar|Mandalay|Mandalay
+161973|South Korea|Gimcheon|Gimcheon
+161488|India|Bānkura|Bankura
+161972|South Korea|Kimhae|Kimhae
+161971|South Korea|Goyang|Goyang
+161970|South Korea|Gumi|Gumi
+161966|South Korea|Kyonju|Kyonju
+162142|Myanmar|Maymyo|Maymyo
+162117|Madagascar|Toamasina|Toamasina
+162115|Moldova|Bălţi|Balti
+162113|Moldova|Chişinău|Chisinau
+162111|Morocco|Agadir|Agadir
+162110|Morocco|Khemisset|Khemisset
+162109|Morocco|Beni Mellal|Beni Mellal
+162108|Morocco|Casablanca|Casablanca
+162107|Morocco|El Jadida|El Jadida
+162102|Morocco|Larache|Larache
+162101|Morocco|Marrakesh|Marrakesh
+161962|South Korea|Osan|Osan
+161957|South Korea|Suncheon|Suncheon
+162100|Morocco|Meknès|Meknes
+162099|Morocco|Mohammedia|Mohammedia
+162098|Morocco|Nador|Nador
+162097|Morocco|Oujda|Oujda
+162066|Morocco|Rabat|Rabat
+162065|Morocco|Safi|Safi
+162064|Morocco|Sale|Sale
+162063|Morocco|Settat|Settat
+162062|Morocco|Tangier|Tangier
+162061|Morocco|Taza|Taza
+162060|Morocco|Tétouan|Tetouan
+162059|Libya|Al Jadīd|Al Jadid
+162057|Libya|Zawiya|Zawiya
+161956|South Korea|Suigen|Suigen
+161955|South Korea|Daegu|Daegu
+161954|South Korea|Daejeon|Daejeon
+161953|South Korea|Vijongbu|Vijongbu
+161952|South Korea|Ulsan|Ulsan
+161951|South Korea|Wŏnju|Wonju
+161950|South Korea|Yangju|Yangju
+161948|North Korea|Kanggye-si|Kanggye-si
+161947|North Korea|Sinŭiju|Sinuiju
+162141|Myanmar|Meiktila|Meiktila
+162054|Libya|Şabrātah|Sabratah
+162139|Myanmar|Monywa|Monywa
+162138|Myanmar|Mawlamyine|Mawlamyine
+162045|Latvia|Daugavpils|Daugavpils
+162891|Russia|Gol’yanovo|Gol’yanovo
+162137|Myanmar|Myingyan|Myingyan
+162136|Myanmar|Pakokku|Pakokku
+162135|Myanmar|Bago|Bago
+160164|China|Luancheng|Luancheng
+162134|Myanmar|Rangoon|Rangoon
+162133|Myanmar|Sittwe|Sittwe
+162423|Nigeria|Abakaliki|Abakaliki
+162422|Nigeria|Abeokuta|Abeokuta
+162421|Nigeria|Abuja|Abuja
+163012|Sudan|El Fasher|El Fasher
+163011|Sudan|El Geneina|El Geneina
+163072|Thailand|Si Racha|Si Racha
+163069|Thailand|Chiang Mai|Chiang Mai
+163010|Sudan|Khartoum|Khartoum
+160159|China|Maba|Maba
+162416|Nigeria|Bama|Bama
+162888|Russia|Ivanovskoye|Ivanovskoye
+162310|Malaysia|Bukit Mertajam|Bukit Mertajam
+163008|Sudan|El Obeid|El Obeid
+162309|Malaysia|Butterworth|Butterworth
+162306|Malaysia|Kuala Terengganu|Kuala Terengganu
+162882|Senegal|Thiès Nones|Thies Nones
+162415|Nigeria|Bauchi|Bauchi
+162410|Nigeria|Calabar|Calabar
+163525|United States of America|Colorado Springs|Colorado Springs
+160433|Colombia|Bucaramanga|Bucaramanga
+160432|Colombia|Buenaventura|Buenaventura
+160423|Colombia|Floridablanca|Floridablanca
+160417|Colombia|Maicao|Maicao
+160416|Colombia|Malambo|Malambo
+160415|Colombia|Manizales|Manizales
+160413|Colombia|Montería|Monteria
+160409|Colombia|Pereira|Pereira
+160405|Colombia|Soacha|Soacha
+160361|China|Hegang|Hegang
+160344|China|Jiupu|Jiupu
+163332|United States of America|Clarksville|Clarksville
+163328|United States of America|Philadelphia|Philadelphia
+163326|United States of America|Oklahoma City|Oklahoma City
+163324|United States of America|Dayton|Dayton
+163323|United States of America|Columbus|Columbus
+163322|United States of America|Cincinnati|Cincinnati
+163320|United States of America|Wilmington|Wilmington
+163314|United States of America|Durham|Durham
+163310|United States of America|Springfield|Springfield
+163308|United States of America|Kansas City|Kansas City
+163299|United States of America|Lafayette|Lafayette
+163298|United States of America|Baton Rouge|Baton Rouge
+163291|United States of America|Overland Park|Overland Park
+163259|United States of America|Montgomery|Montgomery
+163244|Ukraine|Donets’k|Donets’k
+163243|Ukraine|Horlivka|Horlivka
+163242|Ukraine|Ivano-Frankivs’k|Ivano-Frankivs’k
+163241|Ukraine|Kamieniec Podolski|Kamieniec Podolski
+163240|Ukraine|Kerch|Kerch
+163239|Ukraine|Kharkiv|Kharkiv
+163233|Ukraine|Kiev|Kiev
+163232|Ukraine|Lisichansk|Lisichansk
+163231|Ukraine|Luhans’k|Luhans’k
+163222|Ukraine|Odessa|Odessa
+163220|Ukraine|Pavlohrad|Pavlohrad
+163206|Ukraine|Zhytomyr|Zhytomyr
+163192|Tanzania|Tabora|Tabora
+163191|Tanzania|Tanga|Tanga
+163169|Turkey|Başakşehir|Basaksehir
+163162|Turkey|Çorum|Corum
+163161|Turkey|Edirne|Edirne
+163160|Turkey|Esenler|Esenler
+163159|Turkey|Esenyurt|Esenyurt
+163157|Turkey|Inegeul|Inegeul
+163149|Turkey|Tokat|Tokat
+163148|Turkey|Trabzon|Trabzon
+163147|Turkey|Turhal|Turhal
+163146|Turkey|Umraniye|Umraniye
+163145|Turkey|Üsküdar|Uskudar
+163144|Turkey|Zeytinburnu|Zeytinburnu
+163142|Turkey|Batikent|Batikent
+163140|Turkey|Adıyaman|Adıyaman
+163139|Turkey|Afyonkarahisar|Afyonkarahisar
+163138|Turkey|Aksaray|Aksaray
+163136|Turkey|Ankara|Ankara
+163135|Turkey|Antioch|Antioch
+163133|Turkey|Aydın|Aydın
+163130|Turkey|Denizli|Denizli
+163128|Turkey|Elazığ|Elazıg
+163127|Turkey|Erzincan|Erzincan
+163125|Turkey|Eskişehir|Eskisehir
+163124|Turkey|Gaziantep|Gaziantep
+163118|Turkey|Kayseri|Kayseri
+163117|Turkey|Kırıkkale|Kırıkkale
+163116|Turkey|Kızıltepe|Kızıltepe
+163110|Turkey|Nazilli|Nazilli
+163109|Turkey|Osmaniye|Osmaniye
+163107|Turkey|Sivas|Sivas
+163100|Turkey|Viranşehir|Viransehir
+163099|Tunisia|Kairouan|Kairouan
+163058|Syria|Al Bāb|Al Bab
+163056|Syria|Ar Raqqah|Ar Raqqah
+163054|Syria|Damascus|Damascus
+163053|Syria|Douma|Douma
+163051|Syria|Ḩamāh|Hamah
+163049|Syria|Idlib|Idlib
+162119|Madagascar|Mahajanga|Mahajanga
+163204|Tanzania|Arusha|Arusha
+163203|Tanzania|Dar es Salaam|Dar es Salaam
+163201|Tanzania|Iringa|Iringa
+163200|Tanzania|Katumba|Katumba
+163199|Tanzania|Kigoma|Kigoma
+163198|Tanzania|Mbeya|Mbeya
+163405|United States of America|Saint Paul|Saint Paul
+163197|Tanzania|Morogoro|Morogoro
+163195|Tanzania|Musoma|Musoma
+163194|Tanzania|Mwanza|Mwanza
+163403|United States of America|Minneapolis|Minneapolis
+162925|Russia|Omsk|Omsk
+162118|Madagascar|Toliara|Toliara
+162480|Oman|As Suwayq|As Suwayq
+162924|Russia|Prokop’yevsk|Prokop’yevsk
+162923|Russia|Rubtsovsk|Rubtsovsk
+162922|Russia|Surgut|Surgut
+161515|India|Alwar|Alwar
+161514|India|Amarnāth|Amarnath
+161513|India|Ambāla|Ambala
+162920|Russia|Tomsk|Tomsk
+161512|India|Ambattūr|Ambattur
+161511|India|Ambur|Ambur
+162904|Russia|Brateyevo|Brateyevo
+162900|Russia|Cherepovets|Cherepovets
+160410|Colombia|Pasto|Pasto
+161510|India|Amrāvati|Amravati
+161509|India|Amritsar|Amritsar
+160408|Colombia|Popayán|Popayan
+161508|India|Amroha|Amroha
+161507|India|Ānand|Anand
+161506|India|Anantapur|Anantapur
+160406|Colombia|Sincelejo|Sincelejo
+161505|India|Ara|Ara
+161504|India|Āsansol|Asansol
+161503|India|Aurangābād|Aurangabad
+161502|India|Āvadi|Avadi
+161501|India|Āzamgarh|Azamgarh
+159501|Austria|Salzburg|Salzburg
+161499|India|Bagaha|Bagaha
+162021|Laos|Vientiane|Vientiane
+162019|Sri Lanka|Jaffna|Jaffna
+162018|Kazakhstan|Astana|Astana
+162017|Kazakhstan|Ekibastuz|Ekibastuz
+162015|Kazakhstan|Oskemen|Oskemen
+162014|Kazakhstan|Pavlodar|Pavlodar
+162013|Kazakhstan|Petropavlovsk|Petropavlovsk
+162012|Kazakhstan|Kostanay|Kostanay
+162005|Kazakhstan|Temirtau|Temirtau
+162004|Kazakhstan|Taraz|Taraz
+162003|Kazakhstan|Zhezqazghan|Zhezqazghan
+162002|Kazakhstan|Aktau|Aktau
+162001|Kazakhstan|Aqtöbe|Aqtobe
+162000|Kazakhstan|Atyrau|Atyrau
+161999|Kazakhstan|Karagandy|Karagandy
+161998|Kazakhstan|Oral|Oral
+161997|Kuwait|Şabāḩ as Sālim|Sabah as Salim
+161996|Kuwait|As Sālimīyah|As Salimiyah
+161497|India|Baharampur|Baharampur
+163655|South Africa|Witbank|Witbank
+162434|Netherlands|Utrecht|Utrecht
+162433|Netherlands|Zaanstad|Zaanstad
+163705|South Africa|Boksburg|Boksburg
+163704|South Africa|Botshabelo|Botshabelo
+163702|South Africa|Brits|Brits
+163701|South Africa|Carletonville|Carletonville
+163700|South Africa|Durban|Durban
+163698|South Africa|Noorder-Paarl|Noorder-Paarl
+163697|South Africa|eMbalenhle|eMbalenhle
+163695|South Africa|Johannesburg|Johannesburg
+163694|South Africa|Kimberley|Kimberley
+163692|South Africa|Kroonstad|Kroonstad
+163691|South Africa|Krugersdorp|Krugersdorp
+163689|South Africa|Mossel Bay|Mossel Bay
+163678|South Africa|Mokopane|Mokopane
+163677|South Africa|Pretoria|Pretoria
+163676|South Africa|Queenstown|Queenstown
+163675|South Africa|Randfontein|Randfontein
+163673|South Africa|Rustenburg|Rustenburg
+163672|South Africa|Soweto|Soweto
+163671|South Africa|Springs|Springs
+163670|South Africa|Tembisa|Tembisa
+163668|South Africa|Vanderbijlpark|Vanderbijlpark
+163667|South Africa|Vereeniging|Vereeniging
+163665|South Africa|Vryheid|Vryheid
+163664|South Africa|Welkom|Welkom
+163658|Yemen|Ibb|Ibb
+163657|Yemen|Sanaa|Sanaa
+163656|Yemen|Ta‘izz|Ta‘izz
+163651|Vietnam|Cà Mau|Ca Mau
+163647|Vietnam|Cần Thơ|Can Tho
+163624|Vietnam|Vũng Tàu|Vung Tau
+163044|El Salvador|San Salvador|San Salvador
+163042|El Salvador|Soyapango|Soyapango
+163041|Suriname|Paramaribo|Paramaribo
+163040|Somalia|Baydhabo|Baydhabo
+163039|Somalia|Berbera|Berbera
+163038|Somalia|Hargeysa|Hargeysa
+163036|Somalia|Kismayo|Kismayo
+163030|Senegal|Saint-Louis|Saint-Louis
+163014|Sudan|Ad-Damazin|Ad-Damazin
+163013|Sudan|Ed Damer|Ed Damer
+163009|Sudan|Al Manāqil|Al Manaqil
+162775|Russia|Vladimir|Vladimir
+162774|Russia|Volgodonsk|Volgodonsk
+162766|Russia|Yasenevo|Yasenevo
+162761|Russia|Zhulebino|Zhulebino
+162757|Serbia|Novi Sad|Novi Sad
+162744|Romania|Braşov|Brasov
+162740|Romania|Constanţa|Constanta
+162739|Romania|Craiova|Craiova
+162736|Romania|Galaţi|Galati
+162735|Romania|Iaşi|Iasi
+162734|Romania|Oradea|Oradea
+162733|Romania|Piatra Neamţ|Piatra Neamt
+162717|Paraguay|San Lorenzo|San Lorenzo
+162715|Portugal|Coimbra|Coimbra
+162711|Portugal|Queluz|Queluz
+162710|Portugal|Setúbal|Setubal
+162703|Palestinian Territory|Rafaḩ|Rafah
+162698|Poland|Praga Południe|Praga Południe
+162697|Poland|Ursynów|Ursynow
+162696|Poland|Bielsko-Biała|Bielsko-Biała
+162682|Poland|Kraków|Krakow
+162678|Poland|Płock|Płock
+162657|Poland|Rzeszów|Rzeszow
+162630|Pakistan|Jacobābād|Jacobabad
+162629|Pakistan|Jarānwāla|Jaranwala
+162617|Pakistan|Lahore|Lahore
+162612|Pakistan|Mingāora|Mingaora
+162601|Pakistan|Sādiqābād|Sadiqabad
+162596|Pakistan|Shikārpur|Shikarpur
+162587|Philippines|Malingao|Malingao
+162586|Philippines|Angeles City|Angeles City
+162585|Philippines|Antipolo|Antipolo
+162584|Philippines|Bacolod City|Bacolod City
+162583|Philippines|Bacoor|Bacoor
+162582|Philippines|Bago City|Bago City
+162581|Philippines|Baguio|Baguio
+162579|Philippines|Batangas|Batangas
+162575|Philippines|Cabanatuan City|Cabanatuan City
+162572|Philippines|Cainta|Cainta
+162571|Philippines|Calamba|Calamba
+162567|Philippines|Dasmariñas|Dasmarinas
+162566|Philippines|Davao|Davao
+163287|United States of America|Indianapolis|Indianapolis
+163272|United States of America|Miami Gardens|Miami Gardens
+163271|United States of America|Miami|Miami
+163269|United States of America|Hialeah|Hialeah
+162565|Philippines|Digos|Digos
+162564|Philippines|Dumaguete|Dumaguete
+162558|Philippines|Imus|Imus
+162557|Philippines|Jolo|Jolo
+162556|Philippines|Kabankalan|Kabankalan
+162555|Philippines|Koronadal|Koronadal
+162554|Philippines|Laoag|Laoag
+162553|Philippines|Lapu-Lapu City|Lapu-Lapu City
+162552|Philippines|Legaspi|Legaspi
+162551|Philippines|Libertad|Libertad
+162550|Philippines|Lipa City|Lipa City
+162549|Philippines|Lucena|Lucena
+162537|Philippines|Meycauayan|Meycauayan
+162532|Philippines|Panalanoy|Panalanoy
+162531|Philippines|Puerto Princesa|Puerto Princesa
+162436|Netherlands|'s-Hertogenbosch|'s-Hertogenbosch
+162431|Netherlands|Zwolle|Zwolle
+162425|Nicaragua|Tipitapa|Tipitapa
+162419|Nigeria|Amaigbo|Amaigbo
+162418|Nigeria|Awka|Awka
+162417|Nigeria|Azare|Azare
+162414|Nigeria|Benin City|Benin City
+162413|Nigeria|Bida|Bida
+162412|Nigeria|Birnin Kebbi|Birnin Kebbi
+162409|Nigeria|Ebute Ikorodu|Ebute Ikorodu
+162407|Nigeria|Ejigbo|Ejigbo
+162406|Nigeria|Enugu|Enugu
+162405|Nigeria|Esuk Oron|Esuk Oron
+162404|Nigeria|Funtua|Funtua
+162400|Nigeria|Gusau|Gusau
+162399|Nigeria|Hadejia|Hadejia
+162397|Nigeria|Igboho|Igboho
+162396|Nigeria|Ijebu-Igbo|Ijebu-Igbo
+162395|Nigeria|Ijebu-Ode|Ijebu-Ode
+162394|Nigeria|Ijero-Ekiti|Ijero-Ekiti
+162393|Nigeria|Ikerre|Ikerre
+162392|Nigeria|Ikire|Ikire
+162390|Nigeria|Ikot-Ekpene|Ikot-Ekpene
+162389|Nigeria|Ila Orangun|Ila Orangun
+162387|Nigeria|Ilobu|Ilobu
+162386|Nigeria|Ilorin|Ilorin
+162385|Nigeria|Inisa|Inisa
+162384|Nigeria|Ise-Ekiti|Ise-Ekiti
+162383|Nigeria|Iwo|Iwo
+162382|Nigeria|Jalingo|Jalingo
+162380|Nigeria|Jos|Jos
+162379|Nigeria|Kaduna|Kaduna
+162377|Nigeria|Katsina|Katsina
+162376|Nigeria|Kishi|Kishi
+162372|Nigeria|Maiduguri|Maiduguri
+162367|Nigeria|Nguru|Nguru
+162366|Nigeria|Nkpor|Nkpor
+162365|Nigeria|Nnewi|Nnewi
+162364|Nigeria|Nsukka|Nsukka
+162362|Nigeria|Okigwi|Okigwi
+162358|Nigeria|Owerri|Owerri
+162330|Mozambique|Quelimane|Quelimane
+162329|Mozambique|Ressano Garcia|Ressano Garcia
+162328|Mozambique|Tete|Tete
+162327|Mozambique|Xai-Xai|Xai-Xai
+162326|Malaysia|Subang Jaya|Subang Jaya
+162319|Malaysia|Sibu|Sibu
+162315|Malaysia|Kuala Lumpur|Kuala Lumpur
+162313|Malaysia|Rawang|Rawang
+162304|Malaysia|Taiping|Taiping
+162302|Malaysia|Tawau|Tawau
+162301|Malaysia|Sandakan|Sandakan
+162300|Malaysia|Lahad Datu|Lahad Datu
+162299|Malaysia|Kota Kinabalu|Kota Kinabalu
+162298|Malaysia|Klang|Klang
+162296|Malaysia|Muar|Muar
+162295|Malaysia|Kluang|Kluang
+162292|Malaysia|Kampung Pasir Gudang Baru|Kampung Pasir Gudang Baru
+162291|Malaysia|Batu Pahat|Batu Pahat
+162290|Mexico|Colonia Lindavista|Colonia Lindavista
+162289|Mexico|Colonia del Valle|Colonia del Valle
+162288|Mexico|Aguascalientes|Aguascalientes
+162266|Mexico|Hidalgo del Parral|Hidalgo del Parral
+162265|Mexico|Irapuato|Irapuato
+162263|Mexico|León|Leon
+162262|Mexico|Los Mochis|Los Mochis
+162261|Mexico|Matamoros|Matamoros
+162260|Mexico|Mazatlán|Mazatlan
+162259|Mexico|Mexicali|Mexicali
+162246|Mexico|San Nicolás de los Garza|San Nicolas de los Garza
+162244|Mexico|Soledad Díez Gutiérrez|Soledad Diez Gutierrez
+162230|Mexico|Benito Juarez|Benito Juarez
+162217|Mexico|Ciudad Nezahualcóyotl|Ciudad Nezahualcoyotl
+162214|Mexico|Coacalco|Coacalco
+162212|Mexico|Córdoba|Cordoba
+162211|Mexico|Coyoacán|Coyoacan
+162209|Mexico|Cuautla Morelos|Cuautla Morelos
+162202|Mexico|Ixtlahuaca de Rayón|Ixtlahuaca de Rayon
+162201|Mexico|Xalapa de Enríquez|Xalapa de Enriquez
+163007|Sudan|An Nuhūd|An Nuhud
+163006|Sudan|Atbara|Atbara
+163004|Sudan|Kassala|Kassala
+163003|Sudan|Kosti|Kosti
+162990|Saudi Arabia|Al Qurayyāt|Al Qurayyat
+162975|Rwanda|Kigali|Kigali
+162967|Russia|Petropavlovsk-Kamchatskiy|Petropavlovsk-Kamchatskiy
+162966|Russia|Yuzhno-Sakhalinsk|Yuzhno-Sakhalinsk
+162962|Russia|Bratsk|Bratsk
+162959|Russia|Blagoveshchensk|Blagoveshchensk
+162958|Russia|Chita|Chita
+162957|Russia|Irkutsk|Irkutsk
+162946|Russia|Abakan|Abakan
+162941|Russia|Kamensk-Ural’skiy|Kamensk-Ural’skiy
+162937|Russia|Krasnoyarsk|Krasnoyarsk
+162936|Russia|Kurgan|Kurgan
+162931|Russia|Nefteyugansk|Nefteyugansk
+162929|Russia|Noril’sk|Noril’sk
+162921|Russia|Tobol’sk|Tobol’sk
+162919|Russia|Tyumen|Tyumen
+162907|Russia|Bibirevo|Bibirevo
+162899|Russia|Cherkessk|Cherkessk
+162894|Russia|Elista|Elista
+162893|Russia|Engel’s|Engel’s
+162892|Russia|Glazov|Glazov
+162890|Russia|Groznyy|Groznyy
+162877|Russia|Khoroshëvo-Mnevniki|Khoroshevo-Mnevniki
+162871|Russia|Kostroma|Kostroma
+162868|Russia|Krasnodar|Krasnodar
+162864|Russia|Lipetsk|Lipetsk
+162861|Russia|Magnitogorsk|Magnitogorsk
+162856|Russia|Murmansk|Murmansk
+162855|Russia|Murom|Murom
+162850|Russia|Neftekamsk|Neftekamsk
+162844|Russia|Velikiy Novgorod|Velikiy Novgorod
+162840|Russia|Novomoskovsk|Novomoskovsk
+162834|Russia|Ochakovo-Matveyevskoye|Ochakovo-Matveyevskoye
+162830|Russia|Orekhovo-Zuyevo|Orekhovo-Zuyevo
+162825|Russia|Novo-Peredelkino|Novo-Peredelkino
+162799|Russia|Smolensk|Smolensk
+162200|Mexico|Jiutepec|Jiutepec
+162192|Mexico|Milpa Alta|Milpa Alta
+162187|Mexico|Oaxaca|Oaxaca
+162180|Mexico|San Cristóbal de Las Casas|San Cristobal de Las Casas
+162177|Mexico|Santa María Chimalhuacán|Santa Maria Chimalhuacan
+162172|Mexico|Temapache|Temapache
+161990|South Korea|Yeosu|Yeosu
+161987|South Korea|Anyang|Anyang
+161985|South Korea|Jeju|Jeju
+161984|South Korea|Chinhae|Chinhae
+161983|South Korea|Chinju|Chinju
+161982|South Korea|Tenan|Tenan
+161981|South Korea|Cheongju|Cheongju
+161980|South Korea|Jeonju|Jeonju
+161977|South Korea|Ich'ŏn|Ich'on
+161976|South Korea|Incheon|Incheon
+161975|South Korea|Iksan|Iksan
+161974|South Korea|Kang-neung|Kang-neung
+161968|South Korea|Kuri|Kuri
+161967|South Korea|Gwangju|Gwangju
+161960|South Korea|Bucheon|Bucheon
+161938|North Korea|Wŏnsan|Wonsan
+161937|Cambodia|Battambang|Battambang
+161931|Kenya|Eldoret|Eldoret
+161922|Japan|Suginami-ku|Suginami-ku
+161895|Japan|Hirosaki|Hirosaki
+161875|Japan|Narashino|Narashino
+161869|Japan|Wakayama-shi|Wakayama-shi
+161867|Japan|Asaka|Asaka
+161849|Japan|Fukui-shi|Fukui-shi
+161839|Japan|Hikone|Hikone
+161835|Japan|Hiratsuka|Hiratsuka
+161832|Japan|Ibaraki|Ibaraki
+161831|Japan|Ichikawa|Ichikawa
+161828|Japan|Ikoma|Ikoma
+161822|Japan|Iwatsuki|Iwatsuki
+161821|Japan|Izumi|Izumi
+161820|Japan|Kadoma|Kadoma
+161818|Japan|Kakamigahara|Kakamigahara
+161814|Japan|Kanazawa-shi|Kanazawa-shi
+161813|Japan|Kariya|Kariya
+161812|Japan|Kashihara-shi|Kashihara-shi
+161811|Japan|Kashiwa|Kashiwa
+161810|Japan|Kasugai|Kasugai
+161809|Japan|Kasukabe|Kasukabe
+161808|Japan|Kawagoe|Kawagoe
+161807|Japan|Kawaguchi|Kawaguchi
+161796|Japan|Koganei|Koganei
+161795|Japan|Kokubunji|Kokubunji
+161794|Japan|Komaki|Komaki
+161793|Japan|Komatsu|Komatsu
+161771|Japan|Miyakonojō|Miyakonojo
+161765|Japan|Nagareyama|Nagareyama
+162507|Philippines|Zamboanga|Zamboanga
+162482|Panama|San Miguelito|San Miguelito
+162474|New Zealand|Waitakere|Waitakere
+162473|New Zealand|Tauranga|Tauranga
+162469|New Zealand|Hamilton|Hamilton
+162456|Norway|Oslo|Oslo
+162455|Norway|Stavanger|Stavanger
+161737|Japan|Sanda|Sanda
+161735|Japan|Shimminatochō|Shimminatocho
+161731|Japan|Suita|Suita
+161287|India|Madhyamgram|Madhyamgram
+159450|Afghanistan|Jalālābād|Jalalabad
+162155|Malawi|Blantyre|Blantyre
+162154|Malawi|Lilongwe|Lilongwe
+162153|Maldives|Male|Male
+160208|China|Jiaozhou|Jiaozhou
+160207|China|Jiaozuo|Jiaozuo
+160190|China|Kaifeng|Kaifeng
+160183|China|Laohekou|Laohekou
+160161|China|Luoyang|Luoyang
+160157|China|Majie|Majie
+160154|China|Mentougou|Mentougou
+162132|Myanmar|Taunggyi|Taunggyi
+160145|China|Nantong|Nantong
+160144|China|Nanyang|Nanyang
+160142|China|Ningbo|Ningbo
+160141|China|Dadukou|Dadukou
+162128|Myanmar|Yenangyaung|Yenangyaung
+160140|China|Pingdingshan|Pingdingshan
+160137|China|Pingxiang|Pingxiang
+160124|China|Rizhao|Rizhao
+160119|China|Shanghai|Shanghai
+160110|China|Shijiazhuang|Shijiazhuang
+162116|Montenegro|Podgorica|Podgorica
+162106|Morocco|Fès|Fes
+162105|Morocco|Kenitra|Kenitra
+162104|Morocco|Khouribga|Khouribga
+162056|Libya|Mişrātah|Misratah
+162034|Sri Lanka|Kalmunai|Kalmunai
+162025|Lebanon|Ra’s Bayrūt|Ra’s Bayrut
+162010|Kazakhstan|Rudnyy|Rudnyy
+162009|Kazakhstan|Semey|Semey
+162008|Kazakhstan|Shymkent|Shymkent
+162007|Kazakhstan|Taldyqorghan|Taldyqorghan
+162006|Kazakhstan|Taldyqorghan|Taldyqorghan
+161154|India|Tirunelveli|Tirunelveli
+161051|Indonesia|Labuhanbajo|Labuhanbajo
+161050|Indonesia|Lawang|Lawang
+161049|Indonesia|Lembang|Lembang
+161048|Indonesia|Loa Janan|Loa Janan
+161013|Indonesia|Purwokerto|Purwokerto
+160921|Greece|Peristéri|Peristeri
+160916|Guinea|Conakry|Conakry
+160890|United Kingdom|Blackburn|Blackburn
+160875|United Kingdom|Derby|Derby
+160872|United Kingdom|Eastbourne|Eastbourne
+160849|United Kingdom|Nottingham|Nottingham
+159806|Brazil|Manaus|Manaus
+159799|Brazil|Anápolis|Anapolis
+159788|Brazil|Barra Mansa|Barra Mansa
+159785|Brazil|Barueri|Barueri
+159784|Brazil|Bauru|Bauru
+159783|Brazil|Belford Roxo|Belford Roxo
+159786|Brazil|Barretos|Barretos
+160833|United Kingdom|Stoke-on-Trent|Stoke-on-Trent
+161606|Iran|Mahābād|Mahabad
+161605|Iran|Malāyer|Malayer
+161602|Iran|Masjed Soleymān|Masjed Soleyman
+161601|Iran|Mīāndowāb|Miandowab
+161597|Iran|Pārsābād|Parsabad
+161593|Iran|Rafsanjān|Rafsanjan
+161579|Iran|Varāmīn|Varamin
+161578|Iran|Yazd|Yazd
+161577|Iran|Qarchak|Qarchak
+161573|Iraq|Abū Ghurayb|Abu Ghurayb
+161572|Iraq|Ad Dīwānīyah|Ad Diwaniyah
+161544|India|Gajuwaka|Gajuwaka
+161532|India|Nangi|Nangi
+161531|India|Haldia|Haldia
+161525|India|Āgra|Agra
+161524|India|Ahmadābād|Ahmadabad
+161523|India|Ahmadnagar|Ahmadnagar
+161487|India|Bānsbāria|Bansbaria
+161486|India|Bārākpur|Barakpur
+161485|India|Baranagar|Baranagar
+161482|India|Barnāla|Barnala
+161465|India|Bhātpāra|Bhatpara
+160817|France|Saint-Quentin-en-Yvelines|Saint-Quentin-en-Yvelines
+160814|France|Angers|Angers
+160813|France|Argenteuil|Argenteuil
+160810|France|Boulogne-Billancourt|Boulogne-Billancourt
+160807|France|Clermont-Ferrand|Clermont-Ferrand
+159770|Brazil|Campo Grande|Campo Grande
+160799|France|Marseille|Marseille
+159767|Brazil|Carapicuíba|Carapicuiba
+159745|Brazil|Ferraz de Vasconcelos|Ferraz de Vasconcelos
+159732|Brazil|Guarulhos|Guarulhos
+159730|Brazil|Ibirité|Ibirite
+160781|France|Villeurbanne|Villeurbanne
+160778|Finland|Oulu|Oulu
+159728|Brazil|Indaiatuba|Indaiatuba
+159726|Brazil|Itaboraí|Itaborai
+159722|Brazil|Itapecerica da Serra|Itapecerica da Serra
+160766|Ethiopia|Mekele|Mekele
+159686|Brazil|Pelotas|Pelotas
+159673|Brazil|Ribeirão Pires|Ribeirao Pires
+159640|Brazil|Teófilo Otoni|Teofilo Otoni
+159631|Brazil|Viamão|Viamao
+159626|Brazil|Ananindeua|Ananindeua
+159622|Brazil|Cabo|Cabo
+159621|Brazil|Campina Grande|Campina Grande
+159609|Brazil|Maceió|Maceio
+160744|España|Alcobendas|Alcobendas
+160736|España|Fuenlabrada|Fuenlabrada
+160731|España|Leganés|Leganes
+160726|España|Getafe|Getafe
+160724|España|Mataró|Mataro
+160716|España|Reus|Reus
+161698|Japan|Yonago|Yonago
+161692|Jordan|Amman|Amman
+161691|Jordan|Zarqa|Zarqa
+161690|Jordan|Irbid|Irbid
+161689|Jordan|Wādī as Sīr|Wadi as Sir
+161674|Italy|Latina|Latina
+161641|Iceland|Reykjavík|Reykjavik
+161639|Iran|Zāhedān|Zahedan
+161637|Iran|Eşfahān|Esfahan
+161632|Iran|Ahvāz|Ahvaz
+161631|Iran|Āmol|Amol
+161629|Iran|Ardabīl|Ardabil
+161127|India|Vizianagaram|Vizianagaram
+161106|Ireland|Cork|Cork
+161105|Ireland|Dublin|Dublin
+161104|Ireland|Dún Laoghaire|Dun Laoghaire
+161103|Indonesia|City of Balikpapan|City of Balikpapan
+161102|Indonesia|Masjid Jamie Baitul Muttaqien|Masjid Jamie Baitul Muttaqien
+161101|Indonesia|Jayapura|Jayapura
+161097|Indonesia|Padalarang|Padalarang
+161096|Indonesia|Adiwerna|Adiwerna
+161095|Indonesia|Ambon|Ambon
+161094|Indonesia|Arjawinangun|Arjawinangun
+161093|Indonesia|Astanajapura|Astanajapura
+161092|Indonesia|Balikpapan|Balikpapan
+161090|Indonesia|Banjaran|Banjaran
+161083|Indonesia|Bitung|Bitung
+160715|España|Sabadell|Sabadell
+160708|España|Terrassa|Terrassa
+159607|Brazil|Maracanaú|Maracanau
+159597|Brazil|Santa Rita|Santa Rita
+160547|Germany|Frankfurt am Main|Frankfurt am Main
+160022|China|Anyang|Anyang
+160526|Germany|Herne|Herne
+160004|China|Zhuzhou|Zhuzhou
+159972|Cameroon|Yaoundé|Yaounde
+159935|Chile|Santiago|Santiago
+159914|Switzerland|Zürich|Zurich
+159910|Central African Republic|Bangui|Bangui
+159904|Democratic Republic of the Congo|Kinshasa|Kinshasa
+159894|Democratic Republic of the Congo|Goma|Goma
+160499|Germany|Oberhausen|Oberhausen
+159763|Brazil|Chapecó|Chapeco
+159758|Brazil|Coronel Fabriciano|Coronel Fabriciano
+160791|France|Orléans|Orleans
+159752|Brazil|Diadema|Diadema
+159751|Brazil|Divinópolis|Divinopolis
+160790|France|Paris|Paris
+160481|Germany|Solingen|Solingen
+163591|Venezuela|Petare|Petare
+163590|Venezuela|Puerto Cabello|Puerto Cabello
+163588|Venezuela|Punto Fijo|Punto Fijo
+163571|Uzbekistan|Tashkent|Tashkent
+163564|Uruguay|Montevideo|Montevideo
+163561|United States of America|Honolulu|Honolulu
+163559|United States of America|Tacoma|Tacoma
+163557|United States of America|Seattle|Seattle
+163556|United States of America|Everett|Everett
+163555|United States of America|Bellevue|Bellevue
+163549|United States of America|Portland|Portland
+163548|United States of America|Gresham|Gresham
+163547|United States of America|Eugene|Eugene
+163521|United States of America|West Covina|West Covina
+163518|United States of America|Vallejo|Vallejo
+163517|United States of America|Valencia|Valencia
+163516|United States of America|Universal City|Universal City
+163515|United States of America|Torrance|Torrance
+163514|United States of America|Thousand Oaks|Thousand Oaks
+163509|United States of America|Simi Valley|Simi Valley
+163508|United States of America|Santa Rosa|Santa Rosa
+163507|United States of America|Santa Clarita|Santa Clarita
+163505|United States of America|Santa Ana|Santa Ana
+163502|United States of America|San Diego|San Diego
+163500|United States of America|Salinas|Salinas
+163496|United States of America|Richmond|Richmond
+163494|United States of America|Pomona|Pomona
+163493|United States of America|Pasadena|Pasadena
+163492|United States of America|Palmdale|Palmdale
+163491|United States of America|Oxnard Shores|Oxnard Shores
+163490|United States of America|Oxnard|Oxnard
+163489|United States of America|Orange|Orange
+163487|United States of America|Oceanside|Oceanside
+163486|United States of America|Oakland|Oakland
+163485|United States of America|Norwalk|Norwalk
+163484|United States of America|North Glendale|North Glendale
+163475|United States of America|Huntington Beach|Huntington Beach
+163474|United States of America|Hollywood|Hollywood
+163473|United States of America|Hayward|Hayward
+163472|United States of America|Glendale|Glendale
+163471|United States of America|Garden Grove|Garden Grove
+163470|United States of America|Fullerton|Fullerton
+163468|United States of America|Fremont|Fremont
+163466|United States of America|Fairfield|Fairfield
+163465|United States of America|Escondido|Escondido
+163455|United States of America|Carlsbad|Carlsbad
+163454|United States of America|Burbank|Burbank
+163453|United States of America|Berkeley|Berkeley
+163451|United States of America|Antioch|Antioch
+163450|United States of America|Anaheim|Anaheim
+163438|United States of America|Bridgeport|Bridgeport
+163436|United States of America|Madison|Madison
+163434|United States of America|Sioux Falls|Sioux Falls
+163427|United States of America|Akron|Akron
+163424|United States of America|Staten Island|Staten Island
+163423|United States of America|Rochester|Rochester
+160690|España|Elche|Elche
+160680|España|La Laguna|La Laguna
+160673|Western Sahara|Laâyoune / El Aaiún|Laayoune / El Aaiun
+160666|Egypt|Ismailia|Ismailia
+160643|Egypt|Kafr ash Shaykh|Kafr ash Shaykh
+160102|China|Songjiang|Songjiang
+160047|China|Xuchang|Xuchang
+160046|China|Shangrao|Shangrao
+160042|China|Yangshuo|Yangshuo
+160041|China|Yangzhou|Yangzhou
+163420|United States of America|Jamaica|Jamaica
+163419|United States of America|East New York|East New York
+163417|United States of America|Brooklyn|Brooklyn
+163416|United States of America|Borough of Bronx|Borough of Bronx
+163412|United States of America|Jersey City|Jersey City
+163409|United States of America|Manchester|Manchester
+163407|United States of America|Lincoln|Lincoln
+163404|United States of America|Rochester|Rochester
+163398|United States of America|Flint|Flint
+163396|United States of America|Ann Arbor|Ann Arbor
+163393|United States of America|South Boston|South Boston
+163390|United States of America|Boston|Boston
+163388|United States of America|Fort Wayne|Fort Wayne
+163387|United States of America|Rockford|Rockford
+163227|Ukraine|Mariupol|Mariupol
+163212|Ukraine|Ternopil’|Ternopil’
+163205|Tanzania|Songea|Songea
+163202|Tanzania|Dodoma|Dodoma
+163196|Tanzania|Moshi|Moshi
+163193|Tanzania|Shinyanga|Shinyanga
+163189|Taiwan|Taitung City|Taitung City
+163185|Taiwan|Hualian|Hualian
+163179|Taiwan|Taipei|Taipei
+163176|Turkey|Sancaktepe|Sancaktepe
+163173|Turkey|Bahçelievler|Bahcelievler
+163168|Turkey|Ataşehir|Atasehir
+163165|Turkey|Bandırma|Bandırma
+163158|Turkey|Gebze|Gebze
+163137|Turkey|Alanya|Alanya
+163123|Turkey|İskenderun|Iskenderun
+163113|Turkey|Malatya|Malatya
+163108|Turkey|Siirt|Siirt
+163097|Tunisia|Midoun|Midoun
+163093|Tunisia|Tunis|Tunis
+163091|Turkmenistan|Mary|Mary
+163079|Thailand|Nakhon Ratchasima|Nakhon Ratchasima
+163071|Thailand|Ubon Ratchathani|Ubon Ratchathani
+163070|Thailand|Udon Thani|Udon Thani
+163068|Thailand|Lampang|Lampang
+163067|Thailand|Nakhon Si Thammarat|Nakhon Si Thammarat
+163062|Chad|Moundou|Moundou
+163060|Chad|Sagh|Sagh
+163057|Syria|Latakia|Latakia
+159859|Canada|Oakville|Oakville
+160455|Cuba|Cerro|Cerro
+160445|Cuba|Palma Soriano|Palma Soriano
+160439|Costa Rica|San José|San Jose
+159810|Brazil|Jaboatão dos Guararapes|Jaboatao dos Guararapes
+163719|Zambia|Kitwe|Kitwe
+163714|Zambia|Ndola|Ndola
+163699|South Africa|East London|East London
+163696|South Africa|George|George
+163693|South Africa|Klerksdorp|Klerksdorp
+163683|South Africa|Phalaborwa|Phalaborwa
+163680|South Africa|Port Elizabeth|Port Elizabeth
+163674|South Africa|Richards Bay|Richards Bay
+163666|South Africa|Virginia|Virginia
+163659|Yemen|Al Mukallā|Al Mukalla
+163632|Vietnam|Rạch Giá|Rach Gia
+163622|Venezuela|Maturín|Maturin
+163618|Venezuela|Baruta|Baruta
+163614|Venezuela|Catia La Mar|Catia La Mar
+163610|Venezuela|Coro|Coro
+163608|Venezuela|Cumaná|Cumana
+163606|Venezuela|El Limón|El Limon
+163033|Senegal|Grand Dakar|Grand Dakar
+163028|Senegal|Ziguinchor|Ziguinchor
+163021|Singapore|Singapore|Singapore
+163020|Sweden|Göteborg|Goteborg
+162954|Russia|Nakhodka|Nakhodka
+162953|Russia|Ulan-Ude|Ulan-Ude
+162950|Russia|Vladivostok|Vladivostok
+162932|Russia|Miass|Miass
+162914|Russia|Arzamas|Arzamas
+162912|Russia|Balakovo|Balakovo
+162910|Russia|Bataysk|Bataysk
+162909|Russia|Belgorod|Belgorod
+162908|Russia|Berezniki|Berezniki
+162906|Russia|Biryulëvo|Biryulevo
+162905|Russia|Bogorodskoye|Bogorodskoye
+162903|Russia|Bryansk|Bryansk
+162902|Russia|Cheboksary|Cheboksary
+162901|Russia|Cherëmushki|Cheremushki
+162898|Russia|Derbent|Derbent
+162896|Russia|Dzerzhinsk|Dzerzhinsk
+162889|Russia|Ivanovo|Ivanovo
+162885|Russia|Kaliningrad|Kaliningrad
+162883|Russia|Kaluga|Kaluga
+162881|Russia|Kamyshin|Kamyshin
+162879|Russia|Khasavyurt|Khasavyurt
+162875|Russia|Kirov|Kirov
+162874|Russia|Kislovodsk|Kislovodsk
+162873|Russia|Kolomna|Kolomna
+162872|Russia|Kolpino|Kolpino
+162849|Russia|Nevinnomyssk|Nevinnomyssk
+162842|Russia|Novocherkassk|Novocherkassk
+162839|Russia|Novorossiysk|Novorossiysk
+162838|Russia|Novotroitsk|Novotroitsk
+162833|Russia|Odintsovo|Odintsovo
+162829|Russia|Orël|Orel
+162828|Russia|Orenburg|Orenburg
+162826|Russia|Penza|Penza
+162820|Russia|Podol’sk|Podol’sk
+162818|Russia|Perm’|Perm’
+162816|Russia|Pyatigorsk|Pyatigorsk
+162809|Russia|Saint Petersburg|Saint Petersburg
+162808|Russia|Saransk|Saransk
+162806|Russia|Sergiyev Posad|Sergiyev Posad
+162803|Russia|Severodvinsk|Severodvinsk
+162802|Russia|Shakhty|Shakhty
+162801|Russia|Shchelkovo|Shchelkovo
+162798|Russia|Sochi|Sochi
+162795|Russia|Staryy Oskol|Staryy Oskol
+162794|Russia|Stavropol’|Stavropol’
+162791|Russia|Syktyvkar|Syktyvkar
+162790|Russia|Syzran’|Syzran’
+162788|Russia|Taganrog|Taganrog
+162782|Russia|Tula|Tula
+162781|Russia|Tver|Tver
+163378|United States of America|Cedar Rapids|Cedar Rapids
+163369|United States of America|Newport News|Newport News
+163362|United States of America|Waco|Waco
+163359|United States of America|Pasadena|Pasadena
+163352|United States of America|Houston|Houston
+163350|United States of America|Garland|Garland
+163349|United States of America|Frisco|Frisco
+163348|United States of America|Fort Worth|Fort Worth
+163347|United States of America|Denton|Denton
+163346|United States of America|Dallas|Dallas
+163345|United States of America|Corpus Christi|Corpus Christi
+163344|United States of America|Carrollton|Carrollton
+163343|United States of America|Brownsville|Brownsville
+163340|United States of America|Arlington|Arlington
+163339|United States of America|Abilene|Abilene
+163331|United States of America|Chattanooga|Chattanooga
+163329|United States of America|Charleston|Charleston
+163317|United States of America|High Point|High Point
+163316|United States of America|Greensboro|Greensboro
+163301|United States of America|Metairie Terrace|Metairie Terrace
+163300|United States of America|Metairie|Metairie
+163297|United States of America|Louisville|Louisville
+163293|United States of America|Wichita|Wichita
+163284|United States of America|Savannah|Savannah
+163281|United States of America|Athens|Athens
+163277|United States of America|Port Saint Lucie|Port Saint Lucie
+163275|United States of America|Palm Bay|Palm Bay
+163268|United States of America|Gainesville|Gainesville
+163264|United States of America|Clearwater|Clearwater
+163263|United States of America|Cape Coral|Cape Coral
+163262|United States of America|Brandon|Brandon
+163261|United States of America|Washington, D. C.|Washington, D. C.
+163258|United States of America|Mobile|Mobile
+163255|Uganda|Gulu|Gulu
+163252|Ukraine|Alchevs’k|Alchevs’k
+163250|Ukraine|Cherkasy|Cherkasy
+163237|Ukraine|Khmel’nyts’kyy|Khmel’nyts’kyy
+162778|Russia|Ulyanovsk|Ulyanovsk
+162777|Russia|Velikiye Luki|Velikiye Luki
+162776|Russia|Vladikavkaz|Vladikavkaz
+162773|Russia|Volgograd|Volgograd
+162764|Russia|Yoshkar-Ola|Yoshkar-Ola
+162763|Russia|Zelenograd|Zelenograd
+162758|Russia|Zyuzino|Zyuzino
+162755|Serbia|Belgrade|Belgrade
+162748|Romania|Bacău|Bacau
+162745|Romania|Brăila|Braila
+162692|Poland|Częstochowa|Czestochowa
+162689|Poland|Gdańsk|Gdansk
+162687|Poland|Gliwice|Gliwice
+162683|Poland|Koszalin|Koszalin
+162674|Poland|Sosnowiec|Sosnowiec
+162665|Poland|Bemowo|Bemowo
+162661|Poland|Lublin|Lublin
+162654|Poland|Tarnów|Tarnow
+162653|Poland|Warsaw|Warsaw
+162632|Pakistan|Hyderābād|Hyderabad
+162631|Pakistan|Islamabad|Islamabad
+162624|Pakistan|Karachi|Karachi
+162620|Pakistan|Kohāt|Kohat
+162604|Pakistan|Peshāwar|Peshawar
+162592|Pakistan|Tando Allāhyār|Tando Allahyar
+162576|Philippines|Bulaon|Bulaon
+162568|Philippines|Cotabato|Cotabato
+162546|Philippines|Malolos|Malolos
+162543|Philippines|Manila|Manila
+162540|Philippines|Marawi|Marawi
+162539|Philippines|Marawi City|Marawi City
+162534|Philippines|Naga|Naga
+162517|Philippines|Silang|Silang
+163005|Sudan|Port Sudan|Port Sudan
+162999|Sudan|Wad Medani|Wad Medani
+162996|Saudi Arabia|Dammam|Dammam
+162995|Saudi Arabia|Al Hufūf|Al Hufuf
+162994|Saudi Arabia|Al Jubayl|Al Jubayl
+162993|Saudi Arabia|Al Khubar|Al Khubar
+162992|Saudi Arabia|Medina|Medina
+162991|Saudi Arabia|Al Mubarraz|Al Mubarraz
+162987|Saudi Arabia|Ta’if|Ta’if
+162984|Saudi Arabia|Jeddah|Jeddah
+162983|Saudi Arabia|Jīzān|Jizan
+162981|Saudi Arabia|Mecca|Mecca
+162979|Saudi Arabia|Sakākā|Sakaka
+162978|Saudi Arabia|Sulţānah|Sultanah
+162977|Saudi Arabia|Tabūk|Tabuk
+162976|Saudi Arabia|Yanbu‘ al Baḩr|Yanbu‘ al Bahr
+162974|Russia|Centralniy|Centralniy
+162973|Russia|Akademicheskoe|Akademicheskoe
+162972|Russia|Admiralteisky|Admiralteisky
+162971|Russia|Krasnogvargeisky|Krasnogvargeisky
+162970|Russia|Kalininskiy|Kalininskiy
+162969|Russia|Orekhovo-Borisovo|Orekhovo-Borisovo
+162965|Russia|Vasyl'evsky Ostrov|Vasyl'evsky Ostrov
+162964|Russia|Petrogradka|Petrogradka
+162961|Russia|Angarsk|Angarsk
+162506|Papua New Guinea|Port Moresby|Port Moresby
+162499|Peru|Ica|Ica
+162494|Peru|Tacna|Tacna
+162492|Peru|Chiclayo|Chiclayo
+162491|Peru|Chimbote|Chimbote
+162489|Peru|Iquitos|Iquitos
+162488|Peru|Piura|Piura
+162487|Peru|Pucallpa|Pucallpa
+162483|Panama|Panamá|Panama
+162391|Nigeria|Ikirun|Ikirun
+162388|Nigeria|Ilesa|Ilesa
+162378|Nigeria|Kano|Kano
+162370|Nigeria|Minna|Minna
+162361|Nigeria|Okrika|Okrika
+162354|Nigeria|Port Harcourt|Port Harcourt
+162345|Nigeria|Warri|Warri
+162339|Mozambique|Beira|Beira
+162337|Mozambique|Lichinga|Lichinga
+162336|Mozambique|Maputo|Maputo
+162332|Mozambique|Nampula|Nampula
+162324|Malaysia|Kampung Sungai Ara|Kampung Sungai Ara
+162323|Malaysia|Miri|Miri
+162322|Malaysia|Bintulu|Bintulu
+162318|Malaysia|Kuching|Kuching
+162316|Malaysia|Kuantan|Kuantan
+162314|Malaysia|Petaling Jaya|Petaling Jaya
+162308|Malaysia|Seremban|Seremban
+162294|Malaysia|Johor Bahru|Johor Bahru
+162293|Malaysia|Sekudai|Sekudai
+162284|Mexico|Ciudad Acuña|Ciudad Acuna
+162280|Mexico|Ciudad Obregón|Ciudad Obregon
+162278|Mexico|Culiacán|Culiacan
+162276|Mexico|Ensenada|Ensenada
+162275|Mexico|Fresnillo de González Echeverría|Fresnillo de Gonzalez Echeverria
+162274|Mexico|Garza García|Garza Garcia
+162270|Mexico|Guadalupe|Guadalupe
+162269|Mexico|Guaymas|Guaymas
+162268|Mexico|Hermosillo|Hermosillo
+162264|Mexico|La Paz|La Paz
+162255|Mexico|Piedras Negras|Piedras Negras
+162252|Mexico|Manzanillo|Manzanillo
+162249|Mexico|San Luis de la Paz|San Luis de la Paz
+162247|Mexico|San Luis Río Colorado|San Luis Rio Colorado
+162242|Mexico|Tijuana|Tijuana
+162233|Mexico|Cuauhtémoc|Cuauhtemoc
+162229|Mexico|Acapulco de Juárez|Acapulco de Juarez
+162226|Mexico|Campeche|Campeche
+162225|Mexico|Cancún|Cancun
+162738|Romania|Drobeta-Turnu Severin|Drobeta-Turnu Severin
+162737|Romania|Focşani|Focsani
+162730|Romania|Râmnicu Vâlcea|Ramnicu Valcea
+162727|Romania|Suceava|Suceava
+162725|Romania|Târgu-Mureş|Targu-Mures
+162723|Qatar|Doha|Doha
+162722|Qatar|Ar Rayyān|Ar Rayyan
+162720|Paraguay|Capiatá|Capiata
+162718|Paraguay|Lambaré|Lambare
+162716|Portugal|Braga|Braga
+162713|Portugal|Amadora|Amadora
+162708|Palestinian Territory|Hebron|Hebron
+162705|Palestinian Territory|Jabālyā|Jabalya
+162700|Puerto Rico|Carolina|Carolina
+162699|Puerto Rico|Bayamón|Bayamon
+162223|Mexico|Chetumal|Chetumal
+162221|Mexico|Cholula|Cholula
+162220|Mexico|Ciudad del Carmen|Ciudad del Carmen
+162219|Mexico|Mexico City|Mexico City
+162218|Mexico|Ciudad Madero|Ciudad Madero
+162213|Mexico|Coatzacoalcos|Coatzacoalcos
+162210|Mexico|Cuajimalpa|Cuajimalpa
+162207|Mexico|Ecatepec|Ecatepec
+162197|Mexico|Magdalena Contreras|Magdalena Contreras
+162195|Mexico|Heroica Matamoros|Heroica Matamoros
+162103|Morocco|Ksar el Kebir|Ksar el Kebir
+162058|Libya|Al Khums|Al Khums
+162055|Libya|Sabhā|Sabha
+162053|Libya|Sirte|Sirte
+162052|Libya|Tagiura|Tagiura
+162051|Libya|Tripoli|Tripoli
+162050|Libya|Tarhuna|Tarhuna
+162049|Libya|Zliten|Zliten
+162048|Libya|Ajdabiya|Ajdabiya
+162047|Libya|Benghazi|Benghazi
+162046|Libya|Tobruk|Tobruk
+162044|Latvia|Riga|Riga
+162042|Lithuania|Klaipėda|Klaipeda
+162038|Lesotho|Maseru|Maseru
+162037|Liberia|Monrovia|Monrovia
+162035|Sri Lanka|Galkissa|Galkissa
+162028|Sri Lanka|Trincomalee|Trincomalee
+162027|Lebanon|Nabatîyé et Tahta|Nabatiye et Tahta
+162024|Lebanon|Sidon|Sidon
+162022|Lebanon|Tripoli|Tripoli
+162020|Kazakhstan|Almaty|Almaty
+162016|Kazakhstan|Kokshetau|Kokshetau
+162011|Kazakhstan|Kyzylorda|Kyzylorda
+161992|South Korea|Seongnam|Seongnam
+161978|South Korea|Hwaseong|Hwaseong
+161969|South Korea|Kunsan|Kunsan
+161965|South Korea|Keizan|Keizan
+161964|South Korea|Masan|Masan
+161963|South Korea|Moppo|Moppo
+161961|South Korea|Pohang|Pohang
+161959|South Korea|Busan|Busan
+161958|South Korea|Seoul|Seoul
+161949|North Korea|Chongjin|Chongjin
+161945|North Korea|Hamhŭng|Hamhung
+161944|North Korea|Hŭngnam|Hungnam
+161935|Cambodia|Siem Reap|Siem Reap
+161934|Cambodia|Phnom Penh|Phnom Penh
+161933|Kyrgyzstan|Bishkek|Bishkek
+161924|Japan|Taitō-ku|Taito-ku
+161923|Japan|Sumida-ku|Sumida-ku
+161920|Japan|Nakano-ku|Nakano-ku
+161910|Japan|Higashimurayama-shi|Higashimurayama-shi
+161906|Japan|Jōetsu|Joetsu
+161905|Japan|Kamagaya-shi|Kamagaya-shi
+161902|Japan|Kōtō-ku|Koto-ku
+161897|Japan|Hachinohe|Hachinohe
+161896|Japan|Hakodate|Hakodate
+162477|Oman|Muscat|Muscat
+162476|Oman|Şalālah|Salalah
+162435|Netherlands|Tilburg|Tilburg
+162432|Netherlands|Zoetermeer|Zoetermeer
+162429|Nicaragua|León|Leon
+162427|Nicaragua|Masaya|Masaya
+162424|Nigeria|Aba|Aba
+162420|Nigeria|Akure|Akure
+162411|Nigeria|Buguma|Buguma
+162408|Nigeria|Effon Alaiye|Effon Alaiye
+161894|Japan|Kitami|Kitami
+161893|Japan|Kushiro|Kushiro
+161891|Japan|Otaru|Otaru
+161889|Japan|Tomakomai|Tomakomai
+161888|Japan|Akita Shi|Akita Shi
+161886|Japan|Akita|Akita
+161881|Japan|Ishinomaki|Ishinomaki
+161880|Japan|Iwaki|Iwaki
+161874|Japan|Narita|Narita
+161870|Japan|Matsuyama-shi|Matsuyama-shi
+161862|Japan|Anjō|Anjo
+161815|Japan|Kami-renjaku|Kami-renjaku
+161805|Japan|Kawasaki|Kawasaki
+161801|Japan|Kitakyūshū|Kitakyushu
+161800|Japan|Kōbe-shi|Kobe-shi
+161798|Japan|Kodaira|Kodaira
+161797|Japan|Kōfu-shi|Kofu-shi
+161791|Japan|Koshigaya|Koshigaya
+161788|Japan|Kurashiki|Kurashiki
+161787|Japan|Kure|Kure
+161779|Japan|Matsudo|Matsudo
+161778|Japan|Matsue-shi|Matsue-shi
+161773|Japan|Mishima|Mishima
+161772|Japan|Mitaka-shi|Mitaka-shi
+161770|Japan|Miyazaki-shi|Miyazaki-shi
+161764|Japan|Nagasaki-shi|Nagasaki-shi
+161760|Japan|Nerima-ku|Nerima-ku
+161759|Japan|Niigata-shi|Niigata-shi
+161755|Japan|Nobeoka|Nobeoka
+161754|Japan|Noda|Noda
+161753|Japan|Numazu|Numazu
+161750|Japan|Ōita-shi|Oita-shi
+161749|Japan|Okayama-shi|Okayama-shi
+161745|Japan|Ōsaka-shi|Osaka-shi
+161744|Japan|Ōta|Ota
+161733|Japan|Shizuoka-shi|Shizuoka-shi
+161732|Japan|Sōka|Soka
+161727|Japan|Takamatsu-shi|Takamatsu-shi
+161725|Japan|Takarazuka|Takarazuka
+161721|Japan|Tokorozawa|Tokorozawa
+161719|Japan|Tokuyama|Tokuyama
+161718|Japan|Tokyo|Tokyo
+161717|Japan|Tondabayashi|Tondabayashi
+161714|Japan|Toyohashi|Toyohashi
+161713|Japan|Toyokawa|Toyokawa
+161709|Japan|Ube|Ube
+161708|Japan|Ueda|Ueda
+161707|Japan|Uji|Uji
+161704|Japan|Yamaguchi-shi|Yamaguchi-shi
+161703|Japan|Yao|Yao
+161702|Japan|Yatsushiro|Yatsushiro
+161700|Japan|Yokohama-shi|Yokohama-shi
+161699|Japan|Yokosuka|Yokosuka
+161694|Jordan|Russeifa|Russeifa
+161688|Jamaica|Kingston|Kingston
+161687|Jamaica|New Kingston|New Kingston
+161686|Jamaica|Portmore|Portmore
+161685|Jamaica|Spanish Town|Spanish Town
+161682|Italy|Bergamo|Bergamo
+161675|Italy|Genova|Genova
+161672|Italy|Mestre|Mestre
+161669|Italy|Monza|Monza
+161667|Italy|Novara|Novara
+161666|Italy|Padova|Padova
+161663|Italy|Pescara|Pescara
+161660|Italy|Reggio nell'Emilia|Reggio nell'Emilia
+161658|Italy|Rome|Rome
+161657|Italy|Salerno|Salerno
+161656|Italy|Sassari|Sassari
+161655|Italy|Terni|Terni
+161651|Italy|Venezia|Venezia
+161650|Italy|Taranto|Taranto
+161648|Italy|Vicenza|Vicenza
+161647|Italy|Cagliari|Cagliari
+161645|Italy|Messina|Messina
+161642|Italy|Siracusa|Siracusa
+162184|Mexico|Playa del Carmen|Playa del Carmen
+162182|Mexico|Puebla de Zaragoza|Puebla de Zaragoza
+162179|Mexico|San Juan del Río|San Juan del Rio
+162178|Mexico|San Pablo de las Salinas|San Pablo de las Salinas
+162176|Mexico|Tampico|Tampico
+162170|Mexico|Texcoco de Mora|Texcoco de Mora
+162165|Mexico|Tulancingo|Tulancingo
+162158|Mexico|San Miguel Xico|San Miguel Xico
+162148|Mongolia|Ulaanbaatar|Ulaanbaatar
+162146|Myanmar|Pathein|Pathein
+162140|Myanmar|Myeik|Myeik
+162131|Myanmar|Dawei|Dawei
+162130|Myanmar|Thaton|Thaton
+162126|Mali|Mopti|Mopti
+162122|Macedonia|Skopje|Skopje
+162114|Moldova|Bender|Bender
+161633|Iran|Abadan|Abadan
+161627|Iran|Bandar ‘Abbās|Bandar ‘Abbas
+161626|Iran|Bandar-e Anzalī|Bandar-e Anzali
+161620|Iran|Bandar-e Būshehr|Bandar-e Bushehr
+161618|Iran|Gonbad-e Qābūs|Gonbad-e Qabus
+161609|Iran|Khorramshahr|Khorramshahr
+161600|Iran|Naz̧arābād|Nazarabad
+161569|Iraq|Al Fallūjah|Al Fallujah
+161568|Iraq|Al Fāw|Al Faw
+161565|Iran|Zanjān|Zanjan
+161559|Iraq|As Samawah|As Samawah
+161556|Iraq|Baghdad|Baghdad
+161549|Iraq|Umm Qaşr|Umm Qasr
+161547|India|Ashoknagar Kalyangarh|Ashoknagar Kalyangarh
+161543|India|Malkajgiri|Malkajgiri
+161539|India|Noida|Noida
+161521|India|Ajmer|Ajmer
+161517|India|Allahābād|Allahabad
+161500|India|Badlapur|Badlapur
+161498|India|Bahādurgarh|Bahadurgarh
+161495|India|Baidyabāti|Baidyabati
+161494|India|Balasore|Balasore
+161493|India|Bāli|Bali
+161491|India|Bānda|Banda
+161490|India|Bangalore|Bangalore
+161483|India|Bareilly|Bareilly
+161476|India|Belgaum|Belgaum
+161475|India|Bārāsat|Barasat
+161471|India|Bhadrāvati|Bhadravati
+161468|India|Bharatpur|Bharatpur
+161448|India|Bilāspur|Bilaspur
+161445|India|Borivli|Borivli
+161443|India|Brahmapur|Brahmapur
+161439|India|Kolkata|Kolkata
+161431|India|Chhindwāra|Chhindwara
+161429|India|Chitradurga|Chitradurga
+161416|India|Dehri|Dehri
+161415|India|Delhi|Delhi
+161411|India|Dharmavaram|Dharmavaram
+161406|India|Dindigul|Dindigul
+161392|India|Gadag|Gadag
+161391|India|Gāndhīdhām|Gandhidham
+161852|Japan|Fujinomiya|Fujinomiya
+161848|Japan|Fukuoka-shi|Fukuoka-shi
+161846|Japan|Fukuyama|Fukuyama
+161841|Japan|Hamamatsu|Hamamatsu
+161838|Japan|Himeji|Himeji
+161836|Japan|Hirakata|Hirakata
+161834|Japan|Hiroshima-shi|Hiroshima-shi
+161833|Japan|Hōfu|Hofu
+161824|Japan|Itami|Itami
+161823|Japan|Iwakuni|Iwakuni
+161819|Japan|Kagoshima-shi|Kagoshima-shi
+161384|India|Ghāziābād|Ghaziabad
+161379|India|Gondia|Gondia
+161377|India|Gorakhpur|Gorakhpur
+161376|India|Gosāba|Gosaba
+161370|India|Gurgaon|Gurgaon
+161356|India|Hindupur|Hindupur
+161289|India|Machilīpatnam|Machilipatnam
+161285|India|Madurai|Madurai
+161276|India|Mathura|Mathura
+161273|India|Meerut|Meerut
+161271|India|Mirzāpur|Mirzapur
+161247|India|New Delhi|New Delhi
+161245|India|Ongole|Ongole
+161240|India|Pallāvaram|Pallavaram
+161237|India|Pānīpat|Panipat
+161226|India|Ponnāni|Ponnani
+161225|India|Porbandar|Porbandar
+161224|India|Port Blair|Port Blair
+161223|India|Proddatūr|Proddatur
+161219|India|Puri|Puri
+161215|India|Rāe Bareli|Rae Bareli
+161202|India|Ratlām|Ratlam
+161195|India|Sāgar|Sagar
+161191|India|Sambalpur|Sambalpur
+161186|India|Sawāi Mādhopur|Sawai Madhopur
+161185|India|Secunderabad|Secunderabad
+161183|India|Shāhjahānpur|Shahjahanpur
+161179|India|Shimoga|Shimoga
+161172|India|Shimla|Shimla
+161168|India|Sonīpat|Sonipat
+161165|India|Sūjāngarh|Sujangarh
+161153|India|Tirupati|Tirupati
+161142|India|Udipi|Udipi
+161140|India|Ulhasnagar|Ulhasnagar
+161134|India|Vejalpur|Vejalpur
+161133|India|Vellore|Vellore
+161132|India|Verāval|Veraval
+161128|India|Vishākhapatnam|Vishakhapatnam
+161119|Israel|Ashdod|Ashdod
+161118|Israel|Ashqelon|Ashqelon
+161116|Israel|Beersheba|Beersheba
+161114|Israel|Haifa|Haifa
+161590|Iran|Sanandaj|Sanandaj
+161580|Iran|Torbat-e Ḩeydarīyeh|Torbat-e Heydariyeh
+161570|Iraq|Al Başrah|Al Basrah
+161109|Israel|Tel Aviv|Tel Aviv
+161107|Israel|Jerusalem|Jerusalem
+161089|Indonesia|Banjarmasin|Banjarmasin
+161088|Indonesia|Banyuwangi|Banyuwangi
+161087|Indonesia|Batang|Batang
+161080|Indonesia|Bontang|Bontang
+161079|Indonesia|Ciampea|Ciampea
+161078|Indonesia|Ciamis|Ciamis
+160924|Greece|Kallithéa|Kallithea
+160922|Greece|Pátra|Patra
+160909|Ghana|Kumasi|Kumasi
+160907|Ghana|Obuasi|Obuasi
+160904|Ghana|Tamale|Tamale
+160898|United Kingdom|Mendip|Mendip
+160896|United Kingdom|Telford|Telford
+160894|United Kingdom|Basildon|Basildon
+160893|United Kingdom|Belfast|Belfast
+160889|United Kingdom|Blackpool|Blackpool
+160883|United Kingdom|Cambridge|Cambridge
+160881|United Kingdom|Chelmsford|Chelmsford
+160879|United Kingdom|Colchester|Colchester
+160877|United Kingdom|Crawley|Crawley
+160870|United Kingdom|Exeter|Exeter
+160869|United Kingdom|Gillingham|Gillingham
+160868|United Kingdom|Glasgow|Glasgow
+160865|United Kingdom|Ipswich|Ipswich
+160861|United Kingdom|Leicester|Leicester
+160860|United Kingdom|Liverpool|Liverpool
+160857|United Kingdom|Luton|Luton
+160855|United Kingdom|Middlesbrough|Middlesbrough
+160854|United Kingdom|Milton Keynes|Milton Keynes
+160850|United Kingdom|Norwich|Norwich
+160842|United Kingdom|Preston|Preston
+160839|United Kingdom|Saint Helens|Saint Helens
+160838|United Kingdom|Sheffield|Sheffield
+160831|United Kingdom|Sutton|Sutton
+160829|United Kingdom|Swansea|Swansea
+160828|United Kingdom|Swindon|Swindon
+160822|United Kingdom|Worcester|Worcester
+160805|France|Grenoble|Grenoble
+160803|France|Le Mans|Le Mans
+160802|France|Lille|Lille
+160795|France|Nancy|Nancy
+160774|Ethiopia|Addis Ababa|Addis Ababa
+160773|Ethiopia|Hawassa|Hawassa
+160772|Ethiopia|Bahir Dar|Bahir Dar
+161343|India|Itārsi|Itarsi
+161340|India|Jaipur|Jaipur
+161335|India|Jammu|Jammu
+161334|India|Jāmnagar|Jamnagar
+161330|India|Jetpur|Jetpur
+161321|India|Kākināda|Kakinada
+161311|India|Khammam|Khammam
+161300|India|Kozhikode|Kozhikode
+161298|India|Kūkatpalli|Kukatpalli
+160743|España|Alcorcón|Alcorcon
+160733|España|L'Hospitalet de Llobregat|L'Hospitalet de Llobregat
+160722|España|Móstoles|Mostoles
+160585|Denmark|Aalborg|Aalborg
+160583|Denmark|Copenhagen|Copenhagen
+160581|Djibouti|Djibouti|Djibouti
+160578|Germany|Berlin Spandau|Berlin Spandau
+160566|Germany|Bergisch Gladbach|Bergisch Gladbach
+160561|Germany|Bottrop|Bottrop
+160558|Germany|Bremerhaven|Bremerhaven
+160542|Germany|Gelsenkirchen|Gelsenkirchen
+160528|Germany|Heidelberg|Heidelberg
+160517|Germany|Krefeld|Krefeld
+160468|Czech Republic|Prague|Prague
+160467|Cyprus|Limassol|Limassol
+160466|Cyprus|Nicosia|Nicosia
+160464|Cuba|Diez de Octubre|Diez de Octubre
+160463|Cuba|Boyeros|Boyeros
+160462|Cuba|Arroyo Naranjo|Arroyo Naranjo
+160456|Cuba|Camagüey|Camaguey
+160450|Cuba|Holguín|Holguin
+160444|Cuba|Pinar del Río|Pinar del Rio
+160442|Cuba|San Miguel del Padrón|San Miguel del Padron
+160440|Cuba|Santiago de Cuba|Santiago de Cuba
+160438|Colombia|Armenia|Armenia
+160429|Colombia|Cartagena|Cartagena
+160421|Colombia|Girón|Giron
+160407|Colombia|Santa Marta|Santa Marta
+161077|Indonesia|Cibinong|Cibinong
+161076|Indonesia|Cikampek|Cikampek
+161075|Indonesia|Cikarang|Cikarang
+161074|Indonesia|Cileungsir|Cileungsir
+161073|Indonesia|Cileunyi|Cileunyi
+161070|Indonesia|Cirebon|Cirebon
+161069|Indonesia|Citeureup|Citeureup
+161068|Indonesia|Curug|Curug
+161061|Indonesia|Indramayu|Indramayu
+161058|Indonesia|Jember|Jember
+161054|Indonesia|Kendari|Kendari
+161044|Indonesia|Magelang|Magelang
+161042|Indonesia|Manado|Manado
+161040|Indonesia|Mataram|Mataram
+161037|Indonesia|Padang|Padang
+161036|Indonesia|Palangkaraya|Palangkaraya
+161035|Indonesia|Palembang|Palembang
+161033|Indonesia|Palu|Palu
+161032|Indonesia|Pamanukan|Pamanukan
+161031|Indonesia|Pamulang|Pamulang
+161029|Indonesia|Parepare|Parepare
+161028|Indonesia|Parung|Parung
+161027|Indonesia|Pasarkemis|Pasarkemis
+161026|Indonesia|Paseh|Paseh
+161025|Indonesia|Pasuruan|Pasuruan
+161024|Indonesia|Pati|Pati
+161019|Indonesia|Prabumulih|Prabumulih
+161018|Indonesia|Plumbon|Plumbon
+161016|Indonesia|Probolinggo|Probolinggo
+161014|Indonesia|Purwodadi|Purwodadi
+161012|Indonesia|Rangkasbitung|Rangkasbitung
+161011|Indonesia|Rengasdengklok|Rengasdengklok
+161006|Indonesia|Sepatan|Sepatan
+161005|Indonesia|Serang|Serang
+161003|Indonesia|Singaraja|Singaraja
+161001|Indonesia|Situbondo|Situbondo
+161000|Indonesia|Soreang|Soreang
+160999|Indonesia|Sorong|Sorong
+160998|Indonesia|Sukabumi|Sukabumi
+160994|Indonesia|Tangerang|Tangerang
+160992|Indonesia|Tanjungpinang|Tanjungpinang
+160989|Indonesia|Ternate|Ternate
+160988|Indonesia|Makassar|Makassar
+160987|Indonesia|Ungaran|Ungaran
+160986|Indonesia|Weru|Weru
+160985|Indonesia|Yogyakarta|Yogyakarta
+160983|Indonesia|Belawan|Belawan
+160981|Indonesia|Kisaran|Kisaran
+160980|Indonesia|Medan|Medan
+160977|Indonesia|Perbaungan|Perbaungan
+160976|Indonesia|Percut|Percut
+160975|Indonesia|Rantauprapat|Rantauprapat
+160974|Indonesia|Sunggal|Sunggal
+160973|Indonesia|Tanjungbalai|Tanjungbalai
+160954|Haiti|Delmas 73|Delmas 73
+160949|Haiti|Port-au-Prince|Port-au-Prince
+160942|Honduras|La Ceiba|La Ceiba
+160939|Hong Kong|Hong Kong|Hong Kong
+160938|Hong Kong|Kowloon|Kowloon
+160936|Guinea-Bissau|Bissau|Bissau
+160219|China|Huangyan|Huangyan
+160216|China|Huicheng|Huicheng
+160210|China|Yangjiang|Yangjiang
+160209|China|Jiangmen|Jiangmen
+160206|China|Jiaxing|Jiaxing
+160205|China|Jiazi|Jiazi
+160204|China|Jieshi|Jieshi
+160201|China|Jincheng|Jincheng
+160195|China|Jinhua|Jinhua
+160193|China|Jinzhou|Jinzhou
+160188|China|Kunming|Kunming
+160178|China|Lianjiang|Lianjiang
+160173|China|Linhai|Linhai
+160165|China|Loudi|Loudi
+160162|China|Luohe|Luohe
+160160|China|Luqiao|Luqiao
+160156|China|Wuchuan|Wuchuan
+160155|China|Meizhou|Meizhou
+160150|China|Nanchong|Nanchong
+160143|China|Neijiang|Neijiang
+160138|China|Pingshan|Pingshan
+160136|China|Pulandian|Pulandian
+160130|China|Qingdao|Qingdao
+160128|China|Qinhuangdao|Qinhuangdao
+160127|China|Qinzhou|Qinzhou
+160121|China|Sanya|Sanya
+160117|China|Shanwei|Shanwei
+160111|China|Shenzhen|Shenzhen
+160103|China|Shizuishan|Shizuishan
+160097|China|Taishan|Taishan
+160094|China|Tanggu|Tanggu
+160091|China|Tianjin|Tianjin
+160090|China|Wusong|Wusong
+160088|China|Wafangdian|Wafangdian
+160086|China|Weifang|Weifang
+160085|China|Weihai|Weihai
+160083|China|Tianfu|Tianfu
+160077|China|Changde|Changde
+160074|China|Wuxue|Wuxue
+160072|China|Xiamen|Xiamen
+160071|China|Xi’an|Xi’an
+160068|China|Zhuhai|Zhuhai
+160058|China|Xingtai|Xingtai
+160055|China|Xinpu|Xinpu
+160052|China|Xinyang|Xinyang
+160045|China|Tongshan|Tongshan
+160040|China|Yantai|Yantai
+160711|España|Santa Coloma de Gramenet|Santa Coloma de Gramenet
+160706|España|Torrejón de Ardoz|Torrejon de Ardoz
+160694|España|Cartagena|Cartagena
+160670|Egypt|Arish|Arish
+160667|Egypt|Alexandria|Alexandria
+160663|Egypt|Al Manşūrah|Al Mansurah
+160661|Egypt|Cairo|Cairo
+160659|Egypt|Suez|Suez
+160648|Egypt|Disūq|Disuq
+160647|Egypt|Ḩalwān|Halwan
+160646|Egypt|Idkū|Idku
+160638|Egypt|Ţalkhā|Talkha
+160636|Estonia|Tallinn|Tallinn
+160631|Ecuador|Guayaquil|Guayaquil
+160622|Ecuador|Santo Domingo de los Colorados|Santo Domingo de los Colorados
+160620|Algeria|Aïn Oussera|Ain Oussera
+160619|Algeria|Algiers|Algiers
+160616|Algeria|Baraki|Baraki
+160614|Algeria|Béchar|Bechar
+160606|Algeria|Laghouat|Laghouat
+160604|Algeria|Mostaganem|Mostaganem
+160603|Algeria|Oran|Oran
+160601|Algeria|Oum el Bouaghi|Oum el Bouaghi
+160599|Algeria|Sidi Bel Abbès|Sidi Bel Abbes
+160591|Dominican Republic|Punta Cana|Punta Cana
+160590|Dominican Republic|Salvaleón de Higüey|Salvaleon de Higuey
+160589|Dominican Republic|Puerto Plata|Puerto Plata
+160586|Dominican Republic|Santo Domingo|Santo Domingo
+160028|China|Yuncheng|Yuncheng
+160019|China|Zhanjiang|Zhanjiang
+160006|China|Shangqiu|Shangqiu
+159863|Canada|Richmond|Richmond
+159861|Canada|Ottawa|Ottawa
+159858|Canada|North York|North York
+159857|Canada|Montréal|Montreal
+159851|Canada|Kingston|Kingston
+159846|Canada|Gatineau|Gatineau
+159845|Canada|Etobicoke|Etobicoke
+159843|Canada|Delta|Delta
+159842|Canada|Dartmouth|Dartmouth
+159838|Canada|Burnaby|Burnaby
+159837|Canada|Burlington|Burlington
+159835|Canada|Barrie|Barrie
+159828|Belarus|Homyel’|Homyel’
+159815|Bahamas|Nassau|Nassau
+159808|Brazil|Ji Paraná|Ji Parana
+159805|Brazil|Porto Velho|Porto Velho
+159803|Brazil|Palmas|Palmas
+159800|Brazil|Americana|Americana
+159797|Brazil|Apucarana|Apucarana
+159792|Brazil|Araruama|Araruama
+159781|Brazil|Betim|Betim
+159774|Brazil|Cachoeirinha|Cachoeirinha
+159773|Brazil|Cachoeiro de Itapemirim|Cachoeiro de Itapemirim
+159746|Brazil|Feira de Santana|Feira de Santana
+159739|Brazil|Goiânia|Goiania
+159736|Brazil|Guarapari|Guarapari
+159733|Brazil|Guarujá|Guaruja
+159727|Brazil|Ipatinga|Ipatinga
+159716|Brazil|Jandira|Jandira
+159711|Brazil|Juiz de Fora|Juiz de Fora
+159706|Brazil|Londrina|Londrina
+159697|Brazil|Nilópolis|Nilopolis
+159693|Brazil|Nova Iguaçu|Nova Iguacu
+159692|Brazil|Novo Hamburgo|Novo Hamburgo
+159689|Brazil|Paranaguá|Paranagua
+160347|China|Lianshan|Lianshan
+160339|China|Liaoyuan|Liaoyuan
+160333|China|Nanpiao|Nanpiao
+160312|China|Yakeshi|Yakeshi
+160311|China|Yanji|Yanji
+160309|China|Yingkou|Yingkou
+160302|China|Zhongshan|Zhongshan
+160291|China|Beihai|Beihai
+160275|China|Chenzhou|Chenzhou
+160269|China|Dalian|Dalian
+160267|China|Danshui|Danshui
+160259|China|Donghai|Donghai
+160258|China|Dongtai|Dongtai
+160251|China|Fuzhou|Fuzhou
+160239|China|Haimen|Haimen
+160238|China|Jiaojiang|Jiaojiang
+160228|China|Yiyang|Yiyang
+159676|Brazil|Queimados|Queimados
+159669|Brazil|Porto Alegre|Porto Alegre
+159668|Brazil|Rio Grande|Rio Grande
+159665|Brazil|Santa Bárbara d'Oeste|Santa Barbara d'Oeste
+159648|Brazil|Sapucaia|Sapucaia
+159647|Brazil|Serra|Serra
+159642|Brazil|Taboão da Serra|Taboao da Serra
+159638|Brazil|Teresópolis|Teresopolis
+159615|Brazil|Garanhuns|Garanhuns
+159611|Brazil|Juazeiro do Norte|Juazeiro do Norte
+159606|Brazil|Mossoró|Mossoro
+159605|Brazil|Natal|Natal
+159602|Brazil|Parnamirim|Parnamirim
+159600|Brazil|Petrolina|Petrolina
+159598|Brazil|Santarém|Santarem
+159594|Brazil|Teresina|Teresina
+159584|Benin|Abomey-Calavi|Abomey-Calavi
+159567|Burkina Faso|Ouagadougou|Ouagadougou
+159554|Bangladesh|Barisāl|Barisal
+159546|Bangladesh|Dhaka|Dhaka
+159509|Australia|Newcastle|Newcastle
+159499|Argentina|Bahía Blanca|Bahia Blanca
+159498|Argentina|Comodoro Rivadavia|Comodoro Rivadavia
+159494|Argentina|Neuquén|Neuquen
+159493|Argentina|Paraná|Parana
+159492|Argentina|Río Cuarto|Rio Cuarto
+159491|Argentina|Rosario|Rosario
+159484|Argentina|San Rafael|San Rafael
+159481|Argentina|Santa Rosa|Santa Rosa
+159462|Angola|Luanda|Luanda
+159451|Afghanistan|Herāt|Herat
+159446|Afghanistan|Mazār-e Sharīf|Mazar-e Sharif
+159445|United Arab Emirates|Abu Dhabi|Abu Dhabi
+159443|United Arab Emirates|Al Ain|Al Ain
+159442|United Arab Emirates|Sharjah|Sharjah
+159441|United Arab Emirates|Dubai|Dubai
+159440|United Arab Emirates|Ra’s al Khaymah|Ra’s al Khaymah
+159999|China|Altay|Altay
+159998|China|Aral|Aral
+159997|China|Yan’an Beilu|Yan’an Beilu
+159996|China|Hami|Hami
+159991|China|Hotan|Hotan
+159989|China|Kashi|Kashi
+159987|China|Aksu|Aksu
+159986|Cameroon|Bafoussam|Bafoussam
+159983|Cameroon|Douala|Douala
+159982|Cameroon|Edéa|Edea
+159980|Cameroon|Kousséri|Kousseri
+159969|Chile|Antofagasta|Antofagasta
+159968|Chile|Arica|Arica
+159948|Chile|Coquimbo|Coquimbo
+159946|Chile|Iquique|Iquique
+159945|Chile|La Serena|La Serena
+159941|Chile|Puerto Montt|Puerto Montt
+159939|Chile|Punta Arenas|Punta Arenas
+159933|Chile|Talcahuano|Talcahuano
+159911|Republic of the Congo|Pointe-Noire|Pointe-Noire
+159901|Ivory Coast|San-Pédro|San-Pedro
+159896|Democratic Republic of the Congo|Butembo|Butembo
+159887|Democratic Republic of the Congo|Mbuji-Mayi|Mbuji-Mayi
+159883|Canada|Ladner|Ladner
+159882|Canada|Okanagan|Okanagan
+159881|Canada|Sydney|Sydney
+159878|Canada|Halifax|Halifax
+159871|Canada|Trois-Rivières|Trois-Rivieres
+159870|Canada|Toronto|Toronto
+159518|Australia|Albury|Albury
+159514|Australia|Wollongong|Wollongong

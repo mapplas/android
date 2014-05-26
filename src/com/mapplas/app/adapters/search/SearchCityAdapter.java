@@ -37,7 +37,6 @@ public class SearchCityAdapter extends ArrayAdapter<String> {
 	}
 
 	static class ViewHolder {
-
 		RobotoTextView textName;
 	}
 
