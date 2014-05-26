@@ -65,7 +65,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			String REMOVE_SEARCH_VALUES_DATA = "DROP TABLE " + SearchValue.TABLE_SEARCHVALUES;
 			db.execSQL(REMOVE_SEARCH_VALUES_DATA);
 
-			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + "id INTEGER PRIMARY KEY, " + "name1 TEXT, " + "name1_clean TEXT, " + "name2 TEXT, " + "name2_clean TEXT" + " )";
+			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
 			db.execSQL(CREATE_SEARCH_VALUES_TABLE);
 
 			new DbPopulator(this.context, db).populate();
@@ -76,7 +76,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			String REMOVE_SEARCH_VALUES_DATA = "DROP TABLE " + SearchValue.TABLE_SEARCHVALUES;
 			db.execSQL(REMOVE_SEARCH_VALUES_DATA);
 
-			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + "id INTEGER PRIMARY KEY, " + "name1 TEXT, " + "name1_clean TEXT, " + "name2 TEXT, " + "name2_clean TEXT, " + "state TEXT" + ")";
+			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
 			db.execSQL(CREATE_SEARCH_VALUES_TABLE);
 
 			new DbPopulator(this.context, db).populate();
