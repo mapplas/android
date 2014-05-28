@@ -16,7 +16,7 @@ import com.mapplas.model.Constants;
 
 public class NotifyUserConnector {
 
-	public static void request(int userId, String email, double latitude, double longitude) throws Exception {
+	public static void request(int userId, String email, double latitude, double longitude, int entity_id) throws Exception {
 		
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://" + Constants.MAPPLAS_SERVER + ":" + Constants.MAPPLAS_SERVER_PORT + Constants.MAPPLAS_SERVER_PATH + "user/notify/" + userId + "/");
@@ -25,6 +25,8 @@ public class NotifyUserConnector {
 		nameValuePairs.add(new BasicNameValuePair("e", email));
 		nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(latitude)));
 		nameValuePairs.add(new BasicNameValuePair("lon", String.valueOf(longitude)));
+		nameValuePairs.add(new BasicNameValuePair("ent", String.valueOf(entity_id)));
+		
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {

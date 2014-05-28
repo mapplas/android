@@ -3,6 +3,7 @@ package com.mapplas.utils.network.async_tasks;
 import android.os.AsyncTask;
 
 import com.mapplas.utils.network.connectors.NotifyUserConnector;
+import com.mapplas.utils.searcher.SearchManager;
 
 
 public class NotifyUserTask extends AsyncTask <Void, Void, Void> {
@@ -23,9 +24,9 @@ public class NotifyUserTask extends AsyncTask <Void, Void, Void> {
 	}
 
 	@Override
-	protected Void doInBackground(Void... params) {
+	protected Void doInBackground(Void... params) {		
 		try {
-			NotifyUserConnector.request(this.userId, this.email, this.latitude, this.longitude);
+			NotifyUserConnector.request(this.userId, this.email, this.latitude, this.longitude, SearchManager.APP_REQUEST_ENTITY_BEING_DONE);
 		} catch (Exception e) {
 //			Log.d(this.getClass().getSimpleName(), "Get pin and blocks", e);
 		}
