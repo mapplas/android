@@ -53,11 +53,11 @@ public class CustomAutoCompleteTextChangedListener implements TextWatcher {
 				searchManager.myAdapter.notifyDataSetChanged();
 
 				HashMap<Integer, ArrayList<List>> dict = searchManager.db.read(userInput.toString());
-				
+
 				String[] myObjs = new String[dict.size()];
 				int j = 0;
 				for (Map.Entry<Integer, ArrayList<List>> entry : dict.entrySet() ) {
-				    ArrayList<List> value = entry.getValue();		    
+				    ArrayList<List> value = entry.getValue();
 					ArrayList<String> entity_name = (ArrayList<String>)value.get(0);
 					myObjs[j] = (String)entity_name.get(0);
 				    j++;

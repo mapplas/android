@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import android.content.ContentValues;
@@ -250,7 +249,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				name_country.add(cursor2.getString(0));
 				name_country.add(cursor2.getString(2));
 				id.add(Integer.parseInt(cursor2.getString(1)));
-				
 				name_id_list.add(name_country);
 				name_id_list.add(id);
 				dict.put(i, name_id_list);
@@ -292,8 +290,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		// Maintaining insertion order with the help of LinkedList
 		HashMap<Integer, ArrayList<List>> sortedMap = new LinkedHashMap<Integer, ArrayList<List>>();
+		int order_for_mixing_name1_and_name2_values = 0;
 		for(Entry<Integer, ArrayList<List>> entry : list) {
-			sortedMap.put(entry.getKey(), entry.getValue());
+			sortedMap.put(order_for_mixing_name1_and_name2_values, entry.getValue());
+			order_for_mixing_name1_and_name2_values++;
 		}
 
 		return sortedMap;
