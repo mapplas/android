@@ -9,6 +9,7 @@ import java.util.Map;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.search.SearchCityAdapter;
@@ -45,12 +46,12 @@ public class CustomAutoCompleteTextChangedListener implements TextWatcher {
 			String[] searchValues = {};
 			Arrays.fill(searchValues, "");
 			
+			searchManager.myAdapter.notifyDataSetChanged();
 			searchManager.myAdapter = new SearchCityAdapter(context, R.layout.prueba, searchValues, null);
 			searchManager.autoCompleteTextView.setAdapter(searchManager.myAdapter);
 		}
 		else {
 			try {
-				searchManager.myAdapter.notifyDataSetChanged();
 
 				HashMap<Integer, ArrayList<List>> dict = searchManager.db.read(userInput.toString());
 
@@ -62,8 +63,11 @@ public class CustomAutoCompleteTextChangedListener implements TextWatcher {
 					myObjs[j] = (String)entity_name.get(0);
 				    j++;
 				}
-
+				
+				searchManager.myAdapter.notifyDataSetChanged();
 				searchManager.myAdapter = new SearchCityAdapter(context, R.layout.prueba, myObjs, dict);
+				//Avoids crash
+				String sdfa = searchManager.myAdapter.getItem(0);
 				searchManager.autoCompleteTextView.setAdapter(searchManager.myAdapter);
 
 			} catch (NullPointerException e) {
