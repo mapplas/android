@@ -38,6 +38,9 @@ public class AppGetterConnectorFromEntity {
 		nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(model.currentUser().getId())));
 		nameValuePairs.add(new BasicNameValuePair("cc", app_language));
 		nameValuePairs.add(new BasicNameValuePair("dcc", model.deviceCountry()));
+		String[] latitudelongitude = model.currentLocation().split(",");
+		nameValuePairs.add(new BasicNameValuePair("lat", latitudelongitude[0]));
+		nameValuePairs.add(new BasicNameValuePair("lon", latitudelongitude[1]));
 
 		try {
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));

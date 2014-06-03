@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 
 import com.mapplas.app.activities.AppDetail;
 import com.mapplas.model.App;
+import com.mapplas.model.SuperModel;
 import com.mapplas.utils.language.LanguageSetter;
 import com.mapplas.utils.network.connectors.AppDetailConnector;
 import com.mapplas.utils.network.mappers.JsonToAppDetailMapper;
@@ -18,12 +19,15 @@ public class AppDetailTask extends AsyncTask<Void, Void, String> {
 	private App app;
 	
 	private Context context;
+	
+	private SuperModel model;
 
-	public AppDetailTask(AppDetail detailActivity, App app, Context context) {
+	public AppDetailTask(AppDetail detailActivity, App app, Context context, SuperModel model) {
 		super();
 		this.appDetail = detailActivity;
 		this.app = app;
 		this.context = context;
+		this.model = model;
 	}
 
 	@Override
@@ -31,7 +35,7 @@ public class AppDetailTask extends AsyncTask<Void, Void, String> {
 		String server_response = "";
 		try {
 			
-			server_response = AppDetailConnector.request(this.app.getId(), new LanguageSetter(this.context).getLanguageConstantFromPhone());
+			server_response = AppDetailConnector.request(this.app.getId(), new LanguageSetter(this.context).getLanguageConstantFromPhone(), this.model);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.appDetail.detailRequestFinishedNok();
