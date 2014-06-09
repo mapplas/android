@@ -82,8 +82,8 @@ public class AroundRequesterGooglePlayServices implements UserLocationListener {
 	private void loadTasks(Location location, boolean reset_pagination) {
 
 		// TODO: uncomment for emulator or mocked location use
-//		location.setLatitude(37.777716);
-//		location.setLongitude(-122.447556);
+//		location.setLatitude(43.313303);
+//		location.setLongitude(-1.978097);
 		
 		SearchManager.APP_REQUEST_TYPE_BEING_DONE = Constants.APP_REQUEST_TYPE_LOCATION;
 

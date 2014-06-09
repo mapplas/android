@@ -194,17 +194,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		}
 	}
 
-	public int getIdFromName(String searchValueName) {
-		SQLiteDatabase db = this.getReadableDatabase();
-
-		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_ID }, SearchValue.KEY_NAME1 + " = ? OR " + SearchValue.KEY_NAME2 + " = ?", new String[] { searchValueName, searchValueName }, null, null, null, null);
-
-		if(cursor != null)
-			cursor.moveToFirst();
-
-		db.close();
-		return cursor.getInt(0);
-	}
 
 	@SuppressWarnings("rawtypes")
 	public HashMap<Integer, ArrayList<List>> read(String searchValueName) {

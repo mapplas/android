@@ -7,11 +7,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import app.mapplas.com.R;
 
+import com.viewpagerindicator.CirclePageIndicator;
 import com.mapplas.model.Constants;
 import com.mapplas.utils.gallery.GalleryFragmentPageAdapter;
 import com.mapplas.utils.gallery.GalleryItemFragment;
-import com.viewpagerindicator.CirclePageIndicator;
-
 public class GalleryActivity extends FragmentActivity {
 
 	private ArrayList<String> images;

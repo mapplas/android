@@ -21,6 +21,10 @@ public class SearchCityAdapter extends ArrayAdapter<String> {
 		
 		this.dict = dict;
 	}
+	
+	public HashMap<Integer, ArrayList<List>> getDict() {
+		return this.dict;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

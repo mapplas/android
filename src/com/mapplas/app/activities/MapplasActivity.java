@@ -167,13 +167,16 @@ public class MapplasActivity extends LanguageActivity {
 		// Check network status
 		this.checkNetworkStatus();
 
-		 this.loadLocalization();
+		this.loadLocalization();
 		// TODO: uncomment for emulator or mocked location use
 //		Location location = new Location("");
-//		location.setLatitude(37.386730);
-//		location.setLongitude(-122.067972);
-
+//		location.setLatitude(43.313303);
+//		location.setLongitude(-1.978097);
+//
 //		this.model.setLocation(location);
+//		this.model.setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
+//		this.model.appList().setCurrentLocation(location.getLatitude() + "," + location.getLongitude());
+//		
 //		new ReverseGeocodingTask(this, this.model, this.listViewHeaderStatusMessage).execute(new Location(location));
 //		new AppGetterTask(this, this.model, this.appsInstalledList, this, 0, Constants.APP_REQUEST_TYPE_LOCATION, this.appGetterTaskViewsContainer).execute(location, true, -1);
 	}

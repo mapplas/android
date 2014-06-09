@@ -9,7 +9,6 @@ import java.util.Map;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import app.mapplas.com.R;
 
 import com.mapplas.app.adapters.search.SearchCityAdapter;
