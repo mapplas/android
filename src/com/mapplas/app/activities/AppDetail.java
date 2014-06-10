@@ -114,7 +114,7 @@ public class AppDetail extends LanguageActivity {
 	}
 
 	private void requestApplicationDetailInfo() {
-		new AppDetailTask(this, this.app, this).execute();
+		new AppDetailTask(this, this.app, this, this.model).execute();
 	}
 
 	public void detailRequestFinishedOk() {
@@ -170,7 +170,7 @@ public class AppDetail extends LanguageActivity {
 
 	public void detailRequestFinishedNok() {
 		// Detail loading error. Try again.
-		new AppDetailTask(this, this.app, this).execute();
+		new AppDetailTask(this, this.app, this, this.model).execute();
 	}
 
 	private void initializeAnimations() {

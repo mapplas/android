@@ -3,6 +3,8 @@ package com.mapplas.model;
 public class SearchValue {
 
 	private int id;
+	
+	private String country;
 
 	private String name1;
 	
@@ -17,6 +19,8 @@ public class SearchValue {
 
 	// SearchValues Table Columns names
 	public static final String KEY_ID = "id";
+	
+	public static final String KEY_COUNTRY = "country";
 
 	public static final String KEY_NAME1 = "name1";
 
@@ -26,7 +30,7 @@ public class SearchValue {
 	
 	public static final String KEY_NAME2_CLEAN = "name2_clean";
 
-	public static final String[] COLUMNS = { KEY_ID, KEY_NAME1, KEY_NAME1_CLEAN, KEY_NAME2, KEY_NAME2_CLEAN };
+	public static final String[] COLUMNS = { KEY_ID, KEY_COUNTRY, KEY_NAME1, KEY_NAME1_CLEAN, KEY_NAME2, KEY_NAME2_CLEAN };
 
 	public SearchValue() {
 	}
@@ -37,6 +41,14 @@ public class SearchValue {
 
 	public int getId() {
 		return this.id;
+	}
+	
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+	public String getCountry() {
+		return this.country;
 	}
 
 	public void setName1(String name1) {

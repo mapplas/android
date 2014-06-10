@@ -1,5 +1,10 @@
 package com.mapplas.utils.searcher;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -47,9 +52,11 @@ public class SearchManager {
 	public void initializeSearcher() {
 
 		this.db = new MySQLiteHelper(this.context);
-		final String[] searchValues = db.getSearchValues();
+		// Set empty searchvalues array of strings
+		String[] searchValues = {};
+		Arrays.fill(searchValues, "");
 
-		this.myAdapter = new SearchCityAdapter(this.context, R.layout.prueba, searchValues);
+		this.myAdapter = new SearchCityAdapter(this.context, R.layout.prueba, searchValues, null);
 		this.autoCompleteTextView.setAdapter(this.myAdapter);
 
 		this.autoCompleteTextView.addTextChangedListener(new CustomAutoCompleteTextChangedListener(this, this.context));
@@ -59,11 +66,15 @@ public class SearchManager {
 		this.autoCompleteTextView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				int id = db.getIdFromName(arg0.getItemAtPosition(0).toString());
-				activity.requestAppsForEntity(id, autoCompleteTextView.getText().toString());
+				SearchCityAdapter adapter = (SearchCityAdapter)arg0.getAdapter();
+				HashMap<Integer, ArrayList<List>> hashMap = adapter.getDict();
+				ArrayList<List> city_id_array = hashMap.get(arg2);
+				List entity_id_name_list = city_id_array.get(1);
+				int entity_id = (Integer)entity_id_name_list.get(0);
+				activity.requestAppsForEntity(entity_id, autoCompleteTextView.getText().toString());
 
 				SearchManager.APP_REQUEST_TYPE_BEING_DONE = Constants.APP_REQUEST_TYPE_ENTITY_ID;
-				SearchManager.APP_REQUEST_ENTITY_BEING_DONE = id;
+				SearchManager.APP_REQUEST_ENTITY_BEING_DONE = entity_id;
 
 				listView.setSelection(0);
 				autoCompleteTextView.setVisibility(View.GONE);

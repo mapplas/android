@@ -30,7 +30,6 @@ public class DbPopulator {
 		try {
 			buffreader = new BufferedReader(new InputStreamReader(rawFile, "UTF-8"));
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		String line;
@@ -41,12 +40,13 @@ public class DbPopulator {
 
 				ContentValues values = new ContentValues();
 				values.put(SearchValue.KEY_ID, splittedLine[0]);
-				values.put(SearchValue.KEY_NAME1, splittedLine[1]);
-				values.put(SearchValue.KEY_NAME1_CLEAN, splittedLine[2]);
+				values.put(SearchValue.KEY_COUNTRY, splittedLine[1]);
+				values.put(SearchValue.KEY_NAME1, splittedLine[2]);
+				values.put(SearchValue.KEY_NAME1_CLEAN, splittedLine[3]);
 
-				if(splittedLine.length == 5) {					
-					values.put(SearchValue.KEY_NAME2, splittedLine[3]);
-					values.put(SearchValue.KEY_NAME2_CLEAN, splittedLine[4]);
+				if(splittedLine.length == 6) {					
+					values.put(SearchValue.KEY_NAME2, splittedLine[4]);
+					values.put(SearchValue.KEY_NAME2_CLEAN, splittedLine[5]);
 				}
 				
 				db.insert(SearchValue.TABLE_SEARCHVALUES, null, values);

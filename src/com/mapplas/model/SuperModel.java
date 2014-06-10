@@ -84,7 +84,7 @@ public class SuperModel implements Parcelable {
 	}
 
 	public String currentLocation() {
-		return currentLocation;
+		return this.currentLocation;
 	}
 
 	public void setCurrentLocation(String string) {

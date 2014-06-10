@@ -14,10 +14,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.mapplas.model.Constants;
+import com.mapplas.model.SuperModel;
 
 public class AppDetailConnector {
 
-	public static String request(String app_id, String app_language) throws Exception {
+	public static String request(String app_id, String app_language, SuperModel model) throws Exception {
 		String serverResponse = "";
 
 		HttpClient hc = new DefaultHttpClient();
@@ -25,6 +26,10 @@ public class AppDetailConnector {
 
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 		nameValuePairs.add(new BasicNameValuePair("cc", app_language));
+		
+		String[] latitudelongitude = model.currentLocation().split(",");
+		nameValuePairs.add(new BasicNameValuePair("lat", latitudelongitude[0]));
+		nameValuePairs.add(new BasicNameValuePair("lon", latitudelongitude[1]));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 		try {
