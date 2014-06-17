@@ -2545,6 +2545,7 @@ com.mapplas.model.UserFormLayoutComponents:
 com.mapplas.model.database.MySQLiteHelper:
     private static final int DATABASE_VERSION
     private static final java.lang.String DATABASE_NAME
+    167:193:public java.lang.String[] getSearchValues()
 com.mapplas.utils.cache.CacheFolder:
     18:18:public java.lang.String getFileWithPathString(java.lang.String)
 com.mapplas.utils.cache.CustomImagePathGenerator
@@ -2578,7 +2579,7 @@ com.mapplas.utils.network.async_tasks.AppInfoSenderTask
 com.mapplas.utils.network.async_tasks.TaskAsyncExecuter:
     16:19:public TaskAsyncExecuter(com.mapplas.utils.network.async_tasks.AsyncTaskHandler,com.mapplas.utils.network.async_tasks.AsyncTaskListener)
 com.mapplas.utils.network.connectors.AppDetailConnector:
-    18:18:public AppDetailConnector()
+    19:19:public AppDetailConnector()
 com.mapplas.utils.network.connectors.AppGetterConnector:
     28:28:public AppGetterConnector()
 com.mapplas.utils.network.connectors.AppGetterConnectorFromEntity:

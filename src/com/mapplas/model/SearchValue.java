@@ -13,6 +13,8 @@ public class SearchValue {
 	private String name2;
 	
 	private String name2_clean;
+	
+	private String population;
 
 	// SearchValues table name
 	public static final String TABLE_SEARCHVALUES = "search_values";
@@ -29,8 +31,10 @@ public class SearchValue {
 	public static final String KEY_NAME1_CLEAN = "name1_clean";
 	
 	public static final String KEY_NAME2_CLEAN = "name2_clean";
+	
+	public static final String KEY_POPULATION = "population";
 
-	public static final String[] COLUMNS = { KEY_ID, KEY_COUNTRY, KEY_NAME1, KEY_NAME1_CLEAN, KEY_NAME2, KEY_NAME2_CLEAN };
+	public static final String[] COLUMNS = { KEY_ID, KEY_POPULATION, KEY_COUNTRY, KEY_NAME1, KEY_NAME1_CLEAN, KEY_NAME2, KEY_NAME2_CLEAN };
 
 	public SearchValue() {
 	}

@@ -40,8 +40,14 @@ public class SplashScreenTextSelector {
 		}
 
 		String[] splittedLine = line.split("\\|");
-		this.mainText.setText(splittedLine[0]);
-		this.authorText.setText(splittedLine[1]);
+		try {
+			this.mainText.setText(splittedLine[0]);
+			this.authorText.setText(splittedLine[1]);
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			this.mainText.setText("Action expresses priorities.");
+			this.authorText.setText("Mahatma Gandhi");
+		}
 	}
 
 	private String randomInFile(InputStream file) {

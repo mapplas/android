@@ -38,7 +38,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// SQL statement to create user table
 		String CREATE_USER_TABLE = "CREATE TABLE " + User.TABLE_USERS + " ( " + User.KEY_ID + " INTEGER PRIMARY KEY, " + User.KEY_IMEI + " TEXT, " + User.KEY_PINNEDAPPS + " TEXT, " + User.KEY_BLOKEDAPPS + " TEXT" + " )";
-		String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
+		String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_POPULATION + " INTEGER, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
 
 		db.execSQL(CREATE_USER_TABLE);
 		db.execSQL(CREATE_SEARCH_VALUES_TABLE);
@@ -64,7 +64,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			String REMOVE_SEARCH_VALUES_DATA = "DROP TABLE " + SearchValue.TABLE_SEARCHVALUES;
 			db.execSQL(REMOVE_SEARCH_VALUES_DATA);
 
-			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
+			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_POPULATION + " INTEGER, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
 			db.execSQL(CREATE_SEARCH_VALUES_TABLE);
 
 			new DbPopulator(this.context, db).populate();
@@ -75,7 +75,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			String REMOVE_SEARCH_VALUES_DATA = "DROP TABLE " + SearchValue.TABLE_SEARCHVALUES;
 			db.execSQL(REMOVE_SEARCH_VALUES_DATA);
 
-			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
+			String CREATE_SEARCH_VALUES_TABLE = "CREATE TABLE " + SearchValue.TABLE_SEARCHVALUES + " ( " + SearchValue.KEY_ID + " INTEGER PRIMARY KEY, " + SearchValue.KEY_POPULATION + " INTEGER, " + SearchValue.KEY_COUNTRY + " TEXT, " + SearchValue.KEY_NAME1 + " TEXT, " + SearchValue.KEY_NAME1_CLEAN + " TEXT, " + SearchValue.KEY_NAME2 + " TEXT, " + SearchValue.KEY_NAME2_CLEAN + " TEXT)";
 			db.execSQL(CREATE_SEARCH_VALUES_TABLE);
 
 			new DbPopulator(this.context, db).populate();
@@ -89,7 +89,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			db.execSQL(DROP_SEARCH_USERS_TABLE);
 
 			// Create DB
-			this.onCreate(db);
+			this.onCreate(db);	
 		}
 	}
 
@@ -140,6 +140,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		Log.d("getUser(" + id + ")", user.toString());
 
+		cursor.close();
+		db.close();
+		
 		return user;
 	}
 
@@ -148,19 +151,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	 * SearchValue DB
 	 * 
 	 */
-
-	// public void insertSearchValue(SearchValue value) {
-	// SQLiteDatabase db = this.getWritableDatabase();
-	//
-	// ContentValues values = new ContentValues();
-	// values.put(SearchValue.KEY_ID, value.getId());
-	// values.put(SearchValue.KEY_NAME1, value.getName1());
-	// values.put(SearchValue.KEY_NAME2, value.getName2());
-	//
-	// db.insert(SearchValue.TABLE_SEARCHVALUES, null, values);
-	//
-	// db.close();
-	// }
+	
+	public ArrayList<String> getNameAndCountryFromId(int entity_id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1, SearchValue.KEY_COUNTRY }, SearchValue.KEY_ID + "=" + entity_id, null, null, null, null);
+		cursor.moveToFirst();
+		ArrayList<String> nameCountry = new ArrayList<String>();
+		nameCountry.add(cursor.getString(0));
+		nameCountry.add(cursor.getString(1));
+		cursor.close();
+		db.close();
+		return nameCountry;
+	}
 
 	public String[] getSearchValues() {
 
@@ -186,10 +188,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				strWithoutNulls[j] = str[j];
 				j++;
 			}
+			
+			cursor.close();
+			db.close();
 
 			return strWithoutNulls;
 		}
 		else {
+			cursor.close();
+			db.close();
+			
 			return new String[] {};
 		}
 	}
@@ -206,23 +214,24 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		searchValueName = searchValueName.replace("ù", "u").replace("ú", "u").replace("ü", "u").replace("û", "u");
 		searchValueName = searchValueName.replace("ñ", "n");
 
-		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1, SearchValue.KEY_ID, SearchValue.KEY_COUNTRY }, SearchValue.KEY_NAME1_CLEAN + " LIKE ? ", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_NAME1, null);
-		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2, SearchValue.KEY_ID, SearchValue.KEY_COUNTRY }, SearchValue.KEY_NAME2_CLEAN + " LIKE ?", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_NAME2, null);
+		Cursor cursor = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME1, SearchValue.KEY_ID, SearchValue.KEY_COUNTRY, SearchValue.KEY_POPULATION }, SearchValue.KEY_NAME1_CLEAN + " LIKE ? ", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_POPULATION + " DESC", null);
+		Cursor cursor2 = db.query(SearchValue.TABLE_SEARCHVALUES, new String[] { SearchValue.KEY_NAME2, SearchValue.KEY_ID, SearchValue.KEY_COUNTRY, SearchValue.KEY_POPULATION }, SearchValue.KEY_NAME2_CLEAN + " LIKE ?", new String[] { "%" + searchValueName + "%" }, null, null, SearchValue.KEY_POPULATION + " DESC", null);
 		
 		HashMap<Integer, ArrayList<List>> dict = new HashMap<Integer, ArrayList<List>>();
 
 		int i = 0;
 		if(cursor.moveToFirst()) {
 			do {
-				ArrayList<String> name_country = new ArrayList<String>();
+				ArrayList<String> name_country_pop = new ArrayList<String>();
 				ArrayList<Integer> id = new ArrayList<Integer>();
 				ArrayList<List> name_id_list = new ArrayList<List>();
 				
-				name_country.add(cursor.getString(0));
-				name_country.add(cursor.getString(2));
+				name_country_pop.add(cursor.getString(0));
+				name_country_pop.add(cursor.getString(2));
+				name_country_pop.add(cursor.getString(3));
 				id.add(Integer.parseInt(cursor.getString(1)));
 				
-				name_id_list.add(name_country);
+				name_id_list.add(name_country_pop);
 				name_id_list.add(id);
 				dict.put(i, name_id_list);
 				i++;
@@ -231,14 +240,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		if(cursor2.moveToFirst()) {
 			do {
-				ArrayList<String> name_country = new ArrayList<String>();
+				ArrayList<String> name_country_pop = new ArrayList<String>();
 				ArrayList<Integer> id = new ArrayList<Integer>();
 				ArrayList<List> name_id_list = new ArrayList<List>();
 				
-				name_country.add(cursor2.getString(0));
-				name_country.add(cursor2.getString(2));
+				name_country_pop.add(cursor2.getString(0));
+				name_country_pop.add(cursor2.getString(2));
+				name_country_pop.add(cursor2.getString(3));
 				id.add(Integer.parseInt(cursor2.getString(1)));
-				name_id_list.add(name_country);
+				
+				name_id_list.add(name_country_pop);
 				name_id_list.add(id);
 				dict.put(i, name_id_list);
 				i++;
@@ -264,15 +275,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 			public int compare(Entry<Integer, ArrayList<List>> o1, Entry<Integer, ArrayList<List>> o2) {
 				
-				String name1 = (String)o1.getValue().get(0).get(0);
-				String name2 = (String)o2.getValue().get(0).get(0);
+				String population1 = (String)o1.getValue().get(0).get(2);
+				String population2 = (String)o2.getValue().get(0).get(2);
+				
+				int pop1 = Integer.parseInt(population1);
+				int pop2 = Integer.parseInt(population2);
 
-				if(order) {
-					return name1.compareTo(name2);
+				if(pop1 > pop2) {
+					return -1;
 				}
 				else {
-					return name2.compareTo(name1);
-
+					return +1;
 				}
 			}
 		});

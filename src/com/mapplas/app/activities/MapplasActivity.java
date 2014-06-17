@@ -393,8 +393,9 @@ public class MapplasActivity extends LanguageActivity {
 		searchManager.initializeSearcher();
 	}
 
-	public void requestAppsForEntity(int entity_id, String city) {
-		this.listViewHeaderStatusMessage.setText(city);
+	public void requestAppsForEntity(int entity_id) {
+		ArrayList<String> nameCountry = new MySQLiteHelper(this).getNameAndCountryFromId(entity_id);
+		this.listViewHeaderStatusMessage.setText(nameCountry.get(0));
 		int requestNumber = 0;
 		this.model.initializeForNewAppRequest();
 
@@ -406,7 +407,7 @@ public class MapplasActivity extends LanguageActivity {
 		final Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
 		dialog.setContentView(R.layout.dialog_two_buttons_edittext);
 		dialog.setCanceledOnTouchOutside(true);
-		dialog.show();
+		dialog.show();		
 
 		RobotoTextView title = (RobotoTextView)dialog.findViewById(R.id.dialog_title);
 		title.setText(R.string.no_apps_dialog_title);

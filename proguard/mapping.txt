@@ -7750,6 +7750,8 @@ com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter -> com.mapplas.
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void initLayout(android.view.View,int) -> a
 com.mapplas.app.adapters.search.SearchCityAdapter -> com.mapplas.app.a.d.a:
+    java.util.HashMap dict -> a
+    java.util.HashMap getDict() -> a
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.mapplas.app.adapters.search.SearchCityAdapter$ViewHolder -> com.mapplas.app.a.d.b:
     com.mapplas.utils.visual.custom_views.RobotoTextView textName -> a
@@ -8079,9 +8081,12 @@ com.mapplas.model.database.MySQLiteHelper -> com.mapplas.model.a.b:
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
     void insertOrUpdateUser(com.mapplas.model.User) -> a
     com.mapplas.model.User getUser(int) -> a
-    java.lang.String[] getSearchValues() -> a
-    int getIdFromName(java.lang.String) -> a
-    java.lang.String[] read(java.lang.String) -> b
+    java.util.HashMap read(java.lang.String) -> a
+    java.util.HashMap sortByComparator(java.util.HashMap,boolean) -> a
+com.mapplas.model.database.MySQLiteHelper$1 -> com.mapplas.model.a.c:
+    boolean val$order -> a
+    int compare(java.util.Map$Entry,java.util.Map$Entry) -> a
+    int compare(java.lang.Object,java.lang.Object) -> compare
 com.mapplas.utils.MoreFromDeveloperHelper -> com.mapplas.utils.a:
     void launchAppDetailFromMoreFromDeveloperApp(com.mapplas.model.MoreFromDeveloperApp,android.app.Activity,com.mapplas.model.SuperModel) -> a
 com.mapplas.utils.cache.BitmapFromStream -> com.mapplas.utils.a.a:
@@ -8293,6 +8298,7 @@ com.mapplas.utils.network.async_tasks.AppDetailTask -> com.mapplas.utils.e.a.a:
     com.mapplas.app.activities.AppDetail appDetail -> a
     com.mapplas.model.App app -> b
     android.content.Context context -> c
+    com.mapplas.model.SuperModel model -> d
     java.lang.String doInBackground(java.lang.Void[]) -> a
     void onPostExecute(java.lang.String) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
@@ -8406,7 +8412,7 @@ com.mapplas.utils.network.async_tasks.UserPlayStoreInteractionTask -> com.mappla
     java.lang.Void doInBackground(java.lang.Void[]) -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.mapplas.utils.network.connectors.AppDetailConnector -> com.mapplas.utils.e.b.a:
-    java.lang.String request(java.lang.String,java.lang.String) -> a
+    java.lang.String request(java.lang.String,java.lang.String,com.mapplas.model.SuperModel) -> a
 com.mapplas.utils.network.connectors.AppGetterConnector -> com.mapplas.utils.e.b.b:
     java.lang.String request(android.location.Location,com.mapplas.model.SuperModel,boolean,android.content.Context,java.lang.String) -> a
 com.mapplas.utils.network.connectors.AppGetterConnectorFromEntity -> com.mapplas.utils.e.b.c:
@@ -8422,7 +8428,7 @@ com.mapplas.utils.network.connectors.GeofenceNotificationConnector -> com.mappla
 com.mapplas.utils.network.connectors.MoreFromDeveloperConnector -> com.mapplas.utils.e.b.h:
     java.lang.String request(java.lang.String,java.lang.String) -> a
 com.mapplas.utils.network.connectors.NotifyUserConnector -> com.mapplas.utils.e.b.i:
-    void request(int,java.lang.String,double,double) -> a
+    void request(int,java.lang.String,double,double,int) -> a
 com.mapplas.utils.network.connectors.PinRequestConnector -> com.mapplas.utils.e.b.j:
     java.lang.String request(java.lang.String,java.lang.String,java.lang.String,double,double,java.lang.String) -> a
 com.mapplas.utils.network.connectors.UserIdentificationConnector -> com.mapplas.utils.e.b.k:
@@ -8665,6 +8671,7 @@ com.mapplas.utils.visual.custom_views.RobotoTextView -> com.mapplas.utils.visual
 com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteTextChangedListener -> com.mapplas.utils.visual.custom_views.autocomplete.a:
     com.mapplas.utils.searcher.SearchManager searchManager -> a
     android.content.Context context -> b
+    int charactersBefore -> c
     void afterTextChanged(android.text.Editable) -> afterTextChanged
     void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged

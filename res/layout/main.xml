@@ -77,7 +77,7 @@
         <com.mapplas.utils.visual.custom_views.autocomplete.CustomAutoCompleteView
             android:id="@+id/autocompleteSearchView"
             android:layout_width="fill_parent"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
             android:layout_marginTop="24dp"
@@ -86,7 +86,8 @@
             android:drawableLeft="@drawable/ic_search_box"
             android:drawablePadding="15dp"
             android:paddingLeft="15dp"
-            android:singleLine="true" />
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"/>
 
         <ProgressBar
             android:id="@+id/search_layout_spinner"

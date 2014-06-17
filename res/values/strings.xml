@@ -84,7 +84,7 @@
     <string name="google_positioning_alert_dialog_enable">Enable</string>
     <string name="comming_soon_notify_user">Keep me posted</string>
     <string name="notify_user_dialog_title">Let me know</string>
-    <string name="notify_user_dialog_message">Insert your email and we will let you know when mapplas becomes available in your location.</string>
+    <string name="notify_user_dialog_message">Type your email and we will let you know when mapplas becomes available in your location.</string>
     <string name="web_app">mWeb</string>
     <string name="open">Open</string>
     <string name="autocomplete_search_hint">Where do you want to go?</string>

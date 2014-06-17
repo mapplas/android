@@ -10,16 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import app.mapplas.com.R;
 
+import com.mapplas.model.database.MySQLiteHelper;
 import com.mapplas.utils.visual.custom_views.RobotoTextView;
 
 public class SearchCityAdapter extends ArrayAdapter<String> {
 	
 	private HashMap<Integer, ArrayList<List>> dict;
+	
+	private MySQLiteHelper dbHelper;
 
 	public SearchCityAdapter(Context context, int textViewResourceId, String[] objects, HashMap<Integer, ArrayList<List>> dict) {
 		super(context, textViewResourceId, objects);
 		
 		this.dict = dict;
+		this.dbHelper = new MySQLiteHelper(context);
 	}
 	
 	public HashMap<Integer, ArrayList<List>> getDict() {
@@ -29,7 +33,7 @@ public class SearchCityAdapter extends ArrayAdapter<String> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		final String cityName = getItem(position);
+		final int entity_id = Integer.parseInt(getItem(position));
 
 		ViewHolder holder;
 
@@ -45,10 +49,9 @@ public class SearchCityAdapter extends ArrayAdapter<String> {
 		
 		// Get country name from dictionary
 		if(dict != null) {
-			ArrayList<List> entity = dict.get(position);
-			ArrayList<String> name_country = (ArrayList<String>)entity.get(0);
+			ArrayList<String> entity_namecountry = this.dbHelper.getNameAndCountryFromId(entity_id);
 
-			holder.textName.setText(cityName + " (" + name_country.get(1) + ")");			
+			holder.textName.setText(entity_namecountry.get(0) + " (" + entity_namecountry.get(1) + ")");			
 		}
 
 		return convertView;

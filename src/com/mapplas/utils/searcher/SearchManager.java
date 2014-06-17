@@ -1,9 +1,6 @@
 package com.mapplas.utils.searcher;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import android.content.Context;
 import android.view.View;
@@ -66,15 +63,13 @@ public class SearchManager {
 		this.autoCompleteTextView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				SearchCityAdapter adapter = (SearchCityAdapter)arg0.getAdapter();
-				HashMap<Integer, ArrayList<List>> hashMap = adapter.getDict();
-				ArrayList<List> city_id_array = hashMap.get(arg2);
-				List entity_id_name_list = city_id_array.get(1);
-				int entity_id = (Integer)entity_id_name_list.get(0);
-				activity.requestAppsForEntity(entity_id, autoCompleteTextView.getText().toString());
+				String entity_id = (String)arg0.getItemAtPosition(arg2);
+				int entity_id_int = Integer.parseInt(entity_id);
+				
+				activity.requestAppsForEntity(entity_id_int);
 
 				SearchManager.APP_REQUEST_TYPE_BEING_DONE = Constants.APP_REQUEST_TYPE_ENTITY_ID;
-				SearchManager.APP_REQUEST_ENTITY_BEING_DONE = entity_id;
+				SearchManager.APP_REQUEST_ENTITY_BEING_DONE = entity_id_int;
 
 				listView.setSelection(0);
 				autoCompleteTextView.setVisibility(View.GONE);
