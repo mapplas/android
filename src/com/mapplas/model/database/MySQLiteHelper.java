@@ -237,7 +237,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				i++;
 			} while (cursor.moveToNext());
 		}
-
+		
 		if(cursor2.moveToFirst()) {
 			do {
 				ArrayList<String> name_country_pop = new ArrayList<String>();

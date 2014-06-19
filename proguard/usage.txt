@@ -2458,6 +2458,8 @@ com.mapplas.app.adapters.app.AppAdapter:
     100:102:public void clear()
     106:108:public void add(com.mapplas.model.App)
     112:114:public void remove(com.mapplas.model.App)
+com.mapplas.app.adapters.search.SearchCityAdapter:
+    31:31:public java.util.HashMap getDict()
 com.mapplas.app.adapters.user.UserAppAdapter:
     public static final int BLOCK
     public static final int FAVOURITE
@@ -2545,7 +2547,7 @@ com.mapplas.model.UserFormLayoutComponents:
 com.mapplas.model.database.MySQLiteHelper:
     private static final int DATABASE_VERSION
     private static final java.lang.String DATABASE_NAME
-    167:193:public java.lang.String[] getSearchValues()
+    169:201:public java.lang.String[] getSearchValues()
 com.mapplas.utils.cache.CacheFolder:
     18:18:public java.lang.String getFileWithPathString(java.lang.String)
 com.mapplas.utils.cache.CustomImagePathGenerator

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -46,12 +47,13 @@ public class SearchCityAdapter extends ArrayAdapter<String> {
 		else {
 			holder = (ViewHolder)convertView.getTag();
 		}
-		
+
 		// Get country name from dictionary
 		if(dict != null) {
-			ArrayList<String> entity_namecountry = this.dbHelper.getNameAndCountryFromId(entity_id);
+			ArrayList<List> name_country_pop_and_id_list = dict.get(position);
+			List<String> name_country_pop_list = name_country_pop_and_id_list.get(0);
 
-			holder.textName.setText(entity_namecountry.get(0) + " (" + entity_namecountry.get(1) + ")");			
+			holder.textName.setText(name_country_pop_list.get(0) + " (" + name_country_pop_list.get(1) + ")");			
 		}
 
 		return convertView;

@@ -7534,7 +7534,7 @@ com.mapplas.app.activities.MapplasActivity -> com.mapplas.app.activities.Mapplas
     boolean servicesConnected() -> g
     void checkNetworkStatus() -> h
     void initializeAutocompleteSearchView() -> i
-    void requestAppsForEntity(int,java.lang.String) -> a
+    void requestAppsForEntity(int) -> a
     void showMockedAppsDialog() -> b
     com.mapplas.model.SuperModel access$0(com.mapplas.app.activities.MapplasActivity) -> a
     android.widget.RelativeLayout access$1(com.mapplas.app.activities.MapplasActivity) -> b
@@ -7751,7 +7751,7 @@ com.mapplas.app.adapters.more_apps.MoreFromDeveloperArrayAdapter -> com.mapplas.
     void initLayout(android.view.View,int) -> a
 com.mapplas.app.adapters.search.SearchCityAdapter -> com.mapplas.app.a.d.a:
     java.util.HashMap dict -> a
-    java.util.HashMap getDict() -> a
+    com.mapplas.model.database.MySQLiteHelper dbHelper -> b
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.mapplas.app.adapters.search.SearchCityAdapter$ViewHolder -> com.mapplas.app.a.d.b:
     com.mapplas.utils.visual.custom_views.RobotoTextView textName -> a
@@ -8081,10 +8081,10 @@ com.mapplas.model.database.MySQLiteHelper -> com.mapplas.model.a.b:
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
     void insertOrUpdateUser(com.mapplas.model.User) -> a
     com.mapplas.model.User getUser(int) -> a
+    java.util.ArrayList getNameAndCountryFromId(int) -> b
     java.util.HashMap read(java.lang.String) -> a
     java.util.HashMap sortByComparator(java.util.HashMap,boolean) -> a
 com.mapplas.model.database.MySQLiteHelper$1 -> com.mapplas.model.a.c:
-    boolean val$order -> a
     int compare(java.util.Map$Entry,java.util.Map$Entry) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
 com.mapplas.utils.MoreFromDeveloperHelper -> com.mapplas.utils.a:
