@@ -2,8 +2,6 @@ package com.mapplas.utils.image;
 
 import android.content.Context;
 
-import com.mapplas.model.Constants;
-
 public class PixelDensityImageChooser {
 
 	private Context context;
@@ -22,38 +20,27 @@ public class PixelDensityImageChooser {
 	}
 
 	private int getImageSize() {
-		String screenDensity = this.getMobilePixelDensity();
-
-		if(screenDensity.equals(Constants.LOW_PIXEL_DENSITY)) {
-			return 48;
-		}
-		else if(screenDensity.equals(Constants.MEDIUM_PIXEL_DENSITY)) {
-			return 64;
-		}
-		else if(screenDensity.equals(Constants.HIGH_PIXEL_DENSITY)) {
-			return 96;
-		}
-		else {
-			return 128;
-		}
+		// 72 - number of dp of the logo image
+		// 4 - constant made in Alberto
+		return (int) Math.ceil(72 * this.context.getResources().getDisplayMetrics().density) - 4;
 	}
 
-	private String getMobilePixelDensity() {
-
-		float density = this.context.getResources().getDisplayMetrics().density;
-
-		if(density == 0.75) {
-			return Constants.LOW_PIXEL_DENSITY;
-		}
-		else if(density == 1) {
-			return Constants.MEDIUM_PIXEL_DENSITY;
-		}
-		else if(density == 1.5) {
-			return Constants.HIGH_PIXEL_DENSITY;
-		}
-		else {
-			return Constants.EXTRA_HIGH_PIXEL_DENSITY;
-		}
-	}
+//	private String getMobilePixelDensity() {
+//
+//		float density = this.context.getResources().getDisplayMetrics().density;
+//
+//		if(density == 0.75) {
+//			return Constants.LOW_PIXEL_DENSITY;
+//		}
+//		else if(density == 1) {
+//			return Constants.MEDIUM_PIXEL_DENSITY;
+//		}
+//		else if(density == 1.5) {
+//			return Constants.HIGH_PIXEL_DENSITY;
+//		}
+//		else {
+//			return Constants.EXTRA_HIGH_PIXEL_DENSITY;
+//		}
+//	}
 
 }

@@ -87,7 +87,8 @@
             android:drawablePadding="15dp"
             android:paddingLeft="15dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:textColor="@color/Black"/>
 
         <ProgressBar
             android:id="@+id/search_layout_spinner"

@@ -8189,7 +8189,6 @@ com.mapplas.utils.image.PixelDensityImageChooser -> com.mapplas.utils.b.d:
     android.content.Context context -> a
     java.lang.String getImageUrlDependingOnDensity(java.lang.String) -> a
     int getImageSize() -> a
-    java.lang.String getMobilePixelDensity() -> b
 com.mapplas.utils.image.SynchronousImageLoader -> com.mapplas.utils.b.e:
     android.graphics.Bitmap loadImage(com.mapplas.utils.cache.CacheFolder,java.lang.String) -> a
     java.io.InputStream getInputStream(java.lang.String) -> a
