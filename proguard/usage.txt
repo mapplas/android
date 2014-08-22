@@ -2459,7 +2459,7 @@ com.mapplas.app.adapters.app.AppAdapter:
     106:108:public void add(com.mapplas.model.App)
     112:114:public void remove(com.mapplas.model.App)
 com.mapplas.app.adapters.search.SearchCityAdapter:
-    31:31:public java.util.HashMap getDict()
+    30:30:public java.util.HashMap getDict()
 com.mapplas.app.adapters.user.UserAppAdapter:
     public static final int BLOCK
     public static final int FAVOURITE
