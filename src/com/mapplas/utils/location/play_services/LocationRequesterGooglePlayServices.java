@@ -145,7 +145,8 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 
 				@Override
 				public void onClick(View v) {
-					locationClient.disconnect();
+//					locationClient.disconnect();
+					dialog.dismiss();
 					mainActivity.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED);
 				}
 			});
@@ -156,8 +157,10 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 
 				@Override
 				public void onClick(View v) {
+					dialog.dismiss();
+					locationClient.removeLocationUpdates(LocationRequesterGooglePlayServices.this);
 					locationClient.disconnect();
-					((MapplasActivity)context).finish();
+					mainActivity.finish();
 				}
 			});
 		}
