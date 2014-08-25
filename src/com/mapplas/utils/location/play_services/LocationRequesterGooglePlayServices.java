@@ -51,7 +51,6 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 
 	public void start() {
 		this.locationClient.connect();
-
 		this.timerHandler.sendEmptyMessageDelayed(TIMEOUT_MESSAGE_ID, Constants.LOCATION_TIMEOUT_IN_MILLISECONDS);
 	}
 
@@ -112,6 +111,7 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 			 * the error.
 			 */
 			// showErrorDialog(connectionResult.getErrorCode());
+			this.locationClient.connect();
 		}
 	}
 
@@ -145,8 +145,8 @@ public class LocationRequesterGooglePlayServices implements GooglePlayServicesCl
 
 				@Override
 				public void onClick(View v) {
-					mainActivity.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED);
 					locationClient.disconnect();
+					mainActivity.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constants.MAPPLAS_GOOLE_POSITIONING_SETTINGS_CHANGED);
 				}
 			});
 
